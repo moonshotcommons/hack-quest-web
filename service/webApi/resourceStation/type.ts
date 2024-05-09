@@ -286,3 +286,5 @@ export enum ProjectLocation {
   MIDDLE_EAST_AFRICA = 'MIDDLE_EAST_AFRICA',
   OTHER = 'OTHER'
 }
+
+export interface FaucetType {}

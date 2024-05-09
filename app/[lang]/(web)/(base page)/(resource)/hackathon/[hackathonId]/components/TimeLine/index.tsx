@@ -50,27 +50,6 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon }) => {
               </div>
             </div>
           ))}
-          {/* <div className="flex w-[200px] flex-col items-center">
-            <p className="body-l-bold">{t('hackathonDetail.registrationOpen')}</p>
-            <p className="body-s text-neutral-off-black">{dayjs(hackathon.openTime).format('MMM D,YY H:mm')}</p>
-            <div className="flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed border-transparent">
-              <div className="h-[24px] w-[24px] rounded-[50%] border border-yellow-primary  bg-yellow-primary"></div>
-            </div>
-          </div>
-          <div className="flex w-[200px] flex-col items-center">
-            <p className="body-l-bold">{t('hackathonDetail.submissionsClose')}</p>
-            <p className="body-s text-neutral-off-black">{dayjs(hackathon.reviewTime).format('MMM D,YY H:mm')}</p>
-            <div className="flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed border-neutral-rich-gray">
-              <div className="h-[24px] w-[24px] rounded-[50%] border border-yellow-primary  bg-yellow-primary"></div>
-            </div>
-          </div>
-          <div className="flex w-[200px] flex-col items-center">
-            <p className="body-l-bold text-neutral-medium-gray">{t('hackathonDetail.rewardAnnouncement')}</p>
-            <p className="body-s text-neutral-medium-gray">{dayjs(hackathon.rewardTime).format('MMM D,YY H:mm')}</p>
-            <div className="flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed border-transparent">
-              <div className="h-[24px] w-[24px] rounded-[50%] border border-neutral-medium-gray  bg-neutral-off-white"></div>
-            </div>
-          </div> */}
         </div>
       </Box>
     </div>

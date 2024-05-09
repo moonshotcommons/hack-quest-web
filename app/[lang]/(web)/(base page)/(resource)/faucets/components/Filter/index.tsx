@@ -44,7 +44,7 @@ const Filter: React.FC<FilterProp> = ({ searchParams }) => {
             <Button
               key={v.value}
               ghost
-              icon={<IoAdd size={20} />}
+              icon={<IoAdd size={24} />}
               iconPosition="right"
               onClick={() => changeSearchInfo('add', v.value)}
               className={`body-l h-[45px] border-neutral-off-black px-[20px]  text-neutral-off-black`}

@@ -154,6 +154,7 @@
     "title":"免费测试网络水龙头",
     "desc":"访问各种区块链上的免费测试网络资金，为您即将开发的项目进行测试。",
     "wantToDonate":"想要向我们的水龙头捐赠吗？",
+    "donate":"将 {{symbol}} 发送至 {{address}} 即可",
     "drippedSuccessfully":"令牌滴入成功",
     "waithours":"同一网络的水龙头请求之间必须等待24小时。",
     "FAQS":{
