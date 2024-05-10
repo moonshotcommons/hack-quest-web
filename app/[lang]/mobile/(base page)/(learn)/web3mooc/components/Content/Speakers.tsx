@@ -6,14 +6,14 @@ import React, { useContext, useState } from 'react';
 import Title from '../Title';
 import Spcard from '../Spcard';
 import { cloneDeep } from 'lodash-es';
-import { sponsorsData, titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/ntu-course/constants/data';
+import { guestSpeakersData, titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 
-interface SponsorsProp {}
+interface SpeakersProp {}
 
-const Sponsors: React.FC<SponsorsProp> = () => {
+const Speakers: React.FC<SpeakersProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
-  const [list, setList] = useState(sponsorsData);
+  const [list, setList] = useState(guestSpeakersData);
   const handleShowMore = (i: number) => {
     const newList = cloneDeep(list);
     newList[i].showMore = !newList[i].showMore;
@@ -22,7 +22,7 @@ const Sponsors: React.FC<SponsorsProp> = () => {
   return (
     <div>
       <div className="mb-[1rem]">
-        <Title title={t(titleTxtData[5])} />
+        <Title title={t(titleTxtData[4])} />
       </div>
       <div className="flex flex-col gap-[1.5rem]">
         {list.map((v, i) => (
@@ -35,4 +35,4 @@ const Sponsors: React.FC<SponsorsProp> = () => {
   );
 };
 
-export default Sponsors;
+export default Speakers;

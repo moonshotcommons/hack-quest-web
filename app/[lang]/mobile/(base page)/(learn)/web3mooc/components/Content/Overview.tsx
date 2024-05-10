@@ -1,13 +1,12 @@
 import { TransNs, Lang } from '@/i18n/config';
 import React from 'react';
-import OverviewCover from '@/public/images/learn/overview_cover_mobile.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.svg';
 import HackLogo from '@/public/images/learn/hack_logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
-import { overviewData } from '@/app/[lang]/(web)/(base page)/(learn)/ntu-course/constants/data';
+import { overviewData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 import { useTranslation } from '@/i18n/server';
 
 interface OverviewProp {
@@ -18,8 +17,11 @@ const Overview: React.FC<OverviewProp> = async ({ lang }) => {
   const { t } = await useTranslation(lang, TransNs.LEARN);
   return (
     <div className="">
-      <div className="relative mb-[1.75rem] h-0 w-full pt-[56.28%]">
-        <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" />
+      <div className="relative mb-[1.75rem] w-full pt-[100%]">
+        {/* <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" /> */}
+        <video>
+          <source src=""></source>
+        </video>
       </div>
 
       <div className="flex flex-col gap-[1.25rem]">

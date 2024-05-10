@@ -18,6 +18,7 @@ const CourseDesc: React.FC<CourseDescProp> = () => {
       <div className="body-m flex flex-col gap-[20px] text-neutral-rich-gray">
         <p className="">{t('ntuCourse.courseDescription.text1')}</p>
         <p className="">{t('ntuCourse.courseDescription.text2')}</p>
+        <p className="">{t('ntuCourse.courseDescription.text3')}</p>
       </div>
     </div>
   );

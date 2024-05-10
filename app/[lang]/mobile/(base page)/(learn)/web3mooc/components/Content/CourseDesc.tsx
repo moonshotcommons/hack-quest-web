@@ -1,7 +1,7 @@
 import { TransNs, Lang } from '@/i18n/config';
 import React from 'react';
 import Title from '../Title';
-import { titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/ntu-course/constants/data';
+import { titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 import { useTranslation } from '@/i18n/server';
 
 interface CourseDescProp {

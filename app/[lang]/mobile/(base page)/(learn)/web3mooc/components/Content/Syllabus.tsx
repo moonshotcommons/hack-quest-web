@@ -9,7 +9,7 @@ import { IoAdd, IoRemoveOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { RiShareBoxLine } from 'react-icons/ri';
 import { cloneDeep } from 'lodash-es';
-import { syllabusData, titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/ntu-course/constants/data';
+import { syllabusData, titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 
 interface SyllabusProp {}
 

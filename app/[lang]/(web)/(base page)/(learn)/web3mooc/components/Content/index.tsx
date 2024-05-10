@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { OffsetTopsType } from '../../constants/type';
 import { titleTxtData } from '../../constants/data';
 import Overview from './Overview';
-import ClassTime from './ClassTime';
 import Enrollment from './Enrollment';
 import Syllabus from './Syllabus';
 import Speakers from './Speakers';
@@ -34,14 +33,14 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
   return (
     <div className="flex flex-col gap-[120px] text-neutral-off-black" ref={boxRef}>
       <Overview />
-      <div className="mt-[-80px]">
+      {/* <div className="mt-[-80px]">
         <ClassTime />
-      </div>
+    </div> */}
+      <CourseDesc />
       <Enrollment />
       <Syllabus />
       <Speakers refreshOffsetTop={getOffsetTops} />
       <Sponsors refreshOffsetTop={getOffsetTops} />
-      <CourseDesc />
     </div>
   );
 };

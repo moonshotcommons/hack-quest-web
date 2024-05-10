@@ -4,7 +4,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { IoIosArrowUp } from 'react-icons/io';
-import { SpType } from '@/app/[lang]/(web)/(base page)/(learn)/ntu-course/constants/type';
+import { SpType } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/type';
 
 interface SpcardProp {
   info: SpType;
