@@ -72,6 +72,7 @@ export const useMissionCenterStore = create<MissionCenterStateType>()((set) => (
   },
   setMissionData(payload) {
     payload?.map((v: MissionDataType) => {
+      v.progress.progress = v.progress.progress || [];
       v.progress.progress[0] = v.progress.progress[0] || 0;
       v.progress.progress[1] = v.progress.progress[1] || 0;
     });
