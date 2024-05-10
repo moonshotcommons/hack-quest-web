@@ -58,8 +58,8 @@ const UnitStatusButton: FC<
       else {
         jumpLearningLesson(courseDetail, {
           menu: Menu.LEARNING_TRACK,
-          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-          ids: [learningTrackId, courseDetail.id]
+          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+          ids: [learningTrackId, courseDetail.id, courseDetail.documentationId!]
         });
       }
     }

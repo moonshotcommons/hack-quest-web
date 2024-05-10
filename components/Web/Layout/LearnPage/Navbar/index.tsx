@@ -11,11 +11,14 @@ import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreation
 import MenuLink from '@/constants/MenuLink';
 import { DocumentIcon } from '@/components/Common/Icon/Document';
 import { useDocumentation } from '@/store/zustand/documentationStore';
+import { useSearchParams } from 'next/navigation';
 
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
   const { redirectToUrl } = useRedirect();
+  const searchParams = useSearchParams();
+  const documentationId = searchParams.get('documentationId');
   const { learnPageType, learnPageTitle } = useCourseStore(
     useShallow((state) => ({
       learnPageTitle: state.learnPageTitle,
@@ -60,7 +63,7 @@ const NavBar: React.FC<NavBarProps> = () => {
             <button
               className="flex items-center gap-2 outline-none"
               onClick={() => {
-                onOpen({ placement: 'bottom-right' });
+                onOpen({ placement: 'bottom-right', id: documentationId });
               }}
             >
               <DocumentIcon />

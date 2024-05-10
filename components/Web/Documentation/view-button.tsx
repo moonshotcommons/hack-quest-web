@@ -13,7 +13,7 @@ export function ViewButton({
   textClassName,
   buttonClassName
 }: {
-  id?: string | number | null;
+  id?: string | null;
   placement?: 'center' | 'bottom-right';
   showText?: boolean;
   iconClassName?: string;
@@ -29,7 +29,7 @@ export function ViewButton({
       onClick={() => onOpen({ placement, id })}
     >
       <DocumentIcon className={iconClassName} />
-      {showText && <span className={cn('text-sm underline', textClassName)}>View Documentation</span>}
+      {showText && <span className={cn('underline-s', textClassName)}>View Documentation</span>}
     </button>
   );
 }

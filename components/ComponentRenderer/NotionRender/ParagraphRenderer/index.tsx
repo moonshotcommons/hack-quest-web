@@ -43,9 +43,9 @@ const ParagraphRenderer: FC<ParagraphRendererProps> = (props) => {
       case PageType.MINI:
         return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.DOCUMENTATION:
-        return cn('my-2 text-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+        return cn('my-2 body-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.DOCUMENTATION_FULL:
-        return cn('my-2 text-sm', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+        return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:

@@ -72,7 +72,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
       case PageType.MINI:
         return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.DOCUMENTATION:
-        return cn('my-1 text-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+        return cn('my-1 body-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -133,8 +133,8 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
           className={cn(
             'scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important]',
             {
-              'text-xs [&_>code]:text-xs': pageType === PageType.DOCUMENTATION,
-              'text-sm [&_>code]:text-sm': pageType === PageType.DOCUMENTATION_FULL
+              '[&_>code]:code-s': pageType === PageType.DOCUMENTATION,
+              '[&_>code]:code-l': pageType === PageType.DOCUMENTATION_FULL
             }
           )}
           showLineNumbers

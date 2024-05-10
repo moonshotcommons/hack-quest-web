@@ -12,6 +12,7 @@ export const useGetLessonLink = () => {
   const menu = query.get('menu');
   const learningTrackId = query.get(QueryIdType.LEARNING_TRACK_ID) as string;
   const menuCourseId = query.get(QueryIdType.MENU_COURSE_ID) as string;
+  const documentationId = query.get(QueryIdType.DOCUMENTATION_ID) as string;
   const getLink = useCallback(
     (courseType: CourseType, lessonId: string, courseName?: string) => {
       // const menu = query.get('menu');
@@ -22,17 +23,23 @@ export const useGetLessonLink = () => {
       const link = getLessonLink(
         courseType,
         (params.courseId as string) || courseName,
+        documentationId,
         lessonId,
         menuCourseId as string,
         {
           menu: menu as string,
-          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.LESSON_ID],
-          ids: [learningTrackId || '', menuCourseId, lessonId]
+          idTypes: [
+            QueryIdType.LEARNING_TRACK_ID,
+            QueryIdType.MENU_COURSE_ID,
+            QueryIdType.LESSON_ID,
+            QueryIdType.DOCUMENTATION_ID
+          ],
+          ids: [learningTrackId || '', menuCourseId, lessonId, documentationId]
         }
       );
       return link;
     },
-    [menu, learningTrackId, menuCourseId, params]
+    [menu, learningTrackId, menuCourseId, documentationId, params]
   );
 
   return {

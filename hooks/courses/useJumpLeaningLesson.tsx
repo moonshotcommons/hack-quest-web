@@ -45,10 +45,21 @@ export const useJumpLeaningLesson = () => {
       onSuccess({ courseDetail, pageId, lParam }) {
         const linkParam = lParam || {
           menu: query.get('menu') as string,
-          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-          ids: [query.get(QueryIdType.LEARNING_TRACK_ID) || '', query.get(QueryIdType.MENU_COURSE_ID) || ''] as string[]
+          idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+          ids: [
+            query.get(QueryIdType.LEARNING_TRACK_ID) || '',
+            query.get(QueryIdType.MENU_COURSE_ID) || '',
+            query.get(QueryIdType.DOCUMENTATION_ID) || ''
+          ] as string[]
         };
-        let link = `${getLessonLink(courseDetail?.type, courseDetail?.title, pageId, courseDetail?.id, linkParam)}`;
+        let link = `${getLessonLink(
+          courseDetail?.type,
+          courseDetail?.title,
+          courseDetail?.documentationId!,
+          pageId,
+          courseDetail?.id,
+          linkParam
+        )}`;
         redirectToUrl(link);
       },
       onError(err: any) {

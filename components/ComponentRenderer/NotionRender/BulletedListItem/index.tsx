@@ -78,14 +78,14 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
         );
       case PageType.DOCUMENTATION:
         return cn(
-          'text-xs',
+          'body-xs',
           prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
           nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : '',
           HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
         );
       case PageType.DOCUMENTATION_FULL:
         return cn(
-          'text-sm',
+          'body-s',
           prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
           nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : ''
         );

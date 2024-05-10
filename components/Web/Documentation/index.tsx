@@ -13,8 +13,118 @@ import webApi from '@/service';
 import { IconChevron } from '@/components/Common/Icon/Chevron';
 import { ComponentRenderer, ComponentRendererProvider } from '@/components/ComponentRenderer';
 import { PageType } from '@/components/ComponentRenderer/type';
+import type { Documentation } from '@/service/webApi/course/type';
+import { LoaderIcon } from 'lucide-react';
 
-export function Documentation() {
+function DocumentationHeader({
+  title,
+  isFullscreen,
+  onClose,
+  toggleFullscreen
+}: {
+  title?: string;
+  isFullscreen: boolean;
+  toggleFullscreen: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      id="handle"
+      className={cn(
+        'relative flex cursor-move items-center justify-between border-b border-b-neutral-medium-gray p-5 text-neutral-black',
+        {
+          'justify-end px-10': isFullscreen
+        }
+      )}
+    >
+      <h2
+        className={cn('body-s', {
+          'body-l absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2': isFullscreen
+        })}
+      >
+        Documentation | {title}
+      </h2>
+      <div className="flex items-center gap-3">
+        <button className="outline-none wap:hidden" onClick={toggleFullscreen}>
+          {isFullscreen ? <ZoomOutIcon /> : <ZoomInIcon className="h-4 w-4" />}
+        </button>
+        <button id="close" onClick={onClose}>
+          <XIcon className={cn('h-4 w-4', { 'h-5 w-5': isFullscreen })} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function DocumentationContent({
+  isFullscreen,
+  documentation
+}: {
+  isFullscreen: boolean;
+  documentation?: Documentation;
+}) {
+  const [expanded, setExpanded] = React.useState<{ [id: string]: boolean }>({});
+
+  const parent = React.useMemo(() => {
+    return {
+      ...documentation,
+      isRoot: true
+    };
+  }, [documentation]);
+
+  function toggleExpand(id: string) {
+    setExpanded((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id]
+    }));
+  }
+
+  return (
+    <div className="documentation-scrollbar flex-1">
+      <div
+        className={cn('flex flex-col gap-5 p-5', {
+          'mx-auto w-[808px] px-0': isFullscreen
+        })}
+      >
+        {documentation?.children?.map((item) => (
+          <section key={item.id}>
+            <h1
+              className={cn('inline-flex cursor-pointer items-center gap-2', {
+                'body-l-bold': isFullscreen,
+                'body-m-bold': !isFullscreen
+              })}
+              onClick={() => toggleExpand(item.id)}
+            >
+              <IconChevron direction={expanded[item.id] ? 'down' : 'right'} />
+              <span>{item.title}</span>
+            </h1>
+            {expanded[item.id] && (
+              <div className="ml-6 mt-2">
+                <ComponentRendererProvider
+                  type={isFullscreen ? PageType.DOCUMENTATION_FULL : PageType.DOCUMENTATION}
+                  CustomComponentRenderer={() => null}
+                >
+                  {item.content?.map((child: any, index: number) => (
+                    <ComponentRenderer
+                      key={child.id}
+                      component={child}
+                      parent={parent}
+                      position={index}
+                      prevComponent={null}
+                      nextComponent={null}
+                    />
+                  ))}
+                </ComponentRendererProvider>
+              </div>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function DocumentationPortal() {
   const { open, data, onClose } = useDocumentation();
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const lastPositionRef = React.useRef({ x: 0, y: 0 });
@@ -47,22 +157,6 @@ export function Documentation() {
     queryFn: () => webApi.courseApi.getDocumentationTreeById(data.id as string)
   });
 
-  const parent = React.useMemo(() => {
-    return {
-      ...query.data,
-      isRoot: true
-    };
-  }, [query.data]);
-
-  const [expanded, setExpanded] = React.useState<{ [id: string]: boolean }>({});
-
-  function toggleExpand(id: string) {
-    setExpanded((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id]
-    }));
-  }
-
   return (
     <>
       {open &&
@@ -86,71 +180,19 @@ export function Documentation() {
                 }
               )}
             >
-              <div
-                id="handle"
-                className={cn(
-                  'relative flex cursor-move items-center justify-between border-b border-b-neutral-medium-gray p-5 text-neutral-black',
-                  {
-                    'justify-end px-10': isFullscreen
-                  }
-                )}
-              >
-                <h2
-                  className={cn('text-sm', {
-                    'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg': isFullscreen
-                  })}
-                >
-                  Documentation | {query?.data?.title}
-                </h2>
-                <div className="flex items-center gap-3">
-                  <button className="outline-none wap:hidden" onClick={toggleFullscreen}>
-                    {isFullscreen ? <ZoomOutIcon /> : <ZoomInIcon className="h-4 w-4" />}
-                  </button>
-                  <button id="close" onClick={handleClose}>
-                    <XIcon className={cn('h-4 w-4', { 'h-5 w-5': isFullscreen })} />
-                  </button>
+              <DocumentationHeader
+                title={query.data?.title}
+                isFullscreen={isFullscreen}
+                toggleFullscreen={toggleFullscreen}
+                onClose={handleClose}
+              />
+              {query.isLoading ? (
+                <div className="flex h-full w-full items-center justify-center">
+                  <LoaderIcon className="h-5 w-5 animate-spin" />
                 </div>
-              </div>
-              <div className="documentation-scrollbar flex-1">
-                <div
-                  className={cn('flex flex-col gap-5 p-5', {
-                    'mx-auto w-[808px] px-0': isFullscreen
-                  })}
-                >
-                  {query.data?.children?.map((item) => (
-                    <section key={item.id}>
-                      <h1
-                        className={cn('inline-flex cursor-pointer items-center gap-2 text-base font-bold', {
-                          'text-lg': isFullscreen
-                        })}
-                        onClick={() => toggleExpand(item.id)}
-                      >
-                        <IconChevron direction={expanded[item.id] ? 'down' : 'right'} />
-                        <span>{item.title}</span>
-                      </h1>
-                      {expanded[item.id] && (
-                        <div className="ml-6 mt-2">
-                          <ComponentRendererProvider
-                            type={isFullscreen ? PageType.DOCUMENTATION_FULL : PageType.DOCUMENTATION}
-                            CustomComponentRenderer={() => null}
-                          >
-                            {item.content?.map((child: any, index: number) => (
-                              <ComponentRenderer
-                                key={child.id}
-                                component={child}
-                                parent={parent}
-                                position={index}
-                                prevComponent={null}
-                                nextComponent={null}
-                              />
-                            ))}
-                          </ComponentRendererProvider>
-                        </div>
-                      )}
-                    </section>
-                  ))}
-                </div>
-              </div>
+              ) : (
+                <DocumentationContent isFullscreen={isFullscreen} documentation={query.data} />
+              )}
             </div>
           </Draggable>,
           document.body
