@@ -29,7 +29,18 @@ const formSchema = z
     path: ['weChat', 'telegram']
   });
 
-const TYPES = ['WeChat', 'Telegram'];
+const TYPES = [
+  {
+    type: 'WeChat',
+    name: 'weChat',
+    placeholder: 'Enter your WeChat account'
+  },
+  {
+    type: 'Telegram',
+    name: 'telegram',
+    placeholder: 'Enter your Telegram account'
+  }
+];
 
 const ContractForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
@@ -41,7 +52,7 @@ const ContractForm: FC<
     defaultValues: contractInfo
   });
 
-  const [types, setTypes] = useState(TYPES);
+  const [types, setTypes] = useState<({ type: string; placeholder: string; name: string } | undefined)[]>([]);
   const [showMoreContractInfo, setShowMoreContractInfo] = useState(false);
 
   const { run: submitRequest, loading } = useRequest(
@@ -80,9 +91,22 @@ const ContractForm: FC<
   }
 
   useEffect(() => {
-    form.setValue('weChat', contractInfo.weChat);
-    form.setValue('telegram', contractInfo.telegram);
-    if (contractInfo.weChat && contractInfo.telegram) form.trigger();
+    const newTypes: any = [];
+    if (contractInfo.weChat) {
+      newTypes.push(TYPES[0]);
+      setTimeout(() => {
+        form.setValue('weChat', contractInfo.weChat);
+      }, 100);
+    }
+    if (contractInfo.telegram) {
+      newTypes.push(TYPES[1]);
+      setTimeout(() => {
+        form.setValue('telegram', contractInfo.telegram);
+      }, 100);
+    }
+    console.log(newTypes, contractInfo);
+    setTypes(newTypes);
+    if (contractInfo.weChat || contractInfo.telegram) form.trigger();
   }, [contractInfo]);
 
   return (
@@ -113,23 +137,24 @@ const ContractForm: FC<
                   </FormLabel>
                   <Select
                     onValueChange={(v) => {
-                      setTypes(TYPES.filter((t) => t !== v));
+                      types[0] = TYPES.find((t) => t.type === v)!;
+                      setTypes([...types]);
                     }}
-                    defaultValue={''}
+                    defaultValue={types[0]?.type || ''}
                   >
                     <SelectTrigger className="!body-m h-[50px] w-full px-3 !text-[16px] leading-[160%]">
-                      <SelectValue placeholder={'Please select'} />
+                      <SelectValue placeholder={types[0]?.type || 'Please select'} />
                     </SelectTrigger>
                     <SelectContent className="">
                       {TYPES.map((item) => {
                         return (
                           <SelectItem
-                            key={item}
+                            key={item.type}
                             className="body-m text-[16px] leading-[160%]"
-                            value={item}
-                            disabled={!types.includes(item)}
+                            value={item.type}
+                            disabled={!!types.find((t) => t?.type === item.type)}
                           >
-                            {item}
+                            {item.type}
                           </SelectItem>
                         );
                       })}
@@ -142,8 +167,14 @@ const ContractForm: FC<
                     </SelectContent>
                   </Select>
                 </div>
+
                 <div className="flex-1">
-                  <CustomFormField form={form} placeholder="Enter your WeChat account" label="WeChat" name={'weChat'} />
+                  <CustomFormField
+                    form={form}
+                    placeholder="Enter your account info"
+                    label={types[0]?.type || 'Account'}
+                    name={(types[0]?.name as any) || ''}
+                  />
                 </div>
               </div>
             </div>
@@ -181,7 +212,10 @@ const ContractForm: FC<
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     className="cursor-pointer"
-                    onClick={() => setShowMoreContractInfo(false)}
+                    onClick={() => {
+                      setShowMoreContractInfo(false);
+                      setTypes(types.filter((t) => t?.type !== types[1]?.type));
+                    }}
                   >
                     <path
                       fillRule="evenodd"
@@ -198,23 +232,24 @@ const ContractForm: FC<
                     </FormLabel>
                     <Select
                       onValueChange={(v) => {
-                        setTypes(TYPES.filter((t) => t !== v));
+                        types[1] = TYPES.find((t) => t.type === v)!;
+                        setTypes([...types]);
                       }}
-                      defaultValue={''}
+                      defaultValue={types[1]?.type || ''}
                     >
                       <SelectTrigger className="!body-m h-[50px] w-full px-3 !text-[16px] leading-[160%]">
-                        <SelectValue placeholder={'Please select'} />
+                        <SelectValue placeholder={types[1]?.type || 'Please select'} />
                       </SelectTrigger>
                       <SelectContent className="">
                         {TYPES.map((item) => {
                           return (
                             <SelectItem
-                              key={item}
+                              key={item.type}
                               className="body-m text-[16px] leading-[160%]"
-                              value={item}
-                              disabled={!types.includes(item)}
+                              value={item.type}
+                              disabled={!!types.find((t) => t?.type === item.type)}
                             >
-                              {item}
+                              {item.type}
                             </SelectItem>
                           );
                         })}
@@ -230,9 +265,9 @@ const ContractForm: FC<
                   <div className="flex-1">
                     <CustomFormField
                       form={form}
-                      placeholder="Enter your Telegram account"
-                      label="Telegram"
-                      name="telegram"
+                      placeholder="Enter your account info"
+                      label={types[1]?.type || 'Account'}
+                      name={(types[1]?.name as any) || ''}
                     />
                   </div>
                 </div>
