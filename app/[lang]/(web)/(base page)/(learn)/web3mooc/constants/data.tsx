@@ -12,6 +12,8 @@ import speakersAvatar12 from '@/public/images/learn/speaker_avatar12.png';
 import speakersAvatar13 from '@/public/images/learn/speaker_avatar13.png';
 import speakersAvatar14 from '@/public/images/learn/speaker_avatar14.png';
 import speakersAvatar15 from '@/public/images/learn/speaker_avatar15.png';
+import speakersAvatar16 from '@/public/images/learn/speaker_avatar16.png';
+
 import MorphLogo from '@/public/images/learn/Morph_logo.png';
 import OpenCampusLogo from '@/public/images/learn/Open_Campus_logo.png';
 import SolanaFoundationLogo from '@/public/images/learn/Solana_Foundation_logo.png';
@@ -86,7 +88,7 @@ export const syllabusData = [
     time: '6.11.2024 SGT / 6.10.2024 EST',
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on infrastructure.',
-    speaker: 'Dr. Michael Yuan, Gaianet',
+    speaker: '',
     video: '',
     slide: '',
     expand: false
@@ -96,7 +98,7 @@ export const syllabusData = [
     time: '6.18.2024 SGT / 6.17.2024 EST',
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on DeFi.',
-    speaker: 'Anna Yuan, Solana Foundation',
+    speaker: 'Diane Dai, DODO',
     video: '',
     slide: '',
     expand: false
@@ -133,7 +135,7 @@ export const syllabusData = [
   {
     name: 'Pitching and Fundraising in Web3',
     time: '7.16.2024 SGT / 7.15.2024 EST',
-    description: `	
+    description: `
     Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
     speaker: 'Jaime Burke, Outlier Ventures',
     video: '',
@@ -151,10 +153,19 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'Protocol and Product Design and Management',
-    time: '',
+    name: 'The Future of Decentralized Social',
+    time: '8.13.2024 SGT / 8.12.2024 EST',
     description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
-    speaker: '',
+    speaker: 'Suji Yan, Mask Network',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'Stablecoins as the Foundation for On-Chain Financial Infrastructure',
+    time: '',
+    description: `Stablecoins are dubbed the "killer use case" in crypto, yet they account for less than 1% of the M2 money supply. The largest banking and payments companies in the world are all experimenting with stablecoins, while central banks try to decide what to do with them. Are stablecoins the next phase for digital money? What kind of pressure will that put on a country's monetary policy? We'll dive into the characteristics of different stablecoins and industry trends through the lens of DeFi and TradFi.`,
+    speaker: 'Anna Yuan, Solana Foundation',
     video: '',
     slide: '',
     expand: false
@@ -173,7 +184,7 @@ export const syllabusData = [
     time: '',
     description:
       'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
-    speaker: '',
+    speaker: 'Dr. Michael Yuan, Gaianet',
     video: '',
     slide: '',
     expand: false
@@ -182,6 +193,15 @@ export const syllabusData = [
     name: 'Incentive Design and Tokenomics',
     time: '',
     description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
+    speaker: 'Mohamed Ezeldin, Animoca Brands',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'Protocol and Product Design and Management',
+    time: '',
+    description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
     speaker: '',
     video: '',
     slide: '',
@@ -335,6 +355,12 @@ export const guestSpeakersData = [
   },
   {
     showMore: false,
+    name: 'Diane Dai',
+    img: speakersAvatar16,
+    description: `Diane is the Co-Founder of DODO, a decentralized exchange and on-chain liquidity provider backed by Binance Labs, Coinbase Ventures and Pantera Capital. Diane has been involved in decentralize finance as an active member of China's DeFi community, running one of the largest WeChat groups "DeFi the World.” `
+  },
+  {
+    showMore: false,
     name: 'Dr. Li Yi',
     img: speakersAvatar13,
     description:
@@ -390,7 +416,7 @@ export const sponsorsData = [
     name: 'Mask Network',
     img: MaskNetworkLogo,
     description:
-      'Mask Network build the bridge between Web 2.0 (Platforms such as Twitter) and Web 3.0 - By letting users send encrypted messages to friends, send and receive cryptocurrency and share files, and interact with DApps, all on a decentralized level. Mask Network offers the ability to fund Gitcoin grant campaigns directly from Twitter, as well as plansto offer p2p payments and decentralized storage functionality. It is a decentralized portal that also allows users to use DApps like crypto payments, decentralized finance, decentralized storage, e-commerce (digital goods/NFTs) and decentralized organizations (DAO) over the top of existing social networks without migrating, creating what is referred to as a decentralized Applet (DApplet) ecosystem.'
+      'Mask Network is a leader in the vibrant decentralized social network ecosystem. In 2019, Mask extension started supporting Twitter users with secure, decentralized social messaging, payment networks, file storage and sharing upon the current mainstream social media networks. With its venture arm, Mask strategically invests in decentralized social networks, infrastructure, and creative contents with the goal of making Web3 more accessible to all. Learn more at mask.io.'
   },
   {
     showMore: false,

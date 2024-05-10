@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import OverviewCover from '@/public/images/learn/overview_cover.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.png';
 import HackLogo from '@/public/images/learn/hack_logo.png';
@@ -10,16 +10,24 @@ import { overviewData } from '../../constants/data';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
+import { FaRegCirclePlay } from 'react-icons/fa6';
+import VideoModal from './VideoModal';
 
 interface OverviewProp {}
 
 const Overview: React.FC<OverviewProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex gap-[40px]">
       <div className="relative h-[498px] w-[498px] flex-shrink-0">
         <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" />
+        <div className="group absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/50 hover:bg-black/70">
+          <span className="transition group-hover:scale-125" onClick={() => setOpen(true)}>
+            <FaRegCirclePlay color={'#f4f4f4'} size={80} />
+          </span>
+        </div>
       </div>
 
       <div className="flex h-[498px] flex-col justify-between">
@@ -66,6 +74,7 @@ const Overview: React.FC<OverviewProp> = () => {
           </Link>
         </div>
       </div>
+      <VideoModal open={open} setOpen={setOpen} />
     </div>
   );
 };

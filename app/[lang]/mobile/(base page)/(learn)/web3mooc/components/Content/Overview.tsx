@@ -1,5 +1,6 @@
 import { TransNs, Lang } from '@/i18n/config';
 import React from 'react';
+import OverviewCover from '@/public/images/learn/overview_cover.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.svg';
 import HackLogo from '@/public/images/learn/hack_logo.png';
 import Image from 'next/image';
@@ -18,10 +19,7 @@ const Overview: React.FC<OverviewProp> = async ({ lang }) => {
   return (
     <div className="">
       <div className="relative mb-[1.75rem] w-full pt-[100%]">
-        {/* <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" /> */}
-        <video>
-          <source src=""></source>
-        </video>
+        <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" />
       </div>
 
       <div className="flex flex-col gap-[1.25rem]">
