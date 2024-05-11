@@ -36,12 +36,15 @@ export interface UserStateType {
   setSettingsOpen: (payload: boolean) => void;
   setAuthType: (payload: AuthRouteType | AuthType) => void;
   setAuthModalOpen: (open: boolean) => void;
+  notificationModalOpen: boolean;
+  setNotificationModalOpen: (open: boolean) => void;
 }
 
 export const useUserStore = create<UserStateType>()((set) => ({
   userInfo: null,
   settingsOpen: false,
   authModalOpen: false,
+  notificationModalOpen: false,
   authRouteType: {
     type: AuthType.LOGIN,
     prevType: AuthType.LOGIN,
@@ -61,6 +64,9 @@ export const useUserStore = create<UserStateType>()((set) => ({
 
   setSettingsOpen(payload) {
     set((state) => ({ settingsOpen: payload }));
+  },
+  setNotificationModalOpen(payload) {
+    set((state) => ({ notificationModalOpen: payload }));
   },
 
   setAuthType(payload) {
