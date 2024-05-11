@@ -15,6 +15,7 @@ import { ComponentRenderer, ComponentRendererProvider } from '@/components/Compo
 import { PageType } from '@/components/ComponentRenderer/type';
 import type { Documentation } from '@/service/webApi/course/type';
 import { LoaderIcon } from 'lucide-react';
+import { HelpIcon } from '@/components/Common/Icon/Help';
 
 function DocumentationHeader({
   title,
@@ -42,7 +43,7 @@ function DocumentationHeader({
           'body-l absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2': isFullscreen
         })}
       >
-        Documentation | {title}
+        Documentation {title && <span>| {title}</span>}
       </h2>
       <div className="flex items-center gap-3">
         <button className="outline-none wap:hidden" onClick={toggleFullscreen}>
@@ -151,7 +152,8 @@ export function DocumentationPortal() {
   }
 
   const query = useQuery({
-    queryKey: ['documentation', data.id],
+    queryKey: ['documentationTree', data.id],
+    retry: 3,
     enabled: open && !!data.id,
     staleTime: Infinity,
     queryFn: () => webApi.courseApi.getDocumentationTreeById(data.id as string)
@@ -189,6 +191,11 @@ export function DocumentationPortal() {
               {query.isLoading ? (
                 <div className="flex h-full w-full items-center justify-center">
                   <LoaderIcon className="h-5 w-5 animate-spin" />
+                </div>
+              ) : query.error || !data.id ? (
+                <div className="flex h-full w-full flex-col items-center justify-center text-neutral-medium-gray">
+                  <HelpIcon className="h-8 w-8" />
+                  <p className="body-s mt-3">Documentation not found</p>
                 </div>
               ) : (
                 <DocumentationContent isFullscreen={isFullscreen} documentation={query.data} />

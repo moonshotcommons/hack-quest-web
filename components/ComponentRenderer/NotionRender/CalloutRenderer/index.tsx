@@ -75,9 +75,9 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
       <div className="flex items-center justify-between gap-[15px]">
         <div className="text-[20px]">{component.content.icon?.emoji}</div>
         <div className="flex-1">
-          <p className={cn(!!component.children?.length ? (isMobile ? 'mb-[5px]' : 'mb-2') : '')}>
+          <div className={cn(!!component.children?.length ? (isMobile ? 'mb-[5px]' : 'mb-2') : '')}>
             <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
-          </p>
+          </div>
           {component.children?.map(childRenderCallback(component))}
         </div>
       </div>
