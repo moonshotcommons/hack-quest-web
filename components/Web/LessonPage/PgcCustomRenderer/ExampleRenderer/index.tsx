@@ -8,8 +8,9 @@ import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import { HelperType } from '@/service/webApi/helper/type';
 import LzString from 'lz-string';
 import Link from 'next/link';
-import { FC, createContext, useEffect, useState } from 'react';
+import { FC, createContext, useContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import { PlaygroundContext } from '../../Playground/type';
 interface ExampleRendererProps {
   // children: ReactNode
   component: ExampleComponent;
@@ -23,7 +24,7 @@ export const ExampleContext = createContext({
 
 const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
-  const [expand, setExpand] = useState(true);
+  const { exampleExpand: expand, setExampleExpand: setExpand } = useContext(PlaygroundContext);
   const [exampleContent, setExampleContent] = useState('');
   const [activeFileIndex, setActiveFileIndex] = useState(0);
   const { updateExampleNum } = useUpdateHelperParams();

@@ -32,11 +32,11 @@ export const QuizContext = createContext<{
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const { quiz: propsQuiz, parent } = props;
+  const { onCompleted, lesson, setExampleExpand } = useContext(PlaygroundContext);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
-  const { onCompleted, lesson } = useContext(PlaygroundContext);
   const { updateQuizNum } = useUpdateHelperParams();
 
   const containerRef = useRef(null);
@@ -127,11 +127,14 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
           <div className=" flex items-center">
             <div
               ref={containerRef as any}
-              className={`box-content inline-flex min-h-fit cursor-pointer gap-2 px-[0px] ${
-                quizDropdownVisible ? ' border-neutral-medium-gray' : ''
-              }`}
+              className={cn(
+                'box-content inline-flex min-h-fit cursor-pointer gap-2 px-[0px]',
+                quizDropdownVisible ? ' border-neutral-medium-gray' : '',
+                !start ? '!cursor-not-allowed' : ''
+              )}
               onClick={() => {
                 BurialPoint.track('lesson-quiz dropdown点击');
+                if (!start) return;
                 setQuizDropdownVisible(!quizDropdownVisible);
               }}
             >
@@ -165,6 +168,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         className={cn(`flex flex-1 justify-end py-[0px]`, !start ? 'rotate-180 justify-start' : '')}
         onClick={() => {
           BurialPoint.track('lesson-quiz 收起');
+          if (!start) {
+            setExampleExpand(false);
+          }
           setStart(!start);
         }}
       >

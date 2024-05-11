@@ -8,6 +8,7 @@ import { QuizContext } from '../..';
 
 import { useQuizBRendererContext } from '@/components/ComponentRenderer';
 import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
+import { cn } from '@/helper/utils';
 interface DropAnswerProps {
   answer: string;
 }
@@ -96,7 +97,10 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] text-neutral-black"
+          className={cn(
+            'body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] text-neutral-black',
+            currentAnswer.status === 'success' ? 'border-status-success-dark bg-status-success-light' : ''
+          )}
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >
