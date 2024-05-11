@@ -96,8 +96,8 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
         prevComponent === null ? 'mt-0' : ''
       )}
     >
-      <div className="flex items-center">
-        <span className="inline-flex h-full w-fit items-center pr-2">{index + 1}.</span>
+      <div className={cn('flex', pageType !== PageType.UGC ? 'items-center' : '')}>
+        <span className="inline-flex h-full w-fit pr-2">{index + 1}.</span>
         <span>
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
         </span>
