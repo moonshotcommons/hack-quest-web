@@ -45,12 +45,14 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) 
                     >
                       {course.title}
                     </Link>
-                    <ViewButton
-                      placement="center"
-                      id={course.documentationId}
-                      showText={false}
-                      iconClassName="w-4 h-4"
-                    />
+                    {course.documentationId && (
+                      <ViewButton
+                        placement="center"
+                        id={course.documentationId}
+                        showText={false}
+                        iconClassName="w-4 h-4"
+                      />
+                    )}
                   </div>
                 </div>
                 {/* 进度条 */}

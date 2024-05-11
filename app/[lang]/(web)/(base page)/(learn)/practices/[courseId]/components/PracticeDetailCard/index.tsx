@@ -24,8 +24,12 @@ const PracticeDetailCard: FC<PracticeDetailCardProps> = ({ courseDetail }) => {
         <div className="flex flex-col gap-4">
           <TagsAndProgress courseDetail={courseDetail} />
         </div>
-        <div className="h-px w-full bg-neutral-light-gray" />
-        <ViewButton placement="center" id={courseDetail.documentationId} />
+        {courseDetail.documentationId && (
+          <>
+            <div className="h-px w-full bg-neutral-light-gray" />
+            <ViewButton placement="center" id={courseDetail.documentationId} />
+          </>
+        )}
         <CourseStatusButton courseDetail={courseDetail} />
       </div>
     </div>
