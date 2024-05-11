@@ -4,6 +4,7 @@ import { CourseLessonType } from '@/service/webApi/course/type';
 import React, { useContext, useEffect } from 'react';
 import { LessonPageContext } from '../type';
 import { LessonContent } from '@/components/ComponentRenderer/type';
+import { useKeyPress } from 'ahooks';
 
 interface LessonFooterProps {
   lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };
@@ -14,6 +15,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
 
   const { isHandleNext, nextLoading } = useContext(LessonPageContext);
   const handleNext = () => {
+    debugger;
     if (!isHandleNext) return;
     onNextClick();
   };
@@ -21,6 +23,8 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
   useEffect(() => {
     refreshNavList();
   }, [lesson]);
+
+  useKeyPress('Enter', handleNext);
   return (
     <div
       className="flex-center fixed bottom-0 left-0 w-full bg-lesson-footer-bg transition-all"
@@ -51,7 +55,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
       </div>
       {isHandleNext && (
         <div
-          className=" fixed bottom-0 right-10 flex items-center"
+          className="fixed bottom-0 right-10 flex items-center"
           style={{
             height: isHandleNext ? '80px' : '30px'
           }}

@@ -94,8 +94,8 @@ const LearningTrackCourseStatusButton: FC<LearningTrackCourseStatusButtonProps> 
               setClickIndex(courseIndex);
               jumpLearningLesson(course, {
                 menu: Menu.LEARNING_TRACK,
-                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-                ids: [learningTrackDetail!.id, course.id]
+                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+                ids: [learningTrackDetail!.id, course.id, course.documentationId!]
               });
             }}
           >

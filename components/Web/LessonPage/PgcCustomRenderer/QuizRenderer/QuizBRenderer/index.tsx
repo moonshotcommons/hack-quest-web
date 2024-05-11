@@ -3,17 +3,15 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { QuizContext } from '..';
 
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
-import { AnswerType, QuizOptionType } from './type';
 import { CustomType, NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
 import { OverrideRendererConfig, ComponentRenderer, childRenderCallback } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 interface QuizBRendererProps {
   parent: CustomType | NotionComponentType;
   quiz: QuizBType;
@@ -31,6 +29,9 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const mountAnswers = useRef(0);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
   const renderState = useRef(false);
+
+  const [showHint, setShowHint] = useState(false);
+
   const onDrop = (dropAnswer: AnswerType, replaceOption?: QuizOptionType | null) => {
     const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
     setAnswers(newAnswers);
@@ -61,6 +62,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         answerItem.status = 'error';
 
         wrongAnswers.push(answerItem);
+      } else {
+        answerItem.status = 'success';
       }
     }
 
@@ -117,6 +120,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         ) as QuizOptionType;
         if (findOption) {
           answerItem.option = findOption;
+          answerItem.status = 'success';
           mountOptionIds.push(findOption.id);
           setMountOptionIds(mountOptionIds);
         }
@@ -150,76 +154,73 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     };
   }, [quiz]);
 
-  const quizIndex = useMemo(() => {
-    return parentQuiz.children.findIndex((item: any) => item.id === quiz.id);
-  }, [quiz, parentQuiz]);
+  console.log(quiz);
 
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="scroll-wrap-y flex-1 overflow-auto">
-        <DndProvider backend={HTML5Backend}>
-          <div className="rounded-lg">
-            <OverrideRendererConfig
-              quizBRendererContext={{
-                onDrop,
-                accept: options,
-                changeOptionState: (options) => setOptions(options),
-                answers,
-                showAnswer,
-                setAnswers,
-                quiz,
-                DropAnswerComponent: DropAnswer
-              }}
-            >
-              <div className="items-center py-4">
-                {quizChildren.map(
-                  childRenderCallback(
-                    (function (quiz) {
-                      quiz.children = quizChildren;
-                      return quiz;
-                    })(quiz)
-                  )
-                )}
-              </div>
-            </OverrideRendererConfig>
-
-            <div className=" flex flex-row flex-wrap gap-[30px] pb-4 pt-[52px]">
-              {options.map((option) => {
-                if (!option.isRender) return null;
-                return (
-                  // <motion.div
-                  //   key={option.id}
-                  //   initial={{ translateY: 50, opacity: 0 }}
-                  //   animate={{ opacity: 1, translateY: 0 }}
-                  //   transition={{ duration: 0.5 }}
-                  // >
-                  <DragAnswer
-                    option={option}
-                    key={option.id}
-                    onClick={() => {
-                      if (showAnswer) return;
-                      const emptyAnswerKey = Object.keys(answers).find((key) => !answers[key].option);
-                      let replaceAnswerKey = emptyAnswerKey;
-                      let replaceOption = null;
-                      if (!emptyAnswerKey) {
-                        replaceAnswerKey = Object.keys(answers)[0];
-                      }
-                      const dropAnswer = answers[replaceAnswerKey!];
-                      if (dropAnswer.option) replaceOption = dropAnswer.option;
-                      dropAnswer.option = option;
-                      onDrop(dropAnswer, replaceOption);
-                    }}
-                  >
-                    {option.content.rich_text.map((richText: any, index: number) => {
-                      return <span key={index}>{richText.plain_text}</span>;
-                    })}
-                  </DragAnswer>
-                  // </motion.div>
-                );
-              })}
+        <div className="rounded-lg">
+          <OverrideRendererConfig
+            quizBRendererContext={{
+              onDrop,
+              accept: options,
+              changeOptionState: (options) => setOptions(options),
+              answers,
+              showAnswer,
+              setAnswers,
+              quiz,
+              DropAnswerComponent: DropAnswer
+            }}
+          >
+            <div className="items-center py-4">
+              {quizChildren.map(
+                childRenderCallback(
+                  (function (quiz) {
+                    quiz.children = quizChildren;
+                    return quiz;
+                  })(quiz)
+                )
+              )}
             </div>
+          </OverrideRendererConfig>
+
+          <div className=" flex flex-row flex-wrap gap-[30px] pb-4 pt-[52px]">
+            {options.map((option) => {
+              if (!option.isRender) return null;
+              return (
+                // <motion.div
+                //   key={option.id}
+                //   initial={{ translateY: 50, opacity: 0 }}
+                //   animate={{ opacity: 1, translateY: 0 }}
+                //   transition={{ duration: 0.5 }}
+                // >
+                <DragAnswer
+                  option={option}
+                  key={option.id}
+                  onClick={() => {
+                    if (showAnswer) return;
+                    const emptyAnswerKey = Object.keys(answers).find((key) => !answers[key].option);
+                    let replaceAnswerKey = emptyAnswerKey;
+                    let replaceOption = null;
+                    if (!emptyAnswerKey) {
+                      replaceAnswerKey = Object.keys(answers)[0];
+                    }
+                    const dropAnswer = answers[replaceAnswerKey!];
+                    if (dropAnswer.option) replaceOption = dropAnswer.option;
+                    dropAnswer.option = option;
+                    onDrop(dropAnswer, replaceOption);
+                  }}
+                >
+                  {option.content.rich_text.map((richText: any, index: number) => {
+                    return <span key={index}>{richText.plain_text}</span>;
+                  })}
+                </DragAnswer>
+                // </motion.div>
+              );
+            })}
           </div>
-        </DndProvider>
+        </div>
+
         {!!parseComponent && (
           <div className="mt-5">
             <ComponentRenderer
@@ -232,6 +233,13 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
             />
           </div>
         )}
+
+        {showHint && quiz.hint && (
+          <div className="mt-4">
+            <p className="body-l-bold mb-2">Hint:</p>
+            {quiz.hint.children.map(childRenderCallback(quiz.hint!))}
+          </div>
+        )}
       </div>
       <QuizFooter
         showAnswer={showAnswer}
@@ -240,7 +248,12 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           if (isShow) BurialPoint.track('lesson-show answer次数');
           setShowAnswer(isShow);
         }}
+        lessonId={lesson.id}
+        includeHint={!!quiz.hint}
+        showHint={showHint}
+        setShowHint={setShowHint}
         onSubmit={onSubmit}
+        isCompleted={!!quiz.isCompleted}
       ></QuizFooter>
     </div>
   );

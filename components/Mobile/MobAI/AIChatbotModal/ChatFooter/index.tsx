@@ -6,6 +6,7 @@ import { Dispatch, ForwardRefRenderFunction, RefObject, SetStateAction, forwardR
 
 import { v4 as uuid } from 'uuid';
 import { CostCoinModalRef } from '../CostCoinModal';
+import { LocalStorageKey } from '@/constants/enum';
 
 interface ChatFooterProps {
   onSubmit: VoidFunction;
@@ -56,7 +57,7 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
   const submit = () => {
     if (typeof window !== 'object') return;
     debugger;
-    const showCostCoinModal = window.localStorage.getItem('showCostCoinModal');
+    const showCostCoinModal = window.localStorage.getItem(LocalStorageKey.ShowAICostCoinModal);
     const show = !showCostCoinModal || showCostCoinModal === 'show';
     if (!freeCount && show) {
       costCoinModalRef.current?.open({

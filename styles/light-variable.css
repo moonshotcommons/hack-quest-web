@@ -201,16 +201,8 @@ html[data-theme='light'] {
   --auth-description-text-color: var(--neutral-black);
 
   /* mission center */
-  --mission-center-gradient-radial: linear-gradient(
-    180deg,
-    var(--yellow-primary) 0%,
-    var(--yellow-primary) 100%
-  );
-  --mission-center-tab-box-shadow: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    #fff 100%
-  );
+  --mission-center-gradient-radial: linear-gradient(180deg, var(--yellow-primary) 0%, var(--yellow-primary) 100%);
+  --mission-center-tab-box-shadow: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
   --mission-center-basics: #0b0b0b;
   --mission-center-base-bg-color: #010101;
   --mission-center-tab-data: #fff;
@@ -276,7 +268,7 @@ html[data-theme='light'] {
   --lesson-code-bg: #f4f4f4;
   --lesson-code-container-bg: #e6e6e6;
   --lesson-code-box-bg: #f4f4f4;
-  --lesson-code-input-bg: #fff4ce;
+  --lesson-code-input-bg: var(--yellow-extra-light);
   --lesson-code-input-border: var(--neutral-medium-gray);
   --lesson-code-index: var(--neutral-medium-gray);
   --lesson-code-copy-bg: var(--neutral-medium-gray);

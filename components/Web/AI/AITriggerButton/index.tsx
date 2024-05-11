@@ -3,23 +3,46 @@ import { cn } from '@/helper/utils';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import { HelperType } from '@/service/webApi/helper/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { useHover } from 'ahooks';
 
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useRef } from 'react';
 
 interface AITriggerButtonProps {
   children: ReactNode;
   triggerType: HelperType;
+  onlyIcon?: boolean;
 }
 
 const AITriggerButton: FC<AITriggerButtonProps & ButtonProps> = (props) => {
-  const { children, triggerType, className, ...rest } = props;
+  const { children, triggerType, className, onlyIcon = false, ...rest } = props;
   const { updateHelperType } = useUpdateHelperParams();
   const chatStatus = useGlobalStore((state) => state.chatStatus);
+  const ref = useRef(null);
+
+  const hover = useHover(ref);
 
   const trigger = () => {
     if (chatStatus === 'chatting') return;
     updateHelperType(triggerType);
   };
+
+  if (onlyIcon)
+    return (
+      <div className="relative">
+        <Button
+          className={cn('button-text-s bg-transparent p-1 uppercase transition-all hover:scale-[1.2]', className)}
+          onClick={trigger}
+          ref={ref}
+        >
+          {icon}
+        </Button>
+        {hover && (
+          <div className="caption-10pt absolute -top-2/3 left-1/2 w-fit -translate-x-1/2 whitespace-nowrap rounded-[4px] border border-[#EBE1FF] px-1 py-[2px] text-neutral-off-black">
+            {children}
+          </div>
+        )}
+      </div>
+    );
 
   return (
     <Button

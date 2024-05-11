@@ -9,7 +9,6 @@ import { QuizContext } from '..';
 
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
-import { AnswerType, QuizOptionType } from './type';
 import {
   FooterButtonStatus,
   FooterButtonText,
@@ -20,6 +19,7 @@ import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 import { NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 interface QuizBRendererProps {
   parent: any;
   quiz: QuizBType;

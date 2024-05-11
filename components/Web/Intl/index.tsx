@@ -48,17 +48,19 @@ const Intl: React.FC<IntlProp> = () => {
 
   return (
     <div
-      className="button-text-s relative flex h-[34px] cursor-pointer items-center gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black"
+      className="relative flex h-full items-center"
       onMouseEnter={() => {
         mouseLeaveFilter.cancel();
         setHoverFilter(true);
       }}
       onMouseLeave={mouseLeaveFilter}
     >
-      {lang.toUpperCase()}
-      <span>
-        <FiChevronDown size={20} />
-      </span>
+      <div className="button-text-s relative flex h-[34px] cursor-pointer items-center gap-[8px] rounded-[17px] bg-neutral-off-white px-[17px] text-neutral-black">
+        {lang.toUpperCase()}
+        <span>
+          <FiChevronDown size={20} />
+        </span>
+      </div>
       <DropDownMotion
         open={hoverFilter}
         className={

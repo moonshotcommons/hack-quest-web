@@ -63,11 +63,13 @@ export interface QuizAType extends CustomComponent {
   sourceEditorCode: object;
   answerRegex: string[];
   lines: CodeLineType[];
+  hint?: CustomComponent;
 }
 
 export interface QuizBType extends CustomComponent {
   options: (NotionComponent & { type: NotionComponentType.BULLETED_LIST_ITEM })[];
   children: (NotionComponent & { content: { isGapFill: boolean }[] })[];
+  hint?: CustomComponent;
 }
 
 export interface CodeFileComponent extends CustomComponent {
@@ -87,5 +89,7 @@ export enum PageType {
   UGC = 'ugc',
   BLOG = 'blog',
   GLOSSARY = 'glossary',
-  MINI = 'mini'
+  MINI = 'mini',
+  DOCUMENTATION = 'documentation',
+  DOCUMENTATION_FULL = 'documentation_full'
 }
