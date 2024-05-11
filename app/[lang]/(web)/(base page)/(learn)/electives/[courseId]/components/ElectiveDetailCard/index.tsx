@@ -21,7 +21,7 @@ const ElectiveDetailCardCard: FC<ElectiveDetailCardCardProps> = ({ courseDetail 
           <TagsAndProgress courseDetail={courseDetail} />
         </div>
         <div className="h-px w-full bg-neutral-light-gray" />
-        <ViewButton placement="center" id={courseDetail.documentationId} />
+        {courseDetail.documentationId && <ViewButton placement="center" id={courseDetail.documentationId} />}
         <CourseStatusButton courseDetail={courseDetail} />
       </div>
     </div>

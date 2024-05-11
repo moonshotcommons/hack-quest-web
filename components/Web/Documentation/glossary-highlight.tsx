@@ -50,7 +50,7 @@ export function GlossaryHighlight({ linkId, text }: { linkId: string; text?: str
             <p className="body-s mb-2 mt-1 text-neutral-rich-gray">{query.data?.description}</p>
             <Link
               href={`/glossary/${query.data?.alias}`}
-              className="body-s capitalize text-neutral-black transition-colors hover:text-neutral-rich-gray"
+              className="body-s capitalize text-neutral-black underline transition-colors hover:text-neutral-rich-gray"
             >
               Click to view more
             </Link>

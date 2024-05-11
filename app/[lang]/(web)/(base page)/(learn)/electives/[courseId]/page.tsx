@@ -128,7 +128,7 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
             <div className="h-[34px] w-[5px] rounded-full bg-yellow-dark"></div>
             <h3 className="text-h3 text-neutral-black">{t('courses.syllabus')}</h3>
           </div>
-          <ViewButton placement="center" id={courseDetail.documentationId} />
+          {courseDetail.documentationId && <ViewButton placement="center" id={courseDetail.documentationId} />}
         </div>
         <LessonCatalogue courseDetail={courseDetail} />
       </div>

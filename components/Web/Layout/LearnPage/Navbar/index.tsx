@@ -60,15 +60,17 @@ const NavBar: React.FC<NavBarProps> = () => {
       default:
         return (
           <div className="flex items-center gap-6">
-            <button
-              className="flex items-center gap-2 outline-none"
-              onClick={() => {
-                onOpen({ placement: 'bottom-right', id: documentationId });
-              }}
-            >
-              <DocumentIcon />
-              <span className="body-l">Documentation</span>
-            </button>
+            {documentationId && documentationId !== 'null' && (
+              <button
+                className="flex items-center gap-2 outline-none"
+                onClick={() => {
+                  onOpen({ placement: 'bottom-right', id: documentationId });
+                }}
+              >
+                <DocumentIcon />
+                <span className="body-l">Documentation</span>
+              </button>
+            )}
             <div className="flex cursor-pointer items-center" onClick={logoClick}>
               <IoExitOutline size={24} />
               <span className="body-l ml-[7px]">Exit</span>
