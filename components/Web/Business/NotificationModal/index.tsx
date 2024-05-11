@@ -3,7 +3,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-// import NotificationCard from './NotificationCard';
+import NotificationCard from './NotificationCard';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { motion } from 'framer-motion';
@@ -13,6 +13,7 @@ import Loading from '@/components/Common/Loading';
 import { notificationStore } from '@/store/zustand/notificationStore';
 import { useHandleNotification } from '@/hooks/notification/useHandleNotification';
 import webApi from '@/service';
+import { NotificationContentType } from '@/service/webApi/user/type';
 
 interface NotificationModalProp {}
 
@@ -21,6 +22,7 @@ const NotificationModal: React.FC<NotificationModalProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState<NotificationContentType>();
   const { updateNotification } = useHandleNotification();
   const [limit, setLimit] = useState(10);
   const { notificationModalOpen, setNotificationModalOpen } = useUserStore(
@@ -53,7 +55,6 @@ const NotificationModal: React.FC<NotificationModalProp> = () => {
       setLimit(newLimit);
     }
   };
-  console.info(notificationList);
   useEffect(() => {
     setLimit(10);
   }, [notificationModalOpen]);
@@ -70,7 +71,11 @@ const NotificationModal: React.FC<NotificationModalProp> = () => {
           setInfoModalOpen(false);
         }}
       >
-        <MessageModal open={infoModalOpen} onClose={() => setInfoModalOpen(false)} />
+        <MessageModal
+          open={infoModalOpen}
+          onClose={() => setInfoModalOpen(false)}
+          message={modalMessage as NotificationContentType}
+        />
       </div>
       <motion.div
         {...ani}
@@ -92,12 +97,15 @@ const NotificationModal: React.FC<NotificationModalProp> = () => {
             <Loading loading={notificationLoading}>
               {notificationList.map((message, i) => (
                 <div key={i} className={`mt-[-1px] px-[20px] hover:px-[0]`}>
-                  {/* <NotificationCard
+                  <NotificationCard
                     message={message}
-                    openInfoModal={() => setInfoModalOpen(true)}
+                    openInfoModal={() => {
+                      setInfoModalOpen(true);
+                      setModalMessage(message.content);
+                    }}
                     border={i !== notificationList.length - 1}
                     updateList={() => updateNotification({ limit })}
-                  /> */}
+                  />
                 </div>
               ))}
             </Loading>

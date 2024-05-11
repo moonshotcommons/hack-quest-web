@@ -5,13 +5,16 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import { NotificationContentType } from '@/service/webApi/user/type';
+import Link from 'next/link';
 
 interface MessageModalProp {
   open: boolean;
   onClose: VoidFunction;
+  message: NotificationContentType;
 }
 
-const MessageModal: React.FC<MessageModalProp> = ({ open, onClose }) => {
+const MessageModal: React.FC<MessageModalProp> = ({ open, onClose, message }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
   return (
@@ -36,20 +39,20 @@ const MessageModal: React.FC<MessageModalProp> = ({ open, onClose }) => {
             <FiX size={26} />
           </div>
           <div className="scroll-wrap-y flex-1 px-[40px] pb-[40px] pt-[60px] ">
-            <h2 className="text-h3 text-center">New Version Released</h2>
+            <h2 className="text-h3 text-center">{message?.content}</h2>
             <div className="mt-[40px] flex flex-col gap-[40px]">
-              {Array.from({ length: 10 }).map((_, i) => (
+              {message?.description?.map((m, i) => (
                 <div key={i} className="flex w-full flex-col gap-[12px]">
-                  <p className="text-h3">Lorem ipsum</p>
-                  <p className="body-l">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tortor tellus, id
-                    interdum ipsum facilisis non. Aliquam mattis placerat lacus. Nulla porttitor faucibus pellentesque.
-                  </p>
-                  <div className="body-m relative flex w-fit items-center gap-[7px]">
+                  <p className="text-h3">{m?.title}</p>
+                  <p className="body-l">{m?.content}</p>
+                  <Link
+                    href={m?.link}
+                    className="body-m relative flex w-fit items-center gap-[7px] text-neutral-off-black"
+                  >
                     <span>{t('learnMore')}</span>
                     <HiArrowLongRight size={16}></HiArrowLongRight>
                     <div className="absolute bottom-0 left-0 h-[2px] w-full rounded-[2px] bg-yellow-dark"></div>
-                  </div>
+                  </Link>
                 </div>
               ))}
             </div>
