@@ -170,7 +170,7 @@ const GlossaryPage: React.FC<GlossaryPageProp> = ({ galossaryList, searchParams 
 
       {!searchParams.keyword && (
         <div
-          className={`sticky left-0 top-0 z-[10] w-full ${isSticky ? 'bg-neutral-off-white pb-[20px] shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}
+          className={`sticky left-0 top-0 z-[10] w-full bg-neutral-off-white pb-[20px] ${isSticky ? '  shadow-[0_0px_4px_0_rgba(0,0,0,0.25)]' : ''}`}
           ref={letterRef}
         >
           {letterData.length > 0 && (
