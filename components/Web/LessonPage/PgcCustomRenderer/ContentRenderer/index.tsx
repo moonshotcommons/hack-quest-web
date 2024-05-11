@@ -5,6 +5,7 @@ import { VscChevronDown } from 'react-icons/vsc';
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
+import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
 
 interface ContentRendererProps {
   component: CustomComponent;
@@ -16,6 +17,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   const [showAll, setShowAll] = useState(true);
   const { leftLength } = useContext(LessonPageContext);
   const { isPlayground } = useContext(PlaygroundContext);
+
   return (
     <OverrideRendererConfig codeRenderer={{ isPlayground: false }}>
       <div
@@ -24,23 +26,27 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
         } ${isPlayground ? 'flex flex-1 flex-col' : ''}`}
       >
         <div
-          className={`flex  items-center justify-between ${leftLength > 1 ? 'cursor-pointer' : ''}`}
+          className={`flex items-center justify-between ${leftLength > 1 ? 'cursor-pointer' : ''}`}
           onClick={() => {
             if (leftLength <= 1) return;
             BurialPoint.track('lesson-content展开');
             setShowAll(!showAll);
           }}
         >
-          {/* <span className="text-h4 mb-5">
-            {component.title || <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>}
-          </span> */}
+          <span className="text-h4">
+            {component.title && component.title.toLowerCase() !== 'content' ? (
+              component.title
+            ) : (
+              <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
+            )}
+          </span>
           {leftLength > 1 ? (
             <span className={`${showAll ? 'rotate-180' : 'rotate-0'} transition-transform duration-150 ease-in-out`}>
               <VscChevronDown size={24} />
             </span>
           ) : null}
         </div>
-        {showAll && component?.children?.map(childRenderCallback(component))}
+        {showAll && <div className="mt-4">{component?.children?.map(childRenderCallback(component))}</div>}
       </div>
     </OverrideRendererConfig>
   );

@@ -45,9 +45,20 @@ const Playground: FC<PlaygroundProps> = (props) => {
     }
   }, [lesson]);
 
+  const [exampleExpand, setExampleExpand] = useState(true);
+
   return (
-    <div className="flex h-full flex-col gap-[20px] overflow-hidden bg-lesson-code-bg p-5 pl-[0px]">
-      <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
+    <div className="flex h-full flex-col gap-[30px] overflow-hidden bg-neutral-white p-6 pl-[0px]">
+      <PlaygroundContext.Provider
+        value={{
+          lesson,
+          onCompleted,
+          isPreview,
+          isPlayground: true,
+          exampleExpand,
+          setExampleExpand
+        }}
+      >
         {!!components?.length &&
           components.map((component, index) => {
             const prevComponent = index === 0 ? null : components![index - 1];

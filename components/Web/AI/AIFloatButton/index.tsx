@@ -126,7 +126,7 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
 
       setPosition({
         ...position,
-        top: windowHeight - 188,
+        top: windowHeight - 388,
         left: windowWidth - 48
       });
       window.addEventListener('resize', resize);

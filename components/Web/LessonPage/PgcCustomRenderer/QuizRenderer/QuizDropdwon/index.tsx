@@ -13,7 +13,7 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
 
   return (
     <>
-      <div className="absolute left-0 top-[100%] z-50 w-full">
+      <div className="absolute left-0 top-[calc(100%+4px)] z-50 w-full rounded-[8px] border border-neutral-light-gray">
         {quiz.children.map((quizChild: any, index: number) => {
           return (
             <div
@@ -22,7 +22,7 @@ const QuizDropdown: FC<QuizDropdownProps> = (props) => {
                 (quizChild.isCompleted || quiz.children[index - 1]?.isCompleted) && onChange?.(index);
               }}
               className={cn(
-                `body-s flex cursor-pointer items-center gap-[20px] bg-neutral-white px-[20px] py-[8px]`,
+                `body-s flex cursor-pointer items-center gap-6 bg-neutral-white px-3 py-[8px]`,
                 index === quiz.children.length - 1 && 'rounded-b-lg',
                 currentQuizIndex === index && 'bg-neutral-off-white',
                 !quizChild.isCompleted && !quiz.children[index - 1]?.isCompleted

@@ -40,7 +40,7 @@ const AnswerInputTextarea = (props: {
       }
     : {
         backgroundColor: 'var(--lesson-code-input-bg)',
-        border: '1px solid var(--lesson-code-input-border)'
+        border: '0.5px solid #DADADA'
       };
   return (
     <textarea
@@ -51,13 +51,14 @@ const AnswerInputTextarea = (props: {
         outline: 'none',
         borderRadius: '3px',
         width: '100%',
-        height: '40px',
-        padding: '8px',
+        height: '25px',
+        lineHeight: '25px',
+        padding: '0px 8px',
         resize: 'none' /* 禁止用户手动调整大小 */,
         overflow: 'hidden' /* 隐藏溢出的内容 */,
         ...borderAndBg
       }}
-      className="code-l"
+      className="code-l answer-input"
       data-uuid={props.uuid}
       onInput={(e) => {
         const textarea = e.target as HTMLTextAreaElement;
@@ -106,8 +107,8 @@ const AnswerInput = (props: {
         outline: 'none',
         borderRadius: '3px',
         width: '110px',
-        height: '40px',
-        padding: '8px',
+        height: '25px',
+        padding: '0px 8px',
         ...borderAndBg
       }}
       onKeyDown={(e) => {

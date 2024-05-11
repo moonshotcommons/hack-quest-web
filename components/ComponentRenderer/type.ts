@@ -63,11 +63,13 @@ export interface QuizAType extends CustomComponent {
   sourceEditorCode: object;
   answerRegex: string[];
   lines: CodeLineType[];
+  hint?: CustomComponent;
 }
 
 export interface QuizBType extends CustomComponent {
   options: (NotionComponent & { type: NotionComponentType.BULLETED_LIST_ITEM })[];
   children: (NotionComponent & { content: { isGapFill: boolean }[] })[];
+  hint?: CustomComponent;
 }
 
 export interface CodeFileComponent extends CustomComponent {
