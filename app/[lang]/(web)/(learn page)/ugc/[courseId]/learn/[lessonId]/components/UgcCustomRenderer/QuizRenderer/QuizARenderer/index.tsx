@@ -32,6 +32,8 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
   const { getFooterBtnInfo } = useGetQuizsCompleted();
   const { waitingRenderCodes, answerState, answerStateDispatch } = useParseQuiz(quiz.lines);
 
+  const [showHint, setShowHint] = useState<boolean>(false);
+
   const dealInputValue = (show: boolean) => {
     const newAnswerState = JSON.parse(JSON.stringify(answerState));
     newAnswerState.map((line: AnswerState) => {
@@ -222,8 +224,22 @@ const QuizARenderer: FC<QuizARendererProps> = (props) => {
             </OverrideRendererConfig>
           </div>
         )}
+        {showHint && quiz.hint && (
+          <div className="mt-4">
+            <p className="body-l-bold mb-2">Hint:</p>
+            {quiz.hint.children.map(childRenderCallback(quiz.hint!))}
+          </div>
+        )}
       </div>
-      <QuizFooter showAnswer={showAnswer} setShowAnswer={setAnswers}></QuizFooter>
+      <QuizFooter
+        showAnswer={showAnswer}
+        setShowAnswer={setAnswers}
+        includeHint={!!quiz.hint}
+        showHint={showHint}
+        setShowHint={setShowHint}
+        isCompleted={!!quiz.isCompleted}
+        lessonId={lesson.id}
+      ></QuizFooter>
     </div>
   );
 };

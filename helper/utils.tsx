@@ -75,7 +75,7 @@ export const getLessonLink = (
 //   return `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}`;
 // };
 
-export const changeTextareaHeight = (target: HTMLTextAreaElement, minHeight = 40) => {
+export const changeTextareaHeight = (target: HTMLTextAreaElement, minHeight = 25) => {
   // 重置textarea的高度为默认值，以便可以正确计算其内容的高度
   target.style.height = `${minHeight}px`;
   // 获取textarea的内容高度，并加上padding和border的高度

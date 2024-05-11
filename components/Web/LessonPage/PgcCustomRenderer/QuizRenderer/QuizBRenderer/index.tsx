@@ -10,10 +10,10 @@ import { QuizContext } from '..';
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
-import { AnswerType, QuizOptionType } from './type';
 import { CustomType, NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
 import { OverrideRendererConfig, ComponentRenderer, childRenderCallback } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 interface QuizBRendererProps {
   parent: CustomType | NotionComponentType;
   quiz: QuizBType;
@@ -31,6 +31,9 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const mountAnswers = useRef(0);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
   const renderState = useRef(false);
+
+  const [showHint, setShowHint] = useState(false);
+
   const onDrop = (dropAnswer: AnswerType, replaceOption?: QuizOptionType | null) => {
     const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
     setAnswers(newAnswers);
@@ -61,6 +64,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         answerItem.status = 'error';
 
         wrongAnswers.push(answerItem);
+      } else {
+        answerItem.status = 'success';
       }
     }
 
@@ -117,6 +122,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         ) as QuizOptionType;
         if (findOption) {
           answerItem.option = findOption;
+          answerItem.status = 'success';
           mountOptionIds.push(findOption.id);
           setMountOptionIds(mountOptionIds);
         }
@@ -150,9 +156,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     };
   }, [quiz]);
 
-  const quizIndex = useMemo(() => {
-    return parentQuiz.children.findIndex((item: any) => item.id === quiz.id);
-  }, [quiz, parentQuiz]);
+  console.log(quiz);
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -232,6 +236,13 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
             />
           </div>
         )}
+
+        {showHint && quiz.hint && (
+          <div className="mt-4">
+            <p className="body-l-bold mb-2">Hint:</p>
+            {quiz.hint.children.map(childRenderCallback(quiz.hint!))}
+          </div>
+        )}
       </div>
       <QuizFooter
         showAnswer={showAnswer}
@@ -240,7 +251,12 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           if (isShow) BurialPoint.track('lesson-show answer次数');
           setShowAnswer(isShow);
         }}
+        lessonId={lesson.id}
+        includeHint={!!quiz.hint}
+        showHint={showHint}
+        setShowHint={setShowHint}
         onSubmit={onSubmit}
+        isCompleted={!!quiz.isCompleted}
       ></QuizFooter>
     </div>
   );

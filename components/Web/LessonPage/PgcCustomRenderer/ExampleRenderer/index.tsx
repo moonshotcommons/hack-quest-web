@@ -43,11 +43,16 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
 
   return (
     <div
-      className={`flex h-fit w-full flex-col rounded-[.625rem] bg-[#E6E6E6] px-[20px] py-[12px] ${expand ? 'min-h-[50%] flex-1' : ''}`}
+      className={`flex h-fit w-full flex-col rounded-[.625rem] bg-neutral-white px-0 py-0 ${expand ? 'min-h-[50%] flex-1' : ''}`}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-h4 relative inline-flex items-center">{component.title || 'Example'}</span>
-        <span onClick={() => setExpand(!expand)}>
+      <div className="flex items-center justify-between gap-6">
+        <span className="flex gap-2">
+          <span className="text-h4 relative inline-flex items-center">{component.title || 'Example'}</span>
+          <AITriggerButton triggerType={HelperType.ExplainExample} onlyIcon>
+            Explain
+          </AITriggerButton>
+        </span>
+        <span onClick={() => setExpand(!expand)} className="flex flex-1 justify-end">
           <FiChevronDown
             size={28}
             color=""
@@ -102,9 +107,6 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
               </div>
             </div>
           )}
-          <AITriggerButton triggerType={HelperType.ExplainExample} className="absolute bottom-[28px] right-[22px]">
-            Explain
-          </AITriggerButton>
         </div>
       )}
 

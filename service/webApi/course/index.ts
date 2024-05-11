@@ -212,6 +212,11 @@ class CourseApi {
   registerNtu() {
     return this.service.post(`${CourseApiType.NtuCourse}/register`);
   }
+
+  /** showAnswer 扣金币 */
+  showAnswerCostCoin(lessonId: string) {
+    return this.service.get(`/pages/${lessonId}/answer`);
+  }
 }
 
 export default CourseApi;

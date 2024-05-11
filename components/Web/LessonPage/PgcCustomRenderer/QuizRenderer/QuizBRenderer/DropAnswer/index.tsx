@@ -5,9 +5,10 @@ import { useDrop } from 'react-dnd';
 import { MdCancel } from 'react-icons/md';
 import { v4 as uuid } from 'uuid';
 import { QuizContext } from '../..';
-import { AnswerType, QuizOptionType } from '../type';
+
 import { cn } from '@/helper/utils';
 import { useQuizBRendererContext } from '@/components/ComponentRenderer';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 interface DropAnswerProps {
   answer: string;
 }
@@ -95,7 +96,10 @@ const DropAnswer: FC<DropAnswerProps> = (props) => {
       )}
       {!!currentAnswer?.option && !showAnswer && (
         <span
-          className="body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] text-neutral-black"
+          className={cn(
+            'body-s relative mx-[10px] my-1 inline-flex h-[34px] min-w-[110px] cursor-move rounded-[3px] border-[0.5px] border-neutral-medium-gray bg-[#FFF4CE] text-neutral-black',
+            currentAnswer.status === 'success' ? 'border-status-success-dark bg-status-success-light' : ''
+          )}
           onMouseEnter={() => setClearVisible(true)}
           onMouseLeave={() => setClearVisible(false)}
         >

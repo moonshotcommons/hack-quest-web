@@ -107,7 +107,13 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               key={index}
               className={cn(
                 'flex cursor-pointer items-center gap-[20px] rounded-[10px] border border-neutral-light-gray px-6 py-5 transition-all duration-200 hover:scale-[1.01]',
-                answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
+                answers.includes(item.index) ? 'bg-[#FFF4CE]' : '',
+                answers.includes(item.index) && answerState === AnswerState.Wrong
+                  ? 'border-status-error-dark bg-status-error-light'
+                  : '',
+                answers.includes(item.index) && answerState === AnswerState.Correct
+                  ? 'border-status-success-dark bg-status-success-light'
+                  : ''
               )}
               onClick={() => {
                 if (answerState !== AnswerState.Default) setAnswerState(AnswerState.Default);
@@ -122,7 +128,12 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
+              <div
+                className={cn(
+                  'flex-center flex h-8 w-8 rounded-[4px] border-[1px] border-neutral-light-gray',
+                  answers.includes(item.index) && answerState === AnswerState.Wrong ? 'border-status-error-dark' : ''
+                )}
+              >
                 {item.index}
               </div>
               <div className="flex-1 text-[16px]">

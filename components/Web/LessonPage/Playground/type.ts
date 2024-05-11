@@ -1,4 +1,4 @@
-import { LessonContent } from '@/components/ComponentRenderer/type';
+import { CustomType, LessonContent } from '@/components/ComponentRenderer/type';
 import { CourseLessonType } from '@/service/webApi/course/type';
 import { createContext } from 'react';
 
@@ -11,10 +11,14 @@ interface PlaygroundContextType {
   onCompleted: VoidFunction;
   isPreview: boolean;
   isPlayground: boolean;
+  registerComponent: { type: CustomType; expand: boolean }[];
+  addRegisterComponent: (component: { type: CustomType; expand: boolean }) => void;
 }
 export const PlaygroundContext = createContext<PlaygroundContextType>({
   lesson: {} as LessonType,
   onCompleted: () => {},
   isPreview: false,
-  isPlayground: false
+  isPlayground: false,
+  registerComponent: [],
+  addRegisterComponent: () => {}
 });

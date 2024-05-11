@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useMemo, useState } from 'react';
 import { LessonType, PlaygroundContext } from './type';
-import { CustomComponent, NotionComponent } from '@/components/ComponentRenderer/type';
+import { CustomComponent, CustomType, NotionComponent } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer, OverrideRendererConfig } from '@/components/ComponentRenderer';
 import useLessonExpand from '@/hooks/courses/useLessonExpand';
 import { ExpandDataType, PgcExpandDataType } from '@/components/ComponentRenderer/context';
@@ -45,9 +45,22 @@ const Playground: FC<PlaygroundProps> = (props) => {
     }
   }, [lesson]);
 
+  const [registerComponent, setRegisterComponent] = useState<{ type: CustomType; expand: boolean }[]>([]);
+
   return (
-    <div className="flex h-full flex-col gap-[20px] overflow-hidden bg-lesson-code-bg p-5 pl-[0px]">
-      <PlaygroundContext.Provider value={{ lesson, onCompleted, isPreview, isPlayground: true }}>
+    <div className="flex h-full flex-col gap-[30px] overflow-hidden bg-neutral-white p-6 pl-[0px]">
+      <PlaygroundContext.Provider
+        value={{
+          lesson,
+          onCompleted,
+          isPreview,
+          isPlayground: true,
+          registerComponent,
+          addRegisterComponent: (componentProp) => {
+            setRegisterComponent((prev) => [...prev, componentProp]);
+          }
+        }}
+      >
         {!!components?.length &&
           components.map((component, index) => {
             const prevComponent = index === 0 ? null : components![index - 1];

@@ -21,3 +21,8 @@ export enum TabType {
   CONCEPT = 'CONCEPT',
   TEASER = 'TEASER'
 }
+
+export enum LocalStorageKey {
+  ShowAICostCoinModal = 'showCostCoinModal',
+  ShowAnswerCostCoinModal = 'showAnswerCostCoinModal'
+}

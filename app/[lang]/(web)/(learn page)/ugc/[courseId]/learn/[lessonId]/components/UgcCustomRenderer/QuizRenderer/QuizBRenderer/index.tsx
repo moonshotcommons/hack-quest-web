@@ -9,7 +9,6 @@ import { QuizContext } from '..';
 
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
-import { AnswerType, QuizOptionType } from './type';
 
 import {
   FooterButtonStatus,
@@ -22,6 +21,7 @@ import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
 import { NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 
 interface QuizBRendererProps {
   parent: any;
@@ -41,6 +41,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   const initFooterBtn = useRef(true);
   const [mountOptionIds, setMountOptionIds] = useState<string[]>([]);
   const { getFooterBtnInfo } = useGetQuizsCompleted();
+
+  const [showHint, setShowHint] = useState(false);
 
   const onDrop = (dropAnswer: AnswerType, replaceOption?: QuizOptionType | null) => {
     const newAnswers = { ...answers, [dropAnswer.id]: dropAnswer };
@@ -270,6 +272,13 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
             ></ComponentRenderer>
           </div>
         )}
+
+        {showHint && quiz.hint && (
+          <div className="mt-4">
+            <p className="body-l-bold mb-2">Hint:</p>
+            {quiz.hint.children.map(childRenderCallback(quiz.hint!))}
+          </div>
+        )}
       </div>
       <QuizFooter
         showAnswer={showAnswer}
@@ -278,6 +287,11 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           if (isShow) BurialPoint.track('lesson-show answer次数');
           setShowAnswer(isShow);
         }}
+        lessonId={lesson.id}
+        includeHint={!!quiz.hint}
+        showHint={showHint}
+        setShowHint={setShowHint}
+        isCompleted={!!quiz.isCompleted}
       ></QuizFooter>
     </div>
   );
