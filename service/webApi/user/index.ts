@@ -12,7 +12,8 @@ import {
   GithubActivityType,
   UserHackathonType,
   UserLearnedCountType,
-  ConnectType
+  ConnectType,
+  NotificationType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
@@ -44,7 +45,8 @@ export enum UserApiType {
   GetTwitterAuthLink = '/auth/twitter',
   TwitterVerify = '/auth/twitter/callback',
   CheckDiscordJoin = '/auth/discord/check-join',
-  CheckTwitterFollow = '/auth/twitter/check-follow'
+  CheckTwitterFollow = '/auth/twitter/check-follow',
+  Notifications = '/notifications'
 }
 
 class UserApi {
@@ -325,6 +327,23 @@ class UserApi {
 
   checkTwitterFollow() {
     return this.service.get<{ isFollow: boolean }>(UserApiType.CheckTwitterFollow);
+  }
+
+  /** 获取所有nitification */
+  getNotifications(params: object) {
+    return this.service.get<{ total: number; data: NotificationType[] }>(UserApiType.Notifications, {
+      params
+    });
+  }
+
+  notificationReadById(id: string) {
+    return this.service.get(`${UserApiType.Notifications}/${id}/read`);
+  }
+  notificationReadAll() {
+    return this.service.get(`${UserApiType.Notifications}/read-all`);
+  }
+  notificationDeteleById(id: string) {
+    return this.service.delete(`${UserApiType.Notifications}/${id}`);
   }
 }
 
