@@ -96,8 +96,8 @@ const LearningTrackStatusButton: FC<LearningTrackStatusButtonProps> = ({
             if (learningTrackDetail && learningCourse) {
               jumpLearningLesson(learningCourse, {
                 menu: Menu.LEARNING_TRACK,
-                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
-                ids: [learningTrackDetail.id, learningCourse.id]
+                idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+                ids: [learningTrackDetail.id, learningCourse.id, learningCourse.documentationId!]
               });
             }
           }}

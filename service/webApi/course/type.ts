@@ -146,6 +146,7 @@ export interface CourseBaseType {
   totalPages: number;
   certificationId?: string;
   creator?: CreatorType;
+  documentationId: string | null;
 }
 
 /** Project类型的课程 */
@@ -226,6 +227,15 @@ export interface SuggestCommitParams {
   link: string;
 }
 
+export interface Documentation {
+  id: string;
+  title: string;
+  content: Record<string, any>[];
+  parentId?: string;
+  createdAt: string;
+  updatedAt: string;
+  children?: Documentation[];
+}
 export interface NtuRegisterInfo {
   id: string;
   email: string;

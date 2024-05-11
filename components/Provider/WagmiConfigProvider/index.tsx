@@ -11,7 +11,13 @@ interface WagmiConfigProviderProps {
   children: ReactNode;
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+});
 
 export const ChainConfigContext = createContext({
   updateInitialChainId: (chainId: number) => {}

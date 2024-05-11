@@ -51,7 +51,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
       </div>
       {isHandleNext && (
         <div
-          className=" fixed bottom-0 right-10 flex items-center"
+          className="fixed bottom-0 right-10 flex items-center"
           style={{
             height: isHandleNext ? '80px' : '30px'
           }}

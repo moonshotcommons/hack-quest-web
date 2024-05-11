@@ -49,6 +49,7 @@ export const getCoursePrefixByCourseType = (courseType?: CourseType) => {
 export const getLessonLink = (
   courseType: CourseType,
   courseName: string | undefined,
+  documentationId: string,
   lessonId: string,
   menuCourseId: string,
   linkParam?: JumpLeaningLessonType
@@ -56,8 +57,8 @@ export const getLessonLink = (
   if (!courseType || !courseName || !lessonId) return '/404';
   const lParam = linkParam || {
     menu: Menu.ELECTIVES,
-    idTypes: [QueryIdType.MENU_COURSE_ID],
-    ids: [menuCourseId]
+    idTypes: [QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+    ids: [menuCourseId, documentationId]
   };
   let link = `${getCourseLink(courseType)}/${courseName}/learn/${lessonId}?menu=${lParam.menu}`;
   lParam.idTypes.map((v: string, i: number) => {

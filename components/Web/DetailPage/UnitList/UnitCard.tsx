@@ -149,14 +149,16 @@ const UnitCard: FC<UnitCardProps> = (props) => {
               let link = `${getLessonLink(
                 courseType as CourseType,
                 courseDetail?.title as string,
+                courseDetail?.documentationId as string,
                 lessonId,
                 courseDetail?.id as string,
                 {
                   menu: query.get('menu') as string,
-                  idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID],
+                  idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
                   ids: [
                     query.get(QueryIdType.LEARNING_TRACK_ID) || '',
-                    query.get(QueryIdType.MENU_COURSE_ID) || ''
+                    query.get(QueryIdType.MENU_COURSE_ID) || '',
+                    query.get(QueryIdType.DOCUMENTATION_ID) || ''
                   ] as string[]
                 }
               )}`;
