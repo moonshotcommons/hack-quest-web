@@ -16,6 +16,9 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 import VideoModal from './VideoModal';
+import { useUserStore } from '@/store/zustand/userStore';
+import { isMobile } from 'react-device-detect';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface OverviewProp {}
 
@@ -23,6 +26,12 @@ const Overview: React.FC<OverviewProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
   const ref = useRef<{ open: VoidFunction }>(null);
+  const [open, setOpen] = useState(false);
+
+  const userInfo = useUserStore((state) => state.userInfo);
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
+
   const query = useSearchParams();
   const pathname = usePathname();
   const isRegisterQuery = query.get('isRegister');
@@ -43,7 +52,6 @@ const Overview: React.FC<OverviewProp> = () => {
     }
   }, []);
 
-  const [open, setOpen] = useState(false);
   return (
     <div className="flex gap-[40px]">
       <div className="relative h-[498px] w-[498px] flex-shrink-0">
@@ -92,12 +100,22 @@ const Overview: React.FC<OverviewProp> = () => {
           </div>
         </div>
         <div className="w-full pt-[20px]">
-          <Link href={overviewData.registerLink} target="_blank">
+          <Link href={!userInfo ? 'javascript: void(0)' : overviewData.registerLink} target={userInfo ? '_blank' : ''}>
             <Button
               type="primary"
               className="button-text-l h-[60px] w-full uppercase text-neutral-off-black"
               disabled={loading || data?.isRegister}
               loading={loading}
+              onClick={(e) => {
+                if (isMobile) {
+                  setTipsModalOpenState(true);
+                  return;
+                }
+                if (!userInfo) {
+                  e.stopPropagation();
+                  setAuthModalOpen(true);
+                }
+              }}
             >
               {data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
             </Button>

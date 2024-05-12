@@ -25,12 +25,11 @@ import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM } from '@/constants/links';
 
 export const titleTxtData = [
   'ntuCourse.title.overview',
-  'ntuCourse.title.classTime',
+  'ntuCourse.title.courseDescription',
   'ntuCourse.title.enrollment',
   'ntuCourse.title.syllabus',
   'ntuCourse.title.meetTheGuestSpeakers',
-  'ntuCourse.title.meetTheSponsors',
-  'ntuCourse.title.courseDescription'
+  'ntuCourse.title.meetTheSponsors'
 ];
 
 export const overviewData = {
@@ -54,7 +53,7 @@ export const overviewData = {
     //   link: ''
     // }
   ],
-  registerLink: '/form/ntu-course/register'
+  registerLink: '/form/web3mooc/register'
 };
 
 export const classTimeData = {

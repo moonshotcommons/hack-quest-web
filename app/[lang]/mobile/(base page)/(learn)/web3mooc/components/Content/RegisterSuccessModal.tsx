@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { HACKQUEST_DISCORD } from '@/constants/links';

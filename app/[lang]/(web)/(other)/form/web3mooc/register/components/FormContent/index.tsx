@@ -114,7 +114,7 @@ const FormContent: FC<FormContentProps> = () => {
     () => {
       const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
 
-      return webApi.resourceStationApi.updateHackathonRegisterInfo('', {
+      return webApi.courseApi.updateNtuRegisterInfo({
         firstName: formState.name.firstName,
         lastName: formState.name.lastName,
         bio: formState.bio,
@@ -127,7 +127,7 @@ const FormContent: FC<FormContentProps> = () => {
     {
       manual: true,
       onSuccess() {
-        redirectToUrl(`/ntu-course`);
+        redirectToUrl(`/web3mooc`);
       },
       onError(err) {
         errorMessage(err);
