@@ -14,6 +14,7 @@ import { ComponentRenderer } from '@/components/ComponentRenderer';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import AITriggerButton from '@/components/Web/AI/AITriggerButton';
 import { HelperType } from '@/service/webApi/helper/type';
+import Button from '@/components/Common/Button';
 
 interface QuizRendererProps {
   quiz: QuizType;
@@ -228,7 +229,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   return (
     <>
-      {
+      {start && (
         <div
           className={cn(
             `flex  w-full flex-col rounded-[.625rem] bg-neutral-white pb-[20px]`,
@@ -256,22 +257,25 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             </QuizContext.Provider>
           )}
         </div>
-      }
-      {/* {!start && (
+      )}
+      {!start && (
         <div className="inline-flex h-fit w-full items-center justify-between rounded-[.625rem]  py-[8px]">
           <h1 className="text-h4">Quest</h1>
           <Button
             type="primary"
-            className="button-text-s px-[40px] py-[8px] uppercase text-neutral-black"
+            className="button-text-s px-[40px] py-3 uppercase text-neutral-black"
             onClick={() => {
               BurialPoint.track('lesson-start quiz按钮点击');
+              if (!start) {
+                setExampleExpand(false);
+              }
               setStart(true);
             }}
           >
             Start Quest
           </Button>
         </div>
-      )} */}
+      )}
       <QuizPassModal open={passOpen} onClose={() => setPassOpen(true)}></QuizPassModal>
     </>
   );

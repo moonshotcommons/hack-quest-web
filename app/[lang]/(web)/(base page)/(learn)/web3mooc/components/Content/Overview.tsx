@@ -26,6 +26,7 @@ const Overview: React.FC<OverviewProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
   const ref = useRef<{ open: VoidFunction }>(null);
+  const [open, setOpen] = useState(false);
 
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
@@ -51,7 +52,6 @@ const Overview: React.FC<OverviewProp> = () => {
     }
   }, []);
 
-  const [open, setOpen] = useState(false);
   return (
     <div className="flex gap-[40px]">
       <div className="relative h-[498px] w-[498px] flex-shrink-0">
