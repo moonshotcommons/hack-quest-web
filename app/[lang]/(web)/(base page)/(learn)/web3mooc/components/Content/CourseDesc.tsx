@@ -13,7 +13,7 @@ const CourseDesc: React.FC<CourseDescProp> = () => {
   return (
     <div>
       <div className="mb-[32px]">
-        <Title title={t(titleTxtData[6])} />
+        <Title title={t(titleTxtData[1])} />
       </div>
       <div className="body-m flex flex-col gap-[20px] text-neutral-rich-gray">
         <p className="">{t('ntuCourse.courseDescription.text1')}</p>
