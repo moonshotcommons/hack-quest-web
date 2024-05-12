@@ -14,6 +14,7 @@ import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import { Metadata } from 'next';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
+import { ViewButton } from '@/components/Web/Documentation/view-button';
 
 interface ElectiveDetailPageProps {
   params: {
@@ -69,7 +70,7 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
             {t('electivesDetail.tag')}
           </Tags>
           <h1 className="text-h1-mob my-6">{courseDetail.title}</h1>
-          {/* <div className="body-xs flex items-center gap-2">
+          {/* <div className="flex items-center gap-2 body-xs">
             <span>Certified by</span>
             <span>Mantle</span>
           </div> */}
@@ -111,12 +112,12 @@ const ElectiveDetailPage: FC<ElectiveDetailPageProps> = async (props) => {
   function Syllabus() {
     return (
       <div className="flex flex-col gap-8">
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex h-fit items-center gap-2">
             <div className="h-[22px] w-[5px] rounded-full bg-yellow-dark"></div>
             <h2 className="text-h3-mob text-neutral-black">{t('courses.syllabus')}</h2>
           </div>
-          {/* <ExpandAllButton /> */}
+          {courseDetail.documentationId && <ViewButton placement="center" id={courseDetail.documentationId} />}
         </div>
         <ElectiveCatalogue courseDetail={courseDetail} />
       </div>

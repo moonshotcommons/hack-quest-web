@@ -13,7 +13,8 @@ export const getHackathonById = cache(function (id: string): Promise<HackathonTy
 });
 
 export const getHackathonProjectById = cache(function (projectId: string): Promise<ProjectType> {
-  return webApi.resourceStationApi.getProjectsDetail(projectId);
+  const token = cookies().get('token')?.value || '';
+  return webApi.resourceStationApi.getProjectsDetail(projectId, token as string);
 });
 
 export const getFeaturedProjects = async function (): Promise<ProjectType[]> {

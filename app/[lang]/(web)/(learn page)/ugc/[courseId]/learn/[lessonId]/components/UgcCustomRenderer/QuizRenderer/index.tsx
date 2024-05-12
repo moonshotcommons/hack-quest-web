@@ -15,6 +15,8 @@ import {
 import { CustomComponent, QuizType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer } from '@/components/ComponentRenderer';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
+import AITriggerButton from '@/components/Web/AI/AITriggerButton';
+import { HelperType } from '@/service/webApi/helper/type';
 
 interface QuizRendererProps {
   quiz: QuizType;
@@ -126,28 +128,34 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   if (!quiz) return null;
 
   const QuizHeader = (
-    <div className={`flex h-fit w-full items-center justify-between`}>
+    <div className={`flex h-fit w-full items-center justify-between px-1`}>
       <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
-        <div
-          ref={containerRef as any}
-          className={`box-content inline-flex min-h-fit cursor-pointer gap-2 px-[20px] ${
-            quizDropdownVisible ? ' border-neutral-medium-gray' : ''
-          }`}
-          onClick={() => {
-            BurialPoint.track('lesson-quiz dropdown点击');
-            setQuizDropdownVisible(!quizDropdownVisible);
-          }}
-        >
-          <span>{`${'Quiz'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
-          {/* <span>{`${quiz.title ? quiz.title : 'Quest'} ${
+        <div className=" flex items-center">
+          <div
+            ref={containerRef as any}
+            className={`box-content inline-flex min-h-fit cursor-pointer gap-2 px-[0px] ${
+              quizDropdownVisible ? ' border-neutral-medium-gray' : ''
+            }`}
+            onClick={() => {
+              BurialPoint.track('lesson-quiz dropdown点击');
+              setQuizDropdownVisible(!quizDropdownVisible);
+            }}
+          >
+            <span>{`${'Quiz'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
+            {/* <span>{`${quiz.title ? quiz.title : 'Quest'} ${
             currentQuizIndex + 1
           }/${quiz.children.length}`}</span> */}
 
-          <span className={`text-neutral-medium-gray ${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
-            <MdArrowDropDown size={28} color=""></MdArrowDropDown>
-          </span>
+            <span
+              className={`text-neutral-medium-gray ${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}
+            >
+              <MdArrowDropDown size={24} color=""></MdArrowDropDown>
+            </span>
+          </div>
+          <AITriggerButton triggerType={HelperType.ExplainQuiz} onlyIcon>
+            Explain quiz
+          </AITriggerButton>
         </div>
-
         {quizDropdownVisible ? (
           <QuizDropdown
             quiz={quiz}
@@ -167,14 +175,20 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       >
         {QuizHeader}
         <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
-          <div className={`h-full overflow-hidden px-[20px]`}>
-            <ComponentRenderer
-              parent={quiz}
-              component={quiz.children[currentQuizIndex]}
-              position={0}
-              prevComponent={null}
-              nextComponent={null}
-            ></ComponentRenderer>
+          <div className={`h-full overflow-hidden px-1`}>
+            {quiz.children.map((item, index) => {
+              if (currentQuizIndex !== index) return null;
+              return (
+                <ComponentRenderer
+                  parent={quiz}
+                  key={item.id}
+                  component={item}
+                  prevComponent={null}
+                  nextComponent={null}
+                  position={0}
+                ></ComponentRenderer>
+              );
+            })}
           </div>
         </QuizContext.Provider>
       </div>

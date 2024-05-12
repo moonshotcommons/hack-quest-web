@@ -9,8 +9,6 @@ import { ComponentRenderer, OverrideRendererConfig } from '@/components/Componen
 import { CustomComponent, LessonContent, NotionComponent } from '@/components/ComponentRenderer/type';
 
 import { ExpandDataType, PgcExpandDataType } from '@/components/ComponentRenderer/context';
-import AITriggerButton from '@/components/Web/AI/AITriggerButton';
-import { HelperType } from '@/service/webApi/helper/type';
 
 interface LessonContentProps {
   lesson: Omit<CourseLessonType, 'content'> & { content: LessonContent };
@@ -65,9 +63,8 @@ const LessonContentComponent: FC<LessonContentProps> = (props) => {
         <LessonNavbar />
       </Suspense>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <LessonEvents isPreview={isPreview} lesson={lesson as any} courseType={courseType} />
-        <AITriggerButton triggerType={HelperType.SummarizeContent}>Summarize</AITriggerButton>
       </div>
 
       {!!components?.length && (

@@ -3,6 +3,8 @@ import { FC } from 'react';
 import { ElectiveCourseDetailType } from '@/service/webApi/elective/type';
 import TagsAndProgress from './TagsAndProgress';
 import { CourseStatusButton } from '@/components/Web/DetailPageV2/StatusButton';
+import { ViewButton } from '@/components/Web/Documentation/view-button';
+
 interface ElectiveDetailCardCardProps {
   courseDetail: ElectiveCourseDetailType;
 }
@@ -18,6 +20,8 @@ const ElectiveDetailCardCard: FC<ElectiveDetailCardCardProps> = ({ courseDetail 
         <div className="flex flex-col gap-4">
           <TagsAndProgress courseDetail={courseDetail} />
         </div>
+        <div className="h-px w-full bg-neutral-light-gray" />
+        {courseDetail.documentationId && <ViewButton placement="center" id={courseDetail.documentationId} />}
         <CourseStatusButton courseDetail={courseDetail} />
       </div>
     </div>

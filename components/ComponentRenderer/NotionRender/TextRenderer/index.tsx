@@ -1,12 +1,18 @@
-// import DropAnswer from '@/components/Web/Business/Renderer/ComponentRenderer/QuizRenderer/QuizBRenderer/DropAnswer';
 import { cn } from '@/helper/utils';
 import { FC, useEffect, useRef } from 'react';
 import MathJax from 'react-mathjax';
 import { useQuizBRendererContext } from '../..';
+import { DocumentationHighlight } from '@/components/Web/Documentation/documentation-highlight';
+import { GlossaryHighlight } from '@/components/Web/Documentation/glossary-highlight';
 
 interface TextRendererProps {
   richTextArr: any;
   letterSpacing?: string;
+}
+
+enum LinkType {
+  DOCUMENTATION = 'documentation',
+  GLOSSARY = 'glossary'
 }
 
 export type AnnotationType = {
@@ -59,6 +65,16 @@ const TextRenderer: FC<TextRendererProps> = (props) => {
             ></DropAnswerComponent>
           );
         }
+        // documentation
+        if (richText.linkType === LinkType.DOCUMENTATION) {
+          return <DocumentationHighlight linkId={richText.link} key={index} text={richText.plain_text} />;
+        }
+
+        // glossary
+        if (richText.linkType === LinkType.GLOSSARY) {
+          return <GlossaryHighlight linkId={richText.link} key={index} text={richText.plain_text} />;
+        }
+
         //处理blog中 居中的text
         if (richText.plain_text.indexOf('<<image>>') === 0) {
           const plain_text = richText.plain_text.replace(/<<image>>/, '');

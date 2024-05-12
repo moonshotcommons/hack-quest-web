@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import { CourseDetailType } from '@/service/webApi/course/type';
-
 import { getCoverImageByTrack } from '@/helper/utils';
 import TagsAndProgress from './TagsAndProgress';
 import { CourseStatusButton } from '@/components/Web/DetailPageV2/StatusButton';
+import { ViewButton } from '@/components/Web/Documentation/view-button';
+
 interface CourseMarketDetailCardProps {
   courseDetail: CourseDetailType;
 }
@@ -21,6 +22,8 @@ const CourseMarketDetailCard: FC<CourseMarketDetailCardProps> = ({ courseDetail 
         <div className="flex flex-col gap-4">
           <TagsAndProgress courseDetail={courseDetail} />
         </div>
+        <div className="h-px w-full bg-neutral-light-gray" />
+        {courseDetail.documentationId && <ViewButton placement="center" id={courseDetail.documentationId} />}
         <CourseStatusButton courseDetail={courseDetail} />
       </div>
     </div>

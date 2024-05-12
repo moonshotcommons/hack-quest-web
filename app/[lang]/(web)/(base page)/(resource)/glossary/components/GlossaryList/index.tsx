@@ -34,7 +34,7 @@ const GlossaryList: React.FC<GlossaryListProp> = ({ list, setOffsetTop }) => {
     getOffsetTops();
   }, [list]);
   return (
-    <div className="mt-[-20px] flex flex-col" ref={boxRef}>
+    <div className="mt-[-40px] flex flex-col" ref={boxRef}>
       {list.map((item) => (
         <div key={item.letter} className="pt-[80px]" id={`glossary-${item.letter}`}>
           <div className="text-h2 mb-[40px] border-b border-b-neutral-medium-gray pb-[16px] text-neutral-off-black">

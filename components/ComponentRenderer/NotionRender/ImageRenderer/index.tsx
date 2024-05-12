@@ -76,8 +76,6 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
       )}
     </div>
   );
-
-  return <></>;
 };
 
 export default ImageRenderer;

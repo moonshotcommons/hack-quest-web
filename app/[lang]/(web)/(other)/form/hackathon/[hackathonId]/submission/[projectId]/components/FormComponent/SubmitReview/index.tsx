@@ -167,14 +167,14 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           <div className="flex flex-col  gap-6 text-left">
             <div
               className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
-              onClick={() => gotoStep(3)}
+              onClick={() => gotoStep(1)}
             >
               <div className="flex flex-1 items-center">
                 <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
-                {formState.projectDemo && (
+                {formState.pitchVideo && (
                   <Image
                     src={'/images/icons/video_icon.png'}
-                    alt="demo video"
+                    alt="pitch video"
                     width={48}
                     height={48}
                     className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
@@ -185,10 +185,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             </div>
             <div
               className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
-              onClick={() => gotoStep(3)}
+              onClick={() => gotoStep(2)}
             >
               <div className="flex flex-1 items-center">
-                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
+                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Project Demo</span>
                 {formState.projectDemo && (
                   <Image
                     src={'/images/icons/video_icon.png'}
@@ -204,7 +204,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             <div className="flex h-[100px]  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
               <div
                 className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
-                onClick={() => gotoStep(0)}
+                onClick={() => gotoStep(3)}
               >
                 <span>Other Info</span>
                 {arrowIcon}

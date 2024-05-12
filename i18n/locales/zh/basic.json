@@ -97,7 +97,9 @@
       "events": "事件",
       "eventsDesc": "了解Web 3事件",
       "partners": "合作伙伴",
-      "partnersDesc": "成为我们的合作伙伴"
+      "partnersDesc": "成为我们的合作伙伴",
+      "faucets":"水龙头",
+      "faucetsDesc":"水龙头描述"
     },
     "launch": {
       "title": "发射台"
@@ -173,5 +175,10 @@
   "register": "注册",
   "continueRegister": "继续注册",
   "youHavesubmitted": "你已经提交",
-  "yes": "好"
+  "yes": "好",
+  "notificationModal":{
+    "title":"Notifications",
+    "markAll":"Mark all as read",
+    "readFullMessage":"Read full message"
+  }
 }

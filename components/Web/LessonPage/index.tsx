@@ -139,7 +139,7 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     container.appendChild(content1);
                     container.appendChild(content2);
                     gutter.appendChild(container);
-                    gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-neutral-off-white shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
+                    gutter.className = `gutter gutter-${direction} flex flex-col justify-center items-center bg-neutral-white shadow-[-2px_0px_4px_0px_rgba(0,0,0,0.10)] w-[20px!important]`;
                     return gutter;
                   }}
                 >

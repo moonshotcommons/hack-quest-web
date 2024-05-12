@@ -4,8 +4,8 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { MdCancel } from 'react-icons/md';
 import { v4 as uuid } from 'uuid';
-import { AnswerType, QuizOptionType } from '../type';
 import { useQuizBRendererContext } from '@/components/ComponentRenderer';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 
 interface DropAnswerProps {
   answer: string;

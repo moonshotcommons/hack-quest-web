@@ -1,4 +1,3 @@
-import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
@@ -15,6 +14,7 @@ import { ComponentRenderer } from '@/components/ComponentRenderer';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import AITriggerButton from '@/components/Web/AI/AITriggerButton';
 import { HelperType } from '@/service/webApi/helper/type';
+import Button from '@/components/Common/Button';
 
 interface QuizRendererProps {
   quiz: QuizType;
@@ -33,11 +33,11 @@ export const QuizContext = createContext<{
 
 const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const { quiz: propsQuiz, parent } = props;
+  const { onCompleted, lesson, setExampleExpand } = useContext(PlaygroundContext);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [quizDropdownVisible, setQuizDropdownVisible] = useState(false);
   const [start, setStart] = useState(parent.right.length <= 1);
   const [passOpen, setPassOpen] = useState(false);
-  const { onCompleted, lesson } = useContext(PlaygroundContext);
   const { updateQuizNum } = useUpdateHelperParams();
 
   const containerRef = useRef(null);
@@ -122,28 +122,38 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   }, [currentQuizIndex]);
 
   const QuizHeader = (
-    <div className={`flex h-fit w-full items-center justify-between`}>
-      <div className="flex items-center gap-4">
+    <div className={`flex h-fit w-full  items-center justify-between`}>
+      <div className="flex w-fit gap-2">
         <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
-          <div className="flex items-center gap-0">
+          <div className=" flex items-center">
             <div
               ref={containerRef as any}
-              className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
-                quizDropdownVisible ? ' border-neutral-medium-gray' : ''
-              }`}
+              className={cn(
+                'box-content inline-flex min-h-fit cursor-pointer gap-2 px-[0px]',
+                quizDropdownVisible ? ' border-neutral-medium-gray' : '',
+                !start ? '!cursor-not-allowed' : ''
+              )}
               onClick={() => {
                 BurialPoint.track('lesson-quiz dropdown点击');
+                if (!start) return;
                 setQuizDropdownVisible(!quizDropdownVisible);
               }}
             >
-              <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
+              <span>{`${'Quiz'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
+              {/* <span>{`${quiz.title ? quiz.title : 'Quest'} ${
+            currentQuizIndex + 1
+          }/${quiz.children.length}`}</span> */}
 
-              <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
-                <MdArrowDropDown size={28} color=""></MdArrowDropDown>
+              <span
+                className={`text-neutral-medium-gray ${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}
+              >
+                <MdArrowDropDown size={24} color=""></MdArrowDropDown>
               </span>
             </div>
+            <AITriggerButton triggerType={HelperType.ExplainQuiz} onlyIcon>
+              Explain quiz
+            </AITriggerButton>
           </div>
-
           {quizDropdownVisible ? (
             <QuizDropdown
               quiz={quiz}
@@ -154,13 +164,15 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
             ></QuizDropdown>
           ) : null}
         </div>
-        <AITriggerButton triggerType={HelperType.ExplainQuiz}>Explain Quiz</AITriggerButton>
       </div>
       <div
-        className={`p-[20px]`}
+        className={cn(`flex flex-1 justify-end py-[0px]`, !start ? 'rotate-180 justify-start' : '')}
         onClick={() => {
           BurialPoint.track('lesson-quiz 收起');
-          setStart(false);
+          if (!start) {
+            setExampleExpand(false);
+          }
+          setStart(!start);
         }}
       >
         <FiChevronDown size={28} color="" className={`rotate-180 cursor-pointer`}></FiChevronDown>
@@ -168,42 +180,95 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
     </div>
   );
 
+  // const QuizHeader = (
+  //   <div className={`flex h-fit w-full items-center justify-between`}>
+  //     <div className="flex items-center gap-4">
+  //       <div className={`text-h4 relative inline-flex items-center ${quizDropdownVisible && 'shadow-2xl'}`}>
+  //         <div className="flex items-center gap-0">
+  //           <div
+  //             ref={containerRef as any}
+  //             className={`box-content inline-flex min-h-fit cursor-pointer gap-2 border-b-2 p-[20px] ${
+  //               quizDropdownVisible ? ' border-neutral-medium-gray' : ''
+  //             }`}
+  //             onClick={() => {
+  //               BurialPoint.track('lesson-quiz dropdown点击');
+  //               setQuizDropdownVisible(!quizDropdownVisible);
+  //             }}
+  //           >
+  //             <span>{`${quiz.title ? quiz.title : 'Quest'} ${currentQuizIndex + 1}/${quiz.children.length}`}</span>
+
+  //             <span className={`${quizDropdownVisible ? 'rotate-180' : ''} transition-transform`}>
+  //               <MdArrowDropDown size={28} color=""></MdArrowDropDown>
+  //             </span>
+  //           </div>
+  //         </div>
+
+  //         {quizDropdownVisible ? (
+  //           <QuizDropdown
+  //             quiz={quiz}
+  //             onChange={(index) => {
+  //               setCurrentQuizIndex(index);
+  //             }}
+  //             currentQuizIndex={currentQuizIndex}
+  //           ></QuizDropdown>
+  //         ) : null}
+  //       </div>
+  //       <AITriggerButton triggerType={HelperType.ExplainQuiz}>Explain Quiz</AITriggerButton>
+  //     </div>
+  //     <div
+  //       className={`p-[20px]`}
+  //       onClick={() => {
+  //         BurialPoint.track('lesson-quiz 收起');
+  //         setStart(false);
+  //       }}
+  //     >
+  //       <FiChevronDown size={28} color="" className={`rotate-180 cursor-pointer`}></FiChevronDown>
+  //     </div>
+  //   </div>
+  // );
+
   return (
     <>
       {start && (
         <div
           className={cn(
-            `flex min-h-[calc(50%-20px)] w-full flex-1 flex-col overflow-hidden rounded-[.625rem] bg-[#E6E6E6] pb-[20px]`
+            `flex  w-full flex-col rounded-[.625rem] bg-neutral-white pb-[20px]`,
+            start ? 'min-h-[calc(50%-20px)] flex-1' : 'min-h-fit'
           )}
         >
           {QuizHeader}
-          <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
-            <div className={`h-full overflow-hidden px-[20px]`}>
-              {quiz.children.map((item, index) => {
-                if (currentQuizIndex !== index) return null;
-                return (
-                  <ComponentRenderer
-                    parent={quiz}
-                    key={item.id}
-                    component={item}
-                    prevComponent={null}
-                    nextComponent={null}
-                    position={0}
-                  ></ComponentRenderer>
-                );
-              })}
-            </div>
-          </QuizContext.Provider>
+          {start && (
+            <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
+              <div className={`h-full overflow-hidden px-[0px]`}>
+                {quiz.children.map((item, index) => {
+                  if (currentQuizIndex !== index) return null;
+                  return (
+                    <ComponentRenderer
+                      parent={quiz}
+                      key={item.id}
+                      component={item}
+                      prevComponent={null}
+                      nextComponent={null}
+                      position={0}
+                    ></ComponentRenderer>
+                  );
+                })}
+              </div>
+            </QuizContext.Provider>
+          )}
         </div>
       )}
       {!start && (
-        <div className="inline-flex h-fit w-full items-center justify-between rounded-[.625rem]  bg-[#E6E6E6] px-[20px] py-[8px]">
+        <div className="inline-flex h-fit w-full items-center justify-between rounded-[.625rem]  py-[8px]">
           <h1 className="text-h4">Quest</h1>
           <Button
             type="primary"
-            className="button-text-s px-[40px] py-[8px] uppercase text-neutral-black"
+            className="button-text-s px-[40px] py-3 uppercase text-neutral-black"
             onClick={() => {
               BurialPoint.track('lesson-start quiz按钮点击');
+              if (!start) {
+                setExampleExpand(false);
+              }
               setStart(true);
             }}
           >

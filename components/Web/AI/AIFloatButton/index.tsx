@@ -97,6 +97,28 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
     [position, optionOpen, aiModalOpen]
   );
 
+  const resize = () => {
+    const windowWidth = document.body.clientWidth;
+    const windowHeight = document.body.clientHeight;
+    const maxTop = windowHeight - 48 - 8;
+    const minTop = 64;
+    const minLeft = 0;
+    const maxLeft = windowWidth - 48;
+    let { left = windowWidth - 48, top = windowHeight - 188 } = ref.current?.getBoundingClientRect() || {};
+    if (top >= maxTop) top = maxTop;
+    if (top <= minTop) top = minTop;
+    if (left >= maxLeft) left = maxLeft;
+    if (left <= minLeft) left = minLeft;
+    left = maxLeft - left < left ? maxLeft : minLeft;
+    // top = maxTop - top < top ? maxTop : minTop;
+    console.log(left);
+    setPosition({
+      ...position,
+      left,
+      top
+    });
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const windowWidth = document.body.clientWidth;
@@ -104,9 +126,12 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
 
       setPosition({
         ...position,
-        top: windowHeight - 188,
+        top: windowHeight - 388,
         left: windowWidth - 48
       });
+      window.addEventListener('resize', resize);
+
+      return () => window.removeEventListener('resize', resize);
     }
   }, []);
 

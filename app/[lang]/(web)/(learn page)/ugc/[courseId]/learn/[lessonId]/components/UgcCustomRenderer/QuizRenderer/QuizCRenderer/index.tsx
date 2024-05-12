@@ -13,6 +13,7 @@ import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
 import { childRenderCallback } from '@/components/ComponentRenderer';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
+import QuizFooter from '../QuizFooter';
 interface QuizCRendererProps {
   parent: any;
   quiz: any;
@@ -28,10 +29,13 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
   const { quiz, parent } = props;
   const [answers, setAnswers] = useState<number[]>([]);
   const { onPass } = useContext(QuizContext);
-  const { setFooterBtn } = useContext(UgcContext);
+  const { lesson, setFooterBtn } = useContext(UgcContext);
   const initFooterBtn = useRef(true);
   const { getFooterBtnInfo } = useGetQuizsCompleted();
   const [answerState, setAnswerState] = useState<AnswerState>(AnswerState.Default);
+
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [showHint, setShowHint] = useState<boolean>(false);
 
   const submit = () => {
     let wrongAnswer = answers.find((answer) => !quiz.answers.includes(answer));
@@ -92,6 +96,8 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     });
   }, [answers]);
 
+  console.log(quiz?.options, quiz.answers);
+
   return (
     <div className="flex w-full flex-col rounded-[10px]">
       <div className="mt-[32px] flex flex-col">
@@ -107,7 +113,17 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               key={index}
               className={cn(
                 'flex cursor-pointer items-center gap-[20px] rounded-[10px] border border-neutral-light-gray px-6 py-5 transition-all duration-200 hover:scale-[1.01]',
-                answers.includes(item.index) ? 'bg-[#FFF4CE]' : ''
+
+                answers.includes(item.index) ? 'bg-[#FFF4CE]' : '',
+                answers.includes(item.index) && answerState === AnswerState.Wrong
+                  ? 'border-status-error-dark bg-status-error-light'
+                  : '',
+                answers.includes(item.index) && (answerState === AnswerState.Correct || quiz.isCompleted)
+                  ? 'border-status-success-dark bg-status-success-light'
+                  : '',
+                showAnswer && !!quiz.answers.includes(item.index)
+                  ? 'border-neutral-medium-gray bg-neutral-off-white'
+                  : ''
               )}
               onClick={() => {
                 if (answerState !== AnswerState.Default) setAnswerState(AnswerState.Default);
@@ -122,7 +138,16 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 }
               }}
             >
-              <div className="flex-center flex h-8 w-8 rounded-[4px] border-[2px] border-neutral-light-gray">
+              <div
+                className={cn(
+                  'flex-center flex h-8 w-8 rounded-[4px] border-[1px] border-neutral-light-gray',
+                  answers.includes(item.index) && answerState === AnswerState.Wrong ? 'border-status-error-dark' : '',
+                  answers.includes(item.index) && (answerState === AnswerState.Correct || quiz.isCompleted)
+                    ? 'border-status-success-dark'
+                    : '',
+                  showAnswer && !!quiz.answers.includes(item.index) ? 'border-neutral-medium-gray' : ''
+                )}
+              >
                 {item.index}
               </div>
               <div className="flex-1 text-[16px]">
@@ -130,15 +155,35 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               </div>
 
               <div>
-                {answerState === AnswerState.Correct && answers.includes(item.index) && (
-                  <FiCheck color="#00C365" size={28} />
+                {!showAnswer &&
+                  (answerState === AnswerState.Correct || quiz.isCompleted) &&
+                  answers.includes(item.index) && <FiCheck color="#00C365" size={28} />}
+                {!showAnswer && answerState === AnswerState.Wrong && answers.includes(item.index) && (
+                  <FiX color="#C73333" size={28} />
                 )}
-                {answerState === AnswerState.Wrong && answers.includes(item.index) && <FiX color="#C73333" size={28} />}
               </div>
             </div>
           );
         })}
       </div>
+      {showHint && quiz.hint && (
+        <div className="mt-4">
+          <p className="body-l-bold mb-2">Hint:</p>
+          {quiz.hint.children.map(childRenderCallback(quiz.hint!))}
+        </div>
+      )}
+      <QuizFooter
+        showAnswer={showAnswer}
+        // submitDisable={!Object.keys(answers).find((key) => answers[key].option) || showAnswer}
+        setShowAnswer={(isShow) => {
+          setShowAnswer(isShow);
+        }}
+        includeHint={!!quiz.hint}
+        showHint={showHint}
+        setShowHint={setShowHint}
+        isCompleted={!!quiz.isCompleted}
+        lessonId={lesson.id}
+      ></QuizFooter>
     </div>
   );
 };
