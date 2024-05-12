@@ -25,7 +25,9 @@ const RegisterSuccessModal: ForwardRefRenderFunction<{ open: VoidFunction }, Reg
   return (
     <Modal
       open={open}
-      onClose={() => {}}
+      onClose={() => {
+        setOpen(false);
+      }}
       showCloseIcon
       iconClassName="absolute top-5 right-5"
       icon={
@@ -38,9 +40,9 @@ const RegisterSuccessModal: ForwardRefRenderFunction<{ open: VoidFunction }, Reg
       }
     >
       <div className="flex w-[532px] flex-col items-center rounded-[16px] bg-neutral-white px-5 py-10">
-        <h4 className="text-h4">Registration Successfully! 🎉</h4>
+        <h4 className="text-h4">Registered Successfully! 🎉</h4>
         <p className="body-m mt-5 text-neutral-rich-gray">
-          You have registered in the course. Want to keep in touch with us?
+          We will send out the course calendar invite through email. Join discord to learn more.
         </p>
         <div className="mt-9 flex justify-center gap-2">
           <Button
@@ -60,7 +62,7 @@ const RegisterSuccessModal: ForwardRefRenderFunction<{ open: VoidFunction }, Reg
                 setOpen(false);
               }}
             >
-              follow discord
+              Join Discord
             </Button>
           </Link>
         </div>
