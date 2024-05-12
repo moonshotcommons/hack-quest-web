@@ -24,7 +24,7 @@ enum MenuLink {
   DOCS = '/docs',
   HACKDEGALAXY = '/hackdegalaxy',
   PARTNERS = '/partners',
-  NTU_COURSE = '/ntu-course',
+  NTU_COURSE = '/web3mooc',
   FAUCETS = '/faucets'
 }
 

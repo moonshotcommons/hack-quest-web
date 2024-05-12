@@ -81,7 +81,7 @@
       "courseDescription": "课程描述"
     },
     "overview": {
-      "title": "Web3 MOOC 中的构思与建设",
+      "title": "HackQuest x NTU I&E MOOC Web3 中的构思与建设",
       "format": "授课形式",
       "hosts": "组织者",
       "discussionGroups": "讨论组",
@@ -109,8 +109,9 @@
       "slide": "Slide"
     },
     "courseDescription": {
-      "text1": "Web3 has evolved explosively from a nascent concept to an irresistible frontier of entrepreneurship. As decentralized technologies mature into the building blocks for open metaverse economies, smart contract platforms raised over $50 billion in 2022 alone. New unicorn projects now launch monthly across NFTs, digital identity, tokenized fan engagement, governance design, and composable DeFi.",
-      "text2": " With web3 inhabiting the cutting edge, immense opportunities await those armed with the right applied blockchain skillsets and community-centric mindsets. Through exposure to successful entrepreneurs, and venture capitalists, as well as an overview of open challenges in the industry, we hope to equip those seeking to conceive and actualize ventures natively built for user ownership."
+      "text1": "The internet is on the cusp of a major transformation, with Web3 poised to reshape how we interact, transact, and own. Fueled by blockchain technology, Web3 promises a more decentralized internet, where power shifts from corporations to users. ",
+      "text2": "According to metrics reported by TechCrunch and Bloomberg, as secondary market activities pick up, VC investment in crypto startups reached $2.52 billion across 603 deals in Q1 2024 alone, citing “positive effects from legal wins last year from Ripple and Grayscale”, “positive sentiments around decentralized finance (DeFi) on Solana”, and “demand increasing for the biggest cryptocurrency post SEC spot bitcoin ETF approvals in the US” as contributing factors. Users are here too. More than half a billion people had become cryptocurrency users or owners by the end of 2023, according to cryptocurrency exchange Crypto.com.",
+      "text3": "For founders and aspiring founders in Web3, now is the time to build. This MOOC is designed to guide founders and aspiring founders through ideating and building Web3 projects under the mentorship of leading founders, investors, and researchers from both industry and academia. We hope to equip students with the knowledge and confidence to articulate the potential of Web3 technology, develop innovative Web3 project ideas, build and deploy basic Web3 applications, and navigate the evolving Web3 landscape. This course is your gateway into the world of Web3. Get ready to learn, build, and become a part of the future!"
     }
   }
 }
