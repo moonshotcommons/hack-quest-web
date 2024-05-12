@@ -76,6 +76,19 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
           nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : '',
           HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
         );
+      case PageType.DOCUMENTATION:
+        return cn(
+          'body-xs',
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : '',
+          HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : ''
+        );
+      case PageType.DOCUMENTATION_FULL:
+        return cn(
+          'body-s',
+          prevComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mt-2' : '',
+          nextComponent?.type !== NotionComponentType.BULLETED_LIST_ITEM ? 'mb-2' : ''
+        );
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -97,7 +110,7 @@ const BulletedListItemRenderer: FC<BulletedListItemRendererProps> = (props) => {
         prevComponent === null ? 'mt-0' : ''
       )}
     >
-      <div className="flex items-center">
+      <div className={cn('flex', pageType !== PageType.UGC ? 'items-center' : '')}>
         <span className="pr-2">●</span>
         <span>
           <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>

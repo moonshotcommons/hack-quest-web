@@ -30,6 +30,10 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
         return cn('my-2 body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
         return cn('my-2 body-m', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.DOCUMENTATION:
+        return cn('my-1 body-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.DOCUMENTATION_FULL:
+        return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -45,6 +49,10 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
         return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
         return cn('my-2 body-l', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.DOCUMENTATION:
+        return cn('my-2 body-xs', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.DOCUMENTATION_FULL:
+        return cn('my-2 body-s', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.GLOSSARY:
       case PageType.BLOG:
       default:
@@ -67,9 +75,9 @@ const CalloutRenderer: FC<CalloutRendererProps> = (props) => {
       <div className="flex items-center justify-between gap-[15px]">
         <div className="text-[20px]">{component.content.icon?.emoji}</div>
         <div className="flex-1">
-          <p className={cn(!!component.children?.length ? (isMobile ? 'mb-[5px]' : 'mb-2') : '')}>
+          <div className={cn(!!component.children?.length ? (isMobile ? 'mb-[5px]' : 'mb-2') : '')}>
             <TextRenderer richTextArr={component.content.rich_text}></TextRenderer>
-          </p>
+          </div>
           {component.children?.map(childRenderCallback(component))}
         </div>
       </div>

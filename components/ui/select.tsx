@@ -19,9 +19,9 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      `flex h-10 w-full items-center justify-between rounded-md border border-input bg-background py-2 pl-3 text-sm ring-offset-background
-      placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-neutral-off-white focus:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed
-      disabled:opacity-50 data-[state=open]:rounded-b-none data-[state=open]:border-b-[0px] data-[state=open]:border-none
+      `flex h-10 w-full items-center justify-between rounded-md border border-input bg-background py-2 pl-3 text-sm ring-2
+      ring-transparent ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-neutral-off-white focus:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed
+      disabled:opacity-50 data-[state=open]:rounded-b-none data-[state=open]:border-b-[0px] data-[state=open]:border-transparent
       data-[state=open]:shadow-[rgba(0,0,0,0.1)_0px_10px_25px_-2px,rgba(0,0,0,0.04)_0px_0px_10px_-2px] [&>span]:truncate`,
 
       className
@@ -31,15 +31,8 @@ const SelectTrigger = React.forwardRef<
     {children}
     <SelectPrimitive.Icon asChild className="">
       {/* <ChevronDown className="h-4 w-4 opacity-50" /> */}
-      <svg
-        width="16"
-        height="8"
-        viewBox="0 0 16 8"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="rotate-180 transition-transform"
-      >
-        <path d="M8 -6.99382e-07L16 8L0 8L8 -6.99382e-07Z" fill="currentColor" className="group-open:rotate-180" />
+      <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+        <path d="M8 8L0 0L16 0L8 8Z" fill="#DADADA" />
       </svg>
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>

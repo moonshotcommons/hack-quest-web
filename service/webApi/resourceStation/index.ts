@@ -58,8 +58,12 @@ class ResourceStationApi {
   }
 
   /** 获取project详情数据 */
-  getProjectsDetail(id: string) {
-    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`);
+  getProjectsDetail(id: string, token?: string) {
+    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 
   /**  */

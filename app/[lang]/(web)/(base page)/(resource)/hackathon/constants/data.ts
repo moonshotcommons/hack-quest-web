@@ -43,3 +43,11 @@ export const hackathonDetailTimeLine = [
     time: 'rewardTime'
   }
 ];
+
+export const titleTxtData = [
+  'projectsDetail.title.overview',
+  // 'projectsDetail.title.voting',
+  'projectsDetail.title.videos',
+  'projectsDetail.title.introduction',
+  'projectsDetail.title.team'
+];

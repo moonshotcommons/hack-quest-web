@@ -28,7 +28,7 @@
   "claimed": "Claimed",
   "claimAll": "Claim All",
   "targetsToAchieve": "Targets to Achieve",
-  "learnMore": "Learn More",
+  "learnMore": "Learn more",
   "checkLater": "Check Later",
   "digTreasures": "Dig Treasures",
   "notCertified": "NOT CERTIFIED",
@@ -97,7 +97,9 @@
       "events": "Events",
       "eventsDesc": "Learn about Web 3 events",
       "partners": "Partners",
-      "partnersDesc": "Become Our Partner"
+      "partnersDesc": "Become Our Partner",
+      "faucets":"Faucets",
+      "faucetsDesc":"Faucets description"
     },
     "launch": {
       "title": "Launch pool"
@@ -173,5 +175,10 @@
   "register": "Register",
   "continueRegister": "Continue Register",
   "youHavesubmitted": "You Have Submitted",
-  "yes": "Yes"
+  "yes": "Yes",
+  "notificationModal":{
+    "title":"Notifications",
+    "markAll":"Mark all as read",
+    "readFullMessage":"Read full message"
+  }
 }

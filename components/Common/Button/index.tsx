@@ -1,5 +1,13 @@
 'use client';
-import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 import { cn } from '@/helper/utils';
 type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
@@ -23,7 +31,7 @@ interface BaseButtonProps {
 
 export type ButtonProps = BaseButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>;
 
-const Button: FC<ButtonProps> = (props) => {
+const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = (props, ref) => {
   const {
     type,
     icon,
@@ -75,6 +83,10 @@ const Button: FC<ButtonProps> = (props) => {
 
   const disabled = propDisabled || loading;
 
+  useImperativeHandle(ref, () => {
+    return buttonRef.current!;
+  });
+
   return (
     <button
       ref={buttonRef}
@@ -114,4 +126,4 @@ const Button: FC<ButtonProps> = (props) => {
   );
 };
 
-export default Button;
+export default forwardRef(Button);

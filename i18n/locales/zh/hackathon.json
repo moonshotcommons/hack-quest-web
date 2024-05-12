@@ -50,5 +50,28 @@
     "orientation":"Orientation",
     "openZoomMeeting":"Open Zoom meeting",
     "submitWarning":"You are not the team owner, please contact the administrator"
+  },
+  "projectsDetail":{
+    "title":{
+      "info":"Info",
+      "overview":"Overview",
+      "voting":"Voting",
+      "videos":"Videos",
+      "introduction":"Introduction",
+      "team":"Team"
+    },
+    "votingCloseIn":"Voting Close in",
+    "prizeTrack":"Prize Track",
+    "hackathonTrack":"Hackathon Track",
+    "openSource":"Open Source",
+    "youCantVote":"You can’t vote for projects because your project is under review in this hackathon",
+    "otherProjects":"Other Projects in this Hackathon",
+    "currentVotes":"Current Votes",
+    "currentRanking":"Current Ranking",
+    "totalProjects":"Total Projects",
+    "pitchVideo":"Pitch Video",
+    "demoVideo":"Demo Video",
+    "teamLeader":"Team Leader",
+    "teamMember":"Team Member"
   }
 }

@@ -3,7 +3,8 @@ export enum QueryIdType {
   MENU_COURSE_ID = 'menuCourseId',
   LESSON_ID = 'lessonId',
   HACKATHON_ID = 'hackathonId',
-  PROJECT_ID = 'projectId'
+  PROJECT_ID = 'projectId',
+  DOCUMENTATION_ID = 'documentationId'
 }
 
 export enum Menu {

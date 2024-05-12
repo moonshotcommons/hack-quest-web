@@ -5,6 +5,7 @@ import { useRequest } from 'ahooks';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import Image from 'next/image';
 import { cn } from '@/helper/utils';
+import { LocalStorageKey } from '@/constants/enum';
 
 interface CostCoinModalProps {}
 
@@ -68,7 +69,7 @@ const CostCoinModal: ForwardRefRenderFunction<CostCoinModalRef, CostCoinModalPro
           onClick={(e) => {
             e.stopPropagation();
             setShowMe(!showMe);
-            window.localStorage.setItem('showCostCoinModal', !showMe ? 'hidden' : 'show');
+            window.localStorage.setItem(LocalStorageKey.ShowAICostCoinModal, !showMe ? 'hidden' : 'show');
           }}
           className="flex justify-center gap-[10px]"
         >

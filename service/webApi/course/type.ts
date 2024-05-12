@@ -1,5 +1,6 @@
 import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
+import { HackathonRegisterStep } from '../resourceStation/type';
 
 export interface Response {
   id: string;
@@ -145,6 +146,7 @@ export interface CourseBaseType {
   totalPages: number;
   certificationId?: string;
   creator?: CreatorType;
+  documentationId: string | null;
 }
 
 /** Project类型的课程 */
@@ -223,4 +225,41 @@ export interface SuggestCommitParams {
   // file: FormData;
   lessonId: string;
   link: string;
+}
+
+export interface Documentation {
+  id: string;
+  title: string;
+  content: Record<string, any>[];
+  parentId?: string;
+  createdAt: string;
+  updatedAt: string;
+  children?: Documentation[];
+}
+export interface NtuRegisterInfo {
+  id: string;
+  email: string;
+  hackathonId: string;
+  userId: string;
+  firstName: string | null;
+  lastName: string | null;
+  weChat: string | null;
+  telegram: string | null;
+  bio: string | null;
+  status: HackathonRegisterStep;
+  createdAt: string;
+  updatedAt: string;
+  avatar: string;
+  isRegister: boolean;
+  isSubmit: boolean;
+}
+
+export interface RegisterInfoBody {
+  firstName?: string | null;
+  lastName?: string | null;
+  weChat?: string | null;
+  telegram?: string | null;
+  email?: string;
+  bio?: string | null;
+  status?: HackathonRegisterStep;
 }

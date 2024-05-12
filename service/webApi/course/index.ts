@@ -5,7 +5,10 @@ import {
   CourseLessonType,
   CourseUnitStateType,
   CourseUnitType,
+  Documentation,
+  NtuRegisterInfo,
   ProjectCourseType,
+  RegisterInfoBody,
   UGCCourseType,
   UnitPagesListType
 } from './type';
@@ -18,12 +21,15 @@ import {
 } from '../elective/type';
 import { PageResult } from '../type';
 import { cache } from 'react';
+
 export enum CourseApiType {
   Course_List = '/courses',
   GetTopCourses = '/courses/featured',
   LessonDetail = '/pages',
   Support = '/support/suggest',
-  EcosystemProfile = '/eco-system-profiles'
+  EcosystemProfile = '/eco-system-profiles',
+  Documentation = '/documentations',
+  NtuCourse = '/ntu/members'
 }
 
 class CourseApi {
@@ -191,6 +197,49 @@ class CourseApi {
     });
 
     return cacheFn();
+  }
+
+  /**
+   * Get all documentations
+   */
+  getDocumentations() {
+    return this.service.get<Documentation[]>(CourseApiType.Documentation);
+  }
+
+  /**
+   * Get documentation by id
+   */
+  getDocumentationById(id: string) {
+    return this.service.get<Documentation>(`${CourseApiType.Documentation}/${id}`);
+  }
+
+  /**
+   * Get documentation tree by id
+   */
+  getDocumentationTreeById(id: string) {
+    return this.service.get<Documentation>(`${CourseApiType.Documentation}/${id}/full`);
+  }
+
+  /** 获取用户注册的hackathon信息 */
+  getNtuRegisterInfo() {
+    return this.service.get<NtuRegisterInfo>(`${CourseApiType.NtuCourse}/me`);
+  }
+
+  /** 更新注册信息 */
+  updateNtuRegisterInfo(data: RegisterInfoBody) {
+    return this.service.post<{}>(`${CourseApiType.NtuCourse}`, {
+      data
+    });
+  }
+
+  /** 注册hackathon */
+  registerNtu() {
+    return this.service.post(`${CourseApiType.NtuCourse}/register`);
+  }
+
+  /** showAnswer 扣金币 */
+  showAnswerCostCoin(lessonId: string) {
+    return this.service.get(`/pages/${lessonId}/answer`);
   }
 }
 

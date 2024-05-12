@@ -144,3 +144,29 @@ export enum ConnectType {
   TWITTER = 'twitter',
   DISCORD = 'discord'
 }
+
+export enum NotificateType {
+  MESSAGE = 'MESSAGE',
+  UPDATE = 'UPDATE',
+  REACTION = 'REACTION'
+}
+
+export interface NotificationContentDescType {
+  content: string;
+  link: string;
+  title: string;
+}
+export interface NotificationContentType {
+  content: string;
+  link: string;
+  description: NotificationContentDescType[];
+}
+export interface NotificationType {
+  userId: string;
+  isRead: boolean;
+  id: string;
+  content: NotificationContentType;
+  avatar: string;
+  createdAt: string;
+  type: NotificateType;
+}

@@ -20,6 +20,7 @@ import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useShallow } from 'zustand/react/shallow';
 
 export interface NavBarProps {
   navList: NavbarListType[];
@@ -28,10 +29,6 @@ export interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const userInfo = useUserStore((state) => state.userInfo);
-  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const setAuthType = useUserStore((state) => state.setAuthType);
-
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
 
@@ -51,6 +48,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   );
 
   const setPlaygroundSelectModalOpen = useGlobalStore((state) => state.setPlaygroundSelectModalOpen);
+  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      setAuthModalOpen: state.setAuthModalOpen,
+      setAuthType: state.setAuthType
+    }))
+  );
 
   useEffect(() => {
     let menuId = '';

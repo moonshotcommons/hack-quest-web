@@ -54,7 +54,7 @@ export const overviewData = {
     //   link: ''
     // }
   ],
-  registerLink: ''
+  registerLink: '/form/ntu-course/register'
 };
 
 export const classTimeData = {

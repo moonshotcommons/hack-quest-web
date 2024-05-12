@@ -11,10 +11,10 @@ import ComponentRenderer from '../..';
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
-import { AnswerType, QuizOptionType } from './type';
 import { CustomType, NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
 import { OverrideRendererConfig } from '@/components/ComponentRenderer';
 import DropAnswer from './DropAnswer';
+import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
 interface QuizBRendererProps {
   parent: CustomType | NotionComponentType;
   quiz: QuizBType;

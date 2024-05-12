@@ -24,7 +24,8 @@ enum MenuLink {
   DOCS = '/docs',
   HACKDEGALAXY = '/hackdegalaxy',
   PARTNERS = '/partners',
-  NTU_COURSE = '/web3mooc'
+  NTU_COURSE = '/web3mooc',
+  FAUCETS = '/faucets'
 }
 
 export default MenuLink;
