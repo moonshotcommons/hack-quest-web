@@ -89,16 +89,14 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
           </div>
         </div>
         <div className="w-full pt-[.625rem]">
-          <Link href={'javascript: void(0)'}>
-            <Button
-              type="primary"
-              disabled={loading || !data?.isRegister}
-              className="button-text-m h-[3rem] w-full uppercase text-neutral-off-black"
-              onClick={() => setTipsModalOpenState(true)}
-            >
-              {!data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
-            </Button>
-          </Link>
+          <Button
+            type="primary"
+            disabled={loading || !data?.isRegister}
+            className="button-text-m h-[3rem] w-full uppercase text-neutral-off-black"
+            onClick={() => setTipsModalOpenState(true)}
+          >
+            {!data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
+          </Button>
         </div>
       </div>
       <VideoModal open={open} setOpen={setOpen} />

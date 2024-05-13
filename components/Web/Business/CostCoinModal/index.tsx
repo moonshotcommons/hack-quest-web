@@ -7,19 +7,23 @@ import Image from 'next/image';
 import { cn } from '@/helper/utils';
 import Modal from '@/components/Common/Modal';
 import { LocalStorageKey } from '@/constants/enum';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 
-interface CostCoinModalProps {}
+interface CostCoinModalProps {
+  coin: number;
+}
 
 export interface CostCoinModalRef {
   open: (params: { onConfirm: () => Promise<unknown>; onConfirmCallback?: VoidFunction }) => void;
 }
 
-const CostCoinModal: ForwardRefRenderFunction<CostCoinModalRef, CostCoinModalProps> = (props, ref) => {
+const CostCoinModal: ForwardRefRenderFunction<CostCoinModalRef, CostCoinModalProps> = ({ coin }, ref) => {
   const [option, setOption] = useState<{ onConfirm: () => Promise<unknown>; onConfirmCallback?: VoidFunction } | null>(
     null
   );
 
   const userCoin = useMissionCenterStore((state) => state.userCoin.coin);
+  const { updateUserCoin } = useGetMissionData();
   const [showMe, setShowMe] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -41,6 +45,7 @@ const CostCoinModal: ForwardRefRenderFunction<CostCoinModalRef, CostCoinModalPro
       manual: true,
       onSuccess() {
         option!.onConfirmCallback?.();
+        updateUserCoin();
         setOpen(false);
         setOption(null);
       }
@@ -64,7 +69,7 @@ const CostCoinModal: ForwardRefRenderFunction<CostCoinModalRef, CostCoinModalPro
           </div>
         </div>
         <h4 className="body-l-bold flex items-center justify-center gap-1 text-center text-neutral-rich-gray">
-          <span>Your interaction will cost 5</span>
+          <span>Your interaction will cost {coin}</span>
           <Image src={'/images/mission-center/icon_coin.png'} alt="coin" width={16} height={16} />
         </h4>
         <div

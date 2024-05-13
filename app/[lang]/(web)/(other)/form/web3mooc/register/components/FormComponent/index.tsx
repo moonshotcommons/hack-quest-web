@@ -3,12 +3,10 @@ import ContractForm from './ContractForm';
 import NameForm from './NameForm';
 import BioForm from './BioForm';
 import { HackathonRegisterStateType } from '../../type';
-import SubmitReview from './SubmitReview';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
-import { NtuRegisterInfo } from '@/service/webApi/course/type';
+import { NtuRegisterInfo, NtuRegisterStep } from '@/service/webApi/course/type';
 
 export interface FormComponentProps {
-  type: HackathonRegisterStep;
+  type: NtuRegisterStep;
   onNext: (state: Partial<HackathonRegisterStateType>) => void;
   onBack: VoidFunction;
   formState: HackathonRegisterStateType;
@@ -19,9 +17,9 @@ export interface FormComponentProps {
 const FormComponent: FC<FormComponentProps> = (props) => {
   const { type, formState, setCurrentStep, ...rest } = props;
   switch (type) {
-    case HackathonRegisterStep.Name:
+    case NtuRegisterStep.Name:
       return <NameForm {...rest} name={formState.name} status={formState.status} isRegister={formState.isRegister} />;
-    case HackathonRegisterStep.Contact:
+    case NtuRegisterStep.Contact:
       return (
         <ContractForm
           {...rest}
@@ -30,11 +28,18 @@ const FormComponent: FC<FormComponentProps> = (props) => {
           isRegister={formState.isRegister}
         />
       );
-    case HackathonRegisterStep.Bio:
-      return <BioForm {...rest} bio={formState.bio} status={formState.status} isRegister={formState.isRegister} />;
+    case NtuRegisterStep.ADDITIONAL_INFO:
+      return (
+        <BioForm
+          {...rest}
+          additionalInfo={formState.additionalInfo}
+          status={formState.status}
+          isRegister={formState.isRegister}
+        />
+      );
 
-    case HackathonRegisterStep.Review:
-      return <SubmitReview {...rest} formState={formState} setCurrentStep={setCurrentStep} />;
+    // case NtuRegisterStep.Review:
+    //   return <SubmitReview {...rest} formState={formState} setCurrentStep={setCurrentStep} />;
   }
 };
 
