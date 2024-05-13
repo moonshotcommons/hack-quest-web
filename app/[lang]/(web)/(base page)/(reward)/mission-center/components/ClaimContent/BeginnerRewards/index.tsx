@@ -13,7 +13,10 @@ import { TransNs } from '@/i18n/config';
 const BeginnerRewards: React.FC<TabContentType> = ({ missionData, unClaimMissionData, missionClaim }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
-  const { missionIds, loading } = useContext(MissionCenterContext);
+  const { missionIds } = useContext(MissionCenterContext);
+  const isClaimAll = useMemo(() => {
+    return missionData.filter((v) => v.progress.completed && v.progress.claimed).length === missionData?.length;
+  }, [missionData]);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);
   }, [unClaimMissionData]);
@@ -36,7 +39,7 @@ const BeginnerRewards: React.FC<TabContentType> = ({ missionData, unClaimMission
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
           onClick={handleAllClaim}
         >
-          {t('claimAll')} ({allIds.length})
+          {isClaimAll ? t('claimedAll') : `${t('claimAll')} (${allIds.length})`}
         </Button>
       </div>
 

@@ -66,13 +66,6 @@ function DocumentationContent({
 }) {
   const [expanded, setExpanded] = React.useState<{ [id: string]: boolean }>({});
 
-  const parent = React.useMemo(() => {
-    return {
-      ...documentation,
-      isRoot: true
-    };
-  }, [documentation]);
-
   function toggleExpand(id: string) {
     setExpanded((prevState) => ({
       ...prevState,
@@ -109,7 +102,10 @@ function DocumentationContent({
                     <ComponentRenderer
                       key={child.id}
                       component={child}
-                      parent={parent}
+                      parent={{
+                        ...item,
+                        isRoot: true
+                      }}
                       position={index}
                       prevComponent={null}
                       nextComponent={null}

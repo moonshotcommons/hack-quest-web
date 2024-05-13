@@ -13,7 +13,7 @@ const CourseDesc: React.FC<CourseDescProp> = async ({ lang }) => {
   return (
     <div>
       <div className="mb-[1rem]">
-        <Title title={t(titleTxtData[6])} />
+        <Title title={t(titleTxtData[1])} />
       </div>
       <div className="body-s flex flex-col gap-[.625rem] text-neutral-rich-gray">
         <p className="">{t('ntuCourse.courseDescription.text1')}</p>

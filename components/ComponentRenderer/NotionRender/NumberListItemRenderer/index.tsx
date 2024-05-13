@@ -19,7 +19,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   const { pageType, isMobile } = useGlobalRendererContext();
 
   const index = useMemo(() => {
-    const currentIndex = children.findIndex((child: any) => child.id === component.id);
+    const currentIndex = children?.findIndex((child: any) => child.id === component.id);
     let firstIndex = 0;
     for (let i = currentIndex; i >= 0; i--) {
       if (children[i].type !== NotionComponentType.NUMBERED_LIST_ITEM) {
