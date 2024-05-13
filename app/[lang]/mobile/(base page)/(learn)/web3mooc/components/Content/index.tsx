@@ -1,6 +1,5 @@
 import React from 'react';
 import Overview from './Overview';
-import ClassTime from './ClassTime';
 import Enrollment from './Enrollment';
 import Syllabus from './Syllabus';
 import Speakers from './Speakers';
@@ -16,12 +15,12 @@ const Content: React.FC<ContentProp> = ({ lang }) => {
   return (
     <div className="flex flex-col gap-[3.75rem] text-neutral-off-black">
       <Overview lang={lang} />
-      <ClassTime lang={lang} />
+      {/* <ClassTime lang={lang} /> */}
+      <CourseDesc lang={lang} />
       <Enrollment lang={lang} />
       <Syllabus />
       <Speakers />
       <Sponsors />
-      <CourseDesc lang={lang} />
     </div>
   );
 };
