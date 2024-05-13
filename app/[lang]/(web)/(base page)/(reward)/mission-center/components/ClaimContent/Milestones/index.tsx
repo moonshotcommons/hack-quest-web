@@ -12,6 +12,9 @@ const Milestones: React.FC<TabContentType> = ({ missionData, unClaimMissionData,
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
   const { missionIds } = useContext(MissionCenterContext);
+  const isClaimAll = useMemo(() => {
+    return missionData.filter((v) => v.progress.completed && v.progress.claimed).length === missionData?.length;
+  }, [missionData]);
   const allIds = useMemo(() => {
     return unClaimMissionData.map((v) => v.id);
   }, [unClaimMissionData]);
@@ -33,7 +36,7 @@ const Milestones: React.FC<TabContentType> = ({ missionData, unClaimMissionData,
           loading={missionIds.join() === allIds.join() && missionIds.length > 0}
           onClick={handleAllClaim}
         >
-          {t('claimAll')} ({allIds.length})
+          {isClaimAll ? t('claimedAll') : `${t('claimAll')} (${allIds.length})`}
         </Button>
       </div>
 
