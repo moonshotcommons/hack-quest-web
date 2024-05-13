@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Form, FormLabel } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
 import { FC, memo, useEffect, useState } from 'react';
 import { FormComponentProps } from '..';
@@ -13,21 +13,23 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { errorMessage } from '@/helper/ui';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { isEqual } from 'lodash-es';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { NtuRegisterStep } from '@/service/webApi/course/type';
 
-const formSchema = z
-  .object({
-    email: z.string().email(),
-    weChat: z.string().optional(),
-    telegram: z.string().optional()
-  })
-  .refine((data) => data.weChat !== '' || data.telegram !== '', {
-    message: 'At least one input must be filled',
-    path: ['weChat', 'telegram']
-  });
+const formSchema = z.object({
+  email: z.string().email(),
+  weChat: z.string().optional(),
+  telegram: z.string().optional(),
+  twitter: z.string().optional(),
+  discord: z.string().optional(),
+  whatsApp: z.string().optional(),
+  linkedIn: z.string().optional()
+});
+// .refine((data) => data.weChat !== '' || data.telegram !== '', {
+//   message: 'At least one input must be filled',
+//   path: ['weChat', 'telegram']
+// });
 
 const TYPES = [
   {
@@ -59,12 +61,16 @@ const ContractForm: FC<
     async (values: z.infer<typeof formSchema>) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
-          ? HackathonRegisterStep.Bio
+          ? NtuRegisterStep.ADDITIONAL_INFO
           : status;
       const res = await webApi.courseApi.updateNtuRegisterInfo({
         email: values.email,
         weChat: values.weChat,
         telegram: values.telegram,
+        twitter: values.twitter,
+        discord: values.discord,
+        whatsApp: values.whatsApp,
+        linkedIn: values.linkedIn,
         status: newStatus
       });
       return { res, values, status: newStatus };
@@ -115,8 +121,7 @@ const ContractForm: FC<
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 text-left">
             <p className="body-l text-neutral-off-black">Please provide at least one contact information</p>
-            <div>
-              <p className="body-l mb-1 text-neutral-off-black">Contact Info 1*</p>
+            <div className="flex flex-col gap-4">
               <CustomFormField
                 form={form}
                 placeholder="Enter your Email address"
@@ -127,7 +132,48 @@ const ContractForm: FC<
                 }}
               />
             </div>
-            <div className="my-1 h-px w-full scale-y-50 bg-neutral-light-gray"></div>
+            <div className="flex flex-col gap-4">
+              <p className="body-l">{`By filling in some additional contact information like Telegram and Discord, you'll be invited to join
+                our vibrant MOOC discussion groups on social media platforms. This is a great way to connect with fellow
+                learners and get the most out of the course series!`}</p>
+              <CustomFormField
+                form={form}
+                placeholder="Enter your WeChat account"
+                label="WeChat(optional)"
+                name={'weChat'}
+              />
+              <CustomFormField
+                form={form}
+                placeholder="Enter your Telegram account"
+                label="Telegram(optional)"
+                name="telegram"
+              />
+              <CustomFormField
+                form={form}
+                placeholder="Enter your Twitter account"
+                label="Twitter(optional)"
+                name="twitter"
+              />
+              <CustomFormField
+                form={form}
+                placeholder="Enter your Discord account"
+                label="Discord(optional)"
+                name="discord"
+              />
+              <CustomFormField
+                form={form}
+                placeholder="Enter your WhatsApp account"
+                label="WhatsApp(optional)"
+                name="whatsApp"
+              />
+              <CustomFormField
+                form={form}
+                placeholder="Enter your LinkedIn account"
+                label="LinkedIn(optional)"
+                name="linkedIn"
+              />
+            </div>
+            {/* <div className="my-1 h-px w-full scale-y-50 bg-neutral-light-gray"></div>
             <div>
               <p className="body-l mb-1 text-neutral-off-black">Contact Info 2*</p>
               <div className="flex justify-between gap-4">
@@ -158,12 +204,6 @@ const ContractForm: FC<
                           </SelectItem>
                         );
                       })}
-                      {/* <SelectItem className="body-m text-[16px] leading-[160%]" value={'WeChat'}>
-                        WeChat
-                      </SelectItem>
-                      <SelectItem className="body-m text-[16px] leading-[160%]" value={'Telegram'}>
-                        Telegram
-                      </SelectItem> */}
                     </SelectContent>
                   </Select>
                 </div>
@@ -253,12 +293,6 @@ const ContractForm: FC<
                             </SelectItem>
                           );
                         })}
-                        {/* <SelectItem className="body-m text-[16px] leading-[160%]" value={'WeChat'}>
-                        WeChat
-                      </SelectItem>
-                      <SelectItem className="body-m text-[16px] leading-[160%]" value={'Telegram'}>
-                        Telegram
-                      </SelectItem> */}
                       </SelectContent>
                     </Select>
                   </div>
@@ -272,7 +306,7 @@ const ContractForm: FC<
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
           <div className="flex justify-end gap-4">
             <Button htmlType="button" ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>

@@ -14,7 +14,6 @@ import RegisterSuccessModal from './RegisterSuccessModal';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { FaRegCirclePlay } from 'react-icons/fa6';
 import VideoModal from './VideoModal';
 import { useUserStore } from '@/store/zustand/userStore';
 import { isMobile } from 'react-device-detect';
@@ -56,11 +55,11 @@ const Overview: React.FC<OverviewProp> = () => {
     <div className="flex gap-[40px]">
       <div className="relative h-[498px] w-[498px] flex-shrink-0">
         <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" />
-        <div className="group absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/50 hover:bg-black/70">
+        {/* <div className="group absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/50 hover:bg-black/70">
           <span className="transition group-hover:scale-125" onClick={() => setOpen(true)}>
             <FaRegCirclePlay color={'#f4f4f4'} size={80} />
           </span>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex h-[498px] flex-col justify-between">
@@ -100,7 +99,13 @@ const Overview: React.FC<OverviewProp> = () => {
           </div>
         </div>
         <div className="w-full pt-[20px]">
-          <Link href={!userInfo ? 'javascript: void(0)' : overviewData.registerLink} target={userInfo ? '_blank' : ''}>
+          <Link
+            href={!userInfo ? '#' : overviewData.registerLink}
+            target={userInfo ? '_blank' : ''}
+            onClick={(e) => {
+              if (!userInfo) e.preventDefault();
+            }}
+          >
             <Button
               type="primary"
               className="button-text-l h-[60px] w-full uppercase text-neutral-off-black"

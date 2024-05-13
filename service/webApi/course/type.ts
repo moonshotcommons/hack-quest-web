@@ -1,6 +1,5 @@
 import { CourseTab } from '@/app/[lang]/(web)/(base page)/(home)/instructor/constants/type';
 import { ElectiveCourseType, PageType } from '../elective/type';
-import { HackathonRegisterStep } from '../resourceStation/type';
 
 export interface Response {
   id: string;
@@ -236,6 +235,12 @@ export interface Documentation {
   updatedAt: string;
   children?: Documentation[];
 }
+
+export enum NtuRegisterStep {
+  Name = 'NAME',
+  Contact = 'CONTRACT',
+  ADDITIONAL_INFO = 'ADDITIONAL_INFO'
+}
 export interface NtuRegisterInfo {
   id: string;
   email: string;
@@ -245,8 +250,13 @@ export interface NtuRegisterInfo {
   lastName: string | null;
   weChat: string | null;
   telegram: string | null;
-  bio: string | null;
-  status: HackathonRegisterStep;
+  twitter: string | null;
+  discord: string | null;
+  whatsApp: string | null;
+  linkedIn: string | null;
+  isEnrolledSingapore: boolean;
+  selfIntroduction: string | null;
+  status: NtuRegisterStep;
   createdAt: string;
   updatedAt: string;
   avatar: string;
@@ -260,6 +270,11 @@ export interface RegisterInfoBody {
   weChat?: string | null;
   telegram?: string | null;
   email?: string;
-  bio?: string | null;
-  status?: HackathonRegisterStep;
+  twitter?: string | null;
+  discord?: string | null;
+  whatsApp?: string | null;
+  linkedIn?: string | null;
+  isEnrolledSingapore?: boolean;
+  selfIntroduction?: string | null;
+  status?: NtuRegisterStep;
 }

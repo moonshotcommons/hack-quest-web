@@ -13,6 +13,7 @@ import speakersAvatar13 from '@/public/images/learn/speaker_avatar13.png';
 import speakersAvatar14 from '@/public/images/learn/speaker_avatar14.png';
 import speakersAvatar15 from '@/public/images/learn/speaker_avatar15.png';
 import speakersAvatar16 from '@/public/images/learn/speaker_avatar16.png';
+import speakersAvatar17 from '@/public/images/learn/speaker_avatar17.png';
 
 import MorphLogo from '@/public/images/learn/Morph_logo.png';
 import OpenCampusLogo from '@/public/images/learn/Open_Campus_logo.png';
@@ -34,8 +35,8 @@ export const titleTxtData = [
 
 export const overviewData = {
   name: 'ntuCourse.overview.title',
-  time: '5/27/2024 - 9/17/2024 (*exact times are TBD)',
-  format: 'Hybrid (In-person at NTU and Online on Zoom link)',
+  time: 'Weekly sessions, 9-10 am SGT Tuesday / 9-10 pm EST Monday, 5/27-9/24/2024 (*The exact time of each session is TBD based on the speakers’ location)',
+  format: 'Hybrid (In-person at NTU and Online over ZOOM)',
   discussionGroups: [
     {
       name: 'Discord',
@@ -87,7 +88,7 @@ export const syllabusData = [
     time: '6.11.2024 SGT / 6.10.2024 EST',
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on infrastructure.',
-    speaker: '',
+    speaker: 'Dr. Michael Yuan, Gaianet',
     video: '',
     slide: '',
     expand: false
@@ -132,7 +133,7 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'Pitching and Fundraising in Web3',
+    name: 'Pitching and Venture Funding in Web3',
     time: '7.16.2024 SGT / 7.15.2024 EST',
     description: `
     Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
@@ -154,7 +155,8 @@ export const syllabusData = [
   {
     name: 'The Future of Decentralized Social',
     time: '8.13.2024 SGT / 8.12.2024 EST',
-    description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
+    // description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
+    description: '',
     speaker: 'Suji Yan, Mask Network',
     video: '',
     slide: '',
@@ -162,7 +164,7 @@ export const syllabusData = [
   },
   {
     name: 'Stablecoins as the Foundation for On-Chain Financial Infrastructure',
-    time: '',
+    time: '8.20.2024 SGT / 8.19.2024 EST',
     description: `Stablecoins are dubbed the "killer use case" in crypto, yet they account for less than 1% of the M2 money supply. The largest banking and payments companies in the world are all experimenting with stablecoins, while central banks try to decide what to do with them. Are stablecoins the next phase for digital money? What kind of pressure will that put on a country's monetary policy? We'll dive into the characteristics of different stablecoins and industry trends through the lens of DeFi and TradFi.`,
     speaker: 'Anna Yuan, Solana Foundation',
     video: '',
@@ -171,19 +173,9 @@ export const syllabusData = [
   },
   {
     name: 'How to Build an Investable Web3 Project',
-    time: '',
+    time: '8.27.2024 SGT / 8.26.2024 EST',
     description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
     speaker: 'Abhishek Saxena, Polygon Ventures',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
-    name: 'Decentralized AI',
-    time: '',
-    description:
-      'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
-    speaker: 'Dr. Michael Yuan, Gaianet',
     video: '',
     slide: '',
     expand: false
@@ -216,6 +208,17 @@ export const syllabusData = [
     slide: '',
     expand: false
   },
+  {
+    name: 'Decentralized AI',
+    time: '',
+    description:
+      'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
+    speaker: 'Dr. Michael Yuan, Gaianet',
+    video: '',
+    slide: '',
+    expand: false
+  },
+
   {
     name: 'Web3 Pricing and Business Models',
     time: '',
@@ -322,7 +325,7 @@ export const guestSpeakersData = [
     name: 'Anna Yuan',
     img: speakersAvatar9,
     description:
-      'Anna is the Growth Lead, Stablecoins and International Markets of Solana Foundation, where she focuses on stablecoins and international markets and works with centralized exchanges, market makers, fiat ramps, and issuers to increase stablecoin accessibility and liquidity. Previously, Anna was the Chief of Staff at Sino-Canada School and a McKinsey Consultant. She holds an MBA from Harvard Business School and a BA from the University of Chicago.'
+      'Anna is the Stablecoins Lead of Solana Foundation, where she focuses on stablecoins and international markets and works with centralized exchanges, market makers, fiat ramps, and issuers to increase stablecoin accessibility and liquidity. Previously, Anna was the Chief of Staff at Sino-Canada School and a McKinsey Consultant. She holds an MBA from Harvard Business School and a BA from the University of Chicago.'
   },
   {
     showMore: false,
@@ -360,6 +363,12 @@ export const guestSpeakersData = [
   },
   {
     showMore: false,
+    name: 'Neil Han',
+    img: speakersAvatar17,
+    description: `Neil is the Founder & CEO of Reddio, a company focused on scaling Ethereum. Backed by Paradigm and Arena Holdings, Reddio provides StarkEx-powered Layer 2, zkVM Layer 2, and the high-performance decentralized sequencer, Itachi. He also serves as a guest lecturer for the NTU blockchain courses and is the President of TGO Singapore (Top Geeks' Organization, CTO Club). Previously, he was Head of APAC and EMEA at PingCap and helped bootstrap Twilio's APAC operations as their 3rd employee and helped grow their revenue 30x in just four years.`
+  },
+  {
+    showMore: false,
     name: 'Dr. Li Yi',
     img: speakersAvatar13,
     description:
@@ -394,7 +403,7 @@ export const sponsorsData = [
     name: 'Gaianet.AI',
     img: GaianetAILogo,
     description:
-      'GaiaNet is a decentralized computing infrastructure that enables everyone to create, deploy, scale, and monetize their own AI agents that reflect their styles, values, knowledge, and expertise.'
+      'GaiaNet is a decentralized network that provides secure, censorship-resistant, and monetizable AI agents that incorporate each individual’s proprietary knowledge and skills while preserving privacy. Instead of setting up centralized servers, GaiaNet is building a distributed network of edge-computing nodes controlled by individuals and businesses, to host fine-tuned AI models, based on the node operator’s proprietary domain knowledge and expertise. Each GiaiaNet node is a digital twin of a real-world expert or personality, such as a university teaching assistant, a high school teacher, a crypto trader, or a customer service agent, performing skilled knowledge tasks on behalf of its creator or operator. GaiaNet boldly challenges the centralized industry giants that have dominated the AI lifecycle, from data collection to model training and fine-tuning.'
   },
   // {
   //   showMore: false,
