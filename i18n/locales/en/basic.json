@@ -67,16 +67,31 @@
     },
     "learn": {
       "title": "Learn",
+      "myCourse": "My Course",
+      "myCourseDesc": "View all courses and projects",
+      "explore": "Explore",
+      "exploreDesc": "View different Web3 Ecosystems",
       "learningTrack": "Learning track",
       "learningTrackDesc": "Master a coding language",
       "electives": "Electives",
       "electivesDesc": "Focus on a Web 3 topic",
       "projects": "Projects",
       "projectsDesc": "Learn how to build a project step by step",
-      "courseMarket": "Course Market",
-      "courseMarketDesc": "",
       "ntuCourse": "NTU Web3 MOOC",
-      "ntuCourseDesc": "Ideating and Building in Web3"
+      "ntuCourseDesc": "Official course with institute"
+    },
+    "build": {
+      "title": "Build",
+      "myHackathon": "My Hackathon",
+      "myHackathonDesc": "View all my hackathon events",
+      "exploreHackathons": "Explore Hackathons",
+      "exploreHackathonsDesc": "Build the future of Web3 with our team",
+      "hackathonVoting": "Hackathon Voting",
+      "hackathonVotingDesc": "Choose the best project",
+      "projectArchive": "Project Archive",
+      "projectArchiveDesc": "View projects from past hackathons",
+      "ideaBank": "Idea Bank",
+      "ideaBankDesc": "Contribute to innovative project ideas"
     },
     "reward": {
       "title": "Reward",
