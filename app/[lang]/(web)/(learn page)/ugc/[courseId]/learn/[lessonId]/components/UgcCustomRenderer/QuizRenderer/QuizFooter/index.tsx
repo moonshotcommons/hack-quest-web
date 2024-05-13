@@ -45,36 +45,41 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
 
   const isCostCoin = firstShowAnswer.current && !showAnswer && !isCompleted;
 
+  const showAnswerHandle = async () => {
+    if (!showHint && includeHint) {
+      setShowHint(true);
+      return;
+    }
+    if (isCostCoin) {
+      const showCostCoinModal = window.localStorage.getItem(LocalStorageKey.ShowAnswerCostCoinModal);
+      const show = !showCostCoinModal || showCostCoinModal === 'show';
+      if (show) {
+        ref.current?.open({
+          onConfirm: runAsync,
+          onConfirmCallback: () => {
+            firstShowAnswer.current = false;
+            setShowAnswer(!showAnswer);
+          }
+        });
+        return;
+      }
+      try {
+        await runAsync();
+        firstShowAnswer.current = false;
+        setShowAnswer(!showAnswer);
+      } catch (err) {
+        // errorMessage(err);
+      }
+    } else {
+      setShowAnswer(!showAnswer);
+    }
+  };
+
   return (
     <div className="mt-6 flex items-center justify-between">
       <div
         className="cursor-pointer text-neutral-rich-gray transition hover:text-neutral-black"
-        onClick={() => {
-          if (!showHint && includeHint) {
-            setShowHint(true);
-            return;
-          }
-          if (isCostCoin) {
-            const showCostCoinModal = window.localStorage.getItem(LocalStorageKey.ShowAnswerCostCoinModal);
-            const show = !showCostCoinModal || showCostCoinModal === 'show';
-            if (show) {
-              ref.current?.open({
-                onConfirm: runAsync,
-                onConfirmCallback: () => {
-                  firstShowAnswer.current = false;
-                  setShowAnswer(!showAnswer);
-                }
-              });
-
-              return;
-            }
-            runAsync();
-            firstShowAnswer.current = false;
-            setShowAnswer(!showAnswer);
-          } else {
-            setShowAnswer(!showAnswer);
-          }
-        }}
+        onClick={showAnswerHandle}
       >
         {showAnswer && <span className="underline">Hide Answer</span>}
         {(!includeHint || showHint) && !showAnswer && (
@@ -91,7 +96,7 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
         )}
         {includeHint && !showHint && !showAnswer && <span className="underline">Show Hint</span>}
       </div>
-      <CostCoinModal ref={ref} />
+      <CostCoinModal coin={10} ref={ref} />
     </div>
   );
 };

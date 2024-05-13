@@ -1,20 +1,20 @@
 import { StepItem } from '@/components/Common/Steps';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
+import { NtuRegisterStep } from '@/service/webApi/course/type';
 
-export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: HackathonRegisterStep; stepNumber: number })[] = [
+export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: NtuRegisterStep; stepNumber: number })[] = [
   {
     title: 'Name',
-    type: HackathonRegisterStep.Name,
+    type: NtuRegisterStep.Name,
     stepNumber: 0
   },
   {
     title: 'Contact',
-    type: HackathonRegisterStep.Contact,
+    type: NtuRegisterStep.Contact,
     stepNumber: 1
   },
   {
-    title: 'Bio',
-    type: HackathonRegisterStep.Bio,
+    title: 'Additional Info',
+    type: NtuRegisterStep.ADDITIONAL_INFO,
     stepNumber: 2
   }
 ];

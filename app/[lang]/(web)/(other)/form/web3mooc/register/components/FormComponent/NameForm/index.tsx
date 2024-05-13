@@ -13,9 +13,9 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { isEqual } from 'lodash-es';
+import { NtuRegisterStep } from '@/service/webApi/course/type';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -45,7 +45,7 @@ const NameForm: FC<
     async (values: z.infer<typeof formSchema>) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
-          ? HackathonRegisterStep.Contact
+          ? NtuRegisterStep.Contact
           : status;
 
       const res = await webApi.courseApi.updateNtuRegisterInfo({

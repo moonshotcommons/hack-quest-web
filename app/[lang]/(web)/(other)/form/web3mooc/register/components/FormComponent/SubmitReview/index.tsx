@@ -19,7 +19,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
   };
 
   const { redirectToUrl } = useRedirect();
-  const { name, contractInfo, bio, submissionType, isRegister } = formState;
+  const { name, contractInfo, additionalInfo, submissionType, isRegister } = formState;
   const confirmModalRef = useRef<ConfirmModalRef>(null);
   const { runAsync, loading } = useRequest(
     () => {
@@ -106,10 +106,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
         className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
         onClick={() => gotoStep(2)}
       >
-        <span>Bio</span>
+        <span>Self introduction</span>
         {arrowIcon}
       </div>
-      <p className="caption-12pt text-left text-neutral-off-black">{bio}</p>
+      <p className="caption-12pt text-left text-neutral-off-black">{additionalInfo.selfIntroduction}</p>
     </div>
   );
 
