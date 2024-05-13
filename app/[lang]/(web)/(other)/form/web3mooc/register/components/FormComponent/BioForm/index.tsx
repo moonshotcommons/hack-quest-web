@@ -109,11 +109,14 @@ const BioForm: FC<
 
   useEffect(() => {
     const { selfIntroduction, isEnrolledSingapore } = additionalInfo;
-    console.log(isEnrolledSingapore);
+
     // form.setValue('selfIntroduction', additionalInfo.selfIntroduction);
     // typeof isEnrolledSingapore === 'boolean' && form.setValue('isEnrolledSingapore', !!isEnrolledSingapore);
     if (selfIntroduction && typeof isEnrolledSingapore === 'boolean') form.trigger();
   }, [additionalInfo]);
+
+  const disable =
+    typeof form.getValues('isEnrolledSingapore') !== 'boolean' || !(form.getValues('selfIntroduction') || '').trim();
 
   return (
     <div className="">
@@ -163,7 +166,7 @@ const BioForm: FC<
                 'button-text-m min-w-[165px] px-0 py-4 uppercase',
                 !form.formState.isValid ? 'bg-neutral-light-gray' : ''
               )}
-              disabled={!form.formState.isValid}
+              disabled={disable}
               loading={loading}
             >
               {isRegister ? 'update' : 'Save'} And Register
