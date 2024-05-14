@@ -138,38 +138,38 @@ const ContractForm: FC<
                 learners and get the most out of the course series!`}</p>
               <CustomFormField
                 form={form}
-                placeholder="Enter your WeChat account"
-                label="WeChat(optional)"
+                placeholder="Please enter your WeChat ID"
+                label="WeChat (optional)"
                 name={'weChat'}
               />
               <CustomFormField
                 form={form}
-                placeholder="Enter your Telegram account"
-                label="Telegram(optional)"
+                placeholder="Please enter your Telegram ID"
+                label="Telegram (optional)"
                 name="telegram"
               />
               <CustomFormField
                 form={form}
-                placeholder="Enter your Twitter account"
-                label="Twitter(optional)"
-                name="twitter"
-              />
-              <CustomFormField
-                form={form}
-                placeholder="Enter your Discord account"
-                label="Discord(optional)"
+                placeholder="Please enter your Discord ID"
+                label="Discord (optional)"
                 name="discord"
               />
               <CustomFormField
                 form={form}
-                placeholder="Enter your WhatsApp account"
-                label="WhatsApp(optional)"
+                placeholder="Please enter your WhatsApp Number"
+                label="WhatsApp (optional)"
                 name="whatsApp"
               />
               <CustomFormField
                 form={form}
-                placeholder="Enter your LinkedIn account"
-                label="LinkedIn(optional)"
+                placeholder="Please enter your Twitter URL"
+                label="Twitter (optional)"
+                name="twitter"
+              />
+              <CustomFormField
+                form={form}
+                placeholder="Please enter your LinkedIn URL"
+                label="LinkedIn (optional)"
                 name="linkedIn"
               />
             </div>
