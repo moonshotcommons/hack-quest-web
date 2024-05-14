@@ -61,13 +61,14 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'my-course',
         label: 'navbar.learn.myCourse',
-        path: MenuLink.NTU_COURSE,
-        description: 'navbar.learn.myCourseDesc'
+        path: MenuLink.DASHBOARD,
+        description: 'navbar.learn.myCourseDesc',
+        needLogin: true
       },
       {
         id: 'explore',
         label: 'navbar.learn.explore',
-        path: MenuLink.NTU_COURSE,
+        path: MenuLink.ECOSYSTEM,
         description: 'navbar.learn.exploreDesc'
       },
       {
@@ -85,8 +86,9 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'my-hackathon',
         label: 'navbar.build.myHackathon',
-        path: MenuLink.HACKATHON,
-        description: 'navbar.build.myHackathonDesc'
+        path: MenuLink.HACKATHON_DASHBOARD,
+        description: 'navbar.build.myHackathonDesc',
+        needLogin: true
       },
       {
         id: 'explore-hackathons',
@@ -97,19 +99,19 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'hackathon-voting',
         label: 'navbar.build.hackathonVoting',
-        path: MenuLink.HACKATHON,
+        path: MenuLink.HACKATHON_VOTING,
         description: 'navbar.build.hackathonVotingDesc'
       },
       {
         id: 'project-archive',
         label: 'navbar.build.projectArchive',
-        path: MenuLink.HACKATHON,
+        path: MenuLink.PROJECTS,
         description: 'navbar.build.projectArchiveDesc'
       },
       {
         id: 'idea-bank',
         label: 'navbar.build.ideaBank',
-        path: MenuLink.HACKATHON,
+        path: MenuLink.IDEA_BANK,
         description: 'navbar.build.ideaBankDesc'
       }
     ]
@@ -198,15 +200,30 @@ export const navbarList: NavbarListType[] = [
         id: 'aboutUs',
         menu: [
           {
+            id: 'advocate',
+            label: 'navbar.more.advocate',
+            path: MenuLink.ADVOCATE
+          },
+          {
+            id: 'docs',
+            label: 'navbar.more.docs',
+            link: `${MenuLink.DOCS}`
+          },
+          // {
+          //   id: 'brandKit',
+          //   label: 'navbar.more.brandKit',
+          //   path: MenuLink.BRAND_KIT
+          // },
+          {
             id: 'pressKit',
             label: 'navbar.more.pressKit',
             path: MenuLink.PRESS_KIT
+          },
+          {
+            id: 'ourPartner',
+            label: 'navbar.more.ourPartner',
+            path: MenuLink.PARTNERS
           }
-          // {
-          //   id: 'docs',
-          //   label: 'navbar.more.docs',
-          //   link: `${MenuLink.DOCS}`
-          // }
         ]
       },
       {
