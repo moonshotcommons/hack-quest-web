@@ -69,6 +69,7 @@
     }
   },
   "ntuCourse": {
+    "date": "Date",
     "time": "Time",
     "title": {
       "overview": "Overview",
