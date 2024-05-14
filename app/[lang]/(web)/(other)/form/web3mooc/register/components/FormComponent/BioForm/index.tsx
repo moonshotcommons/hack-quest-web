@@ -131,7 +131,7 @@ const BioForm: FC<
                 <FormItem className="w-full text-left">
                   <div className="flex w-full justify-between">
                     <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-                      {'Self introduction'}
+                      {'Please introduce yourself to the guest lecturers and future classmates'}
                     </FormLabel>
                     <span className="caption-14pt text-neutral-rich-gray">
                       <span className={form.watch('selfIntroduction').length > 360 ? 'text-status-error' : ''}>
@@ -143,7 +143,7 @@ const BioForm: FC<
                   <FormControl>
                     <Textarea
                       authHeight={false}
-                      placeholder={'Add a bio.'}
+                      placeholder={'Say hi to everyone!'}
                       {...field}
                       className="body-m h-[128px] border-neutral-light-gray px-6 py-3 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
                     />

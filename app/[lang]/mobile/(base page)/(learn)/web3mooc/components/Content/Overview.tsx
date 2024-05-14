@@ -55,6 +55,10 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
       <div className="flex flex-col gap-[1.25rem]">
         <h1 className="text-h3-mob">{t(overviewData.name)}</h1>
         <div className="body-s">
+          <p className="mb-[.25rem] text-neutral-medium-gray">{t('ntuCourse.date')}</p>
+          <p>{overviewData.date}</p>
+        </div>
+        <div className="body-s">
           <p className="mb-[.25rem] text-neutral-medium-gray">{t('ntuCourse.time')}</p>
           <p>{overviewData.time}</p>
         </div>
