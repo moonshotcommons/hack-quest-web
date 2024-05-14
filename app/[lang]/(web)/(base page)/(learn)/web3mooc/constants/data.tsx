@@ -35,7 +35,8 @@ export const titleTxtData = [
 
 export const overviewData = {
   name: 'ntuCourse.overview.title',
-  time: 'Weekly sessions, 9-10 am SGT Tuesday / 9-10 pm EST Monday, 5/27-9/24/2024 (*The exact time of each session is TBD based on the speakers’ location)',
+  date: 'Weekly sessions from 5/28-9/24/2024',
+  time: '9-10 am SGT, Tuesday / 9-10 pm EST, Monday (*Please review individual lecture schedule under Syllabus as speakers are from different time zones).',
   format: 'Hybrid (In-person at NTU and Online over ZOOM)',
   discussionGroups: [
     {
@@ -108,7 +109,7 @@ export const syllabusData = [
     time: '6.25.2024 SGT / 6.24.2024 EST',
     description:
       'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
-    speaker: 'Dr. Sergey Gorbunov, Axelar',
+    speaker: 'Sergey Gorbunov, Axelar',
     video: '',
     slide: '',
     expand: false
@@ -138,6 +139,15 @@ export const syllabusData = [
     description: `
     Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
     speaker: 'Jaime Burke, Outlier Ventures',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'The Latest Innovation Cases in Web3',
+    time: '7.23.2024 SGT / 7.22.2024 EST',
+    description: ``,
+    speaker: 'Alan Lau, Animoca Brands',
     video: '',
     slide: '',
     expand: false
@@ -182,7 +192,7 @@ export const syllabusData = [
   },
   {
     name: 'Incentive Design and Tokenomics',
-    time: '',
+    time: '9.17.2024 SGT / 9.16.2024 EST',
     description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
     speaker: 'Mohamed Ezeldin, Animoca Brands',
     video: '',
@@ -213,7 +223,7 @@ export const syllabusData = [
     time: '',
     description:
       'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
-    speaker: 'Dr. Michael Yuan, Gaianet',
+    // speaker: 'Dr. Michael Yuan, Gaianet',
     video: '',
     slide: '',
     expand: false

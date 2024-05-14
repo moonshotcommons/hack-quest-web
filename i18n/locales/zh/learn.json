@@ -70,6 +70,7 @@
     }
   },
   "ntuCourse": {
+    "date": "日期",
     "time": "时间",
     "title": {
       "overview": "简介",
