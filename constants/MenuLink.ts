@@ -6,6 +6,7 @@ enum MenuLink {
   UGC = '/ugc',
   UGC_CREATE = '/ugc-create',
   MISSION_CENTER = '/mission-center',
+  REWARD = '/reward',
   HACKATHON = '/hackathon',
   BLOG = '/blog',
   PROJECTS = '/hackathon/projects',

@@ -123,18 +123,18 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'mission',
         label: 'navbar.reward.mission',
-        path: MenuLink.MISSION_CENTER,
+        path: MenuLink.REWARD,
         description: 'navbar.reward.missionDesc',
         needLogin: true,
         needPC: true
-      },
-      {
-        id: 'campaign',
-        label: 'navbar.reward.campaign',
-        path: MenuLink.CAMPAIGINS,
-        description: 'navbar.reward.campaignDesc',
-        needLogin: true
       }
+      // {
+      //   id: 'campaign',
+      //   label: 'navbar.reward.campaign',
+      //   path: MenuLink.CAMPAIGINS,
+      //   description: 'navbar.reward.campaignDesc',
+      //   needLogin: true
+      // }
     ]
   },
   {
