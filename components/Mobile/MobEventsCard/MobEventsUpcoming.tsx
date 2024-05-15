@@ -3,7 +3,7 @@ import TrackTag from '@/components/Common/TrackTag';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { EventsType } from '@/service/webApi/resourceStation/type';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 
 interface MobEventsUpcomingProp {
   onClick: VoidFunction;
@@ -21,11 +21,11 @@ const MobEventsUpcoming: React.FC<MobEventsUpcomingProp> = ({ onClick, events })
       <div className="body-s text-neutral-rich-gray">
         <div className="flex items-center gap-[.5rem]">
           <PiCalendarBlank />
-          <span>{dayjs(events.startTime).format('MMM D,YY')}</span>
-          {events.endTime && !dayjs(events.startTime).isSame(events.endTime, 'day') && (
+          <span>{dayjs(events.startTime).tz().format('MMM D,YY')}</span>
+          {events.endTime && !dayjs(events.startTime).tz().isSame(events.endTime, 'day') && (
             <span>
               {` - `}
-              {dayjs(events.endTime).format('MMM D,YY')}
+              {dayjs(events.endTime).tz().format('MMM D,YY')}
             </span>
           )}
         </div>
