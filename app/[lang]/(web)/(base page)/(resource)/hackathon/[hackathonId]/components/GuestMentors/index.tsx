@@ -24,7 +24,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData }) => {
   return (
     <div>
       <Title title={t('hackathonDetail.guestsMentors')} />
-      <div className="flex flex-wrap gap-[20px]">
+      <div className="mt-[32px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
           <div
             key={i}

@@ -16,7 +16,7 @@ interface FilterSelectProps {
   filters: FilterItemType[];
   sort?: FilterOptionType[];
   updateFilters: (newFilters: FilterItemType[]) => void;
-  updateSort: (newSort: FilterOptionType[]) => void;
+  updateSort?: (newSort: FilterOptionType[]) => void;
 }
 
 const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, updateSort }) => {
@@ -83,7 +83,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                 {hoverFilter === filter.filterName && (
                   <motion.ul
                     {...animateProps}
-                    className="absolute -bottom-[3px] left-0 z-[99] w-full min-w-[160px] translate-y-[100%] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
+                    className="scroll-wrap-y absolute -bottom-[3px] left-0 z-[99] max-h-[300px] w-full min-w-[160px] translate-y-[100%] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
                   >
                     {filter.options.map((option, optionIndex) => {
                       return (
@@ -187,7 +187,7 @@ const FilterSelect: FC<FilterSelectProps> = ({ filters, updateFilters, sort, upd
                         }
                         return item;
                       });
-                      updateSort(newSort);
+                      updateSort?.(newSort);
                     }}
                   >
                     <span>{t(option.name)}</span>

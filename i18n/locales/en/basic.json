@@ -181,5 +181,7 @@
     "title":"Notifications",
     "markAll":"Mark all as read",
     "readFullMessage":"Read full message"
-  }
+  },
+  "min":"Min",
+  "max":"Max"
 }

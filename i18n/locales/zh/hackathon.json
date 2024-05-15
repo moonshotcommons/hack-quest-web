@@ -73,5 +73,17 @@
     "demoVideo":"Demo Video",
     "teamLeader":"Team Leader",
     "teamMember":"Team Member"
+  },
+  "hackathonVoting":{
+    "Voting Rules":"Voting Rules",
+    "Voting Projects":"Voting Projects",
+    "SUBMISSIONS REVIEW":"SUBMISSIONS REVIEW",
+    "Voting Close in":"Voting Close in",
+    "Your Voting Role":"Your Voting Role",
+    "Your Votes Today":"Your Votes Today",
+    "Refresh at 8AM Everyday":"Refresh at 8AM Everyday",
+    "Remaining Votes":"Remaining Votes",
+    "Total Votes":"Total Votes",
+    "Your Remaining Votes":"Your Remaining Votes"
   }
 }

@@ -288,3 +288,5 @@ export enum ProjectLocation {
 }
 
 export interface FaucetType {}
+
+export type HackathonVoteProject = any;

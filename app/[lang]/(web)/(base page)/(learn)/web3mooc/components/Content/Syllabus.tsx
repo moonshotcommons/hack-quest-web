@@ -63,35 +63,35 @@ const Syllabus: React.FC<SyllabusProp> = () => {
             {v.expand && (
               <>
                 <div className="body-m flex gap-9">
-                  <div className="w-[24%]">
+                  <div className="w-[52%]">
                     <p className="text-neutral-medium-gray">{t('ntuCourse.time')}</p>
                     <p>{v.time || '-'}</p>
                   </div>
-                  <div className="w-[44%]">
+                  <div className="w-[48%]">
                     <p className="  text-neutral-medium-gray">{t('ntuCourse.syllabus.speaker')}</p>
                     <p className="truncate">{v.speaker || '-'}</p>
                   </div>
-                  <div className="w-[24%]">
-                    <p className="text-neutral-medium-gray">{t('ntuCourse.syllabus.resources')}</p>
-                    {v.video || v.slide ? (
-                      <div className="flex items-center gap-[12px]">
-                        {v.video && (
-                          <Link href={v.video} target="_blank" className="flex items-center gap-[4px]">
-                            <RiShareBoxLine size={16} />
-                            <span className="underline-m">{t('ntuCourse.syllabus.video')}</span>
-                          </Link>
-                        )}
-                        {v.slide && (
-                          <Link href={v.slide} target="_blank" className="flex items-center gap-[4px]">
-                            <RiShareBoxLine size={16} />
-                            <span className="underline-m">{t('ntuCourse.syllabus.slide')}</span>
-                          </Link>
-                        )}
-                      </div>
-                    ) : (
-                      <p>-</p>
-                    )}
-                  </div>
+                </div>
+                <div className="">
+                  <p className="text-neutral-medium-gray">{t('ntuCourse.syllabus.resources')}</p>
+                  {v.video || v.slide ? (
+                    <div className="flex items-center gap-[12px]">
+                      {v.video && (
+                        <Link href={v.video} target="_blank" className="flex items-center gap-[4px]">
+                          <RiShareBoxLine size={16} />
+                          <span className="underline-m">{t('ntuCourse.syllabus.video')}</span>
+                        </Link>
+                      )}
+                      {v.slide && (
+                        <Link href={v.slide} target="_blank" className="flex items-center gap-[4px]">
+                          <RiShareBoxLine size={16} />
+                          <span className="underline-m">{t('ntuCourse.syllabus.slide')}</span>
+                        </Link>
+                      )}
+                    </div>
+                  ) : (
+                    <p>-</p>
+                  )}
                 </div>
                 {v.description && <p className="text-neutral-rich-gray">{v.description}</p>}
               </>

@@ -11,9 +11,10 @@ interface CountDownItemProps {
   count: number;
   format: string;
   className: string;
+  formatClassName?: string;
 }
 
-const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
+const CountItem: FC<CountDownItemProps> = ({ count, format, className, formatClassName }) => {
   const isMobile = useGetDevice();
   const countNode = useMemo(() => {
     const countString = count.toString().split('');
@@ -49,17 +50,19 @@ const CountItem: FC<CountDownItemProps> = ({ count, format, className }) => {
   return (
     <div className="flex items-center gap-1">
       {countNode}
-      <span className="body-l uppercase text-neutral-rich-gray">{format}</span>
+      <span className={cn(`body-l uppercase text-neutral-rich-gray`, formatClassName)}>{format}</span>
     </div>
   );
 };
 
 interface CountDownProps {
   time: string;
+  className?: string;
   countItemClassName?: string;
+  formatClassName?: string;
 }
 
-const CountDown: FC<CountDownProps> = ({ time, countItemClassName = '' }) => {
+const CountDown: FC<CountDownProps> = ({ time, countItemClassName = '', className = '', formatClassName = '' }) => {
   const isMobile = useGetDevice();
   const [mount, setMount] = useState(false);
   const { lang } = useContext(LangContext);
@@ -74,11 +77,31 @@ const CountDown: FC<CountDownProps> = ({ time, countItemClassName = '' }) => {
 
   if (!mount) return null;
   return (
-    <div className={`flex ${isMobile ? 'gap-[.75rem]' : 'gap-[16px]'}`}>
-      <CountItem count={days} format={t('day')} className={cn('bg-neutral-off-white', countItemClassName)} />
-      <CountItem count={hours} format={t('hour')} className={cn('bg-neutral-off-white', countItemClassName)} />
-      <CountItem count={minutes} format={t('minutes')} className={cn('bg-neutral-off-white', countItemClassName)} />
-      <CountItem count={seconds} format={t('seconds')} className={cn('bg-neutral-off-white', countItemClassName)} />
+    <div className={cn(`flex ${isMobile ? 'gap-[.75rem]' : 'gap-[16px]'}`, className)}>
+      <CountItem
+        count={days}
+        format={t('day')}
+        className={cn('bg-neutral-off-white', countItemClassName)}
+        formatClassName={formatClassName}
+      />
+      <CountItem
+        count={hours}
+        format={t('hour')}
+        className={cn('bg-neutral-off-white', countItemClassName)}
+        formatClassName={formatClassName}
+      />
+      <CountItem
+        count={minutes}
+        format={t('minutes')}
+        className={cn('bg-neutral-off-white', countItemClassName)}
+        formatClassName={formatClassName}
+      />
+      <CountItem
+        count={seconds}
+        format={t('seconds')}
+        className={cn('bg-neutral-off-white', countItemClassName)}
+        formatClassName={formatClassName}
+      />
     </div>
   );
 };
