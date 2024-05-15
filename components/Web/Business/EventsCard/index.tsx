@@ -5,7 +5,7 @@ import TrackTag from '@/components/Common/TrackTag';
 import moment from 'moment';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { PiCalendarBlank } from 'react-icons/pi';
-import { EventStatus, EventsType } from '@/service/webApi/resourceStation/type';
+import { EventsType } from '@/service/webApi/resourceStation/type';
 import CardCover from '@/public/images/resource/events_card_cover.png';
 interface EventsCardProp {
   onClick: VoidFunction;
@@ -28,7 +28,7 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
           <div className="flex items-center gap-[8px]">
             <PiCalendarBlank />
             <span>{moment(events.startTime).format('ll')}</span>
-            {events.status === EventStatus.IN_PROGRESS && (
+            {events.endTime && (
               <span>
                 {` - `}
                 {moment(events.endTime).format('ll')}

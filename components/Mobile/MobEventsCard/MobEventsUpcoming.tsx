@@ -22,11 +22,19 @@ const MobEventsUpcoming: React.FC<MobEventsUpcomingProp> = ({ onClick, events })
         <div className="flex items-center gap-[.5rem]">
           <PiCalendarBlank />
           <span>{moment(events.startTime).format('ll')}</span>
+          {events.endTime && (
+            <span>
+              {` - `}
+              {moment(events.endTime).format('ll')}
+            </span>
+          )}
         </div>
-        <div className="flex items-center gap-[.5rem]">
-          <TfiLocationPin />
-          <span>{events.location}</span>
-        </div>
+        {events.location && (
+          <div className="flex items-center gap-[.5rem]">
+            <TfiLocationPin />
+            <span className="line-clamp-1">{events.location}</span>
+          </div>
+        )}
       </div>
     </div>
   );
