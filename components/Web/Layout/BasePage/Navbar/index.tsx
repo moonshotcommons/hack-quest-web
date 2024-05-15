@@ -14,7 +14,6 @@ import { useGlobalStore } from '@/store/zustand/globalStore';
 import { LuChevronDown } from 'react-icons/lu';
 import { useDebounceFn } from 'ahooks';
 import DropDownMotion from '@/components/Common/DropDownMotion';
-import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -61,12 +60,13 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
       const curNav = nav.menu.find((menu) => {
         if (menu?.menu?.length) {
           return menu.menu?.find((m) => {
-            if (pathname.includes(m.path as MenuLink)) {
+            // Nested routing
+            if (pathname === m.path) {
               menuId = m.id || '';
               return true;
             }
           });
-        } else if (pathname.includes(menu.path as MenuLink)) {
+        } else if (pathname === menu.path) {
           menuId = menu.id || '';
           return true;
         }
@@ -93,9 +93,6 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     redirectToUrl(path);
   };
   const logoClick = () => {
-    // if (userInfo) return;
-    // setAuthType(AuthType.LOGIN);
-    // setAuthModalOpen(true);
     redirectToUrl('/');
   };
   return (

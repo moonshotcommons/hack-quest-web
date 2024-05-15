@@ -8,7 +8,7 @@ export function Participated() {
       <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
       <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" />
       <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
-      <Link href="/">
+      <Link href="/hackathon/dashboard/participated">
         <div className="relative inline-flex items-center gap-1.5 after:absolute after:-bottom-1 after:h-[0.1875rem] after:w-full after:rounded-[0.125rem] after:bg-yellow-dark after:content-['']">
           <span className="body-m text-neutral-off-black">View All Participated Hackathon</span>
           <MoveRightIcon size={20} />

@@ -25,7 +25,7 @@ export function HackathonCard({
           >
             {tagName}
           </span>
-          <h1 className="ml-3 font-next-book-bold text-[1.75rem] text-neutral-off-black">{title}</h1>
+          <h1 className="ml-3 font-next-book-bold text-[1.75rem] font-bold text-neutral-off-black">{title}</h1>
         </div>
         <ChevronRightIcon size={28} />
       </div>

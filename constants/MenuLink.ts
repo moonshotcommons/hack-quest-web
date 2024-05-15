@@ -10,6 +10,7 @@ enum MenuLink {
   HACKATHON = '/hackathon',
   BLOG = '/blog',
   PROJECTS = '/hackathon/projects',
+  EXPLORE_HACKATHON = '/hackathon/explore',
   HACKATHON_DASHBOARD = '/hackathon/dashboard',
   HACKATHON_VOTING = '/hackathon/voting',
   IDEA_BANK = '/idea-bank',

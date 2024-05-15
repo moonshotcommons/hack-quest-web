@@ -16,7 +16,7 @@ export function HackathonCard({
   return (
     <div className="flex w-full flex-col gap-4 rounded-2xl bg-neutral-white p-5 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
       <div className="flex cursor-pointer items-center justify-between">
-        <h1 className="font-next-book-bold text-lg text-neutral-off-black">{title}</h1>
+        <h1 className="font-next-book-bold text-lg font-bold text-neutral-off-black">{title}</h1>
         <ChevronRightIcon size={16} />
       </div>
       <span

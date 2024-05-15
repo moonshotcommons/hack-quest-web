@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { HackathonContent } from './components/hackathon-content';
-import { HackathonStats } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/dashboard/components/hackathon-stats';
-import { FollowDiscord } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/dashboard/components/follow-discord';
+import { FollowDiscord } from '@/components/hackathon/follow-discord';
+import { HackathonStats } from '@/components/hackathon/hackathon-stats';
+import { VotingRole } from '@/components/hackathon/voting-role';
 
 export const QUICK_LINKS = [
   {
@@ -82,7 +83,11 @@ export default function HackathonDashboard() {
         <HackathonContent />
       </div>
       <div className="flex flex-col gap-8 px-5 py-8">
-        <HackathonStats />
+        <div className="rounded-2xl bg-neutral-white p-4">
+          <HackathonStats />
+          <div className="my-5 h-px w-full bg-neutral-medium-gray" />
+          <VotingRole role="user" votes={{ user: 50, advocate: 100, judge: 200 }} />
+        </div>
         <FollowDiscord />
       </div>
     </div>

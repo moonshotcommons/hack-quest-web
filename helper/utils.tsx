@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CourseTrackType, CourseType } from '@/service/webApi/course/type';
-
+import { type ReadonlyURLSearchParams } from 'next/navigation';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
@@ -277,3 +277,9 @@ export const getVideoDuration = (file: File): Promise<number> => {
     });
   });
 };
+
+export function createUrl(pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) {
+  const paramsString = params.toString();
+  const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
+  return `${pathname}${queryString}`;
+}
