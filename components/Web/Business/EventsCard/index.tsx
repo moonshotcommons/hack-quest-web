@@ -2,11 +2,11 @@
 import React from 'react';
 import Image from 'next/image';
 import TrackTag from '@/components/Common/TrackTag';
-import moment from 'moment';
 import { TfiLocationPin } from 'react-icons/tfi';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import CardCover from '@/public/images/resource/events_card_cover.png';
+import dayjs from 'dayjs';
 interface EventsCardProp {
   onClick: VoidFunction;
   events: EventsType;
@@ -27,11 +27,11 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
         <div className="body-s flex h-[45px] flex-col justify-end text-neutral-rich-gray">
           <div className="flex items-center gap-[8px]">
             <PiCalendarBlank />
-            <span>{moment(events.startTime).format('ll')}</span>
-            {events.endTime && (
+            <span>{dayjs(events.startTime).format('MMM D,YY')}</span>
+            {events.endTime && !dayjs(events.startTime).isSame(events.endTime, 'day') && (
               <span>
                 {` - `}
-                {moment(events.endTime).format('ll')}
+                {dayjs(events.endTime).format('MMM D,YY')}
               </span>
             )}
           </div>
