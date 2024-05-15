@@ -31,7 +31,7 @@ const PastEvents: React.FC<PastEventsProp> = ({ list, lang }) => {
     <div className="container mx-auto mt-[60px]">
       <p className="text-h3 text-neutral-off-black">{t('events.pastEvents')}</p>
       <div className="my-[40px] flex flex-wrap gap-[20px]">
-        {eventsList.slice(0, 8)?.map((v) => (
+        {eventsList.slice(0, 16)?.map((v) => (
           <div key={v.id} className="w-[calc((100%-60px)/4)]">
             <EventsCard
               events={v}
