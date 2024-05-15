@@ -23,24 +23,26 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
         <div className="flex flex-wrap gap-x-[8px] gap-y-[4px]">
           {events.tags?.map((v, i) => <TrackTag track={v} key={i} />)}
         </div>
-        {events.status !== EventStatus.PAST && (
-          <div className="body-s text-neutral-rich-gray">
-            <div className="flex items-center gap-[8px]">
-              <PiCalendarBlank />
-              <span>{moment(events.startTime).format('ll')}</span>
-              {events.status === EventStatus.IN_PROGRESS && (
-                <span>
-                  {` - `}
-                  {moment(events.endTime).format('ll')}
-                </span>
-              )}
-            </div>
+        {/* {events.status !== EventStatus.PAST && ( */}
+        <div className="body-s flex h-[45px] flex-col justify-end text-neutral-rich-gray">
+          <div className="flex items-center gap-[8px]">
+            <PiCalendarBlank />
+            <span>{moment(events.startTime).format('ll')}</span>
+            {events.status === EventStatus.IN_PROGRESS && (
+              <span>
+                {` - `}
+                {moment(events.endTime).format('ll')}
+              </span>
+            )}
+          </div>
+          {events.location && (
             <div className="flex items-center gap-[8px]">
               <TfiLocationPin />
-              <span>{events.location}</span>
+              <span className="line-clamp-1 flex-1">{events.location}</span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        {/* )} */}
       </div>
     </div>
   );

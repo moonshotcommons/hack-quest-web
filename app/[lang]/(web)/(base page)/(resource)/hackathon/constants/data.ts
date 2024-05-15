@@ -51,3 +51,18 @@ export const titleTxtData = [
   'projectsDetail.title.introduction',
   'projectsDetail.title.team'
 ];
+
+export const hackathonVoteProjectSort = [
+  {
+    label: 'Earliest Submission',
+    value: '-openTime'
+  },
+  {
+    label: 'Latest Submission',
+    value: 'openTime'
+  },
+  {
+    label: 'Your Votes',
+    value: 'Your Votes'
+  }
+];

@@ -6,7 +6,6 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
-import Box from '../components/Box';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -18,6 +17,7 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import WarningModal from './WarningModal';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { getRandomAvatars } from '@/helper/random';
+import Box from '../../../components/components/Box';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;

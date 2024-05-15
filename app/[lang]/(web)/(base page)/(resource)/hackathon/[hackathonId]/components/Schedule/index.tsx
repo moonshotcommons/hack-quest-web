@@ -46,7 +46,7 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
   return (
     <div>
       <div className="mb-[32px] flex items-center justify-between">
-        <Title title={t('hackathonDetail.schedule')} className="mb-[0]" />
+        <Title title={t('hackathonDetail.schedule')} />
         {schedule.some((v) => v.children?.length > 0) && (
           <div className="underline-m cursor-pointer text-neutral-black" onClick={handleExpandAll}>
             {isExpandAll ? t('courses.collapseAll') : t('courses.expandAll')}
