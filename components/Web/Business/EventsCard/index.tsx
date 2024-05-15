@@ -6,7 +6,7 @@ import { TfiLocationPin } from 'react-icons/tfi';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { EventsType } from '@/service/webApi/resourceStation/type';
 import CardCover from '@/public/images/resource/events_card_cover.png';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 interface EventsCardProp {
   onClick: VoidFunction;
   events: EventsType;
@@ -27,11 +27,11 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
         <div className="body-s flex h-[45px] flex-col justify-end text-neutral-rich-gray">
           <div className="flex items-center gap-[8px]">
             <PiCalendarBlank />
-            <span>{dayjs(events.startTime).format('MMM D,YY')}</span>
-            {events.endTime && !dayjs(events.startTime).isSame(events.endTime, 'day') && (
+            <span>{dayjs(events.startTime).tz().format('MMM D,YY')}</span>
+            {events.endTime && !dayjs(events.startTime).tz().isSame(events.endTime, 'day') && (
               <span>
                 {` - `}
-                {dayjs(events.endTime).format('MMM D,YY')}
+                {dayjs(events.endTime).tz().format('MMM D,YY')}
               </span>
             )}
           </div>

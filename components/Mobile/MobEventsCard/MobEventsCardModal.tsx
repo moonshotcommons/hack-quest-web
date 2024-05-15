@@ -1,7 +1,6 @@
 import Button from '@/components/Common/Button';
 import SwiperContainer from '@/components/Common/SwiperContainer';
 import TrackTag from '@/components/Common/TrackTag';
-import moment from 'moment';
 import React, { useContext, useMemo } from 'react';
 import { PiCalendarBlank } from 'react-icons/pi';
 import { TfiLocationPin } from 'react-icons/tfi';
@@ -17,6 +16,7 @@ import CardCover from '@/public/images/resource/events_card_cover.png';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import dayjs from '@/components/Common/Dayjs';
 
 interface MobEventsCardModalProp {
   onClose: VoidFunction;
@@ -63,15 +63,21 @@ const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, e
           <div className="flex items-center gap-[.5rem]">
             <PiCalendarBlank />
             <span>
-              {moment(events.startTime).format('ll')}
-              {' - '}
-              {moment(events.endTime).format('ll')}
+              {dayjs(events.startTime).tz().format('MMM D,YY')}
+              {events.endTime && !dayjs(events.startTime).tz().isSame(events.endTime, 'day') && (
+                <>
+                  {' - '}
+                  {dayjs(events.endTime).tz().format('MMM D,YY')}
+                </>
+              )}
             </span>
           </div>
-          <div className="flex items-center gap-[.5rem]">
-            <TfiLocationPin />
-            <span>{events.location}</span>
-          </div>
+          {events.location && (
+            <div className="flex items-center gap-[.5rem]">
+              <TfiLocationPin />
+              <span>{events.location}</span>
+            </div>
+          )}
         </div>
         <p className="body-s mt-[2.5rem] text-neutral-off-black">{events.description}</p>
         {events.eventUrl && (
