@@ -22,7 +22,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon }) => {
   return (
     <div>
       <Title title={t('hackathonDetail.timeline')} />
-      <Box className="p-[24px] text-center ">
+      <Box className="mt-[32px] p-[24px] text-center">
         <div className="relative flex items-center justify-between ">
           <div
             className={`absolute bottom-[16px] left-[151px] h-[3px] w-[calc((100%-404px)/2)] rounded-[100px]  ${stepIndex > 0 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'}`}

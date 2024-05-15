@@ -26,7 +26,7 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
   return (
     <div>
       <Title title={t(`hackathonDetail.${title}`)} />
-      <div className="mb-[20px] flex flex-wrap gap-[20px]">
+      <div className="mb-[20px] mt-[32px] flex flex-wrap gap-[20px]">
         {showList.map((v: MentorType, i: number) => (
           <div key={i} className="w-[calc((100%-60px)/4)]">
             <div className="relative h-0 w-full pt-[45%]">
