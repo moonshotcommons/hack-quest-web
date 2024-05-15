@@ -14,6 +14,7 @@ import speakersAvatar14 from '@/public/images/learn/speaker_avatar14.png';
 import speakersAvatar15 from '@/public/images/learn/speaker_avatar15.png';
 import speakersAvatar16 from '@/public/images/learn/speaker_avatar16.png';
 import speakersAvatar17 from '@/public/images/learn/speaker_avatar17.png';
+import speakersAvatar18 from '@/public/images/learn/speaker_avatar18.png';
 
 import MorphLogo from '@/public/images/learn/Morph_logo.png';
 import OpenCampusLogo from '@/public/images/learn/Open_Campus_logo.png';
@@ -66,7 +67,7 @@ export const classTimeData = {
 export const syllabusData = [
   {
     name: 'Introduction to Blockchain and Smart Contracts: A Technical Perspective',
-    time: '5.28.2024 SGT / 5.27.2024 EST',
+    time: '9:30-11 AM SGT, May 28th 2024 / 9:30-11 PM EST, May 27th 2024',
     description:
       'Blockchain technology promises to disrupt the current business landscape through consensus-driven decentralization of the traditional computing fabric. In this session, we will go through the core technical aspects of blockchain and smart contracts, introduce basic concepts such as cryptographic hash function, hash pointers, consensus protocols, and how the Bitcoin blockchain is constructed with these building blocks. We will also discuss and explain smart contracts and how they are powering decentralized applications in various domains.',
     speaker: 'Dr. Li Yi, School of Computer Science and Engineering, NTU',
@@ -76,7 +77,7 @@ export const syllabusData = [
   },
   {
     name: 'Web2 to Web3: A Developer’s Guide',
-    time: '6.4.2024 SGT / 6.3.2024 EST',
+    time: '9-10:30 AM SGT, June 4th 2024 / 9-10:30 PM EST, June 3rd 2024',
     description:
       'This introductory session is dedicated to bridging the gap between Web2 and Web3. In this session, students will review key Web3 concepts, learn key differences between Web2 and Web3, explore the Ethereum ecosystem, and discover how to begin building in this transformative new space as a Web3 developer.',
     speaker: 'Austin Griffith, Ethereum Foundation',
@@ -86,7 +87,7 @@ export const syllabusData = [
   },
   {
     name: 'Web3 Landscape (I): Infrastructure',
-    time: '6.11.2024 SGT / 6.10.2024 EST',
+    time: '9-10:30 AM SGT, June 11th 2024 / 9-10:30 PM EST, June 10th 2024',
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on infrastructure.',
     speaker: 'Dr. Michael Yuan, Gaianet',
@@ -96,7 +97,7 @@ export const syllabusData = [
   },
   {
     name: 'Web3 Landscape (II): DeFi',
-    time: '6.18.2024 SGT / 6.17.2024 EST',
+    time: '9-10:30 AM SGT, June 18th 2024 / 9-10:30 PM EST, June 17th 2024',
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on DeFi.',
     speaker: 'Diane Dai, DODO',
@@ -106,7 +107,7 @@ export const syllabusData = [
   },
   {
     name: 'Cross-Chain Future: Smart Contract and Interoperability',
-    time: '6.25.2024 SGT / 6.24.2024 EST',
+    time: '9-10:30 AM SGT, June 25th 2024 / 9-10:30 PM EST, June 24th 2024',
     description:
       'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
     speaker: 'Sergey Gorbunov, Axelar',
@@ -116,7 +117,7 @@ export const syllabusData = [
   },
   {
     name: `Blockchain Beyond the Basics: Reimagine What's Possible`,
-    time: '7.2.2024 SGT / 7.1.2024 EST',
+    time: '9-10:30 AM SGT, July 2nd 2024 / 9-10:30 PM EST, July 1st 2024',
     description: `This session will dive deep into the various cool projects and functionalities that shatter Web2's limitations and go beyond what's possible today through the power of decentralized technology.`,
     speaker: 'Gloria Kimbwala, Morph',
     video: '',
@@ -125,7 +126,7 @@ export const syllabusData = [
   },
   {
     name: 'How to Find a Good Idea',
-    time: '7.9.2024 SGT / 7.8.2024 EST',
+    time: '9-10:30 AM SGT, July 9th 2024 / 9-10:30 PM EST, July 8th 2024',
     description:
       'Want to build a Web3 project but don’t have an idea in mind yet? This session will equip aspiring founders with the knowledge, frameworks, tools, and techniques to identify the most groundbreaking ideas in Web3 and ideate on what’s most interesting and relevant to them.',
     speaker: 'Scott Moore, Gitcoin',
@@ -135,7 +136,7 @@ export const syllabusData = [
   },
   {
     name: 'Pitching and Venture Funding in Web3',
-    time: '7.16.2024 SGT / 7.15.2024 EST',
+    time: '4-5 PM SGT, July 15th, 2024 / 9-10 AM BST, July 15th, 2024',
     description: `
     Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
     speaker: 'Jaime Burke, Outlier Ventures',
@@ -145,7 +146,7 @@ export const syllabusData = [
   },
   {
     name: 'The Latest Innovation Cases in Web3',
-    time: '7.23.2024 SGT / 7.22.2024 EST',
+    time: '9-10:30 AM SGT, July 23rd 2024 / 9-10:30 PM EST, July 22nd 2024',
     description: ``,
     speaker: 'Alan Lau, Animoca Brands',
     video: '',
@@ -154,7 +155,7 @@ export const syllabusData = [
   },
   {
     name: 'Fintech in Web3',
-    time: '7.30.2024 SGT / 7.29.2024 EST',
+    time: '9-10:30 AM SGT, July 30th 2024 / 9-10:30 PM EST, July 29th 2024',
     description:
       'An overview of the different areas of finance and their Web3 equivalents, such as payment, wealth management, and financing. We will discuss how Web3 is being applied across finance by startups as well as banks.',
     speaker: 'Dr. Ernie Teo, College of Business, NTU',
@@ -162,9 +163,18 @@ export const syllabusData = [
     slide: '',
     expand: false
   },
+  // {
+  //   name: '',
+  //   time: '9-10:30 AM SGT, August 6th 2024 / 9-10:30 PM EST, August 5th 2024',
+  //   description: '',
+  //   speaker: '',
+  //   video: '',
+  //   slide: '',
+  //   expand: false
+  // },
   {
     name: 'The Future of Decentralized Social',
-    time: '8.13.2024 SGT / 8.12.2024 EST',
+    time: '9-10 AM SGT, August 13th 2024 / 9-10 PM EST, August 12th 2024',
     // description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
     description: '',
     speaker: 'Suji Yan, Mask Network',
@@ -174,7 +184,7 @@ export const syllabusData = [
   },
   {
     name: 'Stablecoins as the Foundation for On-Chain Financial Infrastructure',
-    time: '8.20.2024 SGT / 8.19.2024 EST',
+    time: '9-10:30 AM SGT, August 20th 2024 / 9-10:30 PM EST, August 19th 2024',
     description: `Stablecoins are dubbed the "killer use case" in crypto, yet they account for less than 1% of the M2 money supply. The largest banking and payments companies in the world are all experimenting with stablecoins, while central banks try to decide what to do with them. Are stablecoins the next phase for digital money? What kind of pressure will that put on a country's monetary policy? We'll dive into the characteristics of different stablecoins and industry trends through the lens of DeFi and TradFi.`,
     speaker: 'Anna Yuan, Solana Foundation',
     video: '',
@@ -183,7 +193,7 @@ export const syllabusData = [
   },
   {
     name: 'How to Build an Investable Web3 Project',
-    time: '8.27.2024 SGT / 8.26.2024 EST',
+    time: '9-10:30 AM SGT, August 27th 2024 / 9-10:30 PM EST, August 26th 2024',
     description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
     speaker: 'Abhishek Saxena, Polygon Ventures',
     video: '',
@@ -192,7 +202,7 @@ export const syllabusData = [
   },
   {
     name: 'Incentive Design and Tokenomics',
-    time: '9.17.2024 SGT / 9.16.2024 EST',
+    time: '9-10:30 AM SGT, September 17th 2024 / 9-10:30 PM EST, September 16th 2024',
     description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
     speaker: 'Mohamed Ezeldin, Animoca Brands',
     video: '',
@@ -299,6 +309,13 @@ export const guestSpeakersData = [
   },
   {
     showMore: false,
+    name: 'Haider Rafique',
+    img: speakersAvatar18,
+    description:
+      'Haider is the Chief Marketing Officer of OKX, the world’s second largest crypto exchange by trading volume. Previously, Haider served at OKX’s U.S.-based partner exchange Okcoin as CMO and led the company’s own rebrand in 2021 and the platform recorded 20x growth in retail user sign-ups year-over-year, onboarding more than a million customers. He also served as Head of Growth of Blockchain.com and oversaw 2x growth to 44M wallets in 2 years.'
+  },
+  {
+    showMore: false,
     name: 'Alan Lau',
     img: '/images/learn/speaker_avatar5.webp',
     description:
@@ -335,7 +352,7 @@ export const guestSpeakersData = [
     name: 'Anna Yuan',
     img: speakersAvatar9,
     description:
-      'Anna is the Stablecoins Lead of Solana Foundation, where she focuses on stablecoins and international markets and works with centralized exchanges, market makers, fiat ramps, and issuers to increase stablecoin accessibility and liquidity. Previously, Anna was the Chief of Staff at Sino-Canada School and a McKinsey Consultant. She holds an MBA from Harvard Business School and a BA from the University of Chicago.'
+      'Anna is the Stablecoins Lead of Solana Foundation, where she focuses on stablecoins and international markets and works with centralized exchanges, market makers, fiat ramps, and issuers to increase stablecoin accessibility and liquidity. Previously, Anna was a McKinsey Consultant and a DAO researcher at ConsenSys. She holds an MBA from Harvard Business School and a BA from the University of Chicago.'
   },
   {
     showMore: false,
@@ -382,7 +399,7 @@ export const guestSpeakersData = [
     name: 'Dr. Li Yi',
     img: speakersAvatar13,
     description:
-      'Dr. Li Yi is an associate professor in the School of Computer Science and Engineering at the Nanyang Technological University (NTU). He studies the security, reliability, and sustainability of modern software systems. His research interests now focus on two areas: (1) sustainability of evolving software systems and (2) security and reliability of decentralized applications running on top of blockchains. Before joining NTU, I was a postdoc at Harvard University (hosted by Jelani Nelson), a postdoc at the Max-Planck Institute for Informatics in Saarbruecken, Germany and a research fellow at the Simons Institute for the Theory of Computing at UC Berkeley. He received a PhD in computer science and engineering from the University of Michigan in 2013 and a BEng from the ACM Class of Shanghai Jiaotong University in 2008.'
+      'Dr. Li Yi is an Associate Professor at the College of Computing and Data Science, Nanyang Technological University (NTU) and an Associate Director of the NTU Centre in Computational Technologies for Finance (CCTF). He received his BComp degree in Computer Science from the National University of Singapore in 2011, and both his MSc and PhD degrees in Computer Science from the University of Toronto in 2013 and 2018, respectively. Dr. Li has been leading the Software Reliability and Security Lab (SRSLab@NTU) since 2018. His research interests are in program analysis and automated reasoning techniques with applications in software engineering and software security. Together with his research team, he develops solutions enabling the construction of high-quality software systems that are both reliable and sustainable. Currently, his work focuses on the security and fairness of decentralized applications and blockchain systems, as well as the robustness and dependability of AI systems. His work in these areas won four ACM Distinguished Paper Awards and two Best Artifact Awards at top-tier conferences.'
   },
   {
     showMore: false,
