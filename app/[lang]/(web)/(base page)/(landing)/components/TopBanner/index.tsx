@@ -79,7 +79,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
           <Image src="/images/landing/code_icon.png" alt="code" width={48} height={48}></Image>
           <div className="text-neutral-off-white">
             <p className="body-m">{t('TopBanner.learnAndBuildAlongside')}</p>
-            <p className="body-xl-bold">5k+ {t('TopBanner.developers')}</p>
+            <p className="body-xl-bold">9k+ {t('TopBanner.developers')}</p>
           </div>
         </BubbleCard>
       </div>
