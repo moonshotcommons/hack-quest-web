@@ -10,12 +10,22 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
+import { isEthAddress } from '@/helper/utils';
 
 interface RequestProp {
   faucet: FaucetType;
 }
 
 const Request: React.FC<RequestProp> = ({ faucet }) => {
+  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      setAuthModalOpen: state.setAuthModalOpen,
+      setAuthType: state.setAuthType
+    }))
+  );
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [inputVal, setInputVal] = useState('');
@@ -25,6 +35,15 @@ const Request: React.FC<RequestProp> = ({ faucet }) => {
   const [time, setTime] = useState(3);
   const timer = useRef<NodeJS.Timeout | null>(null);
   const handleRequest = () => {
+    if (!userInfo) {
+      setAuthModalOpen(true);
+      setAuthType(AuthType.LOGIN);
+      return;
+    }
+    if (!isEthAddress(inputVal)) {
+      errorMessage({ msg: t('faucets.inputAddressError') });
+      return;
+    }
     setLoading(true);
     webApi.resourceStationApi
       .faucetClaim({

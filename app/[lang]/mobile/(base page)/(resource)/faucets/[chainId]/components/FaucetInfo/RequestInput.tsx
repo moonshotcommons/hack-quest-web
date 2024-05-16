@@ -10,12 +10,27 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
+import { isEthAddress } from '@/helper/utils';
 
 interface RequestProp {
   faucet: FaucetType;
 }
 
 const Request: React.FC<RequestProp> = ({ faucet }) => {
+  const { userInfo } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo
+    }))
+  );
+  const { mobileNavModalToggleOpenHandle } = useGlobalStore(
+    useShallow((state) => ({
+      mobileNavModalToggleOpenHandle: state.mobileNavModalToggleOpenHandle
+    }))
+  );
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [inputVal, setInputVal] = useState('');
@@ -25,6 +40,15 @@ const Request: React.FC<RequestProp> = ({ faucet }) => {
   const [time, setTime] = useState(3);
   const timer = useRef<NodeJS.Timeout | null>(null);
   const handleRequest = () => {
+    if (!userInfo) {
+      mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+      mobileNavModalToggleOpenHandle.toggleOpen();
+      return;
+    }
+    if (!isEthAddress(inputVal)) {
+      errorMessage({ msg: t('faucets.inputAddressError') });
+      return;
+    }
     setLoading(true);
     webApi.resourceStationApi
       .faucetClaim({

@@ -157,6 +157,7 @@
     "donate":"Send {{symbol}} to {{address}}",
     "drippedSuccessfully":"token dripped successfully",
     "waithours":"You must wait 24 hours between faucet requests for the same network.",
+    "inputAddressError":"Please enter the correct wallet address",
     "FAQS":{
       "title": "FAQs",
       "description": "Can’t find what you’re looking for? Reach out to us!",
