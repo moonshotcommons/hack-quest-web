@@ -489,14 +489,9 @@ export const strategicPartners = [
 
 export const mediaPartners = [
   {
-    name: '星球日报',
-    title: '星球日报',
-    picture: '/images/learn/ntu_partners/星球日报.png'
-  },
-  {
-    name: 'Foresight News',
-    title: 'Foresight News',
-    picture: '/images/learn/ntu_partners/Foresight News.png'
+    name: '深潮 TECH FLOW',
+    title: '深潮 TECH FLOW',
+    picture: '/images/learn/ntu_partners/深潮 TECH FLOW.png'
   },
   {
     name: 'BLOCK BEATS',
@@ -514,8 +509,13 @@ export const mediaPartners = [
     picture: '/images/learn/ntu_partners/PANews.png'
   },
   {
-    name: '深潮 TECH FLOW',
-    title: '深潮 TECH FLOW',
-    picture: '/images/learn/ntu_partners/深潮 TECH FLOW.png'
+    name: '星球日报',
+    title: '星球日报',
+    picture: '/images/learn/ntu_partners/星球日报.png'
+  },
+  {
+    name: 'Foresight News',
+    title: 'Foresight News',
+    picture: '/images/learn/ntu_partners/Foresight News.png'
   }
 ];
