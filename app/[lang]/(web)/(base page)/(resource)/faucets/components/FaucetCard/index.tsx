@@ -1,4 +1,5 @@
 import MenuLink from '@/constants/MenuLink';
+import { decimalCount } from '@/helper/utils';
 import { FaucetType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import React from 'react';
@@ -24,11 +25,11 @@ const FaucetCard: React.FC<FaucetCardProp> = ({ faucet }) => {
         <div className="flex gap-[16px]">
           <div className="flex-1 flex-shrink-0">
             <p className="caption-12pt text-neutral-rich-gray">Faucet</p>
-            <p className="body-xs ">Drips {`${Number(faucet.amount).toFixed(3)} ${faucet.symbol}`}</p>
+            <p className="body-xs ">Drips {`${decimalCount(faucet.amount, 3)} ${faucet.symbol}`}</p>
           </div>
           <div className="flex-1 flex-shrink-0">
             <p className="caption-12pt text-neutral-rich-gray">Stash</p>
-            <p className="body-xs ">{`${Number(faucet.balance).toFixed(3)} ${faucet.symbol}`}</p>
+            <p className="body-xs ">{`${decimalCount(faucet.balance, 3)} ${faucet.symbol}`}</p>
           </div>
         </div>
       </div>

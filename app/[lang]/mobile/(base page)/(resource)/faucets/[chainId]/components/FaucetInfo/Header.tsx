@@ -1,5 +1,4 @@
 import { FaucetType } from '@/service/webApi/resourceStation/type';
-import Image from 'next/image';
 import React from 'react';
 
 interface HeaderProp {
@@ -11,7 +10,8 @@ const Header: React.FC<HeaderProp> = ({ faucet }) => {
     <div className="flex flex-col items-center gap-[.625rem]">
       <div className=" flex items-center gap-[.5rem]">
         <div className="relative h-[2rem] w-[2rem] overflow-hidden">
-          <Image src={faucet.thumbnail} alt={faucet.name} fill className="object-cover" />
+          {/* <Image src={faucet.thumbnail} alt={faucet.name} fill className="object-cover" /> */}
+          <img src={faucet.thumbnail} alt={faucet.name} className="object-cover" />
         </div>
         <h1 className="text-h2-mob">{faucet.name}</h1>
       </div>
