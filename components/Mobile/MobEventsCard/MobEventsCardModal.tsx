@@ -63,11 +63,11 @@ const MobEventsCardModal: React.FC<MobEventsCardModalProp> = ({ onClose, open, e
           <div className="flex items-center gap-[.5rem]">
             <PiCalendarBlank />
             <span>
-              {dayjs(events.startTime).tz().format('MMM D,YY')}
+              {dayjs(events.startTime).tz().format('MMM. D, YYYY')}
               {events.endTime && !dayjs(events.startTime).tz().isSame(events.endTime, 'day') && (
                 <>
                   {' - '}
-                  {dayjs(events.endTime).tz().format('MMM D,YY')}
+                  {dayjs(events.endTime).tz().format('MMM. D, YYYY')}
                 </>
               )}
             </span>

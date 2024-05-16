@@ -4,21 +4,17 @@ import React from 'react';
 import Header from './Header';
 import RequestInput from './RequestInput';
 import List from './List';
-import Pagination from '@/components/Common/Pagination';
 
 interface FaucetInfoProp {
-  faucet?: FaucetType;
+  faucet: FaucetType;
 }
 
 const FaucetInfo: React.FC<FaucetInfoProp> = ({ faucet }) => {
   return (
-    <div className="mx-auto flex w-[808px] flex-col  gap-[40px] py-[40px] text-neutral-off-black">
+    <div className="mb-[2rem] mt-[1.25rem] flex flex-col gap-[2rem] text-neutral-off-black">
       <Header faucet={faucet} />
       <RequestInput faucet={faucet} />
-      <List />
-      <div className="flex justify-center">
-        <Pagination page={1} total={2} onPageChange={() => {}} />
-      </div>
+      <List faucet={faucet} />
     </div>
   );
 };

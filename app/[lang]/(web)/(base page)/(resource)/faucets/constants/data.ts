@@ -1,18 +1,20 @@
+import { BlockChainType } from '@/service/webApi/resourceStation/type';
+
 export const faucetsFilterData = [
   {
     label: 'EVM',
-    value: 'EVM'
+    value: BlockChainType.EVM
   },
   {
     label: 'Solana',
-    value: 'Solana'
+    value: BlockChainType.SOLANA
   },
   {
     label: 'Sui',
-    value: 'Sui'
+    value: BlockChainType.SUI
   },
   {
     label: 'Near',
-    value: 'Near'
+    value: BlockChainType.NEAR
   }
 ];

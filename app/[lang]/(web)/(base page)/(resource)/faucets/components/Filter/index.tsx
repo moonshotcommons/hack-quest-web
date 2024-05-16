@@ -15,11 +15,11 @@ interface FilterProp {
 const Filter: React.FC<FilterProp> = ({ searchParams }) => {
   const router = useRouter();
   function changeSearchInfo(type: string, track: string) {
-    const searchTracks = searchParams.track?.split(',') || [];
+    const searchTracks = searchParams.type?.split(',') || [];
     const tracks =
       type === 'add' ? [...searchTracks, track].join(',') : searchTracks.filter((v) => v !== track).join(',');
     const searchInfo = {
-      track: tracks
+      type: tracks
     };
     const url = getSearchParamsUrl(searchInfo, MenuLink.FAUCETS);
     router.push(url);
@@ -29,7 +29,7 @@ const Filter: React.FC<FilterProp> = ({ searchParams }) => {
       <span>Network Filter</span>
       <div className="flex items-center gap-[16px]">
         {faucetsFilterData.map((v) => {
-          return searchParams.track?.includes(v.value) ? (
+          return searchParams.type?.includes(v.value) ? (
             <Button
               key={v.value}
               type="primary"

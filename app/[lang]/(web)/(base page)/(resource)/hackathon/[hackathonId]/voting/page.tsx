@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import { getHackathonById } from '@/service/cach/resource/hackathon';
+import { getHackathonById, getHackathonsList } from '@/service/cach/resource/hackathon';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import { isUuid } from '@/helper/utils';
@@ -36,9 +36,14 @@ const HackathonVotingPage: FC<HackathonVotingPageProps> = async ({ params }) => 
   if (isUuid(params.hackathonId)) {
     permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   }
+  const otherHackathons = await getHackathonsList({
+    status: 'past',
+    page: 1,
+    limit: 12
+  });
   return (
     <>
-      <HackathonVoting hackathon={hackathon} />
+      <HackathonVoting hackathon={hackathon} otherHackathons={otherHackathons.data} />
     </>
   );
 };

@@ -5,6 +5,8 @@ import {
   BlogType,
   CoustomKeywordType,
   EventsType,
+  FaucetRecordType,
+  FaucetType,
   HackathonDataType,
   HackathonRegisterInfo,
   HackathonTeamDetail,
@@ -22,7 +24,8 @@ export enum ResourceStationApiType {
   Blogs = '/blogs',
   Glossary = '/glossaries',
   Events = '/events',
-  Teams = '/hackathons/teams'
+  Teams = '/hackathons/teams',
+  Faucets = '/faucets'
 }
 
 class ResourceStationApi {
@@ -207,6 +210,31 @@ class ResourceStationApi {
 
   projectSubmit(projectId: string) {
     return this.service.post(`${ResourceStationApiType.Projects}/${projectId}/submit`);
+  }
+
+  getFaucets(params: object) {
+    return this.service.get<{ total: number; data: FaucetType[] }>(`${ResourceStationApiType.Faucets}`, {
+      params
+    });
+  }
+
+  getFaucetDetailById(chainId: string) {
+    return this.service.get<FaucetType>(`${ResourceStationApiType.Faucets}/${chainId}`);
+  }
+
+  getFaucetRecords(faucetId: string, params: object) {
+    return this.service.get<{ total: number; data: FaucetRecordType[] }>(
+      `${ResourceStationApiType.Faucets}/${faucetId}/record`,
+      {
+        params
+      }
+    );
+  }
+
+  faucetClaim(data: object) {
+    return this.service.post(`${ResourceStationApiType.Faucets}/claim`, {
+      data
+    });
   }
 }
 

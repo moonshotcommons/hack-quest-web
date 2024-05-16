@@ -36,7 +36,6 @@ const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonI
   if (isUuid(params.hackathonId)) {
     permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   }
-  console.info(hackathon);
   return (
     <>
       <HackDetail hackathon={hackathon} />

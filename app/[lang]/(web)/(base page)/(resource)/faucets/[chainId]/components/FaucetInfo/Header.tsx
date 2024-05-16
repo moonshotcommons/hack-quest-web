@@ -1,8 +1,9 @@
 import { FaucetType } from '@/service/webApi/resourceStation/type';
+import Image from 'next/image';
 import React from 'react';
 
 interface HeaderProp {
-  faucet?: FaucetType;
+  faucet: FaucetType;
 }
 
 const Header: React.FC<HeaderProp> = ({ faucet }) => {
@@ -10,14 +11,14 @@ const Header: React.FC<HeaderProp> = ({ faucet }) => {
     <div className="flex flex-col items-center gap-[10px]">
       <div className=" flex items-center gap-[16px]">
         <div className="relative h-[48px] w-[48px] overflow-hidden">
-          {/* <Image src={} alt={} fill className='object-cover' /> */}
+          <Image src={faucet.thumbnail} alt={faucet.name} fill className="object-cover" />
         </div>
-        <h1 className="text-h2">Arbitrum Sepolia Faucet</h1>
+        <h1 className="text-h2">{faucet.name}</h1>
       </div>
       <div className="body-m flex gap-[15px] text-neutral-rich-gray">
-        <span>Dripping 0.01 arbETH per day</span>
+        <span>Dripping {`${faucet.amount} ${faucet.symbol}`} per day</span>
         <div className="h-[26px] w-[0.5px] bg-neutral-rich-gray"></div>
-        <span>Current Balance: 0.50 arbETH</span>
+        <span>Current Balance: {`${faucet.balance} ${faucet.symbol}`}</span>
       </div>
     </div>
   );
