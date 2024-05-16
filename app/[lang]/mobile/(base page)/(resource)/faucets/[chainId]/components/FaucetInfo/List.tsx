@@ -3,17 +3,24 @@ import Loading from '@/components/Common/Loading';
 import Pagination from '@/components/Common/Pagination';
 import webApi from '@/service';
 import { FaucetRecordType, FaucetType } from '@/service/webApi/resourceStation/type';
+import { useUserStore } from '@/store/zustand/userStore';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { RiShareBoxLine } from 'react-icons/ri';
+import { useShallow } from 'zustand/react/shallow';
 
 interface ListProp {
   faucet: FaucetType;
 }
 
 const List: React.FC<ListProp> = ({ faucet }) => {
+  const { userInfo } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo
+    }))
+  );
   const [records, setRecords] = useState<FaucetRecordType[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -34,8 +41,9 @@ const List: React.FC<ListProp> = ({ faucet }) => {
     }
   );
   useEffect(() => {
-    run();
-  }, [page]);
+    if (userInfo) run();
+  }, [page, userInfo, run]);
+  if (!userInfo || (page === 1 && !records.length)) return null;
   return (
     <>
       <div className="w-full rounded-[.5rem] border border-neutral-light-gray p-[16px]">

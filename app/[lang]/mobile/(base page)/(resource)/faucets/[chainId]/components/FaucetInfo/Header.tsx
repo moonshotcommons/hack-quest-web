@@ -15,10 +15,9 @@ const Header: React.FC<HeaderProp> = ({ faucet }) => {
         </div>
         <h1 className="text-h2-mob">{faucet.name}</h1>
       </div>
-      <div className="body-xs flex gap-[.5rem] text-neutral-rich-gray">
-        <span>Dripping {`${faucet.amount} ${faucet.symbol}`} per day</span>
-        <div className="h-[1.1875rem] w-[0.5px] bg-neutral-rich-gray"></div>
-        <span>Current Balance: {`${faucet.balance} ${faucet.symbol}`}</span>
+      <div className="body-xs text-center text-neutral-rich-gray">
+        <p>Dripping {`${faucet.amount} ${faucet.symbol}`} per day</p>
+        <p className="mt-[.25rem]">Current Balance: {`${faucet.balance} ${faucet.symbol}`}</p>
       </div>
     </div>
   );
