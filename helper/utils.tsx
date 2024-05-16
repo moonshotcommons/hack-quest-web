@@ -279,3 +279,11 @@ export const getVideoDuration = (file: File): Promise<number> => {
     });
   });
 };
+
+/** 向下保留小数  */
+export const decimalCount = (number: number, digit = 1) => {
+  if (isNaN(number)) return 0;
+  if (digit < 1) return number;
+  const digitHundred = parseInt(`1${'0'.repeat(digit)}`);
+  return Math.floor(number * digitHundred) / digitHundred;
+};
