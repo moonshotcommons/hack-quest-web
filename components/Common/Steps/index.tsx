@@ -37,14 +37,14 @@ const Steps: FC<StepsProps> = (props) => {
   };
 
   return (
-    <div className="flex w-full">
+    <div className="max-w-screen flex w-full">
       {items.map((item, index) => {
         const status = getStatus(index, item.status)!;
         return (
-          <div key={index} className="flex min-h-[40px]">
+          <div key={index} className={cn('flex min-h-[40px]', index === items.length - 1 ? 'w-fit' : 'w-full')}>
             <div
               className={cn(
-                'caption-12pt min-h-10 flex min-w-[90px]  flex-col items-center justify-between',
+                'caption-12pt min-h-10 flex min-w-[90px] flex-col items-center justify-between',
                 itemClassName
               )}
             >
@@ -83,11 +83,11 @@ const Steps: FC<StepsProps> = (props) => {
             </div>
             {index >= current && index < items.length - 1 && (
               <div
-                className={cn('my-[7px] h-[3px] w-[69px] rounded-[16px] bg-neutral-off-white', connectNodeClassName)}
+                className={cn('my-[7px] h-[3px] flex-1 rounded-[16px] bg-neutral-off-white', connectNodeClassName)}
               />
             )}
             {index < current && (
-              <div className={cn('my-[7px] h-[3px] w-[69px] rounded-[16px] bg-yellow-primary', connectNodeClassName)} />
+              <div className={cn('my-[7px] h-[3px] flex-1 rounded-[16px] bg-yellow-primary', connectNodeClassName)} />
             )}
           </div>
         );

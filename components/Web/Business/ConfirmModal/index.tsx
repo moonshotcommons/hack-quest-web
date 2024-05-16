@@ -3,11 +3,13 @@ import Modal from '@/components/Common/Modal';
 import { ForwardRefRenderFunction, ReactNode, forwardRef, useImperativeHandle, useState } from 'react';
 
 import { useRequest } from 'ahooks';
+import { cn } from '@/helper/utils';
 
 interface ConfirmModalProps {
   children: ReactNode;
   confirmText?: string;
   cancelText?: string;
+  className?: string;
 }
 
 interface Params {
@@ -21,7 +23,7 @@ export interface ConfirmModalRef {
 }
 
 const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps> = (props, ref) => {
-  const { children, confirmText, cancelText } = props;
+  const { children, confirmText, cancelText, className } = props;
   const [option, setOption] = useState<Params | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -70,7 +72,7 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
         </svg>
       }
     >
-      <div className="w-[532px] rounded-[16px] bg-neutral-white px-5 py-10">
+      <div className={cn('w-[532px] rounded-[16px] bg-neutral-white px-5 py-10', className)}>
         {children}
         <div className="mt-9 flex justify-center gap-2">
           <Button

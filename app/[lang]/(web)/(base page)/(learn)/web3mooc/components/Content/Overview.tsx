@@ -16,8 +16,6 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import VideoModal from './VideoModal';
 import { useUserStore } from '@/store/zustand/userStore';
-import { isMobile } from 'react-device-detect';
-import { useGlobalStore } from '@/store/zustand/globalStore';
 
 interface OverviewProp {}
 
@@ -26,10 +24,8 @@ const Overview: React.FC<OverviewProp> = () => {
   const { t } = useTranslation(lang, TransNs.LEARN);
   const ref = useRef<{ open: VoidFunction }>(null);
   const [open, setOpen] = useState(false);
-
   const userInfo = useUserStore((state) => state.userInfo);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
-  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
   const query = useSearchParams();
   const pathname = usePathname();
@@ -116,10 +112,6 @@ const Overview: React.FC<OverviewProp> = () => {
               disabled={loading || data?.isRegister}
               loading={loading}
               onClick={(e) => {
-                if (isMobile) {
-                  setTipsModalOpenState(true);
-                  return;
-                }
                 if (!userInfo) {
                   e.stopPropagation();
                   setAuthModalOpen(true);
