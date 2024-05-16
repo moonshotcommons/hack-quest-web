@@ -56,7 +56,7 @@ const List: React.FC<ListProp> = ({ faucet }) => {
             {records.map((record) => (
               <div key={record.id} className='[&>div]:flex-shrink-0" flex w-full  gap-[40px] [&>div]:flex-1'>
                 <div>
-                  <Link href={record.exportUrl} className="flex items-center gap-[12px]">
+                  <Link href={record.exportUrl} target="_blank" className="flex items-center gap-[12px]">
                     <span className="text-neutral-off-black">View on explorer</span>
                     <RiShareBoxLine className="text-neutral-off-black" />
                   </Link>
