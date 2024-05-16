@@ -35,7 +35,7 @@ const FAQS: FC<FAQSProps> = ({ lang }) => {
   const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
-    <div className="container mx-auto flex max-w-[1280px] justify-between gap-20 py-[6.25rem]">
+    <div className="container mx-auto flex justify-between gap-20 py-[6.25rem]">
       <div className="flex w-[400px] max-w-[400px] flex-col gap-10">
         <p className="text-h2 capitalize text-neutral-off-black">{t('faucets.FAQS.title')}</p>
         <p className="body-l tracking-tighter text-neutral-medium-gray">{t('faucets.FAQS.description')}</p>
