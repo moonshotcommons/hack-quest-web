@@ -1,11 +1,11 @@
 import { BackLink } from '@/components/hackathon/back-link';
-import { ParticipatedContent } from './components/content';
+import { VotingContent } from './components/voting-content';
 
 export default function Page() {
   return (
     <div className="mx-auto max-w-[952px] pb-12 pt-5">
-      <BackLink href="/hackathon/dashboard" />
-      <ParticipatedContent />
+      <BackLink href={{ pathname: '/hackathon/dashboard', query: { type: 'voting' } }} />
+      <VotingContent />
     </div>
   );
 }

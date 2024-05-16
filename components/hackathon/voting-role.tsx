@@ -16,7 +16,7 @@ export function VotingRole({
   return (
     <div className="w-full">
       <h1
-        className={cn('font-next-book-bold text-lg font-bold text-neutral-black', {
+        className={cn('text-lg font-bold text-neutral-black', {
           'text-2xl': size === 'large'
         })}
       >
@@ -50,7 +50,7 @@ export function VotingRole({
               </div>
               <h3 className={cn('text-sm capitalize text-neutral-black', { 'text-lg': size === 'large' })}>{key}</h3>
             </div>
-            <span className={cn('text-xs font-light text-neutral-rich-gray', { 'text-sm': size === 'large' })}>
+            <span className={cn('text-xs font-light text-neutral-rich-gray', { 'mt-2 text-sm': size === 'large' })}>
               {value} Votes
             </span>
           </div>

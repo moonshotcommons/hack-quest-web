@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { MoveRightIcon } from 'lucide-react';
 import Link from 'next/link';
-import { UrlObject } from 'url';
+import { MoveRightIcon } from 'lucide-react';
+import type { UrlObject } from 'url';
 
 export function ViewAllLink({ href, children }: { href: string | UrlObject; children: React.ReactNode }) {
   return (
