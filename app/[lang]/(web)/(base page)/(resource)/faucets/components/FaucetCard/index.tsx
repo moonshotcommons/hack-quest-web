@@ -1,6 +1,5 @@
 import MenuLink from '@/constants/MenuLink';
 import { FaucetType } from '@/service/webApi/resourceStation/type';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -16,7 +15,8 @@ const FaucetCard: React.FC<FaucetCardProp> = ({ faucet }) => {
     >
       <div className="flex-center h-full w-[64px]">
         <div className="relative h-[48px] w-[48px] overflow-hidden">
-          <Image src={faucet.thumbnail} alt={faucet.name} fill className="object-cover"></Image>
+          {/* <Image src={faucet.thumbnail} alt={faucet.name} fill className="object-cover"></Image> */}
+          <img src={faucet.thumbnail} alt={faucet.name} className="object-cover" />
         </div>
       </div>
       <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between px-[12px]">
