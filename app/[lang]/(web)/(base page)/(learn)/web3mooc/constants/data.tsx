@@ -31,7 +31,9 @@ export const titleTxtData = [
   'ntuCourse.title.enrollment',
   'ntuCourse.title.syllabus',
   'ntuCourse.title.meetTheGuestSpeakers',
-  'ntuCourse.title.meetTheSponsors'
+  'ntuCourse.title.meetTheSponsors',
+  'ntuCourse.title.strategicPartners',
+  'ntuCourse.title.mediaPartners'
 ];
 
 export const overviewData = {
@@ -466,3 +468,54 @@ export const sponsorsData = [
 export const courseDescriptionData = {
   text: `Web3 has evolved explosively from a nascent concept to an irresistible frontier of entrepreneurship. As decentralized technologies mature into the building blocks for open metaverse economies, smart contract platforms raised over $50 billion in 2022 alone. New unicorn projects now launch monthly across NFTs, digital identity, tokenized fan engagement, governance design, and composable DeFi.\n With web3 inhabiting the cutting edge, immense opportunities await those armed with the right applied blockchain skillsets and community-centric mindsets. Through exposure to successful entrepreneurs, and venture capitalists, as well as an overview of open challenges in the industry, we hope to equip those seeking to conceive and actualize ventures natively built for user ownership.`
 };
+
+export const strategicPartners = [
+  {
+    name: 'Vara Network',
+    title: 'Vara Network',
+    picture: '/images/learn/ntu_partners/Vara Network.png'
+  },
+  {
+    name: 'Mantle Network',
+    title: 'Mantle Network',
+    picture: '/images/learn/ntu_partners/Mantle Network.png'
+  },
+  {
+    name: 'OKX Wallet',
+    title: 'OKX Wallet',
+    picture: '/images/learn/ntu_partners/OKX Wallet.png'
+  }
+];
+
+export const mediaPartners = [
+  {
+    name: '星球日报',
+    title: '星球日报',
+    picture: '/images/learn/ntu_partners/星球日报.png'
+  },
+  {
+    name: 'Foresight News',
+    title: 'Foresight News',
+    picture: '/images/learn/ntu_partners/Foresight News.png'
+  },
+  {
+    name: 'BLOCK BEATS',
+    title: 'BLOCK BEATS',
+    picture: '/images/learn/ntu_partners/BLOCK BEATS.png'
+  },
+  {
+    name: '链捕手 CHAINCATCHER',
+    title: '链捕手 CHAINCATCHER',
+    picture: '/images/learn/ntu_partners/链捕手 CHAINCATCHER.png'
+  },
+  {
+    name: 'PANews',
+    title: 'PANews',
+    picture: '/images/learn/ntu_partners/PANews.png'
+  },
+  {
+    name: '深潮 TECH FLOW',
+    title: '深潮 TECH FLOW',
+    picture: '/images/learn/ntu_partners/深潮 TECH FLOW.png'
+  }
+];
