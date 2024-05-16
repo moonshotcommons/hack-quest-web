@@ -75,15 +75,19 @@
     "teamMember":"Team Member"
   },
   "hackathonVoting":{
-    "Voting Rules":"Voting Rules",
-    "Voting Projects":"Voting Projects",
-    "SUBMISSIONS REVIEW":"SUBMISSIONS REVIEW",
-    "Voting Close in":"Voting Close in",
-    "Your Voting Role":"Your Voting Role",
-    "Your Votes Today":"Your Votes Today",
-    "Refresh at 8AM Everyday":"Refresh at 8AM Everyday",
-    "Remaining Votes":"Remaining Votes",
-    "Total Votes":"Total Votes",
-    "Your Remaining Votes":"Your Remaining Votes"
+    "votingRules":"Voting Rules",
+    "votingProjects":"Voting Projects",
+    "submissionsReview":"SUBMISSIONS REVIEW",
+    "votingCloseIn":"Voting Close in",
+    "yourVotingRole":"Your Voting Role",
+    "yourVotesToday":"Your Votes Today",
+    "refreshEveryday":"Refresh at 8AM Everyday",
+    "remainingVotes":"Remaining Votes",
+    "totalVotes":"Total Votes",
+    "yourRemainingVotes":"Your Remaining Votes",
+    "prizeTrack":"Prize Track",
+    "projectTrack":"Project Track",
+    "youVoted":"You Voted",
+    "confirmVote":"Confirm vote"
   }
 }

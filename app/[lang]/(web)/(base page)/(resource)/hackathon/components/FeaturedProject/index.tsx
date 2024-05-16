@@ -43,14 +43,14 @@ const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList, title, proje
           </Link>
         </div>
         <div>
-          <ScrollContainer ref={scrollContainerRef} gap={20} onChange={(state: any) => setScrollContainerState(state)}>
-            <div className="mt-[30px] flex gap-[20px]">
+          <ScrollContainer ref={scrollContainerRef} onChange={(state: any) => setScrollContainerState(state)}>
+            <div className="mt-[30px] flex ">
               {projectList.map((project) => (
                 <div
                   key={project.id}
-                  className="p-[2px]"
+                  className="p-[10px]"
                   style={{
-                    width: `calc((${containerRef.current?.offsetWidth}px - 60px)/4)`
+                    width: `calc((${containerRef.current?.offsetWidth}px)/4)`
                   }}
                 >
                   <ProjectCard project={project}></ProjectCard>

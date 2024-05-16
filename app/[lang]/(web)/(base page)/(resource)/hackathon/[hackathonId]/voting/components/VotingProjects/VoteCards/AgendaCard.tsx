@@ -4,13 +4,15 @@ import { HackathonVoteProject } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 import HandleVote from './HandleVote';
-import { ViewValue } from '.';
+import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
+import { ViewValue } from '../../../../../constants/type';
 
 interface AgendaCardProp {
   project: HackathonVoteProject;
 }
 
-const AgendaCard: React.FC<AgendaCardProp> = () => {
+const AgendaCard: React.FC<AgendaCardProp> = ({ project }) => {
   return (
     <div className="flex h-[196px] gap-[24px] rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[24px]">
       <div className="relative h-[148px] w-[148px] flex-shrink-0 overflow-hidden rounded-[8px]">
@@ -18,10 +20,13 @@ const AgendaCard: React.FC<AgendaCardProp> = () => {
       </div>
       <div className="flex h-full flex-1 flex-col justify-between overflow-hidden border-r border-neutral-light-gray pr-[24px]">
         <div>
-          <div className="text-h3 flex w-full items-center justify-between text-neutral-off-black">
+          <Link
+            href={`${MenuLink.PROJECTS}/${project.id}`}
+            className="text-h3 flex w-full items-center justify-between text-neutral-off-black"
+          >
             <h2 className="w-[80%] truncate">MetaLine-X</h2>
             <LuChevronRight size={40} />
-          </div>
+          </Link>
           <div className="flex w-full gap-[12px] overflow-hidden">
             <TrackTag track={'Defi'} /> <TrackTag track={'Defi'} />
           </div>

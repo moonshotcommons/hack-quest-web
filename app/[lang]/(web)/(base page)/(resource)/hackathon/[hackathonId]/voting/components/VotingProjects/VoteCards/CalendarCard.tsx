@@ -1,15 +1,20 @@
 import { HackathonVoteProject } from '@/service/webApi/resourceStation/type';
+import Link from 'next/link';
 // import Image from 'next/image';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
+import MenuLink from '@/constants/MenuLink';
 
 interface CalendarCardProp {
   project: HackathonVoteProject;
 }
 
-const CalendarCard: React.FC<CalendarCardProp> = () => {
+const CalendarCard: React.FC<CalendarCardProp> = ({ project }) => {
   return (
-    <div className=" card-hover w-full  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[16px]">
+    <Link
+      href={`${MenuLink.PROJECTS}/${project.id}`}
+      className="card-hover block w-full  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[16px]"
+    >
       <div className="">
         <div className="flex gap-[8px]">
           <div className="relative h-[32px] w-[32px]  overflow-hidden">
@@ -39,7 +44,7 @@ const CalendarCard: React.FC<CalendarCardProp> = () => {
           ex.
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

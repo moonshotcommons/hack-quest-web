@@ -27,11 +27,11 @@ const EventsCard: React.FC<EventsCardProp> = ({ onClick, events }) => {
         <div className="body-s flex h-[45px] flex-col justify-end text-neutral-rich-gray">
           <div className="flex items-center gap-[8px]">
             <PiCalendarBlank />
-            <span>{dayjs(events.startTime).tz().format('MMM D,YY')}</span>
+            <span>{dayjs(events.startTime).tz().format('MMM. D, YYYY')}</span>
             {events.endTime && !dayjs(events.startTime).tz().isSame(events.endTime, 'day') && (
               <span>
                 {` - `}
-                {dayjs(events.endTime).tz().format('MMM D,YY')}
+                {dayjs(events.endTime).tz().format('MMM. D, YYYY')}
               </span>
             )}
           </div>

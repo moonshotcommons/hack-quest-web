@@ -16,7 +16,7 @@ import webApi from '@/service';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import { FilterItemType } from '@/components/Web/Business/CourseFilterList/type';
-import { ViewValue } from './VoteCards';
+import { ViewValue } from '../../../../constants/type';
 
 export interface SearchType {
   keyword: string;
