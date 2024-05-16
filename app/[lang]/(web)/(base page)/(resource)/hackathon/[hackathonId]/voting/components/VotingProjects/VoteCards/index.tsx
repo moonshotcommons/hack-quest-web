@@ -1,20 +1,16 @@
 import { HackathonVoteProject } from '@/service/webApi/resourceStation/type';
-import React from 'react';
+import React, { useContext } from 'react';
 import AgendaCard from './AgendaCard';
 import GridCard from './GridCard';
 import CalendarCard from './CalendarCard';
+import { HackathonVoteContext, ViewValue } from '../../../../../constants/type';
 
-export enum ViewValue {
-  AGENDA = 'agenda',
-  GRID = 'grid',
-  CALENDAR = 'calendar'
-}
 interface VoteCardsProp {
-  view: ViewValue;
   projects: HackathonVoteProject[];
 }
 
-const VoteCards: React.FC<VoteCardsProp> = ({ view, projects }) => {
+const VoteCards: React.FC<VoteCardsProp> = ({ projects }) => {
+  const { view } = useContext(HackathonVoteContext);
   switch (view) {
     case ViewValue.AGENDA:
       return (

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { HackathonVoteContext } from '../../../../../constants/type';
-import { ViewValue } from '.';
+import { HackathonVoteContext, ViewValue } from '../../../../../constants/type';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
