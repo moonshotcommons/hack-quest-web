@@ -157,6 +157,7 @@
     "donate":"将 {{symbol}} 发送至 {{address}} 即可",
     "drippedSuccessfully":"令牌滴入成功",
     "waithours":"同一网络的水龙头请求之间必须等待24小时。",
+    "inputAddressError":"请输入正确的钱包地址",
     "FAQS":{
       "title": "常见问题解答",
       "description": "找不到你想要的？联系我们！",

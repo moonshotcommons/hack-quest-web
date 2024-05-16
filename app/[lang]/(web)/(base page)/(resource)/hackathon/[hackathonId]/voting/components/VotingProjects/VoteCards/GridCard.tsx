@@ -3,14 +3,16 @@ import { HackathonVoteProject } from '@/service/webApi/resourceStation/type';
 // import Image from 'next/image';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import { ViewValue } from '.';
 import HandleVote from './HandleVote';
+import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
+import { ViewValue } from '../../../../../constants/type';
 
 interface GridCardProp {
   project: HackathonVoteProject;
 }
 
-const GridCard: React.FC<GridCardProp> = () => {
+const GridCard: React.FC<GridCardProp> = ({ project }) => {
   return (
     <div className=" w-full  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[16px]">
       <div className="mb-[8px]">
@@ -19,10 +21,13 @@ const GridCard: React.FC<GridCardProp> = () => {
             {/* <Image src={} alt={} fill className='object-cover' /> */}
           </div>
           <div className="flex-1">
-            <div className="text-h5 flex flex-1 items-center justify-between">
+            <Link
+              href={`${MenuLink.PROJECTS}/${project.id}`}
+              className="text-h5 flex flex-1 items-center justify-between"
+            >
               <h2 className="w-[80%] truncate">MetaLine-X</h2>
               <LuChevronRight size={20} />
-            </div>
+            </Link>
             <div className="flex w-full gap-[12px] overflow-hidden">
               <TrackTag track={'Defi'} /> <TrackTag track={'Defi'} />
             </div>

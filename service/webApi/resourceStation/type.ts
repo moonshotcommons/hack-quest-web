@@ -287,6 +287,32 @@ export enum ProjectLocation {
   OTHER = 'OTHER'
 }
 
-export interface FaucetType {}
+export enum BlockChainType {
+  EVM = 'EVM',
+  SOLANA = 'SOLANA',
+  SUI = 'SUI',
+  NEAR = 'NEAR'
+}
+
+export interface FaucetType {
+  id: string;
+  name: string;
+  type: BlockChainType;
+  rpcUrl: string;
+  chainId: string;
+  symbol: string;
+  blockBrowserUrl: string;
+  amount: number;
+  owner: string;
+  balance: number;
+  intervalTime: number;
+  thumbnail: string;
+}
+
+export interface FaucetRecordType {
+  claimTime: string;
+  exportUrl: string;
+  id: string;
+}
 
 export type HackathonVoteProject = any;
