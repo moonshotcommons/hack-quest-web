@@ -1,15 +1,17 @@
-'use client';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { HACKQUEST_DISCORD } from '@/constants/links';
+import { cn } from '@/helper/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ForwardRefRenderFunction, forwardRef, useImperativeHandle, useState } from 'react';
 
-interface RegisterSuccessModalProps {}
+interface RegisterSuccessModalProps {
+  className?: string;
+}
 
 const RegisterSuccessModal: ForwardRefRenderFunction<{ open: VoidFunction }, RegisterSuccessModalProps> = (
-  props,
+  { className },
   ref
 ) => {
   const [open, setOpen] = useState(false);
@@ -40,9 +42,14 @@ const RegisterSuccessModal: ForwardRefRenderFunction<{ open: VoidFunction }, Reg
         </svg>
       }
     >
-      <div className="flex w-[532px] flex-col items-center rounded-[16px] bg-neutral-white px-5 py-10">
+      <div
+        className={cn(
+          'flex w-[532px] flex-col items-center justify-center rounded-[16px] bg-neutral-white px-5 py-10',
+          className
+        )}
+      >
         <h4 className="text-h4">Registered Successfully! 🎉</h4>
-        <p className="body-m mt-5 text-neutral-rich-gray">
+        <p className="body-m mt-5 text-center text-neutral-rich-gray">
           We will send out the course calendar invite through email. Join discord to learn more.
         </p>
         <div className="mt-9 flex justify-center gap-2">

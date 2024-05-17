@@ -24,3 +24,13 @@ export const HackathonVoteContext = createContext<HackathonVoteContextType>({
   view: ViewValue.AGENDA,
   setView: () => {}
 });
+
+export interface ProjectDetailContextType {
+  titleTxtData: string[];
+  // setTitleTxtData: (data: string[]) => void;
+}
+
+export const ProjectDetailContext = createContext<ProjectDetailContextType>({
+  titleTxtData: []
+  // setTitleTxtData: () => {}
+});

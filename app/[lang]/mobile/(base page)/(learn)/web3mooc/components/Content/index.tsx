@@ -6,6 +6,8 @@ import Speakers from './Speakers';
 import Sponsors from './Sponsors';
 import CourseDesc from './CourseDesc';
 import { Lang } from '@/i18n/config';
+import MediaCommunity from './MediaCommunity';
+import { strategicPartners, mediaPartners } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 
 interface ContentProp {
   lang: Lang;
@@ -21,6 +23,8 @@ const Content: React.FC<ContentProp> = ({ lang }) => {
       <Syllabus />
       <Speakers />
       <Sponsors />
+      <MediaCommunity title="strategicPartners" listData={strategicPartners} />
+      <MediaCommunity title="mediaPartners" listData={mediaPartners} />
     </div>
   );
 };

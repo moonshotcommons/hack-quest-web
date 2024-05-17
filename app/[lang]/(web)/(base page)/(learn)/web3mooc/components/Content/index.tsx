@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { OffsetTopsType } from '../../constants/type';
-import { titleTxtData } from '../../constants/data';
+import { mediaPartners, strategicPartners, titleTxtData } from '../../constants/data';
 import Overview from './Overview';
 import Enrollment from './Enrollment';
 import Syllabus from './Syllabus';
 import Speakers from './Speakers';
 import Sponsors from './Sponsors';
 import CourseDesc from './CourseDesc';
+import MediaCommunity from './MediaCommunity';
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
@@ -41,6 +42,8 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
       <Syllabus />
       <Speakers refreshOffsetTop={getOffsetTops} />
       <Sponsors refreshOffsetTop={getOffsetTops} />
+      <MediaCommunity title="strategicPartners" listData={strategicPartners} />
+      <MediaCommunity title="mediaPartners" listData={mediaPartners} />
     </div>
   );
 };

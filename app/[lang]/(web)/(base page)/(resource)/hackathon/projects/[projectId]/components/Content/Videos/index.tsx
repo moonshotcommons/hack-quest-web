@@ -3,10 +3,10 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { titleTxtData } from '../../../../../constants/data';
 import Title from '../../Title';
 import VideoTab from './VideoTab';
 import Video from '../../Video';
+import { ProjectDetailContext } from '../../../../../constants/type';
 
 interface VideosProp {
   project: ProjectType;
@@ -16,6 +16,7 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { titleTxtData } = useContext(ProjectDetailContext);
   const videoTab = useMemo(() => {
     const pitch = {
       label: t('projectsDetail.pitchVideo'),
@@ -36,9 +37,9 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
   if (!videoTab.length) return null;
   return (
     <div className="flex w-full flex-col gap-[32px] overflow-hidden" ref={boxRef}>
-      <Title title={t(titleTxtData[1])} />
+      <Title title={t(titleTxtData[titleTxtData.length - 3])} />
       {videoTab.length > 1 && <VideoTab tab={videoTab} curIndex={curIndex} handleChangeTab={setCurIndex} />}
-      <div className="overflow-x-hidden rounded-[10px]" style={{ width: `${boxRef.current?.offsetWidth}px` }}>
+      <div className="h-[500px] overflow-x-hidden rounded-[10px]" style={{ width: `${boxRef.current?.offsetWidth}px` }}>
         <div
           className="flex gap-[20px] transition-all"
           style={{

@@ -94,6 +94,12 @@
     "user":"User",
     "advocate":"Advocate",
     "judge":"Judge",
-    "otherHackathons":"Other Hackathons Under Review"
+    "otherHackathons":"Other Hackathons Under Review",
+    "votingInfo":"Voting Info",
+    "yourTotalVotes":"Your Total Votes",
+    "yourVotes":"Your Votes",
+    "currentVotes":"Current Votes",
+    "currentRanking":"Current Ranking",
+    "youCantVote":"You can’t vote for projects because your project is under review in this hackathon"
   }
 }

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { titleTxtData } from '../../../../constants/data';
-import { OffsetTopsType } from '../../../../constants/type';
+import React, { useContext, useEffect, useRef } from 'react';
+import { OffsetTopsType, ProjectDetailContext } from '../../../../constants/type';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Overview from './Overview';
 import Videos from './Videos';
@@ -14,7 +13,7 @@ interface ContentProp {
 
 const Content: React.FC<ContentProp> = ({ setOffsetTop, project }) => {
   const boxRef = useRef<HTMLDivElement>(null);
-
+  const { titleTxtData } = useContext(ProjectDetailContext);
   const getOffsetTops = () => {
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];
@@ -29,10 +28,11 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop, project }) => {
   };
   useEffect(() => {
     getOffsetTops();
-  }, []);
+  }, [project]);
   return (
     <div className="body-m flex flex-1 flex-shrink-0 flex-col gap-[60px] text-neutral-off-black" ref={boxRef}>
       <Overview project={project} />
+      {/* <Voting project={project} /> */}
       <Videos project={project} />
       <Introduction project={project} />
       <Team project={project} />
