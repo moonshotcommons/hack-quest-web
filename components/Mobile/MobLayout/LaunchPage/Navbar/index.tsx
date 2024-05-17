@@ -128,31 +128,6 @@ const Navbar: FC<NavbarProps> = (props) => {
           toggleOpen();
         }}
       >
-        {/* {navType === NavType.NAV_LIST && (
-          <NavList
-            navList={navList}
-            toggleOpen={() => {
-              toggleOpen();
-            }}
-          >
-            <UserModule
-              changeNavType={(type) => {
-                setNavType(type);
-              }}
-              toggleOpen={() => {
-                toggleOpen();
-              }}
-            ></UserModule>
-          </NavList>
-        )}
-        {navType === NavType.AUTH && (
-          <Auth
-            changeNavState={() => {
-              toggleOpen();
-              setNavType(NavType.NAV_LIST);
-            }}
-          ></Auth>
-        )} */}
         {NavContentNode}
       </NavContainer>
       <div className="relative flex h-full w-full items-center justify-center gap-[8px]">

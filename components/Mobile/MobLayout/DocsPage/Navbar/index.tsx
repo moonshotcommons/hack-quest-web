@@ -62,7 +62,7 @@ const NavBar: React.FC<NavBarProps> = () => {
         </motion.nav>
       </div>
       <div className="text-h4-mob line-clamp-2 flex flex-1 flex-shrink-0 justify-center gap-[4px]">
-        <Image src={'/images/logo/white-icon-text-logo.svg'} alt="logo" width={133} height={16}></Image>
+        <Image src={'/images/logo/black-icon-text-logo.svg'} alt="logo" width={133} height={16}></Image>
         <span className="text-h4 text-[18px]">{t('pressKit')}</span>
       </div>
       <div className="flex w-[2.5rem] cursor-pointer items-center justify-end" onClick={logoClick}></div>

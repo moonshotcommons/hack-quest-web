@@ -30,6 +30,8 @@ export function middleware(request: NextRequest) {
   let isRedirect = false;
   // 如果是 public 文件，不重定向
   if (/\.(.*)$/.test(pathname)) return;
+  // 如果是 welcome 页面，不重定向
+  if (pathname.includes('welcome')) return;
   if (!/^(https?:\/\/)?(www\.)/.test(request.nextUrl.href) && request.nextUrl.hostname !== 'localhost') {
     request.nextUrl.hostname = `www.${request.nextUrl.hostname}`;
     isRedirect = true;

@@ -67,6 +67,10 @@
     },
     "learn": {
       "title": "学习",
+      "myCourse": "我的课程",
+      "myCourseDesc": "查看所有课程和项目",
+      "explore": "探索",
+      "exploreDesc": "查看不同的 Web3 生态系统",
       "learningTrack": "学习路径",
       "learningTrackDesc": "掌握一门编程语言",
       "electives": "选修课",
@@ -77,6 +81,19 @@
       "courseMarketDesc": "课程市场",
       "ntuCourse": "公开课",
       "ntuCourseDesc": "南洋理工大学 Web3 公开课"
+    },
+    "build": {
+      "title": "构建",
+      "myHackathon": "我的黑客松",
+      "myHackathonDesc": "查看我所有的黑客马拉松活动",
+      "exploreHackathons": "探索黑客松",
+      "exploreHackathonsDesc": "与我们的团队一起构建 Web3 的未来",
+      "hackathonVoting": "黑客松投票",
+      "hackathonVotingDesc": "选择最好的项目",
+      "projectArchive": "项目存档",
+      "projectArchiveDesc": "查看过去的黑客马拉松项目",
+      "ideaBank": "创意库",
+      "ideaBankDesc": "贡献创新的项目想法"
     },
     "reward": {
       "title": "奖励",

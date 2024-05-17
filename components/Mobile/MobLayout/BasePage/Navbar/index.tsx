@@ -58,7 +58,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   }, [isOpen, toggleOpen, setNavType, setMobileNavModalToggleOpenHandle]);
 
   return (
-    <div className="flex h-[4rem] w-full items-center justify-between overflow-hidden text-neutral-white">
+    <div className="flex h-[4rem] w-full items-center justify-between overflow-hidden text-neutral-black">
       <NavContainer
         isOpen={isOpen}
         toggleOpen={() => {
@@ -95,7 +95,7 @@ const Navbar: FC<NavbarProps> = (props) => {
         )}
       </NavContainer>
       <div className="relative flex flex-1 items-center justify-center">
-        <Image src={'/images/logo/white-icon-text-logo.svg'} alt="logo" width={184} height={22}></Image>
+        <Image src={'/images/logo/black-icon-text-logo.svg'} alt="logo" width={184} height={22}></Image>
       </div>
     </div>
   );
