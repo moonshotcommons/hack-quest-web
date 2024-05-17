@@ -3,8 +3,7 @@ import React, { useContext } from 'react';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
-import { titleTxtData } from '../../../../constants/data';
-import { OffsetTopsType } from '../../../../constants/type';
+import { OffsetTopsType, ProjectDetailContext } from '../../../../constants/type';
 
 interface NavProp {
   handleClickAnchor: (index: number) => void;
@@ -14,6 +13,7 @@ interface NavProp {
 
 const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex }) => {
   const { lang } = useContext(LangContext);
+  const { titleTxtData } = useContext(ProjectDetailContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
     <div className="body-l sticky left-0 top-[40px] w-[365px] pr-[40px] ">
