@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M61.8517 55.1367H2V60.3497H61.8517V55.1367Z" fill="#EDEDED" stroke="black" stroke-miterlimit="10"/>
+<path d="M21.9511 27.8618H2V51.3043H21.9511V27.8618Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M61.8515 37.2056H41.9004V51.3029H61.8515V37.2056Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M41.9023 18.3867H21.9512V51.3048H41.9023V18.3867Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M2 32.4766H19.8644" stroke="black" stroke-miterlimit="10"/>
+<path d="M21.9512 23.0117H39.8138" stroke="black" stroke-miterlimit="10"/>
+<path d="M61.8515 37.2056H41.9004V51.3029H61.8515V37.2056Z" fill="white" stroke="black" stroke-miterlimit="10"/>
+<path d="M41.9004 41.8218H59.7648" stroke="black" stroke-miterlimit="10"/>
+<path d="M35.9688 8.06608L31.9267 4L27.8829 8.06608H21.9512V14.5547H41.9005V8.06608H35.9688Z" fill="#FFE866" stroke="black" stroke-miterlimit="10"/>
+<path d="M2 47.9536H62" stroke="black" stroke-miterlimit="10" stroke-dasharray="6 6"/>
+</svg>

@@ -9,7 +9,6 @@ const DocsPage: FC<DocsPageProps> = async (props) => {
 
   const target = docs[0].children[0].children[0].alias;
   redirect(`/docs/${target}`);
-  // return <>DocsPage</>;
 };
 
 export default DocsPage;

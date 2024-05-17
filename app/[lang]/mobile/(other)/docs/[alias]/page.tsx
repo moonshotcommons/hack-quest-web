@@ -25,8 +25,8 @@ const Docs: FC<DocsProps> = async ({ params: { alias, lang } }) => {
   const { t } = await useTranslation(lang, TransNs.RESOURCE);
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] w-full justify-center pt-10">
-      <div className="w-full px-5">
+    <div className="flex min-h-[calc(100vh-64px)] w-full justify-center">
+      <div className="w-full">
         <p className="body-s-bold text-neutral-black">{parentGroup?.title}</p>
         <h2 className="text-h2-mob mb-5 mt-2 text-neutral-black">{doc.title}</h2>
         <div className="flex flex-col">

@@ -16,27 +16,27 @@ export const pressKitNavData = [
   {
     id: PressNav.ABOUT,
     label: PressNav.ABOUT,
-    icon: <FiAlertCircle />
+    icon: <FiAlertCircle size={20} />
   },
   {
     id: PressNav.ARTICLES,
     label: PressNav.ARTICLES,
-    icon: <FiFileText />
+    icon: <FiFileText size={20} />
   },
   {
     id: PressNav.LOGOS,
     label: PressNav.LOGOS,
-    icon: <AiOutlineAppstore />
+    icon: <AiOutlineAppstore size={20} />
   },
   {
     id: PressNav.LINKS,
     label: PressNav.LINKS,
-    icon: <FiLink />
+    icon: <FiLink size={20} />
   },
   {
     id: PressNav.CONTACT,
     label: PressNav.CONTACT,
-    icon: <RxChatBubble />
+    icon: <RxChatBubble size={20} />
   }
 ];
 

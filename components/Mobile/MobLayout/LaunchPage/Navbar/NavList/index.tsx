@@ -10,6 +10,9 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
+import { cn } from '@/helper/utils';
+import { SocialLink } from '../../../BasePage/Navbar/NavList/social';
+
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
@@ -43,17 +46,19 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute top-[4rem] w-screen  px-5 pt-[1.875rem]"
+      className="absolute top-16 w-screen px-5 pb-[6.5rem] pt-6"
       style={{
         height: pageHeight
       }}
     >
-      <motion.ul className={`w-full`}>
+      <motion.ul className="flex w-full flex-col gap-2">
         {navList.map((item, index) => {
           return (
-            <motion.li key={index} variants={itemVariants} className="body-xl flex w-full flex-col">
+            <motion.li key={index} variants={itemVariants} className="flex w-full flex-col">
               <div
-                className="flex w-full items-center justify-between py-[.6875rem]"
+                className={cn('flex w-full items-center justify-between rounded-[0.5rem] p-2', {
+                  'bg-neutral-off-white': openNavKeys.includes(item.id)
+                })}
                 onClick={() => {
                   if (item.menu.length > 1) {
                     if (openNavKeys.includes(item.id)) {
@@ -74,7 +79,7 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
                   }
                 }}
               >
-                <span>{t(item.id)}</span>
+                <span className="body-l">{t(item.id)}</span>
                 <div className="h-full px-5">
                   {item.menu?.length > 1 &&
                     (openNavKeys.includes(item.id) ? (
@@ -95,12 +100,12 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
                 </div>
               </div>
               {item.menu?.length > 1 && openNavKeys.includes(item.id) && (
-                <ul className="flex flex-col pb-8">
+                <ul className="my-2 flex flex-col gap-3 px-5">
                   {item.menu.map((m) => {
                     return (
                       <Link
                         key={m.label}
-                        className="body-l mb-[.625rem]"
+                        className="body-m text-neutral-off-black"
                         href={m.path as MenuLink}
                         onClick={(e) => {
                           if (m.needPC) {
@@ -121,8 +126,9 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
           );
         })}
       </motion.ul>
-      <motion.div variants={itemVariants} className="my-[1.5625rem] h-[1px] w-full bg-neutral-light-gray"></motion.div>
+      <motion.div variants={itemVariants} className="my-6 h-px w-full bg-neutral-light-gray" />
       {children}
+      <SocialLink />
     </motion.div>
   );
 };
