@@ -7,6 +7,7 @@ import { BsArrowRight } from 'react-icons/bs';
 import { ChangeState, ScrollContainer } from '@/components/Common/ScrollContainer';
 import Pagination from './Pagination';
 import Navigation from './Navigation';
+import Link from 'next/link';
 
 interface SliderCardProp {
   title: string;
@@ -25,10 +26,10 @@ function SliderCard({ title, viewLink, renderItem }: SliderCardProp) {
       <div className="flex items-center justify-between">
         <div className="text-h3 text-neutral-off-black">{title}</div>
         {viewLink && (
-          <div className="flex items-center gap-[7px]">
+          <Link href={viewLink} className="flex items-center gap-[7px]">
             <span>{t('viewAll')}</span>
             <BsArrowRight size={12}></BsArrowRight>
-          </div>
+          </Link>
         )}
       </div>
       <div>
