@@ -4,8 +4,8 @@ import { TransNs } from '@/i18n/config';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext } from 'react';
 import Title from '../../Title';
-import { titleTxtData } from '../../../../../constants/data';
 import TeamCard from './TeamCard';
+import { ProjectDetailContext } from '../../../../../constants/type';
 
 interface TeamProp {
   project: ProjectType;
@@ -14,9 +14,10 @@ interface TeamProp {
 const Team: React.FC<TeamProp> = ({ project }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { titleTxtData } = useContext(ProjectDetailContext);
   return (
     <div className="flex flex-col gap-[32px]">
-      <Title title={t(titleTxtData[3])} />
+      <Title title={t(titleTxtData[titleTxtData.length - 1])} />
       <div className="w-full">
         <p className="body-l-bold">{project.team?.name}</p>
         <div className="mt-[12px] flex flex-wrap gap-[20px]">

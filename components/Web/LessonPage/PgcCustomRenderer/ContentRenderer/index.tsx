@@ -6,6 +6,7 @@ import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import { OverrideRendererConfig, childRenderCallback } from '@/components/ComponentRenderer';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 import TextRenderer from '@/components/ComponentRenderer/NotionRender/TextRenderer';
+import { cn } from '@/helper/utils';
 
 interface ContentRendererProps {
   component: CustomComponent;
@@ -21,9 +22,11 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
   return (
     <OverrideRendererConfig codeRenderer={{ isPlayground: false }}>
       <div
-        className={`mb-5 rounded-[10px] px-[20px]  py-[15px] ${
-          leftLength > 1 ? 'border border-lesson-title-box-border-color' : ''
-        } ${isPlayground ? 'flex flex-1 flex-col' : ''}`}
+        className={cn(
+          `rounded-[10px]`,
+          leftLength > 1 ? 'border border-lesson-title-box-border-color' : '',
+          isPlayground ? 'flex flex-1 flex-col overflow-hidden' : 'mb-5  px-[20px] py-[15px]'
+        )}
       >
         <div
           className={`flex items-center justify-between ${leftLength > 1 ? 'cursor-pointer' : ''}`}
@@ -46,7 +49,11 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
             </span>
           ) : null}
         </div>
-        {showAll && <div className="mt-4">{component?.children?.map(childRenderCallback(component))}</div>}
+        {showAll && (
+          <div className={cn('mt-4', isPlayground ? 'flex flex-1 flex-col overflow-auto' : '')}>
+            {component?.children?.map(childRenderCallback(component))}
+          </div>
+        )}
       </div>
     </OverrideRendererConfig>
   );

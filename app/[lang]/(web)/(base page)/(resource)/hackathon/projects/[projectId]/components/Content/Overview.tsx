@@ -34,7 +34,7 @@ const Overview: React.FC<OverviewProp> = ({ project }) => {
         </div>
       </div>
       <div className="flex h-[45px] [&>div]:flex [&>div]:h-full [&>div]:items-center [&>div]:gap-[12px]">
-        <div className="max-w-[40%] overflow-hidden border-r border-neutral-rich-gray pr-[32px]">
+        <div className="max-w-[40%] overflow-hidden pr-[32px]">
           <Image src={IconHackathon} width={26} alt="hackathon-icon" />
           <div className="flex-1">
             <p className="body-xs text-neutral-medium-gray">{t('navbar.resources.hackathon')}</p>
@@ -47,14 +47,14 @@ const Overview: React.FC<OverviewProp> = ({ project }) => {
             </Link>
           </div>
         </div>
-        <div className="border-r border-neutral-rich-gray px-[32px] ">
+        <div className="border-l border-neutral-rich-gray px-[32px] ">
           <Image src={IconPrizeTrack} width={24} alt="prize-icon" />
           <div className="">
             <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.prizeTrack')}</p>
             <p>{project.prizeTrack || '-'}</p>
           </div>
         </div>
-        <div className="max-w-[30%] overflow-hidden border-r border-neutral-rich-gray px-[32px] ">
+        <div className="max-w-[30%] overflow-hidden border-l border-neutral-rich-gray px-[32px] ">
           <Image src={IconHackathonTrack} width={31} alt="hackathon-track-icon" />
           <div className="">
             <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.hackathonTrack')}</p>
@@ -62,10 +62,10 @@ const Overview: React.FC<OverviewProp> = ({ project }) => {
           </div>
         </div>
         {project.githubLink && (
-          <div className="pl-[32px]">
+          <div className="border-l border-neutral-rich-gray pl-[32px]">
             <DiGithubBadge size={40} />
             <div className="">
-              <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.openSource')}</p>
+              <p className="body-xs text-neutral-medium-gray ">{t('projectsDetail.openSource')}</p>
               <Link href={project.githubLink || ''} className="relative flex items-center gap-[8px]">
                 <span>Github</span>
                 <IoIosArrowForward />

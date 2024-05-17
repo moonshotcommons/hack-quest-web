@@ -2,7 +2,7 @@
 import { cn } from '@/helper/utils';
 import { CSSProperties, ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 import { LuChevronsRight } from 'react-icons/lu';
-import { HTMLMotionProps, motion } from 'framer-motion';
+import { HTMLMotionProps, motion, AnimatePresence } from 'framer-motion';
 import SidebarGroup from './SidebarGroup';
 import SidebarItem from './SidebarItem';
 
@@ -107,73 +107,75 @@ const Sidebar = <T,>(props: SidebarProps<T>) => {
           <LuChevronsRight size={24} />
         </div>
       )}
-      {showList && (
-        <motion.div
-          {...ani}
-          className={cn(
-            'flex h-full flex-col overflow-hidden bg-neutral-off-white shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]',
-            className
-          )}
-        >
-          <div
-            className="flex h-20 cursor-pointer items-center border-b border-neutral-medium-gray pl-10"
-            onClick={() => {
-              setShowList(false);
-              onShowListChange?.(false);
-            }}
+      <AnimatePresence>
+        {showList && (
+          <motion.div
+            {...ani}
+            className={cn(
+              'flex h-full flex-col overflow-hidden bg-neutral-off-white shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]',
+              className
+            )}
           >
-            <h3 className="text-h3 flex-1 truncate text-neutral-black">{title}</h3>
-            <div className="flex w-10 items-center justify-center">
-              {/* <LuChevronsLeft size={24} /> */}
-              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 0.5L1 4.5L5 8.5" stroke="#0B0B0B" strokeLinecap="round" />
-                <path d="M11 0.5L7 4.5L11 8.5" stroke="#0B0B0B" strokeLinecap="round" />
-              </svg>
+            <div
+              className="flex h-20 cursor-pointer items-center border-b border-neutral-medium-gray pl-10"
+              onClick={() => {
+                setShowList(false);
+                onShowListChange?.(false);
+              }}
+            >
+              <h3 className="text-h3 flex-1 truncate text-neutral-black">{title}</h3>
+              <div className="flex w-10 items-center justify-center">
+                {/* <LuChevronsLeft size={24} /> */}
+                <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 0.5L1 4.5L5 8.5" stroke="#0B0B0B" strokeLinecap="round" />
+                  <path d="M11 0.5L7 4.5L11 8.5" stroke="#0B0B0B" strokeLinecap="round" />
+                </svg>
+              </div>
             </div>
-          </div>
-          <div className="scroll-wrap-y flex h-full flex-col overflow-y-auto">
-            {items.map((item) => {
-              if (item.type === 'group') {
-                return (
-                  <SidebarGroup
-                    key={item.key}
-                    items={item.children || []}
-                    onOpenChange={onOpen}
-                    item={item}
-                    select={select}
-                    open={openKeys.includes(item.key)}
-                    onSelect={(key, data) => {
-                      setSelect(key);
-                      onSelect?.(key, data);
-                    }}
-                    selectStyle={selectStyle}
-                  >
-                    {item.label}
-                  </SidebarGroup>
-                );
-              }
+            <div className="scroll-wrap-y flex h-full flex-col overflow-y-auto">
+              {items.map((item) => {
+                if (item.type === 'group') {
+                  return (
+                    <SidebarGroup
+                      key={item.key}
+                      items={item.children || []}
+                      onOpenChange={onOpen}
+                      item={item}
+                      select={select}
+                      open={openKeys.includes(item.key)}
+                      onSelect={(key, data) => {
+                        setSelect(key);
+                        onSelect?.(key, data);
+                      }}
+                      selectStyle={selectStyle}
+                    >
+                      {item.label}
+                    </SidebarGroup>
+                  );
+                }
 
-              if (item.type === 'item') {
-                return (
-                  <SidebarItem
-                    key={item.key}
-                    onSelect={(key, data) => {
-                      setSelect(key);
-                      onSelect?.(key, data);
-                    }}
-                    select={select}
-                    item={item}
-                    selectStyle={selectStyle}
-                  >
-                    {item.label}
-                  </SidebarItem>
-                );
-              }
-            })}
-          </div>
-          {handleButton && <>{handleButton}</>}
-        </motion.div>
-      )}
+                if (item.type === 'item') {
+                  return (
+                    <SidebarItem
+                      key={item.key}
+                      onSelect={(key, data) => {
+                        setSelect(key);
+                        onSelect?.(key, data);
+                      }}
+                      select={select}
+                      item={item}
+                      selectStyle={selectStyle}
+                    >
+                      {item.label}
+                    </SidebarItem>
+                  );
+                }
+              })}
+            </div>
+            {handleButton && <>{handleButton}</>}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

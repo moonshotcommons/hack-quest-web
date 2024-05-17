@@ -69,6 +69,7 @@
     }
   },
   "ntuCourse": {
+    "date": "Date",
     "time": "Time",
     "title": {
       "overview": "Overview",
@@ -77,10 +78,12 @@
       "syllabus": "Syllabus",
       "meetTheGuestSpeakers": "Guest Speakers",
       "meetTheSponsors": "Sponsors",
-      "courseDescription": "Course Description"
+      "courseDescription": "Course Description",
+      "strategicPartners": "Strategic Partners",
+      "mediaPartners": "Media Partners"
     },
     "overview": {
-      "title": "HackQuest x NTU I&E MOOC: Ideating and Building in Web3",
+      "title": "NTU I&E x HackQuest MOOC: Ideating and Building in Web3",
       "format": "Format",
       "hosts": "Hosts",
       "discussionGroups": "Discussion Groups",

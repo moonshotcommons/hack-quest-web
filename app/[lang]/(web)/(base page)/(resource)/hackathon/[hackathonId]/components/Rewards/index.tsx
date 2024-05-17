@@ -29,7 +29,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
   return (
     <div>
       <Title title={t('hackathonDetail.rewards')} />
-      <div className="flex flex-col gap-[32px]">
+      <div className="mt-[32px] flex flex-col gap-[32px] ">
         {rewards.map((v, i) => (
           <div className="flex flex-col gap-[8px]" key={i}>
             <p className="text-h4 text-neutral-rich-gray">{v.name}</p>

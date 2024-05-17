@@ -7,12 +7,12 @@ import { HackathonRegisterStateType } from '../../type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
 import LoadingIcon from '@/components/Common/LoadingIcon';
 import emitter from '@/store/emitter';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
-import { NtuRegisterInfo } from '@/service/webApi/course/type';
+import { NtuRegisterInfo, NtuRegisterStep } from '@/service/webApi/course/type';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface FormContentProps {}
 
@@ -26,9 +26,16 @@ const FormContent: FC<FormContentProps> = () => {
     contractInfo: {
       email: '',
       weChat: '',
-      telegram: ''
+      telegram: '',
+      twitter: '',
+      discord: '',
+      linkedIn: '',
+      whatsApp: ''
     },
-    bio: '',
+    additionalInfo: {
+      selfIntroduction: '',
+      isEnrolledSingapore: false
+    },
     submissionType: {
       type: null,
       groupType: undefined,
@@ -37,7 +44,7 @@ const FormContent: FC<FormContentProps> = () => {
       teamDetail: {},
       avatar: ''
     },
-    status: HackathonRegisterStep.Name,
+    status: NtuRegisterStep.Name,
     isRegister: false
   });
 
@@ -57,19 +64,46 @@ const FormContent: FC<FormContentProps> = () => {
   };
 
   const init = (registerInfo: NtuRegisterInfo) => {
-    const { firstName, lastName, bio, status, weChat, email, userId, telegram, avatar, isRegister } = registerInfo;
+    const {
+      firstName,
+      lastName,
+      selfIntroduction,
+      twitter,
+      discord,
+      linkedIn,
+      whatsApp,
+      status,
+      weChat,
+      email,
+      userId,
+      isEnrolledSingapore,
+      telegram,
+      avatar,
+      isRegister
+    } = registerInfo;
 
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
 
     setCurrent(currentStep.stepNumber);
     const name = { firstName: firstName || '', lastName: lastName || '' };
-    const contractInfo = { weChat: weChat || '', telegram: telegram || '', email: email || '' };
+    const contractInfo = {
+      weChat: weChat || '',
+      telegram: telegram || '',
+      email: email || '',
+      twitter: twitter || '',
+      discord: discord || '',
+      linkedIn: linkedIn || '',
+      whatsApp: whatsApp || ''
+    };
 
     setFormState({
       ...formState,
       status: status,
       name,
-      bio: bio || '',
+      additionalInfo: {
+        selfIntroduction: selfIntroduction || '',
+        isEnrolledSingapore: isEnrolledSingapore || false
+      },
       contractInfo,
       isRegister
     });
@@ -86,8 +120,11 @@ const FormContent: FC<FormContentProps> = () => {
         if (registerInfo.status) init(registerInfo);
         else setCurrent(0);
       },
-      onError(err) {
-        errorMessage(err);
+      onError(err: any) {
+        if (err.code === 401) {
+          errorMessage(err);
+          redirectToUrl(`/web3mooc`);
+        }
       }
     }
   );
@@ -117,10 +154,15 @@ const FormContent: FC<FormContentProps> = () => {
       return webApi.courseApi.updateNtuRegisterInfo({
         firstName: formState.name.firstName,
         lastName: formState.name.lastName,
-        bio: formState.bio,
+        selfIntroduction: formState.additionalInfo.selfIntroduction,
+        isEnrolledSingapore: formState.additionalInfo.isEnrolledSingapore,
         email: formState.contractInfo.email,
         telegram: formState.contractInfo.weChat,
         weChat: formState.contractInfo.telegram,
+        twitter: formState.contractInfo.twitter,
+        discord: formState.contractInfo.discord,
+        linkedIn: formState.contractInfo.linkedIn,
+        whatsApp: formState.contractInfo.whatsApp,
         status
       });
     },
@@ -129,7 +171,7 @@ const FormContent: FC<FormContentProps> = () => {
       onSuccess() {
         redirectToUrl(`/web3mooc`);
       },
-      onError(err) {
+      onError(err: any) {
         errorMessage(err);
       }
     }
@@ -151,12 +193,14 @@ const FormContent: FC<FormContentProps> = () => {
     };
   }, [exit]);
 
+  const userInfo = useUserStore((state) => state.userInfo);
+
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
       <FormHeader
         steps={HACKATHON_SUBMIT_STEPS}
         current={current}
-        description="NTU Course Registration"
+        description="Course Enrollment"
         title={'Ideating and Building in Web3 MOOC'}
       />
       {current < 0 && (

@@ -1,6 +1,6 @@
 'use client';
 import { TransNs, Lang } from '@/i18n/config';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import OverviewCover from '@/public/images/learn/overview_cover.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.svg';
 import HackLogo from '@/public/images/learn/hack_logo.png';
@@ -15,7 +15,9 @@ import webApi from '@/service';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRequest } from 'ahooks';
 import VideoModal from './VideoModal';
-import { FaRegCirclePlay } from 'react-icons/fa6';
+import RegisterSuccessModal from './RegisterSuccessModal';
+import { useUserStore } from '@/store/zustand/userStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface OverviewProp {
   lang: Lang;
@@ -23,12 +25,13 @@ interface OverviewProp {
 
 const Overview: React.FC<OverviewProp> = ({ lang }) => {
   const { t } = useTranslation(lang, TransNs.LEARN);
-  const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
   const [open, setOpen] = useState(false);
-
+  const ref = useRef<{ open: VoidFunction }>(null);
   const query = useSearchParams();
   const pathname = usePathname();
   const isRegisterQuery = query.get('isRegister');
+  const userInfo = useUserStore((state) => state.userInfo);
   const { data, run, loading } = useRequest(
     () => {
       return webApi.courseApi.getNtuRegisterInfo();
@@ -40,21 +43,29 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
 
   useEffect(() => {
     run();
+    if (isRegisterQuery === 'true') {
+      ref.current?.open();
+      window.history.replaceState({}, '', pathname);
+    }
   }, []);
 
   return (
     <div className="">
       <div className="relative mb-[1.75rem] w-full pt-[100%]">
         <Image src={OverviewCover} fill alt="npt-course" priority className="object-cover" />
-        <div className="group absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/50 hover:bg-black/70">
+        {/* <div className="group absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center bg-black/50 hover:bg-black/70">
           <span className="transition group-hover:scale-125" onClick={() => setOpen(true)}>
             <FaRegCirclePlay color={'#f4f4f4'} size={80} />
           </span>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col gap-[1.25rem]">
         <h1 className="text-h3-mob">{t(overviewData.name)}</h1>
+        <div className="body-s">
+          <p className="mb-[.25rem] text-neutral-medium-gray">{t('ntuCourse.date')}</p>
+          <p>{overviewData.date}</p>
+        </div>
         <div className="body-s">
           <p className="mb-[.25rem] text-neutral-medium-gray">{t('ntuCourse.time')}</p>
           <p>{overviewData.time}</p>
@@ -90,18 +101,31 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
           </div>
         </div>
         <div className="w-full pt-[.625rem]">
-          <Link href={'javascript: void(0)'}>
+          <Link
+            href={!userInfo ? '#' : overviewData.registerLink}
+            target={userInfo ? '_blank' : ''}
+            onClick={(e) => {
+              if (!userInfo) e.preventDefault();
+            }}
+          >
             <Button
               type="primary"
-              disabled={loading || !data?.isRegister}
+              disabled={loading || data?.isRegister}
               className="button-text-m h-[3rem] w-full uppercase text-neutral-off-black"
-              onClick={() => setTipsModalOpenState(true)}
+              onClick={(e) => {
+                if (!userInfo) {
+                  e.stopPropagation();
+                  mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+                  mobileNavModalToggleOpenHandle.toggleOpen();
+                }
+              }}
             >
-              {!data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
+              {data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
             </Button>
           </Link>
         </div>
       </div>
+      <RegisterSuccessModal ref={ref} className={'w-full'} />
       <VideoModal open={open} setOpen={setOpen} />
     </div>
   );

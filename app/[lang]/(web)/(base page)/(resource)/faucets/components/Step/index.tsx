@@ -18,7 +18,7 @@ const Step: React.FC<StepProp> = () => {
           </div>
           <p className="body-xs mt-[5px] text-neutral-medium-gray">Choose a testnet you want test token for.</p>
         </div>
-        <div className="w-[250px]">
+        <div className="w-[260px]">
           <div className="flex gap-[8px]">
             <Image src={StepIcon2} alt="step-icon" width={24} />
             <span className="body-m">Step 2 - Complete your Profile</span>

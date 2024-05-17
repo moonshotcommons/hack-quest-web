@@ -16,27 +16,37 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import { message } from 'antd';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
+import EnrolledSingaporeRadio from './EnrolledSingaporeRadio';
 
 const formSchema = z.object({
-  bio: z
+  selfIntroduction: z
     .string()
     .min(1, {
       message: 'Bio is a required input.'
     })
     .max(360, {
       message: 'Bio cannot exceed 360 characters.'
-    })
+    }),
+  isEnrolledSingapore: z.boolean()
 });
+
+export type BioFormSchema = z.infer<typeof formSchema>;
+
+// additionalInfo: {
+//   selfIntroduction: string;
+//   isEnrolledSingapore: boolean;
+// };
 
 const BioForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
-    Pick<HackathonRegisterStateType, 'bio' | 'status' | 'isRegister'>
-> = ({ onNext, onBack, bio, status, isRegister }) => {
+    Pick<HackathonRegisterStateType, 'additionalInfo' | 'status' | 'isRegister'>
+> = ({ onNext, onBack, additionalInfo, status, isRegister }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bio
+      selfIntroduction: additionalInfo.selfIntroduction,
+      isEnrolledSingapore: undefined
     }
   });
 
@@ -66,14 +76,15 @@ const BioForm: FC<
       //     ? HackathonRegisterStep.SubmissionType
       //     : status;
       const res = await webApi.courseApi.updateNtuRegisterInfo({
-        bio: values.bio
+        selfIntroduction: values.selfIntroduction,
+        isEnrolledSingapore: values.isEnrolledSingapore
       });
       return { res, values };
     },
     {
       manual: true,
       onSuccess({ res, values }) {
-        onNext({ bio: values.bio });
+        onNext({ additionalInfo: values });
       },
       onError(err) {
         errorMessage(err);
@@ -83,9 +94,11 @@ const BioForm: FC<
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // setContractInfo();
-    const isSame = values.bio === bio;
+    const isSame = values.selfIntroduction === additionalInfo.selfIntroduction;
     if (isSame && isRegister) {
-      onNext({ bio: values.bio });
+      onNext({
+        additionalInfo: { selfIntroduction: values.selfIntroduction, isEnrolledSingapore: values.isEnrolledSingapore }
+      });
       return;
     }
     await submitRequest(values);
@@ -95,27 +108,34 @@ const BioForm: FC<
   }
 
   useEffect(() => {
-    form.setValue('bio', bio);
-    if (!!bio) form.trigger();
-  }, [bio]);
+    const { selfIntroduction, isEnrolledSingapore } = additionalInfo;
+
+    // form.setValue('selfIntroduction', additionalInfo.selfIntroduction);
+    // typeof isEnrolledSingapore === 'boolean' && form.setValue('isEnrolledSingapore', !!isEnrolledSingapore);
+    if (selfIntroduction && typeof isEnrolledSingapore === 'boolean') form.trigger();
+  }, [additionalInfo]);
+
+  const disable =
+    typeof form.getValues('isEnrolledSingapore') !== 'boolean' || !(form.getValues('selfIntroduction') || '').trim();
 
   return (
     <div className="">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex h-full w-full flex-col gap-6">
           <div className="flex  flex-col gap-4 text-left">
+            <EnrolledSingaporeRadio form={form} />
             <FormField
               control={form.control}
-              name={'bio'}
+              name={'selfIntroduction'}
               render={({ field }) => (
                 <FormItem className="w-full text-left">
                   <div className="flex w-full justify-between">
                     <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-                      {'Bio'}
+                      {'Please introduce yourself to the guest lecturers and future classmates'}
                     </FormLabel>
                     <span className="caption-14pt text-neutral-rich-gray">
-                      <span className={form.watch('bio').length > 360 ? 'text-status-error' : ''}>
-                        {form.watch('bio').length}
+                      <span className={form.watch('selfIntroduction').length > 360 ? 'text-status-error' : ''}>
+                        {form.watch('selfIntroduction').length}
                       </span>
                       /360
                     </span>
@@ -123,7 +143,7 @@ const BioForm: FC<
                   <FormControl>
                     <Textarea
                       authHeight={false}
-                      placeholder={'Add a bio.'}
+                      placeholder={'Say hi to everyone!'}
                       {...field}
                       className="body-m h-[128px] border-neutral-light-gray px-6 py-3 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
                     />
@@ -146,7 +166,7 @@ const BioForm: FC<
                 'button-text-m min-w-[165px] px-0 py-4 uppercase',
                 !form.formState.isValid ? 'bg-neutral-light-gray' : ''
               )}
-              disabled={!form.formState.isValid}
+              disabled={disable}
               loading={loading}
             >
               {isRegister ? 'update' : 'Save'} And Register

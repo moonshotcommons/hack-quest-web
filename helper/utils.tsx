@@ -252,6 +252,8 @@ export const isUuid = checkByRegExp(/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/)
 
 export const isNullByRegExp = checkByRegExp(/^\s*$/);
 
+export const isEthAddress = checkByRegExp(/^(0x)?[0-9a-fA-F]{40}$/);
+
 export const isNull = (str: any) => {
   return !!(!str || isNullByRegExp(str as string));
 };
@@ -283,3 +285,11 @@ export function createUrl(pathname: string, params: URLSearchParams | ReadonlyUR
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
   return `${pathname}${queryString}`;
 }
+
+/** 向下保留小数  */
+export const decimalCount = (number: number, digit = 1) => {
+  if (isNaN(number)) return 0;
+  if (digit < 1) return number;
+  const digitHundred = parseInt(`1${'0'.repeat(digit)}`);
+  return Math.floor(number * digitHundred) / digitHundred;
+};

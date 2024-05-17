@@ -115,7 +115,7 @@
       "partners": "Partners",
       "partnersDesc": "Become Our Partner",
       "faucets":"Faucets",
-      "faucetsDesc":"Faucets description"
+      "faucetsDesc":"Receive learning test coins"
     },
     "launch": {
       "title": "Launch pool"
@@ -199,5 +199,7 @@
     "title":"Notifications",
     "markAll":"Mark all as read",
     "readFullMessage":"Read full message"
-  }
+  },
+  "min":"Min",
+  "max":"Max"
 }

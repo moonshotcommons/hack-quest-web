@@ -44,10 +44,17 @@ export const hackathonDetailTimeLine = [
   }
 ];
 
-export const titleTxtData = [
-  'projectsDetail.title.overview',
-  // 'projectsDetail.title.voting',
-  'projectsDetail.title.videos',
-  'projectsDetail.title.introduction',
-  'projectsDetail.title.team'
+export const hackathonVoteProjectSort = [
+  {
+    label: 'Earliest Submission',
+    value: '-openTime'
+  },
+  {
+    label: 'Latest Submission',
+    value: 'openTime'
+  },
+  {
+    label: 'Your Votes',
+    value: 'Your Votes'
+  }
 ];

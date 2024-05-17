@@ -117,7 +117,7 @@
       "partners": "合作伙伴",
       "partnersDesc": "成为我们的合作伙伴",
       "faucets":"水龙头",
-      "faucetsDesc":"水龙头描述"
+      "faucetsDesc":"领取学习测试币"
     },
     "launch": {
       "title": "发射台"
@@ -195,8 +195,10 @@
   "youHavesubmitted": "你已经提交",
   "yes": "好",
   "notificationModal":{
-    "title":"Notifications",
-    "markAll":"Mark all as read",
-    "readFullMessage":"Read full message"
-  }
+    "title":"通知",
+    "markAll":"全部标记为已读",
+    "readFullMessage":"查看完整消息"
+  },
+  "min":"最小",
+  "max":"最大"
 }

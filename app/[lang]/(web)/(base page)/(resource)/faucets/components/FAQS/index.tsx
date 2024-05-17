@@ -7,35 +7,17 @@ import { useTranslation } from '@/i18n/client';
 import { Lang, TransNs } from '@/i18n/config';
 import Link from 'next/link';
 import { FC, useState } from 'react';
+import { FAQData } from '../../constants/data';
 
 interface FAQSProps {
   lang: Lang;
 }
 
-const FAQData = [
-  {
-    problem: 'faucets.FAQS.question1.problem',
-    answer: 'faucets.FAQS.question1.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question2.problem',
-    answer: 'faucets.FAQS.question2.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question3.problem',
-    answer: 'faucets.FAQS.question3.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question4.problem',
-    answer: 'faucets.FAQS.question4.answer'
-  }
-];
-
 const FAQS: FC<FAQSProps> = ({ lang }) => {
   const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [expendIndex, setExpendIndex] = useState<number[]>([]);
   return (
-    <div className="container mx-auto flex max-w-[1280px] justify-between gap-20 py-[6.25rem]">
+    <div className="container mx-auto flex justify-between gap-20 py-[6.25rem]">
       <div className="flex w-[400px] max-w-[400px] flex-col gap-10">
         <p className="text-h2 capitalize text-neutral-off-black">{t('faucets.FAQS.title')}</p>
         <p className="body-l tracking-tighter text-neutral-medium-gray">{t('faucets.FAQS.description')}</p>
