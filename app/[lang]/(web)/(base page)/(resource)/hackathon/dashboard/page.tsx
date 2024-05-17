@@ -1,13 +1,16 @@
 import { HackathonStats } from '@/components/hackathon/hackathon-stats';
 import { VotingRole } from '@/components/hackathon/voting-role';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
+import { PageLayout } from '@/components/hackathon/page-layout';
 import { HackathonContent } from './components/hackathon-content';
-import { DashboardHeader } from './components/header';
 
 export default function HackathonDashboard({ searchParams: { type } }: { searchParams: { type: string } }) {
   return (
-    <div className="container mx-auto py-12">
-      <DashboardHeader />
+    <PageLayout
+      title="Your Hackathons"
+      description="Welcome to your hackathon dashboard! Manage projects, invite teammates, and track your hackathon journey with
+    ease—all in one place."
+    >
       <div className="mt-20 grid grid-cols-[1fr_320px] gap-10">
         <HackathonContent />
         <div className="flex flex-col gap-10">
@@ -19,6 +22,6 @@ export default function HackathonDashboard({ searchParams: { type } }: { searchP
           <FollowDiscord />
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 }
