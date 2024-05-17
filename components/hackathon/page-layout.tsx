@@ -49,13 +49,9 @@ export function PageLayout({
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
         <div className="w-full px-5 sm:max-w-[50rem] sm:px-0">
           <h1 className="flex items-center gap-2 font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black sm:gap-3 sm:text-[2.5rem]">
-            <Image
-              src={`/images/hackathon/${toSnakeCase(title)}.png`}
-              width={32}
-              height={32}
-              alt={title}
-              className="sm:h-12 sm:w-12"
-            />
+            <div className="relative h-8 w-8 sm:h-12 sm:w-12">
+              <Image src={`/images/hackathon/${toSnakeCase(title)}.png`} fill alt={title} />
+            </div>
             <span>{title}</span>
           </h1>
           <p className="mt-4 text-sm text-neutral-rich-gray sm:mt-5 sm:text-lg">{description}</p>
@@ -65,15 +61,11 @@ export function PageLayout({
               {filteredLinks.map((link) => (
                 <Link href={link.url} key={link.id}>
                   <div className="flex items-center rounded-2xl bg-neutral-white px-[3.75rem] py-4 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)] sm:gap-2 sm:px-5 sm:py-5">
-                    <div className="h-8 w-8 sm:h-12 sm:w-12">
-                      <Image
-                        data-id={link.id}
-                        src={`/images/hackathon/${toSnakeCase(link.title)}.png`}
-                        width={26}
-                        height={32}
-                        alt={link.title}
-                        className="data-[id='1']:w-8 data-[id='3']:w-8 sm:h-12 sm:w-10 sm:data-[id='1']:w-12 sm:data-[id='3']:w-12"
-                      />
+                    <div
+                      data-id={link.id}
+                      className="relative h-8 w-[1.625rem] data-[id='1']:w-8 data-[id='3']:w-8 sm:h-12 sm:w-10 sm:data-[id='1']:w-12 sm:data-[id='3']:w-12"
+                    >
+                      <Image src={`/images/hackathon/${toSnakeCase(link.title)}.png`} fill alt={link.title} />
                     </div>
                     <h3 className="flex-1 whitespace-nowrap text-center text-base text-neutral-black sm:text-lg">
                       {link.title}
@@ -85,14 +77,9 @@ export function PageLayout({
           </div>
         </div>
         <div className="self-end py-2.5 pl-1 pr-5">
-          <Image
-            src={`/images/hackathon/${toSnakeCase(title)}_cover.png`}
-            width={125}
-            height={100}
-            alt={title}
-            priority
-            className="sm:wh-[332px] sm:w-[416px]"
-          />
+          <div className="relative h-[6.25rem] w-[7.8125rem] sm:h-[20.75rem] sm:w-[26rem]">
+            <Image src={`/images/hackathon/${toSnakeCase(title)}_cover.png`} fill alt={title} priority />
+          </div>
         </div>
       </div>
       {children}
