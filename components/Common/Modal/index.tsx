@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 
-import { FC, Fragment, ReactNode } from 'react';
+import { FC, Fragment, ReactNode, useEffect } from 'react';
 import CloseIcon from '../Icon/Close';
 import { cn } from '@/helper/utils';
 
@@ -43,7 +43,16 @@ const Modal: React.FC<ModalProps> = (props) => {
     block = false,
     zIndex = 999
   } = props;
-  // const closeIcon =
+
+  // Lock body scroll
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+  }, [open]);
+
   return (
     <Transition show={open} appear as={Fragment}>
       <Dialog
