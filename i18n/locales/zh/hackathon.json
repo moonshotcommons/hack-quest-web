@@ -75,6 +75,7 @@
     "teamMember":"Team Member"
   },
   "hackathonVoting":{
+    "votes":"Votes",
     "votingRules":"Voting Rules",
     "votingProjects":"Voting Projects",
     "submissionsReview":"SUBMISSIONS REVIEW",
@@ -84,10 +85,21 @@
     "refreshEveryday":"Refresh at 8AM Everyday",
     "remainingVotes":"Remaining Votes",
     "totalVotes":"Total Votes",
+    "voteTips":"*The number of votes you get everyday is determined by your current role, current HackQuest level, and your registration time.",
     "yourRemainingVotes":"Your Remaining Votes",
     "prizeTrack":"Prize Track",
     "projectTrack":"Project Track",
     "youVoted":"You Voted",
-    "confirmVote":"Confirm vote"
+    "confirmVote":"Confirm vote",
+    "user":"User",
+    "advocate":"Advocate",
+    "judge":"Judge",
+    "otherHackathons":"Other Hackathons Under Review",
+    "votingInfo":"Voting Info",
+    "yourTotalVotes":"Your Total Votes",
+    "yourVotes":"Your Votes",
+    "currentVotes":"Current Votes",
+    "currentRanking":"Current Ranking",
+    "youCantVote":"You can’t vote for projects because your project is under review in this hackathon"
   }
 }
