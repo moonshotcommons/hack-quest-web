@@ -1,4 +1,5 @@
 'use client';
+import { FAQData } from '@/app/[lang]/(web)/(base page)/(resource)/faucets/constants/data';
 import DiscordIcon from '@/components/Common/Icon/Discord';
 import TwitterIcon from '@/components/Common/Icon/Twitter';
 import { HACKQUEST_DISCORD, HACKQUEST_TWITTER } from '@/constants/links';
@@ -11,25 +12,6 @@ import { FC, useState } from 'react';
 interface FAQSProps {
   lang: Lang;
 }
-
-const FAQData = [
-  {
-    problem: 'faucets.FAQS.question1.problem',
-    answer: 'faucets.FAQS.question1.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question2.problem',
-    answer: 'faucets.FAQS.question2.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question3.problem',
-    answer: 'faucets.FAQS.question3.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question4.problem',
-    answer: 'faucets.FAQS.question4.answer'
-  }
-];
 
 const FAQS: FC<FAQSProps> = ({ lang }) => {
   const { t } = useTranslation(lang, TransNs.RESOURCE);
