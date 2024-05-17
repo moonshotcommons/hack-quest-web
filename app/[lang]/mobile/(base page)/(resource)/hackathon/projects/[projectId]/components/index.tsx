@@ -2,6 +2,7 @@
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 import Content from './Content';
+import ProjectProvider from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/projects/[projectId]/components/ProjectProvider';
 
 interface ProjectDetailProp {
   project: ProjectType;
@@ -12,7 +13,9 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project }) => {
     <div>
       {/* <CloseIn project={project} /> */}
       <div className="p-[1.25rem]">
-        <Content project={project} />
+        <ProjectProvider project={project}>
+          <Content project={project} />
+        </ProjectProvider>
       </div>
     </div>
   );

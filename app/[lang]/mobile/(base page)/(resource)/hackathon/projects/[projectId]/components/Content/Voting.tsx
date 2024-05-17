@@ -4,7 +4,7 @@ import { TransNs } from '@/i18n/config';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext } from 'react';
 import Title from '../Title';
-import { titleTxtData } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
+import { ProjectDetailContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 interface VotingProp {
   project: ProjectType;
@@ -13,6 +13,7 @@ interface VotingProp {
 const Voting: React.FC<VotingProp> = ({ project }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { titleTxtData } = useContext(ProjectDetailContext);
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t(titleTxtData[2])} />

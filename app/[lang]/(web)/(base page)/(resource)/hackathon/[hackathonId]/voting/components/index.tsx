@@ -12,7 +12,7 @@ import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
 import MenuLink from '@/constants/MenuLink';
 import PastHackathonCard from '../../../components/HackathonBox/Past/PastHackathonCard';
-import BottomSlider from '@/components/Web/Business/BottomSlider';
+import SliderCard from '@/components/Web/Business/SliderCard';
 
 interface HackathonVotingProps {
   hackathon: HackathonType;
@@ -23,8 +23,8 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <div className="">
-      <div className="container mx-auto mb-[80px] pt-[40px]">
+    <div className="container mx-auto ">
+      <div className="mb-[80px] pt-[40px]">
         <div className="min-h-[50vh] w-full">
           {hackathon.id && (
             <VoteProvider>
@@ -42,12 +42,22 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
           )}
         </div>
       </div>
-
-      <BottomSlider<HackathonType>
-        list={otherHackathons}
+      <SliderCard
         title={t('hackathonVoting.otherHackathons')}
         viewLink={`${MenuLink.HACKATHON}`}
-        renderItem={(hackathon) => <PastHackathonCard hackathon={hackathon} isVoting={true} />}
+        renderItem={(contarinerWidth) => {
+          return otherHackathons.map((item) => (
+            <div
+              key={item.id}
+              className={`p-[10px]`}
+              style={{
+                width: `calc((${contarinerWidth}px)/4)`
+              }}
+            >
+              <PastHackathonCard hackathon={item} />
+            </div>
+          ));
+        }}
       />
       <PageRetentionTime trackName="hackathon-detail-页面留存时间"></PageRetentionTime>
     </div>

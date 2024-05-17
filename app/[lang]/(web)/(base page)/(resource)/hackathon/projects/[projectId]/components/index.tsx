@@ -5,6 +5,7 @@ import Nav from './Nav';
 import Content from './Content';
 import { OffsetTopsType } from '../../../constants/type';
 import FeaturedProjects from '../../../components/FeaturedProject';
+import ProjectProvider from './ProjectProvider';
 
 interface ProjectDetailProp {
   project: ProjectType;
@@ -48,12 +49,14 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) =>
     <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
       <div className="container  relative mx-auto">
         {/* <CloseIn project={project} /> */}
-        <div className="relative mt-[40px] flex">
-          <div className="relative">
-            <Nav curAnchorIndex={curAnchorIndex} offsetTops={offsetTops} handleClickAnchor={handleClickAnchor} />
+        <ProjectProvider project={project}>
+          <div className="relative mt-[40px] flex">
+            <div className="relative">
+              <Nav curAnchorIndex={curAnchorIndex} offsetTops={offsetTops} handleClickAnchor={handleClickAnchor} />
+            </div>
+            <Content setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} project={project} />
           </div>
-          <Content setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} project={project} />
-        </div>
+        </ProjectProvider>
       </div>
       <div className="mt-[80px]">
         <FeaturedProjects
