@@ -66,7 +66,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   }, [unitNavList]);
   if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
-    <div className="mb-[30px] flex items-center  gap-2">
+    <div className="mb-[30px] flex items-center gap-2">
       <div
         className={`relative z-10 w-fit min-w-[322px] text-lesson-preview-color ${isToggle ? 'shadow-2xl' : ''}`}
         tabIndex={1}
