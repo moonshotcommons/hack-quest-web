@@ -183,7 +183,7 @@ const steps: Record<number, React.FC> = {
 export default function Page() {
   const step = useOnboard((state) => state.step);
 
-  const Compoent = steps[step];
+  const Component = steps[step];
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto bg-neutral-white sm:h-screen sm:bg-neutral-off-white">
@@ -209,7 +209,7 @@ export default function Page() {
               />
             ))}
           </div>
-          <Compoent />
+          <Component />
         </div>
       </main>
     </div>
