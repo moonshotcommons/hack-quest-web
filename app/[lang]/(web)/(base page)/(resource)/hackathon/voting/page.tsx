@@ -1,7 +1,14 @@
-export default function HackathonVoting() {
+import React from 'react';
+import { DashboardHeader } from '../dashboard/components/header';
+
+interface HackathonVotingProp {}
+
+const HackathonVoting: React.FC<HackathonVotingProp> = () => {
   return (
-    <div>
-      <h1>Hackathon Voting!</h1>
+    <div className="container mx-auto pt-[48px]">
+      <DashboardHeader />
     </div>
   );
-}
+};
+
+export default HackathonVoting;
