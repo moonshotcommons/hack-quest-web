@@ -61,7 +61,7 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'my-course',
         label: 'navbar.learn.myCourse',
-        path: MenuLink.DASHBOARD,
+        path: MenuLink.MY_COURSES,
         description: 'navbar.learn.myCourseDesc',
         needLogin: true
       },
