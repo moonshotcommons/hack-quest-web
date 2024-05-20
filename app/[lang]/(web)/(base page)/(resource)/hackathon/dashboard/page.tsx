@@ -4,7 +4,7 @@ import { FollowDiscord } from '@/components/hackathon/follow-discord';
 import { PageLayout } from '@/components/hackathon/page-layout';
 import { HackathonContent } from './components/hackathon-content';
 
-export default function HackathonDashboard({ searchParams: { type } }: { searchParams: { type: string } }) {
+export default function Page({ searchParams: { type } }: { searchParams: { type: string } }) {
   return (
     <PageLayout
       title="Your Hackathons"
