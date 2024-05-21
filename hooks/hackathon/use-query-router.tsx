@@ -20,7 +20,7 @@ export function useQueryRouter({ queryKey, defaultValue }: { queryKey: string; d
   );
 
   function onValueChange(value: string) {
-    router.push(pathname + '?' + createQueryString(queryKey, value));
+    router.replace(pathname + '?' + createQueryString(queryKey, value));
   }
 
   return { value, onValueChange };
