@@ -25,6 +25,8 @@ import GaianetAILogo from '@/public/images/learn/GaianetAI.png';
 import { FaDiscord, FaTelegram } from 'react-icons/fa6';
 import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM } from '@/constants/links';
 
+export const NTU_ZOOM_LINK = 'https://us06web.zoom.us/j/88229430213?pwd=64vJLXtSamETF4GvBGhVcMaZwDx28J.1';
+
 export const titleTxtData = [
   'ntuCourse.title.overview',
   'ntuCourse.title.courseDescription',

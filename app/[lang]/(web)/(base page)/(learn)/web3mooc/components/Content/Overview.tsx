@@ -6,7 +6,7 @@ import OverviewCover from '@/public/images/learn/overview_cover.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.png';
 import HackLogo from '@/public/images/learn/hack_logo.png';
 import Image from 'next/image';
-import { overviewData } from '../../constants/data';
+import { NTU_ZOOM_LINK, overviewData } from '../../constants/data';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
@@ -100,7 +100,7 @@ const Overview: React.FC<OverviewProp> = () => {
         </div>
         <div className="w-full pt-3">
           <Link
-            href={!userInfo ? '#' : overviewData.registerLink}
+            href={!userInfo ? '#' : !data?.isRegister ? overviewData.registerLink : NTU_ZOOM_LINK}
             target={userInfo ? '_blank' : ''}
             onClick={(e) => {
               if (!userInfo) e.preventDefault();
@@ -109,7 +109,7 @@ const Overview: React.FC<OverviewProp> = () => {
             <Button
               type="primary"
               className="button-text-l h-[60px] w-full uppercase text-neutral-off-black"
-              disabled={loading || data?.isRegister}
+              disabled={loading}
               loading={loading}
               onClick={(e) => {
                 if (!userInfo) {
@@ -118,7 +118,7 @@ const Overview: React.FC<OverviewProp> = () => {
                 }
               }}
             >
-              {data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
+              {data?.isRegister ? t('ntuCourse.overview.zoomLink') : t('ntuCourse.overview.registerNow')}
             </Button>
           </Link>
         </div>
