@@ -2,12 +2,14 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext } from 'react';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import React, { useContext, useEffect, useState } from 'react';
+import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import Title from '../../../components/components/Title';
 import Filter, { SearchType } from './Filter';
 import VoteCards from './VoteCards';
 import { HackathonVoteContext } from '../../../../constants/type';
+import webApi from '@/service';
+import { cloneDeep } from 'lodash-es';
 
 interface VotingProjectsProp {
   hackathon: HackathonType;
@@ -16,15 +18,43 @@ interface VotingProjectsProp {
 const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { setView } = useContext(HackathonVoteContext);
+  const { setInitProjects, setRemainingVotes, voteData, setVoteData } = useContext(HackathonVoteContext);
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [isInit, setIsInit] = useState(true);
   const handleSearch = (search: SearchType) => {
-    setView(search.view);
+    getProjects(search);
+    setVoteData([]);
   };
-  const projects = Array.from({ length: 10 }).map((_, i) => ({ id: i }));
+  const getProjects = async (search: SearchType) => {
+    const res = await webApi.resourceStationApi.getVoteProjectsByHackathonId(hackathon.id, search);
+    if (isInit) {
+      setInitProjects(res);
+    }
+    setIsInit(false);
+    setProjects(res);
+  };
+
+  const handleRandom = () => {
+    const newProjects = randomSort(cloneDeep(projects));
+    setProjects(newProjects);
+  };
+
+  const randomSort = (arr: any[]) => {
+    return arr.sort(() => Math.random() - 0.5);
+  };
+  useEffect(() => {
+    const total = hackathon.participation?.remainingVote || 0;
+    if (isInit) {
+      setRemainingVotes(total);
+    } else {
+      const voteds = voteData.reduce((pre, cur) => pre + cur.vote, 0);
+      setRemainingVotes(total - voteds);
+    }
+  }, [hackathon, isInit, voteData]);
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonVoting.votingProjects')} />
-      <Filter hackathon={hackathon} handleSearch={handleSearch} />
+      <Filter hackathon={hackathon} handleSearch={handleSearch} handleRandom={handleRandom} />
       <VoteCards projects={projects} />
     </div>
   );

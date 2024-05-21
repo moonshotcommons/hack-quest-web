@@ -13,9 +13,10 @@ interface SliderCardProp {
   title: string;
   viewLink?: string;
   renderItem: (width: number) => ReactNode;
+  isMobile?: boolean;
 }
 
-function SliderCard({ title, viewLink, renderItem }: SliderCardProp) {
+function SliderCard({ title, viewLink, renderItem, isMobile = false }: SliderCardProp) {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
   const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
@@ -23,10 +24,10 @@ function SliderCard({ title, viewLink, renderItem }: SliderCardProp) {
   const containerRef = useRef<HTMLDivElement>(null);
   return (
     <div className="w-full py-[60px]" ref={containerRef}>
-      <div className="flex items-center justify-between">
-        <div className="text-h3 text-neutral-off-black">{title}</div>
+      <div className="mb-[1.875rem] flex items-center justify-between gap-[1.25rem]">
+        <div className={`flex-1 text-neutral-off-black ${isMobile ? 'text-h3-mob' : 'text-h3 '}`}>{title}</div>
         {viewLink && (
-          <Link href={viewLink} className="flex items-center gap-[7px]">
+          <Link href={viewLink} className="flex flex-shrink-0 items-center gap-[7px]">
             <span>{t('viewAll')}</span>
             <BsArrowRight size={12}></BsArrowRight>
           </Link>
@@ -34,16 +35,16 @@ function SliderCard({ title, viewLink, renderItem }: SliderCardProp) {
       </div>
       <div>
         <div className="group relative">
-          <div className="hidden group-hover:block">
-            <Navigation changeState={scrollContainerState} />
+          <div className={`${!isMobile && 'hidden group-hover:block'}`}>
+            <Navigation isMobile={isMobile} changeState={scrollContainerState} />
           </div>
           <ScrollContainer ref={scrollContainerRef} gap={0} onChange={(state: any) => setScrollContainerState(state)}>
-            <div className="mt-[30px] flex">{renderItem(containerRef.current?.offsetWidth as number)}</div>
+            <div className="flex">{renderItem(containerRef.current?.offsetWidth as number)}</div>
           </ScrollContainer>
         </div>
 
         <div className="mt-[30px]">
-          <Pagination changeState={scrollContainerState} />
+          <Pagination isMobile={isMobile} changeState={scrollContainerState} />
         </div>
       </div>
     </div>

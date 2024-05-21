@@ -38,7 +38,6 @@
   "certifiesWorld": "This learning track, co-issued by ecosystem and HackQuest, certifies that you have successfully completed the learning track. Share your accomplishments with the world!",
   "youStepAwayFromDevelopers": "You are just one step away from becoming a certified Web3 Developers. Complete the learning track and claim your NFT or SBT proof-of-completion certificate now to elevate your skills and demonstrate your expertise.",
   "becomeCertifiedDeveloper": "Become a Certified Developer",
-  "back": "Back",
   "footer": {
     "learn": "learn",
     "learningTrack": "learning track",
@@ -57,6 +56,7 @@
   "searchPlaceholder": "Search for keywords, topics, etc...",
   "submit": "Submit",
   "viewAll": "View All",
+  "back": "Back",
   "pleaseSelect": "Please select",
   "cancel": "Cancel",
   "navbar": {

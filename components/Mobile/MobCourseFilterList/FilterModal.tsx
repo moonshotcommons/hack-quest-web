@@ -10,7 +10,7 @@ interface FilterModalProps {
   filters: FilterItemType[];
   sort?: FilterOptionType[];
   updateFilters: (newFilters: FilterItemType[]) => void;
-  updateSort: (newSort: FilterOptionType[]) => void;
+  updateSort?: (newSort: FilterOptionType[]) => void;
   radio?: boolean;
 }
 
@@ -41,7 +41,7 @@ const FilterModal = forwardRef<FilterModalRef, FilterModalProps>((props, ref) =>
       showCloseIcon
       icon={closeIcon}
     >
-      <div className="flex w-[18.75rem] flex-col gap-8 rounded-[24px] bg-neutral-white px-5 py-8">
+      <div className="scroll-wrap-y flex max-h-[80vh] w-[18.75rem] flex-col gap-8 rounded-[24px] bg-neutral-white px-5 py-8">
         {filters.map((filter, filterIndex) => {
           return (
             <div key={filter.filterName} className="flex flex-col gap-4">

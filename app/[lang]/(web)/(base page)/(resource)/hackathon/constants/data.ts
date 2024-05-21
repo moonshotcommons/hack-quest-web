@@ -47,14 +47,14 @@ export const hackathonDetailTimeLine = [
 export const hackathonVoteProjectSort = [
   {
     label: 'Earliest Submission',
-    value: '-openTime'
+    value: '-createdAt'
   },
   {
     label: 'Latest Submission',
-    value: 'openTime'
+    value: 'createdAt'
   },
   {
     label: 'Your Votes',
-    value: 'Your Votes'
+    value: 'vote'
   }
 ];

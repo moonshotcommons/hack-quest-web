@@ -31,9 +31,5 @@ export const FAQData = [
   {
     problem: 'faucets.FAQS.question3.problem',
     answer: 'faucets.FAQS.question3.answer'
-  },
-  {
-    problem: 'faucets.FAQS.question4.problem',
-    answer: 'faucets.FAQS.question4.answer'
   }
 ];
