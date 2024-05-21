@@ -203,7 +203,7 @@ export interface HackathonRegisterInfo {
   lastName: string | null;
   weChat: string | null;
   telegram: string | null;
-  team: HackathonTeam;
+  team: HackathonTeam | null;
   bio: string | null;
   status: HackathonRegisterStep;
   createdAt: string;

@@ -7,6 +7,12 @@ export const getHackathonsList = cache(function (param: object): Promise<Hackath
   const token = cookies().get('token')?.value || '';
   return webApi.resourceStationApi.getHackathonList(param, token as string);
 });
+
+export const getJoinedHackathons = cache(function (): Promise<HackathonType[]> {
+  const token = cookies().get('token')?.value || '';
+  return webApi.resourceStationApi.getJoinedHackathons(token);
+});
+
 export const getHackathonById = cache(function (id: string): Promise<HackathonType> {
   const token = cookies().get('token')?.value || '';
   return webApi.resourceStationApi.getHackathonDetail(id as string, token as string);

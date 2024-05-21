@@ -1,10 +1,13 @@
+import * as React from 'react';
 import { HackathonStats } from '@/components/hackathon/hackathon-stats';
 import { VotingRole } from '@/components/hackathon/voting-role';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
 import { PageLayout } from '@/components/hackathon/page-layout';
 import { HackathonContent } from './components/hackathon-content';
+import { getJoinedHackathons } from '@/service/cach/resource/hackathon';
 
-export default function Page({ searchParams: { type } }: { searchParams: { type: string } }) {
+export default async function Page() {
+  const hackathons = await getJoinedHackathons();
   return (
     <PageLayout
       title="Your Hackathons"
@@ -12,7 +15,9 @@ export default function Page({ searchParams: { type } }: { searchParams: { type:
     ease—all in one place."
     >
       <div className="mt-20 grid grid-cols-[1fr_320px] gap-10">
-        <HackathonContent />
+        <React.Suspense fallback={null}>
+          <HackathonContent hackathons={hackathons} />
+        </React.Suspense>
         <div className="flex flex-col gap-10">
           <div className="rounded-2xl bg-neutral-white p-6">
             <HackathonStats />

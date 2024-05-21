@@ -8,8 +8,9 @@ import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
 import { HackathonStats } from '@/components/hackathon/hackathon-stats';
 import { VotingRole } from '@/components/hackathon/voting-role';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 
-export function DashboardContent() {
+export function DashboardContent({ hackathons }: { hackathons: HackathonType[] }) {
   const { value, onValueChange } = useQueryRouter({
     queryKey: 'type',
     defaultValue: 'participated'
@@ -23,13 +24,14 @@ export function DashboardContent() {
         </TabsList>
         <TabsContent className="rounded-tl-none" value="participated">
           <div className="flex flex-col items-center gap-6">
-            <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
+            {hackathons.map((hackathon) => (
+              <HackathonCard key={hackathon.id} hackathon={hackathon} />
+            ))}
             <ViewAllLink href="/hackathon/dashboard/participated">View All Participated Hackathon</ViewAllLink>
           </div>
         </TabsContent>
         <TabsContent className="rounded-tr-none" value="voting">
           <div className="flex flex-col items-center gap-6">
-            <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
             <ViewAllLink href="/hackathon/dashboard/voting">View All Voting Hackathon</ViewAllLink>
           </div>
         </TabsContent>

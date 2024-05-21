@@ -44,6 +44,15 @@ class ResourceStationApi {
     });
   }
 
+  /** 获取已加入的 hackathon 列表  */
+  getJoinedHackathons(token?: string) {
+    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/joined`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
   /** 获取hackathon详情数据 */
   getHackathonDetail(id: string, token?: string) {
     return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, {
