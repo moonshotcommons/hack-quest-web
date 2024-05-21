@@ -30,7 +30,7 @@ const User: FC<UserProps> = () => {
           {/* {mounted && } */}
           {/* <Intl /> */}
           {!userInfo && (
-            <div className="flex items-center">
+            <div className="flex h-full items-center">
               <Suspense fallback={null}>
                 <Intl />
               </Suspense>

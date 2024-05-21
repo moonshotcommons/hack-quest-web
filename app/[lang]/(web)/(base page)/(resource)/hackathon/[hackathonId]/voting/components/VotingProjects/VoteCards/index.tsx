@@ -1,4 +1,4 @@
-import { HackathonVoteProject } from '@/service/webApi/resourceStation/type';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext } from 'react';
 import AgendaCard from './AgendaCard';
 import GridCard from './GridCard';
@@ -6,7 +6,7 @@ import CalendarCard from './CalendarCard';
 import { HackathonVoteContext, ViewValue } from '../../../../../constants/type';
 
 interface VoteCardsProp {
-  projects: HackathonVoteProject[];
+  projects: ProjectType[];
 }
 
 const VoteCards: React.FC<VoteCardsProp> = ({ projects }) => {

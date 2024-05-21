@@ -160,6 +160,9 @@
   .headline-h4 {
     @apply font-next-book-bold text-[1.125rem] leading-normal tracking-normal;
   }
+  .headline-h5 {
+    @apply font-next-book-bold text-[1rem] leading-normal tracking-normal;
+  }
   .headline-h4-mob {
     @apply font-next-book-bold text-[1rem] leading-normal tracking-normal;
   }

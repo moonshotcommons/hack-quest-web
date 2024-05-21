@@ -54,7 +54,7 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
                 width: `calc((${contarinerWidth}px)/4)`
               }}
             >
-              <PastHackathonCard hackathon={item} />
+              <PastHackathonCard hackathon={item} isVoting={true} />
             </div>
           ));
         }}
