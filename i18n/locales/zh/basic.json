@@ -61,7 +61,7 @@
   "cancel": "取消",
   "navbar": {
     "home": {
-      "title": "主页",
+      "title": "我的",
       "learner": "学习",
       "instructor": "讲师"
     },
@@ -100,7 +100,7 @@
       "mission": "信息中心",
       "missionDesc": "在你的Web 3之旅中获得奖励",
       "campaign": "活动",
-      "campaignDesc": "成为一名注册建筑师"
+      "campaignDesc": "成为一名合格的开发者"
     },
     "resources": {
       "title": "资源",
@@ -116,8 +116,8 @@
       "eventsDesc": "了解Web 3事件",
       "partners": "合作伙伴",
       "partnersDesc": "成为我们的合作伙伴",
-      "faucets":"水龙头",
-      "faucetsDesc":"领取学习测试币"
+      "faucets": "水龙头",
+      "faucetsDesc": "领取学习测试币"
     },
     "launch": {
       "title": "发射台"
@@ -194,11 +194,11 @@
   "continueRegister": "继续注册",
   "youHavesubmitted": "你已经提交",
   "yes": "好",
-  "notificationModal":{
-    "title":"通知",
-    "markAll":"全部标记为已读",
-    "readFullMessage":"查看完整消息"
+  "notificationModal": {
+    "title": "通知",
+    "markAll": "全部标记为已读",
+    "readFullMessage": "查看完整消息"
   },
-  "min":"最小",
-  "max":"最大"
+  "min": "最小",
+  "max": "最大"
 }

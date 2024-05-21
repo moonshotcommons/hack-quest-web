@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
-import { overviewData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
+import { NTU_ZOOM_LINK, overviewData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 import { useTranslation } from '@/i18n/client';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import webApi from '@/service';
@@ -102,7 +102,7 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
         </div>
         <div className="w-full pt-[.625rem]">
           <Link
-            href={!userInfo ? '#' : overviewData.registerLink}
+            href={!userInfo ? '#' : !data?.isRegister ? overviewData.registerLink : NTU_ZOOM_LINK}
             target={userInfo ? '_blank' : ''}
             onClick={(e) => {
               if (!userInfo) e.preventDefault();
@@ -110,7 +110,7 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
           >
             <Button
               type="primary"
-              disabled={loading || data?.isRegister}
+              disabled={loading}
               className="button-text-m h-[3rem] w-full uppercase text-neutral-off-black"
               onClick={(e) => {
                 if (!userInfo) {
@@ -120,7 +120,7 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
                 }
               }}
             >
-              {data?.isRegister ? t('ntuCourse.overview.registered') : t('ntuCourse.overview.registerNow')}
+              {data?.isRegister ? t('ntuCourse.overview.zoomLink') : t('ntuCourse.overview.registerNow')}
             </Button>
           </Link>
         </div>

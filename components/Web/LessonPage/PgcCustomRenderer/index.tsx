@@ -12,6 +12,7 @@ import {
   QuizBType,
   QuizType
 } from '@/components/ComponentRenderer/type';
+import QuizCRenderer from './QuizRenderer/QuizCRenderer';
 
 interface PgcCustomRendererProps {
   // children: ReactNode
@@ -33,6 +34,8 @@ const PgcCustomRenderer: FC<PgcCustomRendererProps> = (props) => {
       return <QuizARenderer parent={parent} quiz={component as QuizAType}></QuizARenderer>;
     case CustomType.QuizB:
       return <QuizBRenderer parent={parent} quiz={component as QuizBType}></QuizBRenderer>;
+    case CustomType.QuizC:
+      return <QuizCRenderer parent={parent} quiz={component as QuizBType}></QuizCRenderer>;
   }
 };
 
