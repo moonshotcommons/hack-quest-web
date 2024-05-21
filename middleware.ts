@@ -29,7 +29,7 @@ export function middleware(request: NextRequest) {
   let locale = userSelectLocale;
   let isRedirect = false;
   // 如果是 public 文件，不重定向
-  if (/\.(.*)$/.test(pathname)) return;
+  if (/\.(.*)$/.test(pathname) && !/\.(.*)$/.exec(pathname)?.[1]?.includes('/')) return;
   if (!/^(https?:\/\/)?(www\.)/.test(request.nextUrl.href) && request.nextUrl.hostname !== 'localhost') {
     request.nextUrl.hostname = `www.${request.nextUrl.hostname}`;
     isRedirect = true;
