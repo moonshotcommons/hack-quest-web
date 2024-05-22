@@ -1,42 +1,82 @@
 'use client';
-import React, { useContext } from 'react';
-// import Image from 'next/image';
+import React, { useContext, useMemo, useState } from 'react';
+import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonType, HackathonTypeVotesRoleType } from '@/service/webApi/resourceStation/type';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import CountDown from '@/components/Web/Business/CountDown';
-// import { AuthType, useUserStore } from '@/store/zustand/userStore';
-// import { useShallow } from 'zustand/react/shallow';
-// import { useRedirect } from '@/hooks/router/useRedirect';
 import Box from '../../../components/components/Box';
 import { LuChevronRight } from 'react-icons/lu';
 import { MdOutlineRefresh } from 'react-icons/md';
 import RoleUserIcon from '@/components/Common/Icon/RoleUser';
 import RoleAdvocateIcon from '@/components/Common/Icon/RoleAdvocate';
 import RoleJugleIcon from '@/components/Common/Icon/RoleJugle';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
+import { HackathonVoteContext } from '../../../../constants/type';
+import { decimalCount } from '@/helper/utils';
+import webApi from '@/service';
+import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
 }
 
 const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
-  // const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
-  //   useShallow((state) => ({
-  //     userInfo: state.userInfo,
-  //     setAuthModalOpen: state.setAuthModalOpen,
-  //     setAuthType: state.setAuthType
-  //   }))
-  // );
+  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      setAuthModalOpen: state.setAuthModalOpen,
+      setAuthType: state.setAuthType
+    }))
+  );
   const { lang } = useContext(LangContext);
+  const { initProjects, voteData, setVoteData } = useContext(HackathonVoteContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const isCanSubmit = true;
-  const role = hackathon.id;
+  const [loading, setLoading] = useState(false);
+  const isCanSubmit = useMemo(() => {
+    return voteData.reduce((pre, cur) => pre + cur.vote, 0);
+  }, [voteData]);
+  const votesPercent = useMemo(() => {
+    const vote = {
+      [HackathonTypeVotesRoleType.USER]: hackathon.votes[HackathonTypeVotesRoleType.USER] || 0,
+      [HackathonTypeVotesRoleType.ADVOCATE]: hackathon.votes[HackathonTypeVotesRoleType.ADVOCATE] || 0,
+      [HackathonTypeVotesRoleType.JUDGE]: hackathon.votes[HackathonTypeVotesRoleType.JUDGE] || 0
+    };
+    const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
+    return {
+      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 4) * 100 + '%',
+      [HackathonTypeVotesRoleType.ADVOCATE]:
+        decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 4) * 100 + '%',
+      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 4) * 100 + '%'
+    };
+  }, [hackathon]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    if (!userInfo) {
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
+      return;
+    }
+    if (!isCanSubmit) return;
+    const submitData = voteData.filter((v) => v.vote);
+    setLoading(true);
+    webApi.resourceStationApi
+      .hackathonVoteSubmit(hackathon.id, submitData)
+      .then(() => {
+        message.success('success');
+        window.location.reload();
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
+  };
 
   return (
     <Box className="sticky right-0 top-[40px] flex flex-col  gap-[24px] p-[24px] pb-[20px] text-neutral-off-black">
@@ -49,91 +89,115 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </div>
       <div>
         <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.votingCloseIn')}</div>
-        <CountDown time={hackathon.reviewTime} />
+        <CountDown time={hackathon.rewardTime} />
       </div>
-      {/* {hackathon.members?.length > 0 && (
+      {initProjects?.length > 0 && (
         <div>
           <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.votingProjects')}</div>
           <div className="flex items-center gap-[8px]">
             <div className="flex pl-[10px]">
-              {hackathon.members.slice(0, 6)?.map((v, i) => (
+              {initProjects.slice(0, 6)?.map((v, i) => (
                 <div
                   key={i}
                   className="relative ml-[-10px] h-[42px] w-[42px] overflow-hidden rounded-[50%] border border-neutral-white"
                 >
-                  <Image src={v.avatar} alt={v.firstName} fill className="object-contain"></Image>
+                  <Image src={v.thumbnail} alt={v.name} fill className="object-contain"></Image>
                 </div>
               ))}
             </div>
 
-            <p className="body-m lowercase">{`${
-              hackathon.version === 'old' ? hackathon.participants : hackathon.members?.length || 0
-            } ${t('projects')}`}</p>
+            <p className="body-m">{`${initProjects.length} ${t('navbar.learn.projects')}`}</p>
           </div>
         </div>
-      )} */}
-      <div>
-        <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.yourVotingRole')}</div>
-        <div className="flex gap-[12px]">
-          <div
-            className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${role === 'user' ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
-          >
-            <div className="body-m flex items-center gap-[8px]">
-              <RoleUserIcon color={role === 'user' ? 'black' : 'var(--neutral-rich-gray)'} />
-              {t('hackathonVoting.user')}
-            </div>
-            <div className={`caption-12pt text-neutral-rich-gray`}>
-              {`20%`} {t('hackathonVoting.votes')}
+      )}
+
+      {userInfo && hackathon.participation && (
+        <>
+          <div>
+            <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.yourVotingRole')}</div>
+            <div className="flex gap-[12px]">
+              <div
+                className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${hackathon.participation.voteRole === HackathonTypeVotesRoleType.USER ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
+              >
+                <div className="body-m flex items-center gap-[8px]">
+                  <RoleUserIcon
+                    color={
+                      hackathon.participation.voteRole === HackathonTypeVotesRoleType.USER
+                        ? 'black'
+                        : 'var(--neutral-rich-gray)'
+                    }
+                  />
+                  {t('hackathonVoting.user')}
+                </div>
+                <div className={`caption-12pt text-neutral-rich-gray`}>
+                  {votesPercent[HackathonTypeVotesRoleType.USER]} {t('hackathonVoting.votes')}
+                </div>
+              </div>
+              <div
+                className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${hackathon.participation.voteRole === HackathonTypeVotesRoleType.ADVOCATE ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
+              >
+                <div className="body-m flex items-center gap-[8px]">
+                  <RoleAdvocateIcon
+                    color={
+                      hackathon.participation.voteRole === HackathonTypeVotesRoleType.ADVOCATE
+                        ? 'black'
+                        : 'var(--neutral-rich-gray)'
+                    }
+                  />
+                  {t('hackathonVoting.advocate')}
+                </div>
+                <div className={`caption-12pt text-neutral-rich-gray`}>
+                  {votesPercent[HackathonTypeVotesRoleType.ADVOCATE]} {t('hackathonVoting.votes')}
+                </div>
+              </div>
+              <div
+                className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${hackathon.participation.voteRole === HackathonTypeVotesRoleType.JUDGE ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
+              >
+                <div className="body-m flex items-center gap-[8px]">
+                  <RoleJugleIcon
+                    color={
+                      hackathon.participation.voteRole === HackathonTypeVotesRoleType.JUDGE
+                        ? 'black'
+                        : 'var(--neutral-rich-gray)'
+                    }
+                  />
+                  {t('hackathonVoting.judge')}
+                </div>
+                <div className={`caption-12pt text-neutral-rich-gray`}>
+                  {votesPercent[HackathonTypeVotesRoleType.JUDGE]} {t('hackathonVoting.votes')}
+                </div>
+              </div>
             </div>
           </div>
-          <div
-            className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${role === 'advocate' ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
-          >
-            <div className="body-m flex items-center gap-[8px]">
-              <RoleAdvocateIcon color={role === 'advocate' ? 'black' : 'var(--neutral-rich-gray)'} />
-              {t('hackathonVoting.advocate')}
+          <div>
+            <div className="mb-[4px] flex items-center justify-between ">
+              <div className="body-m text-neutral-medium-gray">{t('hackathonVoting.yourVotesToday')}</div>
+              <div className="body-xs text-neutral-medium-gray">{t('hackathonVoting.refreshEveryday')}</div>
             </div>
-            <div className={`caption-12pt text-neutral-rich-gray`}>
-              {`20%`} {t('hackathonVoting.votes')}
+            <div className="my-[4px] flex rounded-[8px] bg-yellow-extra-light px-[24px] py-[16px]">
+              <div className="flex-1 border-r border-neutral-light-gray text-center">
+                <p className="body-xl-bold text-neutral-off-black">{hackathon.participation.remainingVote}</p>
+                <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
+              </div>
+              <div className="flex-1 text-center">
+                <p className="body-xl-bold text-neutral-off-black">{hackathon.participation.totalVote}</p>
+                <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.totalVotes')}</p>
+              </div>
             </div>
+            <p className="body-s pt-[10px] text-neutral-medium-gray">{t('hackathonVoting.voteTips')}</p>
           </div>
-          <div
-            className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${role === 'jugle' ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
-          >
-            <div className="body-m flex items-center gap-[8px]">
-              <RoleJugleIcon color={role === 'jugle' ? 'black' : 'var(--neutral-rich-gray)'} />
-              {t('hackathonVoting.judge')}
-            </div>
-            <div className={`caption-12pt text-neutral-rich-gray`}>
-              {`20%`} {t('hackathonVoting.votes')}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="mb-[4px] flex items-center justify-between ">
-          <div className="body-m text-neutral-medium-gray">{t('hackathonVoting.yourVotesToday')}</div>
-          <div className="body-xs text-neutral-medium-gray">{t('hackathonVoting.refreshEveryday')}</div>
-        </div>
-        <div className="my-[4px] flex rounded-[8px] bg-yellow-extra-light px-[24px] py-[16px]">
-          <div className="flex-1 border-r border-neutral-light-gray text-center">
-            <p className="body-xl-bold text-neutral-off-black">50</p>
-            <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
-          </div>
-          <div className="flex-1 text-center">
-            <p className="body-xl-bold text-neutral-off-black">50</p>
-            <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.totalVotes')}</p>
-          </div>
-        </div>
-        <p className="body-s pt-[10px] text-neutral-medium-gray">{t('hackathonVoting.voteTips')}</p>
-      </div>
+        </>
+      )}
+
       <div className="flex gap-[16px]">
         <div
           className={`flex-center h-[48px] w-[48px] rounded-[50%] border transition-all ${isCanSubmit ? 'cursor-pointer border-neutral-black bg-transparent text-neutral-black hover:scale-[1.1]' : 'cursor-not-allowed border-neutral-light-gray bg-neutral-light-gray text-neutral-medium-gray'}`}
+          onClick={() => setVoteData([])}
         >
           <MdOutlineRefresh size={24} />
         </div>
         <Button
+          loading={loading}
           className={`button-text-m h-[48px] flex-1 uppercase ${isCanSubmit ? 'bg-yellow-primary text-neutral-off-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray hover:scale-[1]'}`}
           onClick={() => {
             if (!isCanSubmit) return;

@@ -38,6 +38,18 @@ export interface HackathonMemberType {
   telegram: string;
   weChat: string;
 }
+
+export enum HackathonTypeVotesRoleType {
+  USER = 'USER',
+  ADVOCATE = 'ADVOCATE',
+  JUDGE = 'JUDGE'
+}
+
+export interface HackathonTypeVotesType {
+  USER: number;
+  ADVOCATE: number;
+  JUDGE: number;
+}
 export interface HackathonType {
   id: string;
   name: string;
@@ -64,6 +76,10 @@ export interface HackathonType {
   participation?: HackathonRegisterInfo;
   members: HackathonMemberType[];
   version: string;
+  voteRules: string;
+  votes: HackathonTypeVotesType;
+  remainingVote: number;
+  projectCount: number;
 }
 
 export interface HackathonDataType {
@@ -212,6 +228,9 @@ export interface HackathonRegisterInfo {
   isRegister: boolean;
   isSubmit: boolean;
   project?: HackathonRegisterProjectInfo;
+  remainingVote: number;
+  totalVote: number;
+  voteRole: HackathonTypeVotesRoleType;
 }
 
 export interface RegisterInfoBody {
@@ -314,5 +333,3 @@ export interface FaucetRecordType {
   exportUrl: string;
   id: string;
 }
-
-export type HackathonVoteProject = any;

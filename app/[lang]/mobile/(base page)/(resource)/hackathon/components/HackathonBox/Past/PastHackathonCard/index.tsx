@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import { FC } from 'react';
 import moment from 'moment';
@@ -23,7 +24,10 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
   return (
-    <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`} className="block w-full">
+    <Link
+      href={isVoting ? `${MenuLink.HACKATHON}/${hackathon.alias}/voting` : `${MenuLink.HACKATHON}/${hackathon.alias}`}
+      className="block w-full"
+    >
       <div className="card-hover flex h-[7.5rem] overflow-hidden rounded-[.75rem] bg-neutral-white ">
         <div className="relative h-full w-[7.5rem] bg-[#d9d9d9]/30">
           <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
@@ -37,7 +41,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                   {t('hackathonVoting.votingCloseIn')}
                 </p>
                 <CountDown
-                  time={hackathon.reviewTime}
+                  time={hackathon.rewardTime}
                   countItemClassName="caption-12pt px-[.25rem] py-[.0625rem]"
                   className="gap-[.5rem]"
                   formatClassName="caption-10pt"
@@ -46,11 +50,11 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
               <div className="caption-10pt flex items-center gap-[1.25rem] text-neutral-medium-gray">
                 <div>
                   <p className="mb-[.25rem]">{t('hackathonVoting.votingProjects')}</p>
-                  <p className=" text-neutral-off-black">{0}</p>
+                  <p className=" text-neutral-off-black">{hackathon.projectCount}</p>
                 </div>
                 <div>
                   <p className="mb-[.25rem]">{t('hackathonVoting.yourRemainingVotes')}</p>
-                  <p className=" text-neutral-off-black">{0}</p>
+                  <p className=" text-neutral-off-black">{hackathon.remainingVote}</p>
                 </div>
               </div>
             </>

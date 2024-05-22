@@ -4,14 +4,15 @@ import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 interface NavigationProp {
   changeState?: ChangeState;
+  isMobile?: boolean;
 }
 
-const Navigation: React.FC<NavigationProp> = ({ changeState }) => {
-  const { handleArrowClick, rightArrowVisible, leftArrowVisible } = changeState || {};
+const Navigation: React.FC<NavigationProp> = ({ changeState, isMobile = false }) => {
+  const { handleArrowClick } = changeState || {};
   return (
     <>
       <div
-        className="flex-center absolute left-0 top-[50%] z-[99] h-[56px] w-[56px] translate-y-[-50%] cursor-pointer rounded-[50%] bg-[rgba(244,244,244,0.8)] text-neutral-medium-gray"
+        className={`flex-center absolute left-0 top-[50%] z-[99] translate-y-[-50%] cursor-pointer rounded-[50%] bg-[rgba(244,244,244,0.8)] text-neutral-medium-gray ${isMobile ? 'h-[2rem] w-[2rem]' : ' h-[56px] w-[56px] '}`}
         onClick={() => {
           handleArrowClick?.('left');
         }}
@@ -19,7 +20,7 @@ const Navigation: React.FC<NavigationProp> = ({ changeState }) => {
         <LuChevronLeft size={40} />
       </div>
       <div
-        className="flex-center absolute right-0 top-[50%] z-[99] h-[56px] w-[56px] translate-y-[-50%] cursor-pointer rounded-[50%] bg-[rgba(244,244,244,0.8)] text-neutral-medium-gray"
+        className={`flex-center absolute right-0 top-[50%] z-[99] translate-y-[-50%] cursor-pointer rounded-[50%] bg-[rgba(244,244,244,0.8)] text-neutral-medium-gray ${isMobile ? 'h-[2rem] w-[2rem]' : ' h-[56px] w-[56px] '}`}
         onClick={() => {
           handleArrowClick?.('right');
         }}

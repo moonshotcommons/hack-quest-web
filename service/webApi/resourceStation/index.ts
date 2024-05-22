@@ -52,6 +52,9 @@ class ResourceStationApi {
       }
     });
   }
+  getVoteOtherHackathons(hackathonId: string) {
+    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/others`);
+  }
 
   /** 获取hackathon详情数据 */
   getHackathonDetail(id: string, token?: string) {
@@ -59,6 +62,18 @@ class ResourceStationApi {
       headers: {
         Authorization: `Bearer ${token}`
       }
+    });
+  }
+  /** 获取hackathon 可以投票的project */
+  getVoteProjectsByHackathonId(hackathonId: string, params: object) {
+    return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/projects`, {
+      params
+    });
+  }
+
+  hackathonVoteSubmit(hackathonId: string, data: object) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/vote`, {
+      data
     });
   }
 

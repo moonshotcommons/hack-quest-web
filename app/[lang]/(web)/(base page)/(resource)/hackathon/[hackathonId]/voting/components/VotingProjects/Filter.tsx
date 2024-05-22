@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { TbArrowsCross, TbLayoutGrid } from 'react-icons/tb';
 import { MdOutlineViewAgenda } from 'react-icons/md';
 import { BsGrid3X2 } from 'react-icons/bs';
@@ -16,25 +16,25 @@ import webApi from '@/service';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import { FilterItemType } from '@/components/Web/Business/CourseFilterList/type';
-import { ViewValue } from '../../../../constants/type';
+import { HackathonVoteContext, ViewValue } from '../../../../constants/type';
 
 export interface SearchType {
   keyword: string;
   sort: string;
-  view: ViewValue;
   prizeTrack: string;
-  projectTrack: string;
+  tracks: string;
 }
 interface FilterProp {
   hackathon: HackathonType;
   handleSearch: (search: SearchType) => void;
+  handleRandom: VoidFunction;
 }
 
-const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch }) => {
+const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [keyword, setKeyword] = useState('');
-  const [view, setView] = useState<ViewValue>(ViewValue.AGENDA);
+  const { view, setView } = useContext(HackathonVoteContext);
   const inputTimer = useRef<NodeJS.Timeout | null>(null);
   const [hoverSort, setHoverSort] = useState<boolean>(false);
   const [filters, setFilters] = useState<FilterItemType[]>([]);
@@ -55,7 +55,7 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch }) => {
       };
       const projectTrackFilter = {
         filterName: t('hackathonVoting.projectTrack'),
-        filterField: 'projectTrack',
+        filterField: 'tracks',
         options: projectTracks.map((v) => ({
           name: v,
           value: v,
@@ -84,9 +84,8 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch }) => {
     if (inputTimer.current) clearTimeout(inputTimer.current);
     inputTimer.current = setTimeout(() => {
       handleSearch({
-        prizeTrack: tracks?.prizeTrack?.join(','),
-        projectTrack: tracks?.projectTrack?.join(''),
-        view,
+        prizeTrack: tracks?.prizeTrack?.join(',') || '',
+        tracks: tracks?.projectTrack?.join(',') || '',
         sort,
         keyword: val
       });
@@ -104,10 +103,10 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch }) => {
       });
     });
     setTracks(tracks);
+    console.info(tracks);
     handleSearch({
-      prizeTrack: tracks?.prizeTrack?.join(','),
-      projectTrack: tracks?.projectTrack.join(''),
-      view,
+      prizeTrack: tracks?.prizeTrack?.join(',') || '',
+      tracks: tracks?.projectTrack?.join(',') || '',
       sort,
       keyword
     });
@@ -115,23 +114,24 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch }) => {
   const handleSort = (sort: string) => {
     setSort(sort);
     handleSearch({
-      prizeTrack: tracks?.prizeTrack?.join(','),
-      projectTrack: tracks?.projectTrack.join(''),
-      view,
+      prizeTrack: tracks?.prizeTrack?.join(',') || '',
+      tracks: tracks?.projectTrack.join(',') || '',
       sort,
       keyword
     });
   };
   const handleView = (view: ViewValue) => {
     setView(view);
+  };
+
+  useEffect(() => {
     handleSearch({
-      prizeTrack: tracks?.prizeTrack?.join(','),
-      projectTrack: tracks?.projectTrack.join(''),
-      view,
+      prizeTrack: tracks?.prizeTrack?.join(',') || '',
+      tracks: tracks?.projectTrack?.join(',') || '',
       sort,
       keyword
     });
-  };
+  }, []);
 
   return (
     <div className="w-full">
@@ -173,7 +173,7 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch }) => {
             )}
           </div>
           <p className="mx-[2px] h-full w-[1px] bg-neutral-light-gray"></p>
-          <div className="mr-[32px] hover:scale-[1.1]">
+          <div className="mr-[32px] hover:scale-[1.1]" onClick={handleRandom}>
             <TbArrowsCross />
           </div>
           <div

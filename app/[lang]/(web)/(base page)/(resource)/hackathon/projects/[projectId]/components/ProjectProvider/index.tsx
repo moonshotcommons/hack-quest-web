@@ -8,6 +8,7 @@ interface ProjectProviderProp {
 }
 
 const ProjectProvider: React.FC<ProjectProviderProp> = ({ project, children }) => {
+  console.info(project);
   const titleTxtData = useMemo(() => {
     return [
       'projectsDetail.title.overview',

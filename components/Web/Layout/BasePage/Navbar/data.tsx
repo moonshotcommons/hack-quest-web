@@ -68,7 +68,7 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'explore',
         label: 'navbar.learn.explore',
-        path: MenuLink.ECOSYSTEM,
+        path: MenuLink.EXPLORE,
         description: 'navbar.learn.exploreDesc'
       },
       {
