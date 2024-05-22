@@ -4,7 +4,7 @@ import { Progress, ProgressLabel } from '@/components/ui/progress';
 
 export function ProjectCard() {
   return (
-    <div className="flex flex-col rounded-2xl bg-neutral-white">
+    <div className="flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white">
       <div className="relative h-40 w-full"></div>
       <div className="flex flex-col gap-3 p-4">
         <div className="flex flex-wrap items-center gap-3">

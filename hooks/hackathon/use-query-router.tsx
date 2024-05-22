@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCustomPathname } from '@/hooks/router/useCheckPathname';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export function useQueryRouter({ queryKey, defaultValue }: { queryKey: string; defaultValue: string }) {
   const router = useRouter();
-  const pathname = useCustomPathname();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [_, startTransition] = React.useTransition();
 
   const value = searchParams.get(queryKey) || defaultValue;
 
@@ -20,7 +20,13 @@ export function useQueryRouter({ queryKey, defaultValue }: { queryKey: string; d
   );
 
   function onValueChange(value: string) {
-    router.replace(pathname + '?' + createQueryString(queryKey, value));
+    startTransition(() => {
+      if (value === defaultValue) {
+        router.replace(pathname);
+      } else {
+        router.replace(pathname + '?' + createQueryString(queryKey, value));
+      }
+    });
   }
 
   return { value, onValueChange };

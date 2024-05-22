@@ -2,11 +2,25 @@ import { BookOpenIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/helper/utils';
 
-export function CourseCard() {
+export function CourseCard({
+  rootClassName,
+  imageClassName,
+  actionClassName
+}: {
+  rootClassName?: string;
+  imageClassName?: string;
+  actionClassName?: string;
+}) {
   return (
-    <div className="flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white sm:flex-row sm:border-transparent">
-      <div className="relative h-40 w-full flex-shrink-0 sm:h-[16.875rem] sm:w-[30rem]"></div>
+    <div
+      className={cn(
+        'flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white sm:flex-row sm:border-transparent',
+        rootClassName
+      )}
+    >
+      <div className={cn('relative h-40 w-full flex-shrink-0 sm:h-[16.875rem] sm:w-[30rem]', imageClassName)}></div>
       <div className="flex flex-1 flex-col px-4 py-5 sm:p-6">
         <Badge className="self-start">Basic</Badge>
         <h1 className="mt-4 text-base font-bold text-neutral-off-black sm:text-lg">Web 3 Onboarding</h1>
@@ -14,7 +28,7 @@ export function CourseCard() {
           Mantle Network, an Ethereum layer-2 (L2) solution, is one of the fastest-growing Ethereum infrastructures.
           Learn Solidity step by step from the basic syntax to advanced guided projects .
         </p>
-        <div className="mt-4 flex flex-col items-center gap-4 sm:mt-auto sm:flex-row sm:gap-6">
+        <div className={cn('mt-4 flex flex-col items-center gap-4 sm:mt-auto sm:flex-row sm:gap-6', actionClassName)}>
           <div className="flex w-full flex-1 flex-col gap-2">
             <div className="flex items-center gap-2">
               <BookOpenIcon size={20} />
