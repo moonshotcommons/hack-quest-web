@@ -101,6 +101,8 @@
     "yourVotes":"Your Votes",
     "currentVotes":"Current Votes",
     "currentRanking":"Current Ranking",
-    "youCantVote":"You can’t vote for projects because your project is under review in this hackathon"
+    "youCantVote":"You can’t vote for projects because your project is under review in this hackathon",
+    "nodataText":"Sorry, there is no hackathon under review.",
+    "nodataButtonText":"explore project archive"
   }
 }

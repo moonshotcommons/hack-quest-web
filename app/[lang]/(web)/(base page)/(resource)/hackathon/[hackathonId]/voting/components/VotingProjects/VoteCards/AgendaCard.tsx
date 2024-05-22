@@ -21,7 +21,7 @@ const AgendaCard: React.FC<AgendaCardProp> = ({ project }) => {
       <div className="flex h-full flex-1 flex-col justify-between overflow-hidden border-r border-neutral-light-gray pr-[24px]">
         <div>
           <Link
-            href={`${MenuLink.PROJECTS}/${project.id}`}
+            href={`${MenuLink.PROJECTS}/${project.alias}`}
             className="text-h3 flex w-full items-center justify-between text-neutral-off-black"
           >
             <h2 className="w-[80%] truncate">{project.name}</h2>

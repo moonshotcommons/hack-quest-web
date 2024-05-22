@@ -117,7 +117,7 @@
       "text3": "For founders and aspiring founders in Web3, now is the time to build. This MOOC is designed to guide founders and aspiring founders through ideating and building Web3 projects under the mentorship of leading founders, investors, and researchers from both industry and academia. We hope to equip students with the knowledge and confidence to articulate the potential of Web3 technology, develop innovative Web3 project ideas, build and deploy basic Web3 applications, and navigate the evolving Web3 landscape. This course is your gateway into the world of Web3. Get ready to learn, build, and become a part of the future!"
     }
   },
-  "developer":{
+  "explore":{
     "title":"Become a Web 3 Developer",
     "web3":"Intro to Web 3",
     "web3Intro":"Web3 Fundamentals",
@@ -127,6 +127,7 @@
     "buildWeb3Intro":"Gain hands on experience with projects",
     "moreResources":"More Resources",
     "moreResourcesIntro":"Explore beyond learning",
+    "detailMoreResourcesIntro":"Builder: Web3 Fundamentals (Optional) -> Certified Ecosystem Learning Track (e.g., Telos Learning Track) -> Blog & Glossary (Optional) -> Specializations (Optional) -> Electives & Projects -> Mini-Hacks → IRL/Online Co-learning & Meetup Events -> Hackathon -> Job Market",
     "project":"Project",
     "projectIntro":"Practice makes perfect. Find all real-world projects here",
     "electiveIntro":"Learn Different Concepts about Web 3",
@@ -136,6 +137,12 @@
     "hackathon":"Hackathon",
     "hackathonIntro":"A hackathon is a social coding event that brings computer programmers and other interested people together to improve upon or build a new software program.",
     "blog":"Blog",
-    "blogIntro":"A blog, or weblog, is a website that regularly provides updated content about a topic."
+    "blogIntro":"A blog, or weblog, is a website that regularly provides updated content about a topic.",
+    "bounty":"Bounty",
+    "votes":"Votes",
+    "enroll":"Enroll",
+    "addEcosystem":"Add ecosystem",
+    "switchText":"Do you want to switch to {{ecosystem}}?",
+    "swtichDesc":"You’re currently enrolled in Ethereum learning track. All your learning progress will be saved. You can switch easily in dashboard."
   }
 }

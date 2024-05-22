@@ -17,8 +17,8 @@ const DeveloperTitle: React.FC<DeveloperTitleProp> = async ({ lang, image, title
         <Image src={image} fill alt={title} className="object-contain" />
       </div>
       <div>
-        <p className="text-h3 text-neutral-black">{t(`developer.${title}`)}</p>
-        <p className="body-m text-neutral-medium-gray">{t(`developer.${title}Intro`)}</p>
+        <p className="text-h3 text-neutral-black">{t(`explore.${title}`)}</p>
+        <p className="body-m text-neutral-medium-gray">{t(`explore.${title}Intro`)}</p>
       </div>
     </div>
   );

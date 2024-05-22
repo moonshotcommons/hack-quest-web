@@ -38,10 +38,7 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
 
-  const [project] = await Promise.all([
-    getHackathonProjectById(projectId)
-    // getFeaturedProjectsById(projectId)
-  ]);
+  const [project] = await Promise.all([getHackathonProjectById(projectId)]);
   if (isUuid(projectId)) {
     permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
   }

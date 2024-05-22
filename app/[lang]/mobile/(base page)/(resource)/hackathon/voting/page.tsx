@@ -36,16 +36,17 @@ const HackathonVotingPage: React.FC<HackathonVotingPageProp> = async ({ params }
   ]);
   return (
     <div className="">
-      <div className="px-[1.25rem]">
+      <div className="">
         <PageLayout
           title="Hackathon Voting"
           description="Get ready to make a difference! 🌟 Vote for your favorite projects in the hackathon. Your opinion counts! Let's support these awesome ideas together! 🚀"
         >
           <HackathonVoting hackathons={hackathon?.data || []} lang={lang} />
         </PageLayout>
+        <div className="px-[1.25rem]">
+          <FeaturedProjects projectList={features} title={'featuredProjects'} />
+        </div>
       </div>
-
-      <FeaturedProjects projectList={features} />
     </div>
   );
 };
