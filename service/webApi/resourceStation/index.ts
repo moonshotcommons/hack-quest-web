@@ -11,6 +11,8 @@ import {
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
+  HackathonVoteType,
+  JoinedHackathonType,
   PagedType,
   ProjectDataType,
   ProjectType,
@@ -46,12 +48,21 @@ class ResourceStationApi {
 
   /** 获取已加入的 hackathon 列表  */
   getJoinedHackathons(token?: string) {
-    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/joined`, {
+    return this.service.get<JoinedHackathonType>(`${ResourceStationApiType.Hackathon}/joined`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
   }
+
+  getHackathonVote(token?: string) {
+    return this.service.get<HackathonVoteType[]>(`${ResourceStationApiType.Hackathon}/voting`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
   getVoteOtherHackathons(hackathonId: string) {
     return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/others`);
   }

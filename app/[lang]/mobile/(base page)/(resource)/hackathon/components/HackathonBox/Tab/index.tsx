@@ -6,7 +6,6 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import Link from 'next/link';
-import { getSearchParamsUrl } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 
 interface TabProp {
@@ -18,7 +17,9 @@ const Tab: React.FC<TabProp> = ({ curTab }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const getUrl = (tab: HackathonStatusType) => {
-    return getSearchParamsUrl({ curTab: tab === HackathonStatusType.ON_GOING ? '' : tab }, MenuLink.HACKATHON);
+    return tab === HackathonStatusType.ON_GOING
+      ? `${MenuLink.HACKATHON}/explore`
+      : `${MenuLink.HACKATHON}/explore?curTab=${tab}`;
   };
   return (
     <SlideHighlight
@@ -27,7 +28,7 @@ const Tab: React.FC<TabProp> = ({ curTab }) => {
       currentIndex={hackathonTab.findIndex((v) => v.value === curTab)}
     >
       {hackathonTab.map((v) => (
-        <Link key={v.value} href={getUrl(v.value)}>
+        <Link key={v.value} href={getUrl(v.value)} scroll={false}>
           <div
             className={`body-l  text-neutral-black ${curTab === v.value ? '  body-l-bold  wapMin:body-m-bold' : ' '}`}
           >

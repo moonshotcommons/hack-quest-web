@@ -3,6 +3,7 @@ import { CopyIcon } from '@/components/Common/Icon/CopyV2';
 import { GroupUsersIcon } from '@/components/Common/Icon/GroupUsers';
 import { LeaveTeamModal, useLeaveTeamModal } from '@/components/hackathon/leave-team-modal';
 import MenuLink from '@/constants/MenuLink';
+import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { useCountDown } from 'ahooks';
@@ -176,24 +177,26 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
       {renderStatusTag()}
       <div className="flex flex-col">
         <h4 className="body-s text-neutral-medium-gray">Submission Close in</h4>
-        <div className="flex items-center">
-          <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
-            {days < 10 ? `0${days}` : days}
-          </span>
-          <span className="body-m pl-1 pr-3">D</span>
-          <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
-            {hours < 10 ? `0${hours}` : hours}
-          </span>
-          <span className="body-m pl-1 pr-3">H</span>
-          <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
-            {minutes < 10 ? `0${minutes}` : minutes}
-          </span>
-          <span className="body-m pl-1 pr-3">M</span>
-          <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
-            {seconds < 10 ? `0${seconds}` : seconds}
-          </span>
-          <span className="body-m pl-1 pr-3">S</span>
-        </div>
+        <ClientOnly>
+          <div className="flex items-center">
+            <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
+              {days < 10 ? `0${days}` : days}
+            </span>
+            <span className="body-m pl-1 pr-3">D</span>
+            <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
+              {hours < 10 ? `0${hours}` : hours}
+            </span>
+            <span className="body-m pl-1 pr-3">H</span>
+            <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
+              {minutes < 10 ? `0${minutes}` : minutes}
+            </span>
+            <span className="body-m pl-1 pr-3">M</span>
+            <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">
+              {seconds < 10 ? `0${seconds}` : seconds}
+            </span>
+            <span className="body-m pl-1 pr-3">S</span>
+          </div>
+        </ClientOnly>
       </div>
       <div className="flex flex-col gap-1">
         <h4 className="body-s text-neutral-medium-gray">Submission Type</h4>

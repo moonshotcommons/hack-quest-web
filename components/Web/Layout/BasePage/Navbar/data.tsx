@@ -93,7 +93,7 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'explore-hackathons',
         label: 'navbar.build.exploreHackathons',
-        path: MenuLink.HACKATHON,
+        path: MenuLink.EXPLORE_HACKATHON,
         description: 'navbar.build.exploreHackathonsDesc'
       },
       {
