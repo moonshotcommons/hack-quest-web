@@ -1,23 +1,24 @@
 import React, { ReactNode, useMemo } from 'react';
 import { ProjectDetailContext } from '../../../../constants/type';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
 
 interface ProjectProviderProp {
-  project: ProjectType;
   children: ReactNode;
+  isShowVoting: boolean;
 }
 
-const ProjectProvider: React.FC<ProjectProviderProp> = ({ project, children }) => {
-  console.info(project);
+const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, isShowVoting }) => {
   const titleTxtData = useMemo(() => {
-    return [
+    const navs = [
       'projectsDetail.title.overview',
-      // 'projectsDetail.title.voting',
       'projectsDetail.title.videos',
       'projectsDetail.title.introduction',
       'projectsDetail.title.team'
     ];
-  }, [project]);
+    if (isShowVoting) {
+      navs.splice(1, 0, 'projectsDetail.title.voting');
+    }
+    return navs;
+  }, [isShowVoting]);
   return <ProjectDetailContext.Provider value={{ titleTxtData }}>{children}</ProjectDetailContext.Provider>;
 };
 

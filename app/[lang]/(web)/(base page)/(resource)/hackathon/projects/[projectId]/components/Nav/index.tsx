@@ -16,7 +16,7 @@ const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex }) => {
   const { titleTxtData } = useContext(ProjectDetailContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <div className="body-l sticky left-0 top-[40px] w-[365px] pr-[40px] ">
+    <div className="body-l sticky left-0 top-[60px] w-[365px] pr-[40px] ">
       {titleTxtData.map((v, i) => (
         <div
           key={v}

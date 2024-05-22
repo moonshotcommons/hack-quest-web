@@ -7,7 +7,7 @@ import EcosystemDetail from './components';
 interface EcosystemIdProps {
   params: {
     ecosystemId: string;
-    lang: string;
+    lang: Lang;
   };
 }
 
@@ -29,9 +29,10 @@ export async function generateMetadata({ params }: EcosystemIdProps): Promise<Me
 }
 
 const EcosystemId: FC<EcosystemIdProps> = async function ({ params }: EcosystemIdProps) {
+  const { lang } = params;
   return (
     <>
-      <EcosystemDetail />
+      <EcosystemDetail lang={lang} />
     </>
   );
 };

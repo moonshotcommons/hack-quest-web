@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: SearchParamsType): Promise<Me
   const { lang } = params;
 
   const metadata: Metadata = {
-    title: 'HackQuest Learning Track',
+    title: 'HackQuest Explore',
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EXPLORE}`,
       languages: {
