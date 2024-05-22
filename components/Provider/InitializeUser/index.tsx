@@ -4,7 +4,7 @@ import { useLoadUserInfo } from '@/hooks/auth/useGetUserInfo';
 import useNavAuth from '@/hooks/router/userNavAuth';
 import { useUserStore } from '@/store/zustand/userStore';
 import { FC, ReactNode, useEffect } from 'react';
-import { TOKEN_KEY, getToken } from '@/helper/user-token';
+import { TOKEN_KEY, setToken } from '@/helper/user-token';
 import { setCookie } from 'cookies-next';
 import { useHandleNotification } from '@/hooks/notification/useHandleNotification';
 
@@ -21,8 +21,9 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) =
 
   useEffect(() => {
     if (userInfo) {
-      const token = getToken();
+      const token = userInfo.token;
       token && setCookie(TOKEN_KEY, token);
+      token && setToken(token);
       updateMissionDataAll();
       updateNotification();
     }

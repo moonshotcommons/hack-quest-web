@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PastProp): Promise<Metadata> 
   const { lang } = params;
 
   const metadata: Metadata = {
-    title: 'HackQuest PastEvents',
+    title: 'HackQuest Past Events',
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/${MenuLink.EVENTS_PAST}`,
       languages: {
