@@ -15,6 +15,7 @@ import {
   JoinedHackathonType,
   PagedType,
   ProjectDataType,
+  ProjectRankType,
   ProjectType,
   RegisterInfoBody
 } from './type';
@@ -93,6 +94,10 @@ class ResourceStationApi {
     return this.service.get<ProjectDataType>(ResourceStationApiType.Projects, {
       params
     });
+  }
+  /** 获取project列表 */
+  getProjectsRankInfo(id: string) {
+    return this.service.get<ProjectRankType>(`${ResourceStationApiType.Projects}/${id}/rank`);
   }
 
   /** 获取project详情数据 */

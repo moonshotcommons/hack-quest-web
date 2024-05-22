@@ -8,21 +8,26 @@ import ArrowUp from '@/public/images/hackathon/arrow_up.svg';
 import ArrowUpActive from '@/public/images/hackathon/arrow_up_active.svg';
 import ArrowDown from '@/public/images/hackathon/arrow_down.svg';
 import ArrowDownActive from '@/public/images/hackathon/arrow_down_active.svg';
-import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { cloneDeep } from 'lodash-es';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 interface HandleVoteProp {
   view: ViewValue;
   project: ProjectType;
 }
 
 const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
-  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
+  const { userInfo } = useUserStore(
     useShallow((state) => ({
-      userInfo: state.userInfo,
-      setAuthModalOpen: state.setAuthModalOpen,
-      setAuthType: state.setAuthType
+      userInfo: state.userInfo
+    }))
+  );
+  const { mobileNavModalToggleOpenHandle } = useGlobalStore(
+    useShallow((state) => ({
+      mobileNavModalToggleOpenHandle: state.mobileNavModalToggleOpenHandle
     }))
   );
   const { lang } = useContext(LangContext);
@@ -33,8 +38,8 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
   }, [voteData]);
   const handleCount = (count: number, set?: boolean) => {
     if (!userInfo) {
-      setAuthType(AuthType.LOGIN);
-      setAuthModalOpen(true);
+      mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+      mobileNavModalToggleOpenHandle.toggleOpen();
       return;
     }
     const c = set ? count : voteCount + count;
@@ -57,77 +62,92 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col justify-between">
-      <div className="flex w-full items-center gap-[24px]">
-        <div className={`flex justify-center ${view === ViewValue.AGENDA ? 'w-[32px]' : 'w-[23px]'}`}>
-          <div
-            className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'}`}
-            onClick={() => {
-              if (!voteCount) return;
-              handleCount(-1);
-            }}
-          >
-            <Image src={voteCount > 0 ? ArrowDownActive : ArrowDown} fill alt={'handle-up'} className="object-cover" />
+    <div
+      className={`h-full w-full`}
+      onClick={() => {
+        if (!userInfo) {
+          mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+          mobileNavModalToggleOpenHandle.toggleOpen();
+        }
+      }}
+    >
+      <div className={`flex h-full w-full flex-col justify-between ${!userInfo && 'pointer-events-none'}`}>
+        <div className="flex w-full items-center gap-[24px]">
+          <div className={`flex justify-center ${view === ViewValue.AGENDA ? 'w-[32px]' : 'w-[23px]'}`}>
+            <div
+              className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'}`}
+              onClick={() => {
+                if (!voteCount) return;
+                handleCount(-1);
+              }}
+            >
+              <Image
+                src={voteCount > 0 ? ArrowDownActive : ArrowDown}
+                fill
+                alt={'handle-up'}
+                className="object-cover"
+              />
+            </div>
           </div>
-        </div>
 
-        <div
-          className={`flex flex-1 items-center overflow-hidden rounded-[8px] border border-neutral-light-gray bg-neutral-white ${view === ViewValue.AGENDA ? 'body-s h-[46px]' : 'body-xs h-[27px]'}`}
-        >
-          <input
-            className={`body-m w-full  text-center outline-none`}
-            value={voteCount}
-            type="tel"
-            onChange={(e) => {
-              let value = e.target.value;
-              // 使用正则表达式匹配输入的值，判断是否为非负整数
-              if (!/^\d*$/.test(value)) return;
-              let v = value === '' ? '' : Number(value);
-              if ((v as number) > remainingVotes + voteCount) v = remainingVotes + voteCount;
-              changeVote(v as number);
-            }}
-            onBlur={(e) => {
-              if (!e.target.value) {
-                changeVote(0);
-              }
-            }}
-          />
-        </div>
-        <div className={`flex justify-center ${view === ViewValue.AGENDA ? 'w-[32px]' : 'w-[23px]'}`}>
           <div
-            className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'}`}
-            onClick={() => {
-              if (!remainingVotes) return;
-              handleCount(1);
-            }}
+            className={`flex flex-1 items-center overflow-hidden rounded-[8px] border border-neutral-light-gray bg-neutral-white ${view === ViewValue.AGENDA ? 'body-s h-[46px]' : 'body-xs h-[27px]'}`}
           >
-            <Image src={!remainingVotes ? ArrowUp : ArrowUpActive} fill alt={'handle-up'} className="object-cover" />
+            <input
+              className={`body-m w-full  text-center outline-none`}
+              value={voteCount}
+              type="tel"
+              onChange={(e) => {
+                let value = e.target.value;
+                // 使用正则表达式匹配输入的值，判断是否为非负整数
+                if (!/^\d*$/.test(value)) return;
+                let v = value === '' ? '' : Number(value);
+                if ((v as number) > remainingVotes + voteCount) v = remainingVotes + voteCount;
+                changeVote(v as number);
+              }}
+              onBlur={(e) => {
+                if (!e.target.value) {
+                  changeVote(0);
+                }
+              }}
+            />
+          </div>
+          <div className={`flex justify-center ${view === ViewValue.AGENDA ? 'w-[32px]' : 'w-[23px]'}`}>
+            <div
+              className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'}`}
+              onClick={() => {
+                if (!remainingVotes) return;
+                handleCount(1);
+              }}
+            >
+              <Image src={!remainingVotes ? ArrowUp : ArrowUpActive} fill alt={'handle-up'} className="object-cover" />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex items-center text-neutral-off-black">
-        <span
-          className={`cursor-pointer text-center uppercase ${view === ViewValue.AGENDA ? 'underline-s w-[32px]' : 'caption-10pt w-[23px] underline'}`}
-          onClick={() => {
-            if (!remainingVotes && !voteCount) return;
-            handleCount(1, true);
-          }}
-        >
-          {t('min')}
-        </span>
-        <p
-          className={`flex-1 text-center text-neutral-medium-gray ${view === ViewValue.AGENDA ? 'body-s ' : 'caption-10pt '}`}
-        >
-          {t('hackathonVoting.youVoted')}
-        </p>
-        <span
-          className={`cursor-pointer text-center uppercase ${view === ViewValue.AGENDA ? 'underline-s w-[32px]' : 'caption-10pt w-[23px] underline'}`}
-          onClick={() => {
-            handleCount(remainingVotes + voteCount, true);
-          }}
-        >
-          {t('max')}
-        </span>
+        <div className="flex items-center text-neutral-off-black">
+          <span
+            className={`cursor-pointer text-center uppercase ${view === ViewValue.AGENDA ? 'underline-s w-[32px]' : 'caption-10pt w-[23px] underline'}`}
+            onClick={() => {
+              if (!remainingVotes && !voteCount) return;
+              handleCount(1, true);
+            }}
+          >
+            {t('min')}
+          </span>
+          <p
+            className={`flex-1 text-center text-neutral-medium-gray ${view === ViewValue.AGENDA ? 'body-s ' : 'caption-10pt '}`}
+          >
+            {t('hackathonVoting.youVoted')}
+          </p>
+          <span
+            className={`cursor-pointer text-center uppercase ${view === ViewValue.AGENDA ? 'underline-s w-[32px]' : 'caption-10pt w-[23px] underline'}`}
+            onClick={() => {
+              handleCount(remainingVotes + voteCount, true);
+            }}
+          >
+            {t('max')}
+          </span>
+        </div>
       </div>
     </div>
   );

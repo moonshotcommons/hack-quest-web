@@ -22,7 +22,7 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
           </div>
           <div className="flex-1">
             <Link
-              href={`${MenuLink.PROJECTS}/${project.id}`}
+              href={`${MenuLink.PROJECTS}/${project.alias}`}
               className="text-h5 flex flex-1 items-center justify-between"
             >
               <h2 className="w-[80%] truncate">{project.name}</h2>

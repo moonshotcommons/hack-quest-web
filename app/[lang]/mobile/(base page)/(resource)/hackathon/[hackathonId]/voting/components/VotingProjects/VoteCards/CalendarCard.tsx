@@ -12,7 +12,7 @@ interface CalendarCardProp {
 const CalendarCard: React.FC<CalendarCardProp> = ({ project }) => {
   return (
     <Link
-      href={`${MenuLink.PROJECTS}/${project.id}`}
+      href={`${MenuLink.PROJECTS}/${project.alias}`}
       className="card-hover block w-full  rounded-[1rem] border border-neutral-light-gray bg-neutral-white p-[.75rem]"
     >
       <div className="">

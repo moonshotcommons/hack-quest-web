@@ -146,6 +146,8 @@ export type ProjectType = {
   isOpenSource: boolean;
   githubLink: string;
   members: ProjectMemberType[];
+  vote: number;
+  isSubmit: boolean;
 };
 
 export interface ProjectDataType {
@@ -350,4 +352,9 @@ export interface FaucetRecordType {
   claimTime: string;
   exportUrl: string;
   id: string;
+}
+
+export interface ProjectRankType {
+  total: number;
+  rank: number;
 }

@@ -9,7 +9,8 @@ interface NavigationProp {
 }
 
 const Navigation: React.FC<NavigationProp> = ({ changeState, isMobile = false }) => {
-  const { handleArrowClick } = changeState || {};
+  const { handleArrowClick, leftArrowVisible, rightArrowVisible } = changeState || {};
+  if (!leftArrowVisible && !rightArrowVisible) return null;
   return (
     <>
       <div
