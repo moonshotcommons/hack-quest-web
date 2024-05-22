@@ -155,7 +155,7 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
         <div className="flex w-[4.5rem]">
           <div
             tabIndex={1}
-            className="relative z-[99] flex h-full flex-1 items-center rounded-[.5rem] px-[.5rem] "
+            className="relative z-[2] flex h-full flex-1 items-center rounded-[.5rem] px-[.5rem] "
             onClick={() => {
               mouseLeaveSort.cancel();
               setHoverSort(true);
@@ -166,7 +166,7 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
             {hoverSort && (
               <motion.ul
                 {...animateProps}
-                className="absolute -bottom-[4px]  left-0 z-[99] overflow-hidden rounded-[10px] border border-neutral-light-gray bg-neutral-white py-[4px] shadow-sm"
+                className="absolute -bottom-[4px]  left-0 z-[2] overflow-hidden rounded-[10px] border border-neutral-light-gray bg-neutral-white py-[4px] shadow-sm"
               >
                 {hackathonVoteProjectSort.map((option) => {
                   return (

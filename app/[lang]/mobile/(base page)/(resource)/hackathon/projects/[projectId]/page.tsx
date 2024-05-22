@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import FeaturedProjects from '../../components/FeaturedProject';
 import { getHackathonProjectById, getOtherProjects } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
@@ -39,27 +38,13 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId, lang } = params;
 
-  const [project] = await Promise.all([
-    getHackathonProjectById(projectId)
-    // getFeaturedProjectsById(projectId)
-  ]);
+  const [project] = await Promise.all([getHackathonProjectById(projectId)]);
   if (isUuid(projectId)) {
     permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
   }
   const otherProjects = await getOtherProjects(project.hackathonName, projectId);
 
-  return (
-    <div className="bg-neutral-off-white">
-      <ProjectDetail project={project} />
-      <div className="mt-[80px]">
-        <FeaturedProjects
-          projectList={otherProjects}
-          project={project}
-          title={'projectsDetail.otherProjects'}
-        ></FeaturedProjects>
-      </div>
-    </div>
-  );
+  return <ProjectDetail project={project} otherProjects={otherProjects} />;
 };
 
 export default ProjectDetailPage;

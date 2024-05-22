@@ -118,7 +118,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         <>
           <div>
             <div className="body-s mb-[.25rem] text-neutral-medium-gray">{t('hackathonVoting.yourVotingRole')}</div>
-            <div className="flex gap-[12px]">
+            <div className="flex gap-[.75rem]">
               <div
                 className={`flex flex-1 flex-col items-center gap-[.25rem] rounded-[.5rem] border px-[.5rem] py-[.375rem] ${hackathon.participation.voteRole === HackathonTypeVotesRoleType.USER ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
               >
@@ -199,7 +199,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       )}
 
       <div
-        className={`flex gap-[.75rem] ${view === ViewValue.AGENDA && 'fixed bottom-[2rem] left-[1.25rem] z-[99] w-[calc(100vw-2.5rem)]'}`}
+        className={`flex gap-[.75rem] ${view === ViewValue.AGENDA && 'fixed bottom-[2rem] left-[1.25rem] z-[2] w-[calc(100vw-2.5rem)]'}`}
       >
         <div
           className={`flex-center h-[3rem] w-[3rem] rounded-[50%] border transition-all ${isCanSubmit ? 'cursor-pointer border-neutral-black bg-transparent text-neutral-black hover:scale-[1.1]' : 'cursor-not-allowed border-neutral-light-gray bg-neutral-light-gray text-neutral-medium-gray'}`}
