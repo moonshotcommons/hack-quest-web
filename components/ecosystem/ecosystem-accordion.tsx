@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { ChevronDown } from 'lucide-react';
+import { CheckIcon, ChevronDown } from 'lucide-react';
 
 import { cn } from '@/helper/utils';
 
@@ -17,19 +17,36 @@ AccordionItem.displayName = 'AccordionItem';
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
+    completed?: boolean;
+  }
+>(({ className, children, completed = false, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        'flex flex-1 items-center justify-between rounded-2xl p-3 py-4 font-medium transition-all data-[state=open]:bg-yellow-extra-light [&[data-state=open]>svg]:rotate-180',
+        'flex flex-1 items-center justify-between rounded-2xl p-2 font-medium transition-all data-[state=open]:bg-yellow-extra-light sm:p-3 sm:py-4 [&[data-state=open]>svg]:rotate-180',
         className
       )}
       {...props}
     >
       {children}
-      <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" />
+      <ChevronDown
+        className={cn('h-6 w-6 shrink-0 transition-transform duration-200', {
+          'hidden sm:block': completed
+        })}
+      />
+      <span
+        className={cn(
+          'inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-status-success text-neutral-white',
+          {
+            'sm:hidden': completed,
+            hidden: !completed
+          }
+        )}
+      >
+        <CheckIcon size={16} />
+      </span>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

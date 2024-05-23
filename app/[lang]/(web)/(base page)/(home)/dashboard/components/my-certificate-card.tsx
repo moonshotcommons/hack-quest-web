@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { MoveRightIcon } from 'lucide-react';
 
 export function MyCertificateCard() {
@@ -16,8 +17,9 @@ export function MyCertificateCard() {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2">
-        <div className="h-12 w-full rounded border border-dashed border-neutral-medium-gray"></div>
-        <div className="h-12 w-full rounded border border-dashed border-neutral-medium-gray"></div>
+        <div className="relative h-12 w-full rounded">
+          <Image src="/images/ecosystem/solana-certificate.png" alt="solana certificate" fill />
+        </div>
         <div className="h-12 w-full rounded border border-dashed border-neutral-medium-gray"></div>
       </div>
       <Link href="/hackathon/explore">

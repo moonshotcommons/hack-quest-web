@@ -18,7 +18,7 @@ export function LearnSection() {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>
+        <AccordionTrigger completed>
           <SectionHeader title="Complete Solana Ecosystem Overview" tag="Learn" points={10} completed={true} />
         </AccordionTrigger>
         <AccordionContent>

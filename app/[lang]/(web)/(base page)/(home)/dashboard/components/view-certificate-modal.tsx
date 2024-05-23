@@ -2,12 +2,14 @@
 
 import { XIcon } from 'lucide-react';
 import Modal from '@/components/Common/Modal';
+import { useViewCertificate } from '@/components/ecosystem/use-view-certificate';
 
 export function ViewCertificateModal() {
+  const { open, onClose } = useViewCertificate();
   return (
-    <Modal open onClose={() => {}}>
+    <Modal open={open} onClose={onClose}>
       <div className="relative flex w-[56.25rem] flex-col justify-center rounded-3xl bg-neutral-white px-8 pb-8 pt-16 shadow-modal">
-        <button className="absolute right-6 top-6 outline-none">
+        <button className="absolute right-6 top-6 outline-none" onClick={onClose}>
           <XIcon size={24} />
         </button>
         <h1 className="text-center text-2xl font-bold text-neutral-off-black">Level 1. Certified Solana Learner</h1>

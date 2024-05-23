@@ -6,20 +6,10 @@ import Link from 'next/link';
 import { MoveRightIcon, XIcon } from 'lucide-react';
 import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
-import { create } from 'zustand';
-
-interface Store {
-  step: number;
-  onNext: () => void;
-}
-
-export const useClaimCertificateModal = create<Store>((set) => ({
-  step: 1,
-  onNext: () => set((state) => ({ step: state.step + 1 }))
-}));
+import { useClaimCertificate } from '@/components/ecosystem/use-claim-certificate';
 
 function ClaimCertificateForm() {
-  const { onNext } = useClaimCertificateModal();
+  const { onNext } = useClaimCertificate();
   const [name, setName] = React.useState('');
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -81,13 +71,13 @@ const steps: Record<number, React.FC> = {
 };
 
 export function ClaimCertificateModal() {
-  const { step } = useClaimCertificateModal();
+  const { open, step, onClose } = useClaimCertificate();
   const Component = steps[step];
   return (
-    <Modal open onClose={() => {}}>
+    <Modal open={open} onClose={onClose}>
       <div className="flex w-[56.25rem] flex-col gap-6">
         <div className="relative flex flex-col justify-center rounded-3xl bg-neutral-white px-8 pb-8 pt-12 shadow-modal">
-          <button className="absolute right-6 top-6 outline-none">
+          <button className="absolute right-6 top-6 outline-none" onClick={onClose}>
             <XIcon size={24} />
           </button>
           <div className="mx-auto flex items-center gap-2">

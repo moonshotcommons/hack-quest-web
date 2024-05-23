@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { EcosystemSelect } from './components/ecosystem-select';
+import { EcosystemSelect } from '@/components/ecosystem/ecosystem-select';
 import { HackathonCard } from './components/hackathon-card';
 import { MissionCenterCard } from './components/mission-center-card';
 import { MyCertificateCard } from './components/my-certificate-card';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
-import { ClaimCertificateModal } from './components/claim-certificate-modal';
 
 export default function DashboardLayout({
   children
@@ -26,7 +25,7 @@ export default function DashboardLayout({
         </div>
       </div>
       {/* <ViewCertificateModal /> */}
-      <ClaimCertificateModal />
+      {/* <ClaimCertificateModal /> */}
     </div>
   );
 }

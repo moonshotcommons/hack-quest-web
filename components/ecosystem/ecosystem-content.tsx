@@ -12,20 +12,20 @@ export function EcosystemContent() {
     defaultValue: 'learn'
   });
   return (
-    <div className="mt-[3.75rem]">
+    <div className="pb-6 pt-4 sm:pb-0 sm:pt-[3.75rem]">
       <Tabs defaultValue="learn" className="w-full" value={value} onValueChange={onValueChange}>
         <TabsList>
           <TabsTrigger value="learn">Learn</TabsTrigger>
           <TabsTrigger value="build">Build</TabsTrigger>
           <TabsTrigger value="community">Community</TabsTrigger>
         </TabsList>
-        <TabsContent className="sm:rounded-tl-none" value="learn">
+        <TabsContent className="rounded-tl-none sm:rounded-tl-none" value="learn">
           <LearnSection />
         </TabsContent>
         <TabsContent value="build">
           <BuildSection />
         </TabsContent>
-        <TabsContent className="sm:rounded-tr-none" value="community">
+        <TabsContent className="rounded-tr-none sm:rounded-tr-none" value="community">
           <CommunitySection />
         </TabsContent>
       </Tabs>

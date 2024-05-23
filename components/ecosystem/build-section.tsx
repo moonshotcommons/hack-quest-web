@@ -16,7 +16,7 @@ export function BuildSection() {
           />
         </AccordionTrigger>
         <AccordionContent>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             <ProjectCard />
             <ProjectCard />
             <ExploreCard label="explore courses" href="/" />
@@ -33,18 +33,18 @@ export function BuildSection() {
           />
         </AccordionTrigger>
         <AccordionContent>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             <ProjectCard />
             <ExploreCard label="explore courses" href="/" />
           </div>
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>
+        <AccordionTrigger completed>
           <SectionHeader title="Join & Submit one Hackathon" tag="Build" points={20} completed={true} />
         </AccordionTrigger>
         <AccordionContent>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             <ProjectCard />
             <ExploreCard label="explore hackathon" href="/hackathon/explore" />
           </div>

@@ -15,7 +15,7 @@ export function SectionHeader({
 }) {
   return (
     <span className="flex items-center gap-6">
-      <span className="relative flex h-12 w-12 items-center justify-center rounded-[0.5rem] bg-yellow-light">
+      <span className="relative hidden h-12 w-12 items-center justify-center rounded-[0.5rem] bg-yellow-light sm:flex">
         <Image src="/images/ecosystem/diamond.svg" alt="diamond" width={32} height={32} />
         {completed && (
           <span className="absolute -right-3 -top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-status-success text-neutral-white">
@@ -24,10 +24,10 @@ export function SectionHeader({
         )}
       </span>
       <span className="flex flex-col gap-1">
-        <span className="text-lg font-bold text-neutral-black">{title}</span>
-        <span className="flex gap-2">
+        <span className="text-left text-base font-bold text-neutral-black sm:text-lg">{title}</span>
+        <span className="flex items-center gap-2">
           <Badge>{tag}</Badge>
-          <span className="text-neutral-medium-gray">+{points} Points</span>
+          <span className="text-sm text-neutral-medium-gray sm:text-base">+{points} Points</span>
         </span>
       </span>
     </span>
