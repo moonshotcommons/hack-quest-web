@@ -155,6 +155,7 @@
     "courseStructure": "课程结构",
     "searchPlaceholder": "搜索关键词、主题等…",
     "searchResultFor": "搜索 “{{keyword}}” 的结果",
+    "searchResultForNodata": "没有搜索到 “{{keyword}}” 的结果",
     "skillLevel": "难度",
     "totalLength": "总时长",
     "h": "小时",
@@ -201,5 +202,6 @@
   },
   "min": "最小",
   "max": "最大",
-  "exploreMore":"探索更多"
+  "exploreMore":"探索更多",
+  "confirm":"确认"
 }

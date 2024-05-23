@@ -16,7 +16,7 @@ const VotingRules: React.FC<VotingRulesProp> = ({ hackathon }) => {
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonVoting.votingRules')} />
-      {/* <div className="body-m text-neutral-rich-gray">{hackathon.voteRules}</div> */}
+      <div className="body-m text-neutral-rich-gray">{hackathon.voteRules}</div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+'use client';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { ProjectCourseType } from '@/service/webApi/course/type';

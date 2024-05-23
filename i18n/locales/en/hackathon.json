@@ -103,6 +103,10 @@
     "currentRanking":"Current Ranking",
     "youCantVote":"You can’t vote for projects because your project is under review in this hackathon",
     "nodataText":"Sorry, there is no hackathon under review.",
-    "nodataButtonText":"explore project archive"
+    "nodataButtonText":"explore project archive",
+    "tipsModalTitle":"Lorem ipsum dolor sit amet",
+    "tipsModalText":"Lorem ipsum",
+    "decline":"Decline",
+    "showAllProjects":"Show All Projects"
   }
 }

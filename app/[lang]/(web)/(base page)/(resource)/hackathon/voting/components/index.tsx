@@ -3,6 +3,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 import List from './List';
 import { useTranslation } from '@/i18n/server';
+import TipsModal from './TipsModal';
 
 interface HackathonVotingProp {
   lang: Lang;
@@ -14,6 +15,7 @@ const HackathonVoting: React.FC<HackathonVotingProp> = async ({ lang, hackathons
   return (
     <div>
       <List hackathons={hackathons} lang={lang} />
+      <TipsModal />
     </div>
   );
 };
