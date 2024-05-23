@@ -83,7 +83,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
       submissionType: {
         type: isNullType ? null : isSoloRegister ? 'Solo Project' : 'Group Project',
         groupType:
-          !!Object.keys(team || {}).length && team.creatorId === userId
+          !!Object.keys(team || {}).length && team?.creatorId === userId
             ? 'owner'
             : !!Object.keys(team || {}).length
               ? 'member'
@@ -102,7 +102,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
       const registerInfo = await webApi.resourceStationApi.getHackathonRegisterInfo(simpleHackathonInfo.id);
       let teamDetail = {};
       if (!!Object.keys(registerInfo.team || {}).length) {
-        teamDetail = await webApi.resourceStationApi.getHackathonTeamDetail(registerInfo.team.code!);
+        teamDetail = await webApi.resourceStationApi.getHackathonTeamDetail(registerInfo.team?.code!);
       }
       return { registerInfo, teamDetail };
     },

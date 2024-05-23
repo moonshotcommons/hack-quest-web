@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -18,21 +18,38 @@ import { motion } from 'framer-motion';
 import { PiSortAscendingBold } from 'react-icons/pi';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import Pagination from '@/components/Common/Pagination';
+import { SearchIcon, XIcon } from 'lucide-react';
 
 interface ListBoxProp {
   list: ProjectType[];
   searchParams: SearchParamsType;
   total: number;
   pageInfo: PageInfoType;
+  defaultValue?: string;
+  onSearch?: (value: string) => void;
   searchList: (search: SearchParamsType) => void;
 }
 
-const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, searchList }) => {
+const ListBox: React.FC<ListBoxProp> = ({
+  list,
+  searchParams,
+  total,
+  pageInfo,
+  defaultValue = '',
+  searchList,
+  onSearch
+}) => {
   const { lang } = useContext(LangContext);
+  const [searchValue, setSearchValue] = useState('');
+  const timeOut = useRef<NodeJS.Timeout | null>(null);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [tracks, setTracks] = useState<OptionType[]>([]);
 
   const [hoverSort, setHoverSort] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSearchValue(defaultValue);
+  }, [defaultValue]);
 
   const { run: mouseLeaveSort } = useDebounceFn(
     () => {
@@ -62,41 +79,9 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
     }
   );
   return (
-    <div className="flex w-full flex-col gap-[40px] pb-[80px]">
-      {searchParams.keyword ? (
-        <p className="text-h3 text-center text-neutral-black">
-          <span>{`${total} ${t('resultsFor')} `}</span>
-          <span className="text-neutral-medium-gray">{`“${searchParams.keyword}”`}</span>
-        </p>
-      ) : (
-        <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-[40px]">
-            <Select
-              name=""
-              state="default"
-              options={tracks}
-              defaultValue={searchParams.tracks.split(',')?.[0] || ''}
-              className="h-[48px]"
-              onChange={(val) => {
-                searchList({
-                  ...searchParams,
-                  tracks: val as string
-                });
-              }}
-            />
-            <div
-              className="body-m flex cursor-pointer items-center gap-[10px] text-neutral-medium-gray"
-              onClick={() => {
-                searchList({
-                  ...searchParams,
-                  winner: !searchParams.winner
-                });
-              }}
-            >
-              <Checkbox checked={!!searchParams.winner} outClassNames="border-neutral-medium-gray w-[26px] h-[26px]" />
-              <div className="whitespace-nowrap">{t('projects.winner')}</div>
-            </div>
-          </div>
+    <div className="flex w-full flex-col pb-[80px]">
+      <div className="flex w-full items-center justify-between">
+        <div className="flex items-center gap-[40px]">
           <div
             className="relative h-fit"
             onMouseEnter={() => {
@@ -114,7 +99,7 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
             {hoverSort && (
               <motion.ul
                 {...animateProps}
-                className="absolute -bottom-[4px]  right-0 z-[99] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
+                className="absolute -bottom-[4px] left-0 z-[99] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
               >
                 {projectSort.map((option) => {
                   return (
@@ -140,10 +125,63 @@ const ListBox: React.FC<ListBoxProp> = ({ list, searchParams, total, pageInfo, s
               </motion.ul>
             )}
           </div>
+          <div
+            className="body-m flex cursor-pointer items-center gap-[10px] text-neutral-medium-gray"
+            onClick={() => {
+              searchList({
+                ...searchParams,
+                winner: !searchParams.winner
+              });
+            }}
+          >
+            <Checkbox checked={!!searchParams.winner} outClassNames="border-neutral-medium-gray w-[26px] h-[26px]" />
+            <div className="whitespace-nowrap">{t('projects.winner')}</div>
+          </div>
         </div>
-      )}
-
-      <div className="flex w-full flex-wrap gap-x-[20px] gap-y-[40px]">
+        <div className="flex w-[670px] items-center gap-3 rounded-full border border-neutral-light-gray bg-neutral-white px-5 py-3">
+          <SearchIcon />
+          <input
+            className="w-full bg-transparent text-base outline-none placeholder:text-neutral-medium-gray"
+            placeholder={t('searchPlaceholder')}
+            value={searchValue}
+            onInput={(e) => {
+              const value = (e.target as HTMLInputElement).value;
+              setSearchValue(value);
+              if (timeOut.current) clearTimeout(timeOut.current);
+              timeOut.current = setTimeout(() => {
+                onSearch?.(value);
+              }, 1000);
+            }}
+          />
+          {!!searchValue && (
+            <span
+              className="cursor-pointer"
+              onClick={() => {
+                setSearchValue('');
+                onSearch?.('');
+              }}
+            >
+              <XIcon />
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="mt-4 self-start">
+        <Select
+          name=""
+          state="default"
+          options={tracks}
+          defaultValue={searchParams.tracks.split(',')?.[0] || ''}
+          className="h-[48px]"
+          onChange={(val) => {
+            searchList({
+              ...searchParams,
+              tracks: val as string
+            });
+          }}
+        />
+      </div>
+      <div className="my-10 flex w-full flex-wrap gap-x-[20px] gap-y-[40px]">
         {list?.map((project) => (
           <div className="w-[calc((100%-60px)/4)]" key={project.id}>
             <ProjectCard project={project} />

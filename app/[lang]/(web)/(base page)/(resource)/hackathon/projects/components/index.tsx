@@ -9,7 +9,6 @@ import { PageInfoType, SearchParamsType } from '..';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
-import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
 import ListBox from './ListBox';
 import { projectSort } from '../../constants/data';
 
@@ -32,27 +31,27 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
     const url = getSearchParamsUrl(searchInfo, MenuLink.PROJECTS);
     router.push(url);
   };
+
+  function handleSearch(keyword: string) {
+    searchList({
+      createdAt: projectSort[0].value,
+      winner: '',
+      tracks: '',
+      keyword
+    });
+  }
+
   return (
     <div className="container mx-auto pt-[40px]">
-      <CourseListPageHeader
-        title={t('projects.projects')}
-        description={t('projects.projectsDescription')}
-        coverImageUrl={'/images/hackathon/projects_cover.png'}
-        coverWidth={416}
-        coverHeight={331}
-        onSearch={(keyword) => {
-          searchList({
-            createdAt: projectSort[0].value,
-            winner: '',
-            tracks: '',
-            keyword
-          });
-        }}
+      <ListBox
+        list={list}
+        searchParams={searchParams}
+        total={total}
+        pageInfo={pageInfo}
         defaultValue={searchParams.keyword || ''}
-        className="mb-[2.5rem] "
-        coverImgClassName="absolute right-[0] top-[0]"
+        searchList={searchList}
+        onSearch={handleSearch}
       />
-      <ListBox list={list} searchParams={searchParams} total={total} pageInfo={pageInfo} searchList={searchList} />
       <PageRetentionTime trackName="hackathon-project 页面留存时间" />
     </div>
   );

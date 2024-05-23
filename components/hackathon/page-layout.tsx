@@ -60,7 +60,7 @@ export function PageLayout({
             <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
               {filteredLinks.map((link) => (
                 <Link href={link.url} key={link.id}>
-                  <div className="flex items-center rounded-2xl bg-neutral-white px-[3.75rem] py-4 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)] sm:gap-2 sm:px-5 sm:py-5">
+                  <div className="flex items-center rounded-2xl bg-neutral-white px-[3.75rem] py-4 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)] transition-colors sm:gap-2 sm:px-5 sm:py-5 sm:hover:bg-yellow-extra-light">
                     <div
                       data-id={link.id}
                       className="relative h-8 w-[1.625rem] data-[id='1']:w-8 data-[id='3']:w-8 sm:h-12 sm:w-10 sm:data-[id='1']:w-12 sm:data-[id='3']:w-12"

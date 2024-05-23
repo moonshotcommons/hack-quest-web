@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/line-tabs';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
-import { HackathonCard } from '../../components/hackathon-card';
 
 export function ParticipatedContent() {
   const { value, onValueChange } = useQueryRouter({
@@ -21,17 +20,17 @@ export function ParticipatedContent() {
         </TabsList>
         <TabsContent value="ongoing">
           <div className="flex flex-col gap-5">
-            <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
+            {/* <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
             <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" />
             <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
             <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
+            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" /> */}
           </div>
         </TabsContent>
         <TabsContent value="past">
           <div className="flex flex-col gap-5">
-            <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" />
+            {/* <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
+            <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" /> */}
           </div>
         </TabsContent>
       </Tabs>

@@ -82,6 +82,24 @@ export interface HackathonType {
   projectCount: number;
 }
 
+export interface JoinedHackathonType {
+  hackathons: HackathonType[];
+  stats: {
+    registered: number;
+    submitted: number;
+    winner: number;
+    projectVoted: number;
+    votes: {
+      [key: string]: number;
+    };
+  };
+}
+
+export interface HackathonVoteType extends HackathonType {
+  projectCount: number;
+  remainingVote: number;
+}
+
 export interface HackathonDataType {
   data: HackathonType[];
   total: number;
@@ -221,7 +239,7 @@ export interface HackathonRegisterInfo {
   lastName: string | null;
   weChat: string | null;
   telegram: string | null;
-  team: HackathonTeam;
+  team: HackathonTeam | null;
   bio: string | null;
   status: HackathonRegisterStep;
   createdAt: string;

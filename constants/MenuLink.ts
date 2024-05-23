@@ -9,6 +9,7 @@ enum MenuLink {
   REWARD = '/reward',
   HACKATHON = '/hackathon',
   BLOG = '/blog',
+  MY_COURSES = '/my-courses',
   PROJECTS = '/hackathon/projects',
   EXPLORE_HACKATHON = '/hackathon/explore',
   HACKATHON_DASHBOARD = '/hackathon/dashboard',

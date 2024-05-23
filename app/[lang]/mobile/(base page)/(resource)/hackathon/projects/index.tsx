@@ -2,6 +2,7 @@ import { FC } from 'react';
 import ProjectsPage from './components';
 import webApi from '@/service';
 import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
+import { PageLayout } from '@/components/hackathon/page-layout';
 
 export interface SearchParamsType {
   keyword: string;
@@ -36,12 +37,17 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [] }, searchParams
     ...params
   });
   return (
-    <ProjectsPage
-      list={project.data}
-      pageInfo={pageInfo}
-      searchParams={params as SearchParamsType}
-      total={project.total}
-    />
+    <PageLayout
+      title="Project Archive"
+      description="Welcome to the central repository for accessing all previous projects from our various hackathons."
+    >
+      <ProjectsPage
+        list={project.data}
+        pageInfo={pageInfo}
+        searchParams={params as SearchParamsType}
+        total={project.total}
+      />
+    </PageLayout>
   );
 };
 
