@@ -1,7 +1,15 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  ForwardRefRenderFunction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle
+} from 'react';
 import { TbAdjustmentsHorizontal, TbArrowsCross } from 'react-icons/tb';
 import { MdOutlineViewAgenda, MdViewHeadline } from 'react-icons/md';
 import { PiSortAscendingBold } from 'react-icons/pi';
@@ -19,6 +27,7 @@ import {
   hackathonVoteProjectSort
 } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import FilterModal, { FilterModalRef } from '@/components/Mobile/MobCourseFilterList/FilterModal';
+import { FilterRef } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/[hackathonId]/voting/components/VotingProjects/Filter';
 
 export interface SearchType {
   keyword: string;
@@ -32,7 +41,7 @@ interface FilterProp {
   handleRandom: VoidFunction;
 }
 
-const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom }) => {
+const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, handleSearch, handleRandom }, ref) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [keyword, setKeyword] = useState('');
@@ -78,6 +87,28 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
       }
     }
   );
+  useImperativeHandle(ref, () => {
+    return {
+      handleReset() {
+        const keyword = '';
+        const newFilters = filters.map((v) => {
+          v.options.map((f) => {
+            f.isSelect = false;
+          });
+          return v;
+        });
+        const tracks = changeFilter(newFilters);
+        setTracks(tracks);
+        setKeyword(keyword);
+        handleSearch({
+          prizeTrack: tracks?.prizeTrack?.join(',') || '',
+          tracks: tracks?.projectTrack?.join(',') || '',
+          sort,
+          keyword
+        });
+      }
+    };
+  });
   const { run: mouseLeaveSort } = useDebounceFn(
     () => {
       setHoverSort(false);
@@ -97,6 +128,17 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
     }, 600);
   };
   const handleFilter = (filters: FilterItemType[]) => {
+    const tracks = changeFilter(filters);
+    setTracks(tracks);
+    handleSearch({
+      prizeTrack: tracks?.prizeTrack?.join(',') || '',
+      tracks: tracks?.projectTrack?.join(',') || '',
+      sort,
+      keyword
+    });
+  };
+
+  const changeFilter = (filters: FilterItemType[]) => {
     setFilters(filters);
     let tracks: any = {};
     filters.forEach((v) => {
@@ -107,20 +149,13 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
         }
       });
     });
-    setTracks(tracks);
-    console.info(tracks);
-    handleSearch({
-      prizeTrack: tracks?.prizeTrack?.join(',') || '',
-      tracks: tracks?.projectTrack?.join(',') || '',
-      sort,
-      keyword
-    });
+    return tracks;
   };
   const handleSort = (sort: string) => {
     setSort(sort);
     handleSearch({
       prizeTrack: tracks?.prizeTrack?.join(',') || '',
-      tracks: tracks?.projectTrack.join(',') || '',
+      tracks: tracks?.projectTrack?.join(',') || '',
       sort,
       keyword
     });
@@ -143,7 +178,7 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
       <div className="mb-[1rem] flex h-[2.625rem] items-center overflow-hidden rounded-[3.5rem] border border-neutral-light-gray bg-neutral-white px-[1.25rem]">
         <BiSearch size={16} className="cursor-pointer" />
         <input
-          className="body-m border-none bg-transparent pl-[.5rem] outline-none"
+          className="body-m flex-1 border-none bg-transparent pl-[.5rem] outline-none"
           placeholder={t('searchPlaceholder')}
           value={keyword}
           onChange={(e) => {
@@ -221,4 +256,4 @@ const Filter: React.FC<FilterProp> = ({ hackathon, handleSearch, handleRandom })
   );
 };
 
-export default Filter;
+export default forwardRef(Filter);

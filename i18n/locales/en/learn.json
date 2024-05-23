@@ -144,5 +144,6 @@
     "addEcosystem":"Add ecosystem",
     "switchText":"Do you want to switch to {{ecosystem}}?",
     "swtichDesc":"You’re currently enrolled in Ethereum learning track. All your learning progress will be saved. You can switch easily in dashboard."
+   
   }
 }
