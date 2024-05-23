@@ -4,8 +4,12 @@ import * as React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/line-tabs';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
 import { VotingRole } from '@/components/hackathon/voting-role';
+import { HackathonVoteType } from '@/service/webApi/resourceStation/type';
+import HackathonEmpty from '@/components/hackathon/hackathon-empty';
+import { HackathonVotingCard } from '../../components/hackathon-voting-card';
+import PastHackathonCard from '../../../components/HackathonBox/Past/PastHackathonCard';
 
-export function VotingContent() {
+export function VotingContent({ votes }: { votes: HackathonVoteType[] }) {
   const { value, onValueChange } = useQueryRouter({
     queryKey: 'status',
     defaultValue: 'ongoing'
@@ -20,18 +24,29 @@ export function VotingContent() {
           <TabsTrigger value="past">Past Hackathon</TabsTrigger>
         </TabsList>
         <TabsContent value="ongoing">
-          <div className="flex flex-col gap-8">
-            {/* <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" /> */}
+          <div className="flex w-full flex-col gap-8">
+            {votes.length === 0 ? (
+              <HackathonEmpty text="You didn’t vote for any hackathon" label="go to vote" href="/hackathon/voting" />
+            ) : (
+              <div className="flex w-full flex-col gap-8">
+                {votes.map((vote) => (
+                  <HackathonVotingCard key={vote.id} vote={vote} />
+                ))}
+              </div>
+            )}
           </div>
         </TabsContent>
         <TabsContent value="past">
-          <div className="flex flex-col gap-8">
-            {/* <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" /> */}
+          <div className="flex w-full flex-col gap-8">
+            {votes.length === 0 ? (
+              <HackathonEmpty text="You didn’t vote for any hackathon" label="go to vote" href="/hackathon/voting" />
+            ) : (
+              <div className="grid grid-cols-3 gap-x-5 gap-y-8">
+                {votes.map((vote) => (
+                  <PastHackathonCard key={vote.id} isVoting hackathon={vote} />
+                ))}
+              </div>
+            )}
           </div>
         </TabsContent>
       </Tabs>

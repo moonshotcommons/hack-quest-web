@@ -38,6 +38,15 @@ class CourseApi {
     this.service = service;
   }
 
+  getMyCourses(params?: object, token?: string) {
+    return this.service.get<PageResult<ProjectCourseType>>(CourseApiType.Course_List, {
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
   /** 获取课程列表信息 */
   getCourseList(searchString?: string) {
     let url: string = CourseApiType.Course_List;

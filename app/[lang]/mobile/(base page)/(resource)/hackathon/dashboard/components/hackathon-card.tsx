@@ -6,14 +6,16 @@ import MenuLink from '@/constants/MenuLink';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useCountDown } from 'ahooks';
 import { ChevronRightIcon } from 'lucide-react';
 
 export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const { onOpen } = useLeaveTeamModal();
+  const { setTipsModalOpenState } = useGlobalStore();
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon.reviewTime
+    targetDate: hackathon.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
@@ -89,7 +91,7 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
                   })}
               {renderSecondaryButton({
                 label: 'Manage Team',
-                onClick: () => {}
+                onClick: () => setTipsModalOpenState(true)
               })}
             </>
           );
@@ -125,7 +127,12 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
     } else {
       if (status === 'REVIEW') {
         return (
-          <Button size="medium-x" ghost className="w-full" onClick={goHackathonDetail}>
+          <Button
+            size="medium-x"
+            ghost
+            className="w-full"
+            onClick={() => redirectToUrl(`/${MenuLink.HACKATHON}/projects/${hackathon.alias}`)}
+          >
             view my project
           </Button>
         );
@@ -140,7 +147,7 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
                 })}
                 {renderSecondaryButton({
                   label: 'Manage Team',
-                  onClick: () => {}
+                  onClick: () => setTipsModalOpenState(true)
                 })}
               </>
             );

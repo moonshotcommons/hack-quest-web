@@ -14,13 +14,14 @@ export const getHackathonsList = cache(function (param: object): Promise<Hackath
   return webApi.resourceStationApi.getHackathonList(param, token as string);
 });
 
-export const getJoinedHackathons = cache(function (): Promise<JoinedHackathonType> {
+export const getJoinedHackathons = cache(function (params?: object): Promise<JoinedHackathonType> {
   const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getJoinedHackathons(token);
+  return webApi.resourceStationApi.getJoinedHackathons(token, params);
 });
-export const getHackathonVote = cache(function (): Promise<HackathonVoteType[]> {
+
+export const getHackathonVote = cache(function (params?: object): Promise<HackathonVoteType[]> {
   const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getHackathonVote(token);
+  return webApi.resourceStationApi.getHackathonVote(token, params);
 });
 
 export const getHackathonById = cache(function (id: string): Promise<HackathonType> {

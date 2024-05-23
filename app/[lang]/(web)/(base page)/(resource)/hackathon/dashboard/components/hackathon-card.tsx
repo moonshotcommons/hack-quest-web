@@ -4,6 +4,7 @@ import Button, { ButtonType } from '@/components/Common/Button';
 import { CopyIcon } from '@/components/Common/Icon/CopyV2';
 import { GroupUsersIcon } from '@/components/Common/Icon/GroupUsers';
 import { LeaveTeamModal, useLeaveTeamModal } from '@/components/hackathon/leave-team-modal';
+import { useManageTeamModal } from '@/components/hackathon/manage-team-modal';
 import MenuLink from '@/constants/MenuLink';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -17,9 +18,10 @@ interface HackathonCardProps {
 
 export function HackathonCard({ hackathon }: HackathonCardProps) {
   const { onOpen } = useLeaveTeamModal();
+  const { onOpen: onOpenManage } = useManageTeamModal();
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon.reviewTime
+    targetDate: hackathon.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
@@ -98,7 +100,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
                   })}
               {renderSecondaryButton({
                 label: 'Manage Team',
-                onClick: () => {}
+                onClick: () => onOpenManage(hackathon.participation?.team?.code || '')
               })}
             </div>
           );
@@ -136,7 +138,12 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
       if (status === 'REVIEW') {
         return (
           <div className="ml-auto">
-            <Button size="small" ghost className="w-[11.25rem] text-xs" onClick={goHackathonDetail}>
+            <Button
+              size="small"
+              ghost
+              className="w-[11.25rem] text-xs"
+              onClick={() => redirectToUrl(`/${MenuLink.HACKATHON}/projects/${hackathon.alias}`)}
+            >
               view my project
             </Button>
           </div>
@@ -155,7 +162,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
                 })}
                 {renderSecondaryButton({
                   label: 'Manage Team',
-                  onClick: () => {}
+                  onClick: () => onOpenManage(hackathon.participation?.team?.code || '')
                 })}
               </div>
             );
@@ -189,7 +196,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-neutral-white p-6 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
+    <div className="card-hover w-full rounded-2xl bg-neutral-white p-6 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
       <div className="flex cursor-pointer items-center justify-between" onClick={goHackathonDetail}>
         <div className="flex items-center gap-3">
           {renderStatusTag()}
