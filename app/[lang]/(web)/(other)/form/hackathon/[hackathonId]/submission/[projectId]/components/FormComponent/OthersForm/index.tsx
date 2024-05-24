@@ -75,7 +75,7 @@ const OthersForm: FC<
     // setContractInfo();
     if (
       form.getValues('isPublic') === true &&
-      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test((form.getValues('githubLink') || '').trim())
+      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/.*$/.test((form.getValues('githubLink') || '').trim())
     ) {
       form.setError('githubLink', {
         message: 'Invalid GitHub URL'

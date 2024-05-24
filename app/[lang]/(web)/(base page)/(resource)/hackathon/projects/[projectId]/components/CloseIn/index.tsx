@@ -27,7 +27,7 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
   if (isEnd && (!project.vote || rankInfo?.rank !== 1)) return null;
   return (
     <div className="sticky left-0 top-0 z-[2] h-[64px] w-full rounded-[4px] bg-yellow-extra-light px-[28px]">
-      <div className="body-l relative flex h-full items-center  justify-center gap-[12px] text-neutral-off-black">
+      <div className="relative flex h-full items-center  justify-center gap-[12px] text-neutral-off-black">
         {project.vote && isEnd ? (
           <>
             <Image src={IconLevelPrize} alt="level-prize-icon" width={30} />

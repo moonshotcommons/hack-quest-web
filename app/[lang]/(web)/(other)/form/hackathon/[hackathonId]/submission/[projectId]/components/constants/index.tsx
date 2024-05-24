@@ -42,24 +42,6 @@ export const LOCATIONS_SHORT = {
   [ProjectLocation.OTHER]: 'Other'
 };
 
-//   {
-//     label: 'Asia Pacific (Central & South Asia, Northeastern Asia, Southeastern Asia, Australia and Oceania)',
-//     value: ProjectLocation.ASIA_PACIFIC
-//   },
-//   {
-//     label: 'Europe (Northern Europe, Southern Europe, Eastern Europe, Western Europe)',
-//     value: ProjectLocation.EUROPE
-//   },
-//   {
-//     label: 'Middle East/Africa (Middle East, Northern Africa, Southern Africa)',
-//     value: ProjectLocation.ASIA_PACIFIC
-//   },
-//   {
-//     label: 'Other',
-//     value: 'Other'
-//   }
-// ];
-
 export const LOCATIONS = [
   {
     label: 'Americas (North America, South America, Central America, Caribbean)',
@@ -75,10 +57,33 @@ export const LOCATIONS = [
   },
   {
     label: 'Middle East/Africa (Middle East, Northern Africa, Southern Africa)',
-    value: ProjectLocation.ASIA_PACIFIC
+    value: ProjectLocation.MIDDLE_EAST_AFRICA
   },
   {
     label: 'Other',
     value: 'Other'
+  }
+];
+
+export const TRACKS = [
+  {
+    label: 'Defi',
+    value: 'Defi'
+  },
+  {
+    label: 'NFT',
+    value: 'NFT'
+  },
+  {
+    label: 'GameFi',
+    value: 'GameFi'
+  },
+  {
+    label: 'SociFi',
+    value: 'SociFi'
+  },
+  {
+    label: 'Infra',
+    value: 'Infra'
   }
 ];

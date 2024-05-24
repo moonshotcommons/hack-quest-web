@@ -1,19 +1,14 @@
 'use client';
-import Button from '@/components/Common/Button';
 import { FC, memo, useRef, useState } from 'react';
-import { FormComponentProps } from '..';
-import { cn } from '@/helper/utils';
-import { HackathonSubmitStateType } from '../../../type';
+import { getVideoDuration } from '@/helper/utils';
 import { Upload, message, type UploadProps } from 'antd';
 import LoadingIcon from '@/components/Common/LoadingIcon';
-import webApi from '@/service';
-import { RcFile } from 'antd/es/upload';
-import VideoReview from '../../VideoReview';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
-import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
+import { RcFile } from 'antd/es/upload';
+import { useRequest } from 'ahooks';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import VideoReview from '../VideoReview';
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -23,10 +18,7 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
   reader.readAsDataURL(img);
 };
 
-const ProjectDemoUpload: FC<
-  Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
-    Pick<HackathonSubmitStateType, 'projectDemo' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, refreshProjectInfo, projectId, projectDemo, status, isSubmit }) => {
+const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -39,10 +31,11 @@ const ProjectDemoUpload: FC<
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj as FileType, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
+      setLoading(false);
+      // getBase64(info.file.originFileObj as FileType, (url) => {
+
+      //   setImageUrl(url);
+      // });
     }
   };
 
@@ -53,39 +46,39 @@ const ProjectDemoUpload: FC<
       message.error('You can only upload mp4 video!');
     }
     const isLt2M = file.size / 1024 / 1024 < 150;
-    // const maxDuration = 60 * 5;
+    const maxDuration = 60 * 4;
     if (!isLt2M) {
-      message.error('Demo video must smaller than 150MB!');
+      message.error('Patch video must smaller than 150MB!');
     }
 
-    // let isGt5M = false;
+    let isGt5M = false;
 
-    // try {
-    //   const duration = await getVideoDuration(file);
-    //   isGt5M = duration <= maxDuration;
-    //   if (!isGt5M) {
-    //     message.error('Patch video are often no longer than five minutes');
-    //   }
-    // } catch (err: any) {
-    //   message.error(err.message);
-    // }
+    try {
+      const duration = await getVideoDuration(file);
+      isGt5M = duration <= maxDuration;
+      if (!isGt5M) {
+        message.error('Patch video are often no longer than four minutes');
+      }
+    } catch (err: any) {
+      message.error(err.message);
+    }
 
-    return isMp4 && isLt2M;
+    return isMp4 && isLt2M && isGt5M;
   };
 
   const { runAsync: deleteRequest } = useRequest(
     async () => {
       setLoading(true);
       const formData = new FormData();
-      formData.append('demo', '');
-      formData.append('status', ProjectSubmitStepType.DEMO);
-      await webApi.resourceStationApi.submitProject(formData, projectId);
-      await refreshProjectInfo();
+      formData.append('video', '');
+      formData.append('status', ProjectSubmitStepType.PITCH_VIDEO);
+      // await webApi.resourceStationApi.submitProject(formData, projectId);
+      // await refreshProjectInfo();
     },
     {
       manual: true,
       onSuccess() {
-        message.success('Deleted demo video successfully');
+        message.success('Deleted patch video successfully');
       },
       onError(err) {
         errorMessage(err);
@@ -101,26 +94,6 @@ const ProjectDemoUpload: FC<
       onConfirm: deleteRequest
     });
   };
-
-  const { run: onSubmit, loading: submitLoading } = useRequest(
-    async () => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
-          ? ProjectSubmitStepType.OTHERS
-          : status;
-
-      const formData = new FormData();
-      formData.append('status', newStatus);
-      await webApi.resourceStationApi.submitProject(formData, projectId);
-      await refreshProjectInfo();
-    },
-    {
-      manual: true,
-      onSuccess() {
-        onNext({});
-      }
-    }
-  );
 
   const uploadButton = (
     <div className="flex h-[410px] w-full items-center justify-center rounded-[32px] bg-neutral-off-white">
@@ -145,11 +118,9 @@ const ProjectDemoUpload: FC<
 
   return (
     <div className="flex flex-col gap-6">
-      <p className="body-m text-left text-neutral-rich-gray">
-        Please Upload Your Video Demo Of Your Product (Optional)
-      </p>
-      {projectDemo && <VideoReview url={projectDemo} onDelete={onDelete} />}
-      {!projectDemo && (
+      {/* <p className="body-m text-left text-neutral-rich-gray">Please Upload Your Pitch Video, Max 4 mins (Optional)</p> */}
+      {pitchVideo && <VideoReview url={pitchVideo} onDelete={onDelete} />}
+      {!pitchVideo && (
         <Upload
           name="avatar"
           listType="picture-card"
@@ -162,10 +133,10 @@ const ProjectDemoUpload: FC<
             const { onProgress, onSuccess, onError } = option;
             const file = option.file as RcFile;
             const formData = new FormData();
-            formData.append('demo', file);
+            formData.append('video', file);
             try {
-              await webApi.resourceStationApi.submitProject(formData, projectId);
-              await refreshProjectInfo();
+              // await webApi.resourceStationApi.submitProject(formData, projectId);
+              // await refreshProjectInfo();
               onSuccess?.({}, new XMLHttpRequest());
             } catch (err: any) {
               onError?.(err);
@@ -177,22 +148,6 @@ const ProjectDemoUpload: FC<
         </Upload>
       )}
 
-      <div className="flex justify-end gap-4">
-        <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
-          Back
-        </Button>
-
-        <Button
-          type="primary"
-          htmlType="submit"
-          className={cn('button-text-m w-[165px] px-0 py-4 uppercase', false ? 'bg-neutral-light-gray' : '')}
-          onClick={onSubmit}
-          disabled={loading || submitLoading}
-          loading={submitLoading}
-        >
-          {isSubmit ? 'update' : 'Save'} and Next
-        </Button>
-      </div>
       <ConfirmModal confirmText="YES" ref={confirmRef}>
         <p className="text-h4 text-center text-neutral-black">Do you want to remove this video?</p>
       </ConfirmModal>
@@ -200,4 +155,4 @@ const ProjectDemoUpload: FC<
   );
 };
 
-export default memo(ProjectDemoUpload);
+export default memo(PatchVideoUpload);

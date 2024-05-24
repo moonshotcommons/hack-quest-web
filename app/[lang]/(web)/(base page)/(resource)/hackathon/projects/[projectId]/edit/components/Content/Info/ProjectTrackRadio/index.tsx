@@ -1,10 +1,11 @@
 import { cn } from '@/helper/utils';
 import { UseFormReturn } from 'react-hook-form';
-import { InfoFormSchema } from '..';
+
 import { useState } from 'react';
+import { FormSchema } from '../../constants';
 
 interface ProjectTypeRadioProps {
-  form: UseFormReturn<InfoFormSchema, any, undefined>;
+  form: UseFormReturn<FormSchema, any, undefined>;
   tracks: { label: string; value: string }[];
 }
 
@@ -13,7 +14,7 @@ const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
 
   return (
     <div className="flex w-full flex-col gap-3">
-      <p className="body-m text-left text-neutral-rich-gray">Which Hackathon Track Do You Belong To</p>
+      <p className="body-m text-left text-neutral-rich-gray">{`Which Hackathon Track Do You Belong To (Please elect all that apply)`}</p>
       <div className="flex w-full justify-between gap-5">
         {tracks.map((track) => {
           return (
@@ -35,7 +36,7 @@ const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
                 `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
                 selectTracks.includes(track.value)
                   ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
-                  : ''
+                  : 'bg-neutral-white'
               )}
             >
               <span>{track.label}</span>
