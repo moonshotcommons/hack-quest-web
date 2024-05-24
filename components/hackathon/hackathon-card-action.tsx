@@ -71,7 +71,9 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
       )}
 
       {hasPermission(role, status, 'learn_more') && (
-        <PrimaryButton onClick={() => router.push(`/hackathon/${hackathon.alias}`)}>learn more</PrimaryButton>
+        <PrimaryButton outline onClick={() => router.push(`/hackathon/${hackathon.alias}`)}>
+          learn more
+        </PrimaryButton>
       )}
 
       {hasPermission(role, status, 'edit') && (
