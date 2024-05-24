@@ -1,22 +1,42 @@
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
+import Link from 'next/link';
 
-export function EcosystemCard({ title }: { title: string }) {
+function convertString(input?: string) {
+  const lowerCaseString = input?.toLowerCase();
+  const result = lowerCaseString?.replace(' developer', '');
+  return result;
+}
+
+export function EcosystemCard({
+  name,
+  title,
+  description,
+  href,
+  tags
+}: {
+  name: string;
+  title: string;
+  description: string;
+  href: string;
+  tags: string[];
+}) {
   return (
-    <div className="card-hover flex items-center gap-4 rounded-2xl bg-neutral-white p-4">
-      <div className="flex flex-1 flex-col justify-between gap-3">
-        <h1 className="text-base font-bold capitalize text-neutral-black sm:text-lg">Build on {title}</h1>
-        <p className="text-xs text-neutral-medium-gray">
-          Solana is the fastest Layer1 blockchain using Proof of History
-        </p>
-        <div className="flex items-center gap-2">
-          <Badge>Rust</Badge>
-          <Badge>Certified Learning Track</Badge>
+    <Link href={href}>
+      <div className="flex w-full items-center justify-between gap-4 rounded-2xl bg-neutral-white p-4">
+        <div className="flex flex-col gap-3">
+          <h2 className="font-bold capitalize text-neutral-black">{title}</h2>
+          <p className="line-clamp-2 text-xs text-neutral-medium-gray">{description}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            {tags.map((tag, index) => (
+              <Badge key={index}>{tag}</Badge>
+            ))}
+          </div>
+        </div>
+        <div className="relative h-12 w-12 flex-shrink-0">
+          <Image src={`/images/ecosystem/${convertString(name)}-logo.svg`} alt={name} fill />
         </div>
       </div>
-      <div className="relative flex h-12 w-12 items-center justify-center">
-        <Image src={`/images/ecosystem/${title}.svg`} alt={title} layout="fill" objectFit="contain" />
-      </div>
-    </div>
+    </Link>
   );
 }

@@ -2,14 +2,14 @@ import { create } from 'zustand';
 
 interface Store {
   open: boolean;
-  step: number;
+  certificate: any;
+  onOpen: (certificate: any) => void;
   onClose: () => void;
-  onNext: () => void;
 }
 
-export const useClaimCertificate = create<Store>((set) => ({
+export const useMintCertificate = create<Store>((set) => ({
   open: false,
-  step: 1,
-  onClose: () => set({ open: false }),
-  onNext: () => set((state) => ({ step: state.step + 1 }))
+  certificate: null,
+  onOpen: (certificate) => set({ open: true, certificate }),
+  onClose: () => set({ open: false, certificate: null })
 }));

@@ -48,7 +48,7 @@ export function ProjectContent() {
       <TabsContent value="completed">
         {data?.length ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-            {data?.map((item) => <ProjectCard key={item.id} project={item} />)}
+            {data?.map((item) => <ProjectCard key={item.id} completed project={item} />)}
           </div>
         ) : (
           <ProjectEmpty />

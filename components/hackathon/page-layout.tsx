@@ -77,7 +77,7 @@ export async function PageLayout({
                       data-id={link.id}
                       className="relative h-8 w-[1.625rem] data-[id='1']:w-8 data-[id='3']:w-8 sm:h-12 sm:w-10 sm:data-[id='1']:w-12 sm:data-[id='3']:w-12"
                     >
-                      <Image src={`/images/hackathon/${slug}.png`} fill alt={link.title} />
+                      <Image src={`/images/hackathon/${toSnakeCase(link.title)}.png`} fill alt={link.title} />
                     </div>
                     <h3 className="flex-1 whitespace-nowrap text-center text-base text-neutral-black sm:text-lg">
                       {t(`dashboard.${link.slug}`)}

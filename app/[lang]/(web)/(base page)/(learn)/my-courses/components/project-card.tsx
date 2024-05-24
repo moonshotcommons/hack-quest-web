@@ -3,15 +3,22 @@
 import * as React from 'react';
 import Button from '@/components/Common/Button';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
+import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import Image from 'next/image';
 import { getDefaultImageUrl } from './utils';
 import MenuLink from '@/constants/MenuLink';
 import Link from 'next/link';
+import { CheckIcon, CodeXmlIcon } from 'lucide-react';
 
-export function ProjectCard({ project }: { project: ProjectCourseType | ElectiveCourseType }) {
+export function ProjectCard({
+  project,
+  completed = false
+}: {
+  project: ProjectCourseType | ElectiveCourseType;
+  completed?: boolean;
+}) {
   const getCourseDetailLink = React.useCallback(() => {
     switch (project.type) {
       case CourseType.UGC:
@@ -32,14 +39,33 @@ export function ProjectCard({ project }: { project: ProjectCourseType | Elective
           />
         </div>
         <div className="flex flex-col gap-3 p-4">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center justify-between gap-3">
             <Badge>{project.track}</Badge>
+            {completed && (
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-status-success text-neutral-white">
+                <CheckIcon size={20} />
+              </span>
+            )}
           </div>
           <h1 className="text-base font-bold text-neutral-off-black">{project.title}</h1>
-          <Progress value={Math.floor((project.progress || 0) * 100)} />
-          <Button type="primary" className="w-full uppercase">
-            continue
-          </Button>
+          {completed && <p className="line-clamp-4 text-sm text-neutral-medium-gray">{project.description}</p>}
+          {completed ? (
+            <div className="mt-4 flex items-center justify-between sm:mt-auto">
+              <div className="flex items-center gap-2">
+                <CodeXmlIcon size={20} />
+                <span className="text-xs text-neutral-rich-gray">{project.language}</span>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Progress value={Math.floor((project.progress || 0) * 100)}>
+                <ProgressLabel>{Math.floor((project.progress || 0) * 100)}%</ProgressLabel>
+              </Progress>
+              <Button type="primary" className="w-full uppercase">
+                continue
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </Link>

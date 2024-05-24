@@ -1,5 +1,4 @@
 import Button from '@/components/Common/Button';
-import { EcosystemCard } from '@/components/ecosystem/ecosystem-card';
 
 export function CourseEmpty() {
   return (
@@ -13,10 +12,10 @@ export function CourseEmpty() {
       <div className="flex flex-col gap-5 sm:gap-8">
         <h2 className="text-lg font-bold text-neutral-black">Explore Certified Learning Track</h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4">
-          <EcosystemCard title="ethereum" />
+          {/* <EcosystemCard title="ethereum" />
           <EcosystemCard title="arbitrum" />
           <EcosystemCard title="solana" />
-          <EcosystemCard title="mantle" />
+          <EcosystemCard title="mantle" /> */}
         </div>
       </div>
     </div>
