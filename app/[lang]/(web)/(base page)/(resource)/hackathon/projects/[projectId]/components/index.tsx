@@ -83,7 +83,7 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) =>
     <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
       <div className="container  relative mx-auto pt-[20px]">
         <CloseIn project={project} hackathon={hackathon as HackathonType} rankInfo={rankInfo as ProjectRankType} />
-        <ProjectProvider isShowVoting={isShowVoting}>
+        <ProjectProvider isShowVoting={isShowVoting} project={project}>
           <div className="relative mt-[40px] flex">
             <div className="relative">
               <Nav curAnchorIndex={curAnchorIndex} offsetTops={offsetTops} handleClickAnchor={handleClickAnchor} />
