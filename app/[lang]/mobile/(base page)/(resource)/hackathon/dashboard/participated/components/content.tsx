@@ -3,8 +3,11 @@
 import * as React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/line-tabs';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
+import HackathonEmpty from '@/components/hackathon/hackathon-empty';
+import { HackathonCard } from '../../components/hackathon-card';
 
-export function ParticipatedContent() {
+export function ParticipatedContent({ hackathons }: { hackathons: HackathonType[] }) {
   const { value, onValueChange } = useQueryRouter({
     queryKey: 'status',
     defaultValue: 'ongoing'
@@ -20,17 +23,36 @@ export function ParticipatedContent() {
         </TabsList>
         <TabsContent value="ongoing">
           <div className="flex flex-col gap-5">
-            {/* <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="ENDED" /> */}
+            {hackathons.length === 0 ? (
+              <HackathonEmpty
+                text="You didn’t participate in any hackathon"
+                label="Explore hackathons"
+                href="/hackathon/explore"
+              />
+            ) : (
+              <div className="flex w-full flex-col gap-8">
+                {hackathons.map((hackathon) => (
+                  <HackathonCard key={hackathon.id} hackathon={hackathon} />
+                ))}
+              </div>
+            )}
           </div>
         </TabsContent>
         <TabsContent value="past">
           <div className="flex flex-col gap-5">
-            {/* <HackathonCard title="Linea Mini-hack -May" tagName="REGISTERED" />
-            <HackathonCard title="Linea Mini-hack -May" tagName="MISSED" /> */}
+            {hackathons.length === 0 ? (
+              <HackathonEmpty
+                text="You didn’t participate in any hackathon"
+                label="Explore hackathons"
+                href="/hackathon/explore"
+              />
+            ) : (
+              <div className="flex w-full flex-col gap-8">
+                {hackathons.map((hackathon) => (
+                  <HackathonCard key={hackathon.id} hackathon={hackathon} />
+                ))}
+              </div>
+            )}
           </div>
         </TabsContent>
       </Tabs>

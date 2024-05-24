@@ -104,7 +104,31 @@
     "youCantVote": "You can’t vote for projects because your project is under review in this hackathon",
     "nodataText": "Sorry, there is no hackathon under review.",
     "nodataButtonText": "explore project archive",
+    "tipsModalTitle": "Lorem ipsum dolor sit amet",
+    "tipsModalText": "Lorem ipsum",
+    "decline": "Decline",
+    "showAllProjects": "Show All Projects",
     "submissionCloseIn": "Submission Close in",
     "submissionClosed": "Submission Closed"
+  },
+  "dashboard": {
+    "yourHackathons": "Your Hackathons",
+    "exploreHackathons": "Explore Hackathons",
+    "projectArchive": "Project Archive",
+    "hackathonVoting": "Hackathon Voting",
+    "quickLinks": "Quick Links",
+    "description": "Welcome to your hackathon dashboard! Manage projects, invite teammates, and track your hackathon journey with ease—all in one place."
+  },
+  "explore": {
+    "title": "Explore Hackathons",
+    "description": "Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here! 🚀💡"
+  },
+  "project": {
+    "title": "Project Archive",
+    "description": "Welcome to the central repository for accessing all previous projects from our various hackathons."
+  },
+  "voting": {
+    "title": "Hackathon Voting",
+    "description": "Get ready to make a difference! 🌟 Vote for your favorite projects in the hackathon. Your opinion counts! Let's support these awesome ideas together! 🚀"
   }
 }

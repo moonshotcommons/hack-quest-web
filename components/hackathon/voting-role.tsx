@@ -2,17 +2,21 @@ import { cn } from '@/helper/utils';
 import * as React from 'react';
 import Image from 'next/image';
 
-// data => { user: 50, advocate: 100, junior: 200 }
+const roles = [
+  { name: 'user', key: 'USER', defaultVotes: 0 },
+  { name: 'advocate', key: 'ADVOCATE', defaultVotes: 0 },
+  { name: 'judge', key: 'JUDGE', defaultVotes: 0 }
+];
 
 export function VotingRole({
-  role,
   votes,
   size = 'small'
 }: {
-  role: string;
   votes: { [key in string]: number };
   size?: 'small' | 'large';
 }) {
+  const highlightedRole = roles.find((role) => votes[role.key] !== undefined);
+  const highlightedVotes = highlightedRole ? votes[highlightedRole.key] : 0;
   return (
     <div className="w-full">
       <h1
@@ -23,13 +27,14 @@ export function VotingRole({
         Your Voting Role
       </h1>
       <div className={cn('grid grid-cols-3 gap-3 py-4', { 'py-2': size === 'large' })}>
-        {Object.entries(votes || {}).map(([key, value]) => (
+        {roles.map((role) => (
           <div
-            key={key}
+            key={role.key}
             className={cn(
               'flex flex-col items-center justify-center rounded-[0.5rem] border border-transparent bg-neutral-light-gray px-2 py-1.5 opacity-30',
               {
-                'border-neutral-medium-gray bg-neutral-white opacity-100': key === role,
+                'border-neutral-medium-gray bg-neutral-white opacity-100':
+                  highlightedRole && highlightedRole.key === role.key,
                 'py-3': size === 'large'
               }
             )}
@@ -42,16 +47,18 @@ export function VotingRole({
               <div className="h-8 w-8">
                 <Image
                   priority
-                  src={`/images/hackathon/voting_role_${key}.svg`}
+                  src={`/images/hackathon/voting_role_${role.name}.svg`}
                   width={32}
                   height={32}
-                  alt={`Voting role ${key}`}
+                  alt={`Voting role ${role.name}`}
                 />
               </div>
-              <h3 className={cn('text-sm capitalize text-neutral-black', { 'text-lg': size === 'large' })}>{key}</h3>
+              <h3 className={cn('text-sm capitalize text-neutral-black', { 'text-lg': size === 'large' })}>
+                {role.name}
+              </h3>
             </div>
             <span className={cn('text-xs font-light text-neutral-rich-gray', { 'mt-2 text-sm': size === 'large' })}>
-              {value} Votes
+              {highlightedRole && highlightedRole.key === role.key ? highlightedVotes : role.defaultVotes} Votes
             </span>
           </div>
         ))}

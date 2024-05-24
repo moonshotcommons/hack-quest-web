@@ -230,8 +230,8 @@ export interface HackathonRegisterProjectInfo {
   name: string;
   status: ProjectSubmitStepType;
   isSubmit: boolean;
-  vote: number;
   winner: boolean;
+  vote: number;
 }
 export interface HackathonRegisterInfo {
   id: string;

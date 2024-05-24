@@ -104,7 +104,31 @@
     "youCantVote": "You can’t vote for projects because your project is under review in this hackathon",
     "nodataText": "Sorry, there is no hackathon under review.",
     "nodataButtonText": "explore project archive",
+    "tipsModalTitle": "Lorem ipsum dolor sit amet",
+    "tipsModalText": "Lorem ipsum",
+    "decline": "Decline",
+    "showAllProjects": "Show All Projects",
     "submissionCloseIn": "Submission Close in",
     "submissionClosed": "Submission Closed"
+  },
+  "dashboard": {
+    "yourHackathons": "你的黑客松",
+    "exploreHackathons": "黑客松探索",
+    "projectArchive": "往期项目",
+    "hackathonVoting": "黑客松投票",
+    "quickLinks": "快捷链接",
+    "description": "欢迎来到你的黑客马拉松仪表盘！轻松管理项目，邀请队友，并跟踪您的黑客马拉松旅程-所有这些都在一个地方。"
+  },
+  "explore": {
+    "title": "黑客松探索",
+    "description": "在这里你将可以探索最新黑客马拉松的以及过往黑客马拉松的项目，赶快进入这个创新的世界中吧！从这里开始，你将进行一场充满创意的旅行 🚀💡"
+  },
+  "project": {
+    "title": "往期项目",
+    "description": "欢迎来到中央存储库，以访问我们各种黑客马拉松中所有以前的项目。"
+  },
+  "voting": {
+    "title": "黑客松投票",
+    "description": "准备好有所作为吧! 🌟 在黑客马拉松中为你最喜欢的项目投票。你的意见很重要!让我们一起支持这些很棒的想法吧! 🚀"
   }
 }

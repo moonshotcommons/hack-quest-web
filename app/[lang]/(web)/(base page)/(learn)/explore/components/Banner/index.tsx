@@ -16,7 +16,8 @@ const Index: React.FC<IndexProp> = ({ lang }) => {
       className="flex-center h-[360px] bg-cover bg-no-repeat"
       style={{
         backgroundImage: `url(${DeveloperCover.src})`,
-        backgroundSize: 'auto 100%'
+        backgroundSize: '100% auto',
+        backgroundPosition: 'center'
       }}
     >
       <div className="flex flex-col items-center gap-[40px]">

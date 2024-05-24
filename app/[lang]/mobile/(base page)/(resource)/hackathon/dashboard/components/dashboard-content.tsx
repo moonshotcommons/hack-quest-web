@@ -70,7 +70,7 @@ export function DashboardContent({
             projectVoted={stats.projectVoted}
           />
           <div className="my-5 h-px w-full bg-neutral-medium-gray" />
-          <VotingRole role="user" votes={{ user: 50, advocate: 100, judge: 200 }} />
+          <VotingRole votes={stats.votes} />
         </div>
         <FollowDiscord />
       </div>

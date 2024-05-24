@@ -34,25 +34,28 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
     const width = boxRef.current?.offsetWidth || 0;
     setTranslateX(-(width * curIndex + 20 * curIndex));
   }, [curIndex]);
-  if (!videoTab.length) return null;
   return (
     <div className="flex w-full flex-col gap-[1.5rem] overflow-hidden" ref={boxRef}>
       <Title title={t(titleTxtData[titleTxtData.length - 3])} />
-      {videoTab.length > 1 && <VideoTab tab={videoTab} curIndex={curIndex} handleChangeTab={setCurIndex} />}
-      <div className={`overflow-x-hidden rounded-[10px]`} style={{ width: `${boxRef.current?.offsetWidth}px` }}>
-        <div
-          className="flex gap-[20px] transition-all"
-          style={{
-            transform: `translateX(${translateX}px)`
-          }}
-        >
-          {videoTab.map((v) => (
-            <div key={v.label} className="flex-shrink-0" style={{ width: `${boxRef.current?.offsetWidth}px` }}>
-              <Video videoUrl={v.url} />
+      {videoTab.length > 0 && (
+        <>
+          <VideoTab tab={videoTab} curIndex={curIndex} handleChangeTab={setCurIndex} />
+          <div className={`overflow-x-hidden rounded-[10px]`} style={{ width: `${boxRef.current?.offsetWidth}px` }}>
+            <div
+              className="flex gap-[20px] transition-all"
+              style={{
+                transform: `translateX(${translateX}px)`
+              }}
+            >
+              {videoTab.map((v) => (
+                <div key={v.label} className="flex-shrink-0" style={{ width: `${boxRef.current?.offsetWidth}px` }}>
+                  <Video videoUrl={v.url} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

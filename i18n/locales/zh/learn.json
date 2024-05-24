@@ -120,7 +120,7 @@
   },
   "explore":{
     "title":"Become a Web 3 Developer",
-    "Web3":"Intro to Web 3",
+    "web3":"Intro to Web 3",
     "web3Intro":"Web3 Fundamentals",
     "learningTrack":"Certified Learning Track",
     "learningTrackIntro":"Deep Dive into leading Ecosystems",
@@ -128,8 +128,22 @@
     "buildWeb3Intro":"Gain hands on experience with projects",
     "moreResources":"More Resources",
     "moreResourcesIntro":"Explore beyond learning",
+    "detailMoreResourcesIntro":"Builder: Web3 Fundamentals (Optional) -> Certified Ecosystem Learning Track (e.g., Telos Learning Track) -> Blog & Glossary (Optional) -> Specializations (Optional) -> Electives & Projects -> Mini-Hacks → IRL/Online Co-learning & Meetup Events -> Hackathon -> Job Market",
+    "project":"Project",
+    "projectIntro":"Practice makes perfect. Find all real-world projects here",
+    "electiveIntro":"Learn Different Concepts about Web 3",
+    "elective":"Elective",
+    "glossary":"Glossary",
     "glossaryIntro":"A glossary is a list of terms and their definitions for a particular subject, usually found at the end of a book or other document.",
+    "hackathon":"Hackathon",
     "hackathonIntro":"A hackathon is a social coding event that brings computer programmers and other interested people together to improve upon or build a new software program.",
-    "blogIntro":"A blog, or weblog, is a website that regularly provides updated content about a topic."
+    "blog":"Blog",
+    "blogIntro":"A blog, or weblog, is a website that regularly provides updated content about a topic.",
+    "bounty":"Bounty",
+    "votes":"Votes",
+    "enroll":"Enroll",
+    "addEcosystem":"Add ecosystem",
+    "switchText":"Do you want to switch to {{ecosystem}}?",
+    "swtichDesc":"You’re currently enrolled in Ethereum learning track. All your learning progress will be saved. You can switch easily in dashboard."
   }
 }

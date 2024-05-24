@@ -5,17 +5,39 @@ import { FollowDiscord } from '@/components/hackathon/follow-discord';
 import { PageLayout } from '@/components/hackathon/page-layout';
 import { HackathonContent } from './components/hackathon-content';
 import { getHackathonVote, getJoinedHackathons } from '@/service/cach/resource/hackathon';
+import { useTranslation } from '@/i18n/server';
+import { Lang, TransNs } from '@/i18n/config';
+import { Metadata } from 'next';
+import MenuLink from '@/constants/MenuLink';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Page() {
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    title: 'HackQuest',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON_DASHBOARD}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_DASHBOARD}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_DASHBOARD}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.HACKATHON_DASHBOARD}`
+      }
+    }
+  };
+}
+
+export default async function Page({ params }: { params: { lang: Lang } }) {
+  const { t } = await useTranslation(params.lang, TransNs.HACKATHON);
   const { hackathons, stats } = await getJoinedHackathons();
   const votes = await getHackathonVote();
   return (
     <PageLayout
-      title="Your Hackathons"
-      description="Welcome to your hackathon dashboard! Manage projects, invite teammates, and track your hackathon journey with
-    ease—all in one place."
+      lang={params.lang}
+      slug="your_hackathons"
+      title={t('dashboard.yourHackathons')}
+      description={t('dashboard.description')}
     >
       <div className="mt-20 grid grid-cols-[1fr_320px] gap-10">
         <React.Suspense fallback={null}>
@@ -30,7 +52,7 @@ export default async function Page() {
               winner={stats.winner}
             />
             <div className="my-5 h-px w-full bg-neutral-medium-gray" />
-            <VotingRole role="user" votes={{ user: 50, advocate: 100, judge: 200 }} />
+            <VotingRole votes={stats.votes} />
           </div>
           <FollowDiscord />
         </div>

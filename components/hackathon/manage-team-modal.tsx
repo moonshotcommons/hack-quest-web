@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { InfoIcon, MoveRightIcon, Trash2Icon, XIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
@@ -44,7 +45,7 @@ function TeamMemberCard({ member, code }: { member: TeamMemberInfo; code: string
   return (
     <div className="flex w-full items-center border-b border-b-neutral-light-gray py-2">
       <div className="relative h-9 w-9 rounded-full bg-neutral-light-gray">
-        <Image src={member.avatar} fill alt={member.firstName} />
+        <Image src={member.avatar} fill alt={member.firstName} className="rounded-full" />
       </div>
       <span className="body-m ml-2 text-neutral-off-black">
         {member.firstName} {isAdmin && '(You)'}
@@ -65,6 +66,7 @@ function TeamMemberCard({ member, code }: { member: TeamMemberInfo; code: string
 }
 
 export function ManageTeamModal() {
+  const router = useRouter();
   const { open, code, onClose } = useManageTeamModal();
 
   const { data } = useQuery({
@@ -78,13 +80,14 @@ export function ManageTeamModal() {
     mutationFn: () => webApi.resourceStationApi.deleteTeam(code),
     onSuccess: () => {
       onClose();
+      router.refresh();
     }
   });
 
   return (
-    <Modal open={true} onClose={onClose}>
+    <Modal open={open} onClose={() => {}}>
       <div className="relative flex w-[50.375rem] flex-col items-center gap-3 rounded-2xl bg-neutral-white px-10 py-[3.75rem] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]">
-        <button aria-label="Close Modal" className="absolute right-5 top-5 outline-none">
+        <button aria-label="Close Modal" className="absolute right-5 top-5 outline-none" onClick={onClose}>
           <XIcon size={20} />
         </button>
         <div className="flex w-full items-center justify-between">
@@ -107,7 +110,11 @@ export function ManageTeamModal() {
           <h2 className="mb-1 text-base text-neutral-rich-gray">Team Code</h2>
           <div className="flex w-full items-center justify-between rounded-[0.5rem] bg-yellow-extra-light px-6 py-3">
             <span className="text-base text-neutral-off-black">{code}</span>
-            <button aria-label="Copy Team Code" className="text-neutral-medium-gray outline-none">
+            <button
+              aria-label="Copy Team Code"
+              className="text-neutral-medium-gray outline-none"
+              onClick={() => navigator.clipboard.writeText(code)}
+            >
               <CopyIcon className="h-5 w-5" />
             </button>
           </div>
@@ -132,7 +139,7 @@ export function ManageTeamModal() {
             <MoveRightIcon size={16} />
           </Link>
         </div>
-        <Button className="w-60 uppercase" type="primary">
+        <Button className="w-60 uppercase" type="primary" onClick={onClose}>
           Save & Close
         </Button>
       </div>

@@ -48,16 +48,18 @@ class ResourceStationApi {
   }
 
   /** 获取已加入的 hackathon 列表  */
-  getJoinedHackathons(token?: string) {
+  getJoinedHackathons(token?: string, params?: object) {
     return this.service.get<JoinedHackathonType>(`${ResourceStationApiType.Hackathon}/joined`, {
+      params,
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
   }
 
-  getHackathonVote(token?: string) {
+  getHackathonVote(token?: string, params?: object) {
     return this.service.get<HackathonVoteType[]>(`${ResourceStationApiType.Hackathon}/voting`, {
+      params,
       headers: {
         Authorization: `Bearer ${token}`
       }
