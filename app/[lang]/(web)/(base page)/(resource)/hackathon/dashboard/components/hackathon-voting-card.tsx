@@ -2,38 +2,49 @@
 
 import Button from '@/components/Common/Button';
 import MenuLink from '@/constants/MenuLink';
+import { cn, separationNumber } from '@/helper/utils';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonVoteType } from '@/service/webApi/resourceStation/type';
 import { useCountDown } from 'ahooks';
 import { ChevronRightIcon } from 'lucide-react';
+import moment from 'moment';
 
 export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
+  const currentTime = moment();
+  const { getTotalPrize } = useDealHackathonData();
+  const totalPrize = getTotalPrize(vote.rewards);
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: vote.reviewTime
+    targetDate: vote.rewardTime
   });
 
-  const status: string = 'ongoing';
+  const status = currentTime.isAfter(moment(vote.rewardTime)) ? 'ended' : 'ongoing';
 
   const { days, hours, minutes, seconds } = formattedRes;
 
   function goHackathonDetail() {
-    redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`);
+    redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}/voting`);
   }
 
   function renderStatusTag() {
     return (
-      <span>
-        <span className="rounded-[0.5rem] border-2 border-status-success-dark px-3 py-1 text-lg uppercase text-status-success-dark">
-          {status}
-        </span>
+      <span
+        className={cn(
+          'rounded-[0.5rem] border-2 border-status-success-dark px-3 py-1 text-lg uppercase text-status-success-dark',
+          {
+            'border-neutral-medium-gray text-neutral-medium-gray': status === 'ended'
+          }
+        )}
+      >
+        {status}
       </span>
     );
   }
 
   return (
-    <div className="w-full rounded-2xl bg-neutral-white p-6 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
+    <div className="card-hover w-full rounded-2xl bg-neutral-white p-6 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
       <div className="flex cursor-pointer items-center justify-between" onClick={goHackathonDetail}>
         <div className="flex items-center gap-3">
           {renderStatusTag()}
@@ -48,19 +59,19 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
             <>
               <div className="flex flex-col gap-1">
                 <h4 className="body-s text-neutral-medium-gray">Closed on</h4>
-                <span className="body-s leading-8 text-neutral-off-black">{vote.projectCount}</span>
+                <span className="body-s leading-8 text-neutral-off-black">{moment(vote?.rewardTime).format('ll')}</span>
               </div>
               <div className="flex flex-col gap-1">
                 <h4 className="body-s text-neutral-medium-gray">Participants</h4>
-                <span className="body-s leading-8 text-neutral-off-black">{vote.participants}</span>
+                <span className="body-s leading-8 text-neutral-off-black">{vote?.participants}</span>
               </div>
               <div className="flex flex-col gap-1">
                 <h4 className="body-s text-neutral-medium-gray">Total Prize</h4>
-                <span className="body-s leading-8 text-neutral-off-black">{vote.remainingVote}</span>
+                <span className="body-s leading-8 text-neutral-off-black">${separationNumber(totalPrize || 0)}</span>
               </div>
               <div className="flex flex-col gap-1">
                 <h4 className="body-s text-neutral-medium-gray">Host</h4>
-                <span className="body-s leading-8 text-neutral-off-black">{vote.remainingVote}</span>
+                <span className="body-s leading-8 text-neutral-off-black">{vote?.hosts[0]?.name}</span>
               </div>
             </>
           ) : (
@@ -100,11 +111,16 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
           )}
         </div>
         {status === 'ended' ? (
-          <Button size="small" ghost className="ml-auto w-[11.25rem] uppercase">
+          <Button
+            size="small"
+            ghost
+            className="ml-auto w-[11.25rem] uppercase"
+            onClick={() => redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`)}
+          >
             learn more
           </Button>
         ) : (
-          <Button size="small" type="primary" className="ml-auto w-[11.25rem] uppercase">
+          <Button size="small" type="primary" className="ml-auto w-[11.25rem] uppercase" onClick={goHackathonDetail}>
             Go to vote
           </Button>
         )}

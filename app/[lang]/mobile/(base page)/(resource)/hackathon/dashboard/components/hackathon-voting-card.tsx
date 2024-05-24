@@ -1,34 +1,25 @@
 import Button from '@/components/Common/Button';
 import MenuLink from '@/constants/MenuLink';
+import { separationNumber } from '@/helper/utils';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonVoteType } from '@/service/webApi/resourceStation/type';
 import { useCountDown } from 'ahooks';
 import { ChevronRightIcon } from 'lucide-react';
-
-function formatCustomDate(date: string) {
-  const dateObj = new Date(date);
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  }).format(dateObj);
-
-  // Adjust the formatted date to the desired format
-  return formattedDate.replace(/(\w{3}) (\d{1,2}), (\d{4})/, (match, p1, p2, p3) => {
-    return `${p1.toUpperCase()} ${p2}, ${p3}`;
-  });
-}
+import moment from 'moment';
 
 export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
+  const currentTime = moment();
+  const { getTotalPrize } = useDealHackathonData();
+  const totalPrize = getTotalPrize(vote.rewards);
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: vote.reviewTime
+    targetDate: vote.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
 
-  const status: string = 'ended';
-
+  const status = currentTime.isAfter(moment(vote.rewardTime)) ? 'ended' : 'ongoing';
   function goHackathonDetail() {
     redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`);
   }
@@ -54,7 +45,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
         <>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Closed on</h4>
-            <span className="body-s text-neutral-off-black">{formatCustomDate(vote.rewardTime)}</span>
+            <span className="body-s text-neutral-off-black">{moment(vote?.rewardTime).format('ll')}</span>
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Participants</h4>
@@ -62,7 +53,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Total Prize</h4>
-            <span className="body-s text-neutral-off-black">{vote.participants}</span>
+            <span className="body-s text-neutral-off-black">${separationNumber(totalPrize || 0)}</span>
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Host</h4>
@@ -103,11 +94,16 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
         </>
       )}
       {status === 'ended' ? (
-        <Button size="medium-x" ghost className="w-full uppercase">
+        <Button
+          size="medium-x"
+          ghost
+          className="w-full uppercase"
+          onClick={() => redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`)}
+        >
           learn more
         </Button>
       ) : (
-        <Button size="medium-x" type="primary" className="w-full uppercase">
+        <Button size="medium-x" type="primary" className="w-full uppercase" onClick={goHackathonDetail}>
           Go to vote
         </Button>
       )}
