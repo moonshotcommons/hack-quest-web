@@ -2,7 +2,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import Title from '../../../components/components/Title';
 import Filter, { SearchType } from './Filter';
@@ -10,6 +10,9 @@ import VoteCards from './VoteCards';
 import { HackathonVoteContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import webApi from '@/service';
 import { cloneDeep } from 'lodash-es';
+import Loading from '@/components/Common/Loading';
+import SearchTxt from './SearchTxt';
+import { FilterRef } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/[hackathonId]/voting/components/VotingProjects/Filter';
 
 interface VotingProjectsProp {
   hackathon: HackathonType;
@@ -21,15 +24,21 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   const { setInitProjects, setRemainingVotes, voteData, setVoteData } = useContext(HackathonVoteContext);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isInit, setIsInit] = useState(true);
+  const [searchParam, setSearchParam] = useState<SearchType>();
+  const filterRef = useRef<FilterRef>(null);
+  const [loading, setLoading] = useState(false);
   const handleSearch = (search: SearchType) => {
+    setSearchParam(search);
     getProjects(search);
     setVoteData([]);
   };
   const getProjects = async (search: SearchType) => {
+    setLoading(true);
     const res = await webApi.resourceStationApi.getVoteProjectsByHackathonId(hackathon.id, search);
     if (isInit) {
       setInitProjects(res);
     }
+    setLoading(false);
     setIsInit(false);
     setProjects(res);
   };
@@ -37,6 +46,10 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   const handleRandom = () => {
     const newProjects = randomSort(cloneDeep(projects));
     setProjects(newProjects);
+  };
+
+  const handleReset = () => {
+    filterRef.current?.handleReset();
   };
 
   const randomSort = (arr: any[]) => {
@@ -55,9 +68,12 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
     <div className="flex flex-col gap-[1.5rem]">
       <div>
         <Title title={t('hackathonVoting.votingProjects')} />
-        <Filter hackathon={hackathon} handleSearch={handleSearch} handleRandom={handleRandom} />
+        <Filter hackathon={hackathon} ref={filterRef} handleSearch={handleSearch} handleRandom={handleRandom} />
       </div>
-      <VoteCards projects={projects} />
+      <Loading loading={loading}>
+        <SearchTxt projects={projects} keyword={searchParam?.keyword || ''} handleReset={handleReset} />
+        <VoteCards projects={projects} />
+      </Loading>
     </div>
   );
 };

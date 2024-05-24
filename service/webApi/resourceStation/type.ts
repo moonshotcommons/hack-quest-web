@@ -229,6 +229,9 @@ export interface HackathonRegisterProjectInfo {
   id: string;
   name: string;
   status: ProjectSubmitStepType;
+  isSubmit: boolean;
+  winner: boolean;
+  vote: number;
 }
 export interface HackathonRegisterInfo {
   id: string;

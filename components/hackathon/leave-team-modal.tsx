@@ -7,6 +7,7 @@ import Modal from '@/components/Common/Modal';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { create } from 'zustand';
+import { useRouter } from 'next/navigation';
 
 interface State {
   open: boolean;
@@ -23,13 +24,18 @@ export const useLeaveTeamModal = create<State>((set) => ({
 }));
 
 export function LeaveTeamModal() {
+  const router = useRouter();
   const { open, hackathonId, onClose } = useLeaveTeamModal();
   const mutation = useMutation({
     mutationKey: ['leaveTeam', hackathonId],
-    mutationFn: () => webApi.resourceStationApi.leaveTeam(hackathonId)
+    mutationFn: () => webApi.resourceStationApi.leaveTeam(hackathonId),
+    onSuccess: () => {
+      onClose();
+      router.refresh();
+    }
   });
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={() => {}}>
       <div className="relative flex w-[532px] flex-col items-center rounded-2xl bg-neutral-white py-10 shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]">
         <button aria-label="Close Modal" className="absolute right-5 top-5 outline-none" onClick={onClose}>
           <XIcon size={20} />

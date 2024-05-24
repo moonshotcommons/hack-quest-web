@@ -153,7 +153,8 @@
     "intermediate": "Intermediate",
     "advanced": "Advanced",
     "searchPlaceholder": "Search for keywords, topics, etc...",
-    "searchResultFor": "Search result for “{{keyword}}”",
+    "searchResultFor": "Search Result for “{{keyword}}”",
+    "searchResultForNodata": "Search Result for “{{keyword}}”",
     "skillLevel": "Skill Level",
     "totalLength": "Total Length",
     "h": "h",
@@ -202,5 +203,6 @@
   },
   "min":"Min",
   "max":"Max",
-  "exploreMore":"Explore More"
+  "exploreMore":"Explore More",
+  "confirm":"Confirm"
 }
