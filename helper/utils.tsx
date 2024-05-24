@@ -11,6 +11,7 @@ import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
+import { message } from 'antd';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -292,4 +293,14 @@ export const decimalCount = (number: number, digit = 1) => {
   if (digit < 1) return number;
   const digitHundred = parseInt(`1${'0'.repeat(digit)}`);
   return Math.floor(number * digitHundred) / digitHundred;
+};
+
+export const copyText = async (text?: string) => {
+  if (!text) message.warning('There is nothing to copy!');
+  try {
+    await navigator.clipboard.writeText(text || '');
+    message.success('Copy success!');
+  } catch (e) {
+    message.warning('The browser version is too low or incompatible！');
+  }
 };

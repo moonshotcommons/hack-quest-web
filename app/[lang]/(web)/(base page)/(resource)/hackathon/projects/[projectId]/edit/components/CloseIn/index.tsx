@@ -1,29 +1,19 @@
 'use client';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
-import React, { ForwardRefRenderFunction, forwardRef, useContext, useImperativeHandle, useMemo } from 'react';
+import React, { FC, useContext } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
-import dayjs from '@/components/Common/Dayjs';
 import CountDown from '@/components/Web/Business/CountDown';
 
 interface CloseInProp {
   hackathon: HackathonType;
+  isClose: boolean;
 }
 
-const CloseIn: ForwardRefRenderFunction<{ isClose: boolean }, CloseInProp> = ({ hackathon }, ref) => {
+const CloseIn: FC<CloseInProp> = ({ hackathon, isClose }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-
-  const isClose = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.reviewTime);
-  }, [hackathon]);
-
-  useImperativeHandle(ref, () => {
-    return {
-      isClose
-    };
-  });
 
   return (
     <div className="sticky left-0 top-0 z-[2] h-[64px] w-full rounded-[4px] bg-yellow-extra-light px-[28px]">
@@ -44,4 +34,4 @@ const CloseIn: ForwardRefRenderFunction<{ isClose: boolean }, CloseInProp> = ({ 
   );
 };
 
-export default forwardRef(CloseIn);
+export default CloseIn;

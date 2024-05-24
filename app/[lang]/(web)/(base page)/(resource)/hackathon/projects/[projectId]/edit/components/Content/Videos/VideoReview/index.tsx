@@ -3,9 +3,10 @@ import { FC, useRef, useState } from 'react';
 interface VideoReviewProps {
   url: string;
   onDelete: VoidFunction;
+  isClose: boolean;
 }
 
-const VideoReview: FC<VideoReviewProps> = ({ url, onDelete }) => {
+const VideoReview: FC<VideoReviewProps> = ({ url, onDelete, isClose }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);
 
@@ -16,6 +17,7 @@ const VideoReview: FC<VideoReviewProps> = ({ url, onDelete }) => {
       className="relative h-full w-full"
       ref={ref}
       onMouseEnter={() => {
+        if (isClose) return;
         setShowDeleteIcon(true);
       }}
       onMouseLeave={() => {

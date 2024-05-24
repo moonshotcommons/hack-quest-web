@@ -1,43 +1,13 @@
 'use client';
 
 import { UseFormReturn } from 'react-hook-form';
-import { z } from 'zod';
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
 import IsPublicRadio from './IsPublicRadio';
-import { useRequest } from 'ahooks';
-import { errorMessage } from '@/helper/ui';
-import { FormSchema, formSchema } from '../constants';
+import { FormSchema } from '../constants';
 import Title from '@/components/Common/Title';
 
-const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined> }> = ({ form }) => {
-  const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
-      const formData = new FormData();
-      const { githubLink, isPublic } = values;
-      formData.append('isOpenSource', isPublic ? 'true' : 'false');
-      formData.append('githubLink', githubLink || '');
-
-      // const res = await webApi.resourceStationApi.submitProject(formData, projectId);
-      // await refreshProjectInfo();
-      // return {
-      //   res,
-      //   status: newStatus,
-      //   newOtherInfo: {
-      //     isPublic,
-      //     githubLink: githubLink || ''
-      //   }
-      // };
-    },
-    {
-      manual: true,
-      onSuccess({}) {},
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
-
+const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined>; isClose: boolean }> = ({ form, isClose }) => {
   // function onSubmit(values: z.infer<typeof formSchema>) {
   //   // setContractInfo();
   //   if (
@@ -70,9 +40,9 @@ const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined> }> = ({ f
         label="Please Provide The Github Of Your Project"
         placeholder="Paste Github link here"
       />
-      <IsPublicRadio form={form} />
+      <IsPublicRadio form={form} isClose={isClose} />
     </div>
   );
 };
 
-export default memo(OthersForm);
+export default OthersForm;

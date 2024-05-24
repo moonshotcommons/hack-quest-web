@@ -7,9 +7,10 @@ import { FormSchema } from '../../constants';
 interface ProjectTypeRadioProps {
   form: UseFormReturn<FormSchema, any, undefined>;
   tracks: { label: string; value: string }[];
+  isClose: boolean;
 }
 
-const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
+const ProjectTrackRadio = ({ form, tracks, isClose }: ProjectTypeRadioProps) => {
   const [selectTracks, setSelectTracks] = useState<string[]>(form.watch('track').split(','));
 
   return (
@@ -21,6 +22,7 @@ const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
             <div
               key={track.value}
               onClick={() => {
+                if (isClose) return;
                 let newTracks = [...selectTracks];
                 if (selectTracks.includes(track.value)) {
                   newTracks = selectTracks.filter((t) => t !== track.value);
@@ -33,10 +35,11 @@ const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
                 form.trigger('track');
               }}
               className={cn(
-                `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+                `body-m flex h-[50px]  w-full items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
                 selectTracks.includes(track.value)
                   ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
-                  : 'bg-neutral-white'
+                  : 'bg-neutral-white',
+                isClose ? 'cursor-not-allowed' : 'cursor-pointer'
               )}
             >
               <span>{track.label}</span>

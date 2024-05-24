@@ -35,7 +35,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       onSuccess() {
         !isRegister && message.success(`Register ${simpleHackathonInfo.name} success!`);
         isRegister && message.success(`Update register info success!`);
-        redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
+        redirectToUrl(`/hackathon/dashboard`);
       },
       onError(err) {
         errorMessage(err);

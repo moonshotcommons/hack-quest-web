@@ -14,6 +14,7 @@ export function HackathonContent({ hackathons, votes }: { hackathons: HackathonT
     queryKey: 'type',
     defaultValue: 'participated'
   });
+
   return (
     <Tabs defaultValue="participated" className="w-full" value={value} onValueChange={onValueChange}>
       <TabsList>

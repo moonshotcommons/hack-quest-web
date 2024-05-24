@@ -9,6 +9,7 @@ import { useTranslation } from '@/i18n/server';
 import { Lang, TransNs } from '@/i18n/config';
 import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,33 +31,40 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
 
 export default async function Page({ params }: { params: { lang: Lang } }) {
   const { t } = await useTranslation(params.lang, TransNs.HACKATHON);
-  const { hackathons, stats } = await getJoinedHackathons();
-  const votes = await getHackathonVote();
-  return (
-    <PageLayout
-      lang={params.lang}
-      slug="your_hackathons"
-      title={t('dashboard.yourHackathons')}
-      description={t('dashboard.description')}
-    >
-      <div className="mt-20 grid grid-cols-[1fr_320px] gap-10">
-        <React.Suspense fallback={null}>
-          <HackathonContent hackathons={hackathons} votes={votes} />
-        </React.Suspense>
-        <div className="flex flex-col gap-10">
-          <div className="rounded-2xl bg-neutral-white p-6">
-            <HackathonStats
-              registered={stats.registered}
-              submitted={stats.submitted}
-              projectVoted={stats.projectVoted}
-              winner={stats.winner}
-            />
-            <div className="my-5 h-px w-full bg-neutral-medium-gray" />
-            <VotingRole votes={stats.votes} />
+  try {
+    const { hackathons, stats } = await getJoinedHackathons();
+    const votes = await getHackathonVote();
+    return (
+      <PageLayout
+        lang={params.lang}
+        slug="your_hackathons"
+        title={t('dashboard.yourHackathons')}
+        description={t('dashboard.description')}
+      >
+        <div className="mt-20 grid grid-cols-[1fr_320px] gap-10">
+          <React.Suspense fallback={null}>
+            <HackathonContent hackathons={hackathons} votes={votes} />
+          </React.Suspense>
+          <div className="flex flex-col gap-10">
+            <div className="rounded-2xl bg-neutral-white p-6">
+              <HackathonStats
+                registered={stats.registered}
+                submitted={stats.submitted}
+                projectVoted={stats.projectVoted}
+                winner={stats.winner}
+              />
+              <div className="my-5 h-px w-full bg-neutral-medium-gray" />
+              <VotingRole votes={stats.votes} />
+            </div>
+            <FollowDiscord />
           </div>
-          <FollowDiscord />
         </div>
-      </div>
-    </PageLayout>
-  );
+      </PageLayout>
+    );
+  } catch (err: any) {
+    if (err.code === 401) {
+      redirect('/');
+    }
+    throw new Error(err);
+  }
 }
