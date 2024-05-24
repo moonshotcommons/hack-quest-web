@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import Image from 'next/image';
+import { useShallow } from 'zustand/react/shallow';
 import { ArrowRightLeftIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { Listbox, Transition } from '@headlessui/react';
+import { ecosystemStore } from '@/store/zustand/ecosystemStore';
 
 // const defaultEcosystem = [
 //   { id: 'all', name: 'All Ecosystem', icon: null, default: true, background: '#8C8C8C' },
@@ -26,10 +28,16 @@ function convertString(input?: string) {
   return result;
 }
 
-export function EcosystemSelect({ ecosystems }: { ecosystems: any[] }) {
+export function EcosystemSelect() {
   const router = useRouter();
   const params = useParams();
   const [_, startTransition] = React.useTransition();
+
+  const { ecosystems } = ecosystemStore(
+    useShallow((state) => ({
+      ecosystems: state.ecosystems
+    }))
+  );
 
   const selected = ecosystems.find((e) => e.id === params.ecosystemId) || defaultEcosystem;
 

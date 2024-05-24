@@ -4,8 +4,16 @@ import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { useCertificateModal } from './use-certificate';
+import { EcosystemDetailType } from '@/service/webApi/ecosystem/type';
+import { CertificationType } from '@/service/webApi/campaigns/type';
 
-export function CertificationInfo({ ecosystem, certificate }: { ecosystem: any; certificate: any }) {
+export function CertificationInfo({
+  ecosystem,
+  certificate
+}: {
+  ecosystem: EcosystemDetailType;
+  certificate: CertificationType;
+}) {
   const { onOpen } = useCertificateModal();
 
   return (
@@ -48,7 +56,7 @@ export function CertificationInfo({ ecosystem, certificate }: { ecosystem: any; 
         </Button>
       </div>
       <div className="relative order-1 mt-5 h-48 w-full rounded-[0.5rem] sm:order-2 sm:mt-0 sm:h-40 sm:w-72">
-        <Image src={certificate?.image} alt={certificate?.name} priority fill />
+        <Image src={certificate?.image} alt={certificate.name} priority fill />
       </div>
     </div>
   );

@@ -25,8 +25,6 @@ export function MyCertificateCard() {
   const { data: count } = results[0];
   const { data: profile } = results[1];
 
-  console.log(profile);
-
   return (
     <div className="flex flex-col gap-4 rounded-2xl bg-neutral-white p-4">
       <h1 className="font-next-book-bold text-lg font-bold">My Certificate</h1>

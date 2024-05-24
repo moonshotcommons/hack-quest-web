@@ -4,10 +4,12 @@ import * as React from 'react';
 import { create } from 'zustand';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
-import { CodeXmlIcon, MoveRightIcon, XIcon } from 'lucide-react';
+import { CodeXmlIcon, MoveRightIcon, PlayIcon, XIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
+import { ecosystemStore } from '@/store/zustand/ecosystemStore';
 
 interface Props {
   step: number;
@@ -19,19 +21,42 @@ const useOnboard = create<Props>((set) => ({
   onNext: () => set((state) => ({ step: state.step + 1 }))
 }));
 
-function EcosystemCard({ selected = false }: { selected?: boolean }) {
+function convertString(input?: string) {
+  const lowerCaseString = input?.toLowerCase();
+  const result = lowerCaseString?.replace(' developer', '');
+  return result;
+}
+
+function EcosystemCard({
+  name,
+  language,
+  selected = false,
+  onClick
+}: {
+  name: string;
+  language: string;
+  selected?: boolean;
+  onClick?: () => void;
+}) {
   return (
     <div
       className={cn('flex w-full cursor-pointer items-center gap-4 rounded-2xl border border-neutral-light-gray p-4', {
         'border-yellow-dark bg-yellow-extra-light': selected
       })}
+      onClick={onClick}
     >
-      <Image src="/images/ecosystem/solana.svg" alt="solana" width={56} height={56} className="sm:h-16 sm:w-16" />
+      <Image
+        src={`/images/ecosystem/${convertString(name)}.svg`}
+        alt={name}
+        width={56}
+        height={56}
+        className="flex-shrink-0 sm:h-16 sm:w-16"
+      />
       <div className="flex flex-col gap-2">
-        <h2 className="text-base font-bold text-neutral-off-black sm:text-lg">Solana Developer</h2>
+        <h2 className="text-base font-bold text-neutral-off-black sm:text-lg">{name}</h2>
         <div className="flex items-center gap-2">
           <CodeXmlIcon size={16} />
-          <span className="text-xs text-neutral-rich-gray">Solidity</span>
+          <span className="text-xs text-neutral-rich-gray">{language}</span>
         </div>
       </div>
     </div>
@@ -39,9 +64,29 @@ function EcosystemCard({ selected = false }: { selected?: boolean }) {
 }
 
 function ChooseEcosystem() {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [selected, setSelected] = React.useState<string | null>(null);
   const [isShowVideo, setIsShowVideo] = React.useState(false);
   const [skipModalVisible, setSkipModalVisible] = React.useState(false);
   const onNext = useOnboard((state) => state.onNext);
+
+  const { ecosystems } = ecosystemStore(
+    useShallow((state) => ({
+      ecosystems: state.ecosystems
+    }))
+  );
+
+  function handlePlayPause() {
+    if (videoRef.current?.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current?.pause();
+      setIsPlaying(false);
+    }
+  }
+
   return (
     <div className="flex h-full w-full flex-col pt-5 sm:pt-8">
       {isShowVideo ? (
@@ -49,7 +94,19 @@ function ChooseEcosystem() {
           <h1 className="font-next-book-bold text-[1.375rem] font-bold sm:text-center sm:text-[1.75rem]">
             New to Web 3 Development
           </h1>
-          <div className="mt-5 h-[12.375rem] w-full rounded-[0.625rem] bg-blue-400 sm:mt-8 sm:flex-1"></div>
+          <div className="relative mt-5 aspect-video sm:mt-8">
+            <video ref={videoRef} controls className="rounded-[0.625rem]" src="/videos/web3.mp4" />
+            {!isPlaying && (
+              <div
+                className="absolute bottom-0 left-0 right-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-[0.625rem] bg-black/50"
+                onClick={handlePlayPause}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-dark sm:h-20 sm:w-20">
+                  <PlayIcon className="h-6 w-6 text-neutral-white sm:h-10 sm:w-10" />
+                </div>
+              </div>
+            )}
+          </div>
           <Button
             ghost
             className="mt-auto w-full self-start uppercase sm:mt-12 sm:w-[16.875rem] sm:self-end"
@@ -65,10 +122,14 @@ function ChooseEcosystem() {
             You can always enroll or change tracks in the explore page
           </p>
           <div className="my-5 grid grid-cols-1 gap-x-4 gap-y-5 sm:my-8 sm:grid-cols-2 sm:gap-y-6">
-            <EcosystemCard selected />
-            <EcosystemCard />
-            <EcosystemCard />
-            <EcosystemCard />
+            {ecosystems.map((ecosystem) => (
+              <EcosystemCard
+                key={ecosystem.name}
+                {...ecosystem}
+                selected={selected === ecosystem.id}
+                onClick={() => setSelected(ecosystem.id)}
+              />
+            ))}
           </div>
           <div
             className="flex cursor-pointer flex-col-reverse justify-between rounded-2xl bg-neutral-off-white p-4 sm:flex-row"
