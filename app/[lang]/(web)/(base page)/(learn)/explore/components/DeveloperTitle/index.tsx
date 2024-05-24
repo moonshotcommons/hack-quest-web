@@ -1,7 +1,9 @@
+'use client';
+import { LangContext } from '@/components/Provider/Lang';
 import { Lang, TransNs } from '@/i18n/config';
-import { useTranslation } from '@/i18n/server';
+import { useTranslation } from '@/i18n/client';
 import Image, { StaticImageData } from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 
 interface DeveloperTitleProp {
   lang: Lang;
@@ -9,8 +11,9 @@ interface DeveloperTitleProp {
   title: string;
 }
 
-const DeveloperTitle: React.FC<DeveloperTitleProp> = async ({ lang, image, title }) => {
-  const { t } = await useTranslation(lang, TransNs.LEARN);
+const DeveloperTitle: React.FC<DeveloperTitleProp> = ({ image, title }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
   return (
     <div className="flex gap-[16px]">
       <div className="relative h-[64px] w-[64px] overflow-hidden">
