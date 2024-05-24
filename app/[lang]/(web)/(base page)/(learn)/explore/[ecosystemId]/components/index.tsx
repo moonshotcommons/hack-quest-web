@@ -4,15 +4,17 @@ import Banner from './Banner';
 import EcoList from './EcoList';
 import CourseList from './CourseList';
 import MoreResource from './MoreResource';
+import { EcosystemDetailType } from '@/service/webApi/ecosystem/type';
 
 interface EcosystemDetailProp {
   lang: Lang;
+  ecosystem: EcosystemDetailType;
 }
 
-const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang }) => {
+const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem }) => {
   return (
     <div>
-      <Banner lang={lang} />
+      <Banner lang={lang} ecosystem={ecosystem} />
       <div className="container mx-auto flex items-stretch gap-[20px] pb-[100px] pt-[60px]">
         <div className="flex w-[24px] flex-shrink-0 items-stretch justify-center">
           <div className="border-l border-dashed border-neutral-medium-gray"></div>

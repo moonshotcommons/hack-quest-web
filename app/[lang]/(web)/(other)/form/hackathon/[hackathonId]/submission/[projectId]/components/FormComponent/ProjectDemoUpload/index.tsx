@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { FC, memo, useState } from 'react';
+import { FC, memo, useRef, useState } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
@@ -13,6 +13,7 @@ import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -28,6 +29,8 @@ const ProjectDemoUpload: FC<
 > = ({ onNext, onBack, refreshProjectInfo, projectId, projectDemo, status, isSubmit }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
+
+  const confirmRef = useRef<ConfirmModalRef>(null);
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -70,7 +73,7 @@ const ProjectDemoUpload: FC<
     return isMp4 && isLt2M;
   };
 
-  const { run: onDelete } = useRequest(
+  const { runAsync: deleteRequest } = useRequest(
     async () => {
       setLoading(true);
       const formData = new FormData();
@@ -92,6 +95,12 @@ const ProjectDemoUpload: FC<
       }
     }
   );
+
+  const onDelete = () => {
+    confirmRef.current?.open({
+      onConfirm: deleteRequest
+    });
+  };
 
   const { run: onSubmit, loading: submitLoading } = useRequest(
     async () => {
@@ -184,6 +193,9 @@ const ProjectDemoUpload: FC<
           {isSubmit ? 'update' : 'Save'} and Next
         </Button>
       </div>
+      <ConfirmModal confirmText="YES" ref={confirmRef}>
+        <p className="text-h4 text-center text-neutral-black">Do you want to remove this video?</p>
+      </ConfirmModal>
     </div>
   );
 };

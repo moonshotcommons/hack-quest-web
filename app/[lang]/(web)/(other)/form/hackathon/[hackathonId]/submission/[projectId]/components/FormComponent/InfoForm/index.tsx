@@ -20,11 +20,13 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { HACKATHON_SUBMIT_STEPS, LOCATIONS } from '../../constants';
+import { HACKATHON_SUBMIT_STEPS, LOCATIONS, TRACKS } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
 import CustomSelectField from '@/components/Web/Business/CustomSelectField';
+import ProjectTrackRadio from './ProjectTrackRadio';
+import ProjectPrizeTrackRadio from './ProjectPrizeTrackRadio';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -90,7 +92,9 @@ const InfoForm: FC<
       const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
       formData.append('name', projectName);
       formData.append('prizeTrack', prizeTrack);
-      formData.append('tracks[]', track);
+      track.split(',').forEach((t) => {
+        formData.append('tracks[]', t);
+      });
       formData.append('location', location);
       formData.append('description', detailedIntro);
       formData.append('introduction', intro);
@@ -168,36 +172,17 @@ const InfoForm: FC<
             placeholder="Please select"
             items={LOCATIONS}
           ></CustomSelectField>
+          <ProjectPrizeTrackRadio tracks={tracks} form={form} />
+          <ProjectTrackRadio tracks={TRACKS} form={form} />
 
-          <div className="flex w-full justify-between gap-4">
+          {/* <div className="flex w-full justify-between gap-4">
             <div className="flex-1">
               <CustomSelectField
                 form={form}
                 label="Which Prize Track Do You Belong To"
                 name="track"
                 placeholder="Please select"
-                items={[
-                  {
-                    label: 'Defi',
-                    value: 'Defi'
-                  },
-                  {
-                    label: 'NFT',
-                    value: 'NFT'
-                  },
-                  {
-                    label: 'GameFi',
-                    value: 'GameFi'
-                  },
-                  {
-                    label: 'SociFi',
-                    value: 'SociFi'
-                  },
-                  {
-                    label: 'Infra',
-                    value: 'Infra'
-                  }
-                ]}
+                items={TRACKS}
               />
             </div>
             <div className="flex-1">
@@ -214,7 +199,7 @@ const InfoForm: FC<
                 })}
               />
             </div>
-          </div>
+          </div> */}
 
           <IntroName form={form} />
           <DetailIntroName form={form} />

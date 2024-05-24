@@ -44,7 +44,7 @@ const SubmitLayoutNavbar: FC<SubmitLayoutNavbarProps> = (props) => {
           <FiSave size={26} className={`${loading ? 'cursor-not-allowed' : ''}`} />
           <span className="whitespace-nowrap">{t('handleButtonText.save')}</span>
         </span> */}
-        <span className="flex items-center gap-2" onClick={onExit}>
+        <span className="flex items-center gap-2 uppercase" onClick={onExit}>
           <IoExitOutline size={29} onClick={() => {}} />
           <span className="whitespace-nowrap">{t('handleButtonText.exit')}</span>
         </span>

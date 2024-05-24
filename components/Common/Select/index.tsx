@@ -88,21 +88,24 @@ const Select = forwardRef<InputRef, SelectProps & InputHTMLAttributes<HTMLInputE
     <div className="relative flex w-full flex-col gap-[0.75rem]">
       {label ? <p className="body-l">{label}</p> : null}
 
-      <div className="relative">
+      <div
+        className="relative"
+        tabIndex={1}
+        onBlur={() =>
+          setTimeout(() => {
+            setVisibleOption(false);
+          }, 310)
+        }
+      >
         <input
           ref={inputRef}
           onFocus={() => setVisibleOption(true)}
-          onBlur={() =>
-            setTimeout(() => {
-              setVisibleOption(false);
-            }, 310)
-          }
           type={'text'}
           value={selectLabel}
           readOnly
           placeholder={placeholder}
           className={cn(
-            `body-m w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-medium-gray px-[25px] py-[15px]  caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
+            `body-m h-full w-full cursor-pointer rounded-[2.5rem] border border-solid border-neutral-medium-gray px-[25px] py-[15px]  caret-[#ffffff] outline-none hover:border-neutral-dark-gray focus:border-neutral-dark-gray`,
             // type === 'password' &&
             //   'border-auth-password-input-bg focus:border-neutral-dark-gray',
             status === 'success' ? 'border-auth-input-success-color focus:border-auth-input-success-color' : '',
@@ -113,7 +116,12 @@ const Select = forwardRef<InputRef, SelectProps & InputHTMLAttributes<HTMLInputE
         />
 
         <span className="absolute right-[1.4375rem] top-[50%] flex -translate-y-[50%] items-center gap-4">
-          {status === 'default' && <AiFillCaretDown className=" text-[20px] text-neutral-medium-gray" />}
+          {status === 'default' && (
+            <AiFillCaretDown
+              className=" cursor-pointer text-[20px] text-neutral-medium-gray"
+              onClick={() => setVisibleOption(true)}
+            />
+          )}
           {status === 'error' && (
             <span
               className="flex cursor-pointer items-center justify-center text-auth-input-error-color"

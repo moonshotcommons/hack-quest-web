@@ -16,7 +16,7 @@ const Introduction: React.FC<IntroductionProp> = ({ project }) => {
   const { titleTxtData } = useContext(ProjectDetailContext);
   return (
     <div className="flex flex-col gap-[32px]">
-      <Title title={t(titleTxtData[titleTxtData.length - 2])} />
+      <Title title={t('projectsDetail.title.introduction')} />
       <p className="body-l text-neutral-rich-gray">{project.introduction}</p>
     </div>
   );
