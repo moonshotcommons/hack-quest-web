@@ -34,6 +34,7 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) =>
       isOnScoll.current = false;
     }, 10);
   };
+
   const handleScoll = () => {
     if (isOnScoll.current) return;
     const scrollTop = boxRef.current?.scrollTop || 0;

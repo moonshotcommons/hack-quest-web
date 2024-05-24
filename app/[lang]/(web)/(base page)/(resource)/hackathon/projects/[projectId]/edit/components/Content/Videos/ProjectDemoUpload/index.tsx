@@ -9,6 +9,8 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import VideoReview from '../VideoReview';
+import { useRouter } from 'next/navigation';
+import webApi from '@/service';
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -18,11 +20,16 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
   reader.readAsDataURL(img);
 };
 
-const ProjectDemoUpload: FC<{ demoVideo?: string }> = ({ demoVideo }) => {
+const ProjectDemoUpload: FC<{ demoVideo?: string; projectId: string; isClose: boolean }> = ({
+  demoVideo,
+  projectId,
+  isClose
+}) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
   const confirmRef = useRef<ConfirmModalRef>(null);
+  const router = useRouter();
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -70,8 +77,8 @@ const ProjectDemoUpload: FC<{ demoVideo?: string }> = ({ demoVideo }) => {
       setLoading(true);
       const formData = new FormData();
       formData.append('demo', '');
-      // await webApi.resourceStationApi.submitProject(formData, projectId);
-      // await refreshProjectInfo();
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      router.refresh();
     },
     {
       manual: true,
@@ -88,6 +95,7 @@ const ProjectDemoUpload: FC<{ demoVideo?: string }> = ({ demoVideo }) => {
   );
 
   const onDelete = () => {
+    if (isClose) return;
     confirmRef.current?.open({
       onConfirm: deleteRequest
     });
@@ -95,7 +103,7 @@ const ProjectDemoUpload: FC<{ demoVideo?: string }> = ({ demoVideo }) => {
 
   const uploadButton = (
     <div className="flex h-[410px] w-full items-center justify-center rounded-[32px] bg-neutral-off-white">
-      <div className="flex h-[calc(100%-54px)] w-[calc(100%-54px)] items-center justify-center rounded-[24px] border border-dashed border-neutral-medium-gray">
+      <div className="flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-neutral-medium-gray">
         {loading && <LoadingIcon />}
         {!loading && (
           <span className="flex h-fit w-fit items-center transition group-hover:scale-[1.02]">
@@ -116,7 +124,7 @@ const ProjectDemoUpload: FC<{ demoVideo?: string }> = ({ demoVideo }) => {
 
   return (
     <div className="flex flex-col gap-6">
-      {demoVideo && <VideoReview url={demoVideo} onDelete={onDelete} />}
+      {demoVideo && <VideoReview url={demoVideo} onDelete={onDelete} isClose={isClose} />}
       {!demoVideo && (
         <Upload
           name="avatar"
@@ -125,7 +133,9 @@ const ProjectDemoUpload: FC<{ demoVideo?: string }> = ({ demoVideo }) => {
           showUploadList={false}
           beforeUpload={beforeUpload}
           onChange={handleChange}
+          disabled={isClose}
           customRequest={async (option) => {
+            if (isClose) return;
             setLoading(true);
             const { onProgress, onSuccess, onError } = option;
             const file = option.file as RcFile;

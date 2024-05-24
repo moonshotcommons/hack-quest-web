@@ -9,6 +9,8 @@ import { useRequest } from 'ahooks';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import VideoReview from '../VideoReview';
+import webApi from '@/service';
+import { useRouter } from 'next/navigation';
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -18,10 +20,14 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
   reader.readAsDataURL(img);
 };
 
-const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
+const PatchVideoUpload: FC<{ pitchVideo?: string; projectId: string; isClose: boolean }> = ({
+  pitchVideo,
+  projectId,
+  isClose
+}) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-
+  const router = useRouter();
   const confirmRef = useRef<ConfirmModalRef>(null);
 
   const handleChange: UploadProps['onChange'] = (info) => {
@@ -72,8 +78,9 @@ const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
       const formData = new FormData();
       formData.append('video', '');
       formData.append('status', ProjectSubmitStepType.PITCH_VIDEO);
-      // await webApi.resourceStationApi.submitProject(formData, projectId);
+      await webApi.resourceStationApi.submitProject(formData, projectId);
       // await refreshProjectInfo();
+      router.refresh();
     },
     {
       manual: true,
@@ -90,6 +97,7 @@ const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
   );
 
   const onDelete = () => {
+    if (isClose) return;
     confirmRef.current?.open({
       onConfirm: deleteRequest
     });
@@ -97,7 +105,7 @@ const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
 
   const uploadButton = (
     <div className="flex h-[410px] w-full items-center justify-center rounded-[32px] bg-neutral-off-white">
-      <div className="flex h-[calc(100%-54px)] w-[calc(100%-54px)] items-center justify-center rounded-[24px] border border-dashed border-neutral-medium-gray">
+      <div className="flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-neutral-medium-gray">
         {loading && <LoadingIcon />}
         {!loading && (
           <span className="flex h-fit w-fit items-center transition group-hover:scale-[1.02]">
@@ -117,9 +125,9 @@ const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
   );
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       {/* <p className="body-m text-left text-neutral-rich-gray">Please Upload Your Pitch Video, Max 4 mins (Optional)</p> */}
-      {pitchVideo && <VideoReview url={pitchVideo} onDelete={onDelete} />}
+      {pitchVideo && <VideoReview url={pitchVideo} onDelete={onDelete} isClose={isClose} />}
       {!pitchVideo && (
         <Upload
           name="avatar"
@@ -127,16 +135,18 @@ const PatchVideoUpload: FC<{ pitchVideo?: string }> = ({ pitchVideo }) => {
           className="group my-[1px] mt-1 !flex h-[410px] w-full items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
           showUploadList={false}
           beforeUpload={beforeUpload}
+          disabled={isClose}
           onChange={handleChange}
           customRequest={async (option) => {
+            if (isClose) return;
             setLoading(true);
             const { onProgress, onSuccess, onError } = option;
             const file = option.file as RcFile;
             const formData = new FormData();
             formData.append('video', file);
             try {
-              // await webApi.resourceStationApi.submitProject(formData, projectId);
-              // await refreshProjectInfo();
+              await webApi.resourceStationApi.submitProject(formData, projectId);
+              router.refresh();
               onSuccess?.({}, new XMLHttpRequest());
             } catch (err: any) {
               onError?.(err);

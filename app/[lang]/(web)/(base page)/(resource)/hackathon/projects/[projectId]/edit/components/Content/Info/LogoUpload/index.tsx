@@ -17,11 +17,13 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 interface LogoUploadProps {
   form: UseFormReturn<FormSchema, any, undefined>;
   onFileChange: (file: UploadFile) => void;
+  isClose: boolean;
 }
 
-const LogoUpload: FC<LogoUploadProps> = ({ form, onFileChange }) => {
+const LogoUpload: FC<LogoUploadProps> = ({ form, onFileChange, isClose }) => {
   const [loading, setLoading] = useState(false);
   const handleChange: UploadProps['onChange'] = (info) => {
+    if (isClose) return;
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
@@ -82,6 +84,7 @@ const LogoUpload: FC<LogoUploadProps> = ({ form, onFileChange }) => {
         listType="picture-card"
         className="group my-[1px] mt-1 [&>div]:flex [&>div]:!h-12 [&>div]:!w-12 [&>div]:items-center [&>div]:justify-center [&>div]:!rounded-[8px] [&>div]:border [&>div]:border-dashed [&>div]:!border-neutral-medium-gray [&>div]:!bg-neutral-off-white [&>div]:hover:!border-yellow-primary"
         showUploadList={false}
+        disabled={isClose}
         // customRequest={() => {}}
         beforeUpload={beforeUpload}
         onChange={handleChange}

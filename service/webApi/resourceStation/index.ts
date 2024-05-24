@@ -237,6 +237,8 @@ class ResourceStationApi {
 
   /** 提交project */
   submitProject(data: FormData, projectId?: string) {
+    console.log(projectId && isUuid(projectId));
+
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
     return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data

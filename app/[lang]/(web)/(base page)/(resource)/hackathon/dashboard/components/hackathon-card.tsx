@@ -8,7 +8,7 @@ import { LeaveTeamModal } from '@/components/hackathon/leave-team-modal';
 import { ManageTeamModal } from '@/components/hackathon/manage-team-modal';
 import { WithdrawModal } from '@/components/hackathon/withdraw-modal';
 import MenuLink from '@/constants/MenuLink';
-import { cn } from '@/helper/utils';
+import { cn, copyText } from '@/helper/utils';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
@@ -94,12 +94,14 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
             <h4 className="body-s text-neutral-medium-gray">Submission Type</h4>
             <div className="flex h-8 items-center gap-2">
               <GroupUsersIcon />
-              <span className="body-s text-neutral-off-black">{isGroupProject ? 'Group Project' : 'Solo Project'}</span>
+              <span className="body-s truncate whitespace-nowrap text-neutral-off-black ">
+                {isGroupProject ? 'Group Project' : 'Solo Project'}
+              </span>
             </div>
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">{isGroupProject ? 'Team Name' : 'Name'}</h4>
-            <span className="body-s leading-8 text-neutral-off-black">
+            <span className="body-s truncate whitespace-nowrap leading-8 text-neutral-off-black ">
               {hackathon.participation?.team?.name ||
                 `${hackathon.participation?.firstName} ${hackathon.participation?.lastName}`}
             </span>
@@ -109,7 +111,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
               <h4 className="body-s text-neutral-medium-gray">Team Code</h4>
               <div className="body-xs inline-flex items-center justify-center gap-5 rounded-[0.5rem] bg-yellow-extra-light px-4 py-1.5">
                 <span className="text-neutral-off-black">{hackathon.participation?.team?.code}</span>
-                <button className="outline-none">
+                <button className="outline-none" onClick={() => copyText(hackathon.participation?.team?.code)}>
                   <CopyIcon className="h-5 w-5 text-neutral-medium-gray" />
                 </button>
               </div>

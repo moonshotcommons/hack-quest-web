@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { create } from 'zustand';
 import { useRouter } from 'next/navigation';
+import { errorMessage } from '@/helper/ui';
 
 interface State {
   open: boolean;
@@ -32,7 +33,8 @@ export function LeaveTeamModal() {
     onSuccess: () => {
       onClose();
       router.refresh();
-    }
+    },
+    onError: (err) => errorMessage(err)
   });
   return (
     <Modal open={open} onClose={() => {}}>

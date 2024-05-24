@@ -58,7 +58,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
   const isTeamLeader = hackathon.participation?.team?.creatorId === hackathon.participation?.userId;
 
-  const isPartiallySubmitted = isSubmitted && !projectId;
+  const isPartiallySubmitted = !isSubmitted && projectId;
 
   const role = isGroupProject ? (isTeamLeader ? ROLES.TEAM_LEADER : ROLES.TEAM_MEMBER) : ROLES.SOLO;
 
@@ -77,7 +77,11 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
       )}
 
       {hasPermission(role, status, 'edit') && (
-        <PrimaryButton onClick={() => router.push(`/hackathon/${hackathon.alias}/edit`)}>edit submission</PrimaryButton>
+        <PrimaryButton
+          onClick={() => router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`)}
+        >
+          edit submission
+        </PrimaryButton>
       )}
 
       {hasPermission(role, status, 'manage') && (

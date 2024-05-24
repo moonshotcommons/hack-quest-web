@@ -24,16 +24,17 @@ interface InfoProps {
   form: UseFormReturn<FormSchema, any, undefined>;
   setLogo: (file: UploadFile) => void;
   hackathon: HackathonType;
+  isClose: boolean;
 }
 
-const Info: FC<InfoProps> = ({ form, setLogo, hackathon }) => {
+const Info: FC<InfoProps> = ({ form, setLogo, hackathon, isClose }) => {
   return (
     <div className="flex flex-col gap-8">
       <Title>
         <span className="text-h3">Info</span>
       </Title>
       <div className="flex justify-between gap-4">
-        <LogoUpload form={form} onFileChange={setLogo} />
+        <LogoUpload form={form} onFileChange={setLogo} isClose={isClose} />
         <div className="flex-1">
           <CustomFormField
             name="projectName"
@@ -51,8 +52,8 @@ const Info: FC<InfoProps> = ({ form, setLogo, hackathon }) => {
         placeholder="Please select"
         items={LOCATIONS}
       />
-      <ProjectPrizeTrackRadio tracks={hackathon.rewards.map((item) => item.name)} form={form} />
-      <ProjectTrackRadio tracks={TRACKS} form={form} />
+      <ProjectPrizeTrackRadio tracks={hackathon.rewards.map((item) => item.name)} form={form} isClose={isClose} />
+      <ProjectTrackRadio tracks={TRACKS} form={form} isClose={isClose} />
 
       {/* <div className="flex w-full justify-between gap-4">
             <div className="flex-1">

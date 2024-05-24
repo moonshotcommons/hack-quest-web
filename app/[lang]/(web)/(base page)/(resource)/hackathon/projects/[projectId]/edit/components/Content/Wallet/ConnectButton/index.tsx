@@ -8,15 +8,18 @@ import { FC, useState } from 'react';
 import Button from '@/components/Common/Button';
 import { message } from 'antd';
 import Image from 'next/image';
+import webApi from '@/service';
+import { useRouter } from 'next/navigation';
+import { cn } from '@/helper/utils';
 
 export interface ConnectButtonProps {
   wallet: string | undefined;
   projectId: string | undefined;
-  refreshProjectInfo: VoidFunction;
   onDisconnect: VoidFunction;
+  isClose: boolean;
 }
 
-export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, refreshProjectInfo, onDisconnect }) => {
+export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, onDisconnect, isClose }) => {
   const [bindPending, setBindPending] = useState(false);
   const userInfo = useUserStore((state) => state.userInfo);
 
@@ -28,15 +31,14 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, refre
     }))
   );
 
-  const submit = () => {};
+  const router = useRouter();
 
   const { run: bindWallet, loading: connectLoading } = useRequest(
     async (address: `0x${string}`) => {
       const formData = new FormData();
       formData.append('wallet', address);
-      // formData.append('status', newStatus!);
-      // await webApi.resourceStationApi.submitProject(formData, projectId);
-      // await refreshProjectInfo();
+      await webApi.resourceStationApi.submitProject(formData, projectId);
+      router.refresh();
     },
     {
       manual: true,
@@ -118,11 +120,13 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, refre
 
               return (
                 <Button
+                  htmlType="button"
                   block
                   className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray hover:scale-100 [&>span]:inline-block [&>span]:w-full"
                   loading={authenticationStatus === 'loading' || connectLoading}
                   disabled={authenticationStatus === 'loading' || connectLoading}
                   onClick={() => {
+                    if (isClose) return;
                     onDisconnect();
                   }}
                 >
@@ -131,7 +135,12 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, refre
                       <Image src={'/images/login/metamask.svg'} alt="wallet" width={30} height={30} />
                       <span>{wallet?.toString()?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
                     </span>
-                    <span className="underline-m flex cursor-pointer items-center text-neutral-rich-gray">
+                    <span
+                      className={cn(
+                        'underline-m flex cursor-pointer items-center text-neutral-rich-gray',
+                        isClose ? 'cursor-not-allowed' : 'cursor-pointer'
+                      )}
+                    >
                       <Image src={'/images/icons/disconnect.svg'} alt="disconnect" width={24} height={24} />
                       <span className="ml-1">Disconnect</span>
                     </span>
