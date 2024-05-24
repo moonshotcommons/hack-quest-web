@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { InfoIcon, MoveRightIcon, Trash2Icon, XIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
@@ -12,7 +13,6 @@ import { create } from 'zustand';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import { TeamMemberInfo } from '@/service/webApi/resourceStation/type';
-import { useRouter } from 'next/navigation';
 
 interface State {
   open: boolean;
@@ -110,7 +110,11 @@ export function ManageTeamModal() {
           <h2 className="mb-1 text-base text-neutral-rich-gray">Team Code</h2>
           <div className="flex w-full items-center justify-between rounded-[0.5rem] bg-yellow-extra-light px-6 py-3">
             <span className="text-base text-neutral-off-black">{code}</span>
-            <button aria-label="Copy Team Code" className="text-neutral-medium-gray outline-none">
+            <button
+              aria-label="Copy Team Code"
+              className="text-neutral-medium-gray outline-none"
+              onClick={() => navigator.clipboard.writeText(code)}
+            >
               <CopyIcon className="h-5 w-5" />
             </button>
           </div>
