@@ -37,7 +37,7 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
   return (
     <div className="flex w-full flex-col gap-[32px] overflow-hidden" ref={boxRef}>
       <Title title={t(titleTxtData[titleTxtData.length - 3])} />
-      {videoTab.length > 1 && (
+      {videoTab.length > 0 && (
         <>
           <VideoTab tab={videoTab} curIndex={curIndex} handleChangeTab={setCurIndex} />
           <div

@@ -23,7 +23,7 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
   const isEnd = useMemo(() => {
     return dayjs().tz().isAfter(hackathon?.rewardTime);
   }, [hackathon]);
-  if (isEnd && (!project.vote || rankInfo?.rank !== 1)) return null;
+  if ((isEnd && (!project.vote || rankInfo?.rank !== 1)) || !rankInfo || !hackathon) return null;
   return (
     <div className="sticky left-0 top-[4rem] z-[2]  w-full bg-yellow-extra-light  px-[1.25rem] py-[.75rem]">
       <div className="body-xs gap-[12px] text-neutral-off-black">
@@ -50,7 +50,11 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
         </div>
         {(!project.vote || !isEnd) && (
           <div className="mt-[.5rem]">
-            <CountDown time={hackathon?.rewardTime} countItemClassName="bg-neutral-white" />
+            <CountDown
+              time={hackathon?.rewardTime}
+              countItemClassName="bg-neutral-white body-m-bold"
+              formatClassName="body-s"
+            />
           </div>
         )}
       </div>
