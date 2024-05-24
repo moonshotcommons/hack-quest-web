@@ -91,6 +91,9 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
       },
+      boxShadow: {
+        modal: '0px 4px 8px 0px rgba(0, 0, 0, 0.12)'
+      },
       colors: {
         ...themeColors,
         border: 'hsl(var(--border))',

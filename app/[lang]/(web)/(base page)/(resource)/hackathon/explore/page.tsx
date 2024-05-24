@@ -2,16 +2,37 @@ import { PageLayout } from '@/components/hackathon/page-layout';
 import { getFeaturedProjects, getHackathonsList } from '@/service/cach/resource/hackathon';
 import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { ExploreContent } from './components/explore-content';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
+import { Metadata } from 'next';
+import MenuLink from '@/constants/MenuLink';
 
 export const dynamic = 'force-dynamic';
 
+export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = props.params;
+
+  return {
+    title: 'HackQuest',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EXPLORE_HACKATHON}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.EXPLORE_HACKATHON}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.EXPLORE_HACKATHON}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.EXPLORE_HACKATHON}`
+      }
+    }
+  };
+}
+
 export default async function Page({
-  params: { slug = [] },
+  params: { slug = [], lang },
   searchParams
 }: {
-  params: { slug: string[] };
+  params: { slug: string[]; lang: Lang };
   searchParams: { curTab?: HackathonStatusType };
 }) {
+  const { t } = await useTranslation(lang, TransNs.HACKATHON);
   const status = searchParams.curTab || HackathonStatusType.ON_GOING;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
@@ -34,10 +55,7 @@ export default async function Page({
     miniHackathonList = res.data;
   }
   return (
-    <PageLayout
-      title="Explore Hackathons"
-      description="Explore ongoing hackathons, uncover past projects, and dive into the world of innovation. Your journey through the realm of creativity begins here! 🚀💡"
-    >
+    <PageLayout lang={lang} slug="explore_hackathons" title={t('explore.title')} description={t('explore.description')}>
       <ExploreContent
         featured={featured}
         hackathonList={hackathon.data}

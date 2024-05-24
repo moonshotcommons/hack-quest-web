@@ -7,7 +7,7 @@ import { cn } from '@/helper/utils';
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
->(({ className, value, max = 100, ...props }, ref) => (
+>(({ className, value, max = 100, children, ...props }, ref) => (
   <div className="flex w-full items-center gap-2">
     <ProgressPrimitive.Root
       ref={ref}
@@ -21,10 +21,18 @@ const Progress = React.forwardRef<
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </ProgressPrimitive.Root>
-    <span className="text-xs font-light text-neutral-rich-gray">{value}%</span>
+    {children}
   </div>
 ));
 
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress };
+const ProgressLabel = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
+  ({ className, ...props }, ref) => {
+    return <span className={cn('text-xs font-light text-neutral-rich-gray', className)} ref={ref} {...props} />;
+  }
+);
+
+ProgressLabel.displayName = 'ProgressLabel';
+
+export { Progress, ProgressLabel };
