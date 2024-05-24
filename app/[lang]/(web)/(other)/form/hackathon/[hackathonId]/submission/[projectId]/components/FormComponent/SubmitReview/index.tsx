@@ -10,6 +10,7 @@ import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { LOCATIONS_SHORT } from '../../constants';
 import { ProjectLocation } from '@/service/webApi/resourceStation/type';
+import Link from 'next/link';
 
 interface SubmitReviewProps {}
 
@@ -209,9 +210,11 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
                 <span>Other Info</span>
                 {arrowIcon}
               </div>
-              <div className="flex flex-1 items-center justify-between">
+              <div className="flex flex-1 items-center justify-between gap-4">
                 <span className="body-xs flex items-center  text-neutral-rich-gray">Github</span>
-                <span className="body-xs text-neutral-off-black">{others.githubLink}</span>
+                <Link href={others.githubLink} className="body-xs truncate text-neutral-off-black">
+                  {others.githubLink}
+                </Link>
               </div>
               <div className="flex flex-1 items-center justify-between">
                 <span className="body-xs flex items-center  text-neutral-rich-gray">Open Source</span>
