@@ -2,7 +2,7 @@
 
 import Button from '@/components/Common/Button';
 import MenuLink from '@/constants/MenuLink';
-import { separationNumber } from '@/helper/utils';
+import { cn, separationNumber } from '@/helper/utils';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -30,10 +30,15 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
 
   function renderStatusTag() {
     return (
-      <span>
-        <span className="rounded-[0.5rem] border-2 border-status-success-dark px-3 py-1 text-lg uppercase text-status-success-dark">
-          {status}
-        </span>
+      <span
+        className={cn(
+          'rounded-[0.5rem] border-2 border-status-success-dark px-3 py-1 text-lg uppercase text-status-success-dark',
+          {
+            'border-neutral-medium-gray text-neutral-medium-gray': status === 'ended'
+          }
+        )}
+      >
+        {status}
       </span>
     );
   }

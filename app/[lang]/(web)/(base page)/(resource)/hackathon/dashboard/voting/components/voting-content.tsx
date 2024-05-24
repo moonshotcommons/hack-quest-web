@@ -9,7 +9,7 @@ import HackathonEmpty from '@/components/hackathon/hackathon-empty';
 import { HackathonVotingCard } from '../../components/hackathon-voting-card';
 import PastHackathonCard from '../../../components/HackathonBox/Past/PastHackathonCard';
 
-export function VotingContent({ votes }: { votes: HackathonVoteType[] }) {
+export function VotingContent({ votes, stats }: { votes: HackathonVoteType[]; stats: any }) {
   const { value, onValueChange } = useQueryRouter({
     queryKey: 'status',
     defaultValue: 'ongoing'
@@ -17,7 +17,7 @@ export function VotingContent({ votes }: { votes: HackathonVoteType[] }) {
   return (
     <div className="mt-8">
       <h1 className="mb-8 font-next-book-bold text-[1.75rem] font-bold text-neutral-black">Voting Hackathon</h1>
-      <VotingRole role="user" size="large" votes={{ user: 50, advocate: 100, judge: 200 }} />
+      <VotingRole size="large" votes={stats.votes} />
       <Tabs defaultValue="ongoing" className="mt-8 w-full" value={value} onValueChange={onValueChange}>
         <TabsList>
           <TabsTrigger value="ongoing">Ongoing Hackathon</TabsTrigger>
