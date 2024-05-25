@@ -1,4 +1,5 @@
-import { ReactNode, useMemo } from 'react';
+'use client';
+import { ReactNode, useEffect, useMemo } from 'react';
 
 import { CourseBaseType } from '@/service/webApi/course/type';
 import React, { useState } from 'react';
@@ -40,6 +41,12 @@ const CourseFilterList = <T extends CourseBaseType>({
   const cardWidth = useMemo(() => {
     return `w-[calc((100%-${gap * (cardCount - 1)}px)/${cardCount})]`;
   }, [gap, cardCount]);
+
+  useEffect(() => {
+    setFilters(propFilters);
+    setSort(propSort);
+  }, [propFilters, propSort]);
+
   return (
     <div className="flex flex-col gap-y-8">
       <h3 className="text-h3 text-neutral-black">{title}</h3>
@@ -52,17 +59,13 @@ const CourseFilterList = <T extends CourseBaseType>({
         sort={sort}
         updateSort={(newSort) => {
           setSort(newSort);
+          debugger;
           onFilterParamsUpdate(mergeFilterParams(filters, newSort));
         }}
       ></FilterSelect>
-      {/* <CourseCardSkeleton.List></CourseCardSkeleton.List> */}
-      {/* <Loading loading={!!loading}> */}
+
       <div className="h-fit min-h-[600px] w-full">
-        {/* {!!courseList?.length && ( */}
         <div className="flex h-full flex-1 flex-wrap gap-x-5 gap-y-8 pb-[20px]">
-          {/* {courseList?.map((course, index) => {
-              return <div key={course.id + index}>{renderItem(course)}</div>;
-            })} */}
           <CourseCardSkeleton.List itemWidth={cardWidth} active={loading as boolean}>
             {courseList?.map((course, index) => {
               return (
@@ -73,9 +76,7 @@ const CourseFilterList = <T extends CourseBaseType>({
             })}
           </CourseCardSkeleton.List>
         </div>
-        {/* )} */}
       </div>
-      {/* </Loading> */}
     </div>
   );
 };

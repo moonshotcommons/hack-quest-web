@@ -3,6 +3,7 @@ import { MotionProps } from 'framer-motion';
 import { FilterItemType, FilterOptionType, FilterParamsType } from './type';
 import { CourseLanguageType } from '@/service/webApi/course/type';
 import { LanguageTab } from '@/app/[lang]/mobile/(base page)/(learn)/learning-track/constants/type';
+import { cloneDeep } from 'lodash-es';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -85,9 +86,42 @@ export const mergeFilterParams = (
     const values = f.options.filter((option) => option.isSelect).map((o) => o.value);
     if (values.length) filtersObject[key] = values.join(',');
   });
+
   return {
     ...filtersObject,
     sort: (sortValue as string) || '',
     keyword: keyword || ''
+  };
+};
+
+export const mergeFilterParamsToQueryString = (...args: Utils.GetFunctionParams<typeof mergeFilterParams>) => {
+  const searchParams = new URLSearchParams(mergeFilterParams(...args));
+  return searchParams.toString();
+};
+
+export const initFilterParams = (searchParams: Record<string, string | number>) => {
+  let filters = cloneDeep(courseDefaultFilters);
+  let sorts = cloneDeep(courseDefaultSort).map((item) => {
+    if (searchParams.sort === item.value) item.isSelect = true;
+    else item.isSelect = false;
+    return item;
+  });
+
+  for (let key in searchParams) {
+    const values = String(searchParams[key]).split(',');
+    const filter = filters.find((item) => item.filterField === key);
+    if (filter) {
+      filter.options = filter.options.map((option) => {
+        if (values.includes(option.value)) {
+          option.isSelect = true;
+        }
+        return option;
+      });
+    }
+  }
+
+  return {
+    filters,
+    sorts
   };
 };

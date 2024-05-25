@@ -1,3 +1,4 @@
+'use client';
 import { ReactNode, useContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { LangContext } from '@/components/Provider/Lang';
