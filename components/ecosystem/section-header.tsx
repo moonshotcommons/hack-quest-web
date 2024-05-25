@@ -5,11 +5,13 @@ import { Badge } from '@/components/ui/badge';
 export function SectionHeader({
   title,
   tag,
+  progress,
   points,
   completed = false
 }: {
   title: string;
   tag: string;
+  progress: [number, number];
   points: number;
   completed?: boolean;
 }) {
@@ -24,7 +26,9 @@ export function SectionHeader({
         )}
       </span>
       <span className="flex flex-col gap-1">
-        <span className="text-left text-base font-bold text-neutral-black sm:text-lg">{title}</span>
+        <span className="text-left text-base font-bold text-neutral-black sm:text-lg">
+          {title} {progress && `(${progress[0]}/${progress[1]})`}
+        </span>
         <span className="flex items-center gap-2">
           <Badge>{tag}</Badge>
           <span className="text-sm text-neutral-medium-gray sm:text-base">+{points} Points</span>

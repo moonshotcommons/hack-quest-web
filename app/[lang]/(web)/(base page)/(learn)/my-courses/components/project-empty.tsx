@@ -11,7 +11,6 @@ export function ProjectEmpty() {
     queryKey: ['featuredCourses'],
     queryFn: () => webApi.courseApi.getTopCourses<ProjectCourseType>({ type: CourseType.GUIDED_PROJECT })
   });
-  console.log(data);
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">

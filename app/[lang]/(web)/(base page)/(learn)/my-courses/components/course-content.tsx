@@ -26,8 +26,6 @@ export function CourseContent() {
     }
   });
 
-  console.log(data);
-
   return (
     <Tabs className="mt-6 w-full" value={value} onValueChange={setValue}>
       <TabsList className="justify-start">
