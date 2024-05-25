@@ -52,10 +52,6 @@ const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = ({ title, keyw
     <CourseFilterList
       title={title}
       onFilterParamsUpdate={(params) => {
-        // getCourseList({
-        //   ...params,
-        //   type:
-        // });
         params.keyword = keyword;
         const searchParams = new URLSearchParams(params);
         router.replace(`${MenuLink.ELECTIVES}?${searchParams.toString()}`);
