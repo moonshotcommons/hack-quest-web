@@ -79,8 +79,8 @@ const Content: React.FC<ContentProp> = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: defaultValues,
-    disabled: isClose
+    defaultValues: defaultValues
+    // disabled: isClose
   });
 
   const otherFormDisable =
