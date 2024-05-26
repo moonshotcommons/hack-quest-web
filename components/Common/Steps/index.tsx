@@ -50,7 +50,8 @@ const Steps: FC<StepsProps> = (props) => {
             > */}
             <div
               className={cn(
-                'caption-12pt flex min-h-10 min-w-[90px] flex-col items-center justify-between',
+                'caption-12pt flex  min-w-[90px] flex-col items-center justify-between',
+                ' min-h-10',
                 itemClassName
               )}
             >
