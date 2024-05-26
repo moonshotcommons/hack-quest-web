@@ -34,8 +34,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     semi: 'off', //语句强制分号结尾,
     'unused-imports/no-unused-imports': 'off',
-    'react/no-children-prop': 'warn',
+    'react/no-children-prop': 'warn'
     // 'prettier/prettier': ['error', { printWidth: 160 }]
-    'prettier/prettier': 'off'
   }
 };
