@@ -42,6 +42,12 @@ const Steps: FC<StepsProps> = (props) => {
         const status = getStatus(index, item.status)!;
         return (
           <div key={index} className={cn('flex min-h-[40px]', index === items.length - 1 ? 'w-fit' : 'w-full')}>
+            {/* <div
+              className={cn(
+                'caption-12pt flex min-h-10 min-w-[90px] flex-col items-center justify-between',
+                itemClassName
+              )}
+            > */}
             <div
               className={cn(
                 'caption-12pt flex min-h-10 min-w-[90px] flex-col items-center justify-between',
