@@ -79,7 +79,8 @@ const Content: React.FC<ContentProp> = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
+    disabled: isClose
   });
 
   const otherFormDisable =
@@ -157,10 +158,6 @@ const Content: React.FC<ContentProp> = ({
       });
     }
   };
-
-  useEffect(() => {
-    if (isClose) form.control._disableForm(true);
-  }, [isClose]);
 
   return (
     <>
