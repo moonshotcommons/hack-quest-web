@@ -1,16 +1,26 @@
 'use client';
 import { Lang, TransNs } from '@/i18n/config';
-import React from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from '@/i18n/client';
 import DeveloperCover from '@/public/images/learn/develpoer_cover.png';
 import { BiSearch } from 'react-icons/bi';
+import { LangContext } from '@/components/Provider/Lang';
 
 interface IndexProp {
-  lang: Lang;
+  keyword?: string;
+  searchKeyword: (key: string) => void;
 }
 
-const Index: React.FC<IndexProp> = ({ lang }) => {
+const Index: React.FC<IndexProp> = ({ keyword, searchKeyword }) => {
+  const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
+  const timer = useRef<NodeJS.Timeout | null>(null);
+  const search = (val: string) => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      searchKeyword(val);
+    }, 1000);
+  };
   return (
     <div
       className="flex-center h-[360px] bg-cover bg-no-repeat"
@@ -29,7 +39,7 @@ const Index: React.FC<IndexProp> = ({ lang }) => {
             placeholder={t('searchPlaceholder')}
             onChange={(e) => {
               const value = e.target.value;
-              console.info(value);
+              search(value);
             }}
           />
         </div>
