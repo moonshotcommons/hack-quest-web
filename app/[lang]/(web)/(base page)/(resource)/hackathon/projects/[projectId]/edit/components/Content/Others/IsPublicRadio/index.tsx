@@ -14,8 +14,7 @@ const IsPublicRadio = ({ form, isClose }: ProjectTypeRadioProps) => {
       <div className="flex w-full justify-between gap-5">
         <div
           onClick={() => {
-            debugger;
-            form.watch('isPublic') === true;
+            if (isClose) return;
             form.setValue('isPublic', true);
             form.trigger('isPublic');
           }}
@@ -31,6 +30,7 @@ const IsPublicRadio = ({ form, isClose }: ProjectTypeRadioProps) => {
         </div>
         <div
           onClick={() => {
+            if (isClose) return;
             form.setValue('isPublic', false);
             form.trigger('isPublic');
           }}

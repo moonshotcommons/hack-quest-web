@@ -61,11 +61,33 @@ class CourseApi {
     });
   }
 
+  /** 获取课程列表信息 */
+  async fetchTopCourses<T>(
+    ...args: Utils.GetFunctionParams<typeof this.getTopCourses>
+  ): ReturnType<typeof this.getTopCourses<T>> {
+    const cacheFn = cache(async () => {
+      return this.getTopCourses<T>(...args);
+    });
+
+    return cacheFn();
+  }
+
   /** 获取课程列表信息By search */
   getCourseListBySearch<T>(params: object) {
     return this.service.get<T>(`${CourseApiType.Course_List}`, {
       params
     });
+  }
+
+  /** 获取课程列表信息 */
+  async fetchCourseList<T>(
+    ...args: Utils.GetFunctionParams<typeof this.getCourseListBySearch>
+  ): ReturnType<typeof this.getCourseListBySearch<T>> {
+    const cacheFn = cache(async () => {
+      return this.getCourseListBySearch<T>(...args);
+    });
+
+    return cacheFn();
   }
 
   /** 获取UGC课程列表信息By search */

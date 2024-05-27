@@ -304,3 +304,12 @@ export const copyText = async (text?: string) => {
     message.warning('The browser version is too low or incompatible！');
   }
 };
+
+export const toDoubleArray = <T,>(baseArray: T[], count: number) => {
+  const copyArray = [...baseArray];
+  let res = [];
+  while (copyArray.length) {
+    res.push(copyArray.splice(0, count));
+  }
+  return res;
+};

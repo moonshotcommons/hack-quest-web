@@ -5,47 +5,46 @@ import Header from './components/Header';
 import { initFilterParams, mergeFilterParams } from '@/components/Web/Business/CourseFilterList/constant';
 import { useTranslation } from '@/i18n/server';
 import webApi from '@/service';
-import { ElectiveCourseType, ElectiveListDataType } from '@/service/webApi/elective/type';
-import { CourseType } from '@/service/webApi/course/type';
-import { cn } from '@/helper/utils';
-import MobCourseFilterListDefault from './components/MobCourseFilterListDefault';
+import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
+import { PageResult } from '@/service/webApi/type';
 import ViewMoreTopList from './components/ViewMoreTopList';
+import MobCourseFilterListDefault from './components/MobCourseFilterListDefault';
+import { cn } from '@/helper/utils';
 
 export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = props.params;
 
   return {
-    title: 'HackQuest Electives',
+    title: 'HackQuest Projects',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/electives`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/practices`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}/electives`,
-        en: `https://www.hackquest.io/${Lang.EN}/electives`,
-        zh: `https://www.hackquest.io/${Lang.ZH}/electives`
+        'x-default': `https://www.hackquest.io/${Lang.EN}/practices`,
+        en: `https://www.hackquest.io/${Lang.EN}/practices`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/practices`
       }
     }
   };
 }
-
-interface ElectivesPageProps {
+interface PracticesPageProps {
   searchParams: Partial<Api.Courses.CourseSearchParams>;
   params: {
     lang: Lang;
   };
 }
 
-const ElectivesPage: FC<ElectivesPageProps> = async ({ searchParams = {}, params: { lang } }) => {
+const PracticesPage: FC<PracticesPageProps> = async ({ searchParams = {}, params: { lang } }) => {
   const { filters, sorts } = initFilterParams(searchParams);
   const { keyword } = searchParams;
 
   const { t } = await useTranslation(lang, TransNs.LEARN);
 
-  const electives = await webApi.courseApi.fetchCourseList<ElectiveListDataType>({
+  const projects = await webApi.courseApi.fetchCourseList<PageResult<ProjectCourseType>>({
     ...mergeFilterParams(filters, sorts, keyword),
-    type: `${CourseType.MINI},${CourseType.UGC}`
+    type: CourseType.GUIDED_PROJECT
   });
-  const topElectives = await webApi.courseApi.fetchTopCourses<ElectiveCourseType>({
-    type: `${CourseType.MINI},${CourseType.UGC}`
+  const topProjects = await webApi.courseApi.fetchTopCourses<ProjectCourseType>({
+    type: CourseType.GUIDED_PROJECT
   });
 
   return (
@@ -53,21 +52,27 @@ const ElectivesPage: FC<ElectivesPageProps> = async ({ searchParams = {}, params
       <div className="relative mx-auto w-full">
         <Header lang={lang} keyword={keyword || ''} />
         <div className="absolute left-0 top-[15.5rem] z-[10] flex w-full flex-col rounded-t-[2rem] bg-neutral-off-white px-[1.25rem] py-[2.5rem]">
-          {!keyword && (
+          {/* {type === CourseFilterListType.DEFAULT && (
             <div className="flex flex-col">
-              <h2 className="text-h2-mob mb-5 text-neutral-black">{t('electives.topElectives')}</h2>
-              <ViewMoreTopList topElectives={topElectives} />
+              <h2 className="text-h2-mob mb-5 text-neutral-black">{t('practice.topProjects')}</h2>
+              <MobViewMoreList
+                list={topProjects}
+                limit={2}
+                renderItem={(item) => {
+                  return <MobPracticeCard course={item}></MobPracticeCard>;
+                }}
+              ></MobViewMoreList>
             </div>
-          )}
-
-          <div className={cn(!keyword ? 'pt-[40px]' : '')}>
+          )} */}
+          <ViewMoreTopList topCourses={topProjects} />
+          <div className={cn(!keyword ? '' : 'mt-[40px]')}>
             <MobCourseFilterListDefault
-              courseList={electives.data}
+              courseList={projects.data}
               filters={filters}
               keyword={keyword || ''}
               sorts={sorts}
               title={keyword ? t('courses.searchResultFor', { keyword }) : t('electives.exploreWeb3')}
-            />
+            ></MobCourseFilterListDefault>
           </div>
         </div>
         {/*
@@ -81,4 +86,4 @@ const ElectivesPage: FC<ElectivesPageProps> = async ({ searchParams = {}, params
   );
 };
 
-export default ElectivesPage;
+export default PracticesPage;
