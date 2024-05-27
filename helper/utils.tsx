@@ -11,7 +11,7 @@ import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

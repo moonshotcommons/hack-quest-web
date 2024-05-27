@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es';
 import { useDrag } from 'react-dnd';
 import { isNull } from '@/helper/utils';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 

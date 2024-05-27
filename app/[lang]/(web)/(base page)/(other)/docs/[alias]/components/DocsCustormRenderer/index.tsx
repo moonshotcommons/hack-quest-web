@@ -1,5 +1,5 @@
 'use client';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useEffect } from 'react';
 
 interface DocsCustomRendererProps {

@@ -2,7 +2,7 @@ import webApi from '@/service';
 import { ProjectCourseType } from '@/service/webApi/course/type';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

@@ -1,7 +1,7 @@
 import { FC, ReactElement, ReactNode, cloneElement } from 'react';
 import icons from './index';
 import { IconsType } from './type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 interface ButtonExampleProps {
   // children: ReactNode;

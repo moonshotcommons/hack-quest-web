@@ -8,7 +8,7 @@ import OKX from '@/public/images/login/okx.png';
 import webApi from '@/service';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { omit } from 'lodash-es';
 import Image from 'next/image';
 import React, { useState } from 'react';

@@ -15,7 +15,7 @@ const List: React.FC<ListProp> = async ({ lang, hackathons }) => {
   return (
     <div className="mt-[3.75rem]">
       <p className="text-h2-mob text-neutral-black">{t('votingHackathons')}</p>
-      {!hackathons.length ? (
+      {hackathons.length > 0 ? (
         <div className="mt-[1.25rem] flex flex-col  gap-[1.25rem]">
           {hackathons.map((hackathon) => (
             <div key={hackathon.id} className="w-full">

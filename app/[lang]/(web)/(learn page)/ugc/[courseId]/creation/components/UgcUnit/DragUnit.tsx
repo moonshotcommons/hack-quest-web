@@ -5,7 +5,7 @@ import Unit from './Unit';
 import { cloneDeep } from 'lodash-es';
 import { isNull } from '@/helper/utils';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useUgcCreationStore } from '@/store/zustand/ugcCreationStore';
 import { useShallow } from 'zustand/react/shallow';
 

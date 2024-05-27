@@ -4,7 +4,7 @@ import Modal from '@/components/Common/Modal';
 import { HACKQUEST_DISCORD } from '@/constants/links';
 import webApi from '@/service';
 import { CoustomKeywordType } from '@/service/webApi/resourceStation/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';

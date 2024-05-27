@@ -6,7 +6,7 @@ import HoverIcon from '@/components/Web/Business/HoverIcon';
 import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import webApi from '@/service';
 import Confirm from '../components/Confirm';
 import { useConnectModal } from '@rainbow-me/rainbowkit';

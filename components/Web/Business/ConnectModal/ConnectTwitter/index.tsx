@@ -8,7 +8,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { ConnectType } from '@/service/webApi/user/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Link from 'next/link';
 import { HACKQUEST_TWITTER } from '@/constants/links';
 

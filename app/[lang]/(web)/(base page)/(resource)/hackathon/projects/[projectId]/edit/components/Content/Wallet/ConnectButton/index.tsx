@@ -6,7 +6,7 @@ import { errorMessage } from '@/helper/ui';
 import { useRequest } from 'ahooks';
 import { FC, useState } from 'react';
 import Button from '@/components/Common/Button';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Image from 'next/image';
 import webApi from '@/service';
 import { useRouter } from 'next/navigation';

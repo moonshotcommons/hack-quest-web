@@ -3,7 +3,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { useDebounceFn } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useContext, useMemo, useRef, useState } from 'react';
 import { useGetLessonLink } from './useGetLessonLink';
 import { useRedirect } from '../router/useRedirect';

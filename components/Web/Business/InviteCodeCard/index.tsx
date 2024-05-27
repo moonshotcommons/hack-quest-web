@@ -3,7 +3,7 @@ import { FC, useMemo, useState } from 'react';
 import Button from '@/components/Common/Button';
 import { VscAdd } from 'react-icons/vsc';
 import { ShareWrap, shareList } from './constant';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { BurialPoint } from '@/helper/burialPoint';
 import PopBox from './PopBox';
 import { cn } from '@/helper/utils';
