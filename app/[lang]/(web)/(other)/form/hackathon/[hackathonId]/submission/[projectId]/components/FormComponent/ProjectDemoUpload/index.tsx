@@ -109,6 +109,7 @@ const ProjectDemoUpload: FC<
           ? ProjectSubmitStepType.OTHERS
           : status;
 
+      debugger;
       const formData = new FormData();
       formData.append('status', newStatus);
       await webApi.resourceStationApi.submitProject(formData, projectId);

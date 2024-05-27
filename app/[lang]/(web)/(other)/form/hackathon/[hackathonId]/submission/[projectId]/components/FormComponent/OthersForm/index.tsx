@@ -63,7 +63,7 @@ const OthersForm: FC<
     {
       manual: true,
       onSuccess({ res, newOtherInfo, status }) {
-        onNext({ others: newOtherInfo, status, projectId: projectId || res.id });
+        onNext({ others: newOtherInfo, status });
       },
       onError(err) {
         errorMessage(err);

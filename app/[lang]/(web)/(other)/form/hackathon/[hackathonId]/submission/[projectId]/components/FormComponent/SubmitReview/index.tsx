@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { FormComponentProps } from '..';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
@@ -11,6 +11,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { LOCATIONS_SHORT } from '../../constants';
 import { ProjectLocation } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 interface SubmitReviewProps {}
 
@@ -29,7 +30,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
 
   const { info, projectDemo, others, wallet, isSubmit } = formState;
 
-  const { run: submit, loading } = useRequest(
+  const confirmModal = useRef<ConfirmModalRef>(null);
+
+  const { runAsync: submit, loading } = useRequest(
     () => {
       return webApi.resourceStationApi.projectSubmit(projectId!);
     },
@@ -38,7 +41,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
       onSuccess() {
         !isSubmit && message.success(`Submit ${info.projectName} success!`);
         isSubmit && message.success(`Update register info success!`);
-        redirectToUrl(`/hackathon/${simpleHackathonInfo.alias}`);
+        if (simpleHackathonInfo.id === '61b378f5-14ce-4136-b0f4-74b659175013') {
+          redirectToUrl(`https://aspecta.id/builder-matrix/Linea-builder-launchpad`);
+        } else redirectToUrl(`/hackathon/dashboard`);
       },
       onError(err) {
         errorMessage(err);
@@ -246,12 +251,23 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           htmlType="submit"
           className={cn('button-text-m w-[165px] px-0 py-4 uppercase')}
           // disabled={disabled}
-          onClick={submit}
+          onClick={() => {
+            confirmModal.current?.open({
+              onConfirm: submit
+            });
+          }}
           loading={loading}
         >
           {isSubmit ? 'update' : 'submit'}
         </Button>
       </div>
+      <ConfirmModal ref={confirmModal} confirmText="YES">
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to submit your project?</h4>
+        <p className="body-m mt-5 text-center text-neutral-off-black">
+          After successful submission, you will be directed to Aspecta’s builder Launchpad page. You can attest to your
+          builder’s identity and join Linea Buidlers Club there.{' '}
+        </p>
+      </ConfirmModal>
     </div>
   );
 };
