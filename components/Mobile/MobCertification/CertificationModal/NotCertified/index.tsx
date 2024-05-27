@@ -7,7 +7,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useContext } from 'react';
 
 interface NotCertifiedProps {

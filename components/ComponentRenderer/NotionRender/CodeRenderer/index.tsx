@@ -1,7 +1,7 @@
 import { Theme } from '@/constants/enum';
 import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';

@@ -7,7 +7,7 @@ import { ListDataType } from '..';
 import { dateInterval, dealDate } from '../utils';
 import Confirm from '../../components/Confirm';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { BurialPoint } from '@/helper/burialPoint';
 
 interface ListProp {

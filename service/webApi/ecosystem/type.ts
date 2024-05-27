@@ -9,6 +9,7 @@ export interface EcosystemType {
   language: string;
   tags: string[];
   track: string;
+  certificateDesc: string;
 }
 
 export interface EcosystemLevelType {

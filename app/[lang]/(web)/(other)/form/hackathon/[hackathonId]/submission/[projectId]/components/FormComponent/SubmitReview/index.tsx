@@ -5,7 +5,7 @@ import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { LOCATIONS_SHORT } from '../../constants';

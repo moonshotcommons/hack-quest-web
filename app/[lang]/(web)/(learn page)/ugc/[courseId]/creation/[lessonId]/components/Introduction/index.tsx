@@ -9,7 +9,7 @@ import { CreationHandle, useUgcCreationStore } from '@/store/zustand/ugcCreation
 import { CourseLanguageType, CourseType } from '@/service/webApi/course/type';
 import webApi from '@/service';
 import { useShallow } from 'zustand/react/shallow';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
 import { UgcCreateContext } from '../../../constant/type';

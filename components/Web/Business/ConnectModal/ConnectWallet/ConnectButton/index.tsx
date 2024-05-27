@@ -11,7 +11,7 @@ import { useState } from 'react';
 import Button from '@/components/Common/Button';
 import { WalletConnectState } from '..';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 export interface ConnectButtonProps {
   t: TFunction;

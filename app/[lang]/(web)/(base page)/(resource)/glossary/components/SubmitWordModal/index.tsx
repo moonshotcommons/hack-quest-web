@@ -7,7 +7,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import webApi from '@/service';
 import { CoustomKeywordType } from '@/service/webApi/resourceStation/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';

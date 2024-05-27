@@ -36,7 +36,7 @@
     "@vercel/analytics": "^1.0.2",
     "accept-language": "^3.0.18",
     "ahooks": "^3.7.8",
-    "antd": "^5.6.4",
+    "antd": "^5.17.3",
     "async-validator": "^4.2.5",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.7.0",

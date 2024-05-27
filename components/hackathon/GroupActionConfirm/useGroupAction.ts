@@ -1,7 +1,7 @@
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 export const useGroupAction = () => {
   const { runAsync: deleteGroup } = useRequest(

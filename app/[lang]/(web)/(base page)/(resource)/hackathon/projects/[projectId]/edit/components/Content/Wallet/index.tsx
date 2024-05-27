@@ -2,7 +2,7 @@
 import { FC, memo, useRef } from 'react';
 import { ConnectButton } from './ConnectButton';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import DisconnectModal, { DisconnectModalRef } from './DisconnectModal';

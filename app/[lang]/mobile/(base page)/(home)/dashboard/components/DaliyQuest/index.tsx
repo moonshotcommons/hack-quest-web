@@ -9,7 +9,7 @@ import Image from 'next/image';
 import IconCoin from '@/public/images/mission-center/icon_coin.png';
 import IconXp from '@/public/images/mission-center/icon_xp.png';
 import Button from '@/components/Common/Button';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import webApi from '@/service';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';

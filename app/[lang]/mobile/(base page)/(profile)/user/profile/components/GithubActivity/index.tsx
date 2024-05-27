@@ -8,7 +8,7 @@ import { IconType } from '@/components/Web/Business/HoverIcon/type';
 import { ProfileContext } from '../../constants/type';
 import Confirm from '../components/Confirm';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
 import { separationNumber } from '@/helper/utils';

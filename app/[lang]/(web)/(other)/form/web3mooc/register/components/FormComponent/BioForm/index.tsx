@@ -13,7 +13,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
 import EnrolledSingaporeRadio from './EnrolledSingaporeRadio';

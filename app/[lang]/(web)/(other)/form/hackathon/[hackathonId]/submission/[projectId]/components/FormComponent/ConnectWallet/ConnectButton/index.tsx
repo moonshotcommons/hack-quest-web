@@ -7,7 +7,7 @@ import { errorMessage } from '@/helper/ui';
 import { useRequest } from 'ahooks';
 import { FC, useState } from 'react';
 import Button from '@/components/Common/Button';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Image from 'next/image';
 import { HACKATHON_SUBMIT_STEPS } from '../../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';

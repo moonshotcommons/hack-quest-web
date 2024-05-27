@@ -13,7 +13,7 @@ import { ShareWrap, shareList } from '@/components/Web/Business/InviteCodeCard/c
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { ProfileHandleType } from '@/app/[lang]/(web)/(base page)/(profile)/user/profile/constants/type';
 import { errorMessage } from '@/helper/ui';
 import { LangContext } from '@/components/Provider/Lang';

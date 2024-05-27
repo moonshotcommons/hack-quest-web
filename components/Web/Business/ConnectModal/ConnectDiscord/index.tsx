@@ -7,7 +7,7 @@ import { TransNs } from '@/i18n/config';
 import { useContext, useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { ConnectType } from '@/service/webApi/user/type';
 import { errorMessage } from '@/helper/ui';
 import Link from 'next/link';
