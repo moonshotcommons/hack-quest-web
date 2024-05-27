@@ -16,7 +16,7 @@ const About: React.FC<AboutProp> = ({ hackathon }) => {
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonDetail.about')} />
-      <p className="body-m text-neutral-rich-gray">{hackathon.about}</p>
+      <p className="body-m whitespace-pre-line text-neutral-rich-gray">{hackathon.about}</p>
     </div>
   );
 };
