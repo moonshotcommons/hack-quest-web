@@ -278,3 +278,8 @@ export interface RegisterInfoBody {
   selfIntroduction?: string | null;
   status?: NtuRegisterStep;
 }
+
+export interface CourseCountType {
+  elective: number;
+  project: number;
+}

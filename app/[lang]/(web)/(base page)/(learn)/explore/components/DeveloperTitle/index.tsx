@@ -6,7 +6,6 @@ import Image, { StaticImageData } from 'next/image';
 import React, { useContext } from 'react';
 
 interface DeveloperTitleProp {
-  lang: Lang;
   image: StaticImageData;
   title: string;
 }

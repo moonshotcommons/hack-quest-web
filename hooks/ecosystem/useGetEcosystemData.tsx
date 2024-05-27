@@ -8,9 +8,10 @@ export const useGetEcosystemData = () => {
     }))
   );
 
-  const getEcosystems = async () => {
-    let res = await webApi.ecosystemApi.getEcosystems();
-    setEcosystem(res);
+  const getEcosystems = async (keyword?: string) => {
+    const params = { keyword };
+    let res = await webApi.ecosystemApi.getEcosystems(params);
+    if (!keyword) setEcosystem(res);
     return res;
   };
 

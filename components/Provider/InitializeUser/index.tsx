@@ -22,13 +22,13 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) =
   const { getEcosystems } = useGetEcosystemData();
 
   useEffect(() => {
+    getEcosystems();
     if (userInfo) {
       const token = getToken();
       token && setCookie(TOKEN_KEY, token);
       updateMissionDataAll();
       updateNotification();
     }
-    getEcosystems();
   }, [userInfo]);
 
   return <>{children}</>;

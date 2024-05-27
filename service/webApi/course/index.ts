@@ -1,5 +1,6 @@
 import WebService from '@/service/webService/webService';
 import {
+  CourseCountType,
   CourseDetailType,
   CourseLessonStateType,
   CourseLessonType,
@@ -271,6 +272,10 @@ class CourseApi {
   /** showAnswer 扣金币 */
   showAnswerCostCoin(lessonId: string) {
     return this.service.get(`/pages/${lessonId}/answer`);
+  }
+
+  getCourseCount() {
+    return this.service.get<CourseCountType>(`${CourseApiType.Course_List}/count`);
   }
 }
 
