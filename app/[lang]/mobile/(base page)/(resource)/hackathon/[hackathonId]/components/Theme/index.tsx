@@ -16,7 +16,7 @@ const Theme: React.FC<ThemeProp> = ({ hackathon }) => {
   return (
     <div className="flex flex-col ">
       <Title title={t('hackathonDetail.theme')} />
-      <p className="body-s text-neutral-rich-gray">{hackathon.theme}</p>
+      <p className="body-s whitespace-pre-line text-neutral-rich-gray">{hackathon.theme}</p>
     </div>
   );
 };
