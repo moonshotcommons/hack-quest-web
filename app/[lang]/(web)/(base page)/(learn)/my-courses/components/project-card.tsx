@@ -1,16 +1,16 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { CheckIcon, CodeXmlIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import { Badge } from '@/components/ui/badge';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import Image from 'next/image';
-import { getDefaultImageUrl } from './utils';
 import MenuLink from '@/constants/MenuLink';
-import Link from 'next/link';
-import { CheckIcon, CodeXmlIcon } from 'lucide-react';
+import { getCoverImageByTrack } from '@/helper/utils';
 
 export function ProjectCard({
   project,
@@ -31,12 +31,11 @@ export function ProjectCard({
     <Link href={getCourseDetailLink()}>
       <div className="card-hover flex flex-col overflow-hidden rounded-2xl bg-neutral-white">
         <div className="relative h-40 w-full">
-          <Image
-            src={project.image || getDefaultImageUrl(project.track)}
-            alt={project.title}
-            fill
-            className="object-cover"
-          />
+          {project.image ? (
+            <Image src={project.image} alt={project.title} fill className="object-cover" />
+          ) : (
+            getCoverImageByTrack(project.track)
+          )}
         </div>
         <div className="flex flex-col gap-3 p-4">
           <div className="flex items-center justify-between gap-3">

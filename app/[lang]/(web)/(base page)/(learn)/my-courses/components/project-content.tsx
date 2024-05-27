@@ -1,12 +1,12 @@
 'use client';
 
 import * as React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/line-tabs';
-import webApi from '@/service';
 import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import webApi from '@/service';
 import { PageResult } from '@/service/webApi/type';
-import { useQuery } from '@tanstack/react-query';
 import { ProjectCard } from './project-card';
 import { ProjectEmpty } from './project-empty';
 

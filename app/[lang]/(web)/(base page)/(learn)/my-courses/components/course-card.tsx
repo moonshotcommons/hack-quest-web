@@ -1,16 +1,16 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { BookOpenIcon, CheckIcon, CodeXmlIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import Image from 'next/image';
-import { getDefaultImageUrl } from './utils';
 import MenuLink from '@/constants/MenuLink';
-import Link from 'next/link';
+import { getDefaultImageUrl } from './utils';
 
 export function CourseCard({
   course,

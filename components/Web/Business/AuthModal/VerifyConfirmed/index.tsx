@@ -118,7 +118,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       };
     } else {
       setAuthModalOpen(false);
-      redirectToUrl('/dashboard');
+      redirectToUrl('/welcome');
     }
   }, [countDown]);
 

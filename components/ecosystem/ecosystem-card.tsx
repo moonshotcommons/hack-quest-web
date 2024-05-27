@@ -1,6 +1,6 @@
-import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
 
 function convertString(input?: string) {
   const lowerCaseString = input?.toLowerCase();
