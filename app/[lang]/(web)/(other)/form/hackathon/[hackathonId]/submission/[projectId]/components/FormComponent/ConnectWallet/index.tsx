@@ -21,7 +21,6 @@ const ConnectWallet: FC<
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
-      debugger;
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
           ? ProjectSubmitStepType.REVIEW
