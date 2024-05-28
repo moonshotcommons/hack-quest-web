@@ -31,8 +31,8 @@
     "registrationOpen": "Registration Open",
     "submissionsClose": "Submissions Close",
     "rewardAnnouncement": "Reward Announcement",
-    "about":"About",
-    "theme":"Theme",
+    "about": "About",
+    "theme": "Theme",
     "rewards": "Rewards",
     "guestsMentors": "Guests & Mentors",
     "mediaPartners": "Media Partners",
@@ -52,7 +52,8 @@
     "trackTotalReward": "{{track}} Total Reward",
     "orientation": "Orientation",
     "openZoomMeeting": "Open Zoom meeting",
-    "submitWarning": "You are not the team owner, please contact the administrator"
+    "submitWarning": "You are not the team owner, please contact the administrator",
+    "editSubmission": "edit submission"
   },
   "projectsDetail": {
     "title": {

@@ -67,8 +67,8 @@ export const LOCATIONS = [
 
 export const TRACKS = [
   {
-    label: 'Defi',
-    value: 'Defi'
+    label: 'DeFi',
+    value: 'DeFi'
   },
   {
     label: 'NFT',
