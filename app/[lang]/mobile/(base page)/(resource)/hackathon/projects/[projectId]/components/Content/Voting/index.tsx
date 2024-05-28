@@ -2,7 +2,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HackathonType, ProjectRankType, ProjectType } from '@/service/webApi/resourceStation/type';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import Title from '../../Title';
 import VotingInfo from './VotingInfo';

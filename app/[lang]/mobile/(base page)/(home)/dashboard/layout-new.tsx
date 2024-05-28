@@ -1,7 +1,9 @@
+import * as React from 'react';
 import { EcosystemSelect } from '@/components/ecosystem/ecosystem-select';
+import { MintCertificateModal } from './components/mint-certificate-modal';
 import { ClaimCertificateModal } from './components/claim-certificate-modal';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -12,8 +14,8 @@ export default function DashboardLayout({
         <EcosystemSelect />
       </div>
       {children}
-      {/* <ViewCertificateModal /> */}
       <ClaimCertificateModal />
+      <MintCertificateModal />
     </div>
   );
 }

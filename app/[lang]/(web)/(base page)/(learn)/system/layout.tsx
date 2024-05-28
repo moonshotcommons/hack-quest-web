@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { EcosystemSelect } from '@/components/ecosystem/ecosystem-select';
-import { HackathonCard } from './components/hackathon-card';
-import { MissionCenterCard } from './components/mission-center-card';
-import { MyCertificateCard } from './components/my-certificate-card';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
+import { MyCertificateCard } from '../../(home)/dashboard/components/my-certificate-card';
+import { ClaimCertificateModal } from '../../(home)/dashboard/components/claim-certificate-modal';
+import { MintCertificateModal } from '../../(home)/dashboard/components/mint-certificate-modal';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -18,14 +18,14 @@ export default function DashboardLayout({
           <div className="py-8">{children}</div>
         </div>
         <div className="flex flex-col gap-8">
-          <HackathonCard />
-          <MissionCenterCard />
+          {/* <HackathonCard /> */}
+          {/* <MissionCenterCard /> */}
           <MyCertificateCard />
           <FollowDiscord />
         </div>
       </div>
-      {/* <ViewCertificateModal /> */}
-      {/* <ClaimCertificateModal /> */}
+      <ClaimCertificateModal />
+      <MintCertificateModal />
     </div>
   );
 }

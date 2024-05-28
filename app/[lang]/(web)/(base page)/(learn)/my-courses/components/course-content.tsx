@@ -42,7 +42,9 @@ export function CourseContent() {
         </div>
       </TabsContent>
       <TabsContent value="completed">
-        {data?.length ? data?.map((item) => <CourseCard key={item.id} course={item} />) : <CourseEmpty />}
+        <div className="flex flex-col gap-8">
+          {data?.length ? data?.map((item) => <CourseCard key={item.id} completed course={item} />) : <CourseEmpty />}
+        </div>
       </TabsContent>
     </Tabs>
   );

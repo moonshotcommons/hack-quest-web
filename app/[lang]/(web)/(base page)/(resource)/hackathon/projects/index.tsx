@@ -13,6 +13,8 @@ export interface SearchParamsType {
   createdAt: string;
   winner: boolean | string;
   tracks: string;
+  track: string;
+  prizeTrack: string;
 }
 export interface PageInfoType {
   page: number;
@@ -51,8 +53,13 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, search
     createdAt: searchParams.createdAt || projectSort[0].value,
     winner: searchParams.winner || '',
     tracks: searchParams.tracks || '',
+    track: Array.isArray(searchParams.track) ? searchParams.track.join(',') : searchParams.track || '',
+    prizeTrack: Array.isArray(searchParams.prizeTrack)
+      ? searchParams.prizeTrack.join(',')
+      : searchParams.prizeTrack || '',
     keyword: searchParams.keyword || ''
   };
+
   const project = await webApi.resourceStationApi.getProjectsList({
     ...pageInfo,
     ...params

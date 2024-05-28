@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import About from './About';
@@ -13,7 +13,6 @@ import { LangContext } from '@/components/Provider/Lang';
 import MenuLink from '@/constants/MenuLink';
 import PastHackathonCard from '../../../components/HackathonBox/Past/PastHackathonCard';
 import SliderCard from '@/components/Web/Business/SliderCard';
-import { useRouter } from 'next/router';
 
 interface HackathonVotingProps {
   hackathon: HackathonType;
