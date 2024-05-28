@@ -59,6 +59,7 @@
       "info": "Info",
       "overview": "Overview",
       "voting": "Voting",
+      "votingFor":"Voting for {{name}}",
       "videos": "Videos",
       "introduction": "Introduction",
       "team": "Team"
