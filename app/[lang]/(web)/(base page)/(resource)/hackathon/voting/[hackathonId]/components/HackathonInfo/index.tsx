@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import { HackathonType, HackathonTypeVotesRoleType } from '@/service/webApi/resourceStation/type';
@@ -51,11 +51,11 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       [HackathonTypeVotesRoleType.JUDGE]: hackathon.votes[HackathonTypeVotesRoleType.JUDGE] || 0
     };
     const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
+    console.info(vote[HackathonTypeVotesRoleType.JUDGE] / total);
     return {
-      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 4) * 100 + '%',
-      [HackathonTypeVotesRoleType.ADVOCATE]:
-        decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 4) * 100 + '%',
-      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 4) * 100 + '%'
+      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 2),
+      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
+      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
     };
   }, [hackathon]);
 
@@ -79,6 +79,18 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         setLoading(false);
       });
   };
+
+  function handleBeforeUnload(event: BeforeUnloadEvent) {
+    isCanSubmit && event.preventDefault();
+  }
+  useEffect(() => {
+    // 监听离开页面的事件
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      // 组件卸载时移除事件监听
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isCanSubmit]);
 
   return (
     <Box className="sticky right-0 top-[40px] flex flex-col  gap-[24px] p-[24px] pb-[20px] text-neutral-off-black">

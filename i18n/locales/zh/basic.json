@@ -69,6 +69,8 @@
       "title": "学习",
       "myCourse": "我的课程",
       "myCourseDesc": "查看所有课程和项目",
+      "ecosystem": "生态系统",
+      "ecosystemDesc": "探索 Web3 生态系统",
       "explore": "探索",
       "exploreDesc": "查看不同的 Web3 生态系统",
       "learningTrack": "学习路径",
@@ -83,9 +85,9 @@
       "ntuCourseDesc": "南洋理工大学 Web3 公开课"
     },
     "build": {
-      "title": "构建",
+      "title": "实战",
       "myHackathon": "我的黑客松",
-      "myHackathonDesc": "查看我所有的黑客马拉松活动",
+      "myHackathonDesc": "查看所有的黑客松活动",
       "exploreHackathons": "探索黑客松",
       "exploreHackathonsDesc": "与我们的团队一起构建 Web3 的未来",
       "hackathonVoting": "黑客松投票",

@@ -1,5 +1,5 @@
 import WebService from '@/service/webService/webService';
-import { EcosystemDetailType, EcosystemType } from './type';
+import { EcosystemDetailType, EcosystemTask, EcosystemType } from './type';
 
 export enum EcosystemApiType {
   ECOSYSTEMS = 'ecosystems'
@@ -21,6 +21,15 @@ class EcosystemApi {
         Authorization: `Bearer ${token}`
       }
     });
+  }
+
+  getEcosystemTasks(id: string, params?: Record<string, string>) {
+    return this.service.get<{ learn: EcosystemTask[]; build: EcosystemTask[]; community: EcosystemTask[] }>(
+      `${EcosystemApiType.ECOSYSTEMS}/${id}/tasks`,
+      {
+        params
+      }
+    );
   }
 }
 

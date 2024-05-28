@@ -24,10 +24,9 @@ const YourVoteRole: React.FC<YourVoteRoleProp> = ({ project, hackathon }) => {
     };
     const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
     return {
-      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 4) * 100 + '%',
-      [HackathonTypeVotesRoleType.ADVOCATE]:
-        decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 4) * 100 + '%',
-      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 4) * 100 + '%'
+      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 2),
+      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
+      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
     };
   }, [hackathon]);
   return (

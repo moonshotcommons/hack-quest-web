@@ -5,9 +5,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { PageInfoType, SearchParamsType } from '../..';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
-import Select from '@/components/Common/Select';
-import { useDebounceFn, useRequest } from 'ahooks';
-import { OptionType } from '@/components/Common/Select/type';
+import { useDebounceFn } from 'ahooks';
 import webApi from '@/service';
 import Checkbox from '@/components/Common/Checkbox';
 import MenuLink from '@/constants/MenuLink';
@@ -19,6 +17,8 @@ import { PiSortAscendingBold } from 'react-icons/pi';
 import ProjectCard from '@/components/Web/Business/ProjectCard';
 import Pagination from '@/components/Common/Pagination';
 import { SearchIcon, XIcon } from 'lucide-react';
+import { MultiSelect } from './multi-select';
+import { useQueries } from '@tanstack/react-query';
 
 interface ListBoxProp {
   list: ProjectType[];
@@ -43,7 +43,6 @@ const ListBox: React.FC<ListBoxProp> = ({
   const [searchValue, setSearchValue] = useState('');
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const [tracks, setTracks] = useState<OptionType[]>([]);
 
   const [hoverSort, setHoverSort] = useState<boolean>(false);
 
@@ -57,27 +56,20 @@ const ListBox: React.FC<ListBoxProp> = ({
     },
     { wait: 100 }
   );
-  const {} = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectTracksDict();
-      return res;
-    },
-    {
-      onSuccess(res) {
-        const newTracks = res?.map((v) => ({
-          label: v,
-          value: v
-        }));
-        setTracks([
-          {
-            label: 'All Tracks',
-            value: ''
-          },
-          ...newTracks
-        ]);
+
+  const [{ data: tracks }, { data: prizeTracks }] = useQueries({
+    queries: [
+      {
+        queryKey: ['tracks'],
+        queryFn: () => webApi.resourceStationApi.getProjectTracksDict()
+      },
+      {
+        queryKey: ['prizeTracks'],
+        queryFn: () => webApi.resourceStationApi.fetchHackathonPrizeTracks()
       }
-    }
-  );
+    ]
+  });
+
   return (
     <div className="flex w-full flex-col pb-[80px]">
       <div className="flex w-full items-center justify-between">
@@ -166,20 +158,9 @@ const ListBox: React.FC<ListBoxProp> = ({
           )}
         </div>
       </div>
-      <div className="mt-4 self-start">
-        <Select
-          name=""
-          state="default"
-          options={tracks}
-          defaultValue={searchParams.tracks.split(',')?.[0] || ''}
-          className="h-[48px]"
-          onChange={(val) => {
-            searchList({
-              ...searchParams,
-              tracks: val as string
-            });
-          }}
-        />
+      <div className="mt-4 flex gap-2 self-start">
+        <MultiSelect queryKey="prizeTrack" name="Prize Track" options={prizeTracks} />
+        <MultiSelect queryKey="track" name="Hackathon Track" options={tracks} />
       </div>
       <div className="my-10 flex w-full flex-wrap gap-x-[20px] gap-y-[40px]">
         {list?.map((project) => (

@@ -2,117 +2,60 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { XIcon } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import { MoveRightIcon, XIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useCertificateModal } from '@/components/ecosystem/use-certificate';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
 import Button from '@/components/Common/Button';
-import { useClaimCertificate } from '@/components/ecosystem/use-claim-certificate';
-
-function ClaimCertificateForm() {
-  const { onNext } = useClaimCertificate();
-  const [name, setName] = React.useState('');
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    onNext();
-  }
-
-  return (
-    <div className="mt-6 flex-1">
-      <form className="flex h-full w-full flex-col" onSubmit={handleSubmit}>
-        <label htmlFor="name" className="text-neutral-rich-gray">
-          Enter Your Name to Claim Certificate
-        </label>
-        <input
-          id="name"
-          type="text"
-          className="my-1 w-full rounded-[0.5rem] p-3 text-base text-neutral-black outline-none ring-1 ring-neutral-light-gray"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <p className="text-sm text-neutral-medium-gray">
-          Once you claim the certificate, you’ll not be able to change your name
-        </p>
-        <button
-          disabled={!name}
-          type="submit"
-          className="mt-auto h-12 w-full rounded-full bg-yellow-primary text-sm font-medium uppercase text-neutral-black outline-none disabled:bg-neutral-light-gray disabled:text-neutral-medium-gray"
-        >
-          continue
-        </button>
-      </form>
-    </div>
-  );
-}
-
-function CertificateDetails() {
-  return (
-    <>
-      <p className="mt-2 text-sm text-neutral-medium-gray">
-        You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your
-        expertise.
-      </p>
-      <div className="relative mt-5 h-[12.125rem] w-full rounded-[0.5rem] border border-neutral-medium-gray">
-        <Image src="/images/ecosystem/solana-certificate.png" alt="solana certificate" fill />
-      </div>
-      <div className="mt-5 flex flex-col gap-4 rounded-2xl bg-neutral-off-white p-4">
-        <div className="relative">
-          <Image src="/images/ecosystem/certificate.png" width={85} height={56} alt="certificate" />
-        </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="font-bold text-neutral-off-black">Don’t know how to mint certificate?</h2>
-          <p className="text-sm text-neutral-medium-gray">Follow steps in the video to get your web 3 certificate.</p>
-          <Link href="/hackathon/explore" className="self-start">
-            <div className="inline-flex items-center gap-1.5">
-              <span className="text-sm font-medium capitalize text-neutral-black">Learn more</span>
-              <MoveRightIcon size={16} />
-            </div>
-          </Link>
-        </div>
-      </div>
-      <div className="mt-auto flex flex-col gap-4">
-        <Button type="primary" size="small" className="h-12 w-full text-sm font-medium uppercase">
-          Mint
-        </Button>
-        <Button ghost size="small" className="h-12 w-full text-sm font-medium uppercase">
-          View Profile
-        </Button>
-      </div>
-    </>
-  );
-}
-
-const steps: Record<number, React.FC> = {
-  1: ClaimCertificateForm,
-  2: CertificateDetails
-};
 
 export function ClaimCertificateModal() {
-  const { open, step, onClose } = useClaimCertificate();
-  const Component = steps[step];
+  const router = useRouter();
+  const { open, type, data, onClose } = useCertificateModal();
+
+  const isOpen = open && type === 'claim';
+
+  const mutation = useMutation({
+    mutationKey: ['claimCertificate', data?.id],
+    mutationFn: () => webApi.campaignsApi.claimCertification(data?.id),
+    onSuccess: () => {
+      onClose();
+      router.refresh();
+    }
+  });
 
   React.useEffect(() => {
-    if (open) {
+    if (isOpen) {
       document.body.classList.add('overflow-hidden');
     } else {
       document.body.classList.remove('overflow-hidden');
     }
-  }, [open]);
+  }, [isOpen]);
 
-  return open
+  return isOpen
     ? createPortal(
         <div className="fixed inset-x-0 top-16 z-50 h-[calc(100vh-4rem)]">
-          <div className="relative flex h-full flex-col bg-neutral-white px-5 py-6">
-            <button className="absolute right-4 top-6 outline-none" onClick={onClose}>
-              <XIcon size={24} />
+          <div className="relative flex h-full w-full flex-col bg-neutral-white px-5 py-6">
+            <button className="absolute right-4 top-6 outline-none" onClick={() => onClose()}>
+              <XIcon size={32} />
             </button>
-            <div className="mt-11 flex flex-col gap-2">
-              <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
-              <h1 className="text-lg font-bold text-neutral-off-black sm:text-2xl">
-                Congratulations! You’re a Certified Solana Learner
-              </h1>
+            <h1 className="mt-11 text-lg font-bold text-neutral-off-black">Become a Starter Solana Developer</h1>
+            <p className="mt-3 text-sm text-neutral-medium-gray">
+              Complete tasks to earn official certificate from Solana ecosystem. After you earn 100 points from level 1,
+              you will get a starter certificate and level up. Get 500 points to become an expert Solana developer.
+            </p>
+            <div className="relative mt-5 h-[12.125rem] w-full rounded-[0.5rem]">
+              <Image src={data?.image} alt={data?.name} fill />
             </div>
-            <Component />
+            <Button
+              loading={mutation.isPending}
+              type="primary"
+              className="mt-auto h-12 w-full uppercase"
+              onClick={() => mutation.mutate()}
+            >
+              claim certificate
+            </Button>
           </div>
         </div>,
         document.body

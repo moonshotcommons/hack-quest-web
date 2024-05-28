@@ -229,35 +229,31 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   return (
     <>
-      {start && (
-        <div
-          className={cn(
-            `flex  w-full flex-col rounded-[.625rem] bg-neutral-white pb-[20px]`,
-            start ? 'min-h-[calc(50%-20px)] flex-1' : 'min-h-fit'
-          )}
-        >
-          {QuizHeader}
-          {start && (
-            <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
-              <div className={`h-full overflow-hidden px-[0px]`}>
-                {quiz.children.map((item, index) => {
-                  if (currentQuizIndex !== index) return null;
-                  return (
-                    <ComponentRenderer
-                      parent={quiz}
-                      key={item.id}
-                      component={item}
-                      prevComponent={null}
-                      nextComponent={null}
-                      position={0}
-                    ></ComponentRenderer>
-                  );
-                })}
-              </div>
-            </QuizContext.Provider>
-          )}
-        </div>
-      )}
+      <div
+        className={cn(
+          `  w-full flex-col rounded-[.625rem] bg-neutral-white pb-[20px]`,
+          start ? 'flex min-h-[calc(50%-20px)] flex-1' : 'hidden min-h-fit'
+        )}
+      >
+        {QuizHeader}
+        <QuizContext.Provider value={{ onPass, currentQuizIndex, parentQuiz: quiz }}>
+          <div className={`h-full overflow-hidden px-[0px]`}>
+            {quiz.children.map((item, index) => {
+              if (currentQuizIndex !== index) return null;
+              return (
+                <ComponentRenderer
+                  parent={quiz}
+                  key={item.id}
+                  component={item}
+                  prevComponent={null}
+                  nextComponent={null}
+                  position={0}
+                ></ComponentRenderer>
+              );
+            })}
+          </div>
+        </QuizContext.Provider>
+      </div>
       {!start && (
         <div className="inline-flex h-fit w-full items-center justify-between rounded-[.625rem]  py-[8px]">
           <h1 className="text-h4">Quest</h1>

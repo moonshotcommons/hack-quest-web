@@ -33,13 +33,16 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   };
   const getProjects = async (search: SearchType) => {
     setLoading(true);
-    const res = await webApi.resourceStationApi.getVoteProjectsByHackathonId(hackathon.id, search);
+    const res = await webApi.resourceStationApi.getProjectsList({
+      ...search,
+      hackathonId: hackathon.id
+    });
     if (isInit) {
-      setInitProjects(res);
+      setInitProjects(res.data);
     }
     setLoading(false);
     setIsInit(false);
-    setProjects(res);
+    setProjects(res.data);
   };
 
   const handleRandom = () => {

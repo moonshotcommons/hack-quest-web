@@ -5,10 +5,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { PageInfoType, SearchParamsType } from '../..';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
-import Select from '@/components/Common/Select';
-import { useRequest, useToggle } from 'ahooks';
-import { OptionType } from '@/components/Common/Select/type';
-import webApi from '@/service';
+import { useToggle } from 'ahooks';
 import Checkbox from '@/components/Common/Checkbox';
 import MenuLink from '@/constants/MenuLink';
 import { GoCheck } from 'react-icons/go';
@@ -18,7 +15,8 @@ import { PiSortAscendingBold } from 'react-icons/pi';
 import Pagination from '@/components/Common/Pagination';
 import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import MobProjectCard from '@/components/Mobile/MobProjectCard';
-import { SearchIcon, XIcon } from 'lucide-react';
+import { SearchIcon, SlidersHorizontalIcon, XIcon } from 'lucide-react';
+import { FilterModal } from './filter-modal';
 
 interface ListBoxProp {
   list: ProjectType[];
@@ -44,7 +42,6 @@ const ListBox: React.FC<ListBoxProp> = ({
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const [tracks, setTracks] = useState<OptionType[]>([]);
 
   const [hoverSort, setHoverSort] = useState<boolean>(false);
 
@@ -52,27 +49,6 @@ const ListBox: React.FC<ListBoxProp> = ({
     setSearchValue(defaultValue);
   }, [defaultValue]);
 
-  const {} = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectTracksDict();
-      return res;
-    },
-    {
-      onSuccess(res) {
-        const newTracks = res?.map((v) => ({
-          label: v,
-          value: v
-        }));
-        setTracks([
-          {
-            label: 'All Tracks',
-            value: ''
-          },
-          ...newTracks
-        ]);
-      }
-    }
-  );
   return (
     <div className="pb-[3.75rem]">
       <div className="mt-10">
@@ -128,7 +104,12 @@ const ListBox: React.FC<ListBoxProp> = ({
                       <li
                         key={option.value}
                         className={`body-m flex cursor-pointer items-center justify-between gap-[2.5rem] whitespace-nowrap px-3 py-2 text-neutral-black hover:bg-neutral-off-white ${option.value === searchParams.createdAt && 'bg-neutral-off-white'}`}
-                        onClick={() => {}}
+                        onClick={() => {
+                          searchList({
+                            ...searchParams,
+                            createdAt: option.value
+                          });
+                        }}
                       >
                         <span>{t(option.label)}</span>
                         {option.value === searchParams.createdAt && (
@@ -158,26 +139,13 @@ const ListBox: React.FC<ListBoxProp> = ({
               <div className="whitespace-nowrap">{t('projects.winner')}</div>
             </div>
           </div>
-          {/* <button
-            className="flex min-w-36 items-center justify-center rounded-full border border-neutral-black p-3 text-xs uppercase text-neutral-black outline-none"
+          <button
+            className="flex h-8 min-w-[140px] items-center justify-center rounded-full border border-neutral-black p-3 text-xs uppercase text-neutral-black outline-none"
             onClick={filterModalActions.toggle}
           >
             <SlidersHorizontalIcon size={16} />
             <span className="ml-2">Filters</span>
-          </button> */}
-          <Select
-            name=""
-            state="default"
-            options={tracks}
-            defaultValue={searchParams.tracks.split(',')?.[0] || ''}
-            className="h-[2.125rem]"
-            onChange={(val) => {
-              searchList({
-                ...searchParams,
-                tracks: val as string
-              });
-            }}
-          />
+          </button>
         </div>
       </div>
       <div className="mt-[1.75rem] flex w-full flex-col gap-[1rem]">
@@ -196,21 +164,7 @@ const ListBox: React.FC<ListBoxProp> = ({
           ></Pagination>
         )}
       </div>
-      {/* <Modal open={filterModalVisible} onClose={filterModalActions.toggle} className="w-full">
-        <div className="relative w-full rounded-2xl bg-neutral-white px-5 py-8">
-          <button className="absolute right-4 top-4 outline-none">
-            <XIcon size={20} onClick={filterModalActions.toggle} />
-          </button>
-          <h2 className="text-base font-bold">Hackathon Track</h2>
-          <div>
-            {tracks.map((track) => (
-              <div key={track.value}>
-                <Checkbox checked={true} outClassNames="border-neutral-medium-gray w-[1.375rem] h-[1.375rem]" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </Modal> */}
+      <FilterModal open={filterModalVisible} onClose={filterModalActions.toggle} />
     </div>
   );
 };

@@ -42,7 +42,10 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
               </>
             )}
           </div>
-          <Link href={`${MenuLink.PROJECTS}`} className="relative flex items-center gap-[.25rem]">
+          <Link
+            href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
+            className="relative flex items-center gap-[.25rem]"
+          >
             <span>{t('viewAllProjects')}</span>
             <IoIosArrowForward />
             <div className="absolute bottom-0 left-0 h-[2px] w-full  rounded-[2px] bg-yellow-dark"></div>
