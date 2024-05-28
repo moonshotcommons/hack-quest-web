@@ -27,7 +27,7 @@ const AgendaCard: React.FC<AgendaCardProp> = ({ project }) => {
             <h2 className="w-[80%] truncate text-neutral-off-black">{project.name}</h2>
             <LuChevronRight size={40} />
           </Link>
-          <div className="flex max-h-[66px] w-full flex-wrap gap-[12px] overflow-hidden">
+          <div className="flex max-h-[27px] w-full flex-wrap gap-[12px] overflow-hidden">
             {project.tracks?.map((v, i) => <TrackTag track={v} key={i} />)}
           </div>
         </div>
