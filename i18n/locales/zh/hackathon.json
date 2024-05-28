@@ -31,13 +31,13 @@
     "registrationOpen": "Registration Open",
     "submissionsClose": "Submissions Close",
     "rewardAnnouncement": "Reward Announcement",
-    "about":"关于",
-    "theme":"主题",
-    "rewards": "奖励",
-    "guestsMentors": "嘉宾和导师",
-    "mediaPartners": "合作媒体",
-    "communityPartners": "合作社区",
-    "schedule": "日程安排",
+    "about": "About",
+    "theme": "Theme",
+    "rewards": "Rewards",
+    "guestsMentors": "Guests & Mentors",
+    "mediaPartners": "Media Partners",
+    "communityPartners": "Community Partners",
+    "schedule": "Schedule",
     "registration": "Registration",
     "hostBy": "Host by",
     "cohostBy": "Cohost by",
@@ -52,14 +52,15 @@
     "trackTotalReward": "{{track}} Total Reward",
     "orientation": "Orientation",
     "openZoomMeeting": "Open Zoom meeting",
-    "submitWarning": "You are not the team owner, please contact the administrator"
+    "submitWarning": "You are not the team owner, please contact the administrator",
+    "editSubmission": "edit submission"
   },
   "projectsDetail": {
     "title": {
       "info": "Info",
       "overview": "项目概述",
       "voting": "项目投票",
-      "votingFor":"为 {{name}} 投票",
+      "votingFor": "为 {{name}} 投票",
       "videos": "项目视频",
       "introduction": "详细介绍",
       "team": "发表团队"

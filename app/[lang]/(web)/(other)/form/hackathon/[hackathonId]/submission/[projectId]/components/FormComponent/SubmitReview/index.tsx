@@ -42,8 +42,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
         !isSubmit && message.success(`Submit ${info.projectName} success!`);
         isSubmit && message.success(`Update register info success!`);
         if (simpleHackathonInfo.id === '61b378f5-14ce-4136-b0f4-74b659175013') {
-          redirectToUrl(`https://aspecta.id/builder-matrix/Linea-builder-launchpad`);
-        } else redirectToUrl(`/hackathon/dashboard`);
+          window.open('https://aspecta.id/builder-matrix/Linea-builder-launchpad');
+        }
+        redirectToUrl(`/hackathon/dashboard`);
       },
       onError(err) {
         errorMessage(err);
