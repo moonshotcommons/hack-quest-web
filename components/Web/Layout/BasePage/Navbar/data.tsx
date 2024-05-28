@@ -40,29 +40,36 @@ export const navbarList: NavbarListType[] = [
     label: 'navbar.learn.title',
     id: 'learn',
     menu: [
-      // {
-      //   id: 'learningTrack',
-      //   label: 'navbar.learn.learningTrack',
-      //   path: MenuLink.LEARNING_TRACK,
-      //   description: 'navbar.learn.learningTrackDesc'
-      // },
-      // {
-      //   id: 'electives',
-      //   label: 'navbar.learn.electives',
-      //   path: MenuLink.ELECTIVES,
-      //   description: 'navbar.learn.electivesDesc'
-      // },
-      // {
-      //   id: 'projects',
-      //   label: 'navbar.learn.projects',
-      //   path: MenuLink.PRACTICES,
-      //   description: 'navbar.learn.projectsDesc'
-      // },
+      {
+        id: 'learning-track',
+        label: 'navbar.learn.learningTrack',
+        path: MenuLink.LEARNING_TRACK,
+        description: 'navbar.learn.learningTrackDesc'
+      },
+      {
+        id: 'electives',
+        label: 'navbar.learn.electives',
+        path: MenuLink.ELECTIVES,
+        description: 'navbar.learn.electivesDesc'
+      },
+      {
+        id: 'projects',
+        label: 'navbar.learn.projects',
+        path: MenuLink.PRACTICES,
+        description: 'navbar.learn.projectsDesc'
+      },
       {
         id: 'my-course',
         label: 'navbar.learn.myCourse',
         path: MenuLink.MY_COURSES,
         description: 'navbar.learn.myCourseDesc',
+        needLogin: true
+      },
+      {
+        id: 'ecosystem',
+        label: 'navbar.learn.ecosystem',
+        path: '/system' as MenuLink,
+        description: 'navbar.learn.ecosystemDesc',
         needLogin: true
       },
       {
@@ -127,14 +134,14 @@ export const navbarList: NavbarListType[] = [
         description: 'navbar.reward.missionDesc',
         needLogin: true,
         needPC: true
+      },
+      {
+        id: 'campaign',
+        label: 'navbar.reward.campaign',
+        path: MenuLink.CAMPAIGINS,
+        description: 'navbar.reward.campaignDesc',
+        needLogin: true
       }
-      // {
-      //   id: 'campaign',
-      //   label: 'navbar.reward.campaign',
-      //   path: MenuLink.CAMPAIGINS,
-      //   description: 'navbar.reward.campaignDesc',
-      //   needLogin: true
-      // }
     ]
   },
   {

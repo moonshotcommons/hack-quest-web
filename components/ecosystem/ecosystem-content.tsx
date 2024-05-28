@@ -2,11 +2,10 @@
 
 import { LoaderIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/card-tabs';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
 import webApi from '@/service';
-import { EcosystemTask, EcosystemTaskType } from '@/service/webApi/ecosystem/type';
 import { LearnSection } from './learn-section';
 import { BuildSection } from './build-section';
 import { CommunitySection } from './community-section';
@@ -20,6 +19,10 @@ function Loading() {
 }
 
 export function EcosystemContent() {
+  const searchParams = useSearchParams();
+
+  const lang = searchParams?.get('lang') || 'en';
+
   const { ecosystemId } = useParams<{ ecosystemId: string }>();
   const { value, onValueChange } = useQueryRouter({
     queryKey: 'section',
@@ -29,32 +32,8 @@ export function EcosystemContent() {
   const { isLoading, data } = useQuery({
     enabled: !!ecosystemId,
     staleTime: Infinity,
-    retry: 3,
-    queryKey: ['ecosystemTasks', ecosystemId],
-    queryFn: () => webApi.ecosystemApi.getEcosystemTasks(ecosystemId),
-    select: (tasks) => {
-      return tasks.reduce(
-        (acc, task) => {
-          switch (task.type) {
-            case EcosystemTaskType.LEARN:
-              acc.learn.push(task);
-              break;
-            case EcosystemTaskType.BUILD:
-              acc.build.push(task);
-              break;
-            default:
-              acc.community.push(task);
-              break;
-          }
-          return acc;
-        },
-        { learn: [], build: [], community: [] } as {
-          learn: EcosystemTask[];
-          build: EcosystemTask[];
-          community: EcosystemTask[];
-        }
-      );
-    }
+    queryKey: ['ecosystemTasks', ecosystemId, lang],
+    queryFn: () => webApi.ecosystemApi.getEcosystemTasks(ecosystemId, { lang })
   });
 
   return (

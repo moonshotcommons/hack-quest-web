@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
+import webApi from '@/service';
 import { EcosystemContent } from './ecosystem-content';
 import { CertificationInfo } from './certification-info';
-import webApi from '@/service';
 
 export default async function Page({ params }: { params: { ecosystemId: string } }) {
   const token = cookies().get('token')?.value || '';

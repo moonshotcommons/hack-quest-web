@@ -2,12 +2,12 @@ import React from 'react';
 import { PageLayout } from '@/components/hackathon/page-layout';
 import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
+import { useTranslation } from '@/i18n/server';
 import { Lang, TransNs } from '@/i18n/config';
 import { getFeaturedProjects, getHackathonsList } from '@/service/cach/resource/hackathon';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import HackathonVoting from './components';
 import FeaturedProjects from '../components/FeaturedProject';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
-import { useTranslation } from '@/i18n/server';
 
 interface HackathonVotingPageProp {
   params: { lang: Lang };

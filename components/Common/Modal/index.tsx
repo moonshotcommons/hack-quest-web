@@ -13,6 +13,7 @@ interface ModalProps {
   showCloseIcon?: boolean;
   icon?: ReactNode;
   markBg?: string;
+  rootClassName?: string;
   className?: string;
   iconClassName?: string;
   block?: boolean;
@@ -38,6 +39,7 @@ const Modal: React.FC<ModalProps> = (props) => {
     showCloseIcon = false,
     icon,
     markBg = 'black',
+    rootClassName,
     className,
     iconClassName,
     block = false,
@@ -65,7 +67,9 @@ const Modal: React.FC<ModalProps> = (props) => {
       >
         <div className={cn(`fixed bg-black bg-opacity-50`, block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0')} />
         <div className={cn('fixed  overflow-y-auto', block ? 'inset-x-0 bottom-0 top-[64px]' : 'inset-0')}>
-          <div className={cn('flex min-h-full items-center justify-center text-center', block ? '' : 'p-4')}>
+          <div
+            className={cn('flex min-h-full items-center justify-center text-center', block ? '' : 'p-4', rootClassName)}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

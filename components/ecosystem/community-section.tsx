@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
-import { SectionHeader } from './section-header';
 import { EcosystemTask } from '@/service/webApi/ecosystem/type';
+import { SectionHeader } from './section-header';
 
 export function CommunitySection({ tasks }: { tasks: EcosystemTask[] }) {
   return (

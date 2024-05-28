@@ -1,7 +1,7 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ecosystem-accordion';
 import { EcosystemTask } from '@/service/webApi/ecosystem/type';
-import { SectionHeader } from './section-header';
 import { ProjectCard } from '@/components/course/project-card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ecosystem-accordion';
+import { SectionHeader } from './section-header';
 import { ExploreCard } from './explore-card';
 
 export function BuildSection({ tasks }: { tasks: EcosystemTask[] }) {
@@ -21,6 +21,7 @@ export function BuildSection({ tasks }: { tasks: EcosystemTask[] }) {
           <AccordionContent>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
               {task.courses?.map((course) => <ProjectCard key={course.id} course={course} />)}
+              {/* TODO: href will be updated */}
               <ExploreCard label="explore courses" href="/" />
             </div>
           </AccordionContent>

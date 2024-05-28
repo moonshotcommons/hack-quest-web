@@ -23,8 +23,13 @@ class EcosystemApi {
     });
   }
 
-  getEcosystemTasks(id: string) {
-    return this.service.get<EcosystemTask[]>(`${EcosystemApiType.ECOSYSTEMS}/${id}/tasks`);
+  getEcosystemTasks(id: string, params?: Record<string, string>) {
+    return this.service.get<{ learn: EcosystemTask[]; build: EcosystemTask[]; community: EcosystemTask[] }>(
+      `${EcosystemApiType.ECOSYSTEMS}/${id}/tasks`,
+      {
+        params
+      }
+    );
   }
 }
 

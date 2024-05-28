@@ -85,6 +85,10 @@ class ResourceStationApi {
     });
   }
 
+  fetchHackathonPrizeTracks() {
+    return this.service.get<string[]>(`${ResourceStationApiType.Hackathon}/prize-tracks`);
+  }
+
   hackathonVoteSubmit(hackathonId: string, data: object) {
     return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/vote`, {
       data

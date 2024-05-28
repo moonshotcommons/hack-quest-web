@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { create } from 'zustand';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/react/shallow';
@@ -187,9 +188,11 @@ function StartLearning() {
           className="sm:h-60 sm:w-[36.75rem]"
         />
       </div>
-      <Button type="primary" className="w-full self-start uppercase sm:w-[16.875rem] sm:self-end">
-        Start learning
-      </Button>
+      <Link href="/dashboard">
+        <Button type="primary" className="w-full self-start uppercase sm:w-[16.875rem] sm:self-end">
+          Start learning
+        </Button>
+      </Link>
     </div>
   );
 }

@@ -37,6 +37,8 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
       createdAt: projectSort[0].value,
       winner: '',
       tracks: '',
+      track: '',
+      prizeTrack: '',
       keyword
     });
   }

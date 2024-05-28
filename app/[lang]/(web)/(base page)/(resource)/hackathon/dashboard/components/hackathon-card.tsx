@@ -22,7 +22,7 @@ interface HackathonCardProps {
 export function HackathonCard({ hackathon }: HackathonCardProps) {
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon.rewardTime
+    targetDate: hackathon.reviewTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;

@@ -8,14 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Listbox, Transition } from '@headlessui/react';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
 
-// const defaultEcosystem = [
-//   { id: 'all', name: 'All Ecosystem', icon: null, default: true, background: '#8C8C8C' },
-//   { id: 'solana', name: 'Solana Ecosystem', icon: 'solana', background: 'linear-gradient(to right, #8e2de2, #00f260)' },
-//   { id: 'ethereum', name: 'Ethereum Ecosystem', icon: 'ethereum', background: '#8A92B2' },
-//   { id: 'mantle', name: 'Mantle Ecosystem', icon: 'mantle', background: '#0B0B0B' },
-//   { id: 'arbitrum', name: 'Arbitrum Ecosystem', icon: 'arbitrum', background: '#12AAFF' }
-// ];
-const defaultEcosystem = {
+const allEcosystem = {
   id: 'all',
   name: 'All Ecosystem',
   image: null,
@@ -39,11 +32,12 @@ export function EcosystemSelect() {
     }))
   );
 
-  const selected = ecosystems.find((e) => e.id === params.ecosystemId) || defaultEcosystem;
+  const selected = ecosystems.find((e) => e.id === params.ecosystemId) || allEcosystem;
 
   function handleChange(value: (typeof ecosystems)[number]) {
     startTransition(() => {
-      router.push(`/dashboard/${value.id}`);
+      // TODO:
+      router.push(`/system/${value.id}`);
     });
   }
 
