@@ -55,7 +55,9 @@ const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, ha
   const {} = useRequest(
     async () => {
       const prizeTracks = await webApi.resourceStationApi.getHackathonPrizeTracks(hackathon.id);
-      const projectTracks = await webApi.resourceStationApi.getProjectTracksDict();
+      const projectTracks = await webApi.resourceStationApi.getProjectTracksDict({
+        hackathonId: hackathon.id
+      });
       const prizeTrackFilter = {
         filterName: t('hackathonVoting.prizeTrack'),
         filterField: 'prizeTrack',
@@ -100,7 +102,7 @@ const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, ha
         setKeyword(keyword);
         handleSearch({
           prizeTrack: tracks?.prizeTrack?.join(',') || '',
-          tracks: tracks?.projectTrack?.join(',') || '',
+          tracks: tracks?.tracks?.join(',') || '',
           sort,
           keyword
         });
@@ -119,7 +121,7 @@ const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, ha
     inputTimer.current = setTimeout(() => {
       handleSearch({
         prizeTrack: tracks?.prizeTrack?.join(',') || '',
-        tracks: tracks?.projectTrack?.join(',') || '',
+        tracks: tracks?.tracks?.join(',') || '',
         sort,
         keyword: val
       });
@@ -130,7 +132,7 @@ const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, ha
     setTracks(tracks);
     handleSearch({
       prizeTrack: tracks?.prizeTrack?.join(',') || '',
-      tracks: tracks?.projectTrack?.join(',') || '',
+      tracks: tracks?.tracks?.join(',') || '',
       sort,
       keyword
     });
@@ -153,7 +155,7 @@ const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, ha
     setSort(sort);
     handleSearch({
       prizeTrack: tracks?.prizeTrack?.join(',') || '',
-      tracks: tracks?.projectTrack?.join(',') || '',
+      tracks: tracks?.tracks?.join(',') || '',
       sort,
       keyword
     });
@@ -165,7 +167,7 @@ const Filter: ForwardRefRenderFunction<FilterRef, FilterProp> = ({ hackathon, ha
   useEffect(() => {
     handleSearch({
       prizeTrack: tracks?.prizeTrack?.join(',') || '',
-      tracks: tracks?.projectTrack?.join(',') || '',
+      tracks: tracks?.tracks?.join(',') || '',
       sort,
       keyword
     });

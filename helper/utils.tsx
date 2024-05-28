@@ -287,12 +287,12 @@ export function createUrl(pathname: string, params: URLSearchParams | ReadonlyUR
   return `${pathname}${queryString}`;
 }
 
-/** 向下保留小数  */
+/** 向下保留小数 返回百分数  */
 export const decimalCount = (number: number, digit = 1) => {
   if (isNaN(number)) return 0;
   if (digit < 1) return number;
   const digitHundred = parseInt(`1${'0'.repeat(digit)}`);
-  return Math.floor(number * digitHundred) / digitHundred;
+  return `${Math.floor(number * digitHundred * 100) / digitHundred}%`;
 };
 
 export const copyText = async (text?: string) => {
