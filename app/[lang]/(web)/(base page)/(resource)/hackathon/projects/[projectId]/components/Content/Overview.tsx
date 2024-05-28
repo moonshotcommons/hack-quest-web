@@ -67,7 +67,7 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
             <DiGithubBadge size={40} />
             <div className="">
               <p className="body-xs text-neutral-medium-gray ">{t('projectsDetail.openSource')}</p>
-              <Link href={project.githubLink || ''} className="relative flex items-center gap-[8px]">
+              <Link href={project.githubLink || ''} target="_blank" className="relative flex items-center gap-[8px]">
                 <span>Github</span>
                 <IoIosArrowForward />
                 <div className="absolute bottom-0 left-0 h-[2px] w-full rounded-[2px] bg-yellow-dark"></div>

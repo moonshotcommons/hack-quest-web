@@ -41,7 +41,11 @@ const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
   }, []);
   return (
     <div className="flex flex-col gap-[32px]">
-      <Title title={`${t('projectsDetail.title.voting')} for ${project.name}`} />
+      <Title
+        title={`${t('projectsDetail.title.votingFor', {
+          name: project.name
+        })} `}
+      />
       {!isEnd && !isJoin && userInfo ? (
         <div className="flex w-full">
           <div className="flex-1 border-r border-neutral-medium-gray pr-[40px] ">
