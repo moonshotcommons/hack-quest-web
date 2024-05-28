@@ -12,9 +12,10 @@ import ProjectDemoUpload from './ProjectDemoUpload';
 
 interface VideosProp {
   project: ProjectType;
+  isClose: boolean;
 }
 
-const Videos: React.FC<VideosProp> = ({ project }) => {
+const Videos: React.FC<VideosProp> = ({ project, isClose }) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
@@ -23,11 +24,11 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
     return [
       {
         label: t('projectsDetail.pitchVideo'),
-        component: <PitchVideoUpload pitchVideo={project.video} />
+        component: <PitchVideoUpload pitchVideo={project.video} projectId={project.id} isClose={isClose} />
       },
       {
         label: t('projectsDetail.demoVideo'),
-        component: <ProjectDemoUpload demoVideo={project.demo} />
+        component: <ProjectDemoUpload demoVideo={project.demo} projectId={project.id} isClose={isClose} />
       }
     ];
   }, [project]);

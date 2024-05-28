@@ -5,7 +5,6 @@ import MenuLink from '@/constants/MenuLink';
 import { useTranslation } from '@/i18n/server';
 import { Lang, TransNs } from '@/i18n/config';
 import { getFeaturedProjects, getHackathonsList } from '@/service/cach/resource/hackathon';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import HackathonVoting from './components';
 import FeaturedProjects from '../components/FeaturedProject';
 
@@ -32,14 +31,11 @@ export async function generateMetadata(props: HackathonVotingPageProp): Promise<
 const HackathonVotingPage: React.FC<HackathonVotingPageProp> = async ({ params }) => {
   const { lang } = params;
   const { t } = await useTranslation(lang, TransNs.HACKATHON);
-  const [features, hackathon] = await Promise.all([
-    getFeaturedProjects(),
-    getHackathonsList({ status: HackathonStatusType.ON_GOING })
-  ]);
+  const [features, hackathons] = await Promise.all([getFeaturedProjects(), getHackathonsList({ status: 'voting' })]);
   return (
     <div className="container mx-auto">
       <PageLayout lang={lang} slug="hackathon_voting" title={t('voting.title')} description={t('voting.description')}>
-        <HackathonVoting hackathons={hackathon?.data || []} lang={lang} />
+        <HackathonVoting hackathons={hackathons.data || []} lang={lang} />
       </PageLayout>
       <FeaturedProjects projectList={features} />
     </div>

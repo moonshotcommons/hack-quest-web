@@ -24,7 +24,7 @@ import {
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 interface LaunchDetailPageProp {
   id: string;

@@ -17,15 +17,32 @@ import { formSchema } from './constants';
 import Info from './Info';
 import Others from './Others';
 import Wallet from './Wallet';
+import Nav from '../Nav';
+
+import { isEqual } from 'lodash-es';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
   project: ProjectType;
   hackathon: HackathonType;
+  handleClickAnchor: (index: number) => void;
+  curAnchorIndex: number;
+  offsetTops: OffsetTopsType[];
+  isClose: boolean;
 }
 
-const Content: React.FC<ContentProp> = ({ setOffsetTop, project, hackathon }) => {
-  const boxRef = useRef<HTMLDivElement>(null);
+const Content: React.FC<ContentProp> = ({
+  setOffsetTop,
+  project,
+  hackathon,
+  curAnchorIndex,
+  offsetTops,
+  handleClickAnchor,
+  isClose
+}) => {
+  const boxRef = useRef<HTMLFormElement>(null);
   const getOffsetTops = () => {
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];
@@ -40,36 +57,70 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop, project, hackathon }) =>
   };
   const [logo, setLogo] = useState<UploadFile | null>(null);
 
+  const { redirectToUrl } = useRedirect();
+
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
+
   useEffect(() => {
     getOffsetTops();
   }, [project]);
 
+  const defaultValues: z.infer<typeof formSchema> = {
+    projectLogo: project.thumbnail,
+    projectName: project.name,
+    intro: project.introduction,
+    location: project.location,
+    prizeTrack: project.prizeTrack,
+    detailedIntro: project.description,
+    track: project.tracks.join(','),
+    isPublic: project.isOpenSource,
+    githubLink: project.githubLink
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      projectLogo: project.thumbnail,
-      projectName: project.name,
-      intro: project.introduction,
-      location: '',
-      prizeTrack: project.prizeTrack,
-      detailedIntro: project.description,
-      track: project.tracks.join('')
-    }
+    defaultValues: defaultValues
+    // disabled: isClose
   });
 
-  const { run: onSubmit, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
+  const otherFormDisable =
+    typeof form.getValues('isPublic') !== 'boolean' ||
+    (form.getValues('isPublic') === true && !(form.getValues('githubLink') || '').trim());
+  const infoDisable =
+    !form.getValues('projectName') ||
+    !form.getValues('projectLogo') ||
+    !form.getValues('prizeTrack') ||
+    !form.getValues('intro') ||
+    !form.getValues('detailedIntro') ||
+    form.getValues('track').split(',').length < 1;
+
+  const { runAsync: onSubmitRequest, loading } = useRequest(
+    async () => {
+      const values = form.getValues();
+      if (
+        form.getValues('isPublic') === true &&
+        !/^https?:\/\/(www\.)?github\.com\/[^/]+\/.*$/.test((form.getValues('githubLink') || '').trim())
+      ) {
+        form.setError('githubLink', {
+          message: 'Invalid GitHub URL'
+        });
+        return;
+      }
+
       const formData = new FormData();
-      const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
+      const { projectName, track, detailedIntro, intro, prizeTrack, location, isPublic, githubLink } = values;
       formData.append('name', projectName);
       formData.append('prizeTrack', prizeTrack);
+      console.log(track);
       track.split(',').forEach((t) => {
         formData.append('tracks[]', t);
       });
       formData.append('location', location);
       formData.append('description', detailedIntro);
       formData.append('introduction', intro);
-      formData.append('hackathonId', hackathon.id);
+      formData.append('isOpenSource', String(isPublic));
+      formData.append('githubLink', githubLink || '');
+
       logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
       const res = await webApi.resourceStationApi.submitProject(formData, project.id);
       return {
@@ -81,23 +132,61 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop, project, hackathon }) =>
     },
     {
       manual: true,
-      onSuccess({ res, newInfo }) {},
+      onSuccess() {
+        redirectToUrl(`/hackathon/projects/${project.id}`);
+      },
       onError(err) {
         errorMessage(err);
       }
     }
   );
+
+  const onSubmit = () => {
+    if (isEqual(defaultValues, form.getValues())) {
+      redirectToUrl(`/hackathon/projects/${project.id}`);
+    } else {
+      onSubmitRequest();
+    }
+  };
+
+  const onExit = () => {
+    if (isEqual(defaultValues, form.getValues())) {
+      redirectToUrl(`/hackathon/projects/${project.id}`);
+    } else {
+      exitConfirmRef.current?.open({
+        onConfirm: onSubmitRequest
+      });
+    }
+  };
+
   return (
-    <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black" ref={boxRef}>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-[60px]">
-          <Info form={form} setLogo={setLogo} hackathon={hackathon} />
-          <Videos project={project} />
-          <Others form={form} />
-          <Wallet project={project} />
-        </form>
-      </Form>
-    </div>
+    <>
+      <div className="relative">
+        <Nav
+          curAnchorIndex={curAnchorIndex}
+          offsetTops={offsetTops}
+          handleClickAnchor={handleClickAnchor}
+          onSava={onSubmit}
+          onExit={onExit}
+          submitDisable={isClose || infoDisable || otherFormDisable}
+        />
+      </div>
+      <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-[60px]" ref={boxRef}>
+            <Info form={form} setLogo={setLogo} hackathon={hackathon} isClose={isClose} />
+            <Videos project={project} isClose={isClose} />
+            <Others form={form} isClose={isClose} />
+            <Wallet project={project} isClose={isClose} />
+          </form>
+        </Form>
+        <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+          <h4 className="text-h4 text-center text-neutral-black">
+            Do you want to save the submission process & leave?
+          </h4>
+        </ConfirmModal>
+      </div>
+    </>
   );
 };
 

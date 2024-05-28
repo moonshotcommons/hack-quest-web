@@ -2,13 +2,15 @@
 import { FC, memo, useRef } from 'react';
 import { ConnectButton } from './ConnectButton';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
-import { ProjectSubmitStepType, ProjectType } from '@/service/webApi/resourceStation/type';
+import message from 'antd/es/message';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import DisconnectModal, { DisconnectModalRef } from './DisconnectModal';
 import Title from '@/components/Common/Title';
+import { useRouter } from 'next/navigation';
+import webApi from '@/service';
 
-const ConnectWallet: FC<{ project: ProjectType }> = ({ project }) => {
+const ConnectWallet: FC<{ project: ProjectType; isClose: boolean }> = ({ project, isClose }) => {
   const disconnectModalRef = useRef<DisconnectModalRef>(null);
 
   // const { run: onSubmit, loading } = useRequest(
@@ -28,13 +30,14 @@ const ConnectWallet: FC<{ project: ProjectType }> = ({ project }) => {
   //   }
   // );
 
+  const router = useRouter();
+
   const { runAsync: disconnect, loading: disConnectLoading } = useRequest(
     async () => {
       const formData = new FormData();
       formData.append('wallet', '');
-      formData.append('status', ProjectSubmitStepType.WALLET);
-      // await webApi.resourceStationApi.submitProject(formData, projectId);
-      // await refreshProjectInfo();
+      await webApi.resourceStationApi.submitProject(formData, project.id);
+      router.refresh();
     },
     {
       manual: true,
@@ -48,6 +51,7 @@ const ConnectWallet: FC<{ project: ProjectType }> = ({ project }) => {
   );
 
   const onDisconnect = () => {
+    if (isClose) return;
     disconnectModalRef.current?.open({
       onConfirm: disconnect
     });
@@ -71,12 +75,7 @@ const ConnectWallet: FC<{ project: ProjectType }> = ({ project }) => {
           </svg>
           <span>Connect A New Wallet</span>
         </div> */}
-        <ConnectButton
-          wallet={project.wallet}
-          projectId={project.id}
-          refreshProjectInfo={() => {}}
-          onDisconnect={onDisconnect}
-        />
+        <ConnectButton wallet={project.wallet} projectId={project.id} onDisconnect={onDisconnect} isClose={isClose} />
         <div className="flex items-center gap-1 rounded-[16px] bg-neutral-light-gray p-4">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

@@ -12,7 +12,11 @@ import { HACKQUEST_DISCORD } from '@/constants/links';
 import { create } from 'zustand';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
-import { TeamMemberInfo } from '@/service/webApi/resourceStation/type';
+import { HackathonTeam, TeamMemberInfo } from '@/service/webApi/resourceStation/type';
+import { copyText } from '@/helper/utils';
+import GroupActionConfirm, { GroupActionConfirmRef } from './GroupActionConfirm';
+import { useGroupAction } from './GroupActionConfirm/useGroupAction';
+import { ActionType } from './GroupActionConfirm/type';
 
 interface State {
   open: boolean;
@@ -69,20 +73,38 @@ export function ManageTeamModal() {
   const router = useRouter();
   const { open, code, onClose } = useManageTeamModal();
 
+  const { deleteGroup } = useGroupAction();
+
+  const groupActionConfirmRef = React.useRef<GroupActionConfirmRef>(null);
+
   const { data } = useQuery({
     enabled: !!code && open,
     queryKey: ['teamDetail', code],
     queryFn: () => webApi.resourceStationApi.getHackathonTeamDetail(code)
   });
 
-  const removeTeamMutation = useMutation({
-    mutationKey: ['removeTeam', code],
-    mutationFn: () => webApi.resourceStationApi.deleteTeam(code),
-    onSuccess: () => {
-      onClose();
-      router.refresh();
-    }
-  });
+  // const removeTeamMutation = useMutation({
+  //   mutationKey: ['removeTeam', code],
+  //   mutationFn: () => webApi.resourceStationApi.deleteTeam(code),
+  //   onSuccess: () => {
+  //     onClose();
+  //     router.refresh();
+  //   }
+  // });
+
+  const onDeleteGroup = (team: HackathonTeam) => {
+    groupActionConfirmRef.current?.open<ActionType.DeleteTeam>({
+      type: ActionType.DeleteTeam,
+      teamName: team.name!,
+      onConfirm: async () => {
+        await deleteGroup(team.code!);
+      },
+      onConfirmCallback: () => {
+        onClose();
+        router.refresh();
+      }
+    });
+  };
 
   return (
     <Modal open={open} onClose={() => {}}>
@@ -94,7 +116,7 @@ export function ManageTeamModal() {
           <h1 className="body-xl-bold text-neutral-off-black">{data?.name}</h1>
           <button
             className="inline-flex items-center gap-1 text-neutral-rich-gray"
-            onClick={() => removeTeamMutation.mutate()}
+            onClick={() => onDeleteGroup(data!)}
           >
             <Trash2Icon size={16} />
             <span className="text-sm underline">Delete Team</span>
@@ -113,7 +135,7 @@ export function ManageTeamModal() {
             <button
               aria-label="Copy Team Code"
               className="text-neutral-medium-gray outline-none"
-              onClick={() => navigator.clipboard.writeText(code)}
+              onClick={() => copyText(code)}
             >
               <CopyIcon className="h-5 w-5" />
             </button>
@@ -143,6 +165,7 @@ export function ManageTeamModal() {
           Save & Close
         </Button>
       </div>
+      <GroupActionConfirm ref={groupActionConfirmRef} />
     </Modal>
   );
 }

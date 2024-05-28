@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import webApi from '@/service';
 
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { MissionCenterContext } from '../constants/type';

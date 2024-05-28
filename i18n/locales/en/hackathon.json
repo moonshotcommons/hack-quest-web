@@ -31,6 +31,8 @@
     "registrationOpen": "Registration Open",
     "submissionsClose": "Submissions Close",
     "rewardAnnouncement": "Reward Announcement",
+    "about":"About",
+    "theme":"Theme",
     "rewards": "Rewards",
     "guestsMentors": "Guests & Mentors",
     "mediaPartners": "Media Partners",
@@ -57,6 +59,7 @@
       "info": "Info",
       "overview": "Overview",
       "voting": "Voting",
+      "votingFor":"Voting for {{name}}",
       "videos": "Videos",
       "introduction": "Introduction",
       "team": "Team"

@@ -1,15 +1,23 @@
-import React from 'react';
-import Box from '../components/Box';
+'use client';
+import React, { useContext } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
+import Title from '../components/Title';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 interface AboutProp {
   hackathon: HackathonType;
 }
 
 const About: React.FC<AboutProp> = ({ hackathon }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
+  if (!hackathon.about) return null;
   return (
-    <Box className="border-transparent">
-      <img src={hackathon.image} className="w-full" alt={hackathon.alias} />
-    </Box>
+    <div className="flex flex-col gap-[32px]">
+      <Title title={t('hackathonDetail.about')} />
+      <p className="body-m whitespace-pre-line text-neutral-rich-gray">{hackathon.about}</p>
+    </div>
   );
 };
 

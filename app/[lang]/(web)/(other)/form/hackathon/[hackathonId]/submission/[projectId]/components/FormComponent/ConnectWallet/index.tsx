@@ -7,7 +7,7 @@ import { HackathonSubmitStateType } from '../../../type';
 import { ConnectButton } from './ConnectButton';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import webApi from '@/service';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
@@ -21,7 +21,6 @@ const ConnectWallet: FC<
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
-      debugger;
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
           ? ProjectSubmitStepType.REVIEW

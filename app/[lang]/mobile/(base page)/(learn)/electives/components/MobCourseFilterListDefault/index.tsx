@@ -1,68 +1,36 @@
+'use client';
 import MobCourseFilterList from '@/components/Mobile/MobCourseFilterList';
 import MobElectiveCard from '@/components/Mobile/MobElectiveCard';
-import {
-  courseDefaultFilters as filters,
-  mergeFilterParams,
-  courseDefaultSort as sort
-} from '@/components/Web/Business/CourseFilterList/constant';
-import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
-import { errorMessage } from '@/helper/ui';
-import webApi from '@/service';
-import { CourseType } from '@/service/webApi/course/type';
-import { ElectiveCourseType, ElectiveListDataType } from '@/service/webApi/elective/type';
-import { useRequest } from 'ahooks';
-import { cloneDeep } from 'lodash-es';
-import { FC, useContext, useEffect, useState } from 'react';
+import { courseDefaultFilters as filters } from '@/components/Web/Business/CourseFilterList/constant';
+import { FilterItemType, FilterOptionType } from '@/components/Web/Business/CourseFilterList/type';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { FC } from 'react';
 
-import { LangContext } from '@/components/Provider/Lang';
-import { useTranslation } from '@/i18n/client';
-import { TransNs } from '@/i18n/config';
+import { useRouter } from 'next/navigation';
+import MenuLink from '@/constants/MenuLink';
 
-interface MobCourseFilterListDefaultProps {}
+interface MobCourseFilterListDefaultProps {
+  title: string;
+  keyword: string;
+  courseList: ElectiveCourseType[];
+  filters: FilterItemType[];
+  sorts: FilterOptionType[];
+}
 
 const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) => {
-  const [courseList, setCourseList] = useState<ElectiveCourseType[]>([]);
-
-  const { lang } = useContext(LangContext);
-  const { t } = useTranslation(lang, TransNs.LEARN);
-
-  const { run: getCourseList, loading } = useRequest(
-    async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(filterParams);
-      return res;
-    },
-
-    {
-      manual: true,
-      onSuccess(res) {
-        setCourseList(res.data);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
-
-  useEffect(() => {
-    getCourseList({
-      ...mergeFilterParams(filters, sort),
-      type: `${CourseType.MINI},${CourseType.UGC}`
-    });
-  }, []);
-
+  const { courseList, title, sorts, keyword } = props;
+  const router = useRouter();
   return (
     <MobCourseFilterList
-      title={t('electives.exploreWeb3')}
+      title={title}
       onFilterParamsUpdate={(params) => {
-        getCourseList({
-          ...params,
-          type: `${CourseType.MINI},${CourseType.UGC}`
-        });
+        params.keyword = keyword;
+        const searchParams = new URLSearchParams(params);
+        router.replace(`${MenuLink.ELECTIVES}?${searchParams.toString()}`);
       }}
       courseList={courseList}
-      filters={cloneDeep(filters)}
-      sort={sort}
-      loading={loading}
+      filters={filters}
+      sort={sorts}
       renderItem={(course) => {
         return <MobElectiveCard key={course.id} course={course} />;
       }}

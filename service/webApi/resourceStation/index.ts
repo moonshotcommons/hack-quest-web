@@ -79,11 +79,11 @@ class ResourceStationApi {
     });
   }
   /** 获取hackathon 可以投票的project */
-  getVoteProjectsByHackathonId(hackathonId: string, params: object) {
-    return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/projects`, {
-      params
-    });
-  }
+  // getVoteProjectsByHackathonId(hackathonId: string, params: object) {
+  //   return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/projects`, {
+  //     params
+  //   });
+  // }
 
   fetchHackathonPrizeTracks() {
     return this.service.get<string[]>(`${ResourceStationApiType.Hackathon}/prize-tracks`);
@@ -116,8 +116,10 @@ class ResourceStationApi {
   }
 
   /**  */
-  getProjectTracksDict() {
-    return this.service.get<string[]>(`${ResourceStationApiType.Projects}/tracks-dir`);
+  getProjectTracksDict(params?: object) {
+    return this.service.get<string[]>(`${ResourceStationApiType.Projects}/tracks-dir`, {
+      params
+    });
   }
 
   getBlog(params: BlogSearchType & PagedType) {
@@ -241,6 +243,8 @@ class ResourceStationApi {
 
   /** 提交project */
   submitProject(data: FormData, projectId?: string) {
+    console.log(projectId && isUuid(projectId));
+
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
     return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data

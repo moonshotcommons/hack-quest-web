@@ -3,7 +3,7 @@ import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCountDown, useDebounceFn } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 interface EmailVerifyProps {}

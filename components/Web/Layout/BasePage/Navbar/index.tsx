@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import Badge from '@/components/Common/Badge';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Link from 'next/link';
 import { isBadgeIds, needLoginPath } from './data';
 import { NavbarListType } from './type';
@@ -61,12 +61,12 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
         if (menu?.menu?.length) {
           return menu.menu?.find((m) => {
             // Nested routing
-            if (pathname === m.path) {
+            if (pathname.includes(m.path as string)) {
               menuId = m.id || '';
               return true;
             }
           });
-        } else if (pathname === menu.path) {
+        } else if (pathname.includes(menu.path as string)) {
           menuId = menu.id || '';
           return true;
         }

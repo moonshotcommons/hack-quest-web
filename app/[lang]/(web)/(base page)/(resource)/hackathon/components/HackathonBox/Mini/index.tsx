@@ -17,25 +17,27 @@ const Mini: React.FC<MiniProp> = ({ miniHackathonList }) => {
 
   const title = () => {
     return (
-      <>
+      <div className="pl-[20px]">
         <p>{t('miniHacks')}</p>
         <p className="body-l mt-[12px] text-neutral-rich-gray">{t('miniHacksDescrition')}</p>
-      </>
+      </div>
     );
   };
   return (
-    <SliderCard
-      title={title()}
-      renderItem={(width) => {
-        return miniHackathonList.map((hackathon) => {
-          return (
-            <div key={hackathon.id} className="w-full" style={{ width: `${width}px` }}>
-              <OnGoingHackathonCard hackathon={hackathon} />
-            </div>
-          );
-        });
-      }}
-    />
+    <div className="relative left-[-20px] w-[calc(100%+40px)]">
+      <SliderCard
+        title={title()}
+        renderItem={(width) => {
+          return miniHackathonList.map((hackathon) => {
+            return (
+              <div key={hackathon.id} className="w-full p-[20px]" style={{ width: `${width}px` }}>
+                <OnGoingHackathonCard hackathon={hackathon} />
+              </div>
+            );
+          });
+        }}
+      />
+    </div>
   );
 };
 

@@ -12,7 +12,7 @@ import { MdOutlineRefresh } from 'react-icons/md';
 import Button from '@/components/Common/Button';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 interface YourVotesProp {
   project: ProjectType;

@@ -1,60 +1,64 @@
 import MobCourseFilterList from '@/components/Mobile/MobCourseFilterList';
 import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
-import { LangContext } from '@/components/Provider/Lang';
 import {
   courseDefaultFilters as filters,
-  mergeFilterParams,
   courseDefaultSort as sort
 } from '@/components/Web/Business/CourseFilterList/constant';
-import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
-import { errorMessage } from '@/helper/ui';
-import { useTranslation } from '@/i18n/client';
-import { TransNs } from '@/i18n/config';
-import webApi from '@/service';
+import { FilterItemType, FilterOptionType } from '@/components/Web/Business/CourseFilterList/type';
+import MenuLink from '@/constants/MenuLink';
 import { ProjectCourseType } from '@/service/webApi/course/type';
-import { PageResult } from '@/service/webApi/type';
-import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
-import { FC, useContext, useEffect, useState } from 'react';
-interface MobCourseFilterListDefaultProps {}
+import { useRouter } from 'next/navigation';
+import { FC } from 'react';
+interface MobCourseFilterListDefaultProps {
+  title: string;
+  keyword: string;
+  courseList: ProjectCourseType[];
+  filters: FilterItemType[];
+  sorts: FilterOptionType[];
+}
 
 const MobCourseFilterListDefault: FC<MobCourseFilterListDefaultProps> = (props) => {
-  const [courseList, setCourseList] = useState<ProjectCourseType[]>([]);
+  const { courseList, title, sorts, keyword } = props;
+  const router = useRouter();
 
-  const { lang } = useContext(LangContext);
-  const { t } = useTranslation(lang, TransNs.LEARN);
+  // const [courseList, setCourseList] = useState<ProjectCourseType[]>([]);
 
-  const { run: getCourseList, loading } = useRequest(
-    async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType>>(filterParams);
-      return res;
-    },
+  // const { lang } = useContext(LangContext);
+  // const { t } = useTranslation(lang, TransNs.LEARN);
 
-    {
-      manual: true,
-      onSuccess(res) {
-        setCourseList(res.data);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
+  // const { run: getCourseList, loading } = useRequest(
+  //   async (filterParams: FilterParamsType) => {
+  //     const res = await webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType>>(filterParams);
+  //     return res;
+  //   },
 
-  useEffect(() => {
-    getCourseList(mergeFilterParams(filters, sort));
-  }, []);
+  //   {
+  //     manual: true,
+  //     onSuccess(res) {
+  //       setCourseList(res.data);
+  //     },
+  //     onError(err) {
+  //       errorMessage(err);
+  //     }
+  //   }
+  // );
+
+  // useEffect(() => {
+  //   getCourseList(mergeFilterParams(filters, sort));
+  // }, []);
 
   return (
     <MobCourseFilterList
-      title={t('practice.title')}
+      title={title}
       onFilterParamsUpdate={(params) => {
-        getCourseList(params);
+        params.keyword = keyword;
+        const searchParams = new URLSearchParams(params);
+        router.replace(`${MenuLink.PRACTICES}?${searchParams.toString()}`);
       }}
       courseList={courseList}
       filters={cloneDeep(filters)}
       sort={sort}
-      loading={loading}
       renderItem={(course) => {
         return <MobPracticeCard key={course.id} course={course} />;
       }}

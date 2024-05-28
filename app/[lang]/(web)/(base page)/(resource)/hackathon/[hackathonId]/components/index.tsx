@@ -8,6 +8,8 @@ import About from './About';
 import GuestMentors from './GuestMentors';
 import MediaCommunity from './components/MediaCommunity';
 import HackathonInfo from './HackathonInfo';
+import HackathonImage from './HackathonImage';
+import Theme from './Theme';
 
 interface HackDetailProps {
   hackathon: HackathonType;
@@ -21,7 +23,9 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
           <>
             <div className="flex justify-between">
               <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
+                <HackathonImage hackathon={hackathon} />
                 <About hackathon={hackathon} />
+                <Theme hackathon={hackathon} />
                 <TimeLine hackathon={hackathon} />
                 <Rewards hackathon={hackathon} />
                 <GuestMentors listData={hackathon.guestsAndMentors} />

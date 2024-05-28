@@ -14,7 +14,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
 import { ProfileHandleType } from '@/app/[lang]/(web)/(base page)/(profile)/user/profile/constants/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
 
 interface TargetCardProp {
