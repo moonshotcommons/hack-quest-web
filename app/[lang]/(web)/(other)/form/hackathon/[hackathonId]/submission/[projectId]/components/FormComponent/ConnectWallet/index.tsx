@@ -30,11 +30,12 @@ const ConnectWallet: FC<
       formData.append('status', newStatus);
       await webApi.resourceStationApi.submitProject(formData, projectId);
       await refreshProjectInfo();
+      return { status: newStatus };
     },
     {
       manual: true,
-      onSuccess() {
-        onNext({});
+      onSuccess({ status }) {
+        onNext({ status });
       },
       onError(err) {
         errorMessage(err);

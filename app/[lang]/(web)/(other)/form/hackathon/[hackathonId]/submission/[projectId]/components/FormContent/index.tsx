@@ -84,7 +84,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       projectLogo: thumbnail,
       projectName: name,
       prizeTrack: prizeTrack,
-      track: tracks[0],
+      track: tracks.join(','),
       location: location,
       intro: introduction,
       detailedIntro: description
@@ -126,6 +126,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   const { runAsync: editRequest } = useRequest(
     () => {
       const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
+
       const formData = new FormData();
       formData.append('name', formState.info.projectName);
       formData.append('hackathonId', simpleHackathonInfo.id);
@@ -159,16 +160,17 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   }, [simpleHackathonInfo, redirectToUrl, editRequest, redirectToUrl]);
 
   useEffect(() => {
+    if (formState.projectId && isUuid(formState.projectId)) run();
+    else setCurrent(0);
+  }, [formState.projectId]);
+
+  useEffect(() => {
+    if (current <= 0) return;
     emitter.on('submit-form-exit', exit);
     return () => {
       emitter.off('submit-form-exit', exit);
     };
   }, [exit]);
-
-  useEffect(() => {
-    if (formState.projectId && isUuid(formState.projectId)) run();
-    else setCurrent(0);
-  }, [formState.projectId]);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">

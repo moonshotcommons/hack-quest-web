@@ -150,7 +150,7 @@ const Content: React.FC<ContentProp> = ({
   };
 
   const onExit = () => {
-    if (isEqual(defaultValues, form.getValues())) {
+    if (isEqual(defaultValues, form.getValues()) || isClose) {
       redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
       exitConfirmRef.current?.open({
