@@ -20,7 +20,6 @@ export async function generateMetadata({ params }: HackathonVotingPageProps): Pr
   const { lang } = params;
   return {
     title: hackathon.name,
-    description: hackathon.about,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON_VOTING}/${params.hackathonId}`,
       languages: {
