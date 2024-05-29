@@ -5,6 +5,7 @@ import Title from '../components/Title';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import HackathonRenderer from '../../../components/HackathonRenderer';
 interface AboutProp {
   hackathon: HackathonType;
 }
@@ -12,11 +13,11 @@ interface AboutProp {
 const About: React.FC<AboutProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  if (!hackathon.about) return null;
+  if (!hackathon.about?.length) return null;
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonDetail.about')} />
-      <p className="body-m whitespace-pre-line text-neutral-rich-gray">{hackathon.about}</p>
+      <HackathonRenderer content={hackathon.about} />
     </div>
   );
 };

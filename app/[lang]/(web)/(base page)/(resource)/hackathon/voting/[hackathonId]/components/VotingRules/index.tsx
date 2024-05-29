@@ -5,6 +5,7 @@ import { TransNs } from '@/i18n/config';
 import React, { useContext } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Title from '../../../../[hackathonId]/components/components/Title';
+import HackathonRenderer from '../../../../components/HackathonRenderer';
 
 interface VotingRulesProp {
   hackathon: HackathonType;
@@ -13,10 +14,11 @@ interface VotingRulesProp {
 const VotingRules: React.FC<VotingRulesProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  if (!hackathon.voteRules?.length) return null;
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonVoting.votingRules')} />
-      <div className="body-m text-neutral-rich-gray">{hackathon.voteRules}</div>
+      <HackathonRenderer content={hackathon.voteRules} />
     </div>
   );
 };

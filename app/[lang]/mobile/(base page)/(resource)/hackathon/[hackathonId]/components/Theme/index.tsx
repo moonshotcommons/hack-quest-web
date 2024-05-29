@@ -5,6 +5,7 @@ import Title from '../components/Title';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import HackathonRenderer from '../../../components/HackathonRenderer';
 interface ThemeProp {
   hackathon: HackathonType;
 }
@@ -12,11 +13,11 @@ interface ThemeProp {
 const Theme: React.FC<ThemeProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  if (!hackathon.theme) return null;
+  if (!hackathon.theme?.length) return null;
   return (
-    <div className="flex flex-col ">
+    <div className="">
       <Title title={t('hackathonDetail.theme')} />
-      <p className="body-s whitespace-pre-line text-neutral-rich-gray">{hackathon.theme}</p>
+      <HackathonRenderer content={hackathon.theme} />
     </div>
   );
 };

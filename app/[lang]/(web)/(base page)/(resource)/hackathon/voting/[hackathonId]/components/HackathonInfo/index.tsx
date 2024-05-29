@@ -51,7 +51,6 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       [HackathonTypeVotesRoleType.JUDGE]: hackathon.votes[HackathonTypeVotesRoleType.JUDGE] || 0
     };
     const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
-    console.info(vote[HackathonTypeVotesRoleType.JUDGE] / total);
     return {
       [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 2),
       [HackathonTypeVotesRoleType.ADVOCATE]: decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
