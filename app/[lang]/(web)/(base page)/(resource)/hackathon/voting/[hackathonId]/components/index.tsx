@@ -2,7 +2,7 @@
 import React, { FC, useContext } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
-import About from './About';
+import HackathonImage from './HackathonImage';
 import HackathonInfo from './HackathonInfo';
 import VotingRules from './VotingRules';
 import VotingProjects from './VotingProjects';
@@ -30,7 +30,7 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
             <VoteProvider>
               <div className="flex justify-between">
                 <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
-                  <About hackathon={hackathon} />
+                  <HackathonImage hackathon={hackathon} />
                   <VotingRules hackathon={hackathon} />
                   <VotingProjects hackathon={hackathon} />
                 </div>

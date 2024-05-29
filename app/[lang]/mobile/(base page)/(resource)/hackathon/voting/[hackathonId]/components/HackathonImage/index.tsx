@@ -1,11 +1,11 @@
 import React from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-interface AboutProp {
+interface HackathonImageProp {
   hackathon: HackathonType;
 }
 
-const About: React.FC<AboutProp> = ({ hackathon }) => {
+const HackathonImage: React.FC<HackathonImageProp> = ({ hackathon }) => {
   return <img src={hackathon.image} className="w-full rounded-[16px]" alt={hackathon.alias} />;
 };
 
-export default About;
+export default HackathonImage;

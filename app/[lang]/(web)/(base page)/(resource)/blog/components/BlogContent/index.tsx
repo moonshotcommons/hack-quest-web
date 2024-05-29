@@ -4,7 +4,7 @@ import { BlogDetailType } from '@/service/webApi/resourceStation/type';
 
 import { ComponentRendererProvider, ComponentRenderer } from '@/components/ComponentRenderer';
 import { CustomComponent, PageType } from '@/components/ComponentRenderer/type';
-import BlogCustomRenderer from '../BlogCustomRenderer.tsx';
+import BlogCustomRenderer from '../BlogCustomRenderer';
 
 interface BlogContentProp {
   blog: BlogDetailType;
