@@ -75,8 +75,8 @@ export const syllabusData = [
     description:
       'Blockchain technology promises to disrupt the current business landscape through consensus-driven decentralization of the traditional computing fabric. In this session, we will go through the core technical aspects of blockchain and smart contracts, introduce basic concepts such as cryptographic hash function, hash pointers, consensus protocols, and how the Bitcoin blockchain is constructed with these building blocks. We will also discuss and explain smart contracts and how they are powering decentralized applications in various domains.',
     speaker: 'Dr. Li Yi, School of Computer Science and Engineering, NTU',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1CGaix_H1m8PTt_JHD80BKFnd10sKoV3b/view?usp=drivesdk',
+    slide: '/web3mooc/slide/28-05-24-hackquest-mooc.pdf',
     expand: false
   },
   {
