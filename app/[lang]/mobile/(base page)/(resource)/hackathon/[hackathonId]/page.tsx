@@ -24,7 +24,6 @@ export async function generateMetadata({ params, searchParams }: HackathonIdProp
 
   return {
     title: hackathon.name,
-    description: hackathon.about,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/${params.hackathonId}${query}`,
       languages: {
