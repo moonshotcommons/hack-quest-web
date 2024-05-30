@@ -3,7 +3,7 @@ import { ProfileContext } from '../../constants/type';
 
 import Button from '@/components/Common/Button';
 
-import { Typography, message } from 'antd';
+import { Typography } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import CertificationModal, {
@@ -15,6 +15,7 @@ import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import message from 'antd/es/message';
 interface PersonalLinksProps {}
 
 const MintButton = (props: {

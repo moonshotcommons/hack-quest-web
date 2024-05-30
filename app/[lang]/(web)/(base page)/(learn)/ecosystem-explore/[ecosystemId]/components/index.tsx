@@ -1,11 +1,15 @@
+'use client';
 import { Lang } from '@/i18n/config';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from './Banner';
 import EcoList from './EcoList';
 import CourseList from './CourseList';
 import MoreResource from './MoreResource';
-import { EcosystemDetailType } from '@/service/webApi/ecosystem/type';
+import { EcosystemDetailType, EcosystemTask } from '@/service/webApi/ecosystem/type';
 import Certificate from './Certificate';
+import webApi from '@/service';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface EcosystemDetailProp {
   lang: Lang;
@@ -13,6 +17,24 @@ interface EcosystemDetailProp {
 }
 
 const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem }) => {
+  const { userInfo } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo
+    }))
+  );
+  const [learnList, setLearnList] = useState<EcosystemTask[]>([]);
+  const [buildList, setBuildList] = useState<EcosystemTask[]>([]);
+  const getList = async () => {
+    const res = await webApi.ecosystemApi.getEcosystemTasks(ecosystem.info.id, {
+      fullCourse: true
+    });
+    setLearnList(res.learn);
+    setBuildList(res.build);
+  };
+
+  useEffect(() => {
+    if (userInfo) getList();
+  }, [userInfo]);
   return (
     <div>
       <Banner lang={lang} ecosystem={ecosystem} />
@@ -24,8 +46,8 @@ const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem }) => 
           <div className="border-l border-dashed border-neutral-medium-gray"></div>
         </div>
         <div className="flex flex-1 flex-col gap-[100px]">
-          <EcoList />
-          <CourseList lang={lang} />
+          <EcoList list={learnList} />
+          <CourseList list={buildList} />
           <MoreResource lang={lang} />
         </div>
       </div>

@@ -26,7 +26,7 @@ const Explore: React.FC<ExploreProp> = ({ lang }) => {
   return (
     <div>
       <Banner keyword={keyword} searchKeyword={setKeyword} />
-      <div className="container mx-auto flex flex-col gap-[100px] py-[40px]">
+      <div className="container mx-auto flex flex-col gap-[100px] pb-[100px] pt-[40px]">
         <Web3 />
         <CertifiedLearningTrack ecosystems={ecosystems} />
         <BuildWeb3 ecosystems={ecosystems} />

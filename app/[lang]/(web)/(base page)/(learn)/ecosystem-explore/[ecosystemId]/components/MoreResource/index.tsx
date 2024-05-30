@@ -1,5 +1,5 @@
 import { Lang, TransNs } from '@/i18n/config';
-import { useTranslation } from '@/i18n/server';
+import { useTranslation } from '@/i18n/client';
 import React from 'react';
 import Title from '../Title';
 import Image from 'next/image';
@@ -11,8 +11,8 @@ interface MoreResourceProp {
   lang: Lang;
 }
 
-const MoreResource: React.FC<MoreResourceProp> = async ({ lang }) => {
-  const { t } = await useTranslation(lang, TransNs.LEARN);
+const MoreResource: React.FC<MoreResourceProp> = ({ lang }) => {
+  const { t } = useTranslation(lang, TransNs.LEARN);
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('explore.moreResources')} description={t('explore.detailMoreResourcesIntro')} />
