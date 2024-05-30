@@ -15,7 +15,7 @@ const MoreResource: React.FC<MoreResourceProp> = ({ lang }) => {
   const { t } = useTranslation(lang, TransNs.LEARN);
   return (
     <div className="flex flex-col gap-[1.25rem]">
-      <Title title={t('explore.moreResources')} />
+      <Title title={t('explore.moreResources')} description={t('explore.detailMoreResourcesIntro')} />
       <div className="flex flex-col gap-[1.25rem]">
         {resourceData.map((item, i) => (
           <Link

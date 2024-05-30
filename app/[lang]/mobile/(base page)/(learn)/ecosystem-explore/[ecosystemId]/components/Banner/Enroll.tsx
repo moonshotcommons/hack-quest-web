@@ -18,7 +18,7 @@ interface EnrollProp {
 
 const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
   const { t } = useTranslation(lang, TransNs.LEARN);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
