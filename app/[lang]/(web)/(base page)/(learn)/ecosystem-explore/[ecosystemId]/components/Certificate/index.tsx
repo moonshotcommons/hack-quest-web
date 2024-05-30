@@ -11,7 +11,7 @@ interface CertificateProp {
 
 const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
   return (
-    <div className="flex gap-[48px] rounded-[16px] bg-neutral-white p-[24px]">
+    <div className="flex items-center gap-[48px] rounded-[16px] bg-neutral-white p-[24px]">
       <div className="flex-1">
         <div>
           <Image src={MedalCover} alt={''} width={30} height={40} />
@@ -27,7 +27,7 @@ const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
             width={283}
             height={160}
           />
-          <div className="body-m-bold mt-[14px] text-center">Lvl 1. Starter</div>
+          <div className="body-m-bold mt-[14px] text-center">Lvl 1. {true ? 'Starter' : 'Learner'}</div>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="26" viewBox="0 0 23 26" fill="none">
           <path
@@ -42,7 +42,7 @@ const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
             width={283}
             height={160}
           />
-          <div className="body-m-bold mt-[14px] text-center">Lvl 2. Expert</div>
+          <div className="body-m-bold mt-[14px] text-center">Lvl 2. {true ? 'Expert' : 'Builder'}</div>
         </div>
       </div>
     </div>

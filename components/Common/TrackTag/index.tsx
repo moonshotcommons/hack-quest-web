@@ -7,6 +7,7 @@ interface TrackTagProp {
 }
 
 const TrackTag: React.FC<TrackTagProp> = ({ track, className = 'caption-12pt ' }) => {
+  if (!track) return null;
   return (
     <div
       className={cn(

@@ -1,6 +1,5 @@
 import TrackTag from '@/components/Common/TrackTag';
-import { Lang, TransNs } from '@/i18n/config';
-import { useTranslation } from '@/i18n/server';
+import { Lang } from '@/i18n/config';
 import Image from 'next/image';
 import React from 'react';
 import Enroll from './Enroll';
@@ -11,11 +10,10 @@ interface BannerProp {
   ecosystem: EcosystemDetailType;
 }
 
-const Banner: React.FC<BannerProp> = async ({ lang, ecosystem }) => {
-  const { t } = await useTranslation(lang, TransNs.LEARN);
+const Banner: React.FC<BannerProp> = ({ lang, ecosystem }) => {
   return (
     <div className="bg-neutral-white">
-      <div className="container mx-auto flex items-center justify-between gap-[40px] py-[80px]">
+      <div className="container mx-auto flex items-center justify-between gap-[32px] py-[80px]">
         <div className="flex items-center gap-[32px]">
           <div className="relative h-[120px] w-[120px] flex-shrink-0 overflow-auto">
             <Image src={ecosystem?.info?.image} alt={ecosystem?.info?.name} fill className="object-cover" />

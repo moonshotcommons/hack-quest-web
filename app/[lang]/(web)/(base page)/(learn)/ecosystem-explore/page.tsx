@@ -7,7 +7,6 @@ interface SearchParamsType {
   params: {
     lang: Lang;
   };
-  searchParams: { keyword?: '' };
 }
 
 export async function generateMetadata({ params }: SearchParamsType): Promise<Metadata> {
@@ -28,7 +27,7 @@ export async function generateMetadata({ params }: SearchParamsType): Promise<Me
   return metadata;
 }
 
-const ExplorePage: React.FC<SearchParamsType> = async ({ params, searchParams }) => {
+const ExplorePage: React.FC<SearchParamsType> = async ({ params }) => {
   const { lang } = params;
   return <Explore lang={lang} />;
 };

@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import EcosystemDetail from './components';
+import { getEcosystemById } from '@/service/cach/learn/ecosystem';
 
 interface EcosystemIdProps {
   params: {
@@ -12,11 +13,11 @@ interface EcosystemIdProps {
 }
 
 export async function generateMetadata({ params }: EcosystemIdProps): Promise<Metadata> {
-  // const hackathon = await getHackathonById(params.EcosystemId);
+  const ecosystem = await getEcosystemById(params.ecosystemId);
   const { lang } = params;
   return {
-    // title: hackathon.name,
-    // description: hackathon.about,
+    title: ecosystem.info.name,
+    description: ecosystem.info.description,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EXPLORE}/${params.ecosystemId}`,
       languages: {
@@ -30,9 +31,11 @@ export async function generateMetadata({ params }: EcosystemIdProps): Promise<Me
 
 const EcosystemId: FC<EcosystemIdProps> = async function ({ params }: EcosystemIdProps) {
   const { lang } = params;
+  const ecosystem = (await getEcosystemById(params.ecosystemId)) || {};
+
   return (
     <>
-      <EcosystemDetail lang={lang} />
+      <EcosystemDetail lang={lang} ecosystem={ecosystem} />
     </>
   );
 };

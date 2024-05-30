@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: EcosystemIdProps): Promise<Me
 const EcosystemId: FC<EcosystemIdProps> = async function ({ params }: EcosystemIdProps) {
   const { lang } = params;
   const ecosystem = (await getEcosystemById(params.ecosystemId)) || {};
+
   return (
     <>
       <EcosystemDetail lang={lang} ecosystem={ecosystem} />

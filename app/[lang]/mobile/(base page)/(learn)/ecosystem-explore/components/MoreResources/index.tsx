@@ -1,22 +1,22 @@
-import { Lang } from '@/i18n/config';
+'use client';
 import React from 'react';
 import DeveloperTitle from '../DeveloperTitle';
 import MoreCover from '@/public/images/learn/more_resource_cpver.png';
 import ResourceCard from './ResourceCard';
-import MenuLink from '@/constants/MenuLink';
+import { moreRoursesData } from '@/app/[lang]/(web)/(base page)/(learn)/ecosystem-explore/constants/data';
 
-interface MoreResourcesProp {
-  lang: Lang;
-}
+interface MoreResourcesProp {}
 
-const MoreResources: React.FC<MoreResourcesProp> = ({ lang }) => {
+const MoreResources: React.FC<MoreResourcesProp> = ({}) => {
   return (
-    <div className="flex flex-col gap-[32px]">
-      <DeveloperTitle lang={lang} image={MoreCover} title={'moreResources'} />
-      <div className="flex flex-wrap items-stretch gap-[32px]">
-        <ResourceCard lang={lang} type="glossary" link={MenuLink.GLOSSARY} />
-        <ResourceCard lang={lang} type="hackathon" link={MenuLink.HACKATHON} />
-        <ResourceCard lang={lang} type="blog" link={MenuLink.BLOG} />
+    <div className="flex flex-col gap-[1.25rem]">
+      <DeveloperTitle image={MoreCover} title={'moreResources'} />
+      <div className="flex flex-col  gap-[1.25rem]">
+        {moreRoursesData.map((resource, i) => (
+          <div className="w-full" key={i}>
+            <ResourceCard resource={resource} />
+          </div>
+        ))}
       </div>
     </div>
   );

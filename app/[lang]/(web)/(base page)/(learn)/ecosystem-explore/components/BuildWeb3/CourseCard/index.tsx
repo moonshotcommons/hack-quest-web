@@ -2,11 +2,11 @@ import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import Link from 'next/link';
-import Image from 'next/image';
 import React, { useContext } from 'react';
 import { GoArrowRight } from 'react-icons/go';
 import { EcosystemType } from '@/service/webApi/ecosystem/type';
 import { BuildOnWebType } from '../../../constants/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface CourseCardProp {
   course: BuildOnWebType;
@@ -19,22 +19,23 @@ const CourseCard: React.FC<CourseCardProp> = ({ course, ecosystems }) => {
   return (
     <Link
       href={course.link}
-      className="card-hover flex items-center  justify-between gap-[20px] rounded-[16px] bg-neutral-white p-[24px]"
+      className="card-hover group flex items-center justify-between  gap-[20px] rounded-[16px] bg-neutral-white p-[24px] hover:bg-yellow-hover"
     >
-      <div className="flex flex-1 flex-col gap-[16px] ">
-        <h2 className="body-xl-bold text-neutral-black">{t(`explore.${course.type}`)}</h2>
-        <p className="body-s text-neutral-medium-gray">{t(`explore.${course.type}Intro`)}</p>
-        <div className="flex flex-wrap gap-[4px]">
-          {ecosystems.map((v) => (
-            <div key={v.id} className="relative h-[16px] w-[16px] overflow-hidden">
-              <Image src={v.image} alt={v.name} fill className="object-contain" />
-            </div>
-          ))}
+      <div className="relative flex flex-1 flex-col gap-[32px] ">
+        <BaseImage
+          className="h-[64px] w-[64px] transition-all duration-300 group-hover:opacity-0"
+          src={course.icon}
+          alt={course.type}
+          contain={true}
+        />
+        <div className="transition-all duration-300 group-hover:translate-y-[-70px]">
+          <h2 className="body-l-bold text-neutral-black">{t(`explore.${course.type}`)}</h2>
+          <p className="body-s mt-[16px] text-neutral-medium-gray">{t(`explore.${course.type}Intro`)}</p>
         </div>
-      </div>
-      <div className="body-m flex flex-shrink-0 items-center gap-[32px] text-neutral-dark-gray">
-        <span>{`${course.count} ${t(`explore.${course.type}`)}s`}</span>
-        <GoArrowRight size={24} />
+        <GoArrowRight
+          size={24}
+          className="absolute bottom-0 left-0 opacity-0 transition-all duration-300 group-hover:opacity-100"
+        />
       </div>
     </Link>
   );

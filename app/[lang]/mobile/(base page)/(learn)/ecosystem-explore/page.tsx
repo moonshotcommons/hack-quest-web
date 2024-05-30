@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: SearchParamsType): Promise<Me
   return metadata;
 }
 
-const ExplorePage: React.FC<SearchParamsType> = ({ params }) => {
+const ExplorePage: React.FC<SearchParamsType> = async ({ params }) => {
   const { lang } = params;
   return <Explore lang={lang} />;
 };
