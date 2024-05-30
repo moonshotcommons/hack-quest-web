@@ -71,7 +71,7 @@ export function SectionHeader({
             }
           }}
           className={cn(
-            'ml-auto mr-4 inline-flex h-[2.125rem] w-[8.75rem] cursor-pointer items-center justify-center rounded-full bg-yellow-primary text-xs font-medium uppercase text-neutral-off-black transition-all sm:hover:scale-105',
+            'ml-auto mr-4 inline-flex h-[2.125rem] cursor-pointer items-center justify-center rounded-full bg-yellow-primary px-4 text-xs font-medium uppercase text-neutral-off-black transition-all sm:w-[8.75rem] sm:hover:scale-105',
             {
               'pointer-events-none cursor-not-allowed opacity-40': mutation.isPending
             }

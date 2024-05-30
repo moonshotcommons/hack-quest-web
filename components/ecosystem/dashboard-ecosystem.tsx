@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useShallow } from 'zustand/react/shallow';
 import Button from '@/components/Common/Button';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
-import { EcosystemCard } from './ecosystem-card copy';
+import { EcosystemCard } from './ecosystem-card';
 
 export function DashboardEcosystem() {
   const { ecosystems } = ecosystemStore(

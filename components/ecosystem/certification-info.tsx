@@ -18,7 +18,9 @@ export function CertificationInfo({
 
   return (
     <div className="flex flex-col px-5 py-6 sm:flex-row sm:items-center sm:gap-12 sm:px-0 sm:py-0">
-      <h1 className="headline-h3 capitalize text-neutral-off-black sm:hidden">{ecosystem.info.name} Certificate</h1>
+      <h1 className="font-next-book-bold text-[1.375rem] font-bold capitalize text-neutral-off-black sm:hidden">
+        {ecosystem.info.name} Certificate
+      </h1>
       <div className="order-2 mt-5 flex flex-1 flex-col sm:order-1 sm:mt-0 sm:gap-6">
         <h1 className="hidden font-next-book-bold text-[1.75rem] font-bold capitalize text-neutral-off-black sm:block">
           {ecosystem.info.name} Certificate

@@ -11,7 +11,7 @@ export default async function Page() {
   return (
     <>
       {total > 0 ? (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col sm:gap-8">
           <DashboardCourses />
           <DashboardProjects />
         </div>

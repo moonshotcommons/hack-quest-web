@@ -19,8 +19,13 @@ export function CommunitySection({ tasks }: { tasks: EcosystemTask[] }) {
               completed={task.completed}
               showProgress={false}
             />
-            <Button disabled={task.completed} size="small" ghost className="text-xs uppercase sm:w-36">
-              {task.completed ? 'completed' : 'go now'}
+            <Button
+              disabled={task.completed}
+              size="small"
+              ghost
+              className="whitespace-nowrap text-xs uppercase sm:w-36"
+            >
+              {task.completed && task.claimed ? 'completed' : 'go now'}
             </Button>
           </div>
         ))}

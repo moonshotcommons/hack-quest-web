@@ -25,7 +25,7 @@ export function LearnSection({ tasks }: { tasks: EcosystemTask[] }) {
     <Accordion type="multiple" className="flex flex-col gap-6">
       {tasks.map((task, index) => (
         <AccordionItem key={task.taskId} value={`item-${index + 1}`}>
-          <AccordionTrigger>
+          <AccordionTrigger completed={task.completed && task.claimed}>
             <SectionHeader
               taskId={task.taskId}
               title={task.name}
@@ -37,15 +37,13 @@ export function LearnSection({ tasks }: { tasks: EcosystemTask[] }) {
             />
           </AccordionTrigger>
           <AccordionContent>
-            <div className="flex flex-col gap-6">
-              {task.courses?.map((course) => (
-                <CourseCard href={`/practices/${course.id}`} key={course.id} course={course} />
-              ))}
-              <p className="text-sm text-neutral-rich-gray">
-                A {languageMap[nextLang]} version of this course is available.
+            <div className="flex flex-col gap-5 sm:gap-6">
+              {task.courses?.map((course) => <CourseCard key={course.id} course={course} />)}
+              <p className="inline-flex flex-col items-center gap-2 self-start text-sm text-neutral-rich-gray sm:flex-row sm:gap-4">
+                <span>A {languageMap[nextLang]} version of this course is available.</span>
                 <button
                   disabled={isPending}
-                  className="ml-4 inline-flex items-center gap-1.5 outline-none"
+                  className="inline-flex items-center gap-1.5 self-start outline-none"
                   onClick={() => onValueChange(nextLang)}
                 >
                   Switch to {languageMap[nextLang]} <MoveRightIcon size={14} />

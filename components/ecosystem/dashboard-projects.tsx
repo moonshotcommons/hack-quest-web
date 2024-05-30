@@ -21,13 +21,16 @@ function ProjectSkeleton() {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {[...Array(3)].map((_, index) => (
-        <div key={index} className="h-[22.875rem] w-full animate-pulse rounded-2xl bg-neutral-off-white" />
+        <div
+          key={index}
+          className="h-[21.5rem] w-full animate-pulse rounded-2xl bg-neutral-white sm:h-[22.875rem] sm:bg-neutral-off-white"
+        />
       ))}
     </div>
   );
 }
 
-function ProjectCard({ course }: { course: CourseDetailType }) {
+export function ProjectCard({ course }: { course: CourseDetailType }) {
   const href =
     course.type === CourseType.UGC ? `${MenuLink.PRACTICES}/${course.id}` : `${MenuLink.ELECTIVES}/${course.id}`;
   return (
@@ -99,7 +102,7 @@ export function DashboardProjects() {
   });
 
   return (
-    <div className="rounded-3xl bg-neutral-white p-6">
+    <div className="rounded-3xl p-6 sm:bg-neutral-white">
       <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">My Projects</h1>
       <Tabs className="mt-6 w-full" value={value} onValueChange={setValue}>
         <TabsList className="justify-start">

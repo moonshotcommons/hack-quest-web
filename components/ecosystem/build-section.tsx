@@ -1,15 +1,15 @@
 import { EcosystemTask } from '@/service/webApi/ecosystem/type';
-import { ProjectCard } from '@/components/course/project-card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ecosystem-accordion';
 import { SectionHeader } from './section-header';
 import { ExploreCard } from './explore-card';
+import { ProjectCard } from './dashboard-projects';
 
 export function BuildSection({ tasks }: { tasks: EcosystemTask[] }) {
   return (
     <Accordion type="multiple" className="flex flex-col gap-6">
       {tasks.map((task, index) => (
         <AccordionItem key={task.taskId} value={`item-${index + 1}`}>
-          <AccordionTrigger>
+          <AccordionTrigger completed={task.completed && task.claimed}>
             <SectionHeader
               taskId={task.taskId}
               title={task.name}

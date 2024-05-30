@@ -4,6 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpenIcon } from 'lucide-react';
+import { isMobile } from 'react-device-detect';
 import { useShallow } from 'zustand/react/shallow';
 import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
@@ -13,11 +14,12 @@ import { PageResult } from '@/service/webApi/type';
 import { CourseTrackType, CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
-import { EcosystemCard } from '@/components/ecosystem/ecosystem-card copy';
+import { EcosystemCard } from '@/components/ecosystem/ecosystem-card';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import MenuLink from '@/constants/MenuLink';
+import { getCoverImageByTrack } from '@/helper/utils';
 
 const coverImageMap = {
   [CourseTrackType.DeFi]: {
@@ -43,7 +45,9 @@ const coverImageMap = {
 };
 
 function CourseSkeleton() {
-  return <div className="h-[14.75rem] w-full animate-pulse rounded-2xl bg-neutral-off-white" />;
+  return (
+    <div className="h-[24.625rem] w-full animate-pulse rounded-2xl bg-neutral-white sm:h-[14.75rem] sm:bg-neutral-off-white" />
+  );
 }
 
 function CourseEmpty() {
@@ -79,15 +83,17 @@ function CourseEmpty() {
   );
 }
 
-export function CourseCard({ href, course }: { href: string; course: CourseDetailType }) {
-  const link =
+export function CourseCard({ course }: { course: CourseDetailType }) {
+  const href =
     course.type === CourseType.UGC ? `${MenuLink.PRACTICES}/${course.id}` : `${MenuLink.ELECTIVES}/${course.id}`;
   return (
-    <Link href={link}>
+    <Link href={href}>
       <div className="sm:card-hover flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white sm:flex-row">
         <div className="relative h-40 w-full sm:h-[14.5625rem] sm:w-[18rem]">
           {course.image ? (
             <Image src={course.image} alt={course.title} fill className="object-cover sm:rounded-l-2xl" />
+          ) : isMobile ? (
+            getCoverImageByTrack(course.track)
           ) : (
             <Image
               src={coverImageMap[course.track]?.src || coverImageMap[CourseTrackType.DeFi].src}
@@ -144,7 +150,7 @@ export function DashboardCourses() {
     }
   });
   return (
-    <div className="rounded-3xl bg-neutral-white p-6">
+    <div className="rounded-3xl p-6 sm:bg-neutral-white">
       <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">My Courses</h1>
       <Tabs className="mt-6 w-full" value={value} onValueChange={setValue}>
         <TabsList className="justify-start">
@@ -159,22 +165,14 @@ export function DashboardCourses() {
           <div className="flex flex-col gap-8">
             {isLoading && <CourseSkeleton />}
             {data &&
-              (data.length > 0 ? (
-                data.map((item) => <CourseCard href={`/electives/${item.id}`} key={item.id} course={item} />)
-              ) : (
-                <CourseEmpty />
-              ))}
+              (data.length > 0 ? data.map((item) => <CourseCard key={item.id} course={item} />) : <CourseEmpty />)}
           </div>
         </TabsContent>
         <TabsContent value="completed">
           <div className="flex flex-col gap-8">
             {isLoading && <CourseSkeleton />}
             {data &&
-              (data.length > 0 ? (
-                data.map((item) => <CourseCard href={`/electives/${item.id}`} key={item.id} course={item} />)
-              ) : (
-                <CourseEmpty />
-              ))}
+              (data.length > 0 ? data.map((item) => <CourseCard key={item.id} course={item} />) : <CourseEmpty />)}
           </div>
         </TabsContent>
       </Tabs>
