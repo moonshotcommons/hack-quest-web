@@ -35,7 +35,7 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
     course.type === CourseType.UGC ? `${MenuLink.PRACTICES}/${course.id}` : `${MenuLink.ELECTIVES}/${course.id}`;
   return (
     <Link href={href}>
-      <div className="card-hover flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white">
+      <div className="sm:card-hover flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white">
         <div className="relative h-40 w-full">
           {course.image ? (
             <Image src={course.image} alt={course.title} fill className="rounded-t-2xl object-cover" />
