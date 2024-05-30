@@ -7,14 +7,17 @@ import { TransNs } from '@/i18n/config';
 import Image from 'next/image';
 import { useTranslation } from '@/i18n/client';
 import Button from '@/components/Common/Button';
+import { EcosystemDetailType } from '@/service/webApi/ecosystem/type';
 
 interface SwitchModalProp {
   open: boolean;
   onClose: VoidFunction;
   handleSubmit: VoidFunction;
+  ecosystem: EcosystemDetailType;
+  loading: boolean;
 }
 
-const SwitchModal: React.FC<SwitchModalProp> = ({ open, onClose, handleSubmit }) => {
+const SwitchModal: React.FC<SwitchModalProp> = ({ open, onClose, handleSubmit, ecosystem, loading }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
   return (
@@ -25,7 +28,7 @@ const SwitchModal: React.FC<SwitchModalProp> = ({ open, onClose, handleSubmit })
         </div>
         <p className="body-xl-bold text-neutral-rich-gray">
           {t('explore.switchText', {
-            ecosystem: 'ecosystem'
+            ecosystem: ecosystem.info.name
           })}
         </p>
         <p className="body-m text-center text-neutral-medium-gray">{t('explore.swtichDesc')}</p>
@@ -33,9 +36,10 @@ const SwitchModal: React.FC<SwitchModalProp> = ({ open, onClose, handleSubmit })
           <Button
             type="primary"
             onClick={handleSubmit}
+            loading={loading}
             className="button-text-m h-[48px] flex-1 flex-shrink-0 uppercase "
           >
-            {t('explore.addEcosystem')}
+            {t('explore.add')}
           </Button>
           <Button
             ghost

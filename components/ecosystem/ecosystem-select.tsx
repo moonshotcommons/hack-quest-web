@@ -47,7 +47,7 @@ export function EcosystemSelect() {
 
   const mutation = useMutation({
     mutationKey: ['switchEcosystem'],
-    mutationFn: (id: string) => webApi.ecosystemApi.switchEcosystem(id)
+    mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem({ ecosystemId })
   });
 
   const selected = data?.find((e) => e.id === params.ecosystemId) || allEcosystem;

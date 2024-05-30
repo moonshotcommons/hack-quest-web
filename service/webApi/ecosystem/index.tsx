@@ -31,7 +31,7 @@ class EcosystemApi {
     });
   }
 
-  getEcosystemTasks(id: string, params?: Record<string, string>) {
+  getEcosystemTasks(id: string, params?: Record<string, any>) {
     return this.service.get<{ learn: EcosystemTask[]; build: EcosystemTask[]; community: EcosystemTask[] }>(
       `${EcosystemApiType.ECOSYSTEMS}/${id}/tasks`,
       {
@@ -40,16 +40,13 @@ class EcosystemApi {
     );
   }
 
-  switchEcosystem(ecosystemId: string) {
-    return this.service.post<void>(`${EcosystemApiType.ECOSYSTEMS}/switch`, {
-      data: {
-        ecosystemId
-      }
-    });
-  }
-
   claimTaskRewards(taskId: string) {
     return this.service.get<void>(`${EcosystemApiType.ECOSYSTEMS}/tasks/${taskId}/claim`);
+  }
+  switchEcosystem(data: object) {
+    return this.service.post(`${EcosystemApiType.ECOSYSTEMS}/switch`, {
+      data
+    });
   }
 }
 

@@ -7,6 +7,9 @@ import SwichModal from './SwichModal';
 import { EcosystemDetailType } from '@/service/webApi/ecosystem/type';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
+import webApi from '@/service';
+import message from 'antd/es/message';
+import { errorMessage } from '@/helper/ui';
 
 interface EnrollProp {
   lang: Lang;
@@ -16,6 +19,7 @@ interface EnrollProp {
 const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
   const { t } = useTranslation(lang, TransNs.LEARN);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -24,36 +28,49 @@ const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
     }))
   );
 
-  const handleEnroll = () => {
-    if (!userInfo) {
-      setAuthModalOpen(true);
-      setAuthType(AuthType.LOGIN);
-      return;
-    }
+  const handleAddEcosystem = () => {
+    setLoading(true);
+    webApi.ecosystemApi
+      .switchEcosystem({
+        ecosystemId: ecosystem.info?.id
+      })
+      .then(() => {
+        message.success('success');
+        setOpen(false);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
   };
-  const handleSubmit = () => {};
   return (
     <>
-      {false ? (
-        <Button
-          type="primary"
-          onClick={handleEnroll}
-          className="button-text-l h-[60px] w-[290px] uppercase text-neutral-black"
-        >
-          {t('explore.enroll')}
-        </Button>
-      ) : (
-        <Button
-          ghost
-          className="button-text-l h-[60px] w-[290px] border-neutral-black uppercase text-neutral-black"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          {t('explore.addEcosystem')}
-        </Button>
-      )}
-      <SwichModal open={open} handleSubmit={handleSubmit} onClose={() => setOpen(false)} />
+      <Button
+        type="primary"
+        loading={loading}
+        className={`button-text-m h-[48px] w-[165px] uppercase  ${ecosystem.info.enrolled ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray' : 'text-neutral-black '}`}
+        onClick={() => {
+          if (!userInfo) {
+            setAuthModalOpen(true);
+            setAuthType(AuthType.LOGIN);
+            return;
+          }
+          if (ecosystem.info.enrolled) return;
+          setOpen(true);
+        }}
+      >
+        {t(ecosystem.info.enrolled ? 'explore.added' : 'explore.add')}
+      </Button>
+      <SwichModal
+        open={open}
+        handleSubmit={() => handleAddEcosystem()}
+        onClose={() => setOpen(false)}
+        ecosystem={ecosystem}
+        loading={loading}
+      />
     </>
   );
 };

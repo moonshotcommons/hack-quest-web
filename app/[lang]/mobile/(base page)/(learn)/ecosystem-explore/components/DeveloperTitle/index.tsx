@@ -1,24 +1,26 @@
-import { Lang, TransNs } from '@/i18n/config';
-import { useTranslation } from '@/i18n/server';
-import Image, { StaticImageData } from 'next/image';
-import React from 'react';
+'use client';
+import { LangContext } from '@/components/Provider/Lang';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
+import { StaticImageData } from 'next/image';
+import React, { useContext } from 'react';
 
 interface DeveloperTitleProp {
-  lang: Lang;
   image: StaticImageData;
   title: string;
 }
 
-const DeveloperTitle: React.FC<DeveloperTitleProp> = async ({ lang, image, title }) => {
-  const { t } = await useTranslation(lang, TransNs.LEARN);
+const DeveloperTitle: React.FC<DeveloperTitleProp> = ({ image, title }) => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.LEARN);
   return (
-    <div className="flex gap-[16px]">
-      <div className="relative h-[64px] w-[64px] overflow-hidden">
+    <div className="flex items-center gap-[1rem]">
+      {/* <div className="relative h-[3rem] w-[3rem] overflow-hidden">
         <Image src={image} fill alt={title} className="object-contain" />
-      </div>
+      </div> */}
       <div>
-        <p className="text-h3 text-neutral-black">{t(`explore.${title}`)}</p>
-        <p className="body-m text-neutral-medium-gray">{t(`explore.${title}Intro`)}</p>
+        <p className="text-h3-mob text-neutral-black">{t(`explore.${title}`)}</p>
+        <p className="body-s mt-[.25rem] text-neutral-medium-gray">{t(`explore.${title}Intro`)}</p>
       </div>
     </div>
   );

@@ -127,7 +127,7 @@
     "buildWeb3Intro":"Gain hands on experience with projects",
     "moreResources":"More Resources",
     "moreResourcesIntro":"Explore beyond learning",
-    "detailMoreResourcesIntro":"Builder: Web3 Fundamentals (Optional) -> Certified Ecosystem Learning Track (e.g., Telos Learning Track) -> Blog & Glossary (Optional) -> Specializations (Optional) -> Electives & Projects -> Mini-Hacks → IRL/Online Co-learning & Meetup Events -> Hackathon -> Job Market",
+    "detailMoreResourcesIntro":"Explore beyond learning",
     "project":"Project",
     "projectIntro":"Practice makes perfect. Find all real-world projects here",
     "electiveIntro":"Learn Different Concepts about Web 3",
@@ -141,9 +141,9 @@
     "bounty":"Bounty",
     "votes":"Votes",
     "enroll":"Enroll",
-    "addEcosystem":"Add ecosystem",
+    "add":"Add",
+    "added":"Added",
     "switchText":"Do you want to switch to {{ecosystem}}?",
     "swtichDesc":"You’re currently enrolled in Ethereum learning track. All your learning progress will be saved. You can switch easily in dashboard."
-   
   }
 }
