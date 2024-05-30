@@ -15,6 +15,14 @@ class EcosystemApi {
     return this.service.get<EcosystemType[]>(EcosystemApiType.ECOSYSTEMS, { params });
   }
 
+  getActiveEcosystem() {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`);
+  }
+
+  getMyEcosystems() {
+    return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`);
+  }
+
   getEcosystemsDetailById(id: string, token: string) {
     return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}`, {
       headers: {
@@ -30,6 +38,18 @@ class EcosystemApi {
         params
       }
     );
+  }
+
+  switchEcosystem(ecosystemId: string) {
+    return this.service.post<void>(`${EcosystemApiType.ECOSYSTEMS}/switch`, {
+      data: {
+        ecosystemId
+      }
+    });
+  }
+
+  claimTaskRewards(taskId: string) {
+    return this.service.get<void>(`${EcosystemApiType.ECOSYSTEMS}/tasks/${taskId}/claim`);
   }
 }
 

@@ -11,10 +11,12 @@ export function BuildSection({ tasks }: { tasks: EcosystemTask[] }) {
         <AccordionItem key={task.taskId} value={`item-${index + 1}`}>
           <AccordionTrigger>
             <SectionHeader
+              taskId={task.taskId}
               title={task.name}
               tag="Build"
               points={task.exp}
               completed={task.completed}
+              claimed={task.claimed}
               progress={task.progress}
             />
           </AccordionTrigger>

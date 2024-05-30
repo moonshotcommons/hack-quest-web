@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { MoveRightIcon } from 'lucide-react';
-import { CourseCard } from '@/components/course/course-card';
 import { EcosystemTask } from '@/service/webApi/ecosystem/type';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ecosystem-accordion';
 import { SectionHeader } from './section-header';
+import { CourseCard } from './dashboard-courses';
 
 const languageMap = {
   en: 'English',
@@ -27,25 +27,21 @@ export function LearnSection({ tasks }: { tasks: EcosystemTask[] }) {
         <AccordionItem key={task.taskId} value={`item-${index + 1}`}>
           <AccordionTrigger>
             <SectionHeader
+              taskId={task.taskId}
               title={task.name}
               tag="Learn"
               progress={task.progress}
               points={task.exp}
+              claimed={task.claimed}
               completed={task.completed}
             />
           </AccordionTrigger>
           <AccordionContent>
-            <div>
+            <div className="flex flex-col gap-6">
               {task.courses?.map((course) => (
-                <CourseCard
-                  key={course.id}
-                  rootClassName="sm:gap-2 sm:border sm:border-neutral-light-gray"
-                  imageClassName="sm:h-[236px] sm:w-[288px]"
-                  actionClassName="sm:mt-4"
-                  course={course}
-                />
+                <CourseCard href={`/practices/${course.id}`} key={course.id} course={course} />
               ))}
-              <p className="mt-6 text-sm text-neutral-rich-gray">
+              <p className="text-sm text-neutral-rich-gray">
                 A {languageMap[nextLang]} version of this course is available.
                 <button
                   disabled={isPending}

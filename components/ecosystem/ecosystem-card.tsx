@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/helper/utils';
 
 function convertString(input?: string) {
   const lowerCaseString = input?.toLowerCase();
@@ -13,17 +14,19 @@ export function EcosystemCard({
   title,
   description,
   href,
-  tags
+  tags,
+  className
 }: {
   name: string;
   title: string;
   description: string;
   href: string;
   tags: string[];
+  className?: string;
 }) {
   return (
     <Link href={href}>
-      <div className="flex w-full items-center justify-between gap-4 rounded-2xl bg-neutral-white p-4">
+      <div className={cn('flex w-full items-center justify-between gap-4 rounded-2xl bg-neutral-white p-4', className)}>
         <div className="flex flex-col gap-3">
           <h2 className="font-bold capitalize text-neutral-black">{title}</h2>
           <p className="line-clamp-2 text-xs text-neutral-medium-gray">{description}</p>

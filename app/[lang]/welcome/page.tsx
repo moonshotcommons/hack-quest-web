@@ -11,6 +11,8 @@ import { CodeXmlIcon, MoveRightIcon, PlayIcon, XIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
 
 interface Props {
   step: number;
@@ -22,19 +24,15 @@ const useOnboard = create<Props>((set) => ({
   onNext: () => set((state) => ({ step: state.step + 1 }))
 }));
 
-function convertString(input?: string) {
-  const lowerCaseString = input?.toLowerCase();
-  const result = lowerCaseString?.replace(' developer', '');
-  return result;
-}
-
 function EcosystemCard({
   name,
+  image,
   language,
   selected = false,
   onClick
 }: {
   name: string;
+  image: string;
   language: string;
   selected?: boolean;
   onClick?: () => void;
@@ -46,13 +44,10 @@ function EcosystemCard({
       })}
       onClick={onClick}
     >
-      <Image
-        src={`/images/ecosystem/${convertString(name)}.svg`}
-        alt={name}
-        width={56}
-        height={56}
-        className="flex-shrink-0 sm:h-16 sm:w-16"
-      />
+      <div className="relative h-12 w-12 flex-shrink-0 sm:h-20 sm:w-20">
+        <Image src={image} alt={name} fill />
+      </div>
+
       <div className="flex flex-col gap-2">
         <h2 className="text-base font-bold text-neutral-off-black sm:text-lg">{name}</h2>
         <div className="flex items-center gap-2">
@@ -77,6 +72,14 @@ function ChooseEcosystem() {
       ecosystems: state.ecosystems
     }))
   );
+
+  const mutation = useMutation({
+    mutationKey: ['switchEcosystem'],
+    mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem(ecosystemId),
+    onSuccess: () => {
+      onNext();
+    }
+  });
 
   function handlePlayPause() {
     if (videoRef.current?.paused) {
@@ -162,7 +165,17 @@ function ChooseEcosystem() {
               <span className="text-sm">Skip for now</span>
               <MoveRightIcon size={16} />
             </button>
-            <Button type="primary" className="w-full uppercase sm:w-[16.875rem]" onClick={onNext}>
+            <Button
+              disabled={!selected}
+              type="primary"
+              loading={mutation.isPending}
+              className="w-full uppercase sm:w-[16.875rem]"
+              onClick={() => {
+                if (selected) {
+                  mutation.mutate(selected);
+                }
+              }}
+            >
               Continue
             </Button>
           </div>
@@ -188,7 +201,7 @@ function StartLearning() {
           className="sm:h-60 sm:w-[36.75rem]"
         />
       </div>
-      <Link href="/dashboard">
+      <Link href="/system">
         <Button type="primary" className="w-full self-start uppercase sm:w-[16.875rem] sm:self-end">
           Start learning
         </Button>
