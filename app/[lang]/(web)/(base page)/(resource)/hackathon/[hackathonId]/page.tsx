@@ -19,7 +19,6 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
   const { lang } = params;
   return {
     title: hackathon.name,
-    description: hackathon.about,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON}/${params.hackathonId}`,
       languages: {

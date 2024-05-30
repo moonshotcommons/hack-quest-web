@@ -54,8 +54,8 @@ export interface HackathonType {
   id: string;
   name: string;
   image: string;
-  about: string;
-  theme: string;
+  about: CustomComponent[];
+  theme: CustomComponent[];
   participants: number;
   hosts: Omit<MentorType, 'title'>[];
   coHosts: Omit<MentorType, 'title'>[];
@@ -76,7 +76,7 @@ export interface HackathonType {
   participation?: HackathonRegisterInfo;
   members: HackathonMemberType[];
   version: string;
-  voteRules: string;
+  voteRules: CustomComponent[];
   votes: HackathonTypeVotesType;
   remainingVote: number;
   projectCount: number;
