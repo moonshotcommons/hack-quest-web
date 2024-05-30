@@ -17,7 +17,6 @@ interface EnrollProp {
 }
 
 const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
-  console.info(ecosystem);
   const { t } = useTranslation(lang, TransNs.LEARN);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -17,13 +17,13 @@ const ResourceCard: React.FC<ResourceCardProp> = ({ resource }) => {
   return (
     <Link
       href={resource.link}
-      className="card-hover block flex w-full flex-col gap-[16px] rounded-[1rem] bg-neutral-white p-[1rem]"
+      className="card-hover flex w-full flex-col gap-[16px] rounded-[1rem] bg-neutral-white p-[1rem]"
     >
       <div className="relative h-[3rem] w-[3rem] overflow-hidden">
         <Image src={resource.icon} fill alt={resource.type} className="object-contain" />
       </div>
       <div>
-        <h2 className="body-l-bold mb-[8px] mt-[1rem] text-neutral-off-black">{t(`explore.${resource.type}`)}</h2>
+        <h2 className="body-l-bold  text-neutral-off-black">{t(`explore.${resource.type}`)}</h2>
         <p className="body-s mt-[.5rem] text-neutral-medium-gray">{t(`explore.${resource.type}Intro`)}</p>
       </div>
       <GoArrowRight size={18} />
