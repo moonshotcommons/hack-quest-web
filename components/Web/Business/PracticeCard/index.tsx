@@ -12,8 +12,7 @@ import Button from '@/components/Common/Button';
 import TrackTag from '@/components/Common/TrackTag';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import { getCoverImageByTrack } from '@/helper/utils';
-import Link from 'next/link';
-import MenuLink from '@/constants/MenuLink';
+import { getCoursePrefixByCourseType } from '@/helper/utils';
 
 interface PracticeCardProps {
   course: ProjectCourseType;
@@ -25,14 +24,13 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   const { course, from = 'project', inProgress = false } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
   const { redirectToUrl } = useRedirect();
-
   return (
-    <Link
-      href={`${MenuLink.PRACTICES}/${course.id}`}
+    <div
       className={
         'card-hover flex w-full flex-col overflow-hidden rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
       }
       onClick={() => {
+        redirectToUrl(`${getCoursePrefixByCourseType(course.type)}/${course.id}`);
         BurialPoint.track('home-practice卡片点击', { practice: course.title });
       }}
     >
@@ -84,7 +82,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

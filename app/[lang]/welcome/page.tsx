@@ -75,7 +75,7 @@ function ChooseEcosystem() {
 
   const mutation = useMutation({
     mutationKey: ['switchEcosystem'],
-    mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem(ecosystemId),
+    mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem({ ecosystemId }),
     onSuccess: () => {
       onNext();
     }

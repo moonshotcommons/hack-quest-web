@@ -1,21 +1,21 @@
-import { Lang } from '@/i18n/config';
+'use client';
 import React from 'react';
 import DeveloperTitle from '../DeveloperTitle';
 import CertifiedCover from '@/public/images/learn/certified_learning_track_cover.png';
 import EcoCard from './EcoCard';
-import { list } from './data';
+import { EcosystemType } from '@/service/webApi/ecosystem/type';
 
 interface CertifiedLearningTrackProp {
-  lang: Lang;
+  ecosystems: EcosystemType[];
 }
 
-const CertifiedLearningTrack: React.FC<CertifiedLearningTrackProp> = ({ lang }) => {
+const CertifiedLearningTrack: React.FC<CertifiedLearningTrackProp> = ({ ecosystems }) => {
   return (
-    <div className="flex flex-col gap-[32px]">
-      <DeveloperTitle lang={lang} image={CertifiedCover} title={'learningTrack'} />
-      <div className="flex flex-wrap gap-[32px]">
-        {list.map((eco) => (
-          <div key={eco.id} className="w-[calc((100%-64px)/3)]">
+    <div className="flex flex-col gap-[1.5rem]">
+      <DeveloperTitle image={CertifiedCover} title={'learningTrack'} />
+      <div className="flex flex-col gap-[1.25rem]">
+        {ecosystems.map((eco) => (
+          <div key={eco.id} className="w-full">
             <EcoCard ecosystem={eco} />
           </div>
         ))}

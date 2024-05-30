@@ -11,6 +11,8 @@ export interface EcosystemType {
   tags: string[];
   track: string;
   certificateDesc: string;
+  enrolled: boolean;
+  projectCount: number;
 }
 
 export interface EcosystemLevelType {
@@ -36,5 +38,7 @@ export interface EcosystemTask {
   progress: [number, number];
   completed: boolean;
   claimed: boolean;
+  track: string;
+  language: string;
   courses: CourseDetailType[];
 }

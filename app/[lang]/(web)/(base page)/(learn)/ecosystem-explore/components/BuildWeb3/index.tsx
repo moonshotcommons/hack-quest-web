@@ -5,10 +5,10 @@ import BuildCover from '@/public/images/learn/build_on_web3_cover.png';
 import CourseCard from './CourseCard';
 import { EcosystemType } from '@/service/webApi/ecosystem/type';
 import { BuildOnWebType } from '../../constants/type';
-import { buildOnWeb3Data } from '../../constants/data';
 import { useRequest } from 'ahooks';
 import { cloneDeep } from 'lodash-es';
 import webApi from '@/service';
+import { buildOnWeb3Data } from '../../constants/data';
 
 interface BuildWeb3Prop {
   ecosystems: EcosystemType[];
@@ -34,9 +34,11 @@ const BuildWeb3: React.FC<BuildWeb3Prop> = ({ ecosystems }) => {
   return (
     <div className="flex flex-col gap-[32px]">
       <DeveloperTitle image={BuildCover} title={'buildWeb3'} />
-      <div className="flex flex-col flex-wrap gap-[32px]">
+      <div className="flex  gap-[32px]">
         {courseData.map((course, i) => (
-          <CourseCard key={i} ecosystems={ecosystems} course={course} />
+          <div key={i} className="flex-1 flex-shrink-0">
+            <CourseCard ecosystems={ecosystems} course={course} />
+          </div>
         ))}
       </div>
     </div>
