@@ -58,13 +58,13 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.PRACTICES,
         description: 'navbar.learn.projectsDesc'
       },
-      {
-        id: 'my-course',
-        label: 'navbar.learn.myCourse',
-        path: MenuLink.MY_COURSES,
-        description: 'navbar.learn.myCourseDesc',
-        needLogin: true
-      },
+      // {
+      //   id: 'my-course',
+      //   label: 'navbar.learn.myCourse',
+      //   path: MenuLink.MY_COURSES,
+      //   description: 'navbar.learn.myCourseDesc',
+      //   needLogin: true
+      // },
       {
         id: 'ecosystem',
         label: 'navbar.learn.ecosystem',

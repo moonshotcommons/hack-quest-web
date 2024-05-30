@@ -157,6 +157,9 @@
   .underline-s {
     @apply font-Nunito text-[.875rem] leading-normal tracking-normal underline;
   }
+  .headline-h3 {
+    @apply font-next-book-bold text-[1.75rem] leading-normal tracking-normal;
+  }
   .headline-h4 {
     @apply font-next-book-bold text-[1.125rem] leading-normal tracking-normal;
   }

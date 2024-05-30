@@ -27,15 +27,15 @@ export function MyCertificateCard() {
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl bg-neutral-white p-4">
-      <h1 className="font-next-book-bold text-lg font-bold">My Certificate</h1>
+      <h1 className="headline-h5 font-bold">My Certificate</h1>
       <div className="grid grid-cols-2 gap-6">
         <div className="flex flex-col gap-2 py-2">
           <h4 className="text-xs font-light text-neutral-rich-gray">Courses Completed</h4>
-          <h2 className="text-lg font-bold text-neutral-off-black">{count?.courseCount}</h2>
+          <h2 className="body-l-bold text-neutral-off-black">{count?.courseCount}</h2>
         </div>
         <div className="flex flex-col gap-2 py-2">
           <h4 className="text-xs font-light text-neutral-rich-gray">Certification Earned</h4>
-          <h2 className="text-lg font-bold text-neutral-off-black">{count?.certificationCount}</h2>
+          <h2 className="body-l-bold text-neutral-off-black">{count?.certificationCount}</h2>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2">

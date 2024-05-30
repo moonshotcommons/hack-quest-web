@@ -27,7 +27,7 @@ const PracticeCard: FC<PracticeCardProps> = (props) => {
   return (
     <div
       className={
-        'card-hover  flex w-full flex-col rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
+        'card-hover flex w-full flex-col overflow-hidden rounded-[12px] bg-neutral-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]'
       }
       onClick={() => {
         redirectToUrl(`${getCoursePrefixByCourseType(course.type)}/${course.id}`);

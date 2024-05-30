@@ -25,7 +25,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
   const { days, hours, minutes, seconds } = formattedRes;
 
   function goHackathonDetail() {
-    redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}/voting`);
+    redirectToUrl(`${MenuLink.HACKATHON}/voting/${vote.alias}`);
   }
 
   function renderStatusTag() {
