@@ -17,7 +17,7 @@ export const allLinks = [
     id: 1,
     slug: 'yourHackathons',
     title: 'Your Hackathons',
-    url: '/hackathon/dashboard'
+    url: '/hackathon/my-hackathons'
   },
   {
     id: 2,

@@ -8,6 +8,7 @@ import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
 import { HackathonType, HackathonVoteType } from '@/service/webApi/resourceStation/type';
 import HackathonEmpty from '@/components/hackathon/hackathon-empty';
 import { HackathonVotingCard } from './hackathon-voting-card';
+import MenuLink from '@/constants/MenuLink';
 
 export function HackathonContent({ hackathons, votes }: { hackathons: HackathonType[]; votes: HackathonVoteType[] }) {
   const { value, onValueChange } = useQueryRouter({
@@ -33,7 +34,9 @@ export function HackathonContent({ hackathons, votes }: { hackathons: HackathonT
             {hackathons.map((hackathon) => (
               <HackathonCard key={hackathon.id} hackathon={hackathon} />
             ))}
-            <ViewAllLink href="/hackathon/dashboard/participated">View All Participated Hackathon</ViewAllLink>
+            <ViewAllLink href={`${MenuLink.HACKATHON_DASHBOARD}/participated`}>
+              View All Participated Hackathon
+            </ViewAllLink>
           </div>
         )}
       </TabsContent>
@@ -45,7 +48,7 @@ export function HackathonContent({ hackathons, votes }: { hackathons: HackathonT
             {votes.map((vote) => (
               <HackathonVotingCard key={vote.id} vote={vote} />
             ))}
-            <ViewAllLink href="/hackathon/dashboard/voting">View All Voting Hackathon</ViewAllLink>
+            <ViewAllLink href={`${MenuLink.HACKATHON_DASHBOARD}/voting`}>View All Voting Hackathon</ViewAllLink>
           </div>
         )}
       </TabsContent>

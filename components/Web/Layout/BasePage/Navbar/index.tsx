@@ -84,6 +84,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const handleClickNav = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, nav: NavbarListType) => {
     if (nav.id === 'more') return;
     const path = nav.menu[0]?.path!;
+    // Disable same URL
+    if (path === pathname) return;
     if (~needLoginPath.indexOf(path) && !userInfo) {
       message.warning('Please login first');
       setAuthType(AuthType.LOGIN);
@@ -185,7 +187,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                         {nav.menu.map((menu) => (
                           <Link
                             key={menu.id}
-                            href={menu.path!}
+                            href={menu.path === pathname ? '#' : menu.path!}
                             onClick={(e) => {
                               setHoverNavId(null);
                               e.stopPropagation();
