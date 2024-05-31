@@ -28,6 +28,7 @@ const WebAppProvider: FC<PropsWithChildren<WebAppProviderProps>> = ({ lang, chil
               color="#FFE866"
               options={{ showSpinner: false, positionUsing: '' }}
               shallowRouting
+              disableSameURL
             />
             <GlobalModal />
             <Analytics mode="production" debug={false} />

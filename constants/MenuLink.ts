@@ -12,7 +12,7 @@ enum MenuLink {
   MY_COURSES = '/my-courses',
   PROJECTS = '/hackathon/projects',
   EXPLORE_HACKATHON = '/hackathon/explore',
-  HACKATHON_DASHBOARD = '/hackathon/dashboard',
+  HACKATHON_DASHBOARD = '/hackathon/my-hackathons',
   HACKATHON_VOTING = '/hackathon/voting',
   IDEA_BANK = '/idea-bank',
   CAMPAIGINS = '/campaigns',

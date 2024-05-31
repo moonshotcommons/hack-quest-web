@@ -22,7 +22,7 @@ const CoinXp: React.FC<CoinXpProp> = () => {
         <Image src={IconCoin} width={30} height={30} alt="iconCredits" />
         <span>{userCoin.coin}</span>
       </div>
-      <div className="relative inline-flex h-[1.875rem] w-[7.5rem] items-center justify-center rounded-full bg-neutral-off-white pl-5">
+      <div className="relative inline-flex h-[1.875rem] w-[7.5rem] items-center justify-center overflow-hidden rounded-full bg-neutral-off-white pl-5">
         <div
           className="absolute left-0 top-0 h-full rounded-full bg-yellow-primary"
           style={{

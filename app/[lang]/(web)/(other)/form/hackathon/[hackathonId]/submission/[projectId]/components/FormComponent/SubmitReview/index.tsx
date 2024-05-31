@@ -12,6 +12,7 @@ import { LOCATIONS_SHORT } from '../../constants';
 import { ProjectLocation } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import MenuLink from '@/constants/MenuLink';
 
 interface SubmitReviewProps {}
 
@@ -44,7 +45,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
         if (simpleHackathonInfo.id === '61b378f5-14ce-4136-b0f4-74b659175013') {
           window.open('https://aspecta.id/builder-matrix/Linea-builder-launchpad');
         }
-        redirectToUrl(`/hackathon/dashboard`);
+        redirectToUrl(MenuLink.HACKATHON_DASHBOARD);
       },
       onError(err) {
         errorMessage(err);
