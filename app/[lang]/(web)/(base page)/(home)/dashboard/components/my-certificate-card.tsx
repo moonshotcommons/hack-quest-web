@@ -27,7 +27,7 @@ export function MyCertificateCard() {
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl bg-neutral-white p-4">
-      <h1 className="headline-h5 font-bold">My Certificate</h1>
+      <h1 className="text-h5 font-bold">My Certificate</h1>
       <div className="grid grid-cols-2 gap-6">
         <div className="flex flex-col gap-2 py-2">
           <h4 className="text-xs font-light text-neutral-rich-gray">Courses Completed</h4>
