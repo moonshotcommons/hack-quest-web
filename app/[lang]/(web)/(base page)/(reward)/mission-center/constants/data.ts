@@ -44,3 +44,18 @@ export const rewardsCardData: RewardsCardDataType = {
     type: RewardsCardType.SHARE
   }
 };
+
+export const leaderboardTab = [
+  {
+    label: 'all',
+    value: ''
+  },
+  {
+    label: 'month',
+    value: 'month'
+  },
+  {
+    label: 'day',
+    value: 'day'
+  }
+];

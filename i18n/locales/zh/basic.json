@@ -205,5 +205,10 @@
   "min": "最小",
   "max": "最大",
   "exploreMore":"探索更多",
-  "confirm":"确认"
+  "confirm":"确认",
+  "month":"月",
+  "day":"日",
+  "all":"全部",
+  "copy":"复制",
+  "share":"分享"
 }

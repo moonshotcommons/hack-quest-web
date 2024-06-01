@@ -31,7 +31,7 @@ const Index: React.FC<IndexProp> = ({ keyword, searchKeyword }) => {
       }}
     >
       <div className="flex flex-col items-center gap-[40px]">
-        <h1 className="text-h1 text-neutral-black">{t('explore.title')}</h1>
+        <h1 className="text-h2 text-neutral-black">{t('explore.title')}</h1>
         <div className="flex h-[61px] w-[800px] items-center gap-[20px] rounded-[56px] border border-neutral-light-gray bg-neutral-white px-[20px]">
           <BiSearch size={32} className="flex-shrink-0" />
           <input

@@ -9,7 +9,7 @@ export function HackathonCard() {
     <div className="flex flex-col gap-4 rounded-2xl bg-neutral-white p-4">
       <Image src="/images/navbar/my-hackathon.svg" width={64} height={64} alt="hackathon" />
       <div>
-        <h1 className="headline-h5">Linea Mini-hack -May</h1>
+        <h1 className="text-h5">Linea Mini-hack -May</h1>
         <Badge className="mt-2">ongoing</Badge>
       </div>
       <div className="flex flex-col gap-2">
