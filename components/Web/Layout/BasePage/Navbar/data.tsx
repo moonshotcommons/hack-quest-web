@@ -114,13 +114,13 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.build.projectArchive',
         path: MenuLink.PROJECTS,
         description: 'navbar.build.projectArchiveDesc'
+      },
+      {
+        id: 'idea-bank',
+        label: 'navbar.build.ideaBank',
+        path: MenuLink.IDEA_BANK,
+        description: 'navbar.build.ideaBankDesc'
       }
-      // {
-      //   id: 'idea-bank',
-      //   label: 'navbar.build.ideaBank',
-      //   path: MenuLink.IDEA_BANK,
-      //   description: 'navbar.build.ideaBankDesc'
-      // }
     ]
   },
   {

@@ -1,1 +1,1 @@
-export { default } from '@/components/idea-bank/page-layout';
+export { default } from '@/components/idea-bank/pages';
