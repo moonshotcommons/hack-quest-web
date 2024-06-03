@@ -16,6 +16,7 @@ const nextConfig = (phase) => {
     assetPrefix:
       isDev || !process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA ? '' : process.env.NEXT_PUBLIC_ASSET_PREFIX_FOR_CHINA,
     images: {
+      unoptimized: true,
       // domains: [
       //   'hack-quest-s3-dev.s3.amazonaws.com',
       //   'hackquest-s3-dev.s3.ap-northeast-1.amazonaws.com',
