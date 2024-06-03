@@ -5,6 +5,7 @@ import { XIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 import Modal from '@/components/Common/Modal';
+import { createUrl } from '@/helper/utils';
 
 export function MobileFilters({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
@@ -41,7 +42,8 @@ export function MobileFilters({ open, onClose }: { open: boolean; onClose: () =>
       currentParams.delete(currentParam);
     }
 
-    router.push(`${pathname}?${currentParams.toString()}`);
+    const url = createUrl(pathname, currentParams);
+    router.replace(url);
   }
 
   return (

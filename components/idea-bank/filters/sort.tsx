@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { CheckIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { SortIcon } from '@/components/Common/Icon/Sort';
+import { createUrl } from '@/helper/utils';
 import { animateProps } from './dropdown';
 
 const options = ['Creation Time', 'Upvote'];
@@ -39,8 +40,10 @@ export function SortByFilter() {
       currentParams.delete('sortBy');
     }
 
+    const url = createUrl(pathname, currentParams);
+
     setTimeout(() => {
-      router.replace(`${pathname}?${currentParams.toString()}`, { scroll: false });
+      router.replace(url, { scroll: false });
     }, 500);
   }
 
@@ -63,7 +66,7 @@ export function SortByFilter() {
       {hovered && (
         <motion.ul
           {...animateProps}
-          className="absolute -bottom-[0.1875rem] right-0 z-50 flex w-40 flex-col rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2 sm:left-0"
+          className="absolute -bottom-[0.1875rem] right-0 z-50 flex w-40 flex-col rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2"
         >
           {options?.map((option) => (
             <li

@@ -7,6 +7,7 @@ import { useMediaQuery } from '@/hooks/dom/use-media-query';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FilterIcon } from '@/components/Common/Icon/Filter';
+import { createUrl } from '@/helper/utils';
 import { DropdownFilter } from './dropdown';
 import { SortByFilter } from './sort';
 import { MobileFilters } from './mobile';
@@ -17,7 +18,7 @@ export function FilterPanel() {
   const searchParams = useSearchParams();
 
   const [open, toggleOpen] = useToggle(false);
-  const [checked, toggle] = useToggle(false);
+  const [checked, toggleChecked] = useToggle(false);
 
   const isLargeScreen = useMediaQuery('(min-width: 640px)');
 
@@ -48,8 +49,10 @@ export function FilterPanel() {
       newValues.forEach((v) => currentParams.append(paramName, v));
     }
 
+    const url = createUrl(pathname, currentParams);
+
     setTimeout(() => {
-      router.replace(`${pathname}?${currentParams.toString()}`, { scroll: false });
+      router.replace(url, { scroll: false });
     }, 500);
   }
 
@@ -63,7 +66,7 @@ export function FilterPanel() {
   }
 
   function onCheckedChange(checked: boolean) {
-    toggle(checked);
+    toggleChecked(checked);
     if (checked) {
       currentParams.set('team', 'true');
     } else {
@@ -105,6 +108,7 @@ export function FilterPanel() {
             />
             <label
               htmlFor="team"
+              aria-checked={checked}
               data-state={checked ? 'checked' : 'unchecked'}
               className="sm:body-m body-s select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
             >
