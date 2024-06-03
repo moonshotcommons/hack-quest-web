@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { MoveRightIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { Listbox, Transition } from '@headlessui/react';
-import webApi from '@/service';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { EcosystemType } from '@/service/webApi/ecosystem/type';
-import { MoveRightIcon } from 'lucide-react';
+import webApi from '@/service';
 
 const allEcosystem = {
   id: 'system',
@@ -24,12 +24,6 @@ const exploreMore = {
   icon: MoveRightIcon,
   switch: false
 };
-
-function convertString(input?: string) {
-  const lowerCaseString = input?.toLowerCase();
-  const result = lowerCaseString?.replace(' developer', '');
-  return result;
-}
 
 export function EcosystemSelect() {
   const router = useRouter();
@@ -83,7 +77,7 @@ export function EcosystemSelect() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-50 mt-px max-h-60 w-full overflow-auto rounded-[0.625rem] bg-neutral-white p-2 text-neutral-off-black ring-1 ring-neutral-light-gray focus:outline-none">
+          <Listbox.Options className="absolute z-50 mt-px flex w-full flex-col gap-3 rounded-[0.625rem] bg-neutral-white p-2 text-neutral-off-black ring-1 ring-neutral-light-gray focus:outline-none">
             {data?.map((ecosystem) => (
               <Listbox.Option
                 key={ecosystem.id}

@@ -40,7 +40,7 @@ const useDealHackathonData = () => {
   const getTotalPrize = (rewards: HackathonRewardType[]) => {
     let total = 0;
     rewards?.forEach((r) => {
-      total += r.place.reduce((pre, next) => {
+      total += r.place?.reduce((pre, next) => {
         return pre + next;
       }, 0);
     });
