@@ -8,29 +8,39 @@ export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: ProjectSubmitStepType; 
     stepNumber: 0
   },
   {
+    title: 'Project',
+    type: ProjectSubmitStepType.PROJECT,
+    stepNumber: 1
+  },
+  {
     title: 'Pitch Video',
     type: ProjectSubmitStepType.PITCH_VIDEO,
-    stepNumber: 1
+    stepNumber: 2
   },
   {
     title: 'Project Demo',
     type: ProjectSubmitStepType.DEMO,
-    stepNumber: 2
+    stepNumber: 3
+  },
+  {
+    title: 'Links',
+    type: ProjectSubmitStepType.LINKS,
+    stepNumber: 4
   },
   {
     title: 'Others',
     type: ProjectSubmitStepType.OTHERS,
-    stepNumber: 3
+    stepNumber: 5
   },
   {
     title: 'Wallet',
     type: ProjectSubmitStepType.WALLET,
-    stepNumber: 4
+    stepNumber: 6
   },
   {
     title: 'Review',
     type: ProjectSubmitStepType.REVIEW,
-    stepNumber: 5
+    stepNumber: 7
   }
 ];
 
@@ -85,5 +95,20 @@ export const TRACKS = [
   {
     label: 'Infra',
     value: 'Infra'
+  }
+];
+
+export const ProjectTypes = [
+  {
+    label: 'A tutorial guide',
+    value: 'A tutorial guide'
+  },
+  {
+    label: 'A dapp or frame',
+    value: 'A dapp or frame'
+  },
+  {
+    label: 'Other',
+    value: 'Other'
   }
 ];

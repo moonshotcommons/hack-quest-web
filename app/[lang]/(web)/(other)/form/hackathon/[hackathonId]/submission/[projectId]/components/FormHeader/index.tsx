@@ -13,12 +13,7 @@ const FormHeader: FC<FormHeaderProps> = ({ steps, current, title, description })
     <div className="">
       <h4 className="text-h4 text-neutral-off-black">{title}</h4>
       <p className="body-xs mb-4 text-neutral-rich-gray">{description}</p>
-      <Steps
-        items={steps}
-        current={current}
-        connectNodeClassName="w-[64.8px] max-w-[64.8px]"
-        itemClassName="min-w-[66px] whitespace-nowrap"
-      />
+      <Steps items={steps} current={current} itemClassName="w-[74px] min-w-[74px]" />
     </div>
   );
 };
