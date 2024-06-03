@@ -2,7 +2,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { ReactNode, useContext, useRef, useState } from 'react';
+import React, { ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import { ChangeState, ScrollContainer } from '@/components/Common/ScrollContainer';
 import Pagination from './Pagination';
@@ -24,6 +24,10 @@ function SliderCard({ title, className, viewLink, renderItem, isMobile = false }
   const [scrollContainerState, setScrollContainerState] = useState<ChangeState>();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <div className={cn('w-full py-[60px]', className)} ref={containerRef}>
       {title && (
@@ -43,7 +47,7 @@ function SliderCard({ title, className, viewLink, renderItem, isMobile = false }
             <Navigation isMobile={isMobile} changeState={scrollContainerState} />
           </div>
           <ScrollContainer ref={scrollContainerRef} gap={0} onChange={(state: any) => setScrollContainerState(state)}>
-            <div className="flex">{renderItem(containerRef.current?.offsetWidth as number)}</div>
+            <div className="flex">{renderItem(!mounted ? 1360 : (containerRef.current?.offsetWidth as number))}</div>
           </ScrollContainer>
         </div>
 
