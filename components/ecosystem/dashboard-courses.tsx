@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpenIcon } from 'lucide-react';
 import { isMobile } from 'react-device-detect';
-import { useShallow } from 'zustand/react/shallow';
 import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/line-tabs';
@@ -13,8 +12,6 @@ import webApi from '@/service';
 import { PageResult } from '@/service/webApi/type';
 import { CourseTrackType, CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { ecosystemStore } from '@/store/zustand/ecosystemStore';
-import { EcosystemCard } from '@/components/ecosystem/ecosystem-card';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
@@ -50,34 +47,18 @@ function CourseSkeleton() {
   );
 }
 
-function CourseEmpty() {
-  const { ecosystems } = ecosystemStore(
-    useShallow((state) => ({
-      ecosystems: state.ecosystems
-    }))
-  );
+function CourseEmpty({ label }: { label?: string }) {
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">
-        <h2 className="text-base font-bold text-neutral-black sm:text-lg">You’re not enrolled in any course</h2>
-        <Link href="/ecosystem-explore">
-          <Button size="small" ghost className="uppercase">
-            Explore courses
+        <h2 className="text-base font-bold text-neutral-black sm:text-lg">
+          {label || 'You’re not enrolled in any course'}
+        </h2>
+        <Link href="/electives">
+          <Button size="small" ghost className="h-8 w-[8.75rem] uppercase">
+            Explore
           </Button>
         </Link>
-      </div>
-      <div className="flex flex-col gap-5 sm:gap-8">
-        <h2 className="text-lg font-bold text-neutral-black">Explore Certified Learning Track</h2>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4">
-          {ecosystems?.map((ecosystem) => (
-            <EcosystemCard
-              key={ecosystem.id}
-              href={`/ecosystem-explore/${ecosystem.id}`}
-              ecosystem={ecosystem}
-              className="border border-neutral-light-gray"
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -172,7 +153,11 @@ export function DashboardCourses() {
           <div className="flex flex-col gap-8">
             {isLoading && <CourseSkeleton />}
             {data &&
-              (data.length > 0 ? data.map((item) => <CourseCard key={item.id} course={item} />) : <CourseEmpty />)}
+              (data.length > 0 ? (
+                data.map((item) => <CourseCard key={item.id} course={item} />)
+              ) : (
+                <CourseEmpty label="You don’t have a completed course" />
+              ))}
           </div>
         </TabsContent>
       </Tabs>
