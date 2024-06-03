@@ -19,7 +19,7 @@ const Leaderboard: React.FC<LeaderboardProp> = () => {
           {leaderboardTab.map((v, i) => (
             <div
               key={i}
-              className={`body-s-bold cursor-pointer rounded-[8px] px-[12px] py-[2px] text-neutral-medium-gray ${curTab === v.value ? 'bg-yellow-primary' : 'bg-neutral-off-white'}`}
+              className={`body-s-bold cursor-pointer rounded-[8px] px-[12px] py-[2px] text-neutral-rich-gray ${curTab === v.value ? 'bg-yellow-primary' : 'bg-neutral-off-white'}`}
               onClick={() => setCurTab(v.value)}
             >
               {t(v.label)}

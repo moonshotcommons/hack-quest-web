@@ -54,24 +54,27 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
             <span className="body-s text-neutral-medium-gray">{t('usersInvited')}</span>
           </div>
         </div>
-        <div className="body-s mt-[8px] flex items-center justify-between rounded-[50px] bg-neutral-off-white px-[15px] py-[12px] text-neutral-off-black">
+        <div className="body-s mt-[8px] flex h-[46px] items-center justify-between rounded-[50px] bg-neutral-off-white px-[15px] text-neutral-off-black">
           <span>{userInfo?.inviteCode}</span>
-          <div className="flex items-center gap-[12px]">
+          <div className="flex h-full items-center gap-[12px]">
             <div className="flex cursor-pointer items-center gap-[8px]" onClick={() => copyText(userInfo?.inviteCode)}>
               <LuCopy />
               <span>{t('copy')}</span>
             </div>
             <div
               tabIndex={1}
-              className="relative flex cursor-pointer items-center gap-[8px]"
-              onClick={() => setShowShare(true)}
-              onFocus={() => setShowShare(!showShare)}
-              onBlur={() => setShowShare(false)}
+              className="relative flex  h-full cursor-pointer items-center gap-[8px]"
+              onClick={() => setShowShare(!showShare)}
+              onBlur={() =>
+                setTimeout(() => {
+                  setShowShare(false);
+                }, 500)
+              }
             >
               <MdOutlineShare />
               <span>{t('share')}</span>
               {showShare && (
-                <PopBox className="left-[-100px] top-[-260px]">
+                <PopBox className="left-[-100px] top-[-245px]">
                   {shareList(userInfo?.inviteCode || '').map((item) => {
                     return (
                       <ShareWrap
