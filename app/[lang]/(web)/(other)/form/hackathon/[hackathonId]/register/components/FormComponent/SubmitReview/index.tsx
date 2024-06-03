@@ -11,6 +11,8 @@ import message from 'antd/es/message';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import { isEmpty } from 'lodash-es';
+import MenuLink from '@/constants/MenuLink';
+import { useRouter } from 'next/navigation';
 interface SubmitReviewProps {}
 
 const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
@@ -23,6 +25,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
     setCurrentStep(step);
   };
 
+  const router = useRouter();
   const { redirectToUrl } = useRedirect();
   const { name, contractInfo, bio, submissionType, isRegister } = formState;
   const confirmModalRef = useRef<ConfirmModalRef>(null);
@@ -35,7 +38,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       onSuccess() {
         !isRegister && message.success(`Register ${simpleHackathonInfo.name} success!`);
         isRegister && message.success(`Update register info success!`);
-        redirectToUrl(`/hackathon/dashboard`);
+        router.refresh();
+        setTimeout(() => {
+          redirectToUrl(MenuLink.HACKATHON_DASHBOARD);
+        }, 300);
       },
       onError(err) {
         errorMessage(err);
