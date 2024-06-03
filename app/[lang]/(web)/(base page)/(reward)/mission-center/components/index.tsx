@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import webApi from '@/service';
 
 import message from 'antd/es/message';
@@ -14,6 +14,7 @@ import MissionBg from '@/public/images/mission-center/mission_bg.png';
 import DayStreak from './DayStreak';
 import Leaderboard from './Leaderboard';
 import ReferEarn from './ReferEarn';
+import { MissionStatus } from '@/service/webApi/missionCenter/type';
 
 function MissionCenter() {
   const { updateMissionDataAll } = useGetMissionData();
@@ -34,6 +35,10 @@ function MissionCenter() {
       });
   };
 
+  const beginnerRewardsOver = useMemo(() => {
+    return missionData.beginnerRewards.every((v) => v.status === MissionStatus.CLAIMED);
+  }, [missionData]);
+
   return (
     <div
       className="container mx-auto flex min-h-screen gap-[40px] pb-[100px] pt-[40px]"
@@ -47,8 +52,17 @@ function MissionCenter() {
       <div className="flex flex-1 flex-col gap-[40px]">
         <UserInfo />
         <DailyQuests missionDatas={missionData.dailyQuests} missionClaim={missionClaim} />
-        <BeginnerRewards missionDatas={missionData.beginnerRewards} missionClaim={missionClaim} />
-        <Achievements missionDatas={missionData.milestones} missionClaim={missionClaim} />
+        {beginnerRewardsOver ? (
+          <>
+            <Achievements missionDatas={missionData.milestones} missionClaim={missionClaim} />
+            <BeginnerRewards missionDatas={missionData.beginnerRewards} missionClaim={missionClaim} />
+          </>
+        ) : (
+          <>
+            <BeginnerRewards missionDatas={missionData.beginnerRewards} missionClaim={missionClaim} />
+            <Achievements missionDatas={missionData.milestones} missionClaim={missionClaim} />
+          </>
+        )}
       </div>
       <div className="relative w-[420px] flex-shrink-0">
         <div className="sticky right-0 top-[40px] flex flex-col gap-[40px]">
