@@ -19,8 +19,8 @@ const DeveloperTitle: React.FC<DeveloperTitleProp> = ({ image, title }) => {
         <Image src={image} fill alt={title} className="object-contain" />
       </div> */}
       <div>
-        <p className="text-h3 text-neutral-black">{t(`explore.${title}`)}</p>
-        <p className="body-m mt-[4px] text-neutral-medium-gray">{t(`explore.${title}Intro`)}</p>
+        <p className="text-h35 text-neutral-black">{t(`explore.${title}`)}</p>
+        <p className="body-s mt-[4px] text-neutral-medium-gray">{t(`explore.${title}Intro`)}</p>
       </div>
     </div>
   );

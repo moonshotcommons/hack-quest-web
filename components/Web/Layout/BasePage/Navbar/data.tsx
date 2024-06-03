@@ -130,7 +130,7 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'mission',
         label: 'navbar.reward.mission',
-        path: MenuLink.REWARD,
+        path: MenuLink.MISSION_CENTER,
         description: 'navbar.reward.missionDesc',
         needLogin: true,
         needPC: true

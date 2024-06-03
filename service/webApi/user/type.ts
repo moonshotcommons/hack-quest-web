@@ -39,6 +39,8 @@ export interface LoginResponse {
   // registerType: string;
   inviteCode: string;
   token: string;
+  voteRole: string;
+  inviteCount: number;
 }
 
 export enum ForgetPasswordErrorStatusType {
