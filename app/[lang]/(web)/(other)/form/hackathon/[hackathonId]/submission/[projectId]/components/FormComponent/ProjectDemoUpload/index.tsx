@@ -105,8 +105,8 @@ const ProjectDemoUpload: FC<
   const { run: onSubmit, loading: submitLoading } = useRequest(
     async () => {
       const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
-          ? ProjectSubmitStepType.OTHERS
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
+          ? ProjectSubmitStepType.LINKS
           : status;
 
       debugger;

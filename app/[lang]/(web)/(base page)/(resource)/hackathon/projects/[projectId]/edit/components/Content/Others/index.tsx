@@ -37,6 +37,7 @@ const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined>; isClose:
       <CustomFormField
         name="githubLink"
         form={form}
+        className="bg-neutral-off-white focus:bg-neutral-white"
         label="Please Provide The Github Of Your Project"
         placeholder="Paste Github link here"
       />

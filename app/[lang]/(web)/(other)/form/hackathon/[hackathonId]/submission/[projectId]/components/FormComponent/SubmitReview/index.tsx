@@ -29,7 +29,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
 
   const { redirectToUrl } = useRedirect();
 
-  const { info, projectDemo, others, wallet, isSubmit } = formState;
+  const { info, projectDemo, others, wallet, isSubmit, project, links } = formState;
 
   const confirmModal = useRef<ConfirmModalRef>(null);
 
@@ -57,10 +57,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
     <div>
       <div className="">
         <p className="body-l text-left text-neutral-off-black">Please check your project information</p>
-        <div className="mt-4 flex gap-6 [&>div]:w-[calc(50%-12px)]">
-          <div className="flex h-[450px] flex-col rounded-[8px] border border-neutral-light-gray px-6 py-3 text-left">
+        <div className="mt-4 flex flex-col gap-6">
+          <div className="flex flex-col rounded-[8px] border border-neutral-light-gray px-6 py-3 text-left">
             <div
-              className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+              className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
               onClick={() => gotoStep(0)}
             >
               <span>Basic Info</span>
@@ -69,44 +69,44 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             {/* Logo */}
             <div className=" mt-2 flex flex-col gap-2">
               <div className="flex flex-1 justify-between">
-                <span className="body-xs flex items-center text-neutral-rich-gray">Logo</span>
+                <span className="body-m flex items-center text-neutral-off-black">Logo</span>
                 <Image
                   src={formState.info.projectLogo}
                   alt="logo"
-                  width={24}
-                  height={24}
+                  width={32}
+                  height={32}
                   className="rounded-[4px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
                 />
               </div>
               <div className="flex flex-1 items-center justify-between">
-                <span className="body-xs flex items-center  text-neutral-rich-gray">Name</span>
-                <span className="body-xs text-neutral-off-black">{info.projectName}</span>
+                <span className="body-m flex items-center  text-neutral-off-black">Name</span>
+                <span className="body-m text-neutral-off-black">{info.projectName}</span>
               </div>
               <div className="flex flex-1 items-center justify-between">
-                <span className="body-xs flex items-center  text-neutral-rich-gray">Location</span>
-                <span className="body-xs text-neutral-off-black">
+                <span className="body-m flex items-center  text-neutral-off-black">Location</span>
+                <span className="body-m text-neutral-off-black">
                   {LOCATIONS_SHORT[info.location as ProjectLocation]}
                 </span>
               </div>
               <div className="flex flex-1 items-center justify-between">
-                <span className="body-xs flex items-center  text-neutral-rich-gray">Prize Track</span>
-                <span className="body-xs text-neutral-off-black">{info.prizeTrack}</span>
+                <span className="body-m flex items-center  text-neutral-off-black">Prize Track</span>
+                <span className="body-m text-neutral-off-black">{info.prizeTrack}</span>
               </div>
               <div className="flex flex-1 items-center justify-between">
-                <span className="body-xs flex items-center  text-neutral-rich-gray">Hackathon Track</span>
-                <span className="body-xs text-neutral-off-black">{info.track}</span>
+                <span className="body-m flex items-center  text-neutral-off-black">Hackathon Track</span>
+                <span className="body-m text-neutral-off-black">{info.track}</span>
               </div>
             </div>
             {/* Track */}
             <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
-            <div className="body-xs flex flex-col gap-1  text-neutral-off-black">
+            <div className="body-m flex flex-col gap-1  text-neutral-off-black">
               <span>One Line Introduction</span>
-              <div className="caption-12pt line-clamp-2 h-[32px] w-full leading-normal">{info.intro}</div>
+              <div className="body-s  w-full leading-normal text-neutral-rich-gray">{info.intro}</div>
             </div>
             <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
-            <div className="body-xs flex flex-col gap-1 text-neutral-off-black">
+            <div className="body-m flex flex-col gap-1 text-neutral-off-black">
               <span>Detailed Introduction</span>
-              <p className="caption-12pt line-clamp-[7] h-[112px] w-full leading-normal">{info.detailedIntro}</p>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.detailedIntro}</p>
             </div>
             {/* <div className="flex w-full cursor-pointer items-center justify-between" onClick={() => gotoStep(0)}>
               <div className="flex flex-1 items-center">
@@ -172,75 +172,147 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
               {arrowIcon}
             </div> */}
           </div>
-          <div className="flex flex-col  gap-6 text-left">
+          <div className="flex  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
             <div
-              className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
+              className="body-l-bold text-neutral-off-blacky flex cursor-pointer items-center justify-between pb-2"
               onClick={() => gotoStep(1)}
             >
-              <div className="flex flex-1 items-center">
-                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Pitch Video</span>
-                {formState.pitchVideo && (
-                  <Image
-                    src={'/images/icons/video_icon.png'}
-                    alt="pitch video"
-                    width={48}
-                    height={48}
-                    className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
-                  />
-                )}
-              </div>
+              <span>Project</span>
               {arrowIcon}
             </div>
+
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">
+                Did you incorporate efrog NFT into your project?
+              </span>
+              <span className="body-m text-neutral-off-black">{project.efrog ? 'Yes' : 'No'}</span>
+            </div>
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">
+                Did you use $CROAK memecoin for utility in your project?
+              </span>
+              <span className="body-m text-neutral-off-black">{project.croak ? 'Yes' : 'No'}</span>
+            </div>
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">What are you submitting?</span>
+              <span className="body-m text-neutral-off-black">{project.submitType}</span>
+            </div>
+          </div>
+          <div
+            className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
+            onClick={() => gotoStep(2)}
+          >
+            <div className="flex flex-1 items-center">
+              <span className="body-l-bold flex w-[130px] items-center text-neutral-off-black">Pitch Video</span>
+              {formState.pitchVideo && (
+                <Image
+                  src={'/images/icons/video_icon.png'}
+                  alt="pitch video"
+                  width={48}
+                  height={48}
+                  className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                />
+              )}
+            </div>
+            {arrowIcon}
+          </div>
+          <div
+            className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
+            onClick={() => gotoStep(3)}
+          >
+            <div className="flex flex-1 items-center">
+              <span className="body-l-bold flex w-[130px] items-center text-neutral-off-black">Project Demo</span>
+              {formState.projectDemo && (
+                <Image
+                  src={'/images/icons/video_icon.png'}
+                  alt="demo video"
+                  width={48}
+                  height={48}
+                  className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+                />
+              )}
+            </div>
+            {arrowIcon}
+          </div>
+          <div className="flex  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
             <div
-              className="flex h-[96px] items-center justify-between rounded-[8px] border border-neutral-light-gray p-6"
-              onClick={() => gotoStep(2)}
+              className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-off-black"
+              onClick={() => gotoStep(4)}
             >
-              <div className="flex flex-1 items-center">
-                <span className="body-s flex w-[130px] items-center text-neutral-rich-gray">Project Demo</span>
-                {formState.projectDemo && (
-                  <Image
-                    src={'/images/icons/video_icon.png'}
-                    alt="demo video"
-                    width={48}
-                    height={48}
-                    className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
-                  />
-                )}
-              </div>
+              <span>Links</span>
               {arrowIcon}
             </div>
-            <div className="flex h-[100px]  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
-              <div
-                className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
-                onClick={() => gotoStep(3)}
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Link to your verified contract</span>
+              <Link
+                href={others.githubLink}
+                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                target="_blank"
               >
-                <span>Other Info</span>
-                {arrowIcon}
-              </div>
-              <div className="flex flex-1 items-center justify-between gap-4">
-                <span className="body-xs flex items-center  text-neutral-rich-gray">Github</span>
-                <Link href={others.githubLink} className="body-xs truncate text-neutral-off-black">
-                  {others.githubLink}
-                </Link>
-              </div>
-              <div className="flex flex-1 items-center justify-between">
-                <span className="body-xs flex items-center  text-neutral-rich-gray">Open Source</span>
-                <span className="body-xs text-neutral-off-black">{others.isPublic ? 'Yes' : 'No'}</span>
-              </div>
+                {links.contractLink}
+              </Link>
             </div>
-            <div className="flex h-[86px]  flex-col gap-4 rounded-[8px] border border-neutral-light-gray px-6 py-3">
-              <div
-                className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
-                onClick={() => gotoStep(4)}
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Link to your project</span>
+              <Link
+                href={others.githubLink}
+                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                target="_blank"
               >
-                <span>Wallet Information</span>
-                {arrowIcon}
-              </div>
-              <p className="body-s flex gap-1 text-left text-neutral-off-black">
-                <Image src={'/images/login/metamask.svg'} alt="wallet" width={24} height={24} />
-                <span>{formState.wallet?.toString()?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
-              </p>
+                {links.projectLink}
+              </Link>
             </div>
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Link to a social post</span>
+              <Link
+                href={others.githubLink}
+                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                target="_blank"
+              >
+                {links.socialLink}
+              </Link>
+            </div>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-m flex flex-col gap-1 text-left text-neutral-off-black">
+              <span>List any partner tooling you incorporated and how you did it for bonus points</span>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{links.partnerTooling}</p>
+            </div>
+          </div>
+          <div className="flex  flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
+            <div
+              className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-off-black"
+              onClick={() => gotoStep(5)}
+            >
+              <span>Other Info</span>
+              {arrowIcon}
+            </div>
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Github</span>
+              <Link
+                href={others.githubLink}
+                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                target="_blank"
+              >
+                {others.githubLink}
+              </Link>
+            </div>
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">Open Source</span>
+              <span className="body-m text-neutral-off-black">{others.isPublic ? 'Yes' : 'No'}</span>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 rounded-[8px] border border-neutral-light-gray px-6 py-3">
+            <div
+              className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+              onClick={() => gotoStep(6)}
+            >
+              <span>Wallet Information</span>
+              {arrowIcon}
+            </div>
+            <p className="body-m flex gap-1 text-left text-neutral-off-black">
+              <Image src={'/images/login/metamask.svg'} alt="wallet" width={26} height={26} />
+              <span>{formState.wallet?.toString()?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
+            </p>
           </div>
         </div>
       </div>

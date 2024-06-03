@@ -10,6 +10,13 @@ export const formSchema = z.object({
   track: z.string().min(1),
   githubLink: z.string().min(0).optional(),
   isPublic: z.boolean(),
+  submitType: z.string().min(0),
+  efrog: z.boolean(),
+  croak: z.boolean(),
+  contractLink: z.string().url(),
+  projectLink: z.string().url(),
+  socialLink: z.string().url(),
+  partnerTooling: z.string().min(1).max(360),
   intro: z
     .string()
     .min(1, {

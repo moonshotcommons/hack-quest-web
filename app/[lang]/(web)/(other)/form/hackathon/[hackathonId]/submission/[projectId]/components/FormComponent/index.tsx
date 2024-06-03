@@ -7,6 +7,8 @@ import OthersForm from './OthersForm';
 import ConnectWallet from './ConnectWallet';
 import SubmitReview from './SubmitReview';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+import ProjectForm from './ProjectForm';
+import LinksForm from './LinksForm';
 
 export interface FormComponentProps {
   type: ProjectSubmitStepType;
@@ -34,6 +36,10 @@ const FormComponent: FC<FormComponentProps> = (props) => {
           isSubmit={formState.isSubmit}
         />
       );
+    case ProjectSubmitStepType.PROJECT:
+      return (
+        <ProjectForm {...rest} project={formState.project} status={formState.status} isSubmit={formState.isSubmit} />
+      );
     case ProjectSubmitStepType.PITCH_VIDEO:
       return (
         <PitchVideoUpload
@@ -52,6 +58,8 @@ const FormComponent: FC<FormComponentProps> = (props) => {
           isSubmit={formState.isSubmit}
         />
       );
+    case ProjectSubmitStepType.LINKS:
+      return <LinksForm {...rest} links={formState.links} status={formState.status} isSubmit={formState.isSubmit} />;
     case ProjectSubmitStepType.OTHERS:
       return <OthersForm {...rest} others={formState.others} status={formState.status} isSubmit={formState.isSubmit} />;
     case ProjectSubmitStepType.WALLET:

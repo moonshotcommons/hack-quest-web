@@ -39,6 +39,17 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       githubLink: '',
       isPublic: undefined
     },
+    project: {
+      efrog: undefined,
+      croak: undefined,
+      submitType: undefined
+    },
+    links: {
+      contractLink: '',
+      projectLink: '',
+      socialLink: '',
+      partnerTooling: ''
+    },
     status: ProjectSubmitStepType.INFO,
     wallet: '',
     isSubmit: false
@@ -68,6 +79,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       introduction,
       demo,
       hackathonId,
+      efrog,
+      croak,
+      submitType,
+      links: originLinks,
       prizeTrack,
       tracks,
       location,
@@ -79,6 +94,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     } = projectInfo!;
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
     setCurrent(currentStep.stepNumber);
+
+    const links = typeof originLinks === 'string' ? JSON.parse(originLinks as string) : originLinks;
 
     const info = {
       projectLogo: thumbnail,
@@ -93,6 +110,15 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     setFormState({
       ...formState,
       info,
+      project: {
+        efrog: efrog,
+        croak: croak,
+        submitType: submitType
+      },
+      links: {
+        ...formState.links,
+        ...links
+      },
       status,
       projectId: id,
       pitchVideo: video,
@@ -126,7 +152,6 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   const { runAsync: editRequest } = useRequest(
     () => {
       const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
-
       const formData = new FormData();
       formData.append('name', formState.info.projectName);
       formData.append('hackathonId', simpleHackathonInfo.id);
@@ -135,6 +160,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       formData.append('description', formState.info.detailedIntro);
       formData.append('githubLink', formState.others.githubLink);
       formData.append('isOpenSource', String(formState.others.isPublic));
+      formData.append('efrog', String(formState.project.efrog));
+      formData.append('croak', String(formState.project.croak));
+      formData.append('submitType', String(formState.project.submitType));
+      formData.append('links', JSON.stringify(formState.links));
       formData.append('status', status);
 
       return webApi.resourceStationApi.submitProject(
