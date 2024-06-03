@@ -33,7 +33,8 @@ enum MenuLink {
   PARTNERS = '/partners',
   NTU_COURSE = '/web3mooc',
   FAUCETS = '/faucets',
-  EXPLORE = '/ecosystem-explore'
+  EXPLORE = '/ecosystem-explore',
+  SYSTEM = '/system'
 }
 
 export default MenuLink;
