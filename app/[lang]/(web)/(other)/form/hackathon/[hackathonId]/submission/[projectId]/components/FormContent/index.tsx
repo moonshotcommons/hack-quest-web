@@ -82,7 +82,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       efrog,
       croak,
       submitType,
-      links,
+      links: originLinks,
       prizeTrack,
       tracks,
       location,
@@ -94,6 +94,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     } = projectInfo!;
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
     setCurrent(currentStep.stepNumber);
+
+    const links = typeof originLinks === 'string' ? JSON.parse(originLinks as string) : originLinks;
 
     const info = {
       projectLogo: thumbnail,

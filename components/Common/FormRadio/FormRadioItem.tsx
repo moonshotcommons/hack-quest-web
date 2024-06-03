@@ -9,6 +9,7 @@ interface FormRadioItemProps<TFieldValues extends FieldValues = FieldValues> {
   label: string;
   multiple?: boolean;
   select?: any[];
+  disable?: boolean;
   setSelect?: (v: any[]) => void;
 }
 
@@ -19,7 +20,8 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
   label,
   select = [] as any[],
   setSelect = () => {},
-  multiple = false
+  multiple = false,
+  disable = false
 }: FormRadioItemProps<TFieldValues>) => {
   if (!form || !name) {
     console.error('FormRadioItem 组件必须包裹FormRadio组件');
@@ -28,6 +30,7 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
   return (
     <div
       onClick={() => {
+        if (disable) return;
         if (multiple) {
           let newSelect = [...select!];
           if (select.includes(value)) {
@@ -44,10 +47,11 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
         }
       }}
       className={cn(
-        `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+        `body-m flex h-[50px]  w-full items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white bg-neutral-white px-5 py-3`,
         (multiple ? select.includes(value) : form.watch(name) === value)
           ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
-          : ''
+          : '',
+        disable ? 'cursor-not-allowed' : 'cursor-pointer'
       )}
     >
       <span>{label}</span>

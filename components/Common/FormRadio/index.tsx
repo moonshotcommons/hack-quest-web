@@ -7,6 +7,7 @@ interface FormRadioProps {
   form: UseFormReturn<any, any, undefined>;
   label: string;
   multiple?: boolean;
+  disable?: boolean;
 }
 
 export type SelectType = string[] | boolean[] | number[];
@@ -16,7 +17,7 @@ const FormRadioContext = createContext<{ select: SelectType; setSelect: (s: Sele
   setSelect() {}
 });
 
-const FormRadio: FC<FormRadioProps> = ({ form, label, name, children, multiple }) => {
+const FormRadio: FC<FormRadioProps> = ({ form, label, name, children, multiple, disable }) => {
   const defaultSelect: string[] =
     multiple && form.getValues(name)?.split ? (form.getValues(name) || '').split(',') : [];
   const [select, setSelect] = useState<SelectType>(defaultSelect);
@@ -43,7 +44,7 @@ const FormRadio: FC<FormRadioProps> = ({ form, label, name, children, multiple }
       <div className="flex w-full justify-between gap-5">
         {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child;
-          return React.cloneElement(child, { name, form, ...multipleProps } as any);
+          return React.cloneElement(child, { name, form, disable, ...multipleProps } as any);
         })}
       </div>
     </div>

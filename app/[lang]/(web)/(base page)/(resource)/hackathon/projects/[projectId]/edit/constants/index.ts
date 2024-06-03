@@ -1,1 +1,1 @@
-export const sectionData = ['Info', 'Videos', 'Others', 'Wallet'];
+export const sectionData = ['Info', 'Project', 'Videos', 'Links', 'Others', 'Wallet'];

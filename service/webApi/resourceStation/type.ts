@@ -153,7 +153,7 @@ export type ProjectType = {
   efrog: boolean;
   croak: boolean;
   submitType: string;
-  links: Record<string, string>;
+  links: string | Record<string, string>;
 };
 
 export interface ProjectDataType {
