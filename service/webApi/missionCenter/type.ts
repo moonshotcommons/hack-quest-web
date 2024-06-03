@@ -40,8 +40,14 @@ export interface UserCoinType {
   id?: string;
 }
 /** 用户等级 */
+
+export enum TreasureStatus {
+  UNOPEN = 'unopen',
+  OPEN = 'OPEN'
+}
 export interface UserTreasuresType {
   id: string;
+  status: TreasureStatus;
 }
 /** 进度 */
 export interface ProgressType {
@@ -52,6 +58,12 @@ export interface ProgressType {
 }
 
 /** mission */
+
+export enum MissionStatus {
+  UNCOMPLETED = 'unCompleted',
+  UNCLAIM = 'unClaim',
+  CLAIMED = 'claimed'
+}
 export interface MissionDataType {
   id: string;
   name: string;
@@ -62,6 +74,7 @@ export interface MissionDataType {
   exp: number;
   coin: number;
   progress: ProgressType;
+  status: MissionStatus;
 }
 
 export interface DigTreasuresResponse {

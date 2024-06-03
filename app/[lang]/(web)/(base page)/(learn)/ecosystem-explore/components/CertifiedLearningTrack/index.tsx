@@ -13,7 +13,7 @@ const CertifiedLearningTrack: React.FC<CertifiedLearningTrackProp> = ({ ecosyste
   return (
     <div className="flex flex-col gap-[32px]">
       <DeveloperTitle image={CertifiedCover} title={'learningTrack'} />
-      <div className="flex flex-wrap items-stretch gap-[32px]">
+      <div className="flex flex-wrap  gap-[32px]">
         {ecosystems.map((eco) => (
           <div key={eco.id} className="w-[calc((100%-64px)/3)]">
             <EcoCard ecosystem={eco} />

@@ -27,7 +27,7 @@ const MoreResource: React.FC<MoreResourceProp> = ({ lang }) => {
               <div className="relative h-[64px] w-[64px] overflow-hidden">
                 <Image src={item.image} alt={'hackathon-cover'} fill className="object-cover" />
               </div>
-              <span className="body-xl-bold text-neutral-off-black">{t(item.title)}</span>
+              <span className="body-l-bold text-neutral-off-black">{t(item.title)}</span>
             </div>
             <GoArrowRight size={30} className="text-neutral-off-black" />
           </Link>

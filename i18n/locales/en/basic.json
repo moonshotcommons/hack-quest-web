@@ -206,5 +206,10 @@
   "min":"Min",
   "max":"Max",
   "exploreMore":"Explore More",
-  "confirm":"Confirm"
+  "confirm":"Confirm",
+  "month":"Month",
+  "day":"Day",
+  "all":"All",
+  "copy":"Copy",
+  "share":"Share"
 }
