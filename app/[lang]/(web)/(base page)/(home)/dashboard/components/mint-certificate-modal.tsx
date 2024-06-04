@@ -53,17 +53,17 @@ export function MintCertificateModal() {
 
   const isOpen = open && type === 'mint';
 
-  const canMint = data?.name?.toLowerCase().startsWith('mantle') && !data?.mint;
+  const canMint = data?.label?.toLowerCase()?.includes('mantle') && !data?.certification?.mint;
 
-  const ecosystemName = data?.name?.replace(' Learning Track', '');
+  const ecosystemName = data?.label?.split(' ')?.[1];
 
   const mutation = useMutation({
-    mutationKey: ['mintCertificate', data?.id, data?.signatureId],
+    mutationKey: ['mintCertificate'],
     mutationFn: () =>
       safeMintAsync({
         sourceType: 'Certification',
-        sourceId: data?.id,
-        signatureId: data?.signatureId
+        sourceId: data?.certificationId,
+        signatureId: data?.certification?.signatureId
       }),
     onSuccess: () => {
       onClose();
@@ -80,16 +80,14 @@ export function MintCertificateModal() {
           </button>
           <div className="mx-auto flex items-center gap-2">
             <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
-            <h1 className="text-2xl font-bold text-neutral-off-black">
-              Congratulations! You’re a Certified Solana Learner
-            </h1>
+            <h1 className="text-2xl font-bold text-neutral-off-black">Congratulations! You’re a {data?.label}</h1>
           </div>
           <p className="mt-3 text-center text-sm text-neutral-medium-gray">
             You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your
             expertise.
           </p>
-          <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] rounded-[0.5rem]">
-            <Image src={data?.image || ''} fill alt={data?.name || ''} />
+          <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem]">
+            <Image src={data?.certification?.image} fill alt={data?.label} />
           </div>
           {!canMint && (
             <p className="mb-6 text-center text-sm text-neutral-medium-gray">

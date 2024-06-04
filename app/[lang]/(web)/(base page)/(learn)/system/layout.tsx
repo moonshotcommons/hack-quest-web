@@ -4,6 +4,7 @@ import { FollowDiscord } from '@/components/hackathon/follow-discord';
 import { MyCertificateCard } from '../../(home)/dashboard/components/my-certificate-card';
 import { ClaimCertificateModal } from '../../(home)/dashboard/components/claim-certificate-modal';
 import { MintCertificateModal } from '../../(home)/dashboard/components/mint-certificate-modal';
+import { UsernameModal } from '../../(home)/dashboard/components/username-modal';
 
 export default async function DashboardLayout({
   children
@@ -26,6 +27,7 @@ export default async function DashboardLayout({
       </div>
       <ClaimCertificateModal />
       <MintCertificateModal />
+      <UsernameModal />
     </div>
   );
 }

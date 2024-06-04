@@ -2,27 +2,18 @@
 
 import Image from 'next/image';
 import { XIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
 import Modal from '@/components/Common/Modal';
-import webApi from '@/service';
 import Button from '@/components/Common/Button';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 
 export function ClaimCertificateModal() {
-  const router = useRouter();
-  const { open, type, data, onClose } = useCertificateModal();
+  const { open, type, data, onOpen, onClose } = useCertificateModal();
 
   const isOpen = open && type === 'claim';
 
-  const mutation = useMutation({
-    mutationKey: ['claimCertificate', data?.id],
-    mutationFn: () => webApi.campaignsApi.claimCertification(data?.id),
-    onSuccess: () => {
-      onClose();
-      router.refresh();
-    }
-  });
+  function handleClaim() {
+    onOpen('username', data);
+  }
 
   return (
     <Modal open={isOpen} onClose={() => {}}>
@@ -30,19 +21,21 @@ export function ClaimCertificateModal() {
         <button className="absolute right-6 top-6 outline-none" onClick={() => onClose()}>
           <XIcon size={24} />
         </button>
-        <h1 className="text-center text-2xl font-bold text-neutral-off-black">Level 1. Certified Solana Learner</h1>
+        <h1 className="text-center text-2xl font-bold text-neutral-off-black">
+          Lvl {data?.level}. {data?.label}
+        </h1>
         <p className="mt-3 text-center text-sm text-neutral-medium-gray">
           Complete tasks to earn official certificate from Solana ecosystem. After you earn 100 points from level 1, you
           will get a starter certificate and level up. Get 500 points to become an expert Solana developer.
         </p>
-        <div className="relative mx-auto my-8 h-[13.75rem] w-[24.875rem] rounded-[0.5rem]">
-          <Image src={data?.image} fill alt={data?.name} />
+        <div className="relative mx-auto my-8 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem]">
+          <Image src={data?.certification?.image} fill alt={data?.label} />
         </div>
         <Button
           type="primary"
-          onClick={() => mutation.mutate()}
-          loading={mutation.isPending}
-          className="mx-auto h-12 w-64 uppercase"
+          disabled={data?.currentExp < data?.maxExp}
+          onClick={handleClaim}
+          className="mx-auto h-12 w-64 uppercase disabled:bg-neutral-light-gray"
         >
           claim certificate
         </Button>

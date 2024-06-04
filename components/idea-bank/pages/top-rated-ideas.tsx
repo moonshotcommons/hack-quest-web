@@ -5,6 +5,7 @@ import { ChevronDownIcon } from 'lucide-react';
 import { ChangeState, ScrollContainer, ScrollControl } from '@/components/Common/ScrollContainer';
 import { cn, toDoubleArray } from '@/helper/utils';
 import { IdeaCard } from './idea-card';
+import { Idea } from '@/service/webApi/ideas/types';
 
 const data = [
   {
@@ -69,8 +70,8 @@ const data = [
   }
 ];
 
-export function WebTopRatedIdeas() {
-  const groupIdeas = toDoubleArray(data, 4);
+export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
+  const groupIdeas = toDoubleArray(ideas, 4);
   const [slide, setSlide] = React.useState(0);
   const [changeState, setChangeState] = React.useState<ChangeState>();
 

@@ -1,5 +1,6 @@
 import { Lang } from '@/i18n/config';
 import { CourseDetailType } from '../course/type';
+import { CertificationType } from '../campaigns/type';
 
 export interface EcosystemType {
   id: string;
@@ -42,4 +43,16 @@ export interface EcosystemTask {
   language: string;
   courses: CourseDetailType[];
   learningTracks: CourseDetailType[];
+  extra?: {
+    link: string;
+  };
+}
+
+export interface LevelType {
+  ecosystemId: string;
+  label: string;
+  level: number;
+  maxExp: number;
+  certificationId: string;
+  certification: CertificationType;
 }

@@ -10,6 +10,7 @@ import UgcCreateApi from './webApi/ugcCreate';
 import LaunchPoolApi from './webApi/launchPool';
 import HelperApi from './webApi/helper';
 import EcosystemApi from './webApi/ecosystem';
+import IdeaApi from './webApi/ideas';
 
 class WebApi {
   protected baseURL: string;
@@ -28,6 +29,7 @@ class WebApi {
   launchPoolApi: LaunchPoolApi;
   helperApi: HelperApi;
   ecosystemApi: EcosystemApi;
+  ideaApi: IdeaApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -47,6 +49,7 @@ class WebApi {
     this.launchPoolApi = new LaunchPoolApi(this.service);
     this.helperApi = new HelperApi(this.service);
     this.ecosystemApi = new EcosystemApi(this.service);
+    this.ideaApi = new IdeaApi(this.service);
   }
 }
 

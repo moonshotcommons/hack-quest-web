@@ -2,6 +2,7 @@ import * as React from 'react';
 import { EcosystemSelect } from '@/components/ecosystem/ecosystem-select';
 import { MintCertificateModal } from '../../(home)/dashboard/components/mint-certificate-modal';
 import { ClaimCertificateModal } from '../../(home)/dashboard/components/claim-certificate-modal';
+import { UsernameModal } from '../../(home)/dashboard/components/username-modal';
 
 export default async function DashboardLayout({
   children
@@ -16,6 +17,7 @@ export default async function DashboardLayout({
       {children}
       <ClaimCertificateModal />
       <MintCertificateModal />
+      <UsernameModal />
     </div>
   );
 }
