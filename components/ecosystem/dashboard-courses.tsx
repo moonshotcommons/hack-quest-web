@@ -5,23 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpenIcon } from 'lucide-react';
 import { isMobile } from 'react-device-detect';
-import { useShallow } from 'zustand/react/shallow';
 import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/line-tabs';
 import webApi from '@/service';
 import { PageResult } from '@/service/webApi/type';
 import { CourseTrackType, CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
-import { ecosystemStore } from '@/store/zustand/ecosystemStore';
-import { EcosystemCard } from '@/components/ecosystem/ecosystem-card';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
-import MenuLink from '@/constants/MenuLink';
 import { getCoverImageByTrack } from '@/helper/utils';
+import { COURSES_STATUS } from './constants';
+import { LineTabs } from './line-tabs';
+import MenuLink from '@/constants/MenuLink';
 
-const coverImageMap = {
+const coverImageMap: Record<string, { src: string; width: number; height: number }> = {
   [CourseTrackType.DeFi]: {
     src: '/images/home/practices_img1.png',
     width: 239,
@@ -50,42 +48,30 @@ function CourseSkeleton() {
   );
 }
 
-function CourseEmpty() {
-  const { ecosystems } = ecosystemStore(
-    useShallow((state) => ({
-      ecosystems: state.ecosystems
-    }))
-  );
+function CourseEmpty({ label }: { label?: string }) {
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">
-        <h2 className="text-base font-bold text-neutral-black sm:text-lg">You’re not enrolled in any course</h2>
-        <Link href="/ecosystem-explore">
-          <Button size="small" ghost className="uppercase">
-            Explore courses
+        <h2 className="text-base font-bold text-neutral-black sm:text-lg">
+          {label || 'You’re not enrolled in any course'}
+        </h2>
+        <Link href="/electives">
+          <Button size="small" ghost className="h-8 w-[8.75rem] uppercase">
+            Explore
           </Button>
         </Link>
-      </div>
-      <div className="flex flex-col gap-5 sm:gap-8">
-        <h2 className="text-lg font-bold text-neutral-black">Explore Certified Learning Track</h2>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4">
-          {ecosystems?.map((ecosystem) => (
-            <EcosystemCard
-              key={ecosystem.id}
-              href={`/ecosystem-explore/${ecosystem.id}`}
-              ecosystem={ecosystem}
-              className="border border-neutral-light-gray"
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
 }
 
-export function CourseCard({ course }: { course: CourseDetailType }) {
+export function CourseCard({ type, course }: { type: 'course' | 'learningTrack'; course: CourseDetailType }) {
   const href =
-    course.type === CourseType.UGC ? `${MenuLink.PRACTICES}/${course.id}` : `${MenuLink.ELECTIVES}/${course.id}`;
+    type === 'course'
+      ? CourseType.UGC
+        ? `${MenuLink.PRACTICES}/${course.id}`
+        : `${MenuLink.ELECTIVES}/${course.id}`
+      : '/learning-track/' + course.id;
   return (
     <Link href={href}>
       <div className="sm:card-hover flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white sm:flex-row">
@@ -93,7 +79,7 @@ export function CourseCard({ course }: { course: CourseDetailType }) {
           {course.image ? (
             <Image src={course.image} alt={course.title} fill className="object-cover sm:rounded-l-2xl" />
           ) : isMobile ? (
-            getCoverImageByTrack(course.track)
+            getCoverImageByTrack(course.track as any)
           ) : (
             <Image
               src={coverImageMap[course.track]?.src || coverImageMap[CourseTrackType.DeFi].src}
@@ -152,30 +138,18 @@ export function DashboardCourses() {
   return (
     <div className="rounded-3xl p-6 sm:bg-neutral-white">
       <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">My Courses</h1>
-      <Tabs className="mt-6 w-full" value={value} onValueChange={setValue}>
-        <TabsList className="justify-start">
-          <TabsTrigger value="inProcess" className="sm:text-lg">
-            In progress
-          </TabsTrigger>
-          <TabsTrigger value="completed" className="sm:text-lg">
-            Completed
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="inProcess">
-          <div className="flex flex-col gap-8">
-            {isLoading && <CourseSkeleton />}
-            {data &&
-              (data.length > 0 ? data.map((item) => <CourseCard key={item.id} course={item} />) : <CourseEmpty />)}
-          </div>
-        </TabsContent>
-        <TabsContent value="completed">
-          <div className="flex flex-col gap-8">
-            {isLoading && <CourseSkeleton />}
-            {data &&
-              (data.length > 0 ? data.map((item) => <CourseCard key={item.id} course={item} />) : <CourseEmpty />)}
-          </div>
-        </TabsContent>
-      </Tabs>
+      <LineTabs tabs={COURSES_STATUS} value={value} onValueChange={setValue} className="mt-8" />
+      <div className="mt-8 flex flex-col gap-8">
+        {isLoading && <CourseSkeleton />}
+        {data &&
+          (data.length > 0 ? (
+            data.map((item) => <CourseCard type="course" key={item.id} course={item} />)
+          ) : (
+            <CourseEmpty
+              label={value === 'inProcess' ? 'You’re not enrolled in any course' : 'You don’t have a completed course'}
+            />
+          ))}
+      </div>
     </div>
   );
 }

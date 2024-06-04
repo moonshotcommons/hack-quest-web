@@ -92,7 +92,9 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out'
       },
       boxShadow: {
-        modal: '0px 4px 8px 0px rgba(0, 0, 0, 0.12)'
+        modal: '0px 4px 8px 0px rgba(0, 0, 0, 0.12)',
+        'idea-card': '0px 0px 8px 0px rgba(0, 0, 0, 0.12)',
+        popper: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'
       },
       colors: {
         ...themeColors,

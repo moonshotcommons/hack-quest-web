@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/card-tabs';
 import { HackathonCard } from './hackathon-card';
 import { ViewAllLink } from '@/components/hackathon/view-all-link';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
@@ -10,8 +9,21 @@ import { VotingRole } from '@/components/hackathon/voting-role';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
 import { HackathonType, HackathonVoteType } from '@/service/webApi/resourceStation/type';
 import HackathonEmpty from '@/components/hackathon/hackathon-empty';
-import { HackathonVotingCard } from './hackathon-voting-card';
 import MenuLink from '@/constants/MenuLink';
+import { CardTabs } from '@/components/ecosystem/card-tabs';
+import { cn } from '@/helper/utils';
+import { HackathonVotingCard } from './hackathon-voting-card';
+
+const tabs = [
+  {
+    value: 'participated',
+    label: 'Participated'
+  },
+  {
+    value: 'voting',
+    label: 'Voting'
+  }
+];
 
 export function DashboardContent({
   hackathons,
@@ -27,14 +39,16 @@ export function DashboardContent({
     defaultValue: 'participated'
   });
   return (
-    <div className="mt-10">
-      <Tabs defaultValue="participated" className="w-full" value={value} onValueChange={onValueChange}>
-        <TabsList>
-          <TabsTrigger value="participated">Participated</TabsTrigger>
-          <TabsTrigger value="voting">Voting</TabsTrigger>
-        </TabsList>
-        <TabsContent className="rounded-tl-none" value="participated">
-          {hackathons.length === 0 ? (
+    <div className="mt-10 flex flex-col">
+      <CardTabs tabs={tabs} value={value} onValueChange={onValueChange} />
+      <div
+        className={cn('w-full rounded-2xl bg-neutral-white p-6', {
+          'rounded-tl-none': value === 'participated',
+          'rounded-tr-none': value === 'voting'
+        })}
+      >
+        {value === 'participated' &&
+          (hackathons.length === 0 ? (
             <HackathonEmpty
               text="You didn’t participate in any hackathon"
               label="Explore hackathons"
@@ -49,10 +63,9 @@ export function DashboardContent({
                 View All Participated Hackathon
               </ViewAllLink>
             </div>
-          )}
-        </TabsContent>
-        <TabsContent className="rounded-tr-none" value="voting">
-          {votes.length === 0 ? (
+          ))}
+        {value === 'voting' &&
+          (votes.length === 0 ? (
             <HackathonEmpty text="You didn’t vote for any hackathon" label="go to vote" href="/hackathon/voting" />
           ) : (
             <div className="flex flex-col items-center gap-6">
@@ -61,9 +74,8 @@ export function DashboardContent({
               ))}
               <ViewAllLink href={`${MenuLink.HACKATHON_DASHBOARD}/voting`}>View All Voting Hackathon</ViewAllLink>
             </div>
-          )}
-        </TabsContent>
-      </Tabs>
+          ))}
+      </div>
       <div className="flex flex-col gap-8 px-5 py-8">
         <div className="rounded-2xl bg-neutral-white p-4">
           <HackathonStats
