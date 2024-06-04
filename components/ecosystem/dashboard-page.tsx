@@ -14,17 +14,19 @@ export default function Page() {
     queryFn: () => webApi.courseApi.getMyCourses({ status: 'inProcess' })
   });
 
-  const { data: activeEcosystem } = useQuery({
+  const { data: activeEcosystem, isSuccess } = useQuery({
     queryKey: ['activeEcosystem'],
-    queryFn: () => webApi.ecosystemApi.getActiveEcosystem()
+    queryFn: () => webApi.ecosystemApi.getActiveEcosystem(),
+    staleTime: 1000
   });
 
-  console.log(activeEcosystem);
-
   React.useEffect(() => {
-    if (Object.keys(activeEcosystem || {}).length == 0) return;
-    redirect(`/system/${activeEcosystem?.info?.id}`);
-  }, [activeEcosystem]);
+    if (isSuccess && activeEcosystem) {
+      if (Object.keys(activeEcosystem).length > 0) {
+        redirect(`/system/${activeEcosystem.info.id}`);
+      }
+    }
+  }, [isSuccess, activeEcosystem]);
 
   return (
     <>
