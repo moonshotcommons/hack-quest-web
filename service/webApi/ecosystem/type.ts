@@ -41,4 +41,5 @@ export interface EcosystemTask {
   track: string;
   language: string;
   courses: CourseDetailType[];
+  learningTracks: CourseDetailType[];
 }

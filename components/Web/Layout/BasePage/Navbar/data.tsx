@@ -68,7 +68,7 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'ecosystem',
         label: 'navbar.learn.ecosystem',
-        path: '/system' as MenuLink,
+        path: MenuLink.SYSTEM,
         description: 'navbar.learn.ecosystemDesc',
         needLogin: true
       },

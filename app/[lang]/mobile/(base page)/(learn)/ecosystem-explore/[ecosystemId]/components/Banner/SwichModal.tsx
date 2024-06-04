@@ -44,7 +44,7 @@ const SwitchModal: React.FC<SwitchModalProp> = ({ open, onClose, handleSubmit, e
             {t('explore.add')}
           </Button>
           <Button ghost className="button-text-m h-[3rem] w-full  border-neutral-black uppercase " onClick={onClose}>
-            {t('cancel')}
+            {t('explore.cancel')}
           </Button>
         </div>
       </div>

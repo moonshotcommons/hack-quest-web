@@ -13,8 +13,8 @@ interface EcosystemIdProps {
 }
 
 export async function generateMetadata({ params }: EcosystemIdProps): Promise<Metadata> {
-  const ecosystem = await getEcosystemById(params.ecosystemId);
   const { lang } = params;
+  const ecosystem = await getEcosystemById(params.ecosystemId, { lang });
   return {
     title: ecosystem.info.name,
     description: ecosystem.info.description,
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: EcosystemIdProps): Promise<Me
 
 const EcosystemId: FC<EcosystemIdProps> = async function ({ params }: EcosystemIdProps) {
   const { lang } = params;
-  const ecosystem = (await getEcosystemById(params.ecosystemId)) || {};
+  const ecosystem = (await getEcosystemById(params.ecosystemId, { lang })) || {};
 
   return (
     <>
