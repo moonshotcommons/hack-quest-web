@@ -11,7 +11,7 @@ class EcosystemApi {
     this.service = service;
   }
 
-  getEcosystems(params: object) {
+  getEcosystems(params?: object) {
     return this.service.get<EcosystemType[]>(EcosystemApiType.ECOSYSTEMS, { params });
   }
 
@@ -27,8 +27,9 @@ class EcosystemApi {
     return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`);
   }
 
-  getEcosystemsDetailById(id: string, token: string) {
+  getEcosystemsDetailById(id: string, params: object, token: string) {
     return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}`, {
+      params,
       headers: {
         Authorization: `Bearer ${token}`
       }

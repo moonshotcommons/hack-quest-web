@@ -150,6 +150,10 @@ export type ProjectType = {
   members: ProjectMemberType[];
   vote: number;
   isSubmit: boolean;
+  efrog: boolean;
+  croak: boolean;
+  submitType: string;
+  links: string | Record<string, string>;
 };
 
 export interface ProjectDataType {
@@ -297,8 +301,10 @@ export interface HackathonTeamDetail {
 
 export enum ProjectSubmitStepType {
   INFO = 'INFO',
+  PROJECT = 'PROJECT',
   PITCH_VIDEO = 'PITCH_VIDEO',
   DEMO = 'DEMO',
+  LINKS = 'LINKS',
   OTHERS = 'OTHERS',
   WALLET = 'WALLET',
   REVIEW = 'REVIEW'

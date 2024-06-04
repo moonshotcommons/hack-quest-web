@@ -12,12 +12,12 @@ import { PageResult } from '@/service/webApi/type';
 import { CourseTrackType, CourseType, ProjectCourseType } from '@/service/webApi/course/type';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
-import { LearningTrackDetail } from '@/service/webApi/ecosystem/type';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
 import { COURSES_STATUS } from './constants';
 import { LineTabs } from './line-tabs';
+import MenuLink from '@/constants/MenuLink';
 
 const coverImageMap: Record<string, { src: string; width: number; height: number }> = {
   [CourseTrackType.DeFi]: {
@@ -65,15 +65,13 @@ function CourseEmpty({ label }: { label?: string }) {
   );
 }
 
-export function CourseCard({
-  type,
-  course
-}: {
-  type: 'course' | 'learningTrack';
-  course: CourseDetailType | LearningTrackDetail;
-}) {
-  const href = '/';
-  // course.type === CourseType.UGC ? `${MenuLink.PRACTICES}/${course.id}` : `${MenuLink.ELECTIVES}/${course.id}`;
+export function CourseCard({ type, course }: { type: 'course' | 'learningTrack'; course: CourseDetailType }) {
+  const href =
+    type === 'course'
+      ? CourseType.UGC
+        ? `${MenuLink.PRACTICES}/${course.id}`
+        : `${MenuLink.ELECTIVES}/${course.id}`
+      : '/learning-track/' + course.id;
   return (
     <Link href={href}>
       <div className="sm:card-hover flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white sm:flex-row">

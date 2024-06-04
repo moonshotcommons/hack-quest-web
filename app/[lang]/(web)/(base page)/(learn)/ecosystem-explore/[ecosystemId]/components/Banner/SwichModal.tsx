@@ -46,7 +46,7 @@ const SwitchModal: React.FC<SwitchModalProp> = ({ open, onClose, handleSubmit, e
             className="button-text-m h-[48px] flex-1 flex-shrink-0 border-neutral-black uppercase "
             onClick={onClose}
           >
-            {t('cancel')}
+            {t('explore.cancel')}
           </Button>
         </div>
       </div>
