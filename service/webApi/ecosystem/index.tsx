@@ -15,12 +15,8 @@ class EcosystemApi {
     return this.service.get<EcosystemType[]>(EcosystemApiType.ECOSYSTEMS, { params });
   }
 
-  getActiveEcosystem(token: string) {
-    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  getActiveEcosystem() {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`);
   }
 
   getMyEcosystems() {
