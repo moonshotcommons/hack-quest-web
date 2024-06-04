@@ -38,7 +38,10 @@ export function LearnSection({ tasks }: { tasks: EcosystemTask[] }) {
           </AccordionTrigger>
           <AccordionContent>
             <div className="flex flex-col gap-5 sm:gap-6">
-              {task.courses?.map((course) => <CourseCard key={course.id} course={course} />)}
+              {task?.courses?.map((course) => <CourseCard type="course" key={course.id} course={course} />)}
+              {task?.learningTracks?.map((course) => (
+                <CourseCard type="learningTrack" key={course.id} course={course} />
+              ))}
               <p className="inline-flex flex-col items-center gap-2 self-start text-sm text-neutral-rich-gray sm:flex-row sm:gap-4">
                 <span>A {languageMap[nextLang]} version of this course is available.</span>
                 <button

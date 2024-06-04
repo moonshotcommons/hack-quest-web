@@ -10,7 +10,7 @@ interface ProjectTypeRadioProps {
 const ProjectPrizeTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
   return (
     <div className="flex w-full flex-col gap-3">
-      <p className="body-m text-left text-neutral-rich-gray">Which Hackathon Track Do You Belong To</p>
+      <p className="body-m text-left text-neutral-rich-gray">Which Prize Track Do You Belong To</p>
       <div className="flex w-full justify-between gap-5">
         {tracks.map((track) => {
           return (

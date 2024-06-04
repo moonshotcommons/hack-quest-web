@@ -26,8 +26,10 @@ const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem }) => 
   const [buildList, setBuildList] = useState<EcosystemTask[]>([]);
   const getList = async () => {
     const res = await webApi.ecosystemApi.getEcosystemTasks(ecosystem.info.id, {
-      fullCourse: true
+      fullCourse: true,
+      lang
     });
+    res.learn.map((v) => (v.courses = v.courses || v.learningTracks));
     setLearnList(res.learn);
     setBuildList(res.build);
   };

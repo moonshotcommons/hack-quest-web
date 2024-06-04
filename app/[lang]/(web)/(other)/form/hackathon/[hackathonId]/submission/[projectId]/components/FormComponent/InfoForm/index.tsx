@@ -88,7 +88,7 @@ const InfoForm: FC<
     async (values: z.infer<typeof formSchema>, isExit = false) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
-          ? ProjectSubmitStepType.PITCH_VIDEO
+          ? ProjectSubmitStepType.PROJECT
           : status;
 
       const formData = new FormData();

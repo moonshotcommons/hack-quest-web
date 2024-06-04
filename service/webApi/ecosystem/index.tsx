@@ -11,20 +11,25 @@ class EcosystemApi {
     this.service = service;
   }
 
-  getEcosystems(params: object) {
+  getEcosystems(params?: object) {
     return this.service.get<EcosystemType[]>(EcosystemApiType.ECOSYSTEMS, { params });
   }
 
-  getActiveEcosystem() {
-    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`);
+  getActiveEcosystem(token: string) {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 
   getMyEcosystems() {
     return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`);
   }
 
-  getEcosystemsDetailById(id: string, token: string) {
+  getEcosystemsDetailById(id: string, params: object, token: string) {
     return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}`, {
+      params,
       headers: {
         Authorization: `Bearer ${token}`
       }

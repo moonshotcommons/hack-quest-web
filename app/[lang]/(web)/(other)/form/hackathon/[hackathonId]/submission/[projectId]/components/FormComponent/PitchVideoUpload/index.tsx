@@ -106,7 +106,7 @@ const InfoForm: FC<
   const { run: onSubmit, loading: submitLoading } = useRequest(
     async () => {
       const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
           ? ProjectSubmitStepType.DEMO
           : status;
       debugger;

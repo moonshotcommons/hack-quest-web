@@ -4,7 +4,7 @@ import React from 'react';
 import AltIcon from '@/components/Common/Icon/AltIcon';
 import { Tag } from '@/components/Web/Business/CourseTags';
 import CourseCover from '@/public/images/learn/couse_cover.png';
-import { CourseDetailType } from '@/service/webApi/course/type';
+import { CourseDetailType, CourseType } from '@/service/webApi/course/type';
 import Link from 'next/link';
 import { getCoursePrefixByCourseType } from '@/helper/utils';
 
@@ -15,7 +15,7 @@ interface DeveloperCardProp {
 const DeveloperCard: React.FC<DeveloperCardProp> = ({ course }) => {
   return (
     <Link
-      href={`${getCoursePrefixByCourseType(course.type)}/${course.id}`}
+      href={`${getCoursePrefixByCourseType(course.type || CourseType.LEARNING_TRACK)}/${course.id}`}
       className="card-hover block w-full overflow-hidden rounded-[1rem] bg-neutral-white"
     >
       <div className="relative h-0 w-full flex-shrink-0 overflow-hidden pt-[46%]">

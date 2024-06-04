@@ -6,10 +6,11 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input';
 import { cn } from '@/helper/utils';
 import { isMobile } from 'react-device-detect';
+import { ReactNode } from 'react';
 
 interface FormFieldProps<TFieldValues extends FieldValues = FieldValues> {
   form: UseFormReturn<TFieldValues, any, undefined>;
-  label: string;
+  label: ReactNode;
   placeholder: string;
   name: Path<TFieldValues>;
   className?: string;

@@ -22,6 +22,8 @@ import Nav from '../Nav';
 import { isEqual } from 'lodash-es';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import Project from './Project';
+import Links from './Links';
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
@@ -65,6 +67,8 @@ const Content: React.FC<ContentProp> = ({
     getOffsetTops();
   }, [project]);
 
+  const links = typeof project.links === 'string' ? JSON.parse(project.links as string) : project.links;
+
   const defaultValues: z.infer<typeof formSchema> = {
     projectLogo: project.thumbnail,
     projectName: project.name,
@@ -74,7 +78,14 @@ const Content: React.FC<ContentProp> = ({
     detailedIntro: project.description,
     track: project.tracks.join(','),
     isPublic: project.isOpenSource,
-    githubLink: project.githubLink
+    githubLink: project.githubLink,
+    efrog: project.efrog,
+    croak: project.croak,
+    submitType: project.submitType,
+    contractLink: links.contractLink || '',
+    projectLink: links.projectLink || '',
+    socialLink: links.socialLink || '',
+    partnerTooling: links.partnerTooling || ''
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -93,6 +104,17 @@ const Content: React.FC<ContentProp> = ({
     !form.getValues('intro') ||
     !form.getValues('detailedIntro') ||
     form.getValues('track').split(',').length < 1;
+
+  const projectDisable =
+    typeof form.getValues('efrog') !== 'boolean' ||
+    typeof form.getValues('croak') !== 'boolean' ||
+    !form.getValues('submitType');
+
+  const linksDisable =
+    !form.getValues('contractLink') ||
+    !form.getValues('projectLink') ||
+    !form.getValues('socialLink') ||
+    !form.getValues('partnerTooling');
 
   const { runAsync: onSubmitRequest, loading } = useRequest(
     async () => {
@@ -168,14 +190,16 @@ const Content: React.FC<ContentProp> = ({
           handleClickAnchor={handleClickAnchor}
           onSava={onSubmit}
           onExit={onExit}
-          submitDisable={isClose || infoDisable || otherFormDisable}
+          submitDisable={isClose || infoDisable || otherFormDisable || projectDisable || linksDisable}
         />
       </div>
       <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-[60px]" ref={boxRef}>
             <Info form={form} setLogo={setLogo} hackathon={hackathon} isClose={isClose} />
+            <Project form={form} isClose={isClose} />
             <Videos project={project} isClose={isClose} />
+            <Links form={form} isClose={isClose} />
             <Others form={form} isClose={isClose} />
             <Wallet project={project} isClose={isClose} />
           </form>

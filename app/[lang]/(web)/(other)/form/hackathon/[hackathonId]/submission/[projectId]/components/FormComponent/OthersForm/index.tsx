@@ -40,7 +40,7 @@ const OthersForm: FC<
   const { run: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>) => {
       const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 5
           ? ProjectSubmitStepType.WALLET
           : status;
       debugger;

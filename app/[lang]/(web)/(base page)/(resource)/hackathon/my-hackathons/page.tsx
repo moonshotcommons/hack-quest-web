@@ -33,7 +33,6 @@ export default async function Page({ params }: { params: { lang: Lang } }) {
   const { t } = await useTranslation(params.lang, TransNs.HACKATHON);
   try {
     const { hackathons, stats } = await getJoinedHackathons();
-    console.log('hackathons', hackathons);
     const votes = await getHackathonVote();
     return (
       <PageLayout
