@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ModalType = 'claim' | 'mint';
+export type ModalType = 'claim' | 'mint' | 'username';
 
 type ModalData = Record<string, any>;
 
