@@ -18,7 +18,7 @@ export function EcosystemCard({
     <Link href={href}>
       <div
         className={cn(
-          'card-hover group relative flex h-[15.6875rem] w-full flex-col gap-8 overflow-hidden rounded-2xl border border-neutral-light-gray p-6 hover:bg-yellow-hover',
+          'sm:card-hover group relative flex h-[15.6875rem] w-full flex-col gap-8 overflow-hidden rounded-2xl bg-neutral-white p-6 hover:bg-yellow-hover sm:border sm:border-neutral-light-gray sm:bg-transparent',
           className
         )}
       >

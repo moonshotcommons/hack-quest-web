@@ -41,4 +41,16 @@ export interface EcosystemTask {
   track: string;
   language: string;
   courses: CourseDetailType[];
+  learningTracks: LearningTrackDetail[];
+}
+
+export interface LearningTrackDetail {
+  id: string;
+  title: string;
+  description: string;
+  track: string;
+  image: string;
+  language: string;
+  progress: number;
+  courseCount: number;
 }

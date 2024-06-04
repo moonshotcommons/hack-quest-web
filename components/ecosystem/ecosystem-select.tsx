@@ -41,7 +41,8 @@ export function EcosystemSelect() {
 
   const mutation = useMutation({
     mutationKey: ['switchEcosystem'],
-    mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem({ ecosystemId })
+    mutationFn: (ecosystemId: string | {}) =>
+      webApi.ecosystemApi.switchEcosystem(typeof ecosystemId === 'string' ? { ecosystemId } : {})
   });
 
   const selected = data?.find((e) => e.id === params.ecosystemId) || allEcosystem;
@@ -49,6 +50,10 @@ export function EcosystemSelect() {
   function handleChange(value: EcosystemType | typeof allEcosystem | typeof exploreMore) {
     startTransition(() => {
       if ('switch' in value && !value.switch) {
+        if (value.id === 'system') {
+          mutation.mutate({});
+          router.refresh();
+        }
         router.push(`/${value.id}`);
       } else {
         mutation.mutate(value.id);

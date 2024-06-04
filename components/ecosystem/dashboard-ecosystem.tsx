@@ -13,8 +13,8 @@ export function DashboardEcosystem() {
   );
 
   return (
-    <div className="flex flex-col gap-8 rounded-3xl bg-neutral-white sm:p-6">
-      <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-black">
+    <div className="flex flex-col gap-5 rounded-2xl px-5 py-6 sm:gap-8 sm:rounded-3xl sm:bg-neutral-white sm:p-6">
+      <h1 className="font-next-book-bold text-lg font-bold text-neutral-black sm:text-[1.375rem]">
         Explore Certified Learning Tracks
       </h1>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
