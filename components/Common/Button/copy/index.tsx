@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '..';
 import CopyIcon from '@/components/Common/Icon/Copy';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 interface CopyButtonType {
   copyText: string;

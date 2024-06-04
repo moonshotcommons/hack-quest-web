@@ -65,6 +65,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     initFooterBtn.current = true;
     if (quiz.isCompleted) {
       setAnswers(quiz.answers);
+      setAnswerState(AnswerState.Correct);
     } else {
       initFooterBtn.current = false;
       footerBtnText = FooterButtonText.SUBMIT;
@@ -118,7 +119,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 answers.includes(item.index) && answerState === AnswerState.Wrong
                   ? 'border-status-error-dark bg-status-error-light'
                   : '',
-                answers.includes(item.index) && (answerState === AnswerState.Correct || quiz.isCompleted)
+                answers.includes(item.index) && answerState === AnswerState.Correct
                   ? 'border-status-success-dark bg-status-success-light'
                   : '',
                 showAnswer && !!quiz.answers.includes(item.index)
@@ -142,7 +143,7 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                 className={cn(
                   'flex-center flex h-8 w-8 rounded-[4px] border-[1px] border-neutral-light-gray',
                   answers.includes(item.index) && answerState === AnswerState.Wrong ? 'border-status-error-dark' : '',
-                  answers.includes(item.index) && (answerState === AnswerState.Correct || quiz.isCompleted)
+                  answers.includes(item.index) && answerState === AnswerState.Correct
                     ? 'border-status-success-dark'
                     : '',
                   showAnswer && !!quiz.answers.includes(item.index) ? 'border-neutral-medium-gray' : ''
@@ -155,9 +156,9 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
               </div>
 
               <div>
-                {!showAnswer &&
-                  (answerState === AnswerState.Correct || quiz.isCompleted) &&
-                  answers.includes(item.index) && <FiCheck color="#00C365" size={28} />}
+                {!showAnswer && answerState === AnswerState.Correct && answers.includes(item.index) && (
+                  <FiCheck color="#00C365" size={28} />
+                )}
                 {!showAnswer && answerState === AnswerState.Wrong && answers.includes(item.index) && (
                   <FiX color="#C73333" size={28} />
                 )}

@@ -1,5 +1,5 @@
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Schema, { Rule, ValidateMessages } from 'async-validator';
 import { useState } from 'react';
 

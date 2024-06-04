@@ -9,7 +9,7 @@ import React, {
   useState
 } from 'react';
 import { cn } from '@/helper/utils';
-type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
+export type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';

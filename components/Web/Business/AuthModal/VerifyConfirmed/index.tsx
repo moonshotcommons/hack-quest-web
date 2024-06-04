@@ -14,7 +14,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -118,7 +118,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       };
     } else {
       setAuthModalOpen(false);
-      redirectToUrl('/dashboard');
+      redirectToUrl('/welcome');
     }
   }, [countDown]);
 

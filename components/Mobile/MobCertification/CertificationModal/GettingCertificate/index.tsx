@@ -4,7 +4,7 @@ import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { CertificationType } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 import Link from 'next/link';
 import { FC, useContext, useState } from 'react';

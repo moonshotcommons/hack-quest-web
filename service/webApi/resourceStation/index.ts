@@ -11,8 +11,11 @@ import {
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
+  HackathonVoteType,
+  JoinedHackathonType,
   PagedType,
   ProjectDataType,
+  ProjectRankType,
   ProjectType,
   RegisterInfoBody
 } from './type';
@@ -44,6 +47,29 @@ class ResourceStationApi {
     });
   }
 
+  /** 获取已加入的 hackathon 列表  */
+  getJoinedHackathons(token?: string, params?: object) {
+    return this.service.get<JoinedHackathonType>(`${ResourceStationApiType.Hackathon}/joined`, {
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getHackathonVote(token?: string, params?: object) {
+    return this.service.get<HackathonVoteType[]>(`${ResourceStationApiType.Hackathon}/voting`, {
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getVoteOtherHackathons(hackathonId: string) {
+    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/others`);
+  }
+
   /** 获取hackathon详情数据 */
   getHackathonDetail(id: string, token?: string) {
     return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, {
@@ -52,12 +78,32 @@ class ResourceStationApi {
       }
     });
   }
+  /** 获取hackathon 可以投票的project */
+  // getVoteProjectsByHackathonId(hackathonId: string, params: object) {
+  //   return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/projects`, {
+  //     params
+  //   });
+  // }
+
+  fetchHackathonPrizeTracks() {
+    return this.service.get<string[]>(`${ResourceStationApiType.Hackathon}/prize-tracks`);
+  }
+
+  hackathonVoteSubmit(hackathonId: string, data: object) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/vote`, {
+      data
+    });
+  }
 
   /** 获取project列表 */
   getProjectsList(params: Record<string, string | number | boolean> | { page: number; limit: number } = {}) {
     return this.service.get<ProjectDataType>(ResourceStationApiType.Projects, {
       params
     });
+  }
+  /** 获取project列表 */
+  getProjectsRankInfo(id: string) {
+    return this.service.get<ProjectRankType>(`${ResourceStationApiType.Projects}/${id}/rank`);
   }
 
   /** 获取project详情数据 */
@@ -70,8 +116,10 @@ class ResourceStationApi {
   }
 
   /**  */
-  getProjectTracksDict() {
-    return this.service.get<string[]>(`${ResourceStationApiType.Projects}/tracks-dir`);
+  getProjectTracksDict(params?: object) {
+    return this.service.get<string[]>(`${ResourceStationApiType.Projects}/tracks-dir`, {
+      params
+    });
   }
 
   getBlog(params: BlogSearchType & PagedType) {
@@ -195,6 +243,8 @@ class ResourceStationApi {
 
   /** 提交project */
   submitProject(data: FormData, projectId?: string) {
+    console.log(projectId && isUuid(projectId));
+
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
     return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data

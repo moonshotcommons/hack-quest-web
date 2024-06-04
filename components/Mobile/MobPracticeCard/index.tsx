@@ -26,20 +26,8 @@ const MobPracticeCard: FC<PracticeCardProps> = (props) => {
       className={'relative flex w-full flex-col gap-[1rem] rounded-[1rem] bg-neutral-white p-[1rem]'}
       onClick={(e) => {
         BurialPoint.track('home-practice卡片点击', { practice: course.title });
-        e.stopPropagation();
         redirectToUrl(`${MenuLink.PRACTICES}/${course.id}`);
       }}
-      // onClick={(e) => {
-      //   BurialPoint.track('home-course卡片Continue按钮点击', {
-      //     courseName: course.name
-      //   });
-      //   e.stopPropagation();
-      //   jumpLearningLesson(course, {
-      //     menu: 'electives',
-      //     idTypes: [QueryIdType.MENU_COURSE_ID],
-      //     ids: [course.id]
-      //   });
-      // }}
     >
       {course.progress && course.progress >= 1 ? (
         <div className="absolute right-[1rem] top-[1rem]">

@@ -96,7 +96,7 @@ export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(functio
   }, [containerWidth, listWidth, translateX, leftArrowVisible, rightArrowVisible]);
 
   return (
-    <div ref={containerRef} className={cn(`container relative flex h-auto overflow-x-hidden`, className)}>
+    <div ref={containerRef} className={cn(`relative flex h-auto w-full overflow-x-hidden`, className)}>
       <div
         ref={listRef}
         className="flex items-center transition-transform duration-300"

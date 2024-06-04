@@ -9,7 +9,7 @@ import { isNull } from '@/helper/utils';
 import emitter from '@/store/emitter';
 import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragUnit from './DragUnit';

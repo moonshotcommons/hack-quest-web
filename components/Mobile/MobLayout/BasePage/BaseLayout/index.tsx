@@ -40,7 +40,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   return (
     <div className={`relative w-full  `}>
       <AIFloatButton>
-        <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-black">
+        <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-white">
           <NavBar {...navbarData}>
             <User></User>
           </NavBar>

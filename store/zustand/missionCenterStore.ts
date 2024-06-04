@@ -5,7 +5,8 @@ import {
   UserCoinType,
   UserLevelType,
   BeginnerRewardsType,
-  UserTreasuresType
+  UserTreasuresType,
+  MissionStatus
 } from '@/service/webApi/missionCenter/type';
 
 export interface MissionDataStateType {
@@ -75,6 +76,16 @@ export const useMissionCenterStore = create<MissionCenterStateType>()((set) => (
       v.progress.progress = v.progress.progress || [];
       v.progress.progress[0] = v.progress.progress[0] || 0;
       v.progress.progress[1] = v.progress.progress[1] || 0;
+      let status;
+      const { completed, claimed } = v?.progress || {};
+      if (!completed) {
+        status = MissionStatus.UNCOMPLETED;
+      } else if (!claimed) {
+        status = MissionStatus.UNCLAIM;
+      } else {
+        status = MissionStatus.CLAIMED;
+      }
+      v.status = status;
     });
     const missionData = {
       all: payload,

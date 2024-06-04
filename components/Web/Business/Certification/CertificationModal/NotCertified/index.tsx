@@ -4,7 +4,7 @@ import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useContext } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';

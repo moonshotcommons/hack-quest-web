@@ -2,7 +2,7 @@ import webApi from '@/service';
 import { CourseLessonType, CourseType } from '@/service/webApi/course/type';
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { useEffect, useState } from 'react';
 import { useRedirect } from '../router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';

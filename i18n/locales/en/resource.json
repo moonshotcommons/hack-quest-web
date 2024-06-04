@@ -162,20 +162,16 @@
       "title": "FAQs",
       "description": "Can’t find what you’re looking for? Reach out to us!",
       "question1": {
-        "problem": "How many hours of learning are needed for beginners to earn a certificate?",
-        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+        "problem": "What is a faucet? ",
+        "answer": "A testnet faucet in Web3 is a service that provides users with free cryptocurrency tokens for testing purposes on a blockchain's test network. It allows developers and users to experiment with blockchain applications without using real funds."
       },
       "question2": {
-        "problem": "Is it possible to enroll in a course if I have no prior coding knowledge?",
-        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+        "problem": "How much test token can I claim one time?",
+        "answer": "It depends on the testnet gas fee and how many test tokens we have in store. Typically, it's more than enough for you to deploy one contract on testnet. If you need more, you can come back and claim again after 24 hours. "
       },
       "question3": {
-        "problem": "Are all courses and post-learning support free?",
-        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
-      },
-      "question4": {
-        "problem": "Where do I ask for help?",
-        "answer": "Depending on the learning paths, most students spend between eight to twenty hours to finish all the course materials and earn the certificate."
+        "problem": "How long will it take to receive test tokens?",
+        "answer": "The time required to receive the testnet tokens is contingent upon the network chosen. Typically, the process should conclude within a matter of minutes, with instances of completion occurring in mere seconds being commonplace."
       }
     }
   }

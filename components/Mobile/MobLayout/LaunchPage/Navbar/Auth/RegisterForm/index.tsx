@@ -7,7 +7,7 @@ import { cn } from '@/helper/utils';
 import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 import { useDebounceFn } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import WhiteListModal from '../WhiteListModal';

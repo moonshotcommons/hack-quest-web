@@ -40,9 +40,10 @@ const OthersForm: FC<
   const { run: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>) => {
       const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 5
           ? ProjectSubmitStepType.WALLET
           : status;
+      debugger;
       const formData = new FormData();
       const { githubLink, isPublic } = values;
       formData.append('isOpenSource', isPublic ? 'true' : 'false');
@@ -63,7 +64,7 @@ const OthersForm: FC<
     {
       manual: true,
       onSuccess({ res, newOtherInfo, status }) {
-        onNext({ others: newOtherInfo, status, projectId: projectId || res.id });
+        onNext({ others: newOtherInfo, status });
       },
       onError(err) {
         errorMessage(err);
@@ -75,7 +76,7 @@ const OthersForm: FC<
     // setContractInfo();
     if (
       form.getValues('isPublic') === true &&
-      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test((form.getValues('githubLink') || '').trim())
+      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/.*$/.test((form.getValues('githubLink') || '').trim())
     ) {
       form.setError('githubLink', {
         message: 'Invalid GitHub URL'

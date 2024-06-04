@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CourseTrackType, CourseType } from '@/service/webApi/course/type';
-
+import { type ReadonlyURLSearchParams } from 'next/navigation';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
@@ -11,6 +11,7 @@ import PracticeImg2 from '@/public/images/home/practices_img2.png';
 import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
+import message from 'antd/es/message';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -280,10 +281,35 @@ export const getVideoDuration = (file: File): Promise<number> => {
   });
 };
 
-/** 向下保留小数  */
+export function createUrl(pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) {
+  const paramsString = params.toString();
+  const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
+  return `${pathname}${queryString}`;
+}
+
+/** 向下保留小数 返回百分数  */
 export const decimalCount = (number: number, digit = 1) => {
   if (isNaN(number)) return 0;
   if (digit < 1) return number;
   const digitHundred = parseInt(`1${'0'.repeat(digit)}`);
-  return Math.floor(number * digitHundred) / digitHundred;
+  return `${Math.floor(number * digitHundred * 100) / digitHundred}%`;
+};
+
+export const copyText = async (text?: string) => {
+  if (!text) message.warning('There is nothing to copy!');
+  try {
+    await navigator.clipboard.writeText(text || '');
+    message.success('Copy success!');
+  } catch (e) {
+    message.warning('The browser version is too low or incompatible！');
+  }
+};
+
+export const toDoubleArray = <T,>(baseArray: T[], count: number) => {
+  const copyArray = [...baseArray];
+  let res = [];
+  while (copyArray.length) {
+    res.push(copyArray.splice(0, count));
+  }
+  return res;
 };

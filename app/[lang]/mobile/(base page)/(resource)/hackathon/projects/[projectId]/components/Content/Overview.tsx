@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
+import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
 import React, { useContext } from 'react';
 import IconHackathon from '@/public/images/hackathon/icon_hackathon.png';
@@ -14,9 +14,10 @@ import { IoIosArrowForward } from 'react-icons/io';
 
 interface OverviewProp {
   project: ProjectType;
+  hackathon: HackathonType;
 }
 
-const Overview: React.FC<OverviewProp> = ({ project }) => {
+const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
 
@@ -42,7 +43,7 @@ const Overview: React.FC<OverviewProp> = ({ project }) => {
           <div className="flex-1">
             <p className="body-xs text-neutral-medium-gray">{t('navbar.resources.hackathon')}</p>
             <Link
-              href={`${MenuLink.PROJECTS}?keyword=${project.hackathonName}`}
+              href={`${MenuLink.HACKATHON}/${hackathon?.alias}`}
               title={project.hackathonName}
               className="underline-s w-full"
             >

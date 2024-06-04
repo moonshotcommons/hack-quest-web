@@ -23,9 +23,10 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
-
   return (
-    <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`}>
+    <Link
+      href={isVoting ? `${MenuLink.HACKATHON_VOTING}/${hackathon.alias}` : `${MenuLink.HACKATHON}/${hackathon.alias}`}
+    >
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
         <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[43%]">
           {hackathon.image && <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>}
@@ -36,16 +37,16 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
             <>
               <div>
                 <p className="body-s mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.votingCloseIn')}</p>
-                <CountDown time={hackathon.reviewTime} countItemClassName="body-m-bold" />
+                <CountDown time={hackathon.rewardTime} countItemClassName="body-m-bold" />
               </div>
               <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
                 <div>
                   <span className="">{t('hackathonVoting.votingProjects')}</span>
-                  <span className="body-m-bold text-neutral-off-black">{0}</span>
+                  <span className="body-m-bold text-neutral-off-black">{hackathon.projectCount}</span>
                 </div>
                 <div>
                   <span className="">{t('hackathonVoting.yourRemainingVotes')}</span>
-                  <span className="body-m-bold text-neutral-off-black">{0}</span>
+                  <span className="body-m-bold text-neutral-off-black">{hackathon.remainingVote}</span>
                 </div>
               </div>
             </>

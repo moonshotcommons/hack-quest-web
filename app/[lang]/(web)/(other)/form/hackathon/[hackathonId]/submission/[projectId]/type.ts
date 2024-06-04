@@ -28,12 +28,23 @@ export interface HackathonSubmitStateType {
     location: string;
     detailedIntro: string;
   };
+  project: {
+    efrog?: boolean;
+    croak?: boolean;
+    submitType?: string;
+  };
+  links: {
+    contractLink: string;
+    projectLink: string;
+    socialLink: string;
+    partnerTooling: string;
+  };
   status: ProjectSubmitStepType;
   pitchVideo: string;
   projectDemo: string;
   others: {
     githubLink: string;
-    isPublic: boolean | undefined;
+    isPublic?: boolean;
   };
   wallet: string;
 }

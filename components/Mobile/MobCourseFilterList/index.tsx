@@ -1,3 +1,4 @@
+'use client';
 import { ReactNode, useMemo, useRef } from 'react';
 
 import { CourseBaseType } from '@/service/webApi/course/type';

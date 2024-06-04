@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo, useContext, useEffect, useState } from 'react';
+import { FC, memo, useContext, useEffect, useRef, useState } from 'react';
 import { FormComponentProps } from '..';
 import { cn, isUuid } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
@@ -20,11 +20,16 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { HACKATHON_SUBMIT_STEPS, LOCATIONS } from '../../constants';
+import { HACKATHON_SUBMIT_STEPS, LOCATIONS, TRACKS } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
 import CustomSelectField from '@/components/Web/Business/CustomSelectField';
+import ProjectTrackRadio from './ProjectTrackRadio';
+import ProjectPrizeTrackRadio from './ProjectPrizeTrackRadio';
+import emitter from '@/store/emitter';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -70,32 +75,34 @@ const InfoForm: FC<
       location: info.location,
       prizeTrack: info.prizeTrack,
       detailedIntro: '',
-      track: info.track
+      track: info.track || ''
     }
   });
   const [logo, setLogo] = useState<UploadFile | null>(null);
-
   const { redirectToUrl } = useRedirect();
-
   const { lang } = useContext(LangContext);
 
-  const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
+
+  const { runAsync: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof formSchema>, isExit = false) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
-          ? ProjectSubmitStepType.PITCH_VIDEO
+          ? ProjectSubmitStepType.PROJECT
           : status;
 
       const formData = new FormData();
       const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
       formData.append('name', projectName);
       formData.append('prizeTrack', prizeTrack);
-      formData.append('tracks[]', track);
+      (track || '').split(',').forEach((t) => {
+        formData.append('tracks[]', t);
+      });
       formData.append('location', location);
       formData.append('description', detailedIntro);
       formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
-      formData.append('status', newStatus!);
+      formData.append('status', isExit ? ProjectSubmitStepType.INFO : newStatus!);
       logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
       return {
@@ -103,12 +110,15 @@ const InfoForm: FC<
         status: newStatus,
         newInfo: {
           ...values
-        }
+        },
+        isExit
       };
     },
     {
       manual: true,
-      onSuccess({ res, newInfo, status }) {
+      onSuccess({ res, newInfo, status, isExit }) {
+        if (isExit) return;
+
         if (!projectId || !isUuid(projectId)) {
           window.history.replaceState(
             {},
@@ -146,6 +156,20 @@ const InfoForm: FC<
     if (intro && detailedIntro && projectName && projectLogo && track && location && prizeTrack) form.trigger();
   }, [info]);
 
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => await submitRequest(form.getValues(), true),
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON}/${simpleHackathonInfo.alias}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
+
   return (
     <div>
       <Form {...form}>
@@ -168,36 +192,17 @@ const InfoForm: FC<
             placeholder="Please select"
             items={LOCATIONS}
           ></CustomSelectField>
+          <ProjectPrizeTrackRadio tracks={tracks} form={form} />
+          <ProjectTrackRadio tracks={TRACKS} form={form} />
 
-          <div className="flex w-full justify-between gap-4">
+          {/* <div className="flex w-full justify-between gap-4">
             <div className="flex-1">
               <CustomSelectField
                 form={form}
                 label="Which Prize Track Do You Belong To"
                 name="track"
                 placeholder="Please select"
-                items={[
-                  {
-                    label: 'Defi',
-                    value: 'Defi'
-                  },
-                  {
-                    label: 'NFT',
-                    value: 'NFT'
-                  },
-                  {
-                    label: 'GameFi',
-                    value: 'GameFi'
-                  },
-                  {
-                    label: 'SociFi',
-                    value: 'SociFi'
-                  },
-                  {
-                    label: 'Infra',
-                    value: 'Infra'
-                  }
-                ]}
+                items={TRACKS}
               />
             </div>
             <div className="flex-1">
@@ -214,7 +219,7 @@ const InfoForm: FC<
                 })}
               />
             </div>
-          </div>
+          </div> */}
 
           <IntroName form={form} />
           <DetailIntroName form={form} />
@@ -238,6 +243,9 @@ const InfoForm: FC<
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

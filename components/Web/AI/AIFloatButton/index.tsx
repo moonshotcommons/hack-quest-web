@@ -111,7 +111,6 @@ const AIFloatButton: FC<AIFloatButtonProps> = ({ children, pageType = 'other' })
     if (left <= minLeft) left = minLeft;
     left = maxLeft - left < left ? maxLeft : minLeft;
     // top = maxTop - top < top ? maxTop : minTop;
-    console.log(left);
     setPosition({
       ...position,
       left,

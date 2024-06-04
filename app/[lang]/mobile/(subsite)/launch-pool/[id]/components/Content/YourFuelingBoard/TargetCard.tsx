@@ -10,7 +10,7 @@ import { FuelInfo } from '@/service/webApi/launchPool/type';
 import DiscordIcon from '@/public/images/launch/discord_icon.png';
 import Twitter from '@/public/images/launch/twitter_icon.png';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
 import { LaunchDetailContext } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/type';
 import { isNotDefaultTargetType } from '@/app/[lang]/(web)/(subsite)/launch-pool/[id]/constants/data';

@@ -47,7 +47,7 @@ const List: React.FC<ListProp> = ({ faucet }) => {
   return (
     <>
       <div className="w-full rounded-[.5rem] border border-neutral-light-gray p-[16px]">
-        <div className="headline-h4-mob mb-[1rem] flex gap-[2.5rem] text-neutral-rich-gray [&>div]:flex-1 [&>div]:flex-shrink-0">
+        <div className="text-h4-mob mb-[1rem] flex gap-[2.5rem] text-neutral-rich-gray [&>div]:flex-1 [&>div]:flex-shrink-0">
           <div>Transaction</div>
           <div>Timestamp</div>
         </div>

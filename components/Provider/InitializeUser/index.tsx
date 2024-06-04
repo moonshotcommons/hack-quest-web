@@ -7,6 +7,7 @@ import { FC, ReactNode, useEffect } from 'react';
 import { TOKEN_KEY, getToken } from '@/helper/user-token';
 import { setCookie } from 'cookies-next';
 import { useHandleNotification } from '@/hooks/notification/useHandleNotification';
+import { useGetEcosystemData } from '@/hooks/ecosystem/useGetEcosystemData';
 
 interface InitializeUserProviderProps {
   children: ReactNode;
@@ -18,8 +19,10 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) =
   const userInfo = useUserStore((state) => state.userInfo);
   const { updateMissionDataAll } = useGetMissionData();
   const { updateNotification } = useHandleNotification();
+  const { getEcosystems } = useGetEcosystemData();
 
   useEffect(() => {
+    getEcosystems();
     if (userInfo) {
       const token = getToken();
       token && setCookie(TOKEN_KEY, token);

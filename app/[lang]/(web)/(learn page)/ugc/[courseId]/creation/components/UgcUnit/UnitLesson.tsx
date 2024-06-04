@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HandleDot from './HandleDot';
 import { LessonMenuType } from '../../constant/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 interface UnitLessonProp {
   lesson: LessonMenuType;

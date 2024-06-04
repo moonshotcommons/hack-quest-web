@@ -21,15 +21,16 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
   const { lang } = params;
 
   const hackathon = await getHackathonProjectById(params.projectId);
+
   return {
     title: hackathon.name,
     description: hackathon.description,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}${query}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}/edit${query}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}/hackathon/projects/${params.projectId}${query}`,
-        en: `https://www.hackquest.io/${Lang.EN}/hackathon/projects/${params.projectId}${query}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}/hackathon/projects/${params.projectId}${query}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}/hackathon/projects/${params.projectId}/edit${query}`,
+        en: `https://www.hackquest.io/${Lang.EN}/hackathon/projects/${params.projectId}/edit${query}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}/hackathon/projects/${params.projectId}/edit${query}`
       }
     }
   };
@@ -38,10 +39,7 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
 
-  const [project] = await Promise.all([
-    getHackathonProjectById(projectId)
-    // getFeaturedProjectsById(projectId)
-  ]);
+  const [project] = await Promise.all([getHackathonProjectById(projectId)]);
   if (isUuid(projectId)) {
     permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
   }

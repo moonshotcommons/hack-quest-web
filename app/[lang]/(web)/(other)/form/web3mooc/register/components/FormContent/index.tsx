@@ -12,7 +12,6 @@ import emitter from '@/store/emitter';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import { NtuRegisterInfo, NtuRegisterStep } from '@/service/webApi/course/type';
-import { useUserStore } from '@/store/zustand/userStore';
 
 interface FormContentProps {}
 
@@ -192,8 +191,6 @@ const FormContent: FC<FormContentProps> = () => {
       emitter.off('submit-form-exit', exit);
     };
   }, [exit]);
-
-  const userInfo = useUserStore((state) => state.userInfo);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">

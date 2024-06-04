@@ -7,7 +7,7 @@ import Checkbox from '@/components/Common/Checkbox';
 import TextArea from '@/components/Common/TextArea';
 import { deepClone } from '@/helper/utils';
 import webApi from '@/service';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { BurialPoint } from '@/helper/burialPoint';
 
 interface EditAddProp {

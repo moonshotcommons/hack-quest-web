@@ -1,5 +1,5 @@
 import { HackathonTeam, HackathonTeamDetail, TeamMemberInfo } from '@/service/webApi/resourceStation/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import Image from 'next/image';
 import { FC, useCallback } from 'react';
 

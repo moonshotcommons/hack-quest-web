@@ -87,9 +87,11 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           );
         } else {
           return (
-            <Button className="button-text-l h-[60px] w-full cursor-not-allowed bg-neutral-light-gray uppercase text-neutral-medium-gray hover:scale-[1]">
-              {t('youHavesubmitted')}
-            </Button>
+            <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
+              <Button type="primary" className="button-text-l h-[60px] w-full uppercase  hover:scale-[1]">
+                {t('hackathonDetail.editSubmission')}
+              </Button>
+            </Link>
           );
         }
       }

@@ -61,7 +61,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
   if (!userInfo) {
     return (
       <div className="body-l w-full capitalize text-neutral-off-black">
-        <motion.div variants={itemVariants} className="flex items-center justify-between gap-2 py-[.7813rem]">
+        <motion.div variants={itemVariants} className="flex items-center justify-between gap-2 px-2 py-3">
           <span className="">{t('changeLanguage')}</span>
           <Suspense fallback={null}>
             <Intl />
@@ -69,7 +69,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         </motion.div>
         <motion.div
           variants={itemVariants}
-          className="flex items-center gap-2 py-[.7813rem]"
+          className="flex items-center gap-2 p-2"
           onClick={() => {
             setAuthType(AuthType.LOGIN);
             changeNavType(NavType.AUTH);
@@ -79,7 +79,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         </motion.div>
         <motion.div
           variants={itemVariants}
-          className="flex items-center gap-2 py-[.7813rem]"
+          className="flex items-center gap-2 p-2"
           onClick={() => {
             setAuthType(AuthType.SIGN_UP);
             changeNavType(NavType.AUTH);
@@ -95,7 +95,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
     <div className="body-l w-full capitalize text-neutral-off-black">
       <motion.div
         variants={itemVariants}
-        className="flex items-center justify-between gap-2 py-[.7813rem]"
+        className="flex items-center justify-between gap-2 px-2 py-3"
         onClick={() => {
           // message.error(
           //   'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
@@ -116,7 +116,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       <Link href={'/user/profile'}>
         <motion.div
           variants={itemVariants}
-          className="flex items-center gap-2 py-[.7813rem]"
+          className="flex items-center gap-3 p-2"
           onClick={() => {
             // setAuthType(AuthType.LOGIN);
             // changeNavType(NavType.AUTH);
@@ -131,7 +131,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       </Link>
       <motion.div
         variants={itemVariants}
-        className="flex items-center gap-2 py-[.7813rem]"
+        className="flex items-center gap-3 p-2"
         onClick={() => {
           // message.error(
           //   'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
@@ -148,7 +148,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
       </motion.div>
       <motion.div
         variants={itemVariants}
-        className="flex items-center gap-2 py-[.7813rem]"
+        className="flex items-center gap-3 p-2"
         onClick={() => {
           signOut();
         }}

@@ -34,13 +34,6 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.DASHBOARD,
         needLogin: true
       }
-      // {
-      //  id:'instructor',
-      //   label: 'navbar.home.instructor',
-      //   path: MenuLink.INSTRUCTOR,
-      //   needLogin: true,
-      //   needPC: true
-      // }
     ]
   },
   {
@@ -48,7 +41,7 @@ export const navbarList: NavbarListType[] = [
     id: 'learn',
     menu: [
       {
-        id: 'learningTrack',
+        id: 'learning-track',
         label: 'navbar.learn.learningTrack',
         path: MenuLink.LEARNING_TRACK,
         description: 'navbar.learn.learningTrackDesc'
@@ -65,18 +58,68 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.PRACTICES,
         description: 'navbar.learn.projectsDesc'
       },
+      // {
+      //   id: 'my-course',
+      //   label: 'navbar.learn.myCourse',
+      //   path: MenuLink.MY_COURSES,
+      //   description: 'navbar.learn.myCourseDesc',
+      //   needLogin: true
+      // },
       {
-        id: 'ntu',
+        id: 'ecosystem',
+        label: 'navbar.learn.ecosystem',
+        path: '/system' as MenuLink,
+        description: 'navbar.learn.ecosystemDesc',
+        needLogin: true
+      },
+      {
+        id: 'explore',
+        label: 'navbar.learn.explore',
+        path: MenuLink.EXPLORE,
+        description: 'navbar.learn.exploreDesc'
+      },
+      {
+        id: 'ntu-web3-mooc',
         label: 'navbar.learn.ntuCourse',
         path: MenuLink.NTU_COURSE,
         description: 'navbar.learn.ntuCourseDesc'
       }
+    ]
+  },
+  {
+    label: 'navbar.build.title',
+    id: 'build',
+    menu: [
+      {
+        id: 'my-hackathon',
+        label: 'navbar.build.myHackathon',
+        path: MenuLink.HACKATHON_DASHBOARD,
+        description: 'navbar.build.myHackathonDesc',
+        needLogin: true
+      },
+      {
+        id: 'explore-hackathons',
+        label: 'navbar.build.exploreHackathons',
+        path: MenuLink.EXPLORE_HACKATHON,
+        description: 'navbar.build.exploreHackathonsDesc'
+      },
+      {
+        id: 'hackathon-voting',
+        label: 'navbar.build.hackathonVoting',
+        path: MenuLink.HACKATHON_VOTING,
+        description: 'navbar.build.hackathonVotingDesc'
+      },
+      {
+        id: 'project-archive',
+        label: 'navbar.build.projectArchive',
+        path: MenuLink.PROJECTS,
+        description: 'navbar.build.projectArchiveDesc'
+      }
       // {
-      // id:'courseMarket',
-      //   label: 'navbar.learn.courseMarket',
-      //   path: MenuLink.COURSE_MARKET,
-      //   description: 'navbar.learn.courseMarketDesc'
-      //   needPC: true
+      //   id: 'idea-bank',
+      //   label: 'navbar.build.ideaBank',
+      //   path: MenuLink.IDEA_BANK,
+      //   description: 'navbar.build.ideaBankDesc'
       // }
     ]
   },
@@ -106,12 +149,6 @@ export const navbarList: NavbarListType[] = [
     id: 'resource',
     menu: [
       {
-        id: 'hackathon',
-        label: 'navbar.resources.hackathon',
-        path: MenuLink.HACKATHON,
-        description: 'navbar.resources.hackathonDesc'
-      },
-      {
         id: 'blog',
         label: 'navbar.resources.blog',
         path: MenuLink.BLOG,
@@ -123,13 +160,13 @@ export const navbarList: NavbarListType[] = [
         path: MenuLink.GLOSSARY,
         description: 'navbar.resources.glossaryDesc'
       },
-      {
-        id: 'advocate',
-        label: 'navbar.resources.advocate',
-        path: MenuLink.ADVOCATE,
-        description: 'navbar.resources.advocateDesc',
-        needPC: true
-      },
+      // {
+      //   id: 'advocate',
+      //   label: 'navbar.resources.advocate',
+      //   path: MenuLink.ADVOCATE,
+      //   description: 'navbar.resources.advocateDesc',
+      //   needPC: true
+      // },
       {
         id: 'events',
         label: 'navbar.resources.events',
@@ -170,15 +207,30 @@ export const navbarList: NavbarListType[] = [
         id: 'aboutUs',
         menu: [
           {
+            id: 'advocate',
+            label: 'navbar.more.advocate',
+            path: MenuLink.ADVOCATE
+          },
+          {
+            id: 'docs',
+            label: 'navbar.more.docs',
+            link: `${MenuLink.DOCS}`
+          },
+          // {
+          //   id: 'brandKit',
+          //   label: 'navbar.more.brandKit',
+          //   path: MenuLink.BRAND_KIT
+          // },
+          {
             id: 'pressKit',
             label: 'navbar.more.pressKit',
             path: MenuLink.PRESS_KIT
+          },
+          {
+            id: 'ourPartner',
+            label: 'navbar.more.ourPartner',
+            path: MenuLink.PARTNERS
           }
-          // {
-          //   id: 'docs',
-          //   label: 'navbar.more.docs',
-          //   link: `${MenuLink.DOCS}`
-          // }
         ]
       },
       {
