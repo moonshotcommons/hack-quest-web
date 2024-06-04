@@ -19,7 +19,10 @@ const Explore: React.FC<ExploreProp> = ({ lang }) => {
   const { getEcosystems } = useGetEcosystemData();
 
   useEffect(() => {
-    getEcosystems(keyword).then((res) => {
+    getEcosystems({
+      keyword,
+      lang
+    }).then((res) => {
       setEcosystems(res);
     });
   }, [keyword]);

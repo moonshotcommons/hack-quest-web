@@ -4,8 +4,6 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import OnGoingHackathonCard from '../OnGoing/OnGoingHackathonCard';
-import SliderCard from '@/components/Web/Business/SliderCard';
 
 interface MiniProp {
   miniHackathonList: HackathonType[];
@@ -23,22 +21,23 @@ const Mini: React.FC<MiniProp> = ({ miniHackathonList }) => {
       </div>
     );
   };
-  return (
-    <div className="relative left-[-20px] w-[calc(100%+40px)]">
-      <SliderCard
-        title={title()}
-        renderItem={(width) => {
-          return miniHackathonList.map((hackathon) => {
-            return (
-              <div key={hackathon.id} className="w-full p-[20px]" style={{ width: `${width}px` }}>
-                <OnGoingHackathonCard hackathon={hackathon} />
-              </div>
-            );
-          });
-        }}
-      />
-    </div>
-  );
+  return null;
+  // return (
+  //   <div className="relative left-[-20px] w-[calc(100%+40px)]">
+  //     <SliderCard
+  //       title={title()}
+  //       renderItem={(width) => {
+  //         return miniHackathonList.map((hackathon) => {
+  //           return (
+  //             <div key={hackathon.id} className="w-full p-[20px]" style={{ width: `${width}px` }}>
+  //               <OnGoingHackathonCard hackathon={hackathon} />
+  //             </div>
+  //           );
+  //         });
+  //       }}
+  //     />
+  //   </div>
+  // );
 };
 
 export default Mini;

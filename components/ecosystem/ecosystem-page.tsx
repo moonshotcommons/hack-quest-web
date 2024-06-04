@@ -5,7 +5,7 @@ import { CertificationInfo } from './certification-info';
 
 export default async function Page({ params }: { params: { ecosystemId: string } }) {
   const token = cookies().get('token')?.value || '';
-  const ecosystem = await webApi.ecosystemApi.getEcosystemsDetailById(params.ecosystemId, token);
+  const ecosystem = await webApi.ecosystemApi.getEcosystemsDetailById(params.ecosystemId, {}, token);
   const certificate = await webApi.campaignsApi.getCertificate(ecosystem.level.certificationId, token);
 
   return (
