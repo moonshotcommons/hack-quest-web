@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { MoveRightIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { Listbox, Transition } from '@headlessui/react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { EcosystemType } from '@/service/webApi/ecosystem/type';
 import webApi from '@/service';
 
@@ -29,10 +29,6 @@ export function EcosystemSelect() {
   const router = useRouter();
   const params = useParams();
 
-  const queryClient = useQueryClient();
-
-  const [_, startTransition] = React.useTransition();
-
   const { data } = useQuery({
     queryKey: ['myEcosystems'],
     staleTime: Infinity,
@@ -53,18 +49,17 @@ export function EcosystemSelect() {
   function handleChange(value: EcosystemType | typeof allEcosystem | typeof exploreMore) {
     if ('switch' in value && !value.switch) {
       if (value.id === 'system') {
-        mutation.mutate({});
+        mutation.mutateAsync({}).then(() => {
+          router.replace(`/${value.id}`);
+        });
+      } else {
+        router.replace(`/${value.id}`);
       }
-      router.replace(`/${value.id}`);
     } else {
-      mutation.mutate(value.id);
-      router.replace(`/system/${value.id}`);
-    }
-    setTimeout(() => {
-      queryClient.invalidateQueries({
-        queryKey: ['activeEcosystem']
+      mutation.mutateAsync(value.id).then(() => {
+        router.replace(`/system/${value.id}`);
       });
-    }, 300);
+    }
   }
 
   return (
