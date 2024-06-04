@@ -68,7 +68,7 @@ export const navbarList: NavbarListType[] = [
       {
         id: 'ecosystem',
         label: 'navbar.learn.ecosystem',
-        path: '/system' as MenuLink,
+        path: MenuLink.SYSTEM,
         description: 'navbar.learn.ecosystemDesc',
         needLogin: true
       },
@@ -114,13 +114,13 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.build.projectArchive',
         path: MenuLink.PROJECTS,
         description: 'navbar.build.projectArchiveDesc'
+      },
+      {
+        id: 'idea-bank',
+        label: 'navbar.build.ideaBank',
+        path: MenuLink.IDEA_BANK,
+        description: 'navbar.build.ideaBankDesc'
       }
-      // {
-      //   id: 'idea-bank',
-      //   label: 'navbar.build.ideaBank',
-      //   path: MenuLink.IDEA_BANK,
-      //   description: 'navbar.build.ideaBankDesc'
-      // }
     ]
   },
   {

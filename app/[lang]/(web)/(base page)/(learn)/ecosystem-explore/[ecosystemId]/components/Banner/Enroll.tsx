@@ -10,6 +10,8 @@ import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 
 interface EnrollProp {
   lang: Lang;
@@ -20,6 +22,7 @@ const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
   const { t } = useTranslation(lang, TransNs.LEARN);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { redirectToUrl } = useRedirect();
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -38,7 +41,7 @@ const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
         message.success('success');
         setOpen(false);
         setTimeout(() => {
-          window.location.reload();
+          redirectToUrl(MenuLink.SYSTEM);
         }, 1000);
       })
       .catch((err) => {

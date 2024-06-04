@@ -3,12 +3,19 @@
 import { LoaderIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useSearchParams } from 'next/navigation';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/hackathon/card-tabs';
 import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
+import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { LearnSection } from './learn-section';
 import { BuildSection } from './build-section';
 import { CommunitySection } from './community-section';
+import { CardTabs } from './card-tabs';
+
+const tabs = [
+  { value: 'learn', label: 'Learn' },
+  { value: 'build', label: 'Build' },
+  { value: 'community', label: 'Community' }
+];
 
 function Loading() {
   return (
@@ -38,25 +45,18 @@ export function EcosystemContent() {
 
   return (
     <div className="pb-6 pt-4 sm:pb-0 sm:pt-[3.75rem]">
-      <Tabs defaultValue="learn" className="w-full" value={value} onValueChange={onValueChange}>
-        <TabsList>
-          <TabsTrigger value="learn">Learn</TabsTrigger>
-          <TabsTrigger value="build">Build</TabsTrigger>
-          <TabsTrigger value="community">Community</TabsTrigger>
-        </TabsList>
-        <TabsContent className="rounded-tl-none sm:rounded-tl-none" value="learn">
-          {isLoading && <Loading />}
-          {data && <LearnSection tasks={data.learn} />}
-        </TabsContent>
-        <TabsContent value="build">
-          {isLoading && <Loading />}
-          {data && <BuildSection tasks={data.build} />}
-        </TabsContent>
-        <TabsContent className="rounded-tr-none sm:rounded-tr-none" value="community">
-          {isLoading && <Loading />}
-          {data && <CommunitySection tasks={data.community} />}
-        </TabsContent>
-      </Tabs>
+      <CardTabs tabs={tabs} value={value} onValueChange={onValueChange} />
+      <div
+        className={cn('w-full rounded-2xl bg-neutral-white p-6', {
+          'rounded-tl-none': value === 'learn',
+          'rounded-tr-none': value === 'community'
+        })}
+      >
+        {isLoading && <Loading />}
+        {data && value === 'learn' && <LearnSection tasks={data.learn} />}
+        {data && value === 'build' && <BuildSection tasks={data.build} />}
+        {data && value === 'community' && <CommunitySection tasks={data.community} />}
+      </div>
     </div>
   );
 }
