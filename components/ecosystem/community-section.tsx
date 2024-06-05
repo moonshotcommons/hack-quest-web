@@ -1,16 +1,15 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
 import { EcosystemTask } from '@/service/webApi/ecosystem/type';
-import { SectionHeader } from './section-header';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
+import { SectionHeader } from './section-header';
 
 export function CommunitySection({ tasks }: { tasks: EcosystemTask[] }) {
-  const router = useRouter();
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (taskId: string) => webApi.ecosystemApi.completeTask(taskId)
   });
@@ -22,7 +21,7 @@ export function CommunitySection({ tasks }: { tasks: EcosystemTask[] }) {
       if (task.extra?.link?.startsWith('http')) {
         window.open(task.extra?.link, '_blank');
       } else {
-        router.push(task.extra?.link as string);
+        window.open(`${window.location.origin}${task.extra?.link}`, '_blank');
       }
     });
   }

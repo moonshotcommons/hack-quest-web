@@ -1,10 +1,15 @@
 'use client';
-import { FC, ReactNode, createContext } from 'react';
+import { FC, ReactNode, createContext, useContext } from 'react';
 import { Lang, defaultLocale } from '@/i18n/config';
 
 export const LangContext = createContext({
   lang: defaultLocale
 });
+
+export function useLang() {
+  return useContext(LangContext);
+}
+
 interface LangProviderProps {
   children: ReactNode;
   lang: Lang;
