@@ -9,13 +9,13 @@ import { cn } from '@/helper/utils';
 import { useSubmitModal } from '../submit/store';
 
 const formSchema = z.object({
-  problem: z
+  solve: z
     .string()
     .min(1, {
-      message: 'Problem is a required input'
+      message: 'Solve is a required input'
     })
     .max(600, {
-      message: 'Problem cannot exceed 600 characters'
+      message: 'Solve cannot exceed 600 characters'
     }),
   solution: z
     .string()
@@ -32,7 +32,7 @@ export function Problem() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      problem: modal.values.problem || '',
+      solve: modal.values.solve || '',
       solution: modal.values.solution || ''
     }
   });
@@ -48,7 +48,7 @@ export function Problem() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 flex flex-1 flex-col gap-6">
         <FormField
           control={form.control}
-          name="problem"
+          name="solve"
           render={({ field }) => (
             <FormItem className="space-y-1">
               <div className="flex items-center justify-between">
@@ -58,8 +58,8 @@ export function Problem() {
                   </span>
                 </FormLabel>
                 <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('problem')?.length > 600 })}>
-                    {form.watch('problem')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('solve')?.length > 600 })}>
+                    {form.watch('solve')?.length}
                   </span>
                   /600
                 </span>
@@ -69,7 +69,7 @@ export function Problem() {
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);
-                    modal.setValues({ problem: e.target.value });
+                    modal.setValues({ solve: e.target.value });
                   }}
                   authHeight={false}
                   className="sm:body-m body-s h-[5.625rem] border-neutral-light-gray p-3 text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark sm:h-[8.25rem]"

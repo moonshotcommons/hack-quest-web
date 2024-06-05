@@ -9,7 +9,10 @@ import { SortIcon } from '@/components/Common/Icon/Sort';
 import { createUrl } from '@/helper/utils';
 import { animateProps } from './dropdown';
 
-const options = ['Creation Time', 'Upvote'];
+const options = [
+  { label: 'Creation Time', value: '-createdAt' },
+  { label: 'Upvote', value: '-vote' }
+];
 
 export function SortByFilter() {
   const router = useRouter();
@@ -17,7 +20,7 @@ export function SortByFilter() {
   const searchParams = useSearchParams();
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const selectedOption = currentParams.get('sortBy');
+  const selectedOption = currentParams.get('sort');
 
   const [hovered, setHovered] = React.useState(false);
   const [selected, setSelected] = React.useState(selectedOption);
@@ -35,16 +38,14 @@ export function SortByFilter() {
     setSelected(newSelection);
 
     if (newSelection) {
-      currentParams.set('sortBy', newSelection);
+      currentParams.set('sort', newSelection);
     } else {
-      currentParams.delete('sortBy');
+      currentParams.delete('sort');
     }
 
     const url = createUrl(pathname, currentParams);
 
-    setTimeout(() => {
-      router.replace(url, { scroll: false });
-    }, 500);
+    router.replace(url, { scroll: false });
   }
 
   return (
@@ -68,15 +69,15 @@ export function SortByFilter() {
           {...animateProps}
           className="absolute -bottom-[0.1875rem] right-0 z-50 flex w-40 flex-col rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2"
         >
-          {options?.map((option) => (
+          {options.map((option) => (
             <li
-              key={option}
+              key={option.value}
               className="flex cursor-pointer items-center justify-between whitespace-nowrap px-3 py-2 text-neutral-off-black transition-colors hover:bg-neutral-off-white"
-              onClick={() => toggleSelection(option)}
-              data-selected={selected === option}
+              onClick={() => toggleSelection(option.value)}
+              data-selected={selected === option.value}
             >
-              <span className="body-m">{option}</span>
-              {selected === option && <CheckIcon className="ml-2 h-5 w-5" />}
+              <span className="body-m">{option.label}</span>
+              {selected === option.value && <CheckIcon className="ml-2 h-5 w-5" />}
             </li>
           ))}
         </motion.ul>

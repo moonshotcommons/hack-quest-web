@@ -1,16 +1,32 @@
 'use client';
 
 import * as React from 'react';
+import { message } from 'antd';
 import { XIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
 import { Checkbox } from '@/components/ui/checkbox';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { useToggle } from '@/hooks/utils/use-toggle';
+import webApi from '@/service';
 import { useSubmitModal } from './store';
 
 export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { values } = useSubmitModal();
+  const router = useRouter();
+  const { values, onClose: modalOnClose } = useSubmitModal();
   const [confirm, toggle] = useToggle(false);
+
+  const mutation = useMutation({
+    mutationFn: () => webApi.ideaApi.submitIdea(values),
+    onSuccess: () => {
+      router.refresh();
+      onClose();
+      modalOnClose();
+      message.success('Submit idea success!');
+    }
+  });
+
   return (
     <Modal open={open} onClose={() => {}}>
       <div className="relative flex w-full flex-col gap-5 rounded-2xl bg-neutral-white px-7 py-6 shadow-modal sm:w-[33.25rem] sm:gap-9 sm:p-10">
@@ -34,10 +50,9 @@ export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => 
           <Button
             type="primary"
             disabled={!confirm}
+            loading={mutation.isPending}
             className="aria-disabled:bg-neutral-light-gray"
-            onClick={() => {
-              console.log(values);
-            }}
+            onClick={() => mutation.mutate()}
           >
             Yes
           </Button>

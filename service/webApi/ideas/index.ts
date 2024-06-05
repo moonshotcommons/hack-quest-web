@@ -60,7 +60,9 @@ class IdeaApi {
    * @returns
    */
   submitIdea(data: Record<string, any>) {
-    return this.service.post<void>(IdeaApiUrl.IDEAS, data);
+    return this.service.post<void>(IdeaApiUrl.IDEAS, {
+      data
+    });
   }
 
   /**

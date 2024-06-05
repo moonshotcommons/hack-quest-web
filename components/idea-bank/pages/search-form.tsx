@@ -16,7 +16,6 @@ export function SearchForm() {
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(value);
     if (value) {
       currentParams.set('keyword', value);
       const url = createUrl(pathname, currentParams);
@@ -45,7 +44,7 @@ export function SearchForm() {
         value={value}
         autoComplete="off"
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search for keywords, topics, etc..."
+        placeholder="Search for keywords, ideas, etc..."
         className="body-s sm:body-l w-full flex-1 outline-none placeholder:text-neutral-medium-gray"
       />
       {value && (
