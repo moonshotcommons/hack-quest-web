@@ -79,7 +79,7 @@ export function SectionHeader({
             }
           )}
         >
-          {mutation.isPending ? 'Claiming...' : 'Clain'}
+          {mutation.isPending ? 'Claiming...' : 'Claim'}
         </span>
       )}
     </span>
