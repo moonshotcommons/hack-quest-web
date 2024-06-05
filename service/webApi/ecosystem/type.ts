@@ -41,6 +41,7 @@ export interface EcosystemTask {
   claimed: boolean;
   track: string;
   language: string;
+  subTitle: string;
   courses: CourseDetailType[];
   learningTracks: CourseDetailType[];
   extra?: {
