@@ -10,7 +10,7 @@ import { EcosystemType } from '@/service/webApi/ecosystem/type';
 import webApi from '@/service';
 
 const allEcosystem = {
-  id: 'system',
+  id: 'dashboard',
   name: 'All Ecosystem',
   image: null,
   icon: null,
@@ -48,7 +48,7 @@ export function EcosystemSelect() {
 
   function handleChange(value: EcosystemType | typeof allEcosystem | typeof exploreMore) {
     if ('switch' in value && !value.switch) {
-      if (value.id === 'system') {
+      if (value.id === 'dashboard') {
         mutation.mutateAsync({}).then(() => {
           router.replace(`/${value.id}`);
         });
@@ -57,7 +57,7 @@ export function EcosystemSelect() {
       }
     } else {
       mutation.mutateAsync(value.id).then(() => {
-        router.replace(`/system/${value.id}`);
+        router.replace(`/dashboard/${value.id}`);
       });
     }
   }
