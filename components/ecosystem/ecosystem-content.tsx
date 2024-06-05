@@ -1,15 +1,16 @@
 'use client';
 
+import * as React from 'react';
 import { LoaderIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { useParams, useSearchParams } from 'next/navigation';
-import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
+import { useParams } from 'next/navigation';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { LearnSection } from './learn-section';
 import { BuildSection } from './build-section';
 import { CommunitySection } from './community-section';
 import { CardTabs } from './card-tabs';
+import { useLang } from '../Provider/Lang';
 
 const tabs = [
   { value: 'learn', label: 'Learn' },
@@ -26,15 +27,10 @@ function Loading() {
 }
 
 export function EcosystemContent() {
-  const searchParams = useSearchParams();
-
-  const lang = searchParams?.get('lang') || 'en';
+  const { lang } = useLang();
 
   const { ecosystemId } = useParams<{ ecosystemId: string }>();
-  const { value, onValueChange } = useQueryRouter({
-    queryKey: 'section',
-    defaultValue: 'learn'
-  });
+  const [value, setValue] = React.useState('learn');
 
   const { isLoading, data } = useQuery({
     enabled: !!ecosystemId,
@@ -45,7 +41,7 @@ export function EcosystemContent() {
 
   return (
     <div className="pb-6 pt-4 sm:pb-0 sm:pt-[3.75rem]">
-      <CardTabs tabs={tabs} value={value} onValueChange={onValueChange} />
+      <CardTabs tabs={tabs} value={value} onValueChange={setValue} />
       <div
         className={cn('w-full rounded-2xl bg-neutral-white p-6', {
           'rounded-tl-none': value === 'learn',

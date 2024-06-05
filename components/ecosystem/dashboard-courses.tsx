@@ -15,9 +15,11 @@ import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
-import { COURSES_STATUS } from './constants';
 import { LineTabs } from './line-tabs';
 import MenuLink from '@/constants/MenuLink';
+import { useTranslation } from '@/i18n/client';
+import { useLang } from '../Provider/Lang';
+import { TransNs } from '@/i18n/config';
 
 const coverImageMap: Record<string, { src: string; width: number; height: number }> = {
   [CourseTrackType.DeFi]: {
@@ -74,7 +76,7 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
       : '/learning-track/' + course.id;
   return (
     <Link href={href}>
-      <div className="sm:card-hover flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white sm:flex-row">
+      <div className="flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white transition-all duration-300 sm:flex-row sm:hover:-translate-y-1">
         <div className="relative h-40 w-full sm:h-[14.5625rem] sm:w-[18rem]">
           {course.image ? (
             <Image src={course.image} alt={course.title} fill className="object-cover sm:rounded-l-2xl" />
@@ -122,6 +124,8 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
 }
 
 export function DashboardCourses() {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const [value, setValue] = React.useState('inProcess');
 
   const { data, isLoading } = useQuery({
@@ -137,8 +141,16 @@ export function DashboardCourses() {
   });
   return (
     <div className="rounded-3xl p-6 sm:bg-neutral-white">
-      <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">My Courses</h1>
-      <LineTabs tabs={COURSES_STATUS} value={value} onValueChange={setValue} className="mt-8" />
+      <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">{t('my_courses')}</h1>
+      <LineTabs
+        tabs={[
+          { value: 'inProcess', label: t('in_progress') },
+          { value: 'completed', label: t('completed') }
+        ]}
+        value={value}
+        onValueChange={setValue}
+        className="mt-8"
+      />
       <div className="mt-8 flex flex-col gap-8">
         {isLoading && <CourseSkeleton />}
         {data &&

@@ -15,12 +15,12 @@ export function BuildSection({ tasks }: { tasks: EcosystemTask[] }) {
     if (task.track) {
       currentParams.set('track', task.track);
     }
-    const url = `/electives?${currentParams.toString()}`;
+    const url = `/practices?${currentParams.toString()}`;
     return url;
   };
 
   return (
-    <Accordion type="multiple" className="flex flex-col gap-6">
+    <Accordion type="multiple" defaultValue={['item-1']} className="flex flex-col gap-6">
       {tasks.map((task, index) => (
         <AccordionItem key={task.taskId} value={`item-${index + 1}`}>
           <AccordionTrigger completed={task.completed && task.claimed}>

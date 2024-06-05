@@ -11,7 +11,7 @@ import { cn } from '@/helper/utils';
 import { useCertificateModal } from './use-certificate';
 import { FillArrowIcon } from '../Common/Icon/Arrow';
 
-const label = ['Lvl 1. Starter', 'Lvl 2. Expert'];
+const label = ['Lv1. Learner', 'Lv2. Builder'];
 
 export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemDetailType; levels: LevelType[] }) {
   const { onOpen } = useCertificateModal();
