@@ -7,10 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Button from '@/components/Common/Button';
 import { TextField } from '@/components/ui/text-field';
 import { cn } from '@/helper/utils';
-import { useSubmitModal } from '../submit/store';
+import { useIdeas, useSubmitModal } from '../submit/store';
 
 const formSchema = z.object({
-  ideaName: z
+  name: z
     .string()
     .min(1, {
       message: 'Idea name is a required input'
@@ -18,22 +18,23 @@ const formSchema = z.object({
     .max(60, {
       message: 'Idea name cannot exceed 60 characters'
     }),
-  ecosystem: z.string({
+  ecosystemId: z.string({
     required_error: 'Please select an ecosystem'
   }),
-  tracks: z.string({
+  track: z.string({
     required_error: 'Please select a track'
   })
 });
 
 export function IdeaInfo() {
   const modal = useSubmitModal();
+  const { tracks, ecosystems } = useIdeas();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ideaName: modal.values.ideaName || '',
-      ecosystem: modal.values.ecosystem,
-      tracks: modal.values.tracks
+      name: modal.values.ideaName || '',
+      ecosystemId: modal.values.ecosystemId,
+      track: modal.values.track
     }
   });
 
@@ -47,7 +48,7 @@ export function IdeaInfo() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 flex flex-1 flex-col gap-6">
         <FormField
           control={form.control}
-          name="ideaName"
+          name="name"
           render={({ field }) => (
             <FormItem className="space-y-1">
               <div className="flex items-center justify-between">
@@ -55,8 +56,8 @@ export function IdeaInfo() {
                   <span className="sm:body-m body-s text-neutral-rich-gray">Idea Name*</span>
                 </FormLabel>
                 <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('ideaName')?.length > 60 })}>
-                    {form.watch('ideaName')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('name')?.length > 60 })}>
+                    {form.watch('name')?.length}
                   </span>
                   /60
                 </span>
@@ -66,7 +67,7 @@ export function IdeaInfo() {
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);
-                    modal.setValues({ ideaName: e.target.value });
+                    modal.setValues({ name: e.target.value });
                   }}
                   autoComplete="off"
                   placeholder="Enter your idea name"
@@ -80,7 +81,7 @@ export function IdeaInfo() {
         <div className="grid grid-cols-2 gap-5">
           <FormField
             control={form.control}
-            name="ecosystem"
+            name="ecosystemId"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <div className="flex items-center justify-between">
@@ -92,7 +93,7 @@ export function IdeaInfo() {
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value);
-                    modal.setValues({ ecosystem: value });
+                    modal.setValues({ ecosystemId: value });
                   }}
                 >
                   <FormControl>
@@ -101,11 +102,11 @@ export function IdeaInfo() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Chain-Ignostic">Chain-Ignostic</SelectItem>
-                    <SelectItem value="Solana">Solana</SelectItem>
-                    <SelectItem value="Mantle">Mantle</SelectItem>
-                    <SelectItem value="Ethereum">Ethereum</SelectItem>
-                    <SelectItem value="Arbitrum">Arbitrum</SelectItem>
+                    {ecosystems?.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -114,19 +115,19 @@ export function IdeaInfo() {
           />
           <FormField
             control={form.control}
-            name="tracks"
+            name="track"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <div className="flex items-center justify-between">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Tracks*</span>
+                    <span className="sm:body-m body-s text-neutral-rich-gray">Track*</span>
                   </FormLabel>
                 </div>
                 <Select
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value);
-                    modal.setValues({ tracks: value });
+                    modal.setValues({ track: value });
                   }}
                 >
                   <FormControl>
@@ -134,12 +135,12 @@ export function IdeaInfo() {
                       <SelectValue placeholder="Please select" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="DeFi">DeFi</SelectItem>
-                    <SelectItem value="DAO">DAO</SelectItem>
-                    <SelectItem value="DePIN">DePIN</SelectItem>
-                    <SelectItem value="AI">AI</SelectItem>
-                    <SelectItem value="NFT">NFT</SelectItem>
+                  <SelectContent side="bottom">
+                    {tracks?.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />

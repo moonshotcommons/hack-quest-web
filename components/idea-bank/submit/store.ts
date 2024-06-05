@@ -1,3 +1,5 @@
+import webApi from '@/service';
+import { useQuery } from '@tanstack/react-query';
 import { create } from 'zustand';
 
 type Store = {
@@ -21,3 +23,24 @@ export const useSubmitModal = create<Store>((set) => ({
   onBack: () => set((state) => ({ step: state.step - 1 })),
   setValues: (values) => set((state) => ({ values: { ...state.values, ...values } }))
 }));
+
+export function useIdeas() {
+  const tracks = useQuery({
+    queryKey: ['tracks'],
+    staleTime: Infinity,
+    queryFn: () => webApi.resourceStationApi.getProjectTracksDict(),
+    select: (data) => data.map((item) => ({ label: item, value: item }))
+  });
+
+  const ecosystems = useQuery({
+    queryKey: ['ecosystems'],
+    staleTime: Infinity,
+    queryFn: () => webApi.ecosystemApi.getEcosystems(),
+    select: (data) => data.map((item) => ({ label: item.name?.split(' ')?.[0], value: item.id }))
+  });
+
+  return {
+    tracks: tracks.data,
+    ecosystems: ecosystems.data
+  };
+}

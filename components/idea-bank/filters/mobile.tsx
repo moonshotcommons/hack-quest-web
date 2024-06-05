@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 import Modal from '@/components/Common/Modal';
 import { createUrl } from '@/helper/utils';
+import { useIdeas } from '../submit/store';
 
 export function MobileFilters({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
@@ -13,7 +14,9 @@ export function MobileFilters({ open, onClose }: { open: boolean; onClose: () =>
   const searchParams = useSearchParams();
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const selectedEcosystemsParams = currentParams.getAll('ecosystem');
+  const { tracks, ecosystems } = useIdeas();
+
+  const selectedEcosystemsParams = currentParams.getAll('ecosystemId');
   const selectedTracksParams = currentParams.getAll('tracks');
 
   const [selectedEcosystems, setSelectedEcosystems] = React.useState(selectedEcosystemsParams);
@@ -21,9 +24,9 @@ export function MobileFilters({ open, onClose }: { open: boolean; onClose: () =>
 
   function toggleSelection(option: string, type: string) {
     let newSelection;
-    const currentParam = type === 'ecosystem' ? 'ecosystem' : 'tracks';
+    const currentParam = type === 'ecosystemId' ? 'ecosystemId' : 'tracks';
 
-    if (type === 'ecosystem') {
+    if (type === 'ecosystemId') {
       newSelection = selectedEcosystems.includes(option)
         ? selectedEcosystems.filter((item) => item !== option)
         : [...selectedEcosystems, option];
@@ -54,25 +57,25 @@ export function MobileFilters({ open, onClose }: { open: boolean; onClose: () =>
         </button>
         <h2 className="body-m-bold text-neutral-off-black">Ecosystem</h2>
         <div className="mt-4 flex flex-col gap-4">
-          {['Chain-Ignostic', 'DeFi', 'Solana', 'Mantle', 'Ethereum', 'Arbitrum'].map((ecosystem) => (
-            <div key={ecosystem} className="flex items-center gap-2.5">
+          {ecosystems?.map((ecosystem) => (
+            <div key={ecosystem.value} className="flex items-center gap-2.5">
               <Checkbox
-                checked={selectedEcosystems.includes(ecosystem)}
-                onCheckedChange={() => toggleSelection(ecosystem, 'ecosystem')}
+                checked={selectedEcosystems.includes(ecosystem.value)}
+                onCheckedChange={() => toggleSelection(ecosystem.value, 'ecosystemId')}
               />
-              <span className="body-s text-neutral-off-black">{ecosystem}</span>
+              <span className="body-s text-neutral-off-black">{ecosystem.label}</span>
             </div>
           ))}
         </div>
         <h2 className="body-m-bold mt-8 text-neutral-off-black">Tracks</h2>
         <div className="mt-4 flex flex-col gap-4">
-          {['DeFi', 'DAO', 'DePIN', 'AI', 'NFT'].map((track) => (
-            <div key={track} className="flex items-center gap-2.5">
+          {tracks?.map((track) => (
+            <div key={track.value} className="flex items-center gap-2.5">
               <Checkbox
-                checked={selectedTracks.includes(track)}
-                onCheckedChange={() => toggleSelection(track, 'track')}
+                checked={selectedTracks.includes(track.value)}
+                onCheckedChange={() => toggleSelection(track.value, 'track')}
               />
-              <span className="body-s text-neutral-off-black">{track}</span>
+              <span className="body-s text-neutral-off-black">{track.value}</span>
             </div>
           ))}
         </div>

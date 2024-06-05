@@ -11,6 +11,7 @@ import { createUrl } from '@/helper/utils';
 import { DropdownFilter } from './dropdown';
 import { SortByFilter } from './sort';
 import { MobileFilters } from './mobile';
+import { useIdeas } from '../submit/store';
 
 export function FilterPanel() {
   const router = useRouter();
@@ -18,25 +19,33 @@ export function FilterPanel() {
   const searchParams = useSearchParams();
 
   const [open, toggleOpen] = useToggle(false);
-  const [checked, toggleChecked] = useToggle(false);
+
+  const { tracks, ecosystems } = useIdeas();
 
   const isLargeScreen = useMediaQuery('(min-width: 640px)');
 
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const ecosystemOptions = currentParams.getAll('ecosystem');
+  const teamUp = currentParams.get('teamUp') ?? 'false';
+  const ecosystemOptions = currentParams.getAll('ecosystemId');
   const tracksOptions = currentParams.getAll('tracks');
 
+  const [checked, toggleChecked] = useToggle(teamUp === 'true');
   const [selectedEcosystems, setSelectedEcosystems] = React.useState(ecosystemOptions);
   const [selectedTracks, setSelectedTracks] = React.useState(tracksOptions);
 
   const filteredParams = [...selectedEcosystems, ...selectedTracks];
 
-  function onValueChange(value: string, type: 'ecosystem' | 'tracks') {
-    const isEcosystem = type === 'ecosystem';
+  const filteredEcosystems = ecosystems?.filter((item) => filteredParams.includes(item.value));
+  const filteredTracks = tracks?.filter((item) => filteredParams.includes(item.value));
+
+  const filteredOptions = filteredEcosystems?.concat(filteredTracks || []);
+
+  function onValueChange(value: string, type: 'ecosystemId' | 'tracks') {
+    const isEcosystem = type === 'ecosystemId';
     const selectedValues = isEcosystem ? selectedEcosystems : selectedTracks;
     const setSelectedValues = isEcosystem ? setSelectedEcosystems : setSelectedTracks;
-    const paramName = isEcosystem ? 'ecosystem' : 'tracks';
+    const paramName = isEcosystem ? 'ecosystemId' : 'tracks';
 
     const newValues = selectedValues.includes(value)
       ? selectedValues.filter((item) => item !== value)
@@ -59,7 +68,7 @@ export function FilterPanel() {
   function onRemove(value: string) {
     const index = selectedEcosystems.indexOf(value);
     if (index !== -1) {
-      onValueChange(value, 'ecosystem');
+      onValueChange(value, 'ecosystemId');
     } else {
       onValueChange(value, 'tracks');
     }
@@ -68,9 +77,9 @@ export function FilterPanel() {
   function onCheckedChange(checked: boolean) {
     toggleChecked(checked);
     if (checked) {
-      currentParams.set('team', 'true');
+      currentParams.set('teamUp', 'true');
     } else {
-      currentParams.delete('team');
+      currentParams.delete('teamUp');
     }
     router.replace(`${pathname}?${currentParams.toString()}`, { scroll: false });
   }
@@ -89,14 +98,14 @@ export function FilterPanel() {
           <DropdownFilter
             label="ecosystem"
             values={selectedEcosystems}
-            onValueChange={(value) => onValueChange(value, 'ecosystem')}
-            options={['Chain-Ignostic', 'Solana', 'Mantle', 'Ethereum', 'Arbitrum']}
+            onValueChange={(value) => onValueChange(value, 'ecosystemId')}
+            options={ecosystems}
           />
           <DropdownFilter
             label="tracks"
             values={selectedTracks}
             onValueChange={(value) => onValueChange(value, 'tracks')}
-            options={['DeFi', 'DAO', 'DePIN', 'AI', 'NFT']}
+            options={tracks}
           />
           <div className="flex items-center space-x-2.5 sm:ml-6">
             <Checkbox
@@ -116,13 +125,13 @@ export function FilterPanel() {
             </label>
           </div>
           {isLargeScreen &&
-            filteredParams.map((param) => (
+            filteredOptions?.map((option) => (
               <button
-                key={param}
+                key={option.value}
                 className="inline-flex items-center justify-between gap-2.5 rounded-full bg-yellow-primary px-4 py-1.5 text-neutral-off-black"
               >
-                <span className="body-m">{param}</span>
-                <XIcon className="h-5 w-5" onClick={() => onRemove(param)} />
+                <span className="body-m">{option.label}</span>
+                <XIcon className="h-5 w-5" onClick={() => onRemove(option.value)} />
               </button>
             ))}
         </div>

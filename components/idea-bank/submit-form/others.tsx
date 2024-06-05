@@ -13,18 +13,26 @@ import { cn } from '@/helper/utils';
 import { useSubmitModal } from '../submit/store';
 import { ConfirmModal } from '../submit/confirm';
 
+const contractOptions = [
+  { label: 'Email', value: 'email' },
+  { label: 'Telegram', value: 'telegram' },
+  { label: 'WeChat', value: 'wechat' },
+  { label: 'Phone', value: 'phone' },
+  { label: 'Discord', value: 'discord' }
+];
+
 const formSchema = z.object({
-  information: z
+  otherInfo: z
     .string()
     .max(600, {
-      message: 'Information cannot exceed 600 characters'
+      message: 'Other info cannot exceed 600 characters'
     })
     .optional(),
-  contactType: z.string({
+  contractKey: z.string({
     required_error: 'Please select a contact type'
   }),
-  contactInfo: z.string().min(1, 'Contact info is required'),
-  teamup: z.string({
+  contractValue: z.string().min(1, 'Contact info is required'),
+  teamUp: z.string({
     required_error: 'Please select an option'
   })
 });
@@ -35,17 +43,20 @@ export function Others() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      information: modal.values.information || '',
-      contactType: modal.values.contactType,
-      contactInfo: modal.values.contactInfo || '',
-      teamup: modal.values.teamup
+      otherInfo: modal.values.otherInfo || '',
+      contractKey: modal.values.contractKey,
+      contractValue: modal.values.contractValue || '',
+      teamUp: modal.values.teamUp
     }
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    const values = { ...modal.values, ...data };
+    const values = {
+      ...modal.values,
+      ...data,
+      teamUp: data?.teamUp === 'true' ? true : false
+    };
     modal.setValues(values);
-    console.log(values);
     toggle(true);
   }
 
@@ -55,7 +66,7 @@ export function Others() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 flex flex-1 flex-col gap-6">
           <FormField
             control={form.control}
-            name="information"
+            name="otherInfo"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <div className="flex items-end justify-between sm:items-center">
@@ -65,8 +76,8 @@ export function Others() {
                     </span>
                   </FormLabel>
                   <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                    <span className={cn({ 'text-status-error': (form.watch('information')?.length || 0) > 600 })}>
-                      {form.watch('information')?.length}
+                    <span className={cn({ 'text-status-error': (form.watch('otherInfo')?.length || 0) > 600 })}>
+                      {form.watch('otherInfo')?.length}
                     </span>
                     /600
                   </span>
@@ -76,7 +87,7 @@ export function Others() {
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
-                      modal.setValues({ information: e.target.value });
+                      modal.setValues({ otherInfo: e.target.value });
                     }}
                     authHeight={false}
                     className="sm:body-m body-s h-[5.625rem] border-neutral-light-gray p-3 text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark sm:h-[8.25rem]"
@@ -92,14 +103,14 @@ export function Others() {
             <div className="grid w-full grid-cols-[8rem_1fr] gap-2 sm:grid-cols-[10.5rem_1fr] sm:gap-5">
               <FormField
                 control={form.control}
-                name="contactType"
+                name="contractKey"
                 render={({ field }) => (
                   <FormItem>
                     <Select
                       value={field.value}
                       onValueChange={(value) => {
                         field.onChange(value);
-                        modal.setValues({ contactType: value });
+                        modal.setValues({ contractKey: value });
                       }}
                     >
                       <FormControl>
@@ -108,11 +119,11 @@ export function Others() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Email">Email</SelectItem>
-                        <SelectItem value="Telegram">Telegram</SelectItem>
-                        <SelectItem value="WeChat">WeChat</SelectItem>
-                        <SelectItem value="Phone">Phone</SelectItem>
-                        <SelectItem value="Discord">Discord</SelectItem>
+                        {contractOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -121,7 +132,7 @@ export function Others() {
               />
               <FormField
                 control={form.control}
-                name="contactInfo"
+                name="contractValue"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -129,7 +140,7 @@ export function Others() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          modal.setValues({ contactInfo: e.target.value });
+                          modal.setValues({ contractValue: e.target.value });
                         }}
                         placeholder="Enter your contact info"
                         className="aria-[invalid=true]:border-status-error-dark"
@@ -143,7 +154,7 @@ export function Others() {
           </div>
           <FormField
             control={form.control}
-            name="teamup"
+            name="teamUp"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <div className="flex items-center justify-between">
@@ -155,7 +166,7 @@ export function Others() {
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value);
-                    modal.setValues({ teamup: value });
+                    modal.setValues({ teamUp: value });
                   }}
                 >
                   <FormControl>
