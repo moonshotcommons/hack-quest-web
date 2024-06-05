@@ -11,3 +11,8 @@ export const getTopIdeasCached = cache(async () => {
   const token = cookies().get('token')?.value || '';
   return webApi.ideaApi.getTopIdeas(token);
 });
+
+export const getIdeaCached = cache(async (id: string) => {
+  const token = cookies().get('token')?.value || '';
+  return webApi.ideaApi.getIdea(id, token);
+});

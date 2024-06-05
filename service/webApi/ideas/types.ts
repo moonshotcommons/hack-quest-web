@@ -23,6 +23,7 @@ export interface Idea {
 export interface User {
   id: string;
   nickname: string;
+  avatar: string;
 }
 
 export interface Ecosystem {

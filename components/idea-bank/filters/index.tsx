@@ -60,9 +60,7 @@ export function FilterPanel() {
 
     const url = createUrl(pathname, currentParams);
 
-    setTimeout(() => {
-      router.replace(url, { scroll: false });
-    }, 500);
+    router.replace(url, { scroll: false });
   }
 
   function onRemove(value: string) {

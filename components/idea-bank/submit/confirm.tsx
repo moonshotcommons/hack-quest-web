@@ -14,7 +14,7 @@ import { useSubmitModal } from './store';
 
 export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
-  const { values } = useSubmitModal();
+  const { values, onClose: modalOnClose } = useSubmitModal();
   const [confirm, toggle] = useToggle(false);
 
   const mutation = useMutation({
@@ -22,6 +22,7 @@ export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => 
     onSuccess: () => {
       router.refresh();
       onClose();
+      modalOnClose();
       message.success('Submit idea success!');
     }
   });

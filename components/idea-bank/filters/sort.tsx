@@ -10,8 +10,8 @@ import { createUrl } from '@/helper/utils';
 import { animateProps } from './dropdown';
 
 const options = [
-  { label: 'Creation Time', value: 'createdAt' },
-  { label: 'Upvote', value: 'vote' }
+  { label: 'Creation Time', value: '-createdAt' },
+  { label: 'Upvote', value: '-vote' }
 ];
 
 export function SortByFilter() {
@@ -45,9 +45,7 @@ export function SortByFilter() {
 
     const url = createUrl(pathname, currentParams);
 
-    setTimeout(() => {
-      router.replace(url, { scroll: false });
-    }, 500);
+    router.replace(url, { scroll: false });
   }
 
   return (
