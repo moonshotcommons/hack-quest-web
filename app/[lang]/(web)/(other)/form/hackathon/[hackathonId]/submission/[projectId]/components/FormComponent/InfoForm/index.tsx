@@ -104,9 +104,19 @@ const InfoForm: FC<
       formData.append('hackathonId', simpleHackathonInfo.id);
       formData.append('status', isExit ? ProjectSubmitStepType.INFO : newStatus!);
       logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
-      const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+
+      if (projectName) {
+        const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+        return {
+          res,
+          status: newStatus,
+          newInfo: {
+            ...values
+          },
+          isExit
+        };
+      }
       return {
-        res,
         status: newStatus,
         newInfo: {
           ...values
@@ -118,7 +128,7 @@ const InfoForm: FC<
       manual: true,
       onSuccess({ res, newInfo, status, isExit }) {
         if (isExit) return;
-
+        if (!res) return;
         if (!projectId || !isUuid(projectId)) {
           window.history.replaceState(
             {},
