@@ -7,6 +7,14 @@
   "courses_completed": "已完成的课程",
   "certification_earned": "获得的证书",
   "view_certificate": "查看证书",
+  "claim_certificate": "领取证书",
   "join_discord": "加入 Discord",
-  "join_discord_desc": "关注 HackQuest Discord 寻找您的梦之队！"
+  "join_discord_desc": "关注 HackQuest Discord 寻找您的梦之队！",
+  "explore_certified": "探索认证学习路径",
+  "explore_ecosystems": "探索生态系统",
+  "learn": "学习",
+  "build": "构建",
+  "community": "社区",
+  "all_ecosystems": "所有生态系统",
+  "explore_more": "探索更多"
 }

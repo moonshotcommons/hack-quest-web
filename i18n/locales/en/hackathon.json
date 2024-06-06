@@ -121,7 +121,25 @@
     "projectArchive": "Project Archive",
     "hackathonVoting": "Hackathon Voting",
     "quickLinks": "Quick Links",
-    "description": "Welcome to your hackathon dashboard! Manage projects, invite teammates, and track your hackathon journey with ease—all in one place."
+    "description": "Welcome to your hackathon dashboard! Manage projects, invite teammates, and track your hackathon journey with ease—all in one place.",
+    "participatedHackathon": "Participated Hackathon",
+    "votingHackathon": "Voting Hackathon",
+    "yourHackathonStats": "Your Hackathon Stats",
+    "hackathonRegistered": "Hackathon Registered",
+    "hackathonSubmitted": "Hackathon Submitted",
+    "winnerProject": "Winner Project",
+    "projectVoted": "Project Voted",
+    "yourVotingRole": "Your Voting Role",
+    "ongoingHackathon": "Ongoing Hackathon",
+    "pastHackathon": "Past Hackathon",
+    "viewAll": "View All {{name}}",
+    "goToVote": "Go to vote",
+    "exploreHackathon": "Explore Hackathon",
+    "participate": "participate",
+    "vote": "vote",
+    "empty": "You didn’t {{type}} in any hackathon",
+    "back": "Back To Your Hackathon"
+
   },
   "explore": {
     "title": "Explore Hackathons",

@@ -70,7 +70,7 @@ export default function RootLayout({ children, params: { lang } }: RootLayoutPro
     >
       <body className={`${nunito.className}`}>
         <WebAppProvider lang={lang}>
-          <InitializeUserProvider>{children}</InitializeUserProvider>
+          <InitializeUserProvider lang={lang}>{children}</InitializeUserProvider>
         </WebAppProvider>
 
         <Script id="theme-script">

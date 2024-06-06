@@ -8,31 +8,36 @@ import { Listbox, Transition } from '@headlessui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { EcosystemType } from '@/service/webApi/ecosystem/type';
 import webApi from '@/service';
-
-const allEcosystem = {
-  id: 'dashboard',
-  name: 'All Ecosystem',
-  image: null,
-  icon: null,
-  switch: false
-};
-
-const exploreMore = {
-  id: 'ecosystem-explore',
-  name: 'Explore More',
-  image: null,
-  icon: MoveRightIcon,
-  switch: false
-};
+import { useLang } from '../Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export function EcosystemSelect() {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const router = useRouter();
-  const params = useParams();
+  const params = useParams<{ ecosystemId: string; lang: string }>();
+
+  const allEcosystem = {
+    id: 'dashboard',
+    name: t('all_ecosystems'),
+    image: null,
+    icon: null,
+    switch: false
+  };
+
+  const exploreMore = {
+    id: 'ecosystem-explore',
+    name: t('explore_more'),
+    image: null,
+    icon: MoveRightIcon,
+    switch: false
+  };
 
   const { data } = useQuery({
-    queryKey: ['myEcosystems'],
+    queryKey: ['myEcosystems', params.lang],
     staleTime: Infinity,
-    queryFn: () => webApi.ecosystemApi.getMyEcosystems(),
+    queryFn: () => webApi.ecosystemApi.getMyEcosystems({ lang: params.lang }),
     select: (data) => {
       return [allEcosystem, ...data, exploreMore];
     }

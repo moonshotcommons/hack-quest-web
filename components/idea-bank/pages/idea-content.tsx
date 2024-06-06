@@ -1,5 +1,10 @@
+'use client';
+
 import * as React from 'react';
 import { Idea } from '@/service/webApi/ideas/types';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
@@ -16,23 +21,27 @@ function Description({ children }: { children: React.ReactNode }) {
 
 export function IdeaContent(props: Idea) {
   const { solve, solution, inspiration, otherInfo } = props;
+
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.IDEA_BANK);
+
   return (
     <div className="mt-[60px] flex flex-1 flex-col gap-[60px] sm:mt-0">
       <div className="flex flex-col gap-4 sm:gap-8">
-        <Title>Problem To Solve</Title>
+        <Title>{t('details.problem_to_solve')}</Title>
         <Description>{solve}</Description>
       </div>
       <div className="flex flex-col gap-4 sm:gap-8">
-        <Title>Problem Solution</Title>
+        <Title>{t('details.problem_solution')}</Title>
         <Description>{solution}</Description>
       </div>
       <div className="flex flex-col gap-4 sm:gap-8">
-        <Title>Inspiration</Title>
+        <Title>{t('details.inspiration')}</Title>
         <Description>{inspiration}</Description>
       </div>
       {otherInfo && (
         <div className="flex flex-col gap-4 sm:gap-8">
-          <Title>Other Information</Title>
+          <Title>{t('details.other_information')}</Title>
           <Description>{otherInfo}</Description>
         </div>
       )}

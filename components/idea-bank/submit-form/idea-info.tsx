@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/listbox';
-import Button from '@/components/Common/Button';
 import { TextField } from '@/components/ui/text-field';
 import { cn } from '@/helper/utils';
 import { useIdeas, useSubmitModal } from '../submit/store';
+import { ActionButtons } from './action-buttons';
 
 const formSchema = z.object({
   name: z
@@ -32,7 +32,7 @@ export function IdeaInfo() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: modal.values.ideaName || '',
+      name: modal.values.name || '',
       ecosystemId: modal.values.ecosystemId,
       track: modal.values.track
     }
@@ -148,21 +148,7 @@ export function IdeaInfo() {
             )}
           />
         </div>
-        <div className="[&>button]:button-text-m mt-auto flex flex-col gap-4 sm:mt-0 sm:flex-row sm:justify-end [&>button]:h-12 [&>button]:w-full [&>button]:py-4 [&>button]:uppercase [&>button]:sm:w-[10.25rem]">
-          <Button htmlType="button" ghost onClick={modal.onClose}>
-            Back
-          </Button>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className={cn({
-              'bg-neutral-light-gray': !form.formState.isValid
-            })}
-            disabled={!form.formState.isValid}
-          >
-            Next
-          </Button>
-        </div>
+        <ActionButtons isValid={form.formState.isValid} onBack={modal.onClose} />
       </form>
     </Form>
   );

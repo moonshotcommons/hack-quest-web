@@ -94,7 +94,7 @@ export function FilterPanel() {
       <div className="flex items-center justify-between gap-8 sm:items-start sm:pt-8">
         <div className="flex flex-wrap items-center gap-4">
           <DropdownFilter
-            label="ecosystem"
+            label="chain"
             values={selectedEcosystems}
             onValueChange={(value) => onValueChange(value, 'ecosystemId')}
             options={ecosystems}

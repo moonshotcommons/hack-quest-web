@@ -39,7 +39,7 @@ export function EcosystemCard({
         </div>
         <GoArrowRight
           size={24}
-          className="absolute bottom-6 left-6 opacity-0 transition-all duration-300 group-hover:opacity-100"
+          className="absolute bottom-6 left-6 text-neutral-black opacity-0 transition-all duration-300 group-hover:opacity-100"
         />
       </div>
     </Link>

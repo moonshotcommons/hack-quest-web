@@ -1,6 +1,11 @@
-import { cn } from '@/helper/utils';
+'use client';
+
 import * as React from 'react';
 import Image from 'next/image';
+import { cn } from '@/helper/utils';
+import { useLang } from '../Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 const roles = [
   { name: 'user', key: 'USER', defaultVotes: 0 },
@@ -15,6 +20,8 @@ export function VotingRole({
   votes: { [key in string]: number };
   size?: 'small' | 'large';
 }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
   const highlightedRole = roles.find((role) => votes[role.key] !== undefined);
   const highlightedVotes = highlightedRole ? votes[highlightedRole.key] : 0;
   return (
@@ -24,7 +31,7 @@ export function VotingRole({
           'text-2xl': size === 'large'
         })}
       >
-        Your Voting Role
+        {t('dashboard.yourVotingRole')}
       </h1>
       <div className={cn('grid grid-cols-3 gap-3 py-4', { 'py-2': size === 'large' })}>
         {roles.map((role) => (

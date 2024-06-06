@@ -10,10 +10,15 @@ import { EcosystemDetailType, LevelType } from '@/service/webApi/ecosystem/type'
 import { cn } from '@/helper/utils';
 import { useCertificateModal } from './use-certificate';
 import { FillArrowIcon } from '../Common/Icon/Arrow';
+import { useLang } from '../Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 const label = ['Lv1. Learner', 'Lv2. Builder'];
 
 export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemDetailType; levels: LevelType[] }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const { onOpen } = useCertificateModal();
 
   const hasNextLevel = levels?.length > 1;
@@ -63,13 +68,15 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
               onClick={handleClaimCertificate}
               className="h-10 w-full whitespace-nowrap text-sm uppercase sm:h-12 sm:w-[11.25rem] sm:self-start"
             >
-              {currentCertificate?.certification.claimed ? 'View certificate' : 'Claim certificate'}
+              {currentCertificate?.certification.claimed ? t('view_certificate') : t('claim_certificate')}
             </Button>
           )}
           {currentCertificate?.certification.claimed && ecosystem.level.currentExp >= ecosystem.level.maxExp && (
             <Link href="/ecosystem-explore">
               <button className="inline-flex items-center justify-center gap-1.5">
-                <span className="text-base capitalize leading-[160%] text-neutral-black">Explore Ecosystems</span>
+                <span className="text-base capitalize leading-[160%] text-neutral-black">
+                  {t('explore_ecosystems')}
+                </span>
                 <MoveRightIcon className="h-4 w-4" />
               </button>
             </Link>

@@ -44,9 +44,9 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.IDEA_BANK}`,
       languages: {
-        'x-default': `https://www.hackquest.io/en${MenuLink.HACKATHON_DASHBOARD}`,
-        en: `https://www.hackquest.io/en${MenuLink.HACKATHON_DASHBOARD}`,
-        zh: `https://www.hackquest.io/zh${MenuLink.HACKATHON_DASHBOARD}`
+        'x-default': `https://www.hackquest.io/en${MenuLink.IDEA_BANK}`,
+        en: `https://www.hackquest.io/en${MenuLink.IDEA_BANK}`,
+        zh: `https://www.hackquest.io/zh${MenuLink.IDEA_BANK}`
       }
     }
   };

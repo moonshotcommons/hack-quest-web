@@ -11,12 +11,8 @@ import { BuildSection } from './build-section';
 import { CommunitySection } from './community-section';
 import { CardTabs } from './card-tabs';
 import { useLang } from '../Provider/Lang';
-
-const tabs = [
-  { value: 'learn', label: 'Learn' },
-  { value: 'build', label: 'Build' },
-  { value: 'community', label: 'Community' }
-];
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 function Loading() {
   return (
@@ -28,7 +24,7 @@ function Loading() {
 
 export function EcosystemContent() {
   const { lang } = useLang();
-
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const { ecosystemId } = useParams<{ ecosystemId: string }>();
   const [value, setValue] = React.useState('learn');
 
@@ -41,7 +37,15 @@ export function EcosystemContent() {
 
   return (
     <div className="pb-6 pt-4 sm:pb-0 sm:pt-[3.75rem]">
-      <CardTabs tabs={tabs} value={value} onValueChange={setValue} />
+      <CardTabs
+        tabs={[
+          { value: 'learn', label: t('learn') },
+          { value: 'build', label: t('build') },
+          { value: 'community', label: t('community') }
+        ]}
+        value={value}
+        onValueChange={setValue}
+      />
       <div
         className={cn('w-full rounded-2xl bg-neutral-white p-6', {
           'rounded-tl-none': value === 'learn',

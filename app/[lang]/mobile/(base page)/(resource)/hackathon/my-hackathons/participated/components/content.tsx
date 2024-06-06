@@ -6,19 +6,13 @@ import { useQueryRouter } from '@/hooks/hackathon/use-query-router';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import HackathonEmpty from '@/components/hackathon/hackathon-empty';
 import { HackathonCard } from '../../components/hackathon-card';
-
-const tabs = [
-  {
-    value: 'ongoing',
-    label: 'Ongoing Hackathon'
-  },
-  {
-    value: 'past',
-    label: 'Past Hackathon'
-  }
-];
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export function ParticipatedContent({ hackathons }: { hackathons: HackathonType[] }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { value, onValueChange } = useQueryRouter({
     queryKey: 'status',
     defaultValue: 'ongoing'
@@ -26,13 +20,28 @@ export function ParticipatedContent({ hackathons }: { hackathons: HackathonType[
 
   return (
     <div className="mt-6">
-      <h1 className="mb-3 font-next-book-bold text-lg font-bold text-neutral-black">Participated Hackathon</h1>
-      <LineTabs tabs={tabs} value={value} onValueChange={onValueChange} />
+      <h1 className="mb-3 font-next-book-bold text-lg font-bold text-neutral-black">
+        {t('dashboard.participatedHackathon')}
+      </h1>
+      <LineTabs
+        tabs={[
+          {
+            value: 'ongoing',
+            label: t('dashboard.ongoingHackathon')
+          },
+          {
+            value: 'past',
+            label: t('dashboard.pastHackathon')
+          }
+        ]}
+        value={value}
+        onValueChange={onValueChange}
+      />
       <div className="mt-6 flex flex-col gap-5">
         {hackathons.length === 0 ? (
           <HackathonEmpty
-            text="You didn’t participate in any hackathon"
-            label="Explore hackathons"
+            text={t('dashboard.empty', { type: t('dashboard.participate') })}
+            label={t('dashboard.exploreHackathon')}
             href="/hackathon/explore"
           />
         ) : (
