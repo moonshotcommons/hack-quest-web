@@ -5,6 +5,7 @@ import { useDebounceFn } from 'ahooks';
 import { motion, type MotionProps } from 'framer-motion';
 import { CheckIcon, ChevronDownIcon } from 'lucide-react';
 import { useToggle } from '@/hooks/utils/use-toggle';
+import { cn } from '@/helper/utils';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -32,13 +33,15 @@ type Option = {
 export function DropdownFilter({
   label,
   values,
+  onValueChange,
   options,
-  onValueChange
+  align = 'start'
 }: {
   label: string;
   values: string[];
-  options?: Option[];
   onValueChange: (value: string) => void;
+  options?: Option[];
+  align?: 'start' | 'end';
 }) {
   const [hovered, toggle] = useToggle(false);
 
@@ -68,7 +71,13 @@ export function DropdownFilter({
       {hovered && (
         <motion.ul
           {...animateProps}
-          className="absolute -bottom-[0.1875rem] left-0 z-50 flex max-h-64 w-40 flex-col overflow-y-auto rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2"
+          className={cn(
+            'absolute -bottom-[0.1875rem] z-50 flex max-h-64 w-40 flex-col overflow-y-auto rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2',
+            {
+              'left-0': align === 'start',
+              'right-0': align === 'end'
+            }
+          )}
         >
           {options?.map((option) => (
             <li

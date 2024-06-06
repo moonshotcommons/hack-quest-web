@@ -4,10 +4,15 @@ import * as React from 'react';
 import { ChevronDownIcon } from 'lucide-react';
 import { Idea } from '@/service/webApi/ideas/types';
 import { ChangeState, ScrollContainer, ScrollControl } from '@/components/Common/ScrollContainer';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { cn, toDoubleArray } from '@/helper/utils';
 import { IdeaCard } from './idea-card';
 
 export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.IDEA_BANK);
   const groupIdeas = toDoubleArray(ideas, 4);
   const [slide, setSlide] = React.useState(0);
   const [changeState, setChangeState] = React.useState<ChangeState>();
@@ -25,7 +30,7 @@ export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
   return (
     <div className="hidden pb-[3.75rem] pt-20 sm:block">
       <div className="flex items-center justify-between">
-        <h1 className="headline-h3 text-neutral-black">Top Rated Ideas</h1>
+        <h1 className="headline-h3 text-neutral-black">{t('top_rated_ideas')}</h1>
         {groupIdeas.length > 1 && (
           <ScrollControl
             changeState={changeState}
@@ -67,6 +72,8 @@ export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
 }
 
 export function MobileTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.IDEA_BANK);
   const [visibleCount, setVisibleCount] = React.useState(2);
 
   function handleViewMore() {
@@ -75,7 +82,7 @@ export function MobileTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
 
   return (
     <div className="px-5 pb-10 pt-5 sm:hidden">
-      <h1 className="headline-h2-mob text-neutral-black">Top Rated Ideas</h1>
+      <h1 className="headline-h2-mob text-neutral-black">{t('top_rated_ideas')}</h1>
       <div className="grid grid-cols-1 gap-5 py-5">
         {ideas?.slice(0, visibleCount).map((idea) => <IdeaCard key={idea.id} {...idea} />)}
       </div>

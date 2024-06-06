@@ -10,11 +10,16 @@ import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import webApi from '@/service';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { useSubmitModal } from './store';
 
 export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
-  const { values, onClose: modalOnClose } = useSubmitModal();
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.IDEA_BANK);
+  const { values, onClose: modalOnClose, reset } = useSubmitModal();
   const [confirm, toggle] = useToggle(false);
 
   const mutation = useMutation({
@@ -24,6 +29,7 @@ export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => 
       onClose();
       modalOnClose();
       message.success('Submit idea success!');
+      reset();
     }
   });
 
@@ -45,7 +51,7 @@ export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => 
         </div>
         <div className="flex justify-center gap-2 [&>button]:h-[2.125rem] [&>button]:w-[8.75rem] [&>button]:sm:h-12 [&>button]:sm:w-[10.25rem]">
           <Button ghost onClick={onClose}>
-            Cancel
+            {t('modal.cancel')}
           </Button>
           <Button
             type="primary"
@@ -54,7 +60,7 @@ export function ConfirmModal({ open, onClose }: { open: boolean; onClose: () => 
             className="aria-disabled:bg-neutral-light-gray"
             onClick={() => mutation.mutate()}
           >
-            Yes
+            {t('modal.yes')}
           </Button>
         </div>
       </div>

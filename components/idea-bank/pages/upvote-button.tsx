@@ -27,6 +27,7 @@ export function UpvoteButton({
       data-size={size}
       aria-disabled={isDisabled}
       disabled={isDisabled}
+      data-prevent-nprogress={true}
       onClick={onClick}
       className={cn(
         'group inline-flex h-10 items-center justify-center rounded-[0.5rem] border border-neutral-medium-gray px-4 py-2 leading-[160%] text-neutral-off-black data-[size=large]:h-[3.125rem] data-[active=true]:border-yellow-dark data-[active=true]:bg-yellow-extra-light data-[size=large]:py-3 sm:data-[size=large]:h-16 sm:data-[size=large]:py-4',

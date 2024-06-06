@@ -11,7 +11,7 @@ export default async function Page({ searchParams: { status = 'ongoing' } }: { s
     const { stats } = await getJoinedHackathons();
     return (
       <div className="min-h-[calc(100vh-4rem)] w-full p-5">
-        <BackLink href={{ pathname: MenuLink.HACKATHON_DASHBOARD, query: { type: 'voting' } }} />
+        <BackLink href={{ pathname: MenuLink.HACKATHON_DASHBOARD }} />
         <React.Suspense fallback={null}>
           <VotingContent hackathons={hackathons} votes={stats.votes} />
         </React.Suspense>

@@ -56,9 +56,10 @@ export function EcosystemSelect() {
         router.replace(`/${value.id}`);
       }
     } else {
-      mutation.mutateAsync(value.id).then(() => {
-        router.replace(`/dashboard/${value.id}`);
-      });
+      // mutation.mutateAsync(value.id).then(() => {
+      //   router.replace(`/dashboard/${value.id}`);
+      // });
+      router.replace(`/dashboard/${value.id}`);
     }
   }
 

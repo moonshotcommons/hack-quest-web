@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { InfoIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '@/components/Common/Button';
 import { Textarea } from '@/components/ui/textarea';
 import { TextField } from '@/components/ui/text-field';
 import { useToggle } from '@/hooks/utils/use-toggle';
@@ -12,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { cn } from '@/helper/utils';
 import { useSubmitModal } from '../submit/store';
 import { ConfirmModal } from '../submit/confirm';
+import { ActionButtons } from './action-buttons';
 
 const contractOptions = [
   { label: 'Email', value: 'email' },
@@ -187,22 +187,7 @@ export function Others() {
               </FormItem>
             )}
           />
-          <div className="[&>button]:button-text-m mt-auto flex flex-col gap-4 sm:mt-0 sm:flex-row sm:justify-end [&>button]:h-12 [&>button]:w-full [&>button]:py-4 [&>button]:uppercase [&>button]:sm:w-[10.25rem]">
-            <Button htmlType="button" ghost onClick={modal.onBack}>
-              Back
-            </Button>
-
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={cn({
-                'bg-neutral-light-gray': !form.formState.isValid
-              })}
-              disabled={!form.formState.isValid}
-            >
-              Submit
-            </Button>
-          </div>
+          <ActionButtons isLast isValid={form.formState.isValid} onBack={modal.onBack} />
         </form>
       </Form>
       <ConfirmModal open={open} onClose={() => toggle(false)} />
