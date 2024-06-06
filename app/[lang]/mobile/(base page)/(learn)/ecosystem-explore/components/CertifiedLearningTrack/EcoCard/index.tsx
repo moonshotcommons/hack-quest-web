@@ -24,7 +24,7 @@ const EcoCard: React.FC<EcoCardProp> = ({ ecosystem }) => {
         <h2 className="body-l-bold text-neutral-black">{ecosystem.name}</h2>
         <div className="flex flex-wrap  gap-[.5rem]">
           <TrackTag track={ecosystem.language} />
-          <TrackTag track={`${ecosystem.projectCount ?? 0} ${ecosystem.projectCount > 1 ? 'Projects' : 'Project'}`} />
+          {/* <TrackTag track={`${ecosystem.projectCount ?? 0} ${ecosystem.projectCount > 1 ? 'Projects' : 'Project'}`} /> */}
         </div>
         <p className="body-s line-clamp-2  text-neutral-medium-gray">{ecosystem.description}</p>
       </div>

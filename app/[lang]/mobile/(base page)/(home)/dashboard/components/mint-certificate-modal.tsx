@@ -53,17 +53,17 @@ export function MintCertificateModal() {
 
   const isOpen = open && type === 'mint';
 
-  const canMint = data?.name?.toLowerCase().startsWith('mantle') && !data?.mint;
+  const canMint = data?.label?.toLowerCase()?.includes('mantle') && !data?.certification?.mint;
 
-  const ecosystemName = data?.name?.replace(' Learning Track', '');
+  const ecosystemName = data?.label?.split(' ')?.[1];
 
   const mutation = useMutation({
-    mutationKey: ['mintCertificate', data?.id, data?.signatureId],
+    mutationKey: ['mintCertificate'],
     mutationFn: () =>
       safeMintAsync({
         sourceType: 'Certification',
-        sourceId: data?.id,
-        signatureId: data?.signatureId
+        sourceId: data?.certificationId,
+        signatureId: data?.certification?.signatureId
       }),
     onSuccess: () => {
       onClose();
@@ -89,15 +89,15 @@ export function MintCertificateModal() {
             <div className="mt-11 flex flex-col gap-2">
               <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
               <h1 className="text-lg font-bold text-neutral-off-black sm:text-2xl">
-                Congratulations! You’re a Certified Solana Learner
+                Congratulations! You’re a {data?.label}
               </h1>
             </div>
             <p className="mt-2 text-sm text-neutral-medium-gray">
               You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your
               expertise.
             </p>
-            <div className="relative mt-5 h-[12.125rem] w-full rounded-[0.5rem]">
-              <Image src={data?.image} alt={data?.name} fill />
+            <div className="relative mt-5 h-[12.125rem] w-full overflow-hidden rounded-[0.5rem]">
+              <Image src={data?.certification?.image} alt={data?.label} fill />
             </div>
             {canMint ? (
               <div className="mt-5 flex flex-col gap-4 rounded-2xl bg-neutral-off-white p-4">

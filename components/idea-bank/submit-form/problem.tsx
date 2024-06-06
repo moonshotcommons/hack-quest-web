@@ -2,20 +2,20 @@ import * as React from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import Button from '@/components/Common/Button';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { cn } from '@/helper/utils';
 import { useSubmitModal } from '../submit/store';
+import { ActionButtons } from './action-buttons';
 
 const formSchema = z.object({
-  problem: z
+  solve: z
     .string()
     .min(1, {
-      message: 'Problem is a required input'
+      message: 'Solve is a required input'
     })
     .max(600, {
-      message: 'Problem cannot exceed 600 characters'
+      message: 'Solve cannot exceed 600 characters'
     }),
   solution: z
     .string()
@@ -32,7 +32,7 @@ export function Problem() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      problem: modal.values.problem || '',
+      solve: modal.values.solve || '',
       solution: modal.values.solution || ''
     }
   });
@@ -48,7 +48,7 @@ export function Problem() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 flex flex-1 flex-col gap-6">
         <FormField
           control={form.control}
-          name="problem"
+          name="solve"
           render={({ field }) => (
             <FormItem className="space-y-1">
               <div className="flex items-center justify-between">
@@ -58,8 +58,8 @@ export function Problem() {
                   </span>
                 </FormLabel>
                 <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('problem')?.length > 600 })}>
-                    {form.watch('problem')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('solve')?.length > 600 })}>
+                    {form.watch('solve')?.length}
                   </span>
                   /600
                 </span>
@@ -69,7 +69,7 @@ export function Problem() {
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);
-                    modal.setValues({ problem: e.target.value });
+                    modal.setValues({ solve: e.target.value });
                   }}
                   authHeight={false}
                   className="sm:body-m body-s h-[5.625rem] border-neutral-light-gray p-3 text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark sm:h-[8.25rem]"
@@ -112,22 +112,7 @@ export function Problem() {
             </FormItem>
           )}
         />
-        <div className="[&>button]:button-text-m mt-auto flex flex-col gap-4 sm:mt-0 sm:flex-row sm:justify-end [&>button]:h-12 [&>button]:w-full [&>button]:py-4 [&>button]:uppercase [&>button]:sm:w-[10.25rem]">
-          <Button htmlType="button" ghost onClick={modal.onBack}>
-            Back
-          </Button>
-
-          <Button
-            type="primary"
-            htmlType="submit"
-            className={cn({
-              'bg-neutral-light-gray': !form.formState.isValid
-            })}
-            disabled={!form.formState.isValid}
-          >
-            Next
-          </Button>
-        </div>
+        <ActionButtons isValid={form.formState.isValid} onBack={modal.onBack} />
       </form>
     </Form>
   );

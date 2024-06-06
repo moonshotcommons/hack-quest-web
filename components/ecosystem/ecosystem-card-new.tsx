@@ -29,9 +29,9 @@ export function EcosystemCard({
           <h2 className="font-bold capitalize text-neutral-black">{ecosystem.name}</h2>
           <div className="flex flex-wrap items-center gap-2">
             <Badge>{ecosystem.language}</Badge>
-            <Badge>
+            {/* <Badge>
               {ecosystem.projectCount ?? 0} {ecosystem.projectCount === 1 ? 'project' : 'projects'}
-            </Badge>
+            </Badge> */}
           </div>
           <p className="line-clamp-2 text-xs text-neutral-medium-gray group-hover:line-clamp-4">
             {ecosystem.description}
@@ -39,7 +39,7 @@ export function EcosystemCard({
         </div>
         <GoArrowRight
           size={24}
-          className="absolute bottom-6 left-6 opacity-0 transition-all duration-300 group-hover:opacity-100"
+          className="absolute bottom-6 left-6 text-neutral-black opacity-0 transition-all duration-300 group-hover:opacity-100"
         />
       </div>
     </Link>

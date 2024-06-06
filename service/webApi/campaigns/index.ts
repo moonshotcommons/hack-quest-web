@@ -93,6 +93,12 @@ class CampaignsApi {
     return this.service.get(`${CampaignsApiType.Certifications}/${certificationId}/claim`);
   }
 
+  claimCertificate(data: object, certificationId: string) {
+    return this.service.post(`${CampaignsApiType.Certifications}/${certificationId}/claim`, {
+      data
+    });
+  }
+
   /** 保存mint状态 */
   savaMintState(params: { certificationId: string; txId: string }) {
     return this.service.patch(`${CampaignsApiType.Certifications}/${params.certificationId}/mint`, {

@@ -10,17 +10,20 @@ export function SearchForm() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(searchParams.get('keyword') || '');
 
   const currentParams = new URLSearchParams(searchParams.toString());
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(value);
     if (value) {
       currentParams.set('keyword', value);
       const url = createUrl(pathname, currentParams);
-      router.replace(url);
+      router.replace(url, { scroll: false });
+      const element = document.querySelector('h1[data-id="all-ideas"]');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   }
 
@@ -45,7 +48,7 @@ export function SearchForm() {
         value={value}
         autoComplete="off"
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search for keywords, topics, etc..."
+        placeholder="Search for keywords, ideas, etc..."
         className="body-s sm:body-l w-full flex-1 outline-none placeholder:text-neutral-medium-gray"
       />
       {value && (

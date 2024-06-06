@@ -1,5 +1,6 @@
 import WebService from '@/service/webService/webService';
-import { EcosystemDetailType, EcosystemTask, EcosystemType } from './type';
+import { EcosystemDetailType, EcosystemTask, EcosystemType, LevelType } from './type';
+import { CertificationType } from '../campaigns/type';
 
 export enum EcosystemApiType {
   ECOSYSTEMS = 'ecosystems'
@@ -19,8 +20,8 @@ class EcosystemApi {
     return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`);
   }
 
-  getMyEcosystems() {
-    return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`);
+  getMyEcosystems(params?: object) {
+    return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`, { params });
   }
 
   getEcosystemsDetailById(id: string, params: object, token: string) {
@@ -47,6 +48,26 @@ class EcosystemApi {
   switchEcosystem(data: object) {
     return this.service.post(`${EcosystemApiType.ECOSYSTEMS}/switch`, {
       data
+    });
+  }
+
+  completeTask(taskId: string) {
+    return this.service.get<void>(`${EcosystemApiType.ECOSYSTEMS}/tasks/${taskId}/complete`);
+  }
+
+  getEcosystemCertifications(ecosystemId: string, token: string) {
+    return this.service.get<CertificationType[]>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/certifications`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getLevels(ecosystemId: string, token: string) {
+    return this.service.get<LevelType[]>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
 }

@@ -8,12 +8,14 @@ import { TOKEN_KEY, getToken } from '@/helper/user-token';
 import { setCookie } from 'cookies-next';
 import { useHandleNotification } from '@/hooks/notification/useHandleNotification';
 import { useGetEcosystemData } from '@/hooks/ecosystem/useGetEcosystemData';
+import { Lang } from '@/i18n/config';
 
 interface InitializeUserProviderProps {
   children: ReactNode;
+  lang: Lang;
 }
 
-const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) => {
+const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, children }) => {
   const { waitingLoadUserInfo } = useLoadUserInfo();
   useNavAuth(waitingLoadUserInfo);
   const userInfo = useUserStore((state) => state.userInfo);
@@ -22,13 +24,18 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ children }) =
   const { getEcosystems } = useGetEcosystemData();
 
   useEffect(() => {
-    getEcosystems();
+    getEcosystems({ lang });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
+
+  useEffect(() => {
     if (userInfo) {
       const token = getToken();
       token && setCookie(TOKEN_KEY, token);
       updateMissionDataAll();
       updateNotification();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
 
   return <>{children}</>;

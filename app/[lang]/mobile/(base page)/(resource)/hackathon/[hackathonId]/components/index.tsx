@@ -10,6 +10,7 @@ import GuestMentors from './GuestMentors';
 import MediaCommunity from './components/MediaCommunity';
 import HackathonInfo from './HackathonInfo';
 import Theme from './Theme';
+import Resource from './Resource';
 
 interface HackDetailProps {
   hackathon: HackathonType;
@@ -33,6 +34,7 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
           <GuestMentors listData={hackathon.guestsAndMentors} />
           <MediaCommunity listData={hackathon.mediaPartners} title="mediaPartners" />
           <MediaCommunity listData={hackathon.communityPartners} title="communityPartners" />
+          <Resource hackathon={hackathon} />
           <Schedule hackathon={hackathon} />
         </div>
       )}

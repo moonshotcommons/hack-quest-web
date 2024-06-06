@@ -31,6 +31,7 @@ const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
   const isEnd = useMemo(() => {
     return dayjs().tz().isAfter(hackathon?.rewardTime);
   }, [hackathon]);
+  if (!hackathon) return null;
   return (
     <div className="flex flex-col gap-[1.5rem]">
       <Title

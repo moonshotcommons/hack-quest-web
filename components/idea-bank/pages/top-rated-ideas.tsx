@@ -2,75 +2,18 @@
 
 import * as React from 'react';
 import { ChevronDownIcon } from 'lucide-react';
+import { Idea } from '@/service/webApi/ideas/types';
 import { ChangeState, ScrollContainer, ScrollControl } from '@/components/Common/ScrollContainer';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 import { cn, toDoubleArray } from '@/helper/utils';
 import { IdeaCard } from './idea-card';
 
-const data = [
-  {
-    id: 1,
-    title: 'Lorem ipsum dolor sit amet',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    upvotes: 10,
-    ecosystem: 'Solana',
-    track: 'DeFi',
-    isTeamWanted: true,
-    creator: 'Harry Porter',
-    creationDate: 'June 22, 2024'
-  },
-  {
-    id: 2,
-    title: 'Lorem ipsum dolor sit amet',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    upvotes: 10,
-    ecosystem: 'Solana',
-    track: 'DeFi',
-    isTeamWanted: false,
-    creator: 'Harry Porter',
-    creationDate: 'June 22, 2024'
-  },
-  {
-    id: 3,
-    title: 'Lorem ipsum dolor sit amet',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    upvotes: 10,
-    ecosystem: 'Solana',
-    track: 'DeFi',
-    isTeamWanted: true,
-    creator: 'Harry Porter',
-    creationDate: 'June 22, 2024'
-  },
-  {
-    id: 4,
-    title: 'Lorem ipsum dolor sit amet',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    upvotes: 10,
-    ecosystem: 'Solana',
-    track: 'DeFi',
-    isTeamWanted: true,
-    creator: 'Harry Porter',
-    creationDate: 'June 22, 2024'
-  },
-  {
-    id: 5,
-    title: 'Lorem ipsum dolor sit amet',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    upvotes: 100,
-    ecosystem: 'Meta',
-    track: 'DeFi',
-    isTeamWanted: false,
-    creator: 'Harry Porter',
-    creationDate: 'June 22, 2024'
-  }
-];
-
-export function WebTopRatedIdeas() {
-  const groupIdeas = toDoubleArray(data, 4);
+export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.IDEA_BANK);
+  const groupIdeas = toDoubleArray(ideas, 4);
   const [slide, setSlide] = React.useState(0);
   const [changeState, setChangeState] = React.useState<ChangeState>();
 
@@ -87,7 +30,7 @@ export function WebTopRatedIdeas() {
   return (
     <div className="hidden pb-[3.75rem] pt-20 sm:block">
       <div className="flex items-center justify-between">
-        <h1 className="headline-h3 text-neutral-black">Top Rated Ideas</h1>
+        <h1 className="headline-h3 text-neutral-black">{t('top_rated_ideas')}</h1>
         {groupIdeas.length > 1 && (
           <ScrollControl
             changeState={changeState}
@@ -105,7 +48,7 @@ export function WebTopRatedIdeas() {
             <div key={index} className="flex w-[1360px] gap-5 p-0.5">
               {group.map((idea) => (
                 <div key={idea.id} className="w-[calc((100%-60px)/4)]">
-                  <IdeaCard />
+                  <IdeaCard {...idea} />
                 </div>
               ))}
             </div>
@@ -128,7 +71,9 @@ export function WebTopRatedIdeas() {
   );
 }
 
-export function MobileTopRatedIdeas() {
+export function MobileTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.IDEA_BANK);
   const [visibleCount, setVisibleCount] = React.useState(2);
 
   function handleViewMore() {
@@ -137,13 +82,11 @@ export function MobileTopRatedIdeas() {
 
   return (
     <div className="px-5 pb-10 pt-5 sm:hidden">
-      <h1 className="headline-h2-mob text-neutral-black">Top Rated Ideas</h1>
+      <h1 className="headline-h2-mob text-neutral-black">{t('top_rated_ideas')}</h1>
       <div className="grid grid-cols-1 gap-5 py-5">
-        {data.slice(0, visibleCount).map((idea) => (
-          <IdeaCard key={idea.id} />
-        ))}
+        {ideas?.slice(0, visibleCount).map((idea) => <IdeaCard key={idea.id} {...idea} />)}
       </div>
-      {visibleCount < data.length && (
+      {visibleCount < ideas?.length && (
         <button
           onClick={handleViewMore}
           className="inline-flex items-center gap-1.5 font-next-book text-sm leading-[125%] text-neutral-off-black"

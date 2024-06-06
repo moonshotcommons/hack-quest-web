@@ -1,0 +1,20 @@
+{
+  "title": "想法库",
+  "description": "在我们的想法库中找到想法",
+  "submit_an_idea": "提交一个想法",
+  "top_rated_ideas": "最受欢迎的想法",
+  "all_ideas": "所有想法",
+  "details": {
+    "problem_to_solve": "想要解决的问题",
+    "problem_solution": "解决方案",
+    "inspiration": "灵感来源",
+    "other_information": "其他信息"
+  },
+  "modal": {
+    "back": "返回",
+    "next": "继续",
+    "submit": "提交",
+    "cancel": "取消",
+    "yes": "确认"
+  }
+}
