@@ -15,7 +15,7 @@ export function IdeaCard(props: Idea) {
       <div className="sm:card-hover flex h-[230px] flex-col justify-between rounded-2xl bg-neutral-white px-4 py-3 shadow-idea-card sm:h-[249px] sm:px-6 sm:py-5">
         <div className="flex flex-wrap items-center gap-2">
           {props.teamUp && <Badge variant="primary">Team Wanted</Badge>}
-          <Badge>{props.ecosystem?.name?.split(' ')[0]}</Badge>
+          <Badge>{props.ecosystem?.name ? props.ecosystem?.name?.split(' ')[0] : 'All'}</Badge>
           <Badge>{props.track}</Badge>
         </div>
         <h2 className="body-s sm:headline-h4 mt-4 font-bold text-neutral-off-black">{props.name}</h2>
