@@ -93,20 +93,30 @@ const InfoForm: FC<
 
       const formData = new FormData();
       const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
-      formData.append('name', projectName);
-      formData.append('prizeTrack', prizeTrack);
+      projectName && formData.append('name', projectName);
+      prizeTrack && formData.append('prizeTrack', prizeTrack);
       (track || '').split(',').forEach((t) => {
         formData.append('tracks[]', t);
       });
-      formData.append('location', location);
-      formData.append('description', detailedIntro);
-      formData.append('introduction', intro);
+      location && formData.append('location', location);
+      detailedIntro && formData.append('description', detailedIntro);
+      intro && formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
       formData.append('status', isExit ? ProjectSubmitStepType.INFO : newStatus!);
       logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
-      const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+
+      if (projectName) {
+        const res = await webApi.resourceStationApi.submitProject(formData, projectId);
+        return {
+          res,
+          status: newStatus,
+          newInfo: {
+            ...values
+          },
+          isExit
+        };
+      }
       return {
-        res,
         status: newStatus,
         newInfo: {
           ...values
@@ -118,7 +128,7 @@ const InfoForm: FC<
       manual: true,
       onSuccess({ res, newInfo, status, isExit }) {
         if (isExit) return;
-
+        if (!res) return;
         if (!projectId || !isUuid(projectId)) {
           window.history.replaceState(
             {},
@@ -159,7 +169,9 @@ const InfoForm: FC<
   useEffect(() => {
     const exit = () => {
       exitConfirmRef.current?.open({
-        onConfirm: async () => await submitRequest(form.getValues(), true),
+        onConfirm: async () => {
+          await submitRequest(form.getValues(), true);
+        },
         onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
       });
     };

@@ -99,7 +99,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
       )}
 
       {hasPermission(role, status, 'leave') && (
-        <SecondaryButton onClick={() => leaveTeamModal.onOpen(code)}>Leave Team</SecondaryButton>
+        <SecondaryButton onClick={() => leaveTeamModal.onOpen(hackathon.id)}>Leave Team</SecondaryButton>
       )}
 
       {hasPermission(role, status, 'view') && (

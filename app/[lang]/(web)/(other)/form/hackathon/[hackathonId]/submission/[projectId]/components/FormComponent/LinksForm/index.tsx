@@ -96,7 +96,9 @@ const OthersForm: FC<
   useEffect(() => {
     const exit = () => {
       exitConfirmRef.current?.open({
-        onConfirm: async () => await submitRequest(form.getValues(), true),
+        onConfirm: async () => {
+          // await submitRequest(form.getValues(), true)
+        },
         onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
       });
     };

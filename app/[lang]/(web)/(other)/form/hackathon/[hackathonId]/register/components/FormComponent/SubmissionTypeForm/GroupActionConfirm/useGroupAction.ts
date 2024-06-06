@@ -37,8 +37,8 @@ export const useGroupAction = () => {
     }
   );
   const { runAsync: leaveGroup } = useRequest(
-    async (code: string, callback?: () => Promise<any>) => {
-      const res = await webApi.resourceStationApi.leaveTeam(code);
+    async (hackathonId: string, callback?: () => Promise<any>) => {
+      const res = await webApi.resourceStationApi.leaveTeam(hackathonId);
       await callback?.();
       return res;
     },

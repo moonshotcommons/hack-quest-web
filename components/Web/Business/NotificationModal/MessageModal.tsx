@@ -44,7 +44,7 @@ const MessageModal: React.FC<MessageModalProp> = ({ open, onClose, message }) =>
               {message?.description?.map((m, i) => (
                 <div key={i} className="flex w-full flex-col gap-[12px]">
                   <p className="text-h3">{m?.title}</p>
-                  <p className="body-l">{m?.content}</p>
+                  <p className="body-l whitespace-pre-line">{m?.content}</p>
                   <Link
                     href={m?.link}
                     className="body-m relative flex w-fit items-center gap-[7px] text-neutral-off-black"
