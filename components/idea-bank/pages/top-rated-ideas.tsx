@@ -9,6 +9,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { cn, toDoubleArray } from '@/helper/utils';
 import { IdeaCard } from './idea-card';
+import { Empty } from './empty';
 
 export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
   const { lang } = useLang();
@@ -31,7 +32,7 @@ export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
     <div className="hidden pb-[3.75rem] pt-20 sm:block">
       <div className="flex items-center justify-between">
         <h1 className="headline-h3 text-neutral-black">{t('top_rated_ideas')}</h1>
-        {groupIdeas.length > 1 && (
+        {groupIdeas?.length > 1 && (
           <ScrollControl
             changeState={changeState}
             showSlider={false}
@@ -42,22 +43,25 @@ export function WebTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
           />
         )}
       </div>
-      <ScrollContainer onChange={setChangeState} className="w-full py-8">
-        <div className="flex">
-          {groupIdeas.map((group, index) => (
-            <div key={index} className="flex w-[1360px] gap-5 p-0.5">
-              {group.map((idea) => (
-                <div key={idea.id} className="w-[calc((100%-60px)/4)]">
-                  <IdeaCard {...idea} />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </ScrollContainer>
-      {groupIdeas.length > 1 && (
+      {groupIdeas?.length === 0 && <Empty />}
+      {groupIdeas?.length > 0 && (
+        <ScrollContainer onChange={setChangeState} className="w-full py-8">
+          <div className="flex">
+            {groupIdeas?.map((group, index) => (
+              <div key={index} className="flex w-[1360px] gap-5 p-0.5">
+                {group?.map((idea) => (
+                  <div key={idea.id} className="w-[calc((100%-60px)/4)]">
+                    <IdeaCard {...idea} />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </ScrollContainer>
+      )}
+      {groupIdeas?.length > 1 && (
         <div className="flex items-center justify-center gap-[10px]">
-          {groupIdeas.map((_, index) => (
+          {groupIdeas?.map((_, index) => (
             <div
               key={index}
               className={cn('h-1 w-8 rounded-sm bg-neutral-light-gray', {
@@ -83,9 +87,12 @@ export function MobileTopRatedIdeas({ ideas }: { ideas: Idea[] }) {
   return (
     <div className="px-5 pb-10 pt-5 sm:hidden">
       <h1 className="headline-h2-mob text-neutral-black">{t('top_rated_ideas')}</h1>
-      <div className="grid grid-cols-1 gap-5 py-5">
-        {ideas?.slice(0, visibleCount).map((idea) => <IdeaCard key={idea.id} {...idea} />)}
-      </div>
+      {ideas?.length === 0 && <Empty />}
+      {ideas?.length > 0 && (
+        <div className="grid grid-cols-1 gap-5 py-5">
+          {ideas?.slice(0, visibleCount).map((idea) => <IdeaCard key={idea.id} {...idea} />)}
+        </div>
+      )}
       {visibleCount < ideas?.length && (
         <button
           onClick={handleViewMore}
