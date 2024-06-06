@@ -100,8 +100,10 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <h4 className="body-s text-neutral-medium-gray">{isGroupProject ? 'Team Name' : 'Name'}</h4>
-            <span className="body-s truncate whitespace-nowrap leading-8 text-neutral-off-black ">
+            <h4 className="body-s truncate whitespace-nowrap text-neutral-medium-gray">
+              {isGroupProject ? 'Team Name' : 'Name'}
+            </h4>
+            <span className="body-s max-w-[120px] truncate whitespace-nowrap leading-8 text-neutral-off-black ">
               {hackathon.participation?.team?.name ||
                 `${hackathon.participation?.firstName} ${hackathon.participation?.lastName}`}
             </span>
