@@ -22,7 +22,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
         {hackathon.rewards.map((v, i) => (
           <div className="flex flex-col gap-[8px]" key={i}>
             <p className="text-h4 text-neutral-rich-gray">{v.name}</p>
-            <p className="body-m text-neutral-rich-gray">{v.desc}</p>
+            <p className="body-m whitespace-pre-line text-neutral-rich-gray">{v.desc}</p>
             <Box className="flex items-center px-[60px] py-[32px] text-neutral-off-black">
               <div className="flex-1 text-center">
                 <p className=" text-h2 mb-[12px]">{v.totalPlace} USD</p>
