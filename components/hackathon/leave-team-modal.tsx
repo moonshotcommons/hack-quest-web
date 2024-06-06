@@ -44,7 +44,7 @@ export function LeaveTeamModal({ team }: { team: HackathonTeam }) {
           <XIcon size={20} />
         </button>
         <h1 className="font-next-book-bold text-lg font-bold">Do you want to leave this team?</h1>
-        <p className="body-m mb-9 mt-5">{team.name}</p>
+        <p className="body-m mb-9 mt-5">{team?.name}</p>
         <div className="grid w-full grid-cols-2 gap-2 px-20">
           <Button ghost className="w-full" onClick={onClose}>
             cancel
