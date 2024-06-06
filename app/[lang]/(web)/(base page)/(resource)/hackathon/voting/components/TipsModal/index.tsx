@@ -25,9 +25,28 @@ const TipsModal: React.FC<TipsModalProp> = () => {
     <Modal open={open} onClose={() => setOpen(false)} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className="flex w-[572px] flex-col items-center  rounded-[16px] bg-neutral-white p-[40px] pt-[80px]">
         {/* <h2 className="text-h4 mb-[20px] text-neutral-black"> {t('hackathonVoting.tipsModalTitle')}</h2> */}
-        <p className="body-m mb-[36px] whitespace-pre-line text-neutral-rich-gray">
-          {t('hackathonVoting.tipsModalText')}
-        </p>
+        <div className="body-m mb-[36px] text-neutral-rich-gray">
+          <div>{t('hackathonVoting.tipsModalTitle')}</div>
+          <div className="my-[6px]">
+            <div>
+              <span className="body-m-bold">{t('hackathonVoting.tipsModalTitle1')}</span>
+              <span>{t('hackathonVoting.tipsModaltext1')}</span>
+            </div>
+            <div>
+              <span className="body-m-bold">{t('hackathonVoting.tipsModalTitle2')}</span>
+              <span>{t('hackathonVoting.tipsModaltext2')}</span>
+            </div>
+            <div>
+              <span className="body-m-bold">{t('hackathonVoting.tipsModalTitle3')}</span>
+              <span>{t('hackathonVoting.tipsModaltext3')}</span>
+            </div>
+            <div>
+              <span className="body-m-bold">{t('hackathonVoting.tipsModalTitle4')}</span>
+              <span>{t('hackathonVoting.tipsModaltext4')}</span>
+            </div>
+          </div>
+          <div>{t('hackathonVoting.tipsModalTitle5')}</div>
+        </div>
         <div className="flex w-full gap-[12px]">
           <Button
             type="primary"
