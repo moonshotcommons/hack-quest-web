@@ -37,15 +37,15 @@ const CostCoinModal: ForwardRefRenderFunction<CostCoinModalRef, CostCoinModalPro
   });
 
   const { run: confirm, loading } = useRequest(
-    () => {
-      return option!.onConfirm();
+    async () => {
+      await option!.onConfirm();
+      await updateUserCoin();
     },
 
     {
       manual: true,
       onSuccess() {
         option!.onConfirmCallback?.();
-        updateUserCoin();
         setOpen(false);
         setOption(null);
       }
