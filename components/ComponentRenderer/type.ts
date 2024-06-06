@@ -91,5 +91,6 @@ export enum PageType {
   GLOSSARY = 'glossary',
   MINI = 'mini',
   DOCUMENTATION = 'documentation',
-  DOCUMENTATION_FULL = 'documentation_full'
+  DOCUMENTATION_FULL = 'documentation_full',
+  HACKATHON = 'hackathon'
 }
