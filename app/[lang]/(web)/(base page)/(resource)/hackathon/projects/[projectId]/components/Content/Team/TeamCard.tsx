@@ -8,6 +8,7 @@ import { IoIosMail } from 'react-icons/io';
 import { IoLogoWechat } from 'react-icons/io5';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { ProjectMemberType } from '@/service/webApi/resourceStation/type';
+import { copyText } from '@/helper/utils';
 
 interface TeamCardProp {
   member: ProjectMemberType;
@@ -16,8 +17,9 @@ interface TeamCardProp {
 const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  console.info(member);
   return (
-    <div className="card-hover body-m flex flex-col items-center gap-[16px] rounded-[16px] bg-neutral-white p-[16px] text-neutral-off-black">
+    <div className="shaow-[0_0_8px_0_rgba(rgba(0,0,0,0.12))] body-m flex flex-col items-center gap-[16px] rounded-[16px] bg-neutral-white p-[16px] text-neutral-off-black">
       <div className="relative h-[84px] w-[84px] overflow-hidden rounded-[50%]">
         <Image src={member.avatar} alt={member.firstName} fill className="object-cover" />
       </div>
@@ -30,9 +32,13 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
       </div>
       <div className="body-xs flex w-full items-center justify-between">
         <div className="flex gap-[16px]">
-          {member.email && <IoIosMail size={16} />}
-          {member.weChat && <IoLogoWechat size={16} />}
-          {member.telegram && <FaTelegramPlane size={16} />}
+          {member.email && <IoIosMail size={16} className="cursor-pointer" onClick={() => copyText(member.email)} />}
+          {member.weChat && (
+            <IoLogoWechat size={16} className="cursor-pointer" onClick={() => copyText(member.weChat)} />
+          )}
+          {member.telegram && (
+            <FaTelegramPlane size={16} className="cursor-pointer" onClick={() => copyText(member.telegram)} />
+          )}
         </div>
         {/* <span>{t('learnMore')}</span> */}
       </div>
