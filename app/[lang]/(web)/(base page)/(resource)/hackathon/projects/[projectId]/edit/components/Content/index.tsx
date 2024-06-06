@@ -44,6 +44,7 @@ const Content: React.FC<ContentProp> = ({
   handleClickAnchor,
   isClose
 }) => {
+  console.log(project);
   const boxRef = useRef<HTMLFormElement>(null);
   const getOffsetTops = () => {
     const offsetTops = [];
@@ -68,7 +69,7 @@ const Content: React.FC<ContentProp> = ({
   }, [project]);
 
   const links = typeof project.links === 'string' ? JSON.parse(project.links as string) : project.links;
-
+  console.log(links);
   const defaultValues: z.infer<typeof formSchema> = {
     projectLogo: project.thumbnail,
     projectName: project.name,
@@ -87,6 +88,8 @@ const Content: React.FC<ContentProp> = ({
     socialLink: links.socialLink || '',
     partnerTooling: links.partnerTooling || ''
   };
+
+  console.log(defaultValues);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
