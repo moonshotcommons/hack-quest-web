@@ -28,7 +28,9 @@ export function IdeaDetailCard(props: Idea) {
         </div>
         <div className="sm:body-m body-s grid grid-cols-2">
           <span className="text-neutral-medium-gray">Ecosystem</span>
-          <span className="text-neutral-off-black">{props.ecosystem.name?.split(' ')[0]}</span>
+          <span className="text-neutral-off-black">
+            {props.ecosystem?.name ? props.ecosystem?.name?.split(' ')[0] : 'All'}
+          </span>
         </div>
         <div className="sm:body-m body-s grid grid-cols-2">
           <span className="text-neutral-medium-gray">Track</span>
