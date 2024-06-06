@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { FC, memo, useRef, useState } from 'react';
+import { FC, memo, useEffect, useRef, useState } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
@@ -14,6 +14,9 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
+import emitter from '@/store/emitter';
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -26,11 +29,12 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 const ProjectDemoUpload: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'projectDemo' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, refreshProjectInfo, projectId, projectDemo, status, isSubmit }) => {
+> = ({ onNext, onBack, refreshProjectInfo, projectId, projectDemo, status, isSubmit, simpleHackathonInfo }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-
+  const { redirectToUrl } = useRedirect();
   const confirmRef = useRef<ConfirmModalRef>(null);
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -124,6 +128,20 @@ const ProjectDemoUpload: FC<
     }
   );
 
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => {},
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
+
   const uploadButton = (
     <div className="flex h-[410px] w-full items-center justify-center rounded-[32px] bg-neutral-off-white">
       <div className="flex h-[calc(100%-54px)] w-[calc(100%-54px)] items-center justify-center rounded-[24px] border border-dashed border-neutral-medium-gray">
@@ -197,6 +215,9 @@ const ProjectDemoUpload: FC<
       </div>
       <ConfirmModal confirmText="YES" ref={confirmRef}>
         <p className="text-h4 text-center text-neutral-black">Do you want to remove this video?</p>
+      </ConfirmModal>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
       </ConfirmModal>
     </div>
   );

@@ -40,24 +40,24 @@ export const navbarList: NavbarListType[] = [
     label: 'navbar.learn.title',
     id: 'learn',
     menu: [
-      // {
-      //   id: 'learning-track',
-      //   label: 'navbar.learn.learningTrack',
-      //   path: MenuLink.LEARNING_TRACK,
-      //   description: 'navbar.learn.learningTrackDesc'
-      // },
-      // {
-      //   id: 'electives',
-      //   label: 'navbar.learn.electives',
-      //   path: MenuLink.ELECTIVES,
-      //   description: 'navbar.learn.electivesDesc'
-      // },
-      // {
-      //   id: 'projects',
-      //   label: 'navbar.learn.projects',
-      //   path: MenuLink.PRACTICES,
-      //   description: 'navbar.learn.projectsDesc'
-      // },
+      {
+        id: 'learning-track',
+        label: 'navbar.learn.learningTrack',
+        path: MenuLink.LEARNING_TRACK,
+        description: 'navbar.learn.learningTrackDesc'
+      },
+      {
+        id: 'electives',
+        label: 'navbar.learn.electives',
+        path: MenuLink.ELECTIVES,
+        description: 'navbar.learn.electivesDesc'
+      },
+      {
+        id: 'projects',
+        label: 'navbar.learn.projects',
+        path: MenuLink.PRACTICES,
+        description: 'navbar.learn.projectsDesc'
+      },
       // {
       //   id: 'my-course',
       //   label: 'navbar.learn.myCourse',
@@ -72,12 +72,12 @@ export const navbarList: NavbarListType[] = [
       //   description: 'navbar.learn.ecosystemDesc',
       //   needLogin: true
       // },
-      {
-        id: 'explore',
-        label: 'navbar.learn.explore',
-        path: MenuLink.EXPLORE,
-        description: 'navbar.learn.exploreDesc'
-      },
+      // {
+      //   id: 'explore',
+      //   label: 'navbar.learn.explore',
+      //   path: MenuLink.EXPLORE,
+      //   description: 'navbar.learn.exploreDesc'
+      // },
       {
         id: 'ntu-web3-mooc',
         label: 'navbar.learn.ntuCourse',
@@ -114,13 +114,13 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.build.projectArchive',
         path: MenuLink.PROJECTS,
         description: 'navbar.build.projectArchiveDesc'
-      },
-      {
-        id: 'idea-bank',
-        label: 'navbar.build.ideaBank',
-        path: MenuLink.IDEA_BANK,
-        description: 'navbar.build.ideaBankDesc'
       }
+      // {
+      //   id: 'idea-bank',
+      //   label: 'navbar.build.ideaBank',
+      //   path: MenuLink.IDEA_BANK,
+      //   description: 'navbar.build.ideaBankDesc'
+      // }
     ]
   },
   {
@@ -134,14 +134,14 @@ export const navbarList: NavbarListType[] = [
         description: 'navbar.reward.missionDesc',
         needLogin: true,
         needPC: true
+      },
+      {
+        id: 'campaign',
+        label: 'navbar.reward.campaign',
+        path: MenuLink.CAMPAIGINS,
+        description: 'navbar.reward.campaignDesc',
+        needLogin: true
       }
-      // {
-      //   id: 'campaign',
-      //   label: 'navbar.reward.campaign',
-      //   path: MenuLink.CAMPAIGINS,
-      //   description: 'navbar.reward.campaignDesc',
-      //   needLogin: true
-      // }
     ]
   },
   {
@@ -208,14 +208,14 @@ export const navbarList: NavbarListType[] = [
         menu: [
           {
             id: 'advocate',
-            label: 'navbar.more.advocate',
+            label: 'navbar.resources.advocate',
             path: MenuLink.ADVOCATE
           },
-          {
-            id: 'docs',
-            label: 'navbar.more.docs',
-            link: `${MenuLink.DOCS}`
-          },
+          // {
+          //   id: 'docs',
+          //   label: 'navbar.more.docs',
+          //   link: `${MenuLink.DOCS}`
+          // },
           // {
           //   id: 'brandKit',
           //   label: 'navbar.more.brandKit',
@@ -225,12 +225,12 @@ export const navbarList: NavbarListType[] = [
             id: 'pressKit',
             label: 'navbar.more.pressKit',
             path: MenuLink.PRESS_KIT
-          },
-          {
-            id: 'ourPartner',
-            label: 'navbar.more.ourPartner',
-            path: MenuLink.PARTNERS
           }
+          // {
+          //   id: 'ourPartner',
+          //   label: 'navbar.resources.partners',
+          //   path: MenuLink.PARTNERS
+          // }
         ]
       },
       {

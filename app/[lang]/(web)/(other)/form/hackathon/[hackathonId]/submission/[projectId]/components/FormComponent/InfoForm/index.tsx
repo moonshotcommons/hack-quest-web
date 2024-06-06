@@ -160,7 +160,7 @@ const InfoForm: FC<
     const exit = () => {
       exitConfirmRef.current?.open({
         onConfirm: async () => await submitRequest(form.getValues(), true),
-        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON}/${simpleHackathonInfo.alias}`)
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
       });
     };
 
