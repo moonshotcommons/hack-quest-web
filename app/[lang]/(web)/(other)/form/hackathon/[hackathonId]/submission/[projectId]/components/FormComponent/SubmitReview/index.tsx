@@ -256,33 +256,39 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             </div>
             <div className="flex flex-1 items-center justify-between gap-4">
               <span className="body-m flex items-center  text-neutral-off-black">Link to your verified contract</span>
-              <Link
-                href={others.githubLink}
-                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
-                target="_blank"
-              >
-                {links.contractLink}
-              </Link>
+              {links.contractLink && (
+                <Link
+                  href={links.contractLink}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {links.contractLink}
+                </Link>
+              )}
             </div>
             <div className="flex flex-1 items-center justify-between gap-4">
               <span className="body-m flex items-center  text-neutral-off-black">Link to your project</span>
-              <Link
-                href={others.githubLink}
-                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
-                target="_blank"
-              >
-                {links.projectLink}
-              </Link>
+              {links.projectLink && (
+                <Link
+                  href={links.projectLink}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {links.projectLink}
+                </Link>
+              )}
             </div>
             <div className="flex flex-1 items-center justify-between gap-4">
               <span className="body-m flex items-center  text-neutral-off-black">Link to a social post</span>
-              <Link
-                href={others.githubLink}
-                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
-                target="_blank"
-              >
-                {links.socialLink}
-              </Link>
+              {links.socialLink && (
+                <Link
+                  href={links.socialLink}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {links.socialLink}
+                </Link>
+              )}
             </div>
             <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
             <div className="body-m flex flex-col gap-1 text-left text-neutral-off-black">
@@ -300,13 +306,15 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             </div>
             <div className="flex flex-1 items-center justify-between gap-4">
               <span className="body-m flex items-center  text-neutral-off-black">Github</span>
-              <Link
-                href={others.githubLink}
-                className="body-m inline-block w-7/12 truncate text-neutral-off-black"
-                target="_blank"
-              >
-                {others.githubLink}
-              </Link>
+              {others.githubLink && (
+                <Link
+                  href={others.githubLink}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {others.githubLink}
+                </Link>
+              )}
             </div>
             <div className="flex flex-1 items-center justify-between">
               <span className="body-m flex items-center  text-neutral-off-black">Open Source</span>
