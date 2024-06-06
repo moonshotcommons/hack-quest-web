@@ -332,7 +332,6 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -342,6 +341,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
                 }
               });
             }, 1000);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
           } else {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
@@ -372,7 +372,6 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -382,6 +381,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
                 }
               });
             }, 1000);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             // skipInviteCode(res.token);
           } else {
             BurialPoint.track('signup-Github三方登录code验证成功');
@@ -405,6 +405,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
       setVerifyState(VerifyStateType.FAIL);
     }
   };
+
   useEffect(() => {
     // const { token, state } = query;
     const token = query.get('token');

@@ -53,8 +53,8 @@ const OthersForm: FC<
       debugger;
       const formData = new FormData();
       const { githubLink, isPublic } = values;
-      formData.append('isOpenSource', isPublic ? 'true' : 'false');
-      formData.append('githubLink', githubLink || '');
+      isPublic ?? formData.append('isOpenSource', isPublic ? 'true' : 'false');
+      githubLink && formData.append('githubLink', githubLink || '');
       formData.append('status', isExit ? ProjectSubmitStepType.OTHERS : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
