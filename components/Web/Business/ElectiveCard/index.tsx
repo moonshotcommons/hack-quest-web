@@ -1,12 +1,11 @@
+'use client';
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import Image from 'next/image';
-import { FC, useCallback, useRef } from 'react';
+import { FC, useCallback } from 'react';
 import { QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import { useRedirect } from '@/hooks/router/useRedirect';
-import { MiniElectiveDetailModalRef } from '../MiniElectiveDetailModal';
 import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import CardProgress from '../CardProgress';
 import Logo from '@/public/images/logo/logo.svg';
@@ -29,8 +28,6 @@ interface ElectiveCardProps {
 const ElectiveCard: FC<ElectiveCardProps> = (props) => {
   const { course, inProgress = false, from = 'elective', className = '' } = props;
   const { jumpLearningLesson, loading } = useJumpLeaningLesson();
-  const { redirectToUrl } = useRedirect();
-  const miniElectiveDetailInstance = useRef<MiniElectiveDetailModalRef>(null);
 
   const getCourseDetailLink = useCallback(() => {
     switch (course.type) {

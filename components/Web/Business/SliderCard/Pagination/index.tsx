@@ -5,20 +5,22 @@ import { MaxpaginationBoxWidth, paginationGap, paginationWidth } from '../data';
 
 interface PaginationProp {
   changeState?: ChangeState;
+  isMobile?: boolean;
 }
 
-const Pagination: React.FC<PaginationProp> = ({ changeState }) => {
+const Pagination: React.FC<PaginationProp> = ({ changeState, isMobile = false }) => {
   const { rightArrowVisible, leftArrowVisible } = changeState || {};
 
   const [translateX, setTranslateX] = useState(0);
-
-  const scrollBarRef = useRef<HTMLDivElement>(null);
   const scrollBarInstanceRef = useRef<HTMLDivElement>(null);
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [paginationNum, setPaginationNum] = useState(0);
 
   const paginatWidth = useMemo(() => {
-    let w = (MaxpaginationBoxWidth - paginationNum * paginationGap) / paginationNum;
+    if (!changeState) return 0;
+    const { containerWidth } = changeState;
+    const maxBoxWidth = isMobile ? containerWidth : MaxpaginationBoxWidth;
+    let w = (maxBoxWidth - paginationNum * paginationGap) / paginationNum;
     return w < paginationWidth ? w : paginationWidth;
   }, [paginationNum]);
 

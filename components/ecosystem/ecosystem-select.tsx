@@ -1,0 +1,111 @@
+'use client';
+
+import * as React from 'react';
+import Image from 'next/image';
+import { MoveRightIcon } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { Listbox, Transition } from '@headlessui/react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { EcosystemType } from '@/service/webApi/ecosystem/type';
+import webApi from '@/service';
+import { useLang } from '../Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
+export function EcosystemSelect() {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
+  const router = useRouter();
+  const params = useParams<{ ecosystemId: string; lang: string }>();
+
+  const allEcosystem = {
+    id: 'dashboard',
+    name: t('all_ecosystems'),
+    image: null,
+    icon: null,
+    switch: false
+  };
+
+  const exploreMore = {
+    id: 'ecosystem-explore',
+    name: t('explore_more'),
+    image: null,
+    icon: MoveRightIcon,
+    switch: false
+  };
+
+  const { data } = useQuery({
+    queryKey: ['myEcosystems', params.lang],
+    staleTime: Infinity,
+    queryFn: () => webApi.ecosystemApi.getMyEcosystems({ lang: params.lang }),
+    select: (data) => {
+      return [allEcosystem, ...data, exploreMore];
+    }
+  });
+
+  const mutation = useMutation({
+    mutationKey: ['switchEcosystem'],
+    mutationFn: (ecosystemId: string | {}) =>
+      webApi.ecosystemApi.switchEcosystem(typeof ecosystemId === 'string' ? { ecosystemId } : {})
+  });
+
+  const selected = data?.find((e) => e.id === params.ecosystemId) || allEcosystem;
+
+  function handleChange(value: EcosystemType | typeof allEcosystem | typeof exploreMore) {
+    if ('switch' in value && !value.switch) {
+      if (value.id === 'dashboard') {
+        mutation.mutateAsync({}).then(() => {
+          router.replace(`/${value.id}`);
+        });
+      } else {
+        router.replace(`/${value.id}`);
+      }
+    } else {
+      mutation.mutateAsync(value.id).then(() => {
+        router.replace(`/dashboard/${value.id}`);
+      });
+    }
+  }
+
+  return (
+    <Listbox value={selected} onChange={handleChange}>
+      <div className="relative w-full rounded-full border border-neutral-light-gray sm:w-[16.25rem]">
+        <Listbox.Button className="relative flex w-full cursor-pointer items-center rounded-full bg-neutral-white py-2 pl-5 pr-10 text-left focus:outline-none">
+          {selected.image && (
+            <div className="relative h-6 w-6">
+              <Image src={selected.image} alt={selected.name} fill />
+            </div>
+          )}
+          <span className="body-m-bold ml-2 block truncate text-neutral-rich-gray">{selected.name}</span>
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5">
+            <Image src="/images/ecosystem/arrow-right-left.svg" width={20} height={20} alt="arrow-right-left" />
+          </span>
+        </Listbox.Button>
+        <Transition
+          as={React.Fragment}
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Listbox.Options className="absolute z-50 mt-px flex w-full flex-col gap-3 rounded-[0.625rem] bg-neutral-white p-2 text-neutral-off-black ring-1 ring-neutral-light-gray focus:outline-none">
+            {data?.map((ecosystem) => (
+              <Listbox.Option
+                key={ecosystem.id}
+                className="relative flex cursor-pointer select-none items-center gap-2 rounded-[0.5rem] px-3 py-2 transition-colors hover:bg-neutral-off-white aria-selected:bg-neutral-off-white"
+                value={ecosystem}
+              >
+                {ecosystem.image && (
+                  <div className="relative h-6 w-6">
+                    <Image src={ecosystem.image} alt={ecosystem.name} fill className="rounded-full" />
+                  </div>
+                )}
+                <span className="block truncate">{ecosystem.name}</span>
+                {'icon' in ecosystem && ecosystem.icon && <ecosystem.icon className="h-4 w-4 text-neutral-rich-gray" />}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        </Transition>
+      </div>
+    </Listbox>
+  );
+}

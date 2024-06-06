@@ -1,8 +1,8 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
-import React, { useContext, useState } from 'react';
+import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
+import React, { useContext, useMemo, useState } from 'react';
 import Image from 'next/image';
 import ArrowUp from '@/public/images/hackathon/arrow_up.svg';
 import ArrowUpActive from '@/public/images/hackathon/arrow_up_active.svg';
@@ -10,24 +10,46 @@ import ArrowDown from '@/public/images/hackathon/arrow_down.svg';
 import ArrowDownActive from '@/public/images/hackathon/arrow_down_active.svg';
 import { MdOutlineRefresh } from 'react-icons/md';
 import Button from '@/components/Common/Button';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
+import message from 'antd/es/message';
 
 interface YourVotesProp {
   project: ProjectType;
+  hackathon: HackathonType;
 }
 
-const YourVotes: React.FC<YourVotesProp> = ({ project }) => {
+const YourVotes: React.FC<YourVotesProp> = ({ project, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [voteCount, setVoteCount] = useState(0);
-  const maxCount = 10;
-  const isCanSubmit = true;
-  const handleCount = (count: number) => {
-    let newCount = voteCount + count;
-    if (newCount < 0) newCount = 0;
-    if (newCount > maxCount) newCount = maxCount;
-    setVoteCount(newCount);
+  const [loading, setLoading] = useState(false);
+  const remainingVotes = useMemo(() => {
+    const remaining = hackathon?.participation?.remainingVote || 50;
+    return remaining - voteCount;
+  }, [voteCount]);
+  const handleCount = (count: number, set?: boolean) => {
+    const c = set ? count : voteCount + count;
+    setVoteCount(c);
   };
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    setLoading(true);
+    webApi.resourceStationApi
+      .hackathonVoteSubmit(hackathon.id, [
+        {
+          projectId: project.id,
+          vote: voteCount
+        }
+      ])
+      .then(() => {
+        message.success('success');
+        window.location.reload();
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
+  };
   return (
     <div className="">
       <p className="body-s mb-[4px] text-neutral-medium-gray">{`${t('hackathonVoting.yourVotes')} for ${project.name}`}</p>
@@ -37,7 +59,10 @@ const YourVotes: React.FC<YourVotesProp> = ({ project }) => {
             <div className={`flex w-[32px] justify-center`}>
               <div
                 className={`relative h-[20px] w-[20px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px]`}
-                onClick={() => handleCount(-1)}
+                onClick={() => {
+                  if (!voteCount) return;
+                  handleCount(-1);
+                }}
               >
                 <Image
                   src={voteCount > 0 ? ArrowDownActive : ArrowDown}
@@ -59,7 +84,7 @@ const YourVotes: React.FC<YourVotesProp> = ({ project }) => {
                   // 使用正则表达式匹配输入的值，判断是否为非负整数
                   if (!/^\d*$/.test(value)) return;
                   let v = value === '' ? '' : Number(value);
-                  if ((v as number) > maxCount) v = maxCount;
+                  if ((v as number) > remainingVotes + voteCount) v = remainingVotes + voteCount;
                   setVoteCount(v as number);
                 }}
                 onBlur={(e) => {
@@ -72,10 +97,13 @@ const YourVotes: React.FC<YourVotesProp> = ({ project }) => {
             <div className={`flex w-[32px] justify-center`}>
               <div
                 className={`relative h-[20px] w-[20px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px]`}
-                onClick={() => handleCount(1)}
+                onClick={() => {
+                  if (!remainingVotes) return;
+                  handleCount(1);
+                }}
               >
                 <Image
-                  src={voteCount === maxCount ? ArrowUp : ArrowUpActive}
+                  src={!remainingVotes ? ArrowUp : ArrowUpActive}
                   fill
                   alt={'handle-up'}
                   className="object-cover"
@@ -86,14 +114,19 @@ const YourVotes: React.FC<YourVotesProp> = ({ project }) => {
           <div className="flex items-center text-neutral-off-black">
             <span
               className={`underline-s w-[32px] cursor-pointer text-center uppercase`}
-              onClick={() => setVoteCount(1)}
+              onClick={() => {
+                if (!remainingVotes && !voteCount) return;
+                handleCount(1, true);
+              }}
             >
               {t('min')}
             </span>
             <p className={`body-s flex-1 text-center text-neutral-medium-gray `}>{t('hackathonVoting.youVoted')}</p>
             <span
               className={`underline-s w-[32px] cursor-pointer text-center uppercase`}
-              onClick={() => setVoteCount(maxCount)}
+              onClick={() => {
+                handleCount(remainingVotes + voteCount, true);
+              }}
             >
               {t('max')}
             </span>
@@ -101,14 +134,16 @@ const YourVotes: React.FC<YourVotesProp> = ({ project }) => {
         </div>
         <div className="mt-[12px] flex gap-[8px]">
           <div
-            className={`flex-center h-[48px] w-[48px] rounded-[50%] border transition-all ${isCanSubmit ? 'cursor-pointer border-neutral-black bg-transparent text-neutral-black hover:scale-[1.1]' : 'cursor-not-allowed border-neutral-light-gray bg-neutral-light-gray text-neutral-medium-gray'}`}
+            className={`flex-center h-[48px] w-[48px] rounded-[50%] border transition-all ${voteCount ? 'cursor-pointer border-neutral-black bg-transparent text-neutral-black hover:scale-[1.1]' : 'cursor-not-allowed border-neutral-light-gray bg-neutral-light-gray text-neutral-medium-gray'}`}
+            onClick={() => setVoteCount(0)}
           >
             <MdOutlineRefresh size={24} />
           </div>
           <Button
-            className={`button-text-m h-[48px] flex-1 uppercase ${isCanSubmit ? 'bg-yellow-primary text-neutral-off-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray hover:scale-[1]'}`}
+            loading={loading}
+            className={`button-text-m h-[48px] flex-1 uppercase ${voteCount ? 'bg-yellow-primary text-neutral-off-black' : 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray hover:scale-[1]'}`}
             onClick={() => {
-              if (!isCanSubmit) return;
+              if (!voteCount) return;
               handleSubmit();
             }}
           >

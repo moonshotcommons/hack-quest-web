@@ -10,7 +10,7 @@ import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 import { LoginParamsType } from '@/service/webApi/user/type';
 import { useDebounceFn, useKeyPress } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { omit } from 'lodash-es';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';

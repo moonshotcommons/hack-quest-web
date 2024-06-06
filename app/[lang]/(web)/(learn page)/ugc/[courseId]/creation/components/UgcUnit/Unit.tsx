@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LuChevronDown } from 'react-icons/lu';
 import HandleDot from './HandleDot';
 import { UnitMenuType } from '../../constant/type';
-import { message } from 'antd';
+import message from 'antd/es/message';
 
 interface UnitProp {
   unit: UnitMenuType;

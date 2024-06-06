@@ -39,6 +39,17 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       githubLink: '',
       isPublic: undefined
     },
+    project: {
+      efrog: undefined,
+      croak: undefined,
+      submitType: undefined
+    },
+    links: {
+      contractLink: '',
+      projectLink: '',
+      socialLink: '',
+      partnerTooling: ''
+    },
     status: ProjectSubmitStepType.INFO,
     wallet: '',
     isSubmit: false
@@ -68,6 +79,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       introduction,
       demo,
       hackathonId,
+      efrog,
+      croak,
+      submitType,
+      links: originLinks,
       prizeTrack,
       tracks,
       location,
@@ -80,11 +95,13 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
     setCurrent(currentStep.stepNumber);
 
+    const links = typeof originLinks === 'string' ? JSON.parse(originLinks as string) : originLinks;
+
     const info = {
       projectLogo: thumbnail,
       projectName: name,
       prizeTrack: prizeTrack,
-      track: tracks[0],
+      track: tracks.join(','),
       location: location,
       intro: introduction,
       detailedIntro: description
@@ -93,6 +110,15 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     setFormState({
       ...formState,
       info,
+      project: {
+        efrog: efrog,
+        croak: croak,
+        submitType: submitType
+      },
+      links: {
+        ...formState.links,
+        ...links
+      },
       status,
       projectId: id,
       pitchVideo: video,
@@ -134,6 +160,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       formData.append('description', formState.info.detailedIntro);
       formData.append('githubLink', formState.others.githubLink);
       formData.append('isOpenSource', String(formState.others.isPublic));
+      formData.append('efrog', String(formState.project.efrog));
+      formData.append('croak', String(formState.project.croak));
+      formData.append('submitType', String(formState.project.submitType));
+      formData.append('links', JSON.stringify(formState.links));
       formData.append('status', status);
 
       return webApi.resourceStationApi.submitProject(
@@ -159,16 +189,17 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   }, [simpleHackathonInfo, redirectToUrl, editRequest, redirectToUrl]);
 
   useEffect(() => {
+    if (formState.projectId && isUuid(formState.projectId)) run();
+    else setCurrent(0);
+  }, [formState.projectId]);
+
+  useEffect(() => {
+    if (current <= 0) return;
     emitter.on('submit-form-exit', exit);
     return () => {
       emitter.off('submit-form-exit', exit);
     };
   }, [exit]);
-
-  useEffect(() => {
-    if (formState.projectId && isUuid(formState.projectId)) run();
-    else setCurrent(0);
-  }, [formState.projectId]);
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">

@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 

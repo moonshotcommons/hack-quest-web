@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { cn } from '@/helper/utils';

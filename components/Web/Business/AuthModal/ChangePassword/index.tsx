@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from 'react';
 import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import webApi from '@/service';
 import { BurialPoint } from '@/helper/burialPoint';
-import { message } from 'antd';
+import message from 'antd/es/message';
 interface ChangePasswordProps {}
 
 enum ChangeStateType {

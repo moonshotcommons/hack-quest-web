@@ -10,7 +10,6 @@ import ListBox from './ListBox';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next-nprogress-bar';
 import { getSearchParamsUrl } from '@/helper/utils';
-import MobCourseListPageHeader from '@/components/Mobile/MobCourseListPageHeader';
 import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 
 interface ProjectsPageProp {
@@ -32,28 +31,30 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
     const url = getSearchParamsUrl(searchInfo, MenuLink.PROJECTS);
     router.push(url);
   };
+
+  function handleSearch(value: string) {
+    searchList({
+      createdAt: projectSort[0].value,
+      winner: '',
+      tracks: '',
+      track: '',
+      prizeTrack: '',
+      keyword: value
+    });
+  }
+
   return (
-    <div className="min-h-[100vh] ">
-      <MobCourseListPageHeader
-        title={t('projects.projects')}
-        description={t('projects.projectsDescription')}
-        coverImageUrl={'/images/hackathon/projects_cover_mob.png'}
-        coverWidth={125}
-        coverHeight={100}
-        onSearch={(keyword) => {
-          searchList({
-            createdAt: projectSort[0].value,
-            winner: '',
-            tracks: '',
-            keyword
-          });
-        }}
-        defaultValue={searchParams.keyword || ''}
-        className="bg-transparent pb-[2.5rem]"
-        coverImgClassName="absolute right-[1.25rem] top-[1.25rem]"
-      />
+    <div className="min-h-[100vh]">
       <div className="px-[1.25rem]">
-        <ListBox list={list} searchParams={searchParams} total={total} pageInfo={pageInfo} searchList={searchList} />
+        <ListBox
+          list={list}
+          searchParams={searchParams}
+          total={total}
+          pageInfo={pageInfo}
+          defaultValue={searchParams.keyword || ''}
+          searchList={searchList}
+          onSearch={handleSearch}
+        />
       </div>
 
       <PageRetentionTime trackName="hackathon-project 页面留存时间" />

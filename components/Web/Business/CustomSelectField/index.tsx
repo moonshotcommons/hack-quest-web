@@ -32,7 +32,7 @@ const CustomSelectField = <TFieldValues extends FieldValues = FieldValues>({
           </FormLabel>
           <Select onValueChange={field.onChange as any} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className="!body-m h-[50px] px-3 text-[16px] leading-[160%]">
+              <SelectTrigger className="!body-m h-[50px] bg-neutral-off-white px-3 text-[16px] leading-[160%] focus:bg-neutral-white">
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

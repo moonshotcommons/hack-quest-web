@@ -6,9 +6,15 @@ enum MenuLink {
   UGC = '/ugc',
   UGC_CREATE = '/ugc-create',
   MISSION_CENTER = '/mission-center',
+  REWARD = '/reward',
   HACKATHON = '/hackathon',
   BLOG = '/blog',
+  MY_COURSES = '/my-courses',
   PROJECTS = '/hackathon/projects',
+  EXPLORE_HACKATHON = '/hackathon/explore',
+  HACKATHON_DASHBOARD = '/hackathon/my-hackathons',
+  HACKATHON_VOTING = '/hackathon/voting',
+  IDEA_BANK = '/idea-bank',
   CAMPAIGINS = '/campaigns',
   USER_PROFILE = '/user/profile',
   CONNECT_GITHUB = '/connect-github',
@@ -21,11 +27,14 @@ enum MenuLink {
   EVENTS = '/events',
   EVENTS_PAST = '/events/past',
   PRESS_KIT = '/press-kit',
+  BRAND_KIT = '/brand-kit',
   DOCS = '/docs',
   HACKDEGALAXY = '/hackdegalaxy',
   PARTNERS = '/partners',
   NTU_COURSE = '/web3mooc',
-  FAUCETS = '/faucets'
+  FAUCETS = '/faucets',
+  EXPLORE = '/ecosystem-explore',
+  SYSTEM = '/system'
 }
 
 export default MenuLink;

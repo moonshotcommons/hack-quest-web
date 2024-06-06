@@ -10,6 +10,9 @@ import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { cn } from '@/helper/utils';
+import { SocialLink } from './social';
+
 interface NavListProps {
   navList: NavbarListType[];
   toggleOpen: VoidFunction;
@@ -26,7 +29,36 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
   const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
   const navList = useMemo(() => {
-    return list.filter((nav) => nav.id !== 'more');
+    const filteredList = list.filter((nav) => nav.id !== 'more');
+    return [
+      ...filteredList,
+      {
+        label: 'navbar.more.title',
+        id: 'more',
+        menu: [
+          {
+            id: 'advocate',
+            label: 'navbar.more.advocate',
+            path: MenuLink.ADVOCATE
+          },
+          {
+            id: 'docs',
+            label: 'navbar.more.docs',
+            path: MenuLink.DOCS
+          },
+          {
+            id: 'pressKit',
+            label: 'navbar.more.pressKit',
+            path: MenuLink.PRESS_KIT
+          },
+          {
+            id: 'ourPartner',
+            label: 'navbar.more.ourPartner',
+            path: MenuLink.PARTNERS
+          }
+        ]
+      }
+    ];
   }, [list]);
 
   return (
@@ -43,17 +75,19 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
           pointerEvents: 'none'
         }
       }}
-      className="absolute top-[4rem] w-screen  px-5 pt-[1.875rem]"
+      className="absolute top-16 w-screen px-5 pb-[6.5rem] pt-6"
       style={{
         height: pageHeight
       }}
     >
-      <motion.ul className={`w-full`}>
+      <motion.ul className="flex w-full flex-col gap-2">
         {navList.map((item, index) => {
           return (
-            <motion.li key={index} variants={itemVariants} className="body-xl flex w-full flex-col">
+            <motion.li key={index} variants={itemVariants} className="flex w-full flex-col">
               <div
-                className="flex w-full items-center justify-between py-[.6875rem]"
+                className={cn('flex w-full items-center justify-between rounded-[0.5rem] p-2', {
+                  'bg-neutral-off-white': openNavKeys.includes(item.id)
+                })}
                 onClick={() => {
                   if (item.menu.length > 1) {
                     if (openNavKeys.includes(item.id)) {
@@ -74,33 +108,33 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
                   }
                 }}
               >
-                <span>{t(item.label)}</span>
-                <div className="h-full px-5">
+                <span className="body-l">{t(item.label)}</span>
+                <div className="h-full">
                   {item.menu?.length > 1 &&
                     (openNavKeys.includes(item.id) ? (
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M14.6663 7.99967C14.6663 8.36786 14.3679 8.66634 13.9997 8.66634H1.99967C1.63148 8.66634 1.33301 8.36786 1.33301 7.99967C1.33301 7.63148 1.63148 7.33301 1.99967 7.33301H13.9997C14.3679 7.33301 14.6663 7.63148 14.6663 7.99967Z"
-                          fill="white"
+                          fill="black"
                         />
                       </svg>
                     ) : (
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M14.6663 7.99967C14.6663 8.36786 14.3679 8.66634 13.9997 8.66634H8.66634V13.9997C8.66634 14.3679 8.36786 14.6663 7.99967 14.6663C7.63148 14.6663 7.33301 14.3679 7.33301 13.9997V8.66634H1.99967C1.63148 8.66634 1.33301 8.36786 1.33301 7.99967C1.33301 7.63148 1.63148 7.33301 1.99967 7.33301H7.33301V1.99967C7.33301 1.63148 7.63148 1.33301 7.99967 1.33301C8.36786 1.33301 8.66634 1.63148 8.66634 1.99967V7.33301H13.9997C14.3679 7.33301 14.6663 7.63148 14.6663 7.99967Z"
-                          fill="white"
+                          fill="black"
                         />
                       </svg>
                     ))}
                 </div>
               </div>
               {item.menu?.length > 1 && openNavKeys.includes(item.id) && (
-                <ul className="flex flex-col pb-8">
+                <ul className="my-2 flex flex-col gap-3 px-5">
                   {item.menu.map((m) => {
                     return (
                       <Link
                         key={m.label}
-                        className="body-l mb-[.625rem]"
+                        className="body-m text-neutral-off-black"
                         href={m.path as MenuLink}
                         onClick={(e) => {
                           if (m.needPC) {
@@ -121,8 +155,9 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
           );
         })}
       </motion.ul>
-      <motion.div variants={itemVariants} className="my-[1.5625rem] h-[1px] w-full bg-neutral-white"></motion.div>
+      <motion.div variants={itemVariants} className="my-6 h-px w-full bg-neutral-light-gray" />
       {children}
+      <SocialLink />
     </motion.div>
   );
 };

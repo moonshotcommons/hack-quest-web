@@ -1,3 +1,4 @@
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { createContext } from 'react';
 
 export interface OffsetTopsType {
@@ -11,18 +12,31 @@ export enum ViewValue {
   CALENDAR = 'calendar'
 }
 
+export interface VoteDataType {
+  vote: number;
+  projectId: string;
+}
+
 export interface HackathonVoteContextType {
-  voteData: any;
-  setVoteData: (data: any) => void;
+  voteData: VoteDataType[];
+  setVoteData: (data: VoteDataType[]) => void;
   view: ViewValue;
   setView: (view: ViewValue) => void;
+  initProjects: ProjectType[];
+  setInitProjects: (list: ProjectType[]) => void;
+  remainingVotes: number;
+  setRemainingVotes: (count: number) => void;
 }
 
 export const HackathonVoteContext = createContext<HackathonVoteContextType>({
-  voteData: 0,
+  voteData: [],
   setVoteData: () => {},
   view: ViewValue.AGENDA,
-  setView: () => {}
+  setView: () => {},
+  initProjects: [],
+  setInitProjects: () => {},
+  remainingVotes: 0,
+  setRemainingVotes: () => {}
 });
 
 export interface ProjectDetailContextType {

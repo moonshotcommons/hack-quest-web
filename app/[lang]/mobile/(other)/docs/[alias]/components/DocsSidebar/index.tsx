@@ -15,8 +15,6 @@ interface DocsSidebarProps {
 }
 
 const DocsSidebar: FC<DocsSidebarProps> = ({ selectAlias, open }) => {
-  // const docs = await webApi.helperApi.fetchGetDocs();
-
   const [docs, setDocs] = useState<DocsItem[]>([]);
 
   useEffect(() => {
@@ -25,7 +23,7 @@ const DocsSidebar: FC<DocsSidebarProps> = ({ selectAlias, open }) => {
       .then((res) => {
         setDocs(res);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         errorMessage(err);
       });
   }, []);
@@ -33,19 +31,17 @@ const DocsSidebar: FC<DocsSidebarProps> = ({ selectAlias, open }) => {
   const { pageHeight } = useGetHeight();
 
   return (
-    <div className={cn('absolute left-0 top-[64px] w-full')} style={{ height: pageHeight }}>
+    <div className="absolute left-0 top-16 w-full" style={{ height: pageHeight }}>
       <motion.div
         animate={{
-          opacity: open ? 0.5 : 0
+          backgroundColor: open ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)'
         }}
-        className="fixed left-0 top-[64px] z-[98] h-full w-full bg-neutral-black"
+        className="fixed left-0 top-16 z-[98] h-full w-full bg-neutral-white"
         style={{ height: pageHeight }}
-      >
-        &nbsp;
-      </motion.div>
+      />
       <motion.div
         className={cn(
-          'fixed -left-[76%] top-[64px] z-[99] w-[76%] bg-neutral-off-white py-10 shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]'
+          'fixed -left-[76%] top-16 z-[99] w-[76%] bg-neutral-off-white py-10 shadow-[2px_0px_4px_0px_rgba(0,0,0,0.12)]'
         )}
         style={{ height: pageHeight }}
         animate={{

@@ -9,7 +9,7 @@ import React, {
   useState
 } from 'react';
 import { cn } from '@/helper/utils';
-type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
+export type ButtonType = 'default' | 'primary' | 'secondary' | 'text';
 type SizeType = 'default' | 'large' | 'medium-x' | 'medium-y' | 'small';
 import Loading from '@/public/images/other/loading.png';
 import Image from 'next/image';
@@ -90,6 +90,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = 
   return (
     <button
       ref={buttonRef}
+      aria-disabled={disabled}
       className={cn(
         `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black outline-none transition-all hover:scale-[1.05]`,
         type === 'primary' ? 'bg-yellow-primary' : '',

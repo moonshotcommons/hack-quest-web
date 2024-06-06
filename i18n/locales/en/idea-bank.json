@@ -1,0 +1,20 @@
+{
+  "title": "Idea Bank",
+  "description": "Get inspired by our idea bank",
+  "submit_an_idea": "Submit an idea",
+  "top_rated_ideas": "Top Rated Ideas",
+  "all_ideas": "All Ideas",
+  "details": {
+    "problem_to_solve": "Problem To Solve",
+    "problem_solution": "Problem Solution",
+    "inspiration": "Inspiration",
+    "other_information": "Other Information"
+  },
+  "modal": {
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "yes": "Yes"
+  }
+}

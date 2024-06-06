@@ -3,7 +3,7 @@ import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
 
 import { useDebounceFn } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useEffect, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import Button from '@/components/Common/Button';

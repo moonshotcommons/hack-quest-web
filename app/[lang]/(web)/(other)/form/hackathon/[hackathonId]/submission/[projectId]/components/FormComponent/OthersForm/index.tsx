@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
@@ -16,6 +16,10 @@ import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import emitter from '@/store/emitter';
+import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   githubLink: z.string().min(0).optional(),
@@ -37,17 +41,21 @@ const OthersForm: FC<
     }
   });
 
+  const { redirectToUrl } = useRedirect();
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
+
   const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
+    async (values: z.infer<typeof formSchema>, isExit = false) => {
       const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
+        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 5
           ? ProjectSubmitStepType.WALLET
           : status;
+      debugger;
       const formData = new FormData();
       const { githubLink, isPublic } = values;
       formData.append('isOpenSource', isPublic ? 'true' : 'false');
       formData.append('githubLink', githubLink || '');
-      formData.append('status', newStatus);
+      formData.append('status', isExit ? ProjectSubmitStepType.OTHERS : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
       await refreshProjectInfo();
@@ -63,7 +71,7 @@ const OthersForm: FC<
     {
       manual: true,
       onSuccess({ res, newOtherInfo, status }) {
-        onNext({ others: newOtherInfo, status, projectId: projectId || res.id });
+        onNext({ others: newOtherInfo, status });
       },
       onError(err) {
         errorMessage(err);
@@ -75,7 +83,7 @@ const OthersForm: FC<
     // setContractInfo();
     if (
       form.getValues('isPublic') === true &&
-      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test((form.getValues('githubLink') || '').trim())
+      !/^https?:\/\/(www\.)?github\.com\/[^/]+\/.*$/.test((form.getValues('githubLink') || '').trim())
     ) {
       form.setError('githubLink', {
         message: 'Invalid GitHub URL'
@@ -91,6 +99,20 @@ const OthersForm: FC<
     typeof isPublic === 'boolean' && form.setValue('isPublic', !!isPublic);
     if (githubLink && typeof isPublic === 'boolean') form.trigger();
   }, [others]);
+
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => await submitRequest(form.getValues(), true),
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
 
   const disable =
     typeof form.getValues('isPublic') !== 'boolean' ||
@@ -123,6 +145,9 @@ const OthersForm: FC<
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

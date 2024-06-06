@@ -117,5 +117,35 @@
       "text2": "According to metrics reported by TechCrunch and Bloomberg, as secondary market activities pick up, VC investment in crypto startups reached $2.52 billion across 603 deals in Q1 2024 alone, citing “positive effects from legal wins last year from Ripple and Grayscale”, “positive sentiments around decentralized finance (DeFi) on Solana”, and “demand increasing for the biggest cryptocurrency post SEC spot bitcoin ETF approvals in the US” as contributing factors. Users are here too. More than half a billion people had become cryptocurrency users or owners by the end of 2023, according to cryptocurrency exchange Crypto.com.",
       "text3": "For founders and aspiring founders in Web3, now is the time to build. This MOOC is designed to guide founders and aspiring founders through ideating and building Web3 projects under the mentorship of leading founders, investors, and researchers from both industry and academia. We hope to equip students with the knowledge and confidence to articulate the potential of Web3 technology, develop innovative Web3 project ideas, build and deploy basic Web3 applications, and navigate the evolving Web3 landscape. This course is your gateway into the world of Web3. Get ready to learn, build, and become a part of the future!"
     }
+  },
+  "explore":{
+    "title":"Become a Web 3 Developer",
+    "web3":"Intro to Web 3",
+    "web3Intro":"Web3 Fundamentals",
+    "learningTrack":"Certified Learning Track",
+    "learningTrackIntro":"Deep Dive into leading Ecosystems",
+    "buildWeb3":"Build on Web 3",
+    "buildWeb3Intro":"Gain hands on experience with projects",
+    "moreResources":"More Resources",
+    "moreResourcesIntro":"Explore beyond learning",
+    "detailMoreResourcesIntro":"Explore beyond learning",
+    "project":"Project",
+    "projectIntro":"Practice makes perfect. Find all real-world projects here",
+    "electiveIntro":"Learn Different Concepts about Web 3",
+    "elective":"Elective",
+    "glossary":"Glossary",
+    "glossaryIntro":"A glossary is a list of terms and their definitions for a particular subject, usually found at the end of a book or other document.",
+    "hackathon":"Hackathon",
+    "hackathonIntro":"A hackathon is a social coding event that brings computer programmers and other interested people together to improve upon or build a new software program.",
+    "blog":"Blog",
+    "blogIntro":"A blog, or weblog, is a website that regularly provides updated content about a topic.",
+    "bounty":"Bounty",
+    "votes":"Votes",
+    "enroll":"Enroll",
+    "add":"Add",
+    "cancel":"Cancel",
+    "added":"Added",
+    "switchText":"Do you want to switch to {{ecosystem}}?",
+    "swtichDesc":"You’re currently enrolled in Ethereum learning track. All your learning progress will be saved. You can switch easily in dashboard."
   }
 }

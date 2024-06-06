@@ -30,6 +30,7 @@ const CertificationModal = forwardRef<CertificationModalInstance, CertificationM
   const { t } = useTranslation(lang, TransNs.REWARD);
   const { certification, completed, campaignId, showCoin = false, onClose, refreshCertification } = props;
   const [open, setOpen] = useState(false);
+
   useImperativeHandle(ref, () => {
     return {
       open() {

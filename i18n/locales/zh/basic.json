@@ -67,6 +67,12 @@
     },
     "learn": {
       "title": "学习",
+      "myCourse": "我的课程",
+      "myCourseDesc": "查看所有课程和项目",
+      "ecosystem": "生态系统",
+      "ecosystemDesc": "探索 Web3 生态系统",
+      "explore": "探索",
+      "exploreDesc": "查看不同的 Web3 生态系统",
       "learningTrack": "学习路径",
       "learningTrackDesc": "掌握一门编程语言",
       "electives": "选修课",
@@ -77,6 +83,19 @@
       "courseMarketDesc": "课程市场",
       "ntuCourse": "公开课",
       "ntuCourseDesc": "南洋理工大学 Web3 公开课"
+    },
+    "build": {
+      "title": "实战",
+      "myHackathon": "我的黑客松",
+      "myHackathonDesc": "查看所有的黑客松活动",
+      "exploreHackathons": "探索黑客松",
+      "exploreHackathonsDesc": "与我们的团队一起构建 Web3 的未来",
+      "hackathonVoting": "黑客松投票",
+      "hackathonVotingDesc": "选择最好的项目",
+      "projectArchive": "往期项目",
+      "projectArchiveDesc": "查看过去的黑客松项目",
+      "ideaBank": "创意库",
+      "ideaBankDesc": "贡献创新的项目想法"
     },
     "reward": {
       "title": "奖励",
@@ -138,6 +157,7 @@
     "courseStructure": "课程结构",
     "searchPlaceholder": "搜索关键词、主题等…",
     "searchResultFor": "搜索 “{{keyword}}” 的结果",
+    "searchResultForNodata": "没有搜索到 “{{keyword}}” 的结果",
     "skillLevel": "难度",
     "totalLength": "总时长",
     "h": "小时",
@@ -183,5 +203,12 @@
     "readFullMessage": "查看完整消息"
   },
   "min": "最小",
-  "max": "最大"
+  "max": "最大",
+  "exploreMore":"探索更多",
+  "confirm":"确认",
+  "month":"月",
+  "day":"日",
+  "all":"全部",
+  "copy":"复制",
+  "share":"分享"
 }

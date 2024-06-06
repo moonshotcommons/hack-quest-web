@@ -14,7 +14,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { AuthContext } from '..';
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -145,7 +145,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
         // onClick={onLogin}
         block
         className="
-          
+
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
@@ -345,7 +345,6 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -355,6 +354,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
                 }
               });
             }, 1000);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+
             // skipInviteCode(res.token);
           } else {
             setUserInfo(omit(res, 'token'));
@@ -386,7 +387,6 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -396,6 +396,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
                 }
               });
             }, 1000);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+
             // skipInviteCode(res.token);
           } else {
             BurialPoint.track('signup-Github三方登录code验证成功');

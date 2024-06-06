@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import type CropperRef from 'react-easy-crop';
 import type { RcFile, UploadFile } from 'antd/es/upload/interface';
 import { MouseEvent, ReactNode, forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';

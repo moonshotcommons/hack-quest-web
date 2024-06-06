@@ -14,6 +14,7 @@ export interface MentorType {
 export interface HackathonRewardType {
   desc: string;
   name: string;
+  totalPlace: string;
   place: number[];
 }
 export interface HackathonScheduleType {
@@ -38,12 +39,25 @@ export interface HackathonMemberType {
   telegram: string;
   weChat: string;
 }
+
+export enum HackathonTypeVotesRoleType {
+  USER = 'USER',
+  ADVOCATE = 'ADVOCATE',
+  JUDGE = 'JUDGE'
+}
+
+export interface HackathonTypeVotesType {
+  USER: number;
+  ADVOCATE: number;
+  JUDGE: number;
+}
 export interface HackathonType {
   id: string;
   name: string;
   image: string;
-  about: string;
-  theme: string;
+  about: CustomComponent[];
+  theme: CustomComponent[];
+  resources: CustomComponent[];
   participants: number;
   hosts: Omit<MentorType, 'title'>[];
   coHosts: Omit<MentorType, 'title'>[];
@@ -64,6 +78,29 @@ export interface HackathonType {
   participation?: HackathonRegisterInfo;
   members: HackathonMemberType[];
   version: string;
+  voteRules: CustomComponent[];
+  votes: HackathonTypeVotesType;
+  remainingVote: number;
+  projectCount: number;
+  totalPlace: number;
+}
+
+export interface JoinedHackathonType {
+  hackathons: HackathonType[];
+  stats: {
+    registered: number;
+    submitted: number;
+    winner: number;
+    projectVoted: number;
+    votes: {
+      [key: string]: number;
+    };
+  };
+}
+
+export interface HackathonVoteType extends HackathonType {
+  projectCount: number;
+  remainingVote: number;
 }
 
 export interface HackathonDataType {
@@ -112,6 +149,12 @@ export type ProjectType = {
   isOpenSource: boolean;
   githubLink: string;
   members: ProjectMemberType[];
+  vote: number;
+  isSubmit: boolean;
+  efrog: boolean;
+  croak: boolean;
+  submitType: string;
+  links: string | Record<string, string>;
 };
 
 export interface ProjectDataType {
@@ -193,6 +236,9 @@ export interface HackathonRegisterProjectInfo {
   id: string;
   name: string;
   status: ProjectSubmitStepType;
+  isSubmit: boolean;
+  winner: boolean;
+  vote: number;
 }
 export interface HackathonRegisterInfo {
   id: string;
@@ -203,7 +249,7 @@ export interface HackathonRegisterInfo {
   lastName: string | null;
   weChat: string | null;
   telegram: string | null;
-  team: HackathonTeam;
+  team: HackathonTeam | null;
   bio: string | null;
   status: HackathonRegisterStep;
   createdAt: string;
@@ -212,6 +258,9 @@ export interface HackathonRegisterInfo {
   isRegister: boolean;
   isSubmit: boolean;
   project?: HackathonRegisterProjectInfo;
+  remainingVote: number;
+  totalVote: number;
+  voteRole: HackathonTypeVotesRoleType;
 }
 
 export interface RegisterInfoBody {
@@ -253,8 +302,10 @@ export interface HackathonTeamDetail {
 
 export enum ProjectSubmitStepType {
   INFO = 'INFO',
+  PROJECT = 'PROJECT',
   PITCH_VIDEO = 'PITCH_VIDEO',
   DEMO = 'DEMO',
+  LINKS = 'LINKS',
   OTHERS = 'OTHERS',
   WALLET = 'WALLET',
   REVIEW = 'REVIEW'
@@ -315,4 +366,7 @@ export interface FaucetRecordType {
   id: string;
 }
 
-export type HackathonVoteProject = any;
+export interface ProjectRankType {
+  total: number;
+  rank: number;
+}

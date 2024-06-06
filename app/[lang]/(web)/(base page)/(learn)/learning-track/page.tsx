@@ -9,7 +9,7 @@ interface SearchParamsType {
     language: string;
   };
   params: {
-    lang: string;
+    lang: Lang;
   };
 }
 

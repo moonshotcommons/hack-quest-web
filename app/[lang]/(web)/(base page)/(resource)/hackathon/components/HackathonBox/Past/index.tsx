@@ -32,7 +32,7 @@ const Past: FC<PastProps> = ({ page, hackathonList, total, limit }) => {
               <Pagination
                 page={page}
                 total={Math.ceil(total / limit)}
-                urlPrefix={`${MenuLink.HACKATHON}/p/`}
+                urlPrefix={`${MenuLink.HACKATHON}/explore/p/`}
               ></Pagination>
             )}
           </div>

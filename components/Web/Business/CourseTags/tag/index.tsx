@@ -10,7 +10,7 @@ interface TagProps {
 
 const Tag: React.FC<TagProps & Omit<React.HTMLAttributes<HTMLElement>, 'className'>> = (props) => {
   const { icon, children, className, size = 'small', ...rest } = props;
-
+  if (!children) return null;
   return (
     <span
       className={cn(

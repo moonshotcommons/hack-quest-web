@@ -3,7 +3,7 @@ import Input from '@/components/Common/Input';
 import { BurialPoint } from '@/helper/burialPoint';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
-import { message } from 'antd';
+import message from 'antd/es/message';
 import { FC, useEffect, useState } from 'react';
 
 // import ContractUs from '@/app/[lang]/(web)/(base page)/(landing)/components/ContractUs';

@@ -12,19 +12,13 @@ const DocsLayout: FC<DocsLayoutProps> = ({ children, params: { alias } }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    // <div className="flex w-full justify-between bg-neutral-white">
-    //   <DocsSidebar selectAlias={alias} />
-    //   <div className="flex-1 pl-[296px]">{children}</div>
-    // </div>
-    <div className={`relative w-full`}>
-      <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-black">
+    <div className="relative w-full">
+      <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-white">
         <NavBar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
       </div>
-      <div id="content-scroll-wrap" className={`m-auto w-full bg-white pt-[4rem]`}>
-        {/* <AIFloatButton pageType="learn"> */}
+      <div id="content-scroll-wrap" className="m-auto w-full bg-neutral-off-white px-5 pb-5 pt-[5.25rem]">
         <DocsSidebar selectAlias={alias} open={sidebarOpen} />
         {children}
-        {/* </AIFloatButton> */}
       </div>
     </div>
   );

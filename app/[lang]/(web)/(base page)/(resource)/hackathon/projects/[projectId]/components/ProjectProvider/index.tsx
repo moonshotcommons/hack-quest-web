@@ -3,20 +3,31 @@ import { ProjectDetailContext } from '../../../../constants/type';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 
 interface ProjectProviderProp {
-  project: ProjectType;
   children: ReactNode;
+  isShowVoting: boolean;
+  project?: ProjectType;
 }
 
-const ProjectProvider: React.FC<ProjectProviderProp> = ({ project, children }) => {
+const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, isShowVoting, project }) => {
   const titleTxtData = useMemo(() => {
-    return [
+    let navs = [
       'projectsDetail.title.overview',
-      // 'projectsDetail.title.voting',
+      'projectsDetail.title.voting',
       'projectsDetail.title.videos',
       'projectsDetail.title.introduction',
       'projectsDetail.title.team'
     ];
-  }, [project]);
+    if (!isShowVoting) {
+      navs = navs.filter((v) => v !== 'projectsDetail.title.voting');
+    }
+    if (!project?.video && !project?.demo) {
+      navs = navs.filter((v) => v !== 'projectsDetail.title.videos');
+    }
+    if (!project?.members?.length) {
+      navs = navs.filter((v) => v !== 'projectsDetail.title.team');
+    }
+    return navs;
+  }, [isShowVoting, project]);
   return <ProjectDetailContext.Provider value={{ titleTxtData }}>{children}</ProjectDetailContext.Provider>;
 };
 

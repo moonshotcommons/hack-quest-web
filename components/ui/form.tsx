@@ -5,6 +5,7 @@ import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useF
 
 import { cn } from '@/helper/utils';
 import { Label } from '@/components/ui/label';
+import { InfoIcon } from 'lucide-react';
 
 const Form = FormProvider;
 
@@ -103,7 +104,14 @@ const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttribu
   ({ className, ...props }, ref) => {
     const { formDescriptionId } = useFormField();
 
-    return <p ref={ref} id={formDescriptionId} className={cn('text-sm text-muted-foreground', className)} {...props} />;
+    return (
+      <p
+        ref={ref}
+        id={formDescriptionId}
+        className={cn('sm:body-m body-s text-neutral-medium-gray', className)}
+        {...props}
+      />
+    );
   }
 );
 FormDescription.displayName = 'FormDescription';
@@ -118,7 +126,13 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
     }
 
     return (
-      <p ref={ref} id={formMessageId} className={cn('text-sm font-medium text-destructive', className)} {...props}>
+      <p
+        ref={ref}
+        id={formMessageId}
+        className={cn('body-s flex items-center text-status-error-dark', className)}
+        {...props}
+      >
+        <InfoIcon className="mr-1.5 h-4 w-4" />
         {body}
       </p>
     );

@@ -56,6 +56,18 @@ class CampaignsApi {
     return this.service.get<CertificationType>(`${CampaignsApiType.Certifications}/${certificationId}`);
   }
 
+  getCertificate(certificationId: string, token: string) {
+    const cacheFn = cache(() => {
+      return this.service.get<CertificationType>(`${CampaignsApiType.Certifications}/${certificationId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    });
+
+    return cacheFn();
+  }
+
   /** 获取证书的详情 */
   async fetchCertificationDetail(certificationId: string): Promise<CertificationType> {
     // const url = `${this.service.baseURL.slice(0, -1)}${CampaignsApiType.Certifications}/${certificationId}`;
@@ -79,6 +91,12 @@ class CampaignsApi {
 
   claimCertification(certificationId: string) {
     return this.service.get(`${CampaignsApiType.Certifications}/${certificationId}/claim`);
+  }
+
+  claimCertificate(data: object, certificationId: string) {
+    return this.service.post(`${CampaignsApiType.Certifications}/${certificationId}/claim`, {
+      data
+    });
   }
 
   /** 保存mint状态 */

@@ -1,62 +1,65 @@
+'use client';
 import CourseFilterList from '@/components/Web/Business/CourseFilterList';
-import {
-  courseDefaultFilters as filters,
-  mergeFilterParams,
-  courseDefaultSort as sort
-} from '@/components/Web/Business/CourseFilterList/constant';
-import { FilterParamsType } from '@/components/Web/Business/CourseFilterList/type';
+
+import { FilterItemType, FilterOptionType } from '@/components/Web/Business/CourseFilterList/type';
 import ElectiveCard from '@/components/Web/Business/ElectiveCard';
-import { errorMessage } from '@/helper/ui';
-import webApi from '@/service';
-import { CourseType } from '@/service/webApi/course/type';
-import { ElectiveCourseType, ElectiveListDataType } from '@/service/webApi/elective/type';
-import { useRequest } from 'ahooks';
-import { cloneDeep } from 'lodash-es';
-import { FC, useEffect, useState } from 'react';
+import MenuLink from '@/constants/MenuLink';
+import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { useRouter } from 'next/navigation';
+import { FC } from 'react';
 interface CourseFilterListDefaultProps {
   title: string;
+  keyword: string;
+  courseList: ElectiveCourseType[];
+  filters: FilterItemType[];
+  sorts: FilterOptionType[];
 }
 
-const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = ({ title }) => {
-  const [courseList, setCourseList] = useState<ElectiveCourseType[]>([]);
+const CourseFilterListDefault: FC<CourseFilterListDefaultProps> = ({ title, keyword, courseList, filters, sorts }) => {
+  const router = useRouter();
 
-  const { run: getCourseList, loading } = useRequest(
-    async (filterParams: FilterParamsType) => {
-      const res = await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(filterParams);
-      return res;
-    },
+  // const [courseList, setCourseList] = useState<ElectiveCourseType[]>([]);
 
-    {
-      manual: true,
-      onSuccess(res) {
-        setCourseList(res.data);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
+  // const { run: getCourseList, loading } = useRequest(
+  //   async (filterParams: FilterParamsType) => {
+  //     const res = await webApi.courseApi.getCourseListBySearch<ElectiveListDataType>(filterParams);
+  //     return res;
+  //   },
 
-  useEffect(() => {
-    getCourseList({
-      ...mergeFilterParams(filters, sort),
-      type: `${CourseType.MINI},${CourseType.UGC}`
-    });
-  }, []);
+  //   {
+  //     manual: true,
+  //     onSuccess(res) {
+  //       setCourseList(res.data);
+  //     },
+  //     onError(err) {
+  //       errorMessage(err);
+  //     }
+  //   }
+  // );
+
+  // useEffect(() => {
+  //   getCourseList({
+  //     ...mergeFilterParams(filters, sort),
+  //     type: `${CourseType.MINI},${CourseType.UGC}`
+  //   });
+  // }, []);
+
+  // const [fi, sort] = useMemo(() => {
+  //   const defaultFilter = cloneDeep(filters);
+  // }, []);
 
   return (
     <CourseFilterList
       title={title}
       onFilterParamsUpdate={(params) => {
-        getCourseList({
-          ...params,
-          type: `${CourseType.MINI},${CourseType.UGC}`
-        });
+        params.keyword = keyword;
+        const searchParams = new URLSearchParams(params);
+        router.replace(`${MenuLink.ELECTIVES}?${searchParams.toString()}`);
       }}
       courseList={courseList}
-      filters={cloneDeep(filters)}
-      sort={sort}
-      loading={loading}
+      filters={filters}
+      sort={sorts}
+      // loading={loading}
       renderItem={(course) => {
         return <ElectiveCard key={course.id} course={course}></ElectiveCard>;
       }}
