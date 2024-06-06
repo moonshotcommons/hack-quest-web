@@ -17,7 +17,6 @@ interface TeamCardProp {
 const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  console.info(member);
   return (
     <div className="shaow-[0_0_8px_0_rgba(rgba(0,0,0,0.12))] body-m flex flex-col items-center gap-[16px] rounded-[16px] bg-neutral-white p-[16px] text-neutral-off-black">
       <div className="relative h-[84px] w-[84px] overflow-hidden rounded-[50%]">
