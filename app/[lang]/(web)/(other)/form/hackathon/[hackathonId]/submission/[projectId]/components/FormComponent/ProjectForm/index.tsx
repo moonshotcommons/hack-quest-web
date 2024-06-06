@@ -54,9 +54,9 @@ const ProjectForm: FC<
       debugger;
       const formData = new FormData();
       const { efrog, croak, submitType } = values;
-      formData.append('efrog', efrog ? 'true' : 'false');
-      formData.append('croak', croak ? 'true' : 'false');
-      formData.append('submitType', submitType || '');
+      efrog ?? formData.append('efrog', efrog ? 'true' : 'false');
+      croak ?? formData.append('croak', croak ? 'true' : 'false');
+      submitType && formData.append('submitType', submitType || '');
       formData.append('status', isExit ? ProjectSubmitStepType.PROJECT : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
