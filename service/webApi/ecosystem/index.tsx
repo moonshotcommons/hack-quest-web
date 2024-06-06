@@ -20,8 +20,8 @@ class EcosystemApi {
     return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`);
   }
 
-  getMyEcosystems() {
-    return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`);
+  getMyEcosystems(params?: object) {
+    return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`, { params });
   }
 
   getEcosystemsDetailById(id: string, params: object, token: string) {
