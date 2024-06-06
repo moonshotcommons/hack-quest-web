@@ -94,13 +94,13 @@ export function FilterPanel() {
       <div className="flex items-center justify-between gap-8 sm:items-start sm:pt-8">
         <div className="flex flex-wrap items-center gap-4">
           <DropdownFilter
-            label="chain"
+            label="ecosystem"
             values={selectedEcosystems}
             onValueChange={(value) => onValueChange(value, 'ecosystemId')}
             options={ecosystems}
           />
           <DropdownFilter
-            label="tracks"
+            label="track"
             values={selectedTracks}
             onValueChange={(value) => onValueChange(value, 'tracks')}
             options={tracks}
