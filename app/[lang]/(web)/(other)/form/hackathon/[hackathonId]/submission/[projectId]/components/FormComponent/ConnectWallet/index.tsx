@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { FC, memo, useRef } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
@@ -12,12 +12,19 @@ import webApi from '@/service';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import DisconnectModal, { DisconnectModalRef } from './DisconnectModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
+import emitter from '@/store/emitter';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 const ConnectWallet: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'wallet' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, wallet, projectId, status, refreshProjectInfo, isSubmit }) => {
+> = ({ onNext, onBack, wallet, projectId, status, refreshProjectInfo, isSubmit, simpleHackathonInfo }) => {
   const disconnectModalRef = useRef<DisconnectModalRef>(null);
+  const { redirectToUrl } = useRedirect();
+
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
@@ -67,6 +74,20 @@ const ConnectWallet: FC<
       onConfirm: disconnect
     });
   };
+
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => {},
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-6">
@@ -121,7 +142,9 @@ const ConnectWallet: FC<
           {isSubmit ? 'update' : 'Save'} and Next
         </Button>
       </div>
-
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
       <DisconnectModal ref={disconnectModalRef} />
     </div>
   );
