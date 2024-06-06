@@ -16,7 +16,6 @@ const Resource: React.FC<ResourceProp> = ({ hackathon }) => {
   if (!hackathon.resources?.length) return null;
   return (
     <div className="flex flex-col">
-      111111111111
       <Title title={t('hackathonDetail.resource')} />
       <HackathonRenderer content={hackathon.resources} />
     </div>
