@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
@@ -16,6 +16,10 @@ import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import emitter from '@/store/emitter';
+import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   githubLink: z.string().min(0).optional(),
@@ -37,8 +41,11 @@ const OthersForm: FC<
     }
   });
 
+  const { redirectToUrl } = useRedirect();
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
+
   const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
+    async (values: z.infer<typeof formSchema>, isExit = false) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 5
           ? ProjectSubmitStepType.WALLET
@@ -48,7 +55,7 @@ const OthersForm: FC<
       const { githubLink, isPublic } = values;
       formData.append('isOpenSource', isPublic ? 'true' : 'false');
       formData.append('githubLink', githubLink || '');
-      formData.append('status', newStatus);
+      formData.append('status', isExit ? ProjectSubmitStepType.OTHERS : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
       await refreshProjectInfo();
@@ -93,6 +100,20 @@ const OthersForm: FC<
     if (githubLink && typeof isPublic === 'boolean') form.trigger();
   }, [others]);
 
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => await submitRequest(form.getValues(), true),
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
+
   const disable =
     typeof form.getValues('isPublic') !== 'boolean' ||
     (form.getValues('isPublic') === true && !(form.getValues('githubLink') || '').trim());
@@ -124,6 +145,9 @@ const OthersForm: FC<
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

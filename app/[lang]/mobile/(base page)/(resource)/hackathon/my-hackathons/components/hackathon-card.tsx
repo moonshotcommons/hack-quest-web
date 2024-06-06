@@ -109,7 +109,7 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
         )}
         <HackathonCardAction hackathon={hackathon} />
       </div>
-      <LeaveTeamModal />
+      <LeaveTeamModal team={hackathon.participation?.team!} />
       <WithdrawModal />
     </div>
   );

@@ -9,6 +9,7 @@ import webApi from '@/service';
 import { create } from 'zustand';
 import { useRouter } from 'next/navigation';
 import { errorMessage } from '@/helper/ui';
+import { HackathonTeam } from '@/service/webApi/resourceStation/type';
 
 interface State {
   open: boolean;
@@ -24,7 +25,7 @@ export const useLeaveTeamModal = create<State>((set) => ({
   onClose: () => set({ open: false, hackathonId: '' })
 }));
 
-export function LeaveTeamModal() {
+export function LeaveTeamModal({ team }: { team: HackathonTeam }) {
   const router = useRouter();
   const { open, hackathonId, onClose } = useLeaveTeamModal();
   const mutation = useMutation({
@@ -43,7 +44,7 @@ export function LeaveTeamModal() {
           <XIcon size={20} />
         </button>
         <h1 className="font-next-book-bold text-lg font-bold">Do you want to leave this team?</h1>
-        <p className="body-m mb-9 mt-5">Spiderman</p>
+        <p className="body-m mb-9 mt-5">{team.name}</p>
         <div className="grid w-full grid-cols-2 gap-2 px-20">
           <Button ghost className="w-full" onClick={onClose}>
             cancel
