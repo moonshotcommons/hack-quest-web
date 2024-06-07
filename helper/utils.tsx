@@ -287,7 +287,7 @@ export function createUrl(pathname: string, params: URLSearchParams | ReadonlyUR
   return `${pathname}${queryString}`;
 }
 
-/** 向下保留小数 返回百分数  */
+/** 向下保留小数  */
 export const decimalCount = (number: number, digit = 1) => {
   if (isNaN(number)) return 0;
   if (digit < 1) return number;
@@ -295,6 +295,7 @@ export const decimalCount = (number: number, digit = 1) => {
   return Math.floor(number * digitHundred) / digitHundred;
 };
 
+/** 向下保留小数 返回百分数  */
 export const decimalCountPercent = (number: number, digit = 1) => {
   if (isNaN(number)) return 0;
   if (digit < 1) return number;
