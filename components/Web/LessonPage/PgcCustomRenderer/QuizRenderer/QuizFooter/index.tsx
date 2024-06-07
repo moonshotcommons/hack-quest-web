@@ -6,6 +6,7 @@ import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import Image from 'next/image';
 import CostCoinModal, { CostCoinModalRef } from '@/components/Web/Business/CostCoinModal';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 
 interface QuizFooterProps {
   showAnswer: boolean;
@@ -33,7 +34,7 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
   } = props;
   const ref = useRef<CostCoinModalRef>(null);
   const firstShowAnswer = useRef(true);
-
+  const { updateUserCoin } = useGetMissionData();
   const { runAsync } = useRequest(
     () => {
       return webApi.courseApi.showAnswerCostCoin(lessonId);
@@ -69,6 +70,7 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
       }
       try {
         await runAsync();
+        await updateUserCoin();
         firstShowAnswer.current = false;
         setShowAnswer(!showAnswer);
       } catch (err) {

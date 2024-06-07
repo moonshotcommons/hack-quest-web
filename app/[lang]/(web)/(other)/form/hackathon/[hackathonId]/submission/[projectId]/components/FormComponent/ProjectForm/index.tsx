@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
@@ -16,6 +16,10 @@ import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import FormRadio from '@/components/Common/FormRadio';
 import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
+import emitter from '@/store/emitter';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   submitType: z.string().min(0),
@@ -28,7 +32,7 @@ export type ProjectFormSchema = z.infer<typeof formSchema>;
 const ProjectForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'project' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, project, status, projectId, refreshProjectInfo, isSubmit }) => {
+> = ({ onNext, onBack, project, status, projectId, refreshProjectInfo, isSubmit, simpleHackathonInfo }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,9 +42,11 @@ const ProjectForm: FC<
       submitType: ''
     }
   });
+  const { redirectToUrl } = useRedirect();
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
+    async (values: z.infer<typeof formSchema>, isExit = false) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
           ? ProjectSubmitStepType.PITCH_VIDEO
@@ -48,10 +54,10 @@ const ProjectForm: FC<
       debugger;
       const formData = new FormData();
       const { efrog, croak, submitType } = values;
-      formData.append('efrog', efrog ? 'true' : 'false');
-      formData.append('croak', croak ? 'true' : 'false');
-      formData.append('submitType', submitType || '');
-      formData.append('status', newStatus);
+      efrog ?? formData.append('efrog', efrog ? 'true' : 'false');
+      croak ?? formData.append('croak', croak ? 'true' : 'false');
+      submitType && formData.append('submitType', submitType || '');
+      formData.append('status', isExit ? ProjectSubmitStepType.PROJECT : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
       await refreshProjectInfo();
@@ -87,6 +93,20 @@ const ProjectForm: FC<
     typeof croak === 'boolean' && form.setValue('croak', !!croak);
     if (submitType && typeof efrog === 'boolean' && typeof croak === 'boolean') form.trigger();
   }, [project]);
+
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => await submitRequest(form.getValues(), true),
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
 
   const disable =
     typeof form.getValues('efrog') !== 'boolean' ||
@@ -127,6 +147,9 @@ const ProjectForm: FC<
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };
