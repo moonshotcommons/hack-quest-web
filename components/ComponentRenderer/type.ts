@@ -91,5 +91,8 @@ export enum PageType {
   GLOSSARY = 'glossary',
   MINI = 'mini',
   DOCUMENTATION = 'documentation',
-  DOCUMENTATION_FULL = 'documentation_full'
+  DOCUMENTATION_FULL = 'documentation_full',
+  HACKATHON = 'hackathon'
 }
+
+export const QUIZ_ITEM_TYPES = [CustomType.QuizA, CustomType.QuizB, CustomType.QuizC];

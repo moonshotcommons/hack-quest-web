@@ -17,7 +17,7 @@ import RoleJugleIcon from '@/components/Common/Icon/RoleJugle';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { HackathonVoteContext } from '../../../../constants/type';
-import { decimalCount } from '@/helper/utils';
+import { decimalCountPercent } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import dayjs from '@/components/Common/Dayjs';
@@ -52,9 +52,9 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     };
     const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
     return {
-      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 2),
-      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
-      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
+      [HackathonTypeVotesRoleType.USER]: decimalCountPercent(vote[HackathonTypeVotesRoleType.USER] / total, 2),
+      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCountPercent(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
+      [HackathonTypeVotesRoleType.JUDGE]: decimalCountPercent(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
     };
   }, [hackathon]);
 
