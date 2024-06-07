@@ -31,8 +31,8 @@ export function EcosystemSelectNew() {
 
   async function onClick(id: string | {}) {
     toggle(false);
-    mutation.mutate(id);
     await updateActiveEcosystem(id);
+    mutation.mutate(id);
     router.refresh();
   }
 
@@ -60,7 +60,7 @@ export function EcosystemSelectNew() {
       >
         <ul className="flex flex-col gap-2">
           <li>
-            <Link href="/dashboard">
+            <Link href="/dashboard" prefetch={false}>
               <button
                 data-selected={!ecosystemId}
                 className="inline-flex w-full items-center rounded-[8px] px-3 py-2 outline-none transition-colors hover:bg-neutral-off-white data-[selected=true]:bg-neutral-off-white"
