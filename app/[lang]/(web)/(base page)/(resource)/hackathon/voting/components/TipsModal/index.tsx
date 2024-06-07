@@ -23,18 +23,17 @@ const TipsModal: React.FC<TipsModalProp> = () => {
   }, []);
   return (
     <Modal open={open} onClose={() => setOpen(false)} showCloseIcon={true} icon={<FiX size={26} />}>
-      <div className="flex w-[572px] flex-col items-center  rounded-[16px] bg-neutral-white p-[40px]">
-        <h2 className="text-h4 mb-[20px] text-neutral-black"> {t('hackathonVoting.tipsModalTitle')}</h2>
-        <p className="body-m mb-[36px] text-neutral-rich-gray">{t('hackathonVoting.tipsModalText')}</p>
+      <div className="flex w-[572px] flex-col items-center  rounded-[16px] bg-neutral-white p-[40px] pt-[80px]">
+        {/* <h2 className="text-h4 mb-[20px] text-neutral-black"> {t('hackathonVoting.tipsModalTitle')}</h2> */}
+        <p className="body-m mb-[36px] whitespace-pre-line text-neutral-rich-gray">
+          {t('hackathonVoting.tipsModalText')}
+        </p>
         <div className="flex w-full gap-[12px]">
           <Button
-            ghost
-            className="button-text-m h-[48px] flex-1 flex-shrink-0 border-neutral-black uppercase "
+            type="primary"
+            className="button-text-m h-[48px] flex-1 flex-shrink-0 uppercase "
             onClick={() => setOpen(false)}
           >
-            {t('hackathonVoting.decline')}
-          </Button>
-          <Button type="primary" className="button-text-m h-[48px] flex-1 flex-shrink-0 uppercase ">
             {t('confirm')}
           </Button>
         </div>

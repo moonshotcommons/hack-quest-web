@@ -70,7 +70,7 @@ const NotificationCard: React.FC<NotificationCardProp> = ({ message, border, upd
             <Image src={message.avatar || HackLogo} alt={'hack-logo'} fill className="object-cover" />
           </div>
           <div className="flex-1 ">
-            <p className="body-m text-neutral-black">{message.content.content}</p>
+            <p className="body-m whitespace-pre-line text-neutral-black">{message.content.content}</p>
             <div className="caption-12pt mt-[4px] flex items-center justify-between text-neutral-rich-gray">
               <div className="flex gap-[16px]">
                 <span>{dayjs(message.createdAt).format('MMM D,YY')}</span>

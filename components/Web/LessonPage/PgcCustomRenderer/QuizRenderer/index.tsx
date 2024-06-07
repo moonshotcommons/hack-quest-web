@@ -53,7 +53,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
       });
     });
 
-    const jsConfetti = new JSConfetti();
+    let jsConfetti: JSConfetti | null = new JSConfetti();
 
     jsConfetti.addConfetti({
       confettiColors: [
@@ -87,6 +87,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         onCompleted();
       }
       setPassOpen(false);
+      jsConfetti = null;
     }, 500);
   };
 

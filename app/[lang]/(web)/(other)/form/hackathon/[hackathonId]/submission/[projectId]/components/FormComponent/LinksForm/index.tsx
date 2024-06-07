@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, memo, useEffect } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
@@ -17,6 +17,10 @@ import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import Link from 'next/link';
 import { Textarea } from '@/components/ui/textarea';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import emitter from '@/store/emitter';
+import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   contractLink: z.string().url(),
@@ -30,7 +34,7 @@ export type OthersFormSchema = z.infer<typeof formSchema>;
 const OthersForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'links' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, links, status, projectId, refreshProjectInfo, isSubmit }) => {
+> = ({ onNext, onBack, links, status, projectId, refreshProjectInfo, isSubmit, simpleHackathonInfo }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,9 +45,11 @@ const OthersForm: FC<
       partnerTooling: ''
     }
   });
+  const { redirectToUrl } = useRedirect();
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const { run: submitRequest, loading } = useRequest(
-    async (values: z.infer<typeof formSchema>) => {
+    async (values: z.infer<typeof formSchema>, isExit = false) => {
       const newStatus =
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
           ? ProjectSubmitStepType.OTHERS
@@ -52,7 +58,7 @@ const OthersForm: FC<
       const formData = new FormData();
 
       formData.append('links', JSON.stringify(values));
-      formData.append('status', newStatus);
+      formData.append('status', isExit ? ProjectSubmitStepType.LINKS : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
       await refreshProjectInfo();
@@ -86,6 +92,22 @@ const OthersForm: FC<
 
     if (Object.values(links).every((item) => !!item)) form.trigger();
   }, [links]);
+
+  useEffect(() => {
+    const exit = () => {
+      exitConfirmRef.current?.open({
+        onConfirm: async () => {
+          // await submitRequest(form.getValues(), true)
+        },
+        onConfirmCallback: () => redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`)
+      });
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
 
   const disable =
     !form.watch('contractLink') ||
@@ -197,6 +219,9 @@ const OthersForm: FC<
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

@@ -10,6 +10,9 @@ import Link from 'next/link';
 import { RiShareBoxLine } from 'react-icons/ri';
 import { cloneDeep } from 'lodash-es';
 import { syllabusData, titleTxtData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface SyllabusProp {}
 
@@ -19,6 +22,10 @@ const Syllabus: React.FC<SyllabusProp> = () => {
   const [expandAll, setExpandAll] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [syllabusList, setSyllabusList] = useState(syllabusData);
+
+  const userInfo = useUserStore((state) => state.userInfo);
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
+
   const list = useMemo(() => {
     const len = showMore ? syllabusList.length : 7;
     return syllabusList.slice(0, len);
@@ -78,13 +85,35 @@ const Syllabus: React.FC<SyllabusProp> = () => {
                     {v.video || v.slide ? (
                       <div className="flex items-center gap-[12px]">
                         {v.video && (
-                          <Link href={v.video} target="_blank" className="flex items-center gap-[4px]">
+                          <Link
+                            href={userInfo ? v.video : '#'}
+                            target={userInfo ? '_blank' : ''}
+                            className="flex items-center gap-[4px]"
+                            onClick={(e) => {
+                              if (!userInfo) {
+                                e.stopPropagation();
+                                mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+                                mobileNavModalToggleOpenHandle.toggleOpen();
+                              }
+                            }}
+                          >
                             <RiShareBoxLine size={16} />
                             <span className="underline-m">{t('ntuCourse.syllabus.video')}</span>
                           </Link>
                         )}
                         {v.slide && (
-                          <Link href={v.slide} target="_blank" className="flex items-center gap-[4px]">
+                          <Link
+                            href={userInfo ? v.slide : '#'}
+                            target={userInfo ? '_blank' : ''}
+                            className="flex items-center gap-[4px]"
+                            onClick={(e) => {
+                              if (!userInfo) {
+                                e.stopPropagation();
+                                mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+                                mobileNavModalToggleOpenHandle.toggleOpen();
+                              }
+                            }}
+                          >
                             <RiShareBoxLine size={16} />
                             <span className="underline-m">{t('ntuCourse.syllabus.slide')}</span>
                           </Link>

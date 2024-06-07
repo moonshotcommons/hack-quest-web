@@ -9,6 +9,7 @@ import { IoAdd, IoRemoveOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { RiShareBoxLine } from 'react-icons/ri';
 import { cloneDeep } from 'lodash-es';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
 
 interface SyllabusProp {}
 
@@ -18,6 +19,12 @@ const Syllabus: React.FC<SyllabusProp> = () => {
   const [expandAll, setExpandAll] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [syllabusList, setSyllabusList] = useState(syllabusData);
+
+  const userInfo = useUserStore((state) => state.userInfo);
+
+  const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
+  const setAuthType = useUserStore((state) => state.setAuthType);
+
   const list = useMemo(() => {
     const len = showMore ? syllabusList.length : 7;
     return syllabusList.slice(0, len);
@@ -77,13 +84,35 @@ const Syllabus: React.FC<SyllabusProp> = () => {
                   {v.video || v.slide ? (
                     <div className="flex items-center gap-[12px]">
                       {v.video && (
-                        <Link href={v.video} target="_blank" className="flex items-center gap-[4px]">
+                        <Link
+                          href={userInfo ? v.video : '#'}
+                          target={userInfo ? '_blank' : ''}
+                          className="flex items-center gap-[4px]"
+                          onClick={(e) => {
+                            if (!userInfo) {
+                              e.preventDefault();
+                              setAuthType(AuthType.LOGIN);
+                              setAuthModalOpen(true);
+                            }
+                          }}
+                        >
                           <RiShareBoxLine size={16} />
                           <span className="underline-m">{t('ntuCourse.syllabus.video')}</span>
                         </Link>
                       )}
                       {v.slide && (
-                        <Link href={v.slide} target="_blank" className="flex items-center gap-[4px]">
+                        <Link
+                          href={userInfo ? v.slide : '#'}
+                          target={userInfo ? '_blank' : ''}
+                          className="flex items-center gap-[4px]"
+                          onClick={(e) => {
+                            if (!userInfo) {
+                              e.preventDefault();
+                              setAuthType(AuthType.LOGIN);
+                              setAuthModalOpen(true);
+                            }
+                          }}
+                        >
                           <RiShareBoxLine size={16} />
                           <span className="underline-m">{t('ntuCourse.syllabus.slide')}</span>
                         </Link>

@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { FormComponentProps } from '..';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
@@ -13,6 +13,7 @@ import { ProjectLocation } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import MenuLink from '@/constants/MenuLink';
+import emitter from '@/store/emitter';
 
 interface SubmitReviewProps {}
 
@@ -28,7 +29,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
   };
 
   const { redirectToUrl } = useRedirect();
-
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
   const { info, projectDemo, others, wallet, isSubmit, project, links } = formState;
 
   const confirmModal = useRef<ConfirmModalRef>(null);
@@ -52,6 +53,17 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
       }
     }
   );
+
+  useEffect(() => {
+    const exit = () => {
+      redirectToUrl(`${MenuLink.HACKATHON_DASHBOARD}`);
+    };
+
+    emitter.on('submit-form-exit', exit);
+    return () => {
+      emitter.off('submit-form-exit', exit);
+    };
+  }, []);
 
   return (
     <div>
@@ -341,6 +353,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           After successful submission, you will be directed to Aspecta’s builder Launchpad page. You can attest to your
           builder’s identity and join Linea Buidlers Club there.{' '}
         </p>
+      </ConfirmModal>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
       </ConfirmModal>
     </div>
   );

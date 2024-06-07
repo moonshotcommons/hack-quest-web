@@ -1,10 +1,9 @@
 import Button from '@/components/Common/Button';
 import { useUnitNavList } from '@/hooks/courses/useUnitNavList';
 import { CourseLessonType } from '@/service/webApi/course/type';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { LessonPageContext } from '../type';
 import { LessonContent } from '@/components/ComponentRenderer/type';
-import { useKeyPress } from 'ahooks';
 
 interface LessonFooterProps {
   lesson?: Omit<CourseLessonType, 'content'> & { content: LessonContent };
@@ -20,11 +19,15 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
     onNextClick();
   };
 
+  const ref = useRef(null);
+
   useEffect(() => {
     refreshNavList();
   }, [lesson]);
 
-  useKeyPress('Enter', handleNext);
+  // useKeyPress('Enter', handleNext, {
+  //   target: ref.current
+  // });
   return (
     <div
       className="flex-center fixed bottom-0 left-0 w-full bg-lesson-footer-bg transition-all"
@@ -61,6 +64,7 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
           }}
         >
           <Button
+            ref={ref}
             loading={nextLoading}
             type="primary"
             disabled={!isHandleNext || nextLoading}

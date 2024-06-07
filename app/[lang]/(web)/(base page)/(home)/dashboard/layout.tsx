@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { MyCertificateCard } from './components/my-certificate-card';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
+import { EcosystemSelectNew } from '@/components/ecosystem/ecosystem-select-new';
 import { ClaimCertificateModal } from './components/claim-certificate-modal';
 import { MintCertificateModal } from './components/mint-certificate-modal';
 import { UsernameModal } from './components/username-modal';
-import { EcosystemSelectNew } from '@/components/ecosystem/ecosystem-select-new';
+import { MyCertificateCard } from './components/my-certificate-card';
 
 export default async function DashboardLayout({
   children

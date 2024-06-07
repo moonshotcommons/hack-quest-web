@@ -34,10 +34,7 @@ export function SubmitBase() {
         <XIcon size={24} />
       </button>
       <h1 className="sm:headline-h4 headline-h4-mob text-center text-neutral-off-black">{t('submit_an_idea')}</h1>
-      <p className="body-xs mb-4 mt-1 text-neutral-rich-gray">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse gravida mollis mattis. Morbi eget tempor
-        augue. Aenean lacus nisl, volutpat sed nunc et, ornare egestas augue.{' '}
-      </p>
+      <p className="body-xs mb-4 mt-1 text-neutral-rich-gray">{t('description')}</p>
       <Stepper activeStep={step}>
         {steps.map((label) => (
           <Step key={label}>
