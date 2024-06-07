@@ -16,6 +16,7 @@ const LearningTrackCatalogue: FC<LearningTrackCatalogueProps> = (props) => {
   return (
     <ul className="">
       {sectionList.map((section, index) => {
+        if (section.courses.every((item) => !item)) return;
         if (index === 0) {
           return (
             <li key={index} className="relative w-full">
