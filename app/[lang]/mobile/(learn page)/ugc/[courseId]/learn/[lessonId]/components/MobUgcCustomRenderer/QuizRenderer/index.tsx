@@ -13,7 +13,7 @@ import {
   FooterButtonText,
   UgcContext
 } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
-import { CustomComponent, QuizType } from '@/components/ComponentRenderer/type';
+import { CustomComponent, CustomType, QUIZ_ITEM_TYPES, QuizType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer } from '@/components/ComponentRenderer';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 interface QuizRendererProps {
@@ -94,6 +94,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   useEffect(() => {
     if (!lesson || !propsQuiz) return;
     const notCompleted: number[] = [];
+    propsQuiz.children = propsQuiz.children.filter((item) => {
+      return QUIZ_ITEM_TYPES.includes(item.type as CustomType);
+    });
     propsQuiz.children.forEach((item, index) => {
       if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
         item.isCompleted = false;
