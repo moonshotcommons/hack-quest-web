@@ -6,7 +6,7 @@ import { MintCertificateModal } from './components/mint-certificate-modal';
 import { UsernameModal } from './components/username-modal';
 import { MyCertificateCard } from './components/my-certificate-card';
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -15,7 +15,6 @@ export default async function DashboardLayout({
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-[1fr_320px] gap-10">
         <div className="flex flex-col">
-          {/* <EcosystemSelect /> */}
           <EcosystemSelectNew />
           <div className="py-8">{children}</div>
         </div>

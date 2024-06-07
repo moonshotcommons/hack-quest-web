@@ -33,10 +33,8 @@ function ProjectSkeleton() {
 }
 
 export function ProjectCard({ course }: { course: CourseDetailType }) {
-  const href =
-    course.type === CourseType.UGC ? `${MenuLink.PRACTICES}/${course.id}` : `${MenuLink.ELECTIVES}/${course.id}`;
   return (
-    <Link href={href}>
+    <Link href={`${MenuLink.PRACTICES}/${course.id}`}>
       <div className="sm:card-hover flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white">
         <div className="relative h-40 w-full">
           {course.image ? (
@@ -86,7 +84,7 @@ export function DashboardProjects() {
 
   const { data, isLoading } = useQuery({
     queryKey: ['myCourses', value],
-    staleTime: Infinity,
+    staleTime: 1000 * 5,
     refetchOnWindowFocus: false,
     queryFn: () =>
       webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({ status: value }),

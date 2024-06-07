@@ -3,43 +3,37 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { deleteCookie, setCookie } from 'cookies-next';
 import { MoveRightIcon } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import webApi from '@/service';
+import { updateActiveEcosystem } from './actions';
 
 export function EcosystemSelectNew() {
   const [open, toggle] = useToggle(false);
+  const router = useRouter();
   const { ecosystemId, lang } = useParams<{ ecosystemId: string; lang: string }>();
 
   const { data } = useQuery({
-    queryKey: ['myEcosystems', lang],
     staleTime: Infinity,
+    queryKey: ['enrolledEcosystems', lang],
     queryFn: () => webApi.ecosystemApi.getMyEcosystems({ lang })
   });
 
   const mutation = useMutation({
-    mutationKey: ['switchEcosystem'],
     mutationFn: (ecosystemId: string | {}) =>
       webApi.ecosystemApi.switchEcosystem(typeof ecosystemId === 'string' ? { ecosystemId } : {})
   });
 
   const selected = data?.find((e) => e.id === ecosystemId);
 
-  function onClick(id: string | {}) {
+  async function onClick(id: string | {}) {
     toggle(false);
-    if (typeof id === 'string') {
-      mutation.mutateAsync(id).then(() => {
-        setCookie('ecosystemId', id);
-      });
-    } else {
-      mutation.mutateAsync({}).then(() => {
-        deleteCookie('ecosystemId');
-      });
-    }
+    mutation.mutate(id);
+    await updateActiveEcosystem(id);
+    router.refresh();
   }
 
   return (
@@ -54,7 +48,7 @@ export function EcosystemSelectNew() {
               <Image src={selected.image} alt={selected?.name} fill />
             </div>
           )}
-          <span className="sm:body-m-bold ml-2 text-neutral-rich-gray">{selected?.name || 'All Ecosystem'}</span>
+          <span className="body-m-bold ml-2 text-neutral-rich-gray">{selected?.name || 'All Ecosystem'}</span>
           <span className="pointer-events-none ml-auto">
             <Image src="/images/ecosystem/arrow-right-left.svg" width={20} height={20} alt="arrow-right-left" />
           </span>
@@ -62,7 +56,7 @@ export function EcosystemSelectNew() {
       </PopoverTrigger>
       <PopoverContent
         sideOffset={0}
-        className="w-full rounded-[10px] border border-neutral-light-gray p-2 shadow-none sm:w-[260px]"
+        className="w-[var(--radix-popper-anchor-width)] rounded-[10px] border border-neutral-light-gray p-2 shadow-none"
       >
         <ul className="flex flex-col gap-2">
           <li>
@@ -72,7 +66,7 @@ export function EcosystemSelectNew() {
                 className="inline-flex w-full items-center rounded-[8px] px-3 py-2 outline-none transition-colors hover:bg-neutral-off-white data-[selected=true]:bg-neutral-off-white"
                 onClick={() => onClick({})}
               >
-                <span className="sm:body-m text-neutral-rich-gray">All Ecosystem</span>
+                <span className="body-m text-neutral-rich-gray">All Ecosystem</span>
               </button>
             </Link>
           </li>
@@ -89,7 +83,7 @@ export function EcosystemSelectNew() {
                       <Image src={ecosystem.image} alt={ecosystem.name} fill className="rounded-full" />
                     </div>
                   )}
-                  <span className="sm:body-m ml-2 text-neutral-rich-gray">{ecosystem.name}</span>
+                  <span className="body-m ml-2 text-neutral-rich-gray">{ecosystem.name}</span>
                 </button>
               </Link>
             </li>
@@ -100,7 +94,7 @@ export function EcosystemSelectNew() {
                 data-selected={false}
                 className="inline-flex w-full items-center rounded-[8px] px-3 py-2 outline-none transition-colors hover:bg-neutral-off-white data-[selected=true]:bg-neutral-off-white"
               >
-                <span className="sm:body-m mr-2 text-neutral-rich-gray">Explore More</span>
+                <span className="body-m mr-2 text-neutral-rich-gray">Explore More</span>
                 <MoveRightIcon className="h-4 w-4 text-neutral-rich-gray" />
               </button>
             </Link>

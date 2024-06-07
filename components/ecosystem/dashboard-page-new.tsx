@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { DashboardCourses } from './dashboard-courses';
 import { DashboardProjects } from './dashboard-projects';
 import { DashboardEcosystem } from './dashboard-ecosystem';
@@ -10,12 +11,12 @@ export default async function Page() {
   const ecosystemId = cookieStore.get('ecosystemId')?.value;
   const courses = await getMyCoursesCached({ status: 'inProcess' });
 
-  // if (ecosystemId) {
-  //   redirect(`/dashboard/${ecosystemId}`);
-  // }
+  if (ecosystemId) {
+    redirect(`/dashboard/${ecosystemId}`);
+  }
 
   return (
-    <>
+    <React.Suspense fallback={null}>
       {courses?.total > 0 ? (
         <div className="flex flex-col sm:gap-8">
           <DashboardCourses />
@@ -24,6 +25,6 @@ export default async function Page() {
       ) : (
         <DashboardEcosystem />
       )}
-    </>
+    </React.Suspense>
   );
 }

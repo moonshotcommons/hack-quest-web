@@ -74,6 +74,15 @@ class EcosystemApi {
       }
     });
   }
+
+  getEcosystemLevels(ecosystemId: string, params: object, token: string) {
+    return this.service.get<LevelType[]>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels`, {
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 }
 
 export default EcosystemApi;

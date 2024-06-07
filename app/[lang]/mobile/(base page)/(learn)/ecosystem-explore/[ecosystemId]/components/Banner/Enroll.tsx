@@ -12,6 +12,8 @@ import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
+import { useQueryClient } from '@tanstack/react-query';
+import { updateActiveEcosystem } from '@/components/ecosystem/actions';
 
 interface EnrollProp {
   lang: Lang;
@@ -19,6 +21,7 @@ interface EnrollProp {
 }
 
 const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
+  const queryClient = useQueryClient();
   const { t } = useTranslation(lang, TransNs.LEARN);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -39,6 +42,8 @@ const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
       })
       .then(() => {
         message.success('success');
+        queryClient.invalidateQueries({ queryKey: ['enrolledEcosystems'] });
+        updateActiveEcosystem(ecosystem.info?.id);
         setOpen(false);
         setTimeout(() => {
           redirectToUrl(MenuLink.SYSTEM);

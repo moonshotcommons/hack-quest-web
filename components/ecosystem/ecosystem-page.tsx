@@ -1,17 +1,16 @@
-import { cookies } from 'next/headers';
-import webApi from '@/service';
+import * as React from 'react';
+import { getEcosystemCached, getLevelsCached } from '@/service/cach/ecosystems';
 import { EcosystemContent } from './ecosystem-content';
 import { CertificationInfo } from './certification-info';
 
 export default async function Page({ params }: { params: { ecosystemId: string; lang: string } }) {
-  const token = cookies().get('token')?.value || '';
-  const ecosystem = await webApi.ecosystemApi.getEcosystemsDetailById(params.ecosystemId, { lang: params.lang }, token);
-  const levels = await webApi.ecosystemApi.getLevels(params.ecosystemId, token);
+  const ecosystem = await getEcosystemCached(params);
+  const levels = await getLevelsCached(params);
 
   return (
-    <>
+    <React.Suspense fallback={null}>
       <CertificationInfo ecosystem={ecosystem} levels={levels} />
       <EcosystemContent />
-    </>
+    </React.Suspense>
   );
 }

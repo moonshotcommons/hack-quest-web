@@ -10,43 +10,13 @@ import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
 import { useMintCertification } from '@/hooks/useMintCertification';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
-
-function ClaimCertificateForm() {
-  const [name, setName] = React.useState('');
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-  }
-
-  return (
-    <div className="mt-6">
-      <form className="flex w-full flex-col" onSubmit={handleSubmit}>
-        <label htmlFor="name" className="text-neutral-rich-gray">
-          Enter Your Name to Claim Certificate
-        </label>
-        <input
-          id="name"
-          type="text"
-          className="my-1 w-full rounded-[0.5rem] p-3 text-base text-neutral-black outline-none ring-1 ring-neutral-light-gray"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <p className="mb-6 text-sm text-neutral-medium-gray">
-          Once you claim the certificate, you’ll not be able to change your name
-        </p>
-        <button
-          disabled={!name}
-          type="submit"
-          className="mx-auto h-12 w-64 rounded-full bg-yellow-primary text-sm font-medium uppercase text-neutral-black outline-none disabled:bg-neutral-light-gray disabled:text-neutral-medium-gray"
-        >
-          continue
-        </button>
-      </form>
-    </div>
-  );
-}
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export function MintCertificateModal() {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const router = useRouter();
   const { safeMintAsync } = useMintCertification();
   const { open, type, data, onClose } = useCertificateModal();
@@ -55,10 +25,9 @@ export function MintCertificateModal() {
 
   const canMint = data?.label?.toLowerCase()?.includes('mantle') && !data?.certification?.mint;
 
-  const ecosystemName = data?.label?.split(' ')?.[1];
+  const ecosystemName = lang === 'en' ? data?.label?.split(' ')?.[1] : data?.label?.split(' ')?.[0];
 
   const mutation = useMutation({
-    mutationKey: ['mintCertificate'],
     mutationFn: () =>
       safeMintAsync({
         sourceType: 'Certification',
@@ -80,13 +49,14 @@ export function MintCertificateModal() {
           </button>
           <div className="mx-auto flex items-center gap-2">
             <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
-            <h1 className="text-2xl font-bold text-neutral-off-black">Congratulations! You’re a {data?.label}</h1>
+            <h1 className="text-2xl font-bold text-neutral-off-black">
+              {t('modal.mint.title', { name: ecosystemName })}
+            </h1>
           </div>
           <p className="mt-3 text-center text-sm text-neutral-medium-gray">
-            You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your
-            expertise.
+            {t('modal.mint.description', { name: ecosystemName })}
           </p>
-          <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem]">
+          <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem] shadow-idea-card">
             <Image src={data?.certification?.image} fill alt={data?.label} />
           </div>
           {!canMint && (
@@ -109,7 +79,7 @@ export function MintCertificateModal() {
             )}
             <Link href="/user/profile">
               <Button ghost size="small" className="h-12 w-64 text-sm font-medium uppercase">
-                View Profile
+                {t('modal.mint.view_profile')}
               </Button>
             </Link>
           </div>
