@@ -9,7 +9,6 @@ interface FaucetCardProp {
 }
 
 const FaucetCard: React.FC<FaucetCardProp> = ({ faucet }) => {
-  console.info(faucet);
   return (
     <Link
       href={`${MenuLink.FAUCETS}/${faucet.chainId}`}
