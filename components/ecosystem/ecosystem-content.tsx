@@ -30,7 +30,7 @@ export function EcosystemContent() {
 
   const { isLoading, data } = useQuery({
     enabled: !!ecosystemId,
-    staleTime: Infinity,
+    staleTime: 1000 * 5,
     queryKey: ['ecosystemTasks', ecosystemId, lang],
     queryFn: () => webApi.ecosystemApi.getEcosystemTasks(ecosystemId, { lang })
   });

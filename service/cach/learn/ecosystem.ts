@@ -7,3 +7,8 @@ export const getEcosystemById = cache(function (id: string, params: object): Pro
   const token = cookies().get('token')?.value || '';
   return webApi.ecosystemApi.getEcosystemsDetailById(id as string, params, token as string);
 });
+
+export const getActiveEcosystemCached = cache(async () => {
+  const token = cookies().get('token')?.value || '';
+  return webApi.ecosystemApi.getActiveEcosystem(token);
+});
