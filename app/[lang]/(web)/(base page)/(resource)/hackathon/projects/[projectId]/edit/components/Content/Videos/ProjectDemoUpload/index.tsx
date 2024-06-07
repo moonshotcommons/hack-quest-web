@@ -142,8 +142,8 @@ const ProjectDemoUpload: FC<{ demoVideo?: string; projectId: string; isClose: bo
             const formData = new FormData();
             formData.append('demo', file);
             try {
-              // await webApi.resourceStationApi.submitProject(formData, projectId);
-              // await refreshProjectInfo();
+              await webApi.resourceStationApi.submitProject(formData, projectId);
+              router.refresh();
               onSuccess?.({}, new XMLHttpRequest());
             } catch (err: any) {
               onError?.(err);

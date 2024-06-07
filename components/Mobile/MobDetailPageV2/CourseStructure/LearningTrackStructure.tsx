@@ -2,7 +2,7 @@ import { FC } from 'react';
 import IconTextTag from '../CourseTag/IconTextTag';
 import { IconTextTagType } from '../CourseTag/IconTextTag/constant';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import { Lang } from '@/i18n/config';
+import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 
 interface CourseStructureProps {
@@ -11,7 +11,7 @@ interface CourseStructureProps {
 }
 
 const CourseStructure: FC<CourseStructureProps> = async ({ detail, lang }) => {
-  const { t } = await useTranslation(lang);
+  const { t } = await useTranslation(lang, TransNs.LEARN);
   return (
     <div className="flex flex-col gap-8">
       <div className="flex h-fit items-center gap-2">

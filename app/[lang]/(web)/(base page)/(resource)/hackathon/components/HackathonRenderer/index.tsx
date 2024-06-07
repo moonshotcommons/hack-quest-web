@@ -11,7 +11,7 @@ interface HackathonRendererProp {
 const HackathonRenderer: React.FC<HackathonRendererProp> = ({ content }) => {
   return (
     <div className="w-full">
-      <ComponentRendererProvider type={PageType.BLOG} CustomComponentRenderer={HackathonCustomRenderer}>
+      <ComponentRendererProvider type={PageType.HACKATHON} CustomComponentRenderer={HackathonCustomRenderer}>
         {content?.map((component: CustomComponent, index: number) => {
           const prevComponent = index === 0 ? null : content[index - 1];
           const nextComponent = index === content.length - 1 ? null : content[index + 1];

@@ -54,8 +54,8 @@ const ProjectForm: FC<
       debugger;
       const formData = new FormData();
       const { efrog, croak, submitType } = values;
-      efrog ?? formData.append('efrog', efrog ? 'true' : 'false');
-      croak ?? formData.append('croak', croak ? 'true' : 'false');
+      ![null, undefined].includes(efrog as any) && formData.append('efrog', efrog ? 'true' : 'false');
+      ![null, undefined].includes(croak as any) && formData.append('croak', croak ? 'true' : 'false');
       submitType && formData.append('submitType', submitType || '');
       formData.append('status', isExit ? ProjectSubmitStepType.PROJECT : newStatus!);
 
