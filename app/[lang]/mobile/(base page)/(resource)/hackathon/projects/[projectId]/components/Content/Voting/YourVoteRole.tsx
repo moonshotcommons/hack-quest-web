@@ -6,7 +6,7 @@ import React, { useContext, useMemo } from 'react';
 import RoleUserIcon from '@/components/Common/Icon/RoleUser';
 import RoleAdvocateIcon from '@/components/Common/Icon/RoleAdvocate';
 import RoleJugleIcon from '@/components/Common/Icon/RoleJugle';
-import { decimalCount } from '@/helper/utils';
+import { decimalCountPercent } from '@/helper/utils';
 
 interface YourVoteRoleProp {
   project: ProjectType;
@@ -24,9 +24,9 @@ const YourVoteRole: React.FC<YourVoteRoleProp> = ({ project, hackathon }) => {
     };
     const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
     return {
-      [HackathonTypeVotesRoleType.USER]: decimalCount(vote[HackathonTypeVotesRoleType.USER] / total, 2),
-      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCount(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
-      [HackathonTypeVotesRoleType.JUDGE]: decimalCount(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
+      [HackathonTypeVotesRoleType.USER]: decimalCountPercent(vote[HackathonTypeVotesRoleType.USER] / total, 2),
+      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCountPercent(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
+      [HackathonTypeVotesRoleType.JUDGE]: decimalCountPercent(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
     };
   }, [hackathon]);
   return (
