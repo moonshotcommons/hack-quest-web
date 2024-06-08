@@ -50,16 +50,16 @@ function CourseSkeleton() {
   );
 }
 
-function CourseEmpty({ label }: { label?: string }) {
+function CourseEmpty({ label }: { label: string }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">
-        <h2 className="text-base font-bold text-neutral-black sm:text-lg">
-          {label || 'You’re not enrolled in any course'}
-        </h2>
+        <h2 className="text-base font-bold text-neutral-black sm:text-lg">{label}</h2>
         <Link href="/electives">
           <Button size="small" ghost className="h-8 w-[8.75rem] uppercase">
-            Explore
+            {t('explore')}
           </Button>
         </Link>
       </div>
@@ -158,7 +158,11 @@ export function DashboardCourses() {
             data.map((item) => <CourseCard type="course" key={item.id} course={item} />)
           ) : (
             <CourseEmpty
-              label={value === 'inProcess' ? 'You’re not enrolled in any course' : 'You don’t have a completed course'}
+              label={
+                value === 'inProcess'
+                  ? t('enrolled_empty', { name: t('course') })
+                  : t('completed_empty', { name: t('course') })
+              }
             />
           ))}
       </div>

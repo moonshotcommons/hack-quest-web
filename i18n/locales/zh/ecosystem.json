@@ -28,5 +28,10 @@
       "description": "您已在 Web3 学习中达到重要里程碑！颁发证书以证明您的专业知识。",
       "view_profile": "查看个人资料"
     }
-  }
+  },
+  "course": "课程",
+  "project": "项目",
+  "explore": "探索",
+  "completed_empty": "您还没有完成任何{{name}}",
+  "enrolled_empty": "您还没有加入任何{{name}}"
 }

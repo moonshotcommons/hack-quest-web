@@ -14,10 +14,10 @@ import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { CourseDetailType } from '@/service/webApi/course/type';
 import { getCoverImageByTrack } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
-import { LineTabs } from './line-tabs';
-import { useLang } from '../Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { LineTabs } from './line-tabs';
+import { useLang } from '../Provider/Lang';
 
 function ProjectSkeleton() {
   return (
@@ -60,16 +60,16 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
   );
 }
 
-export function ProjectEmpty({ label }: { label?: string }) {
+export function ProjectEmpty({ label }: { label: string }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">
-        <h2 className="text-base font-bold text-neutral-black sm:text-lg">
-          {label || 'You’re not enrolled in any project'}
-        </h2>
+        <h2 className="text-base font-bold text-neutral-black sm:text-lg">{label}</h2>
         <Link href="/practices">
           <Button size="small" ghost className="h-8 w-[8.75rem] uppercase">
-            Explore
+            {t('explore')}
           </Button>
         </Link>
       </div>
@@ -119,7 +119,9 @@ export function DashboardProjects() {
           ) : (
             <ProjectEmpty
               label={
-                value === 'inProcess' ? 'You’re not enrolled in any project' : 'You don’t have a completed project'
+                value === 'inProcess'
+                  ? t('enrolled_empty', { name: t('project') })
+                  : t('completed_empty', { name: t('project') })
               }
             />
           ))}

@@ -13,7 +13,6 @@ import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
 import { useQueryClient } from '@tanstack/react-query';
-import { updateActiveEcosystem } from '@/components/ecosystem/actions';
 
 interface EnrollProp {
   lang: Lang;
@@ -43,10 +42,9 @@ const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
       .then(() => {
         message.success('success');
         queryClient.invalidateQueries({ queryKey: ['enrolledEcosystems'] });
-        updateActiveEcosystem(ecosystem.info?.id);
         setOpen(false);
         setTimeout(() => {
-          redirectToUrl(MenuLink.SYSTEM);
+          redirectToUrl(`${MenuLink.DASHBOARD}/${ecosystem.info?.id}`);
         }, 1000);
       })
       .catch((err) => {
