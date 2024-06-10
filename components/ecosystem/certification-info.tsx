@@ -14,7 +14,7 @@ import { useLang } from '../Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 
-const label = ['Lv1. Learner', 'Lv2. Builder'];
+const label = ['learner', 'builder'];
 
 export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemDetailType; levels: LevelType[] }) {
   const { lang } = useLang();
@@ -93,13 +93,13 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
                 })}
               >
                 <div
-                  className="relative h-[78px] w-[139px] cursor-pointer overflow-hidden rounded-[8px] sm:h-[100px] sm:w-[178px]"
+                  className="relative h-[78px] w-[139px] cursor-pointer overflow-hidden rounded-[8px] shadow-idea-card sm:h-[100px] sm:w-[178px]"
                   onClick={() => onClickCertificate(level)}
                 >
                   <Image src={level?.certification.image} alt={level?.label} fill />
                 </div>
                 <span className="sm:body-s-bold body-xs-bold flex items-center gap-1">
-                  {label[index]}{' '}
+                  Lv{level.level}. {t(label[index])}{' '}
                   {level.certification.claimed && (
                     <CheckIcon className="h-4 w-4 text-status-success-dark sm:h-5 sm:w-5" />
                   )}
@@ -112,7 +112,7 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
       )}
       {!hasNextLevel && (
         <div
-          className="relative order-1 mt-5 h-48 w-full cursor-pointer overflow-hidden rounded-[0.5rem] sm:order-2 sm:mt-0 sm:h-[6.25rem] sm:w-[11.125rem]"
+          className="relative order-1 mt-5 h-48 w-full cursor-pointer overflow-hidden rounded-[0.5rem] shadow-idea-card sm:order-2 sm:mt-0 sm:h-[6.25rem] sm:w-[11.125rem]"
           onClick={() => onClickCertificate(currentCertificate)}
         >
           <Image src={levels?.[0]?.certification?.image} fill alt={levels?.[0]?.label} />

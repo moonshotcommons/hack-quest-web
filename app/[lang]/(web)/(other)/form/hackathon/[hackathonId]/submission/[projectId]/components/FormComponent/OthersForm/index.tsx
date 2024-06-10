@@ -53,7 +53,7 @@ const OthersForm: FC<
       debugger;
       const formData = new FormData();
       const { githubLink, isPublic } = values;
-      isPublic ?? formData.append('isOpenSource', isPublic ? 'true' : 'false');
+      ![null, undefined].includes(isPublic as any) && formData.append('isOpenSource', isPublic ? 'true' : 'false');
       githubLink && formData.append('githubLink', githubLink || '');
       formData.append('status', isExit ? ProjectSubmitStepType.OTHERS : newStatus!);
 

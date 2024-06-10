@@ -39,6 +39,8 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
         return cn('body-s my-2', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.UGC:
         return cn('body-l my-2', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
+      case PageType.HACKATHON:
+        return cn('body-l my-2 [&>div]:w-[15rem]', HEADING_TYPES.includes(nextComponent?.type as any) ? 'mb-0' : '');
       case PageType.MINI:
       case PageType.GLOSSARY:
       case PageType.BLOG:
@@ -51,7 +53,7 @@ const ImageRenderer: FC<ImageRendererProps> = (props) => {
   return (
     <div
       className={cn(
-        'inline-block w-full [&>div]:w-full',
+        'flex w-full justify-center [&>div]:w-full',
         isMobile ? getMobileClassName() : getWebClassName(),
         nextComponent === null ? 'mb-0' : '',
         prevComponent === null ? 'mt-0' : ''

@@ -16,8 +16,12 @@ class EcosystemApi {
     return this.service.get<EcosystemType[]>(EcosystemApiType.ECOSYSTEMS, { params });
   }
 
-  getActiveEcosystem() {
-    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`);
+  getActiveEcosystem(token?: string) {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/active`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 
   getMyEcosystems(params?: object) {
@@ -65,6 +69,15 @@ class EcosystemApi {
 
   getLevels(ecosystemId: string, token: string) {
     return this.service.get<LevelType[]>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getEcosystemLevels(ecosystemId: string, params: object, token: string) {
+    return this.service.get<LevelType[]>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels`, {
+      params,
       headers: {
         Authorization: `Bearer ${token}`
       }

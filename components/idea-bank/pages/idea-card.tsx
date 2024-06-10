@@ -18,7 +18,7 @@ export function IdeaCard(props: Idea) {
           <Badge>{props.ecosystem?.name ? props.ecosystem?.name?.split(' ')[0] : 'All'}</Badge>
           <Badge>{props.track}</Badge>
         </div>
-        <h2 className="body-s sm:headline-h4 mt-4 font-bold text-neutral-off-black">{props.name}</h2>
+        <h2 className="body-s sm:headline-h4 mt-4 line-clamp-1 font-bold text-neutral-off-black">{props.name}</h2>
         <p className="body-xs sm:body-s mt-3 line-clamp-2 text-neutral-rich-gray">{props.solution}</p>
         <UpvoteButton
           disabled={isPending}

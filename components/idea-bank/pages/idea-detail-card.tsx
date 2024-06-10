@@ -11,8 +11,10 @@ import { useUpvoteIdea } from '../submit/store';
 export function IdeaDetailCard(props: Idea) {
   const { upvoteIdea, isPending } = useUpvoteIdea(props);
   return (
-    <div className="flex flex-col gap-5 sm:w-[32rem] sm:self-start sm:rounded-2xl sm:border sm:border-neutral-light-gray sm:bg-neutral-white sm:p-6">
-      <h2 className="font-next-book-bold text-lg font-bold text-neutral-off-black sm:text-[1.75rem]">{props.name}</h2>
+    <div className="flex flex-col gap-5 sm:sticky sm:top-[82px] sm:w-[32rem] sm:self-start sm:rounded-2xl sm:border sm:border-neutral-light-gray sm:bg-neutral-white sm:p-6">
+      <h2 className="font-next-book-bold text-lg font-bold text-neutral-off-black sm:text-[1.75rem] sm:leading-10">
+        {props.name}
+      </h2>
       <div className="flex w-full flex-col gap-2">
         <div className="sm:body-m body-s grid grid-cols-2">
           <span className="text-neutral-medium-gray">Idea Provided by</span>

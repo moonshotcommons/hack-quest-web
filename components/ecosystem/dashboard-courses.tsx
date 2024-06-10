@@ -129,8 +129,8 @@ export function DashboardCourses() {
   const [value, setValue] = React.useState('inProcess');
 
   const { data, isLoading } = useQuery({
+    staleTime: 1000 * 5,
     queryKey: ['myCourses', value],
-    staleTime: Infinity,
     queryFn: () =>
       webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({ status: value }),
     select: ({ data }) => {

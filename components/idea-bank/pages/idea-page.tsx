@@ -21,11 +21,11 @@ export default async function Page({ params }: PageProps) {
     <div className="container mx-auto px-5 pb-10 pt-5 sm:px-0 sm:pb-10 sm:pt-5">
       <nav aria-label="breadcrumb">
         <ol className="body-s flex items-center gap-2 text-neutral-off-black">
-          <li>
+          <li className="whitespace-nowrap">
             <Link href="/idea-bank">{t('title')}</Link>
           </li>
           <li>/</li>
-          <li className="underline">{idea.name}</li>
+          <li className="truncate underline">{idea.name}</li>
         </ol>
       </nav>
       <div className="mt-5 flex flex-col-reverse sm:mt-10 sm:flex-row sm:gap-10">

@@ -9,7 +9,7 @@ import { MdArrowDropDown } from 'react-icons/md';
 import { PlaygroundContext } from '@/components/Web/LessonPage/Playground/type';
 import QuizDropdown from './QuizDropdwon';
 import QuizPassModal from './QuizPassModal';
-import { QuizType } from '@/components/ComponentRenderer/type';
+import { CustomType, QUIZ_ITEM_TYPES, QuizType } from '@/components/ComponentRenderer/type';
 import { ComponentRenderer } from '@/components/ComponentRenderer';
 import { useUpdateHelperParams } from '@/hooks/utils/useUpdateHelperParams';
 import AITriggerButton from '@/components/Web/AI/AITriggerButton';
@@ -93,6 +93,9 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
 
   useEffect(() => {
     const notCompleted: number[] = [];
+    propsQuiz.children = propsQuiz.children.filter((item) => {
+      return QUIZ_ITEM_TYPES.includes(item.type as CustomType);
+    });
     propsQuiz.children.forEach((item, index) => {
       if (!lesson.completedQuiz && !Array.isArray(lesson.completedQuiz)) {
         item.isCompleted = false;
