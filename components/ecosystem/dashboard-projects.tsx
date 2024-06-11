@@ -33,6 +33,8 @@ function ProjectSkeleton() {
 }
 
 export function ProjectCard({ course }: { course: CourseDetailType }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   return (
     <Link href={`${MenuLink.PRACTICES}/${course.id}`}>
       <div className="sm:card-hover flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white">
@@ -52,7 +54,7 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
             <ProgressLabel>{Math.floor((course.progress || 0) * 100)}%</ProgressLabel>
           </Progress>
           <Button ghost={course.progress === 1} type="primary" className="h-12 w-full uppercase">
-            {course.progress === 1 ? 'Completed' : 'Continue'}
+            {course.progress === 1 ? t('completed') : t('continue')}
           </Button>
         </div>
       </div>

@@ -68,6 +68,9 @@ function CourseEmpty({ label }: { label: string }) {
 }
 
 export function CourseCard({ type, course }: { type: 'course' | 'learningTrack'; course: CourseDetailType }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
+
   const href =
     type === 'course'
       ? CourseType.UGC
@@ -114,7 +117,7 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
               type="primary"
               className="h-[3.1875rem] w-full uppercase sm:h-12 sm:w-[10.25rem]"
             >
-              {course.progress === 1 ? 'Completed' : 'Continue'}
+              {course.progress === 1 ? t('completed') : t('continue')}
             </Button>
           </div>
         </div>

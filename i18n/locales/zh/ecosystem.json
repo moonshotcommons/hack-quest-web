@@ -33,5 +33,6 @@
   "project": "项目",
   "explore": "探索",
   "completed_empty": "您还没有完成任何{{name}}",
-  "enrolled_empty": "您还没有加入任何{{name}}"
+  "enrolled_empty": "您还没有加入任何{{name}}",
+  "continue": "继续"
 }
