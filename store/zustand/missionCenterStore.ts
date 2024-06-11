@@ -5,8 +5,8 @@ import {
   UserCoinType,
   UserLevelType,
   BeginnerRewardsType,
-  UserTreasuresType,
-  MissionStatus
+  MissionStatus,
+  UserLevelRankResponseType
 } from '@/service/webApi/missionCenter/type';
 
 export interface MissionDataStateType {
@@ -25,12 +25,14 @@ export interface MissionDataStateType {
 interface MissionCenterStateType {
   userLevel: UserLevelType;
   userCoin: UserCoinType;
-  userTreasure: UserTreasuresType[];
+  // userTreasure: UserTreasuresType[];
   missionData: MissionDataStateType;
   setUserLevel: (payload: UserLevelType) => void;
   setUserCoin: (payload: UserCoinType) => void;
-  setUserTreasure: (payload: UserTreasuresType[]) => void;
+  // setUserTreasure: (payload: UserTreasuresType[]) => void;
   setMissionData: (payload: MissionDataType[]) => void;
+  rankInfo: UserLevelRankResponseType;
+  setRankInfo: (info: UserLevelRankResponseType) => void;
 }
 
 const filterUnClaim = (missions: MissionDataType[], type: MissionType | BeginnerRewardsType) => {
@@ -68,9 +70,9 @@ export const useMissionCenterStore = create<MissionCenterStateType>()((set) => (
   setUserCoin(payload) {
     set((store) => ({ userCoin: payload }));
   },
-  setUserTreasure(payload) {
-    set((store) => ({ userTreasure: payload }));
-  },
+  // setUserTreasure(payload) {
+  //   set((store) => ({ userTreasure: payload }));
+  // },
   setMissionData(payload) {
     payload?.map((v: MissionDataType) => {
       v.progress.progress = v.progress.progress || [];
@@ -100,5 +102,9 @@ export const useMissionCenterStore = create<MissionCenterStateType>()((set) => (
       unClaimMilestones: filterUnClaim(payload, MissionType.MILESTONES).unClaimData
     };
     set((state) => ({ missionData: missionData }));
+  },
+  rankInfo: {} as UserLevelRankResponseType,
+  setRankInfo(payload) {
+    set((store) => ({ rankInfo: payload }));
   }
 }));

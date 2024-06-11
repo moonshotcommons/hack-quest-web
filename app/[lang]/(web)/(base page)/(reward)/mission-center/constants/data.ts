@@ -48,7 +48,7 @@ export const rewardsCardData: RewardsCardDataType = {
 export const leaderboardTab = [
   {
     label: 'all',
-    value: ''
+    value: 'allTime'
   },
   {
     label: 'month',
@@ -59,3 +59,5 @@ export const leaderboardTab = [
     value: 'day'
   }
 ];
+
+export const weekInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];

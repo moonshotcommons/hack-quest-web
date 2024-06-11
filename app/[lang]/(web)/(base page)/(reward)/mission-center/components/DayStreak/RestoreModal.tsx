@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { Lang, TransNs } from '@/i18n/config';
@@ -8,6 +8,10 @@ import Button from '@/components/Common/Button';
 import Image from 'next/image';
 import FireIconActive from '@/public/images/mission-center/fire_icon_active.png';
 import CoinIcon from '@/public/images/mission-center/coin_icon.png';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
+import { message } from 'antd';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 
 interface RestoreModalProp {
   open: boolean;
@@ -17,7 +21,8 @@ interface RestoreModalProp {
 const RestoreModal: React.FC<RestoreModalProp> = ({ open, onClose }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
-
+  const [loading, setLoading] = useState(false);
+  const { updateMissionData } = useGetMissionData();
   const costTxt = useMemo(() => {
     switch (lang) {
       case Lang.EN:
@@ -39,7 +44,22 @@ const RestoreModal: React.FC<RestoreModalProp> = ({ open, onClose }) => {
     }
   }, [lang]);
 
-  const handleRestore = () => {};
+  const handleRestore = () => {
+    setLoading(true);
+    webApi.missionCenterApi
+      .restoreStreak()
+      .then(() => {
+        message.success('restore streak success');
+        onClose();
+        updateMissionData();
+      })
+      .catch((err) => {
+        errorMessage(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className="flex w-[640px] flex-col items-center gap-[48px]  rounded-[16px] bg-neutral-white p-[48px]">
@@ -55,6 +75,7 @@ const RestoreModal: React.FC<RestoreModalProp> = ({ open, onClose }) => {
         <div className="flex w-full gap-[12px]">
           <Button
             type="primary"
+            loading={loading}
             className="button-text-m h-[48px] flex-1 flex-shrink-0 uppercase"
             onClick={handleRestore}
           >
