@@ -120,7 +120,6 @@ const AIChatbotModal: FC<AIChatbotModalProps> = ({ pageType }) => {
     : containerElementRef;
 
   useClickAway((event) => {
-    console.log(event);
     chatStatus !== 'chatting' && close();
   }, clickAwayDeps);
 

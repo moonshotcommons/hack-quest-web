@@ -97,8 +97,6 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     });
   }, [answers]);
 
-  console.log(quiz?.options, quiz.answers);
-
   return (
     <div className="flex w-full flex-col rounded-[10px]">
       <div className="mt-[32px] flex flex-col">
