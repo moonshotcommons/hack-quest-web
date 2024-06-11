@@ -17,7 +17,7 @@ const NavBar: React.FC<NavBarProps> = () => {
     redirectToUrl(MenuLink.DASHBOARD);
   };
   return (
-    <nav className="flex h-[64px] w-full items-center px-[1.25rem] text-neutral-white">
+    <nav className="flex h-[64px] w-full items-center px-[1.25rem] text-neutral-off-black">
       <div
         className="flex h-full w-[2.5rem] items-center"
         onClick={() => {

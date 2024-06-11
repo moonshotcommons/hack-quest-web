@@ -31,8 +31,6 @@ const LessonContainer: FC<LessonContainerProps> = (props) => {
 
   if (!lesson) return null;
 
-  console.log(lesson);
-
   return (
     <div className="flex h-full w-[50.5rem] flex-col items-center ">
       <h2 className="text-h2">{lesson.title}</h2>

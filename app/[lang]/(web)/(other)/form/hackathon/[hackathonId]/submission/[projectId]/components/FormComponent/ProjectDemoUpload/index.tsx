@@ -51,7 +51,6 @@ const ProjectDemoUpload: FC<
   };
 
   const beforeUpload = async (file: FileType) => {
-    debugger;
     const isMp4 = file.type === 'video/mp4';
     if (!isMp4) {
       message.error('You can only upload mp4 video!');
@@ -113,7 +112,6 @@ const ProjectDemoUpload: FC<
           ? ProjectSubmitStepType.LINKS
           : status;
 
-      debugger;
       const formData = new FormData();
       formData.append('status', newStatus);
       await webApi.resourceStationApi.submitProject(formData, projectId);

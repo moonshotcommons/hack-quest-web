@@ -30,6 +30,7 @@ const UnitStatusButton: FC<
 
   const query = useSearchParams();
   const learningTrackId = query.get('learningTrackId');
+  const documentationId = query.get('documentationId') || courseDetail?.documentationId || '';
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
@@ -59,7 +60,7 @@ const UnitStatusButton: FC<
         jumpLearningLesson(courseDetail, {
           menu: Menu.LEARNING_TRACK,
           idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
-          ids: [learningTrackId, courseDetail.id, courseDetail.documentationId!]
+          ids: [learningTrackId, courseDetail.id, documentationId]
         });
       }
     }
