@@ -154,8 +154,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     };
   }, [quiz]);
 
-  console.log(quiz);
-
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="scroll-wrap-y flex-1 overflow-auto">

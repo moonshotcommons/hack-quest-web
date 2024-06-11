@@ -7,6 +7,8 @@ import axios, {
   InternalAxiosRequestConfig
 } from 'axios';
 import { RequestConfig, RequestInterceptors } from './webServiceTypes';
+import { TOKEN_KEY, setToken } from '@/helper/user-token';
+import { setCookie } from 'cookies-next';
 
 class WebService {
   instance: AxiosInstance;
@@ -53,6 +55,9 @@ class WebService {
 
   responseInterceptor<T>(res: AxiosResponse<T, T>): Promise<T> {
     // console.log('全局响应拦截器')
+    const token = (res.headers['authorization'] || '')?.replace('Bearer ', '');
+    token && setCookie(TOKEN_KEY, token);
+    token && setToken(token);
     if (res.status === 200) {
       return Promise.resolve(res.data);
     }
