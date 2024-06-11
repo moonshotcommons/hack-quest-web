@@ -59,8 +59,6 @@ const ElectivePage: FC<ElectivePageProps> = async (props) => {
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail<ElectiveCourseDetailType>(courseId, false, true);
 
-  console.log('courseDetail', courseDetail);
-
   return (
     <CourseDetailProvider courseId={courseId} includePages>
       <div className="relative min-h-[100%] w-full bg-neutral-white">
