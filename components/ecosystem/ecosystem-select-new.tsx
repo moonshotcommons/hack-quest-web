@@ -9,6 +9,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import webApi from '@/service';
+import { updateActiveEcosystem } from './actions';
 
 export function EcosystemSelectNew() {
   const [open, toggle] = useToggle(false);
@@ -30,6 +31,7 @@ export function EcosystemSelectNew() {
 
   async function onClick(id: string | {}) {
     toggle(false);
+    await updateActiveEcosystem(id);
     mutation.mutate(id);
     router.refresh();
   }

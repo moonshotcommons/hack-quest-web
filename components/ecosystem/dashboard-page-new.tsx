@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { getMyCoursesCached } from '@/service/cach/learn/courses';
-import { getActiveEcosystemCached } from '@/service/cach/learn/ecosystem';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardCourses } from './dashboard-courses';
 import { DashboardProjects } from './dashboard-projects';
 import { DashboardEcosystem } from './dashboard-ecosystem';
 
-function PageSkeleton() {
+export function PageSkeleton() {
   return (
     <div className="flex w-full flex-col gap-8">
       <Skeleton className="h-40 w-full" />
@@ -16,12 +16,15 @@ function PageSkeleton() {
   );
 }
 
-export default async function Page() {
-  const courses = await getMyCoursesCached({ status: 'inProcess' });
-  const activeEcosystem = await getActiveEcosystemCached();
+export const dynamic = 'force-dynamic';
 
-  if (activeEcosystem?.info) {
-    redirect(`/dashboard/${activeEcosystem.info.id}`);
+export default async function Page() {
+  const cookieStore = cookies();
+  const ecosystemId = cookieStore.get('ecosystemId')?.value;
+  const courses = await getMyCoursesCached({ status: 'inProcess' });
+
+  if (ecosystemId) {
+    redirect(`/dashboard/${ecosystemId}`);
   } else {
     return (
       <React.Suspense fallback={<PageSkeleton />}>
