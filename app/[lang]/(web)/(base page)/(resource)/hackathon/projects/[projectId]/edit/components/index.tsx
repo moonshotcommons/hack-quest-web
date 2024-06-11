@@ -21,8 +21,6 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, hackathon }) => {
   const timeOut = useRef<NodeJS.Timeout | null>(null);
 
   const handleClickAnchor = (index: number) => {
-    debugger;
-
     setCurAnchorIndex(index);
     isOnScoll.current = true;
     boxRef.current?.scrollTo({
