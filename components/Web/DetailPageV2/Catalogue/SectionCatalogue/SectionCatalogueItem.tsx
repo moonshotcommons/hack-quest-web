@@ -28,6 +28,7 @@ const LearningTrackCatalogueItem: FC<LearningTrackCatalogueItemProps> = (props) 
       <SectionWrap title={sectionTitle} sectionIndex={sectionIndex}>
         <ul className="mt-4 flex w-full flex-col gap-2 p-4">
           {section.courses.map((course, index: number) => {
+            if (!course) return null;
             return (
               <li key={index} className={cn(`flex h-[36px] items-center justify-between`)}>
                 <div className="min-w-[6.25rem]">
