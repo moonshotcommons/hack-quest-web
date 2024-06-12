@@ -1,4 +1,5 @@
 {
+  "mission":"信息中心",
   "totalXp": "经验值",
   "totalHackCredits": "金币值",
   "yourtreasures": "待开宝藏",
@@ -37,9 +38,9 @@
   "applyAdvocate":"Apply for Advocate",
   "completeQuests":"Complete {{number}} Quests",
   "goNow":"Go Now",
-  "achievements":"Achievements",
-  "dayStreak":"Day Streak",
-  "missStreak":"Missing a streak?",
+  "achievements":"成就",
+  "dayStreak":"签到",
+  "missStreak":"是否补签?",
   "modalTitle":"Do you want to restore the streak?",
   "modalTxt":"You’re able to restore a lost steak in two days.",
   "will":"This will cost",

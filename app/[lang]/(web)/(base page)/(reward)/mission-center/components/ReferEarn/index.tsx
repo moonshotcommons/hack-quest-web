@@ -26,7 +26,6 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
   const { t } = useTranslation(lang, TransNs.REWARD);
   const userInfo = useUserStore((state) => state.userInfo as LoginResponse);
   const treasureModalRef = useRef<TreasureModalRef>(null);
-  const { updateMissionDataAll } = useGetMissionData();
   const [showShare, setShowShare] = useState(false);
   const [inviteCount, setInviteCount] = useState(0);
   const { dealTreasures } = useGetMissionData();
