@@ -41,12 +41,16 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const openTreasures = async (treasureId: string, digCallback?: VoidFunction) => {
-    setLoading(true);
-    const res = await webApi.missionCenterApi.openTreasures(treasureId);
+  const openTreasures = async (params: openParamType) => {
+    const { treasureId, treasureData, digCallback } = params;
+    let res = treasureData;
+    if (treasureId) {
+      setLoading(true);
+      res = await webApi.missionCenterApi.openTreasures(treasureId);
+    }
     setTreasureContent({
-      treasureCoin: res.coin,
-      treasureExp: res.exp
+      treasureCoin: res?.coin ?? 0,
+      treasureExp: res?.exp ?? 0
     });
     updateMissionDataAll();
     digCallback?.();
@@ -56,15 +60,8 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
 
   useImperativeHandle(ref, () => {
     return {
-      open({ treasureId, treasureData, digCallback }) {
-        if (treasureId) {
-          openTreasures(treasureId, digCallback);
-        } else {
-          setTreasureContent({
-            treasureCoin: treasureData?.coin ?? 0,
-            treasureExp: treasureData?.exp ?? 0
-          });
-        }
+      open(params) {
+        openTreasures(params);
       }
     };
   });

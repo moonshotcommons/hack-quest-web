@@ -30,24 +30,25 @@ const DayStreak: React.FC<DayStreakProp> = ({ link }) => {
   const { t } = useTranslation(lang, TransNs.REWARD);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { dealDayStreak } = useGetMissionData();
+  const { dealDayStreak, updateMissionDataAll } = useGetMissionData();
   const handleClaim = (id: string) => {
     if (loading) return;
     setLoading(true);
     webApi.missionCenterApi
       .missionClaim([id])
-      .then((res) => {
+      .then(async (res) => {
         treasureModalRef.current?.open({
           treasureData: {
             coin: res.coin,
             exp: res.exp
+          },
+          digCallback: () => {
+            setLoading(false);
           }
         });
       })
       .catch(async (error) => {
         message.error(`claim ${error.msg}!`);
-      })
-      .finally(() => {
         setLoading(false);
       });
   };

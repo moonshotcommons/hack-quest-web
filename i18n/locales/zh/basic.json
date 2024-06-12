@@ -212,5 +212,8 @@
   "copy":"复制",
   "share":"分享",
   "collect":"收集",
-  "treasureModalText":"你获得宝藏"
+  "treasureModalText":"你获得宝藏",
+  "FAQs": "常见问题解答",
+  "edit":"编辑",
+  "delete":"删除"
 }
