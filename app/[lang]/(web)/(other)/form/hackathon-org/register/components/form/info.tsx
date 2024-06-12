@@ -44,7 +44,13 @@ const formSchema = z.object({
     .max(360, {
       message: 'Description cannot exceed 360 characters'
     }),
-  conduct: z.string().url().optional().or(z.literal('')),
+  conduct: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
   hackathonMode: z.enum(['hybrid', 'online'], {
     required_error: 'You need to select a hackathon mode'
   })
