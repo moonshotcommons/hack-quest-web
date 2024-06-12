@@ -14,7 +14,7 @@ import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
-import { getCoverImageByTrack } from '@/helper/utils';
+import { cn, getCoverImageByTrack } from '@/helper/utils';
 import { LineTabs } from './line-tabs';
 import MenuLink from '@/constants/MenuLink';
 import { useTranslation } from '@/i18n/client';
@@ -67,7 +67,15 @@ function CourseEmpty({ label }: { label: string }) {
   );
 }
 
-export function CourseCard({ type, course }: { type: 'course' | 'learningTrack'; course: CourseDetailType }) {
+export function CourseCard({
+  type,
+  course,
+  showDescription = true
+}: {
+  type: 'course' | 'learningTrack';
+  course: CourseDetailType;
+  showDescription?: boolean;
+}) {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
 
@@ -80,9 +88,13 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
   return (
     <Link href={href}>
       <div className="flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white transition-all duration-300 sm:flex-row sm:hover:-translate-y-1">
-        <div className="relative h-40 w-full sm:h-[14.5625rem] sm:w-[18rem]">
+        <div
+          className={cn('relative h-40 w-full overflow-hidden sm:h-[14.5625rem] sm:w-[18rem]', {
+            'sm:h-[170px]': !showDescription
+          })}
+        >
           {course.image ? (
-            <Image src={course.image} alt={course.title} fill className="object-cover sm:rounded-l-2xl" />
+            <Image src={course.image} alt={course.title} fill className="object-cover" />
           ) : isMobile ? (
             getCoverImageByTrack(course.track as any)
           ) : (
@@ -95,10 +107,12 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
             />
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-4 px-4 py-5 sm:p-6">
+        <div className="flex flex-1 flex-col gap-4 px-4 py-5 sm:p-5">
           {course.track && <Badge className="self-start">{course.track}</Badge>}
           <h1 className="text-sm font-bold leading-[160%] text-neutral-off-black sm:text-base">{course.title}</h1>
-          <p className="hidden text-sm text-neutral-medium-gray sm:line-clamp-2">{course.description}</p>
+          {showDescription && (
+            <p className="hidden text-sm text-neutral-medium-gray sm:line-clamp-2">{course.description}</p>
+          )}
           <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex w-full flex-1 flex-col gap-2 sm:max-w-xs">
               {course.progress !== 1 && (

@@ -26,7 +26,7 @@ export function LearnSection({ tasks }: { tasks: EcosystemTask[] }) {
             <div className="flex flex-col gap-5 sm:gap-6">
               {task?.courses?.map((course) => <CourseCard type="course" key={course.id} course={course} />)}
               {task?.learningTracks?.map((course) => (
-                <CourseCard type="learningTrack" key={course.id} course={course} />
+                <CourseCard type="learningTrack" showDescription={false} key={course.id} course={course} />
               ))}
             </div>
           </AccordionContent>

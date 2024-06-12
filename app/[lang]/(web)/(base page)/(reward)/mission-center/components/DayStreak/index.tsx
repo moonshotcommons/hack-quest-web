@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
@@ -18,12 +20,14 @@ import TreasureModal, { TreasureModalRef } from '@/components/Web/Business/Treas
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import { cn } from '@/helper/utils';
 
 interface DayStreakProp {
   link?: boolean;
+  className?: string;
 }
 
-const DayStreak: React.FC<DayStreakProp> = ({ link }) => {
+const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
   const missionData = useMissionCenterStore((state) => state.missionData);
   const treasureModalRef = useRef<TreasureModalRef>(null);
   const { lang } = useContext(LangContext);
@@ -55,7 +59,7 @@ const DayStreak: React.FC<DayStreakProp> = ({ link }) => {
     return dealDayStreak(missionData?.dailyBonus || []);
   }, [missionData]);
   return (
-    <div className="flex flex-col gap-[16px] rounded-[24px] bg-yellow-extra-light p-[24px] ">
+    <div className={cn('flex flex-col gap-[16px] rounded-[24px] bg-yellow-extra-light p-[24px]', className)}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[16px]">
           <Image src={dayStreakData.isContinu ? FireIconActive : FireIcon} alt={'fire-icon'} width={36} height={36} />
