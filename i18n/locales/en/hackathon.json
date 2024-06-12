@@ -54,7 +54,19 @@
     "orientation": "Orientation",
     "openZoomMeeting": "Open Zoom meeting",
     "submitWarning": "You are not the team owner, please contact the administrator",
-    "editSubmission": "edit submission"
+    "editSubmission": "edit submission",
+    "cover":"Cover",
+    "judging":"Judging",
+    "application":"Application",
+    "submission":"Submission",
+    "links":"Links",
+    "partners":"Partners",
+    "speakersJudges":"Speakers & Judges",
+    "sponsors":"Sponsors",
+    "info":"Info"
+    
+
+
   },
   "projectsDetail": {
     "title": {
