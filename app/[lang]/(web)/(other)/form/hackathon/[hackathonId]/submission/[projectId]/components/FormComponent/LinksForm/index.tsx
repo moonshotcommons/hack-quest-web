@@ -54,7 +54,6 @@ const OthersForm: FC<
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
           ? ProjectSubmitStepType.OTHERS
           : status;
-      debugger;
       const formData = new FormData();
 
       formData.append('links', JSON.stringify(values));

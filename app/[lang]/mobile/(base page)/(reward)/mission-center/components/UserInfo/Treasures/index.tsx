@@ -3,7 +3,6 @@ import Badge from '@/components/Common/Badge';
 import Image from 'next/image';
 import ChestImg from '@/public/images/mission-center/chest_img.png';
 import { UserTreasuresType } from '@/service/webApi/missionCenter/type';
-import { BurialPoint } from '@/helper/burialPoint';
 import TreasureModal, { TreasureModalRef } from '@/components/Web/Business/TreasureModal';
 import Loading from '@/public/images/other/loading.png';
 
@@ -14,12 +13,12 @@ const Treasures: React.FC<TreasuresProp> = ({ userTreasure }) => {
   const treasureModalRef = useRef<TreasureModalRef>(null);
   const [curId, setCurId] = useState('');
   const openChest = (i: number) => {
-    if (i >= userTreasure.length) return;
-    BurialPoint.track(`mission-center-开宝箱`);
-    setCurId(userTreasure[i].id);
-    treasureModalRef.current?.open(userTreasure[i].id, true, () => {
-      setCurId('');
-    });
+    // if (i >= userTreasure.length) return;
+    // BurialPoint.track(`mission-center-开宝箱`);
+    // setCurId(userTreasure[i].id);
+    // treasureModalRef.current?.open(userTreasure[i].id, true, () => {
+    //   setCurId('');
+    // });
   };
   return (
     <div className="w-full">

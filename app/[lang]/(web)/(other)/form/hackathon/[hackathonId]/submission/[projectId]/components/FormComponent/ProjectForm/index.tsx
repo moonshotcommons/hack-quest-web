@@ -51,7 +51,7 @@ const ProjectForm: FC<
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
           ? ProjectSubmitStepType.PITCH_VIDEO
           : status;
-      debugger;
+
       const formData = new FormData();
       const { efrog, croak, submitType } = values;
       ![null, undefined].includes(efrog as any) && formData.append('efrog', efrog ? 'true' : 'false');

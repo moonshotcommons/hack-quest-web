@@ -50,7 +50,6 @@ const OthersForm: FC<
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 5
           ? ProjectSubmitStepType.WALLET
           : status;
-      debugger;
       const formData = new FormData();
       const { githubLink, isPublic } = values;
       ![null, undefined].includes(isPublic as any) && formData.append('isOpenSource', isPublic ? 'true' : 'false');

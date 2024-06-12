@@ -57,8 +57,6 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
     }
   }, [quiz]);
 
-  console.log(quiz?.options, quiz.answers);
-
   return (
     <div className="flex h-full w-full flex-col justify-between rounded-[10px]">
       <div className="scroll-wrap-y flex-1 overflow-auto">

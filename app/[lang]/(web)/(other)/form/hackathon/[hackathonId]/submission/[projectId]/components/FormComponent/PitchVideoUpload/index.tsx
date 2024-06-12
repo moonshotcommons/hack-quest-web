@@ -52,7 +52,6 @@ const InfoForm: FC<
   };
 
   const beforeUpload = async (file: FileType) => {
-    debugger;
     const isMp4 = file.type === 'video/mp4';
     if (!isMp4) {
       message.error('You can only upload mp4 video!');
@@ -113,7 +112,6 @@ const InfoForm: FC<
         HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
           ? ProjectSubmitStepType.DEMO
           : status;
-      debugger;
 
       const formData = new FormData();
       formData.append('status', newStatus);

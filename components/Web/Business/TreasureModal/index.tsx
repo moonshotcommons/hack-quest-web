@@ -1,14 +1,5 @@
 import React, { forwardRef, useContext, useImperativeHandle, useState } from 'react';
 import Modal from '@/components/Common/Modal';
-import MoonFace from '@/public/images/mission-center/moon_face.png';
-import BannerBg from '@/public/images/landing/banner_bg.png';
-import IconCoin from '@/public/images/mission-center/icon_coin.png';
-import IconXp from '@/public/images/mission-center/icon_xp.png';
-import Pit from '@/public/images/mission-center/pit.png';
-import PitM from '@/public/images/mission-center/pit_m.png';
-import Flag from '@/public/images/mission-center/flag.png';
-import Qmark from '@/public/images/mission-center/q_mark.png';
-import Mperson from '@/public/images/mission-center/m_person.png';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
 import webApi from '@/service';
@@ -17,6 +8,10 @@ import { FiX } from 'react-icons/fi';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import ChestCover from '@/public/images/mission-center/chest_cover.png';
+import CoinIcon from '@/public/images/mission-center/coin_icon.png';
+import XpIcon from '@/public/images/mission-center/xp_icon.png';
+import Loading from '@/components/Common/Loading';
 
 export enum TreasureType {
   DIG = 'dig',
@@ -24,166 +19,87 @@ export enum TreasureType {
 }
 interface TreasureModalProp {}
 
+export interface openParamType {
+  treasureId?: string;
+  treasureData?: {
+    exp: number;
+    coin: number;
+  };
+  digCallback?: VoidFunction;
+}
 export interface TreasureModalRef {
-  open: (treasureId: string, isDig?: boolean, digCallback?: VoidFunction) => void;
+  open: (info: openParamType) => void;
 }
 const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, ref) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
   const [treasureContent, setTreasureContent] = useState({
-    treasureXp: 0,
+    treasureExp: 0,
     treasureCoin: 0
   });
-  const [open, setOpen] = useState(false);
-  const [treasureId, setTreasureId] = useState('');
-  const [type, setType] = useState<TreasureType>(TreasureType.NOT_DIG);
   const { updateMissionDataAll } = useGetMissionData();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const openTreasures = async (treasureId: string, digCallback?: VoidFunction) => {
-    setType(TreasureType.DIG);
+    setLoading(true);
     const res = await webApi.missionCenterApi.openTreasures(treasureId);
     setTreasureContent({
       treasureCoin: res.coin,
-      treasureXp: res.exp
+      treasureExp: res.exp
     });
     updateMissionDataAll();
     digCallback?.();
+    setLoading(false);
     return res;
-  };
-
-  const resetModal = () => {
-    setOpen(false);
-
-    setTimeout(() => {
-      setTreasureId('');
-      setTreasureContent({
-        treasureCoin: 0,
-        treasureXp: 0
-      });
-      setType(TreasureType.NOT_DIG);
-    }, 300);
   };
 
   useImperativeHandle(ref, () => {
     return {
-      open(treasureId: string, isDig = false, digCallback) {
-        setTreasureId(treasureId);
-        setOpen(true);
-        if (isDig) {
+      open({ treasureId, treasureData, digCallback }) {
+        if (treasureId) {
           openTreasures(treasureId, digCallback);
+        } else {
+          setTreasureContent({
+            treasureCoin: treasureData?.coin ?? 0,
+            treasureExp: treasureData?.exp ?? 0
+          });
         }
       }
     };
   });
 
   return (
-    <Modal
-      open={open}
-      onClose={() => resetModal()}
-      showCloseIcon={true}
-      icon={<FiX size={26} color={'#fff'} />}
-      className="min-w-[75vw]"
-    >
-      <div className="flex-center h-[750px] w-full">
-        <div
-          className="flex h-[700px] w-[99%] flex-col  overflow-hidden rounded-[10px] text-neutral-white"
-          style={{
-            boxShadow: `0 0 10px #3e3e3e`
-          }}
-        >
-          <div
-            className="flex-col-center w-full flex-1 justify-center pb-[20px]"
-            style={{
-              background: `url(${BannerBg.src}) center  / 100% auto`
-            }}
-          >
-            {type === TreasureType.NOT_DIG && (
-              <>
-                <p className="body-xl-bold mb-[43px] tracking-[0.48px]">{t('youFoundSomethingHidden')}</p>
-                <Button
-                  onClick={() => {
-                    openTreasures(treasureId);
-                  }}
-                  className={`body-l mb-[25px]  h-[55px] w-[400px] border-auth-primary-button-border-color
-                      bg-auth-primary-button-bg p-0 uppercase
-                      text-neutral-black
-                      hover:border-auth-primary-button-border-hover-color  hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color `}
-                >
-                  {t('digTreasures')}
-                </Button>
-                <Button
-                  className={`body-l h-[55px]  w-[400px] border border-neutral-white
-                      p-0 uppercase text-neutral-white  `}
-                  onClick={() => resetModal()}
-                >
-                  {t('checkLater')}
-                </Button>
-              </>
-            )}
-            {type === TreasureType.DIG && (
-              <>
-                <p className="body-xl-bold  tracking-[0.48px]">{t('theTreasuresYouGotAre')}</p>
-                <div className="my-[30px] flex justify-center gap-[30px]">
-                  <div>
-                    <Image src={IconCoin} width={60} alt="iconCredits" />
-                    <p className="flex-center mt-[10px] h-[30px] w-[60px] rounded-[20px] bg-neutral-rich-gray">
-                      {treasureContent.treasureCoin}
-                    </p>
+    <Modal open={open} onClose={() => setOpen(false)} showCloseIcon={true} icon={<FiX size={26} color={'#000'} />}>
+      <Loading loading={loading}>
+        <div className="flex min-h-[23.375rem] w-[40rem] flex-col items-center gap-[3rem] rounded-[1rem] bg-yellow-extra-light p-[3rem] wap:w-[90vw]">
+          {!loading && (
+            <>
+              <Image src={ChestCover} alt={'chest-cover'} width={64} height={51} />
+              <div className="flex flex-col items-center gap-[1rem]">
+                <p className="body-xl-bold text-neutral-rich-gray">{t('treasureModalText')}</p>
+                <div className="body-m-bold flex items-center gap-[2rem] text-neutral-off-black">
+                  <div className="flex items-center gap-[.75rem]">
+                    <Image src={CoinIcon} alt={'coin-icon'} width={32} height={32} />
+                    <span>x {treasureContent.treasureCoin}</span>
                   </div>
-                  <div>
-                    <Image src={IconXp} width={60} alt="iconXp" />
-                    <p className="flex-center mt-[10px] h-[30px] w-[60px] rounded-[20px] bg-neutral-rich-gray">
-                      {treasureContent.treasureXp}
-                    </p>
+                  <div className="flex items-center gap-[12px]">
+                    <Image src={XpIcon} alt={'coin-icon'} width={32} height={32} />
+                    <span>x {treasureContent.treasureExp}</span>
                   </div>
                 </div>
-                <Button
-                  className={`body-l h-[55px]  w-[400px] border
-                      border-neutral-white p-0 uppercase text-neutral-white `}
-                  onClick={() => resetModal()}
-                >
-                  {t('continue')}
-                </Button>
-              </>
-            )}
-          </div>
-          <div
-            className="flex-center relative h-[154px] w-full"
-            style={{
-              backgroundImage: `url(${MoonFace.src})`,
-              backgroundPosition: `0 bottom`,
-              backgroundSize: `100% 154px`,
-              backgroundRepeat: 'repeat-x'
-            }}
-          >
-            {type === TreasureType.NOT_DIG && <Image src={PitM} width={293} alt="pit" />}
-            {type === TreasureType.DIG && (
-              <>
-                <Image src={Pit} width={293} alt="pit" />
-                <Image src={Flag} width={80} alt="flag" className="absolute left-[calc(50%-80px)] top-[-35px]" />
-              </>
-            )}
-            <div className="absolute left-[calc(50%+66px)] top-[-166px]">
-              <Image src={Mperson} width={190} alt="Mperson" className="" />
-              {type === TreasureType.DIG && (
-                <div className="absolute right-[-35px] top-[25px]">
-                  <div className="flex-row-center gap-[8px]">
-                    <Image src={IconCoin} width={20} alt="iconCredits" className="" />
-                    <span className="body-m">{`X${treasureContent.treasureCoin}`}</span>
-                  </div>
-                  <div className="flex-row-center mt-[10px] gap-[8px]">
-                    <Image src={IconXp} width={20} alt="iconXp" className="" />
-                    <span className="body-m">{`X${treasureContent.treasureXp}`}</span>
-                  </div>
-                </div>
-              )}
-              {type === TreasureType.NOT_DIG && (
-                <Image src={Qmark} width={50} alt="flag" className="absolute right-[10px] top-[12px]" />
-              )}
-            </div>
-          </div>
+              </div>
+              <Button
+                type="primary"
+                className="button-text-m h-[3rem] w-[266px] uppercase"
+                onClick={() => setOpen(false)}
+              >
+                {t('collect')}
+              </Button>
+            </>
+          )}
         </div>
-      </div>
+      </Loading>
     </Modal>
   );
 });
