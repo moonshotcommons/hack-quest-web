@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-
 import { cn } from '@/helper/utils';
+import { Flashing } from './loader';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center p-4 text-neutral-black disabled:text-neutral-medium-gray whitespace-nowrap rounded-full font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none',
+  'inline-flex items-center justify-center p-4 text-neutral-black disabled:text-neutral-medium-gray whitespace-nowrap rounded-full font-medium transition-all duration-300 focus-visible:outline-none disabled:cursor-not-allowed uppercase enabled:hover:scale-105',
   {
     variants: {
       variant: {
@@ -30,13 +30,23 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  // isLoding?: boolean;
+  isLoading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, children, variant, size, asChild = false, isLoading = false, disabled, ...props }, ref) => {
     const Component = asChild ? Slot : 'button';
-    return <Component className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+    return (
+      <Component
+        disabled={disabled || isLoading}
+        aria-disabled={disabled || isLoading}
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      >
+        {isLoading ? <Flashing rootClassName="gap-1.5" /> : children}
+      </Component>
+    );
   }
 );
 

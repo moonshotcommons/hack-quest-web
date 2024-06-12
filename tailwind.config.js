@@ -85,11 +85,17 @@ module.exports = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        flashing: {
+          '0%': { opacity: '0.2' },
+          '20%': { opacity: '1' },
+          '100%': { opacity: '0.2' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.3s ease-out',
-        'accordion-up': 'accordion-up 0.3s ease-out'
+        'accordion-up': 'accordion-up 0.3s ease-out',
+        flashing: 'flashing 1.4s infinite linear'
       },
       boxShadow: {
         modal: '0px 4px 8px 0px rgba(0, 0, 0, 0.12)',
