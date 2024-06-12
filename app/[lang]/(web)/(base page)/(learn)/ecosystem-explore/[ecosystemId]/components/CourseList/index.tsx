@@ -24,13 +24,13 @@ const CourseList: React.FC<CourseListProp> = ({ list }) => {
         <div className="flex w-full flex-col gap-[32px]" key={task.taskId}>
           <Title title={task.name} description={task.description} />
           <div className="flex w-full gap-[20px]">
-            {task.courses?.slice(0, 4)?.map((course) => (
-              <div key={course.id} className="w-[calc((100%-60px)/4)]">
+            {task.courses?.slice(0, 3)?.map((course) => (
+              <div key={course.id} className="w-[calc((100%-40px)/3)]">
                 <PracticeCard course={course as ProjectCourseType} />
               </div>
             ))}
           </div>
-          {task.courses.length > 4 && (
+          {task.courses.length > 3 && (
             <div className="flex justify-center">
               <Link href={`${MenuLink.PRACTICES}?track=${task.track}&language=${task.language}`}>
                 <Button

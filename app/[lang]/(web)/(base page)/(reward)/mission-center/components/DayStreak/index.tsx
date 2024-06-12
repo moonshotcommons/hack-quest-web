@@ -1,8 +1,8 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { MissionDataType, MissionStatus } from '@/service/webApi/missionCenter/type';
+import { MissionStatus } from '@/service/webApi/missionCenter/type';
 import Image from 'next/image';
 import FireIcon from '@/public/images/mission-center/fire_icon.png';
 import FireIconActive from '@/public/images/mission-center/fire_icon_active.png';
@@ -11,25 +11,51 @@ import CompletedIcon from '@/components/Common/Icon/Completed';
 import RestoreModal from './RestoreModal';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { weekInitials } from '../../constants/data';
+import webApi from '@/service';
+import { message } from 'antd';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import TreasureModal, { TreasureModalRef } from '@/components/Web/Business/TreasureModal';
+import Link from 'next/link';
+import MenuLink from '@/constants/MenuLink';
+import { HiArrowLongRight } from 'react-icons/hi2';
 
 interface DayStreakProp {
-  missionDatas: MissionDataType[];
-  missionClaim: (ids: string[]) => void;
+  link?: boolean;
 }
 
-const DayStreak: React.FC<DayStreakProp> = ({ missionDatas, missionClaim }) => {
+const DayStreak: React.FC<DayStreakProp> = ({ link }) => {
+  const missionData = useMissionCenterStore((state) => state.missionData);
+  const treasureModalRef = useRef<TreasureModalRef>(null);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
   const [open, setOpen] = useState(false);
-  const handleClaim = (id: string) => {
-    missionClaim([id]);
-  };
+  const [loading, setLoading] = useState(false);
   const { dealDayStreak } = useGetMissionData();
+  const handleClaim = (id: string) => {
+    if (loading) return;
+    setLoading(true);
+    webApi.missionCenterApi
+      .missionClaim([id])
+      .then((res) => {
+        treasureModalRef.current?.open({
+          treasureData: {
+            coin: res.coin,
+            exp: res.exp
+          }
+        });
+      })
+      .catch(async (error) => {
+        message.error(`claim ${error.msg}!`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   const dayStreakData = useMemo(() => {
-    return dealDayStreak(missionDatas || []);
-  }, [missionDatas]);
+    return dealDayStreak(missionData?.dailyBonus || []);
+  }, [missionData]);
   return (
-    <div className="rounded-[24px] bg-yellow-extra-light p-[24px] ">
+    <div className="flex flex-col gap-[16px] rounded-[24px] bg-yellow-extra-light p-[24px] ">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[16px]">
           <Image src={dayStreakData.isContinu ? FireIconActive : FireIcon} alt={'fire-icon'} width={36} height={36} />
@@ -44,7 +70,7 @@ const DayStreak: React.FC<DayStreakProp> = ({ missionDatas, missionClaim }) => {
           </div>
         )}
       </div>
-      <div className="mt-[24px] flex justify-between">
+      <div className="flex justify-between">
         {dayStreakData.missions?.map((m, i) => (
           <div key={i} className="w-[32px]">
             <div
@@ -66,7 +92,14 @@ const DayStreak: React.FC<DayStreakProp> = ({ missionDatas, missionClaim }) => {
           </div>
         ))}
       </div>
+      {link && (
+        <Link className="flex items-center gap-[7px]" href={MenuLink.MISSION_CENTER}>
+          <span className="button-text-s uppercase text-neutral-off-black">{t('mission')}</span>
+          <HiArrowLongRight className="text-neutral-off-black" />
+        </Link>
+      )}
       <RestoreModal open={open} onClose={() => setOpen(false)} />
+      <TreasureModal ref={treasureModalRef} />
     </div>
   );
 };

@@ -16,9 +16,9 @@ const DeveloperCard: React.FC<DeveloperCardProp> = ({ course }) => {
   return (
     <Link
       href={`${getCoursePrefixByCourseType(course.type || CourseType.LEARNING_TRACK)}/${course.id}`}
-      className="card-hover flex h-[270px] w-full overflow-hidden rounded-[16px] bg-neutral-white"
+      className="card-hover flex h-[209px] w-full overflow-hidden rounded-[16px] bg-neutral-white"
     >
-      <div className="relative h-full w-[480px] flex-shrink-0 overflow-hidden">
+      <div className="relative h-full w-[30%] flex-shrink-0 overflow-hidden">
         <Image src={course.image || CourseCover} fill alt={course.title} className="object-contain" />
       </div>
       <div className="flex flex-1 flex-col justify-between p-[24px]">
@@ -26,8 +26,8 @@ const DeveloperCard: React.FC<DeveloperCardProp> = ({ course }) => {
           <div className="flex gap-[12px]">
             <TrackTag track={course.track} />
           </div>
-          <h2 className="body-l-bold line-clamp-2 text-neutral-off-black">{course.title}</h2>
-          <p className="body-s line-clamp-3 text-neutral-medium-gray">{course.description}</p>
+          <h2 className="body-m-bold line-clamp-2 text-neutral-off-black">{course.title}</h2>
+          <p className="body-s line-clamp-2 text-neutral-medium-gray">{course.description}</p>
         </div>
         <div className="flex gap-[20px]">
           <Tag icon={<AltIcon />} className="text-neutral-rich-gray" size={'small'}>
