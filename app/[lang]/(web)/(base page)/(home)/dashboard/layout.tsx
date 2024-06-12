@@ -5,6 +5,7 @@ import { ClaimCertificateModal } from './components/claim-certificate-modal';
 import { MintCertificateModal } from './components/mint-certificate-modal';
 import { UsernameModal } from './components/username-modal';
 import { MyCertificateCard } from './components/my-certificate-card';
+import { MissionCenterCard } from './components/mission-center-card';
 
 export default function DashboardLayout({
   children
@@ -20,7 +21,7 @@ export default function DashboardLayout({
         </div>
         <div className="flex flex-col gap-8">
           {/* <HackathonCard /> */}
-          {/* <MissionCenterCard /> */}
+          <MissionCenterCard />
           <MyCertificateCard />
           <FollowDiscord />
         </div>

@@ -46,7 +46,6 @@ const PatchVideoUpload: FC<{ pitchVideo?: string; projectId: string; isClose: bo
   };
 
   const beforeUpload = async (file: FileType) => {
-    debugger;
     const isMp4 = file.type === 'video/mp4';
     if (!isMp4) {
       message.error('You can only upload mp4 video!');

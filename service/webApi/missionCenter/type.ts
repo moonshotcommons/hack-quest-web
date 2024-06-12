@@ -1,3 +1,6 @@
+import { RegisterType } from '../user/type';
+import { HackathonTypeVotesRoleType } from '../resourceStation/type';
+
 /** 勋章 */
 export interface BadgesType {
   id: string;
@@ -42,12 +45,31 @@ export interface UserCoinType {
 /** 用户等级 */
 
 export enum TreasureStatus {
+  UNOBTAIN = 'unobtain',
   UNOPEN = 'unopen',
-  OPEN = 'OPEN'
+  OPENED = 'opened'
 }
 export interface UserTreasuresType {
   id: string;
   status: TreasureStatus;
+}
+
+export enum TreasureSource {
+  INVITE_USER = 'inviteUser'
+}
+export interface InviteTreasureType {
+  coin: number;
+  exp: number;
+  id: string;
+  source: TreasureSource;
+  status: TreasureStatus;
+  userId: string;
+}
+
+export interface InviteResponseType {
+  inviteCount: number;
+  treasures: InviteTreasureType[];
+  targets: number[];
 }
 /** 进度 */
 export interface ProgressType {
@@ -62,7 +84,8 @@ export interface ProgressType {
 export enum MissionStatus {
   UNCOMPLETED = 'unCompleted',
   UNCLAIM = 'unClaim',
-  CLAIMED = 'claimed'
+  CLAIMED = 'claimed',
+  RESTORE = 'restore'
 }
 export interface MissionDataType {
   id: string;
@@ -77,9 +100,32 @@ export interface MissionDataType {
   status: MissionStatus;
 }
 
+export interface UserLevelRankType {
+  avatar: string;
+  email: string;
+  exp: number;
+  id: string;
+  inviteCode: string;
+  name: string;
+  nickname: string;
+  rank: number;
+  registerType: RegisterType;
+  voteRole: HackathonTypeVotesRoleType;
+}
+
+export interface UserLevelRankResponseType {
+  allTimeMyRank: UserLevelRankType;
+  allTimeRanks: UserLevelRankType[];
+  dayMyRank: UserLevelRankType;
+  dayRanks: UserLevelRankType[];
+  monthMyRank: UserLevelRankType;
+  monthRanks: UserLevelRankType[];
+}
+
 export interface DigTreasuresResponse {
   success: boolean;
-  treasureId?: string;
+  coin: number;
+  exp: number;
 }
 
 export interface OpenTreasuresResponse {

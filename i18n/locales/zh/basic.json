@@ -210,5 +210,7 @@
   "day":"日",
   "all":"全部",
   "copy":"复制",
-  "share":"分享"
+  "share":"分享",
+  "collect":"收集",
+  "treasureModalText":"你获得宝藏"
 }

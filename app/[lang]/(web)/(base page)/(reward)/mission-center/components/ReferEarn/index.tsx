@@ -3,12 +3,10 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { useUserStore } from '@/store/zustand/userStore';
-import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
-import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
 import { LuCopy } from 'react-icons/lu';
 import { MdOutlineShare } from 'react-icons/md';
-import { TreasureStatus } from '@/service/webApi/missionCenter/type';
+import { InviteTreasureType, TreasureStatus } from '@/service/webApi/missionCenter/type';
 import Image from 'next/image';
 import ChestCover from '@/public/images/mission-center/chest_cover.png';
 import CompletedIcon from '@/components/Common/Icon/Completed';
@@ -17,6 +15,9 @@ import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 import { copyText } from '@/helper/utils';
 import PopBox from '@/components/Web/Business/InviteCodeCard/PopBox';
 import { shareList, ShareWrap } from '@/components/Web/Business/InviteCodeCard/constant';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { cloneDeep } from 'lodash-es';
 
 interface ReferEarnProp {}
 
@@ -27,18 +28,33 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
   const treasureModalRef = useRef<TreasureModalRef>(null);
   const { updateMissionDataAll } = useGetMissionData();
   const [showShare, setShowShare] = useState(false);
-  const { userTreasure } = useMissionCenterStore(
-    useShallow((state) => {
-      return {
-        userTreasure: state?.userTreasure
-      };
-    })
-  );
+  const [inviteCount, setInviteCount] = useState(0);
+  const { dealTreasures } = useGetMissionData();
+  const [userTreasures, setUserTreasure] = useState<InviteTreasureType[]>([]);
+  const [targets, setTargets] = useState<number[]>([]);
   const openChest = (id: string) => {
-    treasureModalRef.current?.open(id, true, () => {
-      updateMissionDataAll();
+    treasureModalRef.current?.open({
+      treasureId: id,
+      digCallback: () => {
+        run();
+      }
     });
   };
+
+  const { run } = useRequest(
+    async () => {
+      const res = await webApi.missionCenterApi.getInvited();
+      return res;
+    },
+    {
+      onSuccess(res) {
+        const treasures = cloneDeep(res.treasures);
+        setUserTreasure(dealTreasures(treasures));
+        setInviteCount(res.inviteCount ?? 0);
+        setTargets(res.targets);
+      }
+    }
+  );
   return (
     <div className="flex flex-col gap-[24px] rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[24px]">
       <div>
@@ -49,7 +65,7 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
         <div className="body-s-bold flex items-center justify-between text-neutral-off-black">
           <p className="">{t('referralCode')}</p>
           <div>
-            <span>{userInfo?.inviteCount}</span>
+            <span>{inviteCount}</span>
             {` `}
             <span className="body-s text-neutral-medium-gray">{t('usersInvited')}</span>
           </div>
@@ -94,10 +110,10 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
       </div>
       <div className="relative flex justify-between">
         <div className="absolute top-[16px] w-full border-b border-dashed border-neutral-medium-gray"></div>
-        {userTreasure.map((m) => (
+        {userTreasures.map((m, i) => (
           <div key={m.id} className="relative z-[2] w-[32px]">
             <div
-              className={`flex-center h-[32px]  w-[32px] rounded-[50%] ${m.status === TreasureStatus.OPEN && 'border border-neutral-light-gray bg-neutral-white'}`}
+              className={`flex-center h-[32px]  w-[32px] rounded-[50%] ${m.status === TreasureStatus.UNOBTAIN && 'border border-neutral-light-gray bg-neutral-white'}`}
             >
               {m.status === TreasureStatus.UNOPEN && (
                 <Image
@@ -109,9 +125,9 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
                   className="animate-bounce cursor-pointer transition-all"
                 />
               )}
-              {m.status === TreasureStatus.OPEN && <CompletedIcon size={32} />}
+              {m.status === TreasureStatus.OPENED && <CompletedIcon size={32} />}
             </div>
-            <p className="body-xs mt-[4px] text-center text-neutral-medium-gray">{1}</p>
+            <p className="body-xs mt-[4px] text-center text-neutral-medium-gray">{targets?.[i] ?? 0}</p>
           </div>
         ))}
       </div>
