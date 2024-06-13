@@ -49,7 +49,7 @@ class MissionCenterApi {
   /** mission claim */
   missionClaim(missionIds: string[]) {
     const url = `${MissionCenterApiType.Missions}/claim`;
-    return this.service.post<ClaimResponse>(url, {
+    return this.service.post<ClaimResponse[]>(url, {
       data: {
         missionIds
       }
