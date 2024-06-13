@@ -173,8 +173,15 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 };
 
 const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const loginThreeParty = async (type: ThirdPartyAuthType) => {
-    const res = (await webApi.userApi.getAuthUrl(type)) as any;
+    const inviteCode = query.get('inviteCode');
+    const params = inviteCode
+      ? {
+          inviteCode
+        }
+      : {};
+    const res = (await webApi.userApi.getAuthUrl(type, params)) as any;
     window.location.href = res?.url;
   };
 

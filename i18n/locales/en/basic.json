@@ -141,7 +141,10 @@
   },
   "auth": {
     "login": "Log In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "profile": "Profile",
+    "change_password": "Change Password",
+    "sign_out": "Sign Out"
   },
   "courses": {
     "language": "Language",
@@ -213,5 +216,8 @@
   "copy":"Copy",
   "share":"Share",
   "collect":"Collect",
-  "treasureModalText":"The treasure you got"
+  "treasureModalText":"The treasure you got",
+  "FAQs": "FAQs",
+  "edit":"Edit",
+  "delete":"Delete"
 }

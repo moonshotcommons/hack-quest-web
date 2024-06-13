@@ -1,17 +1,21 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
-
 import { useDebounceFn } from 'ahooks';
 import message from 'antd/es/message';
 import { FC, useEffect, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import Button from '@/components/Common/Button';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface ForgotPasswordProps {}
 
 const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [formData, setFormData] = useState<{
     email: string;
   }>({
@@ -71,10 +75,11 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
       message.error('email does not exist!');
       setAuthType(AuthType.LOGIN);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authRouteType]);
 
   return (
-    <div className="flex h-full flex-col justify-between ">
+    <div className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-6">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -85,9 +90,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           />
         </svg>
 
-        <h3 className="text-h3-mob text-neutral-off-black">Forgot your password?</h3>
+        <h3 className="text-h3-mob text-neutral-off-black">{t('forgot_your_password')}</h3>
         <div className="flex flex-col gap-1">
-          <p className="body-m text-neutral-medium-gray">We will send you a link to your email to reset password.</p>
+          <p className="body-m text-neutral-medium-gray">{t('forgot_your_password_description')}</p>
           <p className="underline-m text-neutral-rich-gray">{formData.email}</p>
         </div>
       </div>
@@ -99,13 +104,13 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           loading={loading}
           disabled={loading}
           className="
-          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg 
+          button-text-m border-auth-primary-button-border-color bg-auth-primary-button-bg
           py-4 uppercase
           text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
         >
-          Send me link
+          {t('send_me_link')}
         </Button>
 
         <Button
@@ -116,7 +121,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           button-text-m border-neutral-off-black py-4  uppercase
     "
         >
-          Back
+          {t('back')}
         </Button>
       </div>
     </div>

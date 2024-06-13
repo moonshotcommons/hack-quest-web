@@ -52,12 +52,12 @@ export const useGetMissionData = () => {
   } => {
     const len = missions.length;
     let isMissStreak = false;
-    const isContinu = missions[len - 1].progress.progress[0] === len;
+    const isContinu = missions[len - 1]?.progress.progress[0] === len;
     //连续签到天数为missions的最后一个的propress[0]
-    const continuCount = missions[len - 1].progress.progress[0];
+    const continuCount = missions[len - 1]?.progress.progress[0];
     // 是否需要补签看missions的倒数第二个的claimed是否为false 如果为false则把其状态设置为RESTORE 可以补签的状态
     if (missions.length > 1) {
-      isMissStreak = !missions[len - 2].progress.claimed;
+      isMissStreak = !missions[len - 2]?.progress.claimed;
       if (isMissStreak) {
         missions[len - 2].status = MissionStatus.RESTORE;
       }

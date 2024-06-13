@@ -1,17 +1,21 @@
 import { BurialPoint } from '@/helper/burialPoint';
 import { useValidator } from '@/hooks/auth/useValidator';
 import webApi from '@/service';
-
 import { useDebounceFn } from 'ahooks';
 import message from 'antd/es/message';
 import { FC, useEffect, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import Button from '@/components/Common/Button';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface ForgotPasswordProps {}
 
 const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [formData, setFormData] = useState<{
     email: string;
   }>({
@@ -71,6 +75,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
       message.error('email does not exist!');
       setAuthType(AuthType.LOGIN);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authRouteType]);
 
   return (
@@ -85,9 +90,9 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           />
         </svg>
 
-        <h3 className="text-h3 text-neutral-off-black">Forgot your password?</h3>
+        <h3 className="text-h3 text-neutral-off-black">{t('forgot_your_password')}</h3>
         <div className="flex flex-col gap-1">
-          <p className="body-l text-neutral-medium-gray">We will send you a link to your email to reset password.</p>
+          <p className="body-l text-neutral-medium-gray">{t('forgot_your_password_description')}</p>
           <p className="text-neutral-rich-gray underline">{formData.email}</p>
         </div>
       </div>
@@ -105,7 +110,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
         >
-          Send me link
+          {t('send_me_link')}
         </Button>
 
         <Button
@@ -116,7 +121,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = (props) => {
           button-text-l border-neutral-off-black py-4 uppercase
     "
         >
-          Back
+          {t('back')}
         </Button>
       </div>
     </div>

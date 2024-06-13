@@ -12,6 +12,9 @@ import Link from 'next/link';
 import { FC, useState } from 'react';
 import WhiteListModal from '../WhiteListModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface RegisterFormProps {
   email: string;
@@ -21,6 +24,8 @@ interface RegisterFormProps {
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
   const { onBack } = props;
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [formData, setFormData] = useState<{
     email: string;
     password: string;
@@ -105,14 +110,13 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
 
   return (
     <div className="flex h-full w-full flex-col justify-between">
-      {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[24px]">
         <div>
           <Input
-            label="Password"
+            label={t('password')}
             type="password"
             name="password"
-            placeholder="8+characters with a mix of letters & numbers"
+            placeholder={t('password')}
             theme="light"
             // description="Use 8 or more characters with a mix of letters & numbers"
             state={formState.password.status as any}
@@ -122,7 +126,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               type: 'string',
               required: true,
               pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-              message: '8 or more characters with a mix of letters & numbers'
+              message: t('more_characters')
             }}
             onChange={(e) => {
               setFormData({
@@ -134,10 +138,10 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         </div>
         <div>
           <Input
-            label="Re-enter password"
+            label={t('re_enter_password')}
             type="password"
             theme="light"
-            placeholder="Confirm my password"
+            placeholder={t('confirm_password')}
             name="reenterPassword"
             state={formState.reenterPassword.status as any}
             errorMessage={formState.reenterPassword.errorMessage}
@@ -152,7 +156,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
               // },
               {
                 type: 'string',
-                message: 'Those passwords didn’t match. Try again.',
+                message: t('password_mismatch'),
                 validator(rule, value) {
                   return value === formData.password;
                 }
@@ -187,9 +191,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
                 acceptConditions ? 'text-neutral-off-black' : ''
               )}
             >
-              {`I agree with HackQuest's Terms of Service,  `}
+              {t('accept_privacy_policy')}
               <Link href={'/hackquest/privacy-policy'} target="_blank" className="underline">
-                Privacy Policy.
+                {t('privacy_policy')}
               </Link>
             </p>
           </div>
@@ -210,7 +214,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
       >
-        Continue
+        {t('continue')}
       </Button>
       <WhiteListModal open={showWhiteListModal} onClose={() => setShowWhiteListModal(false)}></WhiteListModal>
     </div>

@@ -58,7 +58,7 @@ const Navbar: FC<NavbarProps> = (props) => {
   }, [isOpen, toggleOpen, setNavType, setMobileNavModalToggleOpenHandle]);
 
   return (
-    <div className="flex h-[4rem] w-full items-center justify-between overflow-hidden text-neutral-black">
+    <div className="flex h-[4rem] w-full items-center justify-between overflow-hidden text-neutral-black shadow-[0_0_4px_0_rgba(0,0,0,0.12)]">
       <NavContainer
         isOpen={isOpen}
         toggleOpen={() => {

@@ -15,6 +15,7 @@ import MenuLink from '@/constants/MenuLink';
 import ConnectButton from '../ConnectButton';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
+
 interface UserDropCardProps {
   // children: ReactNode;
   userInfo: LoginResponse;
@@ -76,7 +77,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
             <span>
               <BiUser size={24}></BiUser>
             </span>
-            <span className="">Profile</span>
+            <span className="">{t('auth.profile')}</span>
           </div>
         </Link>
         <div
@@ -90,7 +91,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
           <span>
             <BiLockAlt size={24}></BiLockAlt>
           </span>
-          <span className="">Change Password</span>
+          <span className="">{t('auth.change_password')}</span>
         </div>
         <div
           className="flex w-full cursor-pointer items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
@@ -102,7 +103,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
           <span>
             <BiLogInCircle size={24}></BiLogInCircle>
           </span>
-          <span className="">Sign Out</span>
+          <span className="">{t('auth.sign_out')}</span>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import TrackTag from '@/components/Common/TrackTag';
 import React from 'react';
@@ -19,7 +20,7 @@ const DeveloperCard: React.FC<DeveloperCardProp> = ({ course }) => {
       className="card-hover flex h-[209px] w-full overflow-hidden rounded-[16px] bg-neutral-white"
     >
       <div className="relative h-full w-[30%] flex-shrink-0 overflow-hidden">
-        <Image src={course.image || CourseCover} fill alt={course.title} className="object-contain" />
+        <Image src={course.image || CourseCover} fill alt={course.title} className="object-cover" />
       </div>
       <div className="flex flex-1 flex-col justify-between p-[24px]">
         <div className="flex flex-col gap-[16px]">

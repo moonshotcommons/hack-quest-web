@@ -6,9 +6,15 @@ import { useCountDown, useDebounceFn } from 'ahooks';
 import message from 'antd/es/message';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface EmailVerifyProps {}
 
 const EmailVerify: FC<EmailVerifyProps> = (props) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const { setAuthType, authRouteType } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -38,27 +44,28 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
     switch (authRouteType.prevType) {
       case AuthType.LOGIN:
         return {
-          text: 'Back to Log in',
+          text: t('back_to_log_in'),
           handle: () => setAuthType(AuthType.LOGIN)
         };
       case AuthType.SIGN_UP:
         return {
-          text: 'Change Email',
+          text: t('change_email'),
           handle: () => setAuthType(AuthType.SIGN_UP)
         };
       default:
         return {
-          text: 'Back',
+          text: t('back'),
           handle: () => setAuthType(AuthType.LOGIN)
         };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authRouteType.prevType]);
 
   const resendButtonParams = useMemo(() => {
     switch (authRouteType.prevType) {
       case AuthType.LOGIN:
         return {
-          text: 'Log in to Resend',
+          text: t('log_in_to_resend'),
           handle: () => {
             // setTargetDate(Date.now() + 30 * 1000);
             setAuthType(AuthType.LOGIN);
@@ -66,7 +73,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
         };
       case AuthType.SIGN_UP:
         return {
-          text: 'Log in to Resend',
+          text: t('log_in_to_resend'),
           handle: () => {
             // setTargetDate(Date.now() + 30 * 1000);
             setAuthType(AuthType.LOGIN);
@@ -74,7 +81,7 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
         };
       case AuthType.FORGOT_PASSWORD:
         return {
-          text: 'Resend Link',
+          text: t('resend_link'),
           handle: () => {
             // sendEmail(authRouteType.params?.email);
             setAuthType(AuthType.CHANGE_PASSWORD);
@@ -82,10 +89,11 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
         };
       default:
         return {
-          text: 'Back',
+          text: t('back'),
           handle: () => authRouteType.prevType && setAuthType(authRouteType.prevType)
         };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authRouteType.prevType]);
 
   useEffect(() => {
@@ -107,10 +115,8 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           />
         </svg>
 
-        <h1 className="text-h3 text-neutral-off-black">Verify Your Email</h1>
-        <p className="body-l text-neutral-medium-gray">
-          Please verify your account via the link in the e-mail and follow the instruction to login
-        </p>
+        <h1 className="text-h3 text-neutral-off-black">{t('verify_your_email')}</h1>
+        <p className="body-l text-neutral-medium-gray">{t('verify_your_email_description')}</p>
       </div>
       <div className="mt-[4rem] flex w-full flex-col gap-4">
         <Button
