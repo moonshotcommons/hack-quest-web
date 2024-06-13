@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
 import { FormComponentProps } from '..';
 import Image from 'next/image';
 import { HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
@@ -48,6 +48,8 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       }
     }
   );
+
+  const [consent, setConsent] = useState(false);
 
   const register = () => {
     confirmModalRef.current?.open({
@@ -226,10 +228,36 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
           {isRegister ? 'update' : 'register'}
         </Button>
       </div>
-      <ConfirmModal ref={confirmModalRef}>
+      <ConfirmModal ref={confirmModalRef} disabled={!isRegister && !consent}>
         <h4 className="text-h4 mb-9 text-center text-neutral-black">
           Do you want to {isRegister ? 'update' : 'register'} this hackathon?
         </h4>
+        {!isRegister && (
+          <>
+            <p className="body-s text-center">
+              Consensys is committed to protecting and respecting your privacy, and we’ll only use your personal
+              information to provide the products, services, and information you requested from us. From time to time,
+              we would like to contact you about our products and services, as well as other content that may be of
+              interest to you. If you consent to us contacting you for this purpose:
+            </p>
+            <div className="mt-6 flex justify-center gap-2 text-neutral-rich-gray">
+              <span
+                className="body-s flex h-[22px] w-[22px] items-center justify-center rounded-[2px] border-[2px] border-neutral-black text-neutral-black"
+                onClick={() => {
+                  setConsent(!consent);
+                }}
+              >
+                <span
+                  className={cn(
+                    'inline-block h-[14px] w-[14px] rounded-[2px] bg-neutral-black',
+                    consent ? 'inline-block' : 'hidden'
+                  )}
+                ></span>
+              </span>
+              <span>Yes, I consent.</span>
+            </div>
+          </>
+        )}
       </ConfirmModal>
     </div>
   );

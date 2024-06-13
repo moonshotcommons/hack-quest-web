@@ -10,6 +10,7 @@ interface ConfirmModalProps {
   confirmText?: string;
   cancelText?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 interface Params {
@@ -23,7 +24,7 @@ export interface ConfirmModalRef {
 }
 
 const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps> = (props, ref) => {
-  const { children, confirmText, cancelText, className } = props;
+  const { children, confirmText, cancelText, className, disabled = false } = props;
   const [option, setOption] = useState<Params | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -89,7 +90,7 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
             className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
             type="primary"
             loading={loading}
-            disabled={loading}
+            disabled={disabled || loading}
             onClick={() => {
               option?.onConfirm && confirm();
             }}
