@@ -13,7 +13,8 @@ export enum TransNs {
   HACKATHON = 'hackathon',
   PRESS_KIT = 'press-kit',
   ECOSYSTEM = 'ecosystem',
-  IDEA_BANK = 'idea-bank'
+  IDEA_BANK = 'idea-bank',
+  AUTH = 'auth'
 }
 export const cookieName = 'i18next';
 export const locales = [Lang.ZH, Lang.EN];
@@ -27,7 +28,8 @@ export const transNs = [
   TransNs.HACKATHON,
   TransNs.PRESS_KIT,
   TransNs.ECOSYSTEM,
-  TransNs.IDEA_BANK
+  TransNs.IDEA_BANK,
+  TransNs.AUTH
 ];
 export const defaultLocale = Lang.EN;
 

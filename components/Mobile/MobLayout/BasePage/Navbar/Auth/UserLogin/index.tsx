@@ -19,6 +19,9 @@ import { cn } from '@/helper/utils';
 import { useRouter } from 'next-nprogress-bar';
 import { AuthContext } from '..';
 import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface UserLoginProps {
   // children: ReactNode;
@@ -28,6 +31,8 @@ interface UserLoginProps {
 
 const UserLogin: FC<UserLoginProps> = (props) => {
   const { email, onBack } = props;
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const { setAuthType, setUserInfo } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -136,14 +141,14 @@ const UserLogin: FC<UserLoginProps> = (props) => {
       <div className="flex w-full flex-col gap-[24px] text-base">
         <div>
           <p className="body-l-bold text-neutral-rich-gray">
-            {`Don’t have an account? `}
+            {t('no_account')}
             <span
               className="body-l-bold cursor-pointer underline"
               onClick={() => {
                 setAuthType(AuthType.SIGN_UP);
               }}
             >
-              Sign up
+              {t('sign_up')}
             </span>
           </p>
         </div>
@@ -201,10 +206,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <div>
           <Input
             ref={passwordInputRef}
-            label="Password"
+            label={t('password')}
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder={t('password')}
             theme="light"
             isMobile
             state={formState.password.status as any}
@@ -221,7 +226,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
                   });
                 }}
               >
-                Forgot Password?
+                {t('forgot_password')}
               </div>
             }
             onChange={(e) => {
@@ -259,7 +264,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               });
             }}
           >
-            Keep me logged in
+            {t('keep_logged_in')}
           </p>
         </div>
       </div>
@@ -279,7 +284,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
           "
         >
-          Continue
+          {t('continue')}
         </Button>
         <Button
           onClick={onBack}
@@ -289,7 +294,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           button-text-m border-neutral-off-black py-4 text-[.875rem] uppercase
           "
         >
-          Back
+          {t('back')}
         </Button>
       </div>
     </div>

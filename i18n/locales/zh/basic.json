@@ -41,7 +41,7 @@
   "footer": {
     "learn": "学习",
     "learningTrack": "学习路径",
-    "projects": "项目课",
+    "projects": "实战课",
     "electives": "选修课",
     "playground": "开发环境",
     "community": "社群",
@@ -76,8 +76,8 @@
       "learningTrack": "学习路径",
       "learningTrackDesc": "掌握一门编程语言",
       "electives": "选修课",
-      "electivesDesc": "专注于Web 3主题",
-      "projects": "项目课",
+      "electivesDesc": "专注于 Web3 主题",
+      "projects": "实战课",
       "projectsDesc": "了解如何一步一步地构建项目",
       "courseMarket": "课程市场",
       "courseMarketDesc": "课程市场",
@@ -88,7 +88,7 @@
       "title": "实战",
       "myHackathon": "我的黑客松",
       "myHackathonDesc": "查看所有的黑客松活动",
-      "exploreHackathons": "探索黑客松",
+      "exploreHackathons": "黑客松探索",
       "exploreHackathonsDesc": "与我们的团队一起构建 Web3 的未来",
       "hackathonVoting": "黑客松投票",
       "hackathonVotingDesc": "选择最好的项目",
@@ -100,7 +100,7 @@
     "reward": {
       "title": "奖励",
       "mission": "信息中心",
-      "missionDesc": "在你的Web 3之旅中获得奖励",
+      "missionDesc": "在你的 Web3 之旅中获得奖励",
       "campaign": "活动",
       "campaignDesc": "成为一名合格的开发者"
     },
@@ -109,13 +109,13 @@
       "hackathon": "黑客松",
       "hackathonDesc": "探索黑客马拉松和过去的项目",
       "blog": "博客",
-      "blogDesc": "查看新闻、事件和研究博客",
+      "blogDesc": "浏览科普文章及大佬访谈",
       "glossary": "词汇表",
-      "glossaryDesc": "了解Web 3基本术语",
-      "advocate": "倡议",
+      "glossaryDesc": "了解 Web3 基本术语",
+      "advocate": "大使计划",
       "advocateDesc": "加入我们快速发展的社区",
-      "events": "事件",
-      "eventsDesc": "了解Web 3事件",
+      "events": "活动",
+      "eventsDesc": "了解我们的最新活动",
       "partners": "合作伙伴",
       "partnersDesc": "成为我们的合作伙伴",
       "faucets": "水龙头",
@@ -140,7 +140,10 @@
   },
   "auth": {
     "login": "登录",
-    "signUp": "注册"
+    "signUp": "注册",
+    "profile": "个人资料",
+    "change_password": "修改密码",
+    "sign_out": "退出登录"
   },
   "courses": {
     "language": "语言",
@@ -176,8 +179,8 @@
     "completed": "已完成",
     "claimCertification": "领取证书",
     "claim": "领取",
-    "certificationAvailable": "认证可用",
-    "deviceAccess": "移动和桌面设备访问"
+    "certificationAvailable": "提供官方学习证书",
+    "deviceAccess": "移动端和桌面端均可访问"
   },
   "resultsFor": "结果",
   "showAll": "查看更多",

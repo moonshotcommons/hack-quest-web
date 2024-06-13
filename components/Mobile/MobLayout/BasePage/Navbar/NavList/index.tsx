@@ -38,24 +38,24 @@ const NavList: FC<NavListProps> = ({ navList: list, toggleOpen, children }) => {
         menu: [
           {
             id: 'advocate',
-            label: 'navbar.more.advocate',
+            label: 'navbar.resources.advocate',
             path: MenuLink.ADVOCATE
           },
-          {
-            id: 'docs',
-            label: 'navbar.more.docs',
-            path: MenuLink.DOCS
-          },
+          // {
+          //   id: 'docs',
+          //   label: 'navbar.more.docs',
+          //   path: MenuLink.DOCS
+          // },
           {
             id: 'pressKit',
             label: 'navbar.more.pressKit',
             path: MenuLink.PRESS_KIT
-          },
-          {
-            id: 'ourPartner',
-            label: 'navbar.more.ourPartner',
-            path: MenuLink.PARTNERS
           }
+          // {
+          //   id: 'ourPartner',
+          //   label: 'navbar.more.ourPartner',
+          //   path: MenuLink.PARTNERS
+          // }
         ]
       }
     ];

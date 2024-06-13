@@ -1,4 +1,5 @@
 import webApi from '@/service';
+import { t } from 'i18next';
 import message from 'antd/es/message';
 import Schema, { Rule, ValidateMessages } from 'async-validator';
 import { useState } from 'react';
@@ -33,7 +34,8 @@ const checkEmailRules: Rule = [
             if (res.exists) {
               resolve();
             } else {
-              reject('Email does not exist.');
+              // @ts-expect-error
+              reject(t('auth:email_does_not_exist'));
             }
           })
           .catch((e) => {
@@ -64,11 +66,10 @@ const checkRegisterEmailRules: Rule = [
         webApi.userApi
           .checkEmailExists(value)
           .then((res) => {
-            // reject('Email already exists, please try another email. ');
             if (res.exists) {
-              reject('Email already exists, please try another email.');
+              // @ts-expect-error
+              reject(t('auth:email_already_exists'));
             } else if (res.exists === false) {
-              // reject('Email does not exist.');
               resolve();
             }
           })
@@ -112,15 +113,18 @@ export const useValidator = (types: ('email' | 'password' | 'newPassword' | 'ree
     switch (type) {
       case 'email':
         descriptor[type] = checkEmailRules;
-        cn.pattern!.mismatch = 'Incorrect Email Format';
+        // @ts-expect-error
+        cn.pattern!.mismatch = t('auth:incorrect_email_format');
         break;
       case 'registerEmail':
         descriptor['email'] = checkRegisterEmailRules;
-        cn.pattern!.mismatch = 'Incorrect Email Format';
+        // @ts-expect-error
+        cn.pattern!.mismatch = t('auth:incorrect_email_format');
         break;
       case 'password':
         descriptor[type] = checkPasswordRules;
-        cn.pattern!.mismatch = '8 or more characters with a mix of letters & numbers';
+        // @ts-expect-error
+        cn.pattern!.mismatch = t('auth:more_characters');
         break;
       case 'newPassword':
         descriptor[type] = checkPasswordRules;

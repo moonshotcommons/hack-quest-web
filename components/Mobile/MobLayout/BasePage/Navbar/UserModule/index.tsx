@@ -76,7 +76,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
             changeNavType(NavType.AUTH);
           }}
         >
-          <span>Log in</span> {arrowIcon}
+          <span>{t('auth.login')}</span> {arrowIcon}
         </motion.div>
         <motion.div
           variants={itemVariants}
@@ -86,7 +86,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
             changeNavType(NavType.AUTH);
           }}
         >
-          <span>Sign up</span> {arrowIcon}
+          <span>{t('auth.signUp')}</span> {arrowIcon}
         </motion.div>
       </div>
     );
@@ -99,33 +99,26 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
           variants={itemVariants}
           className="flex items-center gap-3 p-2"
           onClick={() => {
-            // setAuthType(AuthType.LOGIN);
-            // changeNavType(NavType.AUTH);
             setTipsModalOpenState(true);
           }}
         >
           <span>
             <BiUser size={24}></BiUser>
           </span>
-          <span className="">Profile</span>
+          <span className="">{t('auth.profile')}</span>
         </motion.div>
       </Link>
       <motion.div
         variants={itemVariants}
         className="flex items-center gap-3 p-2"
         onClick={() => {
-          // message.error(
-          //   'Do not support mobile terminal to change the password, please go to the PC terminal operation.'
-          // );
-          // return;
-          // BurialPoint.track('settings');
           setTipsModalOpenState(true);
         }}
       >
         <span>
           <BiLockAlt size={24}></BiLockAlt>
         </span>
-        <span className="">Change Password</span>
+        <span className="">{t('auth.change_password')}</span>
       </motion.div>
       <motion.div
         variants={itemVariants}
@@ -137,7 +130,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
         <span>
           <BiLogInCircle size={24}></BiLogInCircle>
         </span>
-        <span className="">Sign Out</span>
+        <span className="">{t('auth.sign_out')}</span>
       </motion.div>
     </div>
   );
