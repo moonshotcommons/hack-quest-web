@@ -6,11 +6,15 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MetamaskLoginButton from './MetamaskLoginButton';
 import useIsPc from '@/hooks/utils/useIsPc';
-
 import Button from '@/components/Common/Button';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 function ThreePartyLogin() {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [isMounted, setIsMounted] = useState(false);
 
   const isPc = useIsPc();
@@ -37,7 +41,9 @@ function ThreePartyLogin() {
   return (
     <div className="w-full">
       <div className="relative flex justify-center">
-        <div className="body-m flex h-[30px] items-center  text-center text-neutral-medium-gray">or continue with</div>
+        <div className="body-m flex h-[30px] items-center  text-center text-neutral-medium-gray">
+          {t('or_continue_with')}
+        </div>
         <div className="absolute left-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-neutral-medium-gray"></div>
         <div className="absolute right-0 top-1/2 h-[1px] w-[calc(50%-80px)] -translate-y-1/2 bg-neutral-medium-gray"></div>
       </div>
