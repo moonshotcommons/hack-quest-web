@@ -7,6 +7,10 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { useDebounceFn, useKeyPress } from 'ahooks';
 import Schema from 'async-validator';
 import { AuthType } from '@/store/zustand/userStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface VerifyEmailProps {
   // onStatusChange: (status: boolean) => void;
   onNext: (email: string, inviteCode?: string) => void;
@@ -18,6 +22,8 @@ interface VerifyEmailProps {
 
 const VerifyEmail: FC<VerifyEmailProps> = (props) => {
   const { onNext, value, emailTitle: EmailTitle, validator, type } = props;
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
 
   const [formData, setFormData] = useState<{
     email: string;
@@ -102,6 +108,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
         BurialPoint.track('signup-注册邮箱验证停留时间', { duration });
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const { run: checkStatus } = useDebounceFn(
@@ -123,9 +130,9 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
       <div className="flex w-full flex-col gap-[24px]">
         {EmailTitle}
         <Input
-          label="Email"
+          label={t('email')}
           type="email"
-          placeholder="Enter your email"
+          placeholder={t('enter_email')}
           name="email"
           theme="light"
           clear
@@ -198,7 +205,7 @@ const VerifyEmail: FC<VerifyEmailProps> = (props) => {
           hover:bg-auth-primary-button-hover-bg
           hover:text-auth-primary-button-text-hover-color"
         >
-          Continue
+          {t('continue')}
         </Button>
       </div>
     </div>
