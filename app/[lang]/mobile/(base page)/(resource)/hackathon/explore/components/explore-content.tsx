@@ -38,9 +38,9 @@ export function ExploreContent({
   };
   return (
     <>
-      <div className="px-5 pb-6">
+      <div className="px-5 pb-20">
         <Mini miniHackathonList={miniHackathonList} />
-        <div className="text-h3 mb-3 text-neutral-black">{t('allHackathons')}</div>
+        <div className="text-h3 mb-3 mt-8 text-neutral-black">{t('allHackathons')}</div>
         <Tab curTab={curTab} />
         {renderHackathon()}
       </div>
