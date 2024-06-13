@@ -16,14 +16,16 @@ function ThreePartyLogin() {
   const isPc = useIsPc();
 
   const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
-
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const loginThreeParty = async (type: ThirdPartyAuthType) => {
     switch (type) {
       // case AuthType.METAMASK:
       //   loginByMetaMask();
       //   return;
       default:
-        const res = (await webApi.userApi.getAuthUrl(type)) as any;
+        const res = (await webApi.userApi.getAuthUrl(type, {
+          inviteCode: query.get('inviteCode')
+        })) as any;
         window.location.href = res?.url;
     }
   };

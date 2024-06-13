@@ -61,6 +61,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
   useImperativeHandle(ref, () => {
     return {
       open(params) {
+        setOpen(true);
         openTreasures(params);
       }
     };

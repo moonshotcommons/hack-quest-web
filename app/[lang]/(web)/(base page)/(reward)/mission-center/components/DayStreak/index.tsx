@@ -40,18 +40,18 @@ const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
     setLoading(true);
     webApi.missionCenterApi
       .missionClaim([id])
-      .then(async (res) => {
+      .then((res) => {
         treasureModalRef.current?.open({
           treasureData: {
-            coin: res.coin,
-            exp: res.exp
+            coin: res[0]?.coin,
+            exp: res[0]?.exp
           },
           digCallback: () => {
             setLoading(false);
           }
         });
       })
-      .catch(async (error) => {
+      .catch((error) => {
         message.error(`claim ${error.msg}!`);
         setLoading(false);
       });
@@ -93,7 +93,9 @@ const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
               )}
               {m.status === MissionStatus.CLAIMED && <CompletedIcon size={32} />}
             </div>
-            <p className="body-xs mt-[4px] text-center text-neutral-medium-gray">{weekInitials[i]}</p>
+            <p className="body-xs mt-[4px] text-center text-neutral-medium-gray" onClick={() => handleClaim('1')}>
+              {weekInitials[i]}
+            </p>
           </div>
         ))}
       </div>

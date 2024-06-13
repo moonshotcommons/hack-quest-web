@@ -72,7 +72,10 @@ const ReferEarn: React.FC<ReferEarnProp> = ({}) => {
         <div className="body-s mt-[8px] flex h-[46px] items-center justify-between rounded-[50px] bg-neutral-off-white px-[15px] text-neutral-off-black">
           <span>{userInfo?.inviteCode}</span>
           <div className="flex h-full items-center gap-[12px]">
-            <div className="flex cursor-pointer items-center gap-[8px]" onClick={() => copyText(userInfo?.inviteCode)}>
+            <div
+              className="flex cursor-pointer items-center gap-[8px]"
+              onClick={() => copyText(`${window.location.origin}?inviteCode=${userInfo?.inviteCode}`)}
+            >
               <LuCopy />
               <span>{t('copy')}</span>
             </div>
