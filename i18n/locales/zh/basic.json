@@ -140,7 +140,10 @@
   },
   "auth": {
     "login": "登录",
-    "signUp": "注册"
+    "signUp": "注册",
+    "profile": "个人资料",
+    "change_password": "修改密码",
+    "sign_out": "退出登录"
   },
   "courses": {
     "language": "语言",

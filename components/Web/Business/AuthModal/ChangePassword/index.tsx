@@ -9,6 +9,10 @@ import RightArrowIcon from '@/components/Common/Icon/RightArrow';
 import webApi from '@/service';
 import { BurialPoint } from '@/helper/burialPoint';
 import message from 'antd/es/message';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface ChangePasswordProps {}
 
 enum ChangeStateType {
@@ -19,7 +23,8 @@ enum ChangeStateType {
 
 const Success = () => {
   const { redirectToUrl } = useRedirect();
-
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(5);
   const setAuthType = useUserStore((state) => state.setAuthType);
@@ -36,6 +41,7 @@ const Success = () => {
       setAuthType(AuthType.LOGIN);
       redirectToUrl('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countDown]);
   return (
     <div className="flex flex-col gap-[25px]">
@@ -50,8 +56,8 @@ const Success = () => {
           />
         </svg>
 
-        <h3 className="text-h3 text-neutral-off-black">Password Changed</h3>
-        <p className="body-l text-neutral-medium-gray">Your password has been changed successfully</p>
+        <h3 className="text-h3 text-neutral-off-black">{t('password_changed')}</h3>
+        <p className="body-l text-neutral-medium-gray">{t('password_changed_description')}</p>
       </div>
       <Button
         onClick={() => {
@@ -112,6 +118,8 @@ const Fail = () => {
 };
 
 const ChangeForm = ({ changeState }: { changeState: (state: ChangeStateType) => void }) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const token = query.get('token');
   const [formData, setFormData] = useState<{
@@ -179,11 +187,10 @@ const ChangeForm = ({ changeState }: { changeState: (state: ChangeStateType) => 
     <div className="flex h-full w-full flex-col justify-between">
       <div className="flex w-full flex-col gap-[24px]">
         <Input
-          label="Password"
+          label={t('password')}
           type="password"
           name="password"
-          placeholder="8+ characters with a mix of letters & numbers"
-          // description="Use 8 or more characters with a mix of letters & numbers"
+          placeholder={t('password')}
           theme="light"
           state={formState.newPassword.status as any}
           errorMessage={formState.newPassword.errorMessage}

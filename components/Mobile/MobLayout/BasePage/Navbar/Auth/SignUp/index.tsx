@@ -8,10 +8,15 @@ import ThreePartyLogin from '../ThreePartyLogin';
 import webApi from '@/service';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { ThirdPartyAuthType } from '@/service/webApi/user/type';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface SignUpProps {}
 
 const SignUp: FC<SignUpProps> = (props) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [email, setEmail] = useState('');
   const [inviteCode, setInviteCode] = useState('');
@@ -29,18 +34,19 @@ const SignUp: FC<SignUpProps> = (props) => {
       setEmail(authRouteType.params?.email);
       setShowRegisterForm(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const EmailTitle = (
     <p className="body-l-bold text-base text-neutral-rich-gray">
-      Already have an account?{' '}
+      {t('already_have_account')}
       <span
-        className="cursor-pointer underline"
+        className="ml-1 cursor-pointer underline"
         onClick={() => {
           setAuthType(AuthType.LOGIN);
         }}
       >
-        Log in
+        {t('login')}
       </span>
     </p>
   );

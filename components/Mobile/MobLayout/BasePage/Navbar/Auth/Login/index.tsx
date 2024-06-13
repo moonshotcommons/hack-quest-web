@@ -6,10 +6,15 @@ import UserLogin from '../UserLogin';
 import VerifyEmail from '../VerifyEmail';
 import ThreePartyLogin from '../ThreePartyLogin';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface LoginProps {}
 
 const Login: FC<LoginProps> = (props) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState('');
   const { validator } = useValidator(['email']);
@@ -18,14 +23,14 @@ const Login: FC<LoginProps> = (props) => {
   const EmailTitle = (
     <div>
       <p className="body-l-bold text-base text-neutral-rich-gray">
-        {`Don’t have an account?  `}
+        {t('no_account')}
         <span
-          className="cursor-pointer underline"
+          className="ml-1 cursor-pointer underline"
           onClick={() => {
             setAuthType(AuthType.SIGN_UP);
           }}
         >
-          Sign up
+          {t('sign_up')}
         </span>
       </p>
     </div>
