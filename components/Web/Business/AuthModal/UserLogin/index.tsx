@@ -21,6 +21,10 @@ import { V2_LANDING_PATH } from '@/constants/nav';
 import { useRouter } from 'next-nprogress-bar';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface UserLoginProps {
   // children: ReactNode;
   email: string;
@@ -29,6 +33,8 @@ interface UserLoginProps {
 
 const UserLogin: FC<UserLoginProps> = (props) => {
   const { email, onBack } = props;
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -134,18 +140,17 @@ const UserLogin: FC<UserLoginProps> = (props) => {
 
   return (
     <div className="flex h-full w-full flex-col justify-between">
-      {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-[24px]">
         <div>
           <p className="body-l-bold text-neutral-rich-gray">
-            {`Don’t have an account? `}
+            {t('no_account')}
             <span
-              className="body-l-bold cursor-pointer underline"
+              className="body-l-bold ml-1 cursor-pointer underline"
               onClick={() => {
                 setAuthType(AuthType.SIGN_UP);
               }}
             >
-              Sign up
+              {t('sign_up')}
             </span>
           </p>
         </div>
@@ -203,10 +208,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
         <div>
           <Input
             ref={passwordInputRef}
-            label="Password"
+            label={t('password')}
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder={t('password')}
             theme="light"
             state={formState.password.status as any}
             errorMessage={formState.password.errorMessage}
@@ -222,7 +227,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
                   });
                 }}
               >
-                Forgot Password?
+                {t('forgot_password')}
               </div>
             }
             onChange={(e) => {
@@ -268,7 +273,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
               });
             }}
           >
-            Keep me logged in
+            {t('keep_logged_in')}
           </p>
         </div>
       </div>
@@ -285,7 +290,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           button-text-l py-4 uppercase
           "
         >
-          Continue
+          {t('continue')}
         </Button>
         <Button
           onClick={onBack}
@@ -295,7 +300,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
           button-text-l border-neutral-off-black py-4 uppercase
           "
         >
-          Back
+          {t('back')}
         </Button>
       </div>
     </div>
