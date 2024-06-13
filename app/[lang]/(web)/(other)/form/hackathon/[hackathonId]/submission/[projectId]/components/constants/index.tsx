@@ -71,7 +71,7 @@ export const LOCATIONS = [
   },
   {
     label: 'Other',
-    value: 'Other'
+    value: ProjectLocation.OTHER
   }
 ];
 
