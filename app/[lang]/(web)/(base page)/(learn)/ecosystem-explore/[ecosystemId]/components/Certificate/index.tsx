@@ -5,6 +5,7 @@ import MedalCover from '@/public/images/learn/medal_cover.png';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { getToken } from '@/helper/user-token';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface CertificateProp {
   ecosystem: EcosystemDetailType;
@@ -32,12 +33,12 @@ const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
     }
   }, [ecosystem]);
   return (
-    <div className="flex items-center gap-[48px] rounded-[16px] bg-neutral-white p-[24px]">
+    <div className="flex items-center gap-[48px] rounded-[16px] bg-yellow-extra-light p-[24px]">
       <div className="flex-1">
         <div>
           <Image src={MedalCover} alt={''} width={30} height={40} />
         </div>
-        <h2 className="body-xl-bold mb-[24px] mt-[16px] text-neutral-off-black">{ecosystem?.info?.name} Certificate</h2>
+        <h2 className="body-l-bold mb-[8px] mt-[16px] text-neutral-off-black">{ecosystem?.info?.name} Certificate</h2>
         <p className="body-m text-neutral-medium-gray">{ecosystem?.info?.certificateDesc}</p>
       </div>
       <div className="flex flex-shrink-0 items-center gap-[24px]">
@@ -51,11 +52,13 @@ const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
                 />
               </svg>
             )}
-            <div>
-              <div className="overflow-hidden rounded-[8px] shadow-[0_0_8px_rgba(0,0,0,0.12)]">
-                <Image src={v.certification.image} alt={v.label} width={283} height={160} />
-              </div>
-              <div className="body-m-bold mt-[14px] text-center">
+            <div className="flex flex-col items-center">
+              <BaseImage
+                src={v.certification.image}
+                alt={v.label}
+                className="h-[100px] w-[177px] rounded-[8px] shadow-[0_0_8px_rgba(0,0,0,0.12)]"
+              />
+              <div className="body-s-bold mt-[14px] text-center">
                 Lvl {v.level}. {v.label}
               </div>
             </div>

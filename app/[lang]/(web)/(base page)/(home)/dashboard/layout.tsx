@@ -5,6 +5,7 @@ import { ClaimCertificateModal } from './components/claim-certificate-modal';
 import { MintCertificateModal } from './components/mint-certificate-modal';
 import { UsernameModal } from './components/username-modal';
 import { MyCertificateCard } from './components/my-certificate-card';
+import DayStreak from '../../(reward)/mission-center/components/DayStreak';
 
 export default function DashboardLayout({
   children
@@ -19,8 +20,8 @@ export default function DashboardLayout({
           <div className="py-8">{children}</div>
         </div>
         <div className="flex flex-col gap-8">
+          <DayStreak link className="bg-neutral-white p-4" />
           {/* <HackathonCard /> */}
-          {/* <MissionCenterCard /> */}
           <MyCertificateCard />
           <FollowDiscord />
         </div>

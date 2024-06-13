@@ -22,7 +22,7 @@ const RestoreModal: React.FC<RestoreModalProp> = ({ open, onClose }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
   const [loading, setLoading] = useState(false);
-  const { updateMissionData } = useGetMissionData();
+  const { updateMissionDataAll } = useGetMissionData();
   const costTxt = useMemo(() => {
     switch (lang) {
       case Lang.EN:
@@ -51,7 +51,7 @@ const RestoreModal: React.FC<RestoreModalProp> = ({ open, onClose }) => {
       .then(() => {
         message.success('restore streak success');
         onClose();
-        updateMissionData();
+        updateMissionDataAll();
       })
       .catch((err) => {
         errorMessage(err);

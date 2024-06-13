@@ -8,7 +8,8 @@ import {
   DigTreasuresResponse,
   OpenTreasuresResponse,
   InviteResponseType,
-  UserLevelRankResponseType
+  UserLevelRankResponseType,
+  ClaimResponse
 } from './type';
 
 export enum MissionCenterApiType {
@@ -48,7 +49,7 @@ class MissionCenterApi {
   /** mission claim */
   missionClaim(missionIds: string[]) {
     const url = `${MissionCenterApiType.Missions}/claim`;
-    return this.service.post(url, {
+    return this.service.post<ClaimResponse[]>(url, {
       data: {
         missionIds
       }

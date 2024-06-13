@@ -40,10 +40,10 @@ const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem }) => 
   return (
     <div>
       <Banner lang={lang} ecosystem={ecosystem} />
-      <div className="container mx-auto py-[60px]">
+      <div className="mx-auto w-[996px] py-[60px]">
         <Certificate ecosystem={ecosystem} />
       </div>
-      <div className="container mx-auto flex items-stretch gap-[20px] pb-[100px]">
+      <div className="mx-auto flex w-[996px] items-stretch gap-[20px] pb-[100px]">
         <div className="flex w-[24px] flex-shrink-0 items-stretch justify-center">
           <div className="border-l border-dashed border-neutral-medium-gray"></div>
         </div>

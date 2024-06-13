@@ -53,14 +53,23 @@ export const useGetMissionData = () => {
     const len = missions.length;
     let isMissStreak = false;
     const isContinu = missions[len - 1].progress.progress[0] === len;
+    //连续签到天数为missions的最后一个的propress[0]
     const continuCount = missions[len - 1].progress.progress[0];
+    // 是否需要补签看missions的倒数第二个的claimed是否为false 如果为false则把其状态设置为RESTORE 可以补签的状态
     if (missions.length > 1) {
       isMissStreak = !missions[len - 2].progress.claimed;
       if (isMissStreak) {
         missions[len - 2].status = MissionStatus.RESTORE;
       }
     }
+    //除了missions最后一个和倒数第二个 前面的如果状态如果是UNCLAIM 没有签到，将状态都设置为UNCOMPLETED 未完成
+    missions.map((v, i) => {
+      if (i < len - 2 && v.status === MissionStatus.UNCLAIM) {
+        v.status = MissionStatus.UNCOMPLETED;
+      }
+    });
     let newMissions = missions;
+    //补齐剩余的数据  状态默认为UNCOMPLETED
     if (missions.length < 7) {
       const mockMissions = Array.from({
         length: 7 - len
@@ -78,6 +87,9 @@ export const useGetMissionData = () => {
     };
   };
 
+  /**
+   * 宝箱不够五个补齐五个 状态设置为UNOBTAIN未获得
+   */
   const dealTreasures = (treasures: InviteTreasureType[]): InviteTreasureType[] => {
     const len = treasures?.length || 0;
     if (len < 5) {

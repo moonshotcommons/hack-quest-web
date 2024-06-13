@@ -133,3 +133,9 @@ export interface OpenTreasuresResponse {
   exp: number;
   coin: number;
 }
+
+export interface ClaimResponse {
+  id: string;
+  exp: number;
+  coin: number;
+}
