@@ -2,8 +2,13 @@ import { Metadata } from 'next';
 import Explore from './components';
 import { Lang } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
+import webApi from '@/service';
+import { introWeb3MockCourseId } from './constants/data';
 
 interface SearchParamsType {
+  searchParams: {
+    keyword: string;
+  };
   params: {
     lang: Lang;
   };
@@ -27,9 +32,16 @@ export async function generateMetadata({ params }: SearchParamsType): Promise<Me
   return metadata;
 }
 
-const ExplorePage: React.FC<SearchParamsType> = async ({ params }) => {
+const ExplorePage: React.FC<SearchParamsType> = async ({ params, searchParams }) => {
   const { lang } = params;
-  return <Explore lang={lang} />;
+  const [ecosystems, course] = await Promise.all([
+    webApi.ecosystemApi.getEcosystems({
+      lang,
+      keyword: searchParams.keyword || ''
+    }),
+    webApi.courseApi.getCourseDetail(introWeb3MockCourseId)
+  ]);
+  return <Explore lang={lang} ecosystems={ecosystems} keyword={searchParams.keyword} course={course} />;
 };
 
 export default ExplorePage;
