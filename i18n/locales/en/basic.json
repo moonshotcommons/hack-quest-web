@@ -141,7 +141,10 @@
   },
   "auth": {
     "login": "Log In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "profile": "Profile",
+    "change_password": "Change Password",
+    "sign_out": "Sign Out"
   },
   "courses": {
     "language": "Language",

@@ -6,6 +6,9 @@ import webApi from '@/service';
 import { useDebounceFn } from 'ahooks';
 import Schema, { Rule } from 'async-validator';
 import React, { useMemo, useRef, useState } from 'react';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface ChangePasswordProp {
   onClose: VoidFunction;
@@ -13,6 +16,8 @@ interface ChangePasswordProp {
 }
 
 const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSuccessVisible }) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const [formData, setFormData] = useState<{
     password: string;
     newPassword: string;
@@ -48,12 +53,12 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
       type: 'string',
       required: true,
       pattern: /^(?=.*\d)(?=.*[a-zA-Z]).{8,16}$/,
-      message: '8 or more characters with a mix of letters & numbers'
+      message: t('more_characters')
     },
     reenterPassword: {
       type: 'string',
       required: true,
-      message: 'Those passwords didn’t match. Try again.',
+      message: t('password_mismatch'),
       validator(_, value) {
         return value === formData.newPassword;
       }
@@ -104,11 +109,11 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
   return (
     <div className="flex flex-col gap-[30px]">
       <Input
-        label="Current password"
+        label={t('current_password')}
         labelClassName="font-normal"
         type="password"
         name="password"
-        placeholder="Enter your current password"
+        placeholder={t('current_password')}
         state={formState.password.status as any}
         errorMessage={formState.password.errorMessage}
         ref={currentPasswordRef as any}
@@ -121,11 +126,11 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
         }}
       ></Input>
       <Input
-        label="New Password"
+        label={t('new_password')}
         labelClassName="font-normal"
         type="password"
         name="password"
-        placeholder="8+ characters with a mix of letters & numbers"
+        placeholder={t('new_password')}
         state={formState.newPassword.status as any}
         errorMessage={formState.newPassword.errorMessage}
         initBorderColor="border-neutral-medium-gray"
@@ -144,10 +149,10 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
         }}
       ></Input>
       <Input
-        label="Re-Enter New Password"
+        label={t('re_enter_new_password')}
         labelClassName="font-normal"
         type="password"
-        placeholder="Confirm your new password"
+        placeholder={t('re_enter_new_password')}
         name="reenterPassword"
         state={formState.reenterPassword.status as any}
         errorMessage={formState.reenterPassword.errorMessage}
@@ -180,7 +185,6 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
           innerClassNames="bg-neutral-off-black"
           checked={isAgree}
           onChange={(value) => {
-            BurialPoint.track('login-保存登录状态');
             setIsAgree(value);
           }}
           isCircle={true}
@@ -191,29 +195,29 @@ const ChangePassword: React.FC<ChangePasswordProp> = ({ onClose, setChangeSucces
             setIsAgree(!isAgree);
           }}
         >
-          {`I agree with HackQuest's Terms of Service, Privacy Policy;`}
+          {t('accept_privacy_policy')}
+          {t('privacy_policy')}
         </p>
       </div>
       <div className="flex justify-center gap-[15px] pt-[20px]">
         <Button
-          className="button-text-m h-[48px] w-[240px] border border-neutral-black  text-neutral-black"
+          className="button-text-m h-[48px] w-[240px] border border-neutral-black uppercase  text-neutral-black"
           onClick={(e) => {
-            BurialPoint.track('settings取消修改密码');
             onClose();
           }}
         >
-          CANCEL
+          {t('cancel')}
         </Button>
         <Button
           loading={loading}
-          className={`button-text-m h-[48px]  w-[240px]  ${
+          className={`button-text-m h-[48px] w-[240px] uppercase  ${
             updateDisable
               ? 'cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray'
               : 'bg-yellow-primary text-neutral-black'
           }`}
           onClick={onUpdate}
         >
-          UPDATE PASSWORD
+          {t('update_password')}
         </Button>
       </div>
     </div>

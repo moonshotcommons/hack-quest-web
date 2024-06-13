@@ -5,8 +5,6 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import message from 'antd/es/message';
 import { FC, useContext, useEffect, useState } from 'react';
-
-// import ContractUs from '@/app/[lang]/(web)/(base page)/(landing)/components/ContractUs';
 import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { setToken } from '@/helper/user-token';
 import { omit } from 'lodash-es';
@@ -14,10 +12,17 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { AuthContext } from '..';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
+
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.AUTH);
   const authRouteType = useUserStore((state) => state.authRouteType);
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const { redirectToUrl } = useRedirect();
   const [formData, setFormData] = useState<{
     email: string;
@@ -25,7 +30,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     token: string;
   }>({
     email: '',
-    inviteCode: '',
+    inviteCode: query.get('inviteCode') || '',
     token: ''
   });
   const { setAuthType, setUserInfo } = useUserStore(
@@ -65,7 +70,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             ...formState,
             inviteCode: {
               status: 'error',
-              errorMessage: 'Invalid invite code'
+              errorMessage: t('invalid_invite_code')
             }
           });
         }
@@ -160,7 +165,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         ...formState,
         inviteCode: {
           status: 'error',
-          errorMessage: 'Please enter the invite code'
+          errorMessage: t('invite_code_required')
         }
       });
       return false;
@@ -171,7 +176,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         ...formState,
         inviteCode: {
           status: 'error',
-          errorMessage: 'The length of the invite code should be 40 or less'
+          errorMessage: t('invite_code_too_long')
         }
       });
       return false;
@@ -182,7 +187,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         ...formState,
         inviteCode: {
           status: 'error',
-          errorMessage: 'Invite code can only be letters, numbers, %&*! Etc.'
+          errorMessage: t('invite_code_invalid')
         }
       });
       return false;
@@ -199,29 +204,24 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         token: authRouteType.params?.token || ''
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="flex h-full w-full flex-col justify-between">
-      {/* <ThirdPartyLogin></ThirdPartyLogin> */}
-      {/* <ThirdPartyLogin></ThirdPartyLogin> */}
       <div className="flex w-full flex-col gap-8">
-        <p className="body-m-bold text-neutral-rich-gray">Do you have an invite code?</p>
-        {/* <div className="body-s text-neutral-black">
-          HackQuest is currently in beta. Get an invite code from an existing
-          user to sign up.
-        </div> */}
-
+        <p className="body-m-bold text-neutral-rich-gray">{t('have_an_invite_code')}</p>
         <Input
-          label="Invite Code (Optional)"
+          label={`${t('invite_code')} (${t('optional')})`}
           type="text"
           name="invite code"
           isMobile
-          placeholder="Enter your invite code"
+          placeholder={t('enter_invite_code')}
           state={formState.inviteCode.status as any}
           errorMessage={formState.inviteCode.errorMessage}
           delay={500}
           theme={'light'}
+          value={formData.inviteCode}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -236,8 +236,6 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
             });
           }}
         ></Input>
-
-        {/* <ContractUs className="gap-[30px] justify-center"></ContractUs> */}
       </div>
       <div className="flex w-full flex-col gap-4">
         <Button
@@ -264,7 +262,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           button-text-m py-4 uppercase
           "
         >
-          submit
+          {t('continue')}
         </Button>
         <Button
           onClick={() => {
@@ -289,13 +287,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           ghost
           className="button-text-m border-neutral-off-black py-4 uppercase"
         >
-          Skip
+          {t('skip')}
         </Button>
       </div>
-      {/* <WhiteListModal
-        open={showWhiteListModal}
-        onClose={() => setShowWhiteListModal(false)}
-      ></WhiteListModal> */}
     </div>
   );
 };

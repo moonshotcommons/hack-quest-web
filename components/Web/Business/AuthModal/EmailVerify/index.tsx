@@ -115,10 +115,8 @@ const EmailVerify: FC<EmailVerifyProps> = (props) => {
           />
         </svg>
 
-        <h1 className="text-h3 text-neutral-off-black">Verify Your Email</h1>
-        <p className="body-l text-neutral-medium-gray">
-          Please verify your account via the link in the e-mail and follow the instruction to login
-        </p>
+        <h1 className="text-h3 text-neutral-off-black">{t('verify_your_email')}</h1>
+        <p className="body-l text-neutral-medium-gray">{t('verify_your_email_description')}</p>
       </div>
       <div className="mt-[4rem] flex w-full flex-col gap-4">
         <Button
