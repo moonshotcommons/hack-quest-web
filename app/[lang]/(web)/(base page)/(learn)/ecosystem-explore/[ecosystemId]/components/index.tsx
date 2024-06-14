@@ -17,8 +17,8 @@ interface EcosystemDetailProp {
 
 const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem, task, levels }) => {
   const learn = useMemo(() => {
-    task.learn.map((v) => (v.courses = v.courses || v.learningTracks));
-    return task.learn;
+    task?.learn?.map((v) => (v.courses = v.courses || v.learningTracks));
+    return task?.learn;
   }, [task]);
   return (
     <div>
