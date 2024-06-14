@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
+import { getHackathonById } from '@/service/cach/resource/hackathon';
+import { isUuid } from '@/helper/utils';
+import { permanentRedirect } from 'next/navigation';
 import HackathonEdit from './components';
 
 interface HackathonIdProps {
@@ -12,10 +15,9 @@ interface HackathonIdProps {
 }
 
 export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
-  const { lang } = params;
-  // const hackathon = await getHackathonById(params.hackathonId);
+  const { lang, hackathonId } = params;
   return {
-    // title: hackathon.name,
+    title: hackathonId,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON_EDIT}/${params.hackathonId}`,
       languages: {
@@ -28,13 +30,13 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
 }
 
 const HackahtonEditPage: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
-  // const hackathon = await getHackathonById(params.hackathonId);
-  // if (isUuid(params.hackathonId)) {
-  //   permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
-  // }
+  const hackathon = await getHackathonById(params.hackathonId);
+  if (isUuid(params.hackathonId)) {
+    permanentRedirect(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`);
+  }
   return (
     <>
-      <HackathonEdit />
+      <HackathonEdit hackathon={hackathon} />
     </>
   );
 };

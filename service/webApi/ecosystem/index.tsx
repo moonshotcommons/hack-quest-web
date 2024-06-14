@@ -46,11 +46,17 @@ class EcosystemApi {
     });
   }
 
-  getEcosystemTasks(id: string, params?: Record<string, any>) {
+  getEcosystemTasks(id: string, params: Record<string, any>, token?: string) {
+    let param: any = { params };
+    if (token) {
+      param.headers = {
+        Authorization: `Bearer ${token}`
+      };
+    }
     return this.service.get<{ learn: EcosystemTask[]; build: EcosystemTask[]; community: EcosystemTask[] }>(
       `${EcosystemApiType.ECOSYSTEMS}/${id}/tasks`,
       {
-        params
+        ...param
       }
     );
   }
