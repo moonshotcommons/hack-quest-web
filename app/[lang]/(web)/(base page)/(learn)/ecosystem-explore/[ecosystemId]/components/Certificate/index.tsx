@@ -1,37 +1,15 @@
 import { EcosystemDetailType, LevelType } from '@/service/webApi/ecosystem/type';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MedalCover from '@/public/images/learn/medal_cover.png';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
-import { getToken } from '@/helper/user-token';
 import BaseImage from '@/components/Common/BaseImage';
 
 interface CertificateProp {
   ecosystem: EcosystemDetailType;
+  levels: LevelType[];
 }
 
-const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
-  const [levels, setLevels] = useState<LevelType[]>([]);
-  const { run } = useRequest(
-    async () => {
-      const token = getToken();
-      const res = await webApi.ecosystemApi.getLevels(ecosystem?.info.id, token as string);
-      return res;
-    },
-    {
-      manual: true,
-      onSuccess(res) {
-        setLevels(res);
-      }
-    }
-  );
-
-  useEffect(() => {
-    if (ecosystem?.info?.id) {
-      run();
-    }
-  }, [ecosystem]);
+const Certificate: React.FC<CertificateProp> = ({ ecosystem, levels }) => {
   return (
     <div className="flex items-center gap-[48px] rounded-[16px] bg-yellow-extra-light p-[24px]">
       <div className="flex-1">
