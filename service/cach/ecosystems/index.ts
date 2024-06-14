@@ -16,3 +16,7 @@ export const getLevelsCached = cache(async (params: Record<string, any>) => {
   const token = cookies().get('token')?.value || '';
   return webApi.ecosystemApi.getEcosystemLevels(params.ecosystemId, params, token);
 });
+export const getTaskCached = cache(async (params: Record<string, any>) => {
+  const token = cookies().get('token')?.value || '';
+  return webApi.ecosystemApi.getEcosystemTasks(params.ecosystemId, params, token);
+});

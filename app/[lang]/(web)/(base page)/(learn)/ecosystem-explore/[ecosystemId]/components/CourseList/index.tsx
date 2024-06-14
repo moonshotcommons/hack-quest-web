@@ -30,7 +30,7 @@ const CourseList: React.FC<CourseListProp> = ({ list }) => {
               </div>
             ))}
           </div>
-          {task.courses.length > 3 && (
+          {task.courses.length > 0 && (
             <div className="flex justify-center">
               <Link href={`${MenuLink.PRACTICES}?track=${task.track}&language=${task.language}`}>
                 <Button
