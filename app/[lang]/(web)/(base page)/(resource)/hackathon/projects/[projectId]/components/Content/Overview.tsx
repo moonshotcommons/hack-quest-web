@@ -54,6 +54,7 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
             </Link>
           </div>
         </div>
+
         <div
           className={cn(
             'flex w-fit border-l border-neutral-rich-gray px-[32px]',
@@ -63,11 +64,12 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
           <Image src={IconPrizeTrack} width={24} alt="prize-icon" />
           <div className="flex flex-1 flex-col">
             <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.prizeTrack')}</p>
-            <p className="line-clamp-1 w-full" title={project.prizeTrack.split(',').join(', ')}>
-              {project.prizeTrack.split(',').join(', ') || '-'}
+            <p className="line-clamp-1 w-full" title={project.prizeTrack?.split(',').join(', ')}>
+              {project.prizeTrack?.split(',').join(', ') || '-'}
             </p>
           </div>
         </div>
+
         <div
           className={cn(
             'flex w-fit  border-l border-neutral-rich-gray pl-[32px]',
@@ -77,8 +79,8 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
           <Image src={IconHackathonTrack} width={31} alt="hackathon-track-icon" />
           <div className="flex-1">
             <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.hackathonTrack')}</p>
-            <p className="line-clamp-1" title={project.tracks.join(', ')}>
-              {project.tracks.join(', ')}
+            <p className="line-clamp-1" title={project.tracks?.join(', ')}>
+              {project.tracks?.join(', ')}
             </p>
           </div>
         </div>
