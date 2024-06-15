@@ -29,9 +29,12 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
   const { redirectToUrl } = useRedirect();
   const { name, contractInfo, bio, submissionType, isRegister } = formState;
   const confirmModalRef = useRef<ConfirmModalRef>(null);
+  const [allowContract, setAllowContract] = useState(true);
   const { runAsync, loading } = useRequest(
     () => {
-      return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
+      return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id, {
+        allowContract: allowContract
+      });
     },
     {
       manual: true,
@@ -48,8 +51,6 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       }
     }
   );
-
-  const [consent, setConsent] = useState(false);
 
   const register = () => {
     confirmModalRef.current?.open({
@@ -228,7 +229,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
           {isRegister ? 'update' : 'register'}
         </Button>
       </div>
-      <ConfirmModal ref={confirmModalRef} disabled={!isRegister && !consent}>
+      <ConfirmModal ref={confirmModalRef}>
         <h4 className="text-h4 mb-9 text-center text-neutral-black">
           Do you want to {isRegister ? 'update' : 'register'} this hackathon?
         </h4>
@@ -240,7 +241,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
               we would like to contact you about our products and services, as well as other content that may be of
               interest to you. If you consent to us contacting you for this purpose:
             </p>
-            <div className="mt-6 flex justify-center gap-2 text-neutral-rich-gray">
+            {/* <div className="mt-6 flex justify-center gap-2 text-neutral-rich-gray">
               <span
                 className="body-s flex h-[22px] w-[22px] items-center justify-center rounded-[2px] border-[2px] border-neutral-black text-neutral-black"
                 onClick={() => {
@@ -255,6 +256,34 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
                 ></span>
               </span>
               <span>Yes, I consent.</span>
+            </div> */}
+            <div className="mt-6 flex w-full justify-between gap-5 px-10">
+              <div
+                onClick={() => {
+                  setAllowContract(true);
+                }}
+                className={cn(
+                  `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+                  allowContract === true
+                    ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
+                    : ''
+                )}
+              >
+                <span>Yes</span>
+              </div>
+              <div
+                onClick={() => {
+                  setAllowContract(false);
+                }}
+                className={cn(
+                  `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+                  allowContract === false
+                    ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
+                    : ''
+                )}
+              >
+                <span>No</span>
+              </div>
             </div>
           </>
         )}
