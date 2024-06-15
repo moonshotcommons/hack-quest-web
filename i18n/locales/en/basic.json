@@ -219,5 +219,7 @@
   "treasureModalText":"The treasure you got",
   "FAQs": "FAQs",
   "edit":"Edit",
-  "delete":"Delete"
+  "delete":"Delete",
+  "remove":"Remove",
+  "description":"Description"
 }

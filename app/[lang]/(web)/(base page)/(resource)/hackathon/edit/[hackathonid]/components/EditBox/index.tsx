@@ -21,7 +21,7 @@ const EditBox: React.FC<EditBoxProp> = ({ title, className, children, handleEdit
       <div className="flex items-center justify-between">
         <Title title={title} />
         <div className="underline-l flex cursor-pointer gap-[12px] text-neutral-off-black">
-          {handleDelete && <div onClick={handleDelete}>{t('delete')}</div>}
+          {handleDelete && <div onClick={handleDelete}>{t('remove')}</div>}
           {handleEdit && <div onClick={handleEdit}>{t('edit')}</div>}
         </div>
       </div>

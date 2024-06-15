@@ -90,7 +90,10 @@
     "sponsorsIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "scheduleIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "FAQsIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "mediaPartnersUploadText":"Please upload one icon image and enter the name for each partner."
+    "mediaPartnersUploadText":"Please upload one icon image and enter the name for each partner.",
+    "onlineMeetingURL":"Online Meeting URL",
+    "onsiteMeetingAddress":"Onsite Meeting Address",
+    "openMeeting":"Open Meeting"
 
 
 

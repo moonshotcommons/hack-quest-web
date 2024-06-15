@@ -3,16 +3,7 @@ import React, { useState } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditProvider from './EditProvider';
 import EditNav from './EditNav';
-import Cover from './Cover';
 import Info from './Info';
-import TimeLine from './TimeLine';
-import Rewards from './Rewards';
-import Judging from './Judging';
-import Application from './Application';
-import Submission from './Submission';
-import Links from './Links';
-import PartnersBox from './PartnersBox';
-import SpeakersSponsorsBox from './SpeakersSponsorsBox';
 
 interface HackathonEditProp {
   hackathon: HackathonType;
@@ -27,7 +18,7 @@ const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon }) => {
           <EditNav curTab={curTab} setCurTab={setCurTab} />
           <div className="relative flex justify-between pt-[60px]">
             <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
-              <Cover hackathon={hackathon} />
+              {/* <Cover hackathon={hackathon} />
               <TimeLine hackathon={hackathon} />
               <Rewards hackathon={hackathon} />
               <Judging hackathon={hackathon} />
@@ -39,6 +30,8 @@ const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon }) => {
               <PartnersBox hackathon={hackathon} type="partners" />
               <SpeakersSponsorsBox hackathon={hackathon} type="speakersAndJudges" />
               <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
+              <Schedule hackathon={hackathon} />
+              <FAQs hackathon={hackathon} /> */}
             </div>
             <div className="relative w-[39%]">
               <Info />
