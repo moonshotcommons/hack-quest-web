@@ -59,6 +59,7 @@ export interface HackathonType {
   theme: CustomComponent[];
   resources: CustomComponent[];
   participants: number;
+  memberCount: number;
   hosts: Omit<MentorType, 'title'>[];
   coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
