@@ -1,6 +1,6 @@
 import { CodeLineType, LineType } from '@/components/ComponentRenderer/type';
 import { changeTextareaHeight } from '@/helper/utils';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState, useRef } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { styled } from 'styled-components';
@@ -25,6 +25,9 @@ export interface AnswerState {
 export interface WaitingRenderCodeType {
   type: string;
   render: (answerState: AnswerState[]) => ReactNode;
+  content: {
+    getRichText: Function;
+  };
 }
 
 const AnswerInputTextarea = (props: {
@@ -139,6 +142,12 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
 
   /** 错误行 */
   const [errorLine, setErrorLine] = useState<AnswerState[]>([]);
+
+  const answerStateRef = useRef(answerState);
+
+  useEffect(() => {
+    answerStateRef.current = answerState;
+  }, [answerState]);
 
   const codeStyle = useMemo(() => {
     const bgResetClasses = ['pre[class*="language-"]', 'code[class*="language-"]'];
@@ -259,6 +268,19 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
             );
           }
         });
+      },
+      content: {
+        getRichText: () => {
+          const answers = answerStateRef.current.find((item) => item.id === line.id)?.answers || [];
+          return rendArr
+            .map((v, i) => {
+              const inputId = `${line.id}${i}`;
+              return v.type === LineType.DEFAULT
+                ? v.content.join('')
+                : answers.find((v) => v.id === line.id)?.answers?.find((v) => v.id === inputId)?.inputValue;
+            })
+            .join('');
+        }
       }
     };
 
@@ -297,6 +319,11 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
             }}
           ></AnswerInputTextarea>
         );
+      },
+      content: {
+        getRichText: () => {
+          return answerStateRef.current.find((item) => item.id === line.id)?.inputValue;
+        }
       }
     };
     return inputLine;
@@ -331,6 +358,9 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
             {line.content}
           </CustomSyntaxHighlighter>
         );
+      },
+      content: {
+        getRichText: () => line.content
       }
     };
 
@@ -353,6 +383,9 @@ export const useParseQuiz = (lines: CodeLineType[]) => {
     const waitCodeRenderLines: {
       type: string;
       render: (newAnswerState: AnswerState[]) => ReactNode;
+      content: {
+        getRichText: Function;
+      };
     }[] = [];
     for (let i = 0; i < waitLines.length; i++) {
       let waitLine = waitLines[i];
