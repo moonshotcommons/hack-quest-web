@@ -280,6 +280,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
+          redirectToUrl('/dashboard');
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
