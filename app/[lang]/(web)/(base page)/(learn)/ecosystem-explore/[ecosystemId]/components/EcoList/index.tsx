@@ -14,9 +14,7 @@ const EcoList: React.FC<EcoListProp> = ({ list }) => {
       {list.map((task) => (
         <div className="flex w-full flex-col gap-[32px] " key={task.taskId}>
           <Title title={task.subTitle} description={task.description} />
-          {task.courses.map((course) => (
-            <DeveloperCard key={course.id} course={course} />
-          ))}
+          {task.courses?.map((course) => <DeveloperCard key={course.id} course={course} />)}
         </div>
       ))}
     </div>

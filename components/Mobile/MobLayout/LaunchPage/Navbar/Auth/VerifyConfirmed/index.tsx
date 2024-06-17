@@ -345,14 +345,14 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   );
 
-  const verifyGoogle = (code: string) => {
+  const verifyGoogle = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Google三方登录code验证');
     if (code) {
       webApi.userApi
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}&inviteCode=${inviteCode}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -385,7 +385,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   };
 
-  const verifyGithub = (code: string) => {
+  const verifyGithub = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Github三方登录code验证');
 
     if (code) {
@@ -393,7 +393,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}&inviteCode=${inviteCode}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -432,8 +432,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     const state = query.get('state');
     let code = query.get('code');
     let querySource = query.get('source') || ThirdPartyAuthType.EMAIL;
+    let verifyData;
     if (state) {
-      const verifyData = JSON.parse(atob(state as string));
+      verifyData = JSON.parse(atob(state as string));
       querySource = verifyData?.source || ThirdPartyAuthType.GOOGLE;
     }
     //第一个字母大写 其余小写
@@ -441,10 +442,10 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     setSource(querySource as ThirdPartyAuthType);
     switch (querySource) {
       case ThirdPartyAuthType.GOOGLE:
-        verifyGoogle(code as string);
+        verifyGoogle(code as string, verifyData?.inviteCode || '');
         break;
       case ThirdPartyAuthType.GITHUB:
-        verifyGithub(code as string);
+        verifyGithub(code as string, verifyData?.inviteCode || '');
         break;
       default:
         verifyEmail(token as string);

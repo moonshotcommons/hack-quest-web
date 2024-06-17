@@ -23,7 +23,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData }) => {
   if (!listData.length) return null;
   return (
     <div>
-      <Title title={t('hackathonDetail.guestsMentors')} />
+      <Title title={t('hackathonDetail.guestsAndMentors')} />
       <div className="flex flex-col gap-[.5rem]">
         {showList.map((v: MentorType, i: number) => (
           <div
