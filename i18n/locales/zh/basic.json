@@ -220,5 +220,6 @@
   "edit":"编辑",
   "delete":"删除",
   "remove":"移除",
-  "description":"描述"
+  "description":"描述",
+  "uploadImage":"上传图片"
 }

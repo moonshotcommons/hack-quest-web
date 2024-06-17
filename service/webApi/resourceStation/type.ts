@@ -59,6 +59,7 @@ export interface HackathonType {
   theme: CustomComponent[];
   resources: CustomComponent[];
   participants: number;
+  memberCount: number;
   hosts: Omit<MentorType, 'title'>[];
   coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
@@ -87,6 +88,7 @@ export interface HackathonType {
 
   speakersAndJudges: HackathonMemberType[];
   sponsors: HackathonMemberType[];
+  description: string;
 }
 
 export interface JoinedHackathonType {

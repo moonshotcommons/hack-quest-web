@@ -4,6 +4,8 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditProvider from './EditProvider';
 import EditNav from './EditNav';
 import Info from './Info';
+import HandleEditModal from './HandleEditModal';
+import AddSection from './AddSection';
 
 interface HackathonEditProp {
   hackathon: HackathonType;
@@ -32,13 +34,17 @@ const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon }) => {
               <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
               <Schedule hackathon={hackathon} />
               <FAQs hackathon={hackathon} /> */}
+              <AddSection hackathon={hackathon} />
             </div>
             <div className="relative w-[39%]">
-              <Info />
+              <div className="sticky left-0 top-[70px]">
+                <Info hackathon={hackathon} />
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <HandleEditModal hackathon={hackathon} />
     </EditProvider>
   );
 };

@@ -221,5 +221,6 @@
   "edit":"Edit",
   "delete":"Delete",
   "remove":"Remove",
-  "description":"Description"
+  "description":"Description",
+  "uploadImage":"upload Image"
 }
