@@ -1,3 +1,5 @@
+'use client';
+
 import MobCourseFilterList from '@/components/Mobile/MobCourseFilterList';
 import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
 import {
