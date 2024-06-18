@@ -4,11 +4,11 @@ import * as React from 'react';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
 import { ActionButtons } from './action-buttons';
 
@@ -30,7 +30,7 @@ const formSchema = z.object({
     .or(z.literal(''))
 });
 
-export function Judging() {
+export function JudgingForm() {
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
   const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
   const [sliderValue, setSliderValue] = React.useState(50);
@@ -161,7 +161,7 @@ export function Judging() {
                     value={field.value}
                     onChange={field.onChange}
                     type="text"
-                    placeholder="e.g. hello@gmail.com"
+                    placeholder="e.g. bob@gmail.com"
                     className="flex-1 outline-none"
                   />
                   <Button
@@ -190,7 +190,7 @@ export function Judging() {
             </button>
           </div>
         </div>
-        <ActionButtons isValid={form.formState.isValid} onBack={() => {}} />
+        <ActionButtons isValid={form.formState.isValid} isEditMode={false} />
       </form>
     </Form>
   );

@@ -9,7 +9,7 @@ import { TrashIcon } from '@/components/ui/icons/trash';
 import { PlusIcon } from '@/components/ui/icons/plus';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { ActionButtons } from './action-buttons';
-import { ConfirmModal } from '../confirm-modal';
+import { ConfirmModal } from '../modals/confirm-modal';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -31,7 +31,7 @@ function beforeUpload(file: FileType) {
   return isJpgOrPng && isLt2M;
 }
 
-export function Cover() {
+export function CoverForm() {
   const [open, toggleOpen] = useToggle(false);
   const [loading, toggle] = useToggle(false);
   const [imageUrl, setImageUrl] = React.useState<string>(
@@ -57,7 +57,7 @@ export function Cover() {
   }
 
   const imagePreview = (
-    <div className="relative mt-1 h-[409px] w-full overflow-hidden rounded-[10px]">
+    <div className="relative mb-10 mt-1 h-[409px] w-full overflow-hidden rounded-[10px]">
       <Image src={imageUrl} fill alt="background image" className="object-cover" />
       <button className="absolute right-3 top-3 text-neutral-white outline-none" onClick={toggleOpen}>
         <TrashIcon />
@@ -66,7 +66,7 @@ export function Cover() {
   );
 
   const uploadButton = (
-    <div className="mt-1 h-[409px] w-full rounded-[20px] bg-neutral-off-white p-[27px]">
+    <div className="mb-10 mt-1 h-[409px] w-full rounded-[20px] bg-neutral-off-white p-[27px]">
       <Upload
         name="cover"
         onChange={onChange}
@@ -98,8 +98,10 @@ export function Cover() {
     <div className="flex flex-col">
       <h3 className="body-m text-neutral-rich-gray">Hackathon Cover Image*</h3>
       {imageUrl ? imagePreview : uploadButton}
-      <ActionButtons className="mt-10" isValid={true} onBack={() => {}} />
-      <ConfirmModal open={open} onConfirm={removeImage} onClose={() => toggleOpen(false)} />
+      <ActionButtons isValid={true} isEditMode={false} />
+      <ConfirmModal open={open} onConfirm={removeImage} onClose={() => toggleOpen(false)}>
+        Do you want to remove this image?
+      </ConfirmModal>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import useMeasure from '@/hooks/dom/use-measure';
 
-const PanelContext = React.createContext({ value: '' });
+const PanelContext = React.createContext<{ value: string | number }>({ value: '' });
 
 export function Root({
   children,
@@ -10,7 +10,7 @@ export function Root({
   ...rest
 }: {
   children: React.ReactNode;
-  value: string;
+  value: string | number;
 } & React.ComponentProps<'div'>) {
   const [ref, bounds] = useMeasure<HTMLDivElement>();
   return (
@@ -18,6 +18,7 @@ export function Root({
       animate={{ height: bounds.height > 0 ? bounds.height : undefined }}
       transition={{ type: 'spring', bounce: 0, duration: 0.8 }}
       style={{ overflow: 'hidden', position: 'relative' }}
+      className="w-full"
     >
       <div ref={ref}>
         <PanelContext.Provider value={{ value }}>
@@ -33,7 +34,7 @@ export function Content({
   children,
   ...rest
 }: {
-  value: string;
+  value: string | number;
   children: React.ReactNode;
 } & React.ComponentProps<'div'>) {
   const panelContext = React.useContext(PanelContext);

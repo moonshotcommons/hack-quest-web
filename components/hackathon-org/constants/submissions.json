@@ -1,0 +1,77 @@
+{
+  "basic_info": [
+    {
+      "value": "logo",
+      "label": "Logo",
+      "required": true
+    },
+    {
+      "value": "name",
+      "label": "Name",
+      "required": true
+    },
+    {
+      "value": "location",
+      "label": "Location",
+      "required": true
+    },
+    {
+      "value": "prize_track",
+      "label": "Prize Track",
+      "required": true
+    },
+    {
+      "value": "hackathon_track",
+      "label": "Hackathon Track",
+      "required": true
+    },
+    {
+      "value": "wallet_connect",
+      "label": "Wallet Connect",
+      "required": true
+    }
+  ],
+  "project_detail": [
+    {
+      "value": "one_line_Intro",
+      "label": "One-Line Intro",
+      "required": true
+    },
+    {
+      "value": "detailed_Intro",
+      "label": "Detailed Intro",
+      "required": true
+    },
+    {
+      "value": "team_background",
+      "label": "Team Background"
+    },
+    {
+      "value": "progress_during_hackathon",
+      "label": "Progress During hackathon"
+    }
+  ],
+  "additions": [
+    {
+      "value": "github_open_source",
+      "label": "Github & Open Source",
+      "required": true
+    },
+    {
+      "value": "contract_address",
+      "label": "Contract Address"
+    },
+    {
+      "value": "pitch_video",
+      "label": "Pitch Video"
+    },
+    {
+      "value": "project_demo",
+      "label": "Project Demo"
+    },
+    {
+      "value": "fundraising_status",
+      "label": "Fundraising Status"
+    }
+  ]
+}

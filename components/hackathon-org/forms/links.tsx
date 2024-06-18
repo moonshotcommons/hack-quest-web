@@ -5,11 +5,11 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { TextField } from '@/components/ui/text-field';
+import { VerifyEmailModal } from '@/components/hackathon-org/modals/verify-email-modal';
 import { Button } from '@/components/ui/button';
+import { TextField } from '@/components/ui/text-field';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { ActionButtons } from './action-buttons';
-import { VerifyEmail } from '../verify-email';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -30,8 +30,9 @@ const formSchema = z.object({
   telegram: z.string().optional().or(z.literal(''))
 });
 
-export function Links() {
+export function LinksForm() {
   const [open, toggle] = useToggle(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -245,10 +246,10 @@ export function Links() {
               )}
             />
           </div>
-          <ActionButtons isValid={form.formState.isValid} onBack={() => {}} />
+          <ActionButtons isValid={form.formState.isValid} isEditMode={false} />
         </form>
       </Form>
-      <VerifyEmail open={open} onClose={() => toggle(false)} />
+      <VerifyEmailModal open={open} onClose={() => toggle(false)} />
     </>
   );
 }

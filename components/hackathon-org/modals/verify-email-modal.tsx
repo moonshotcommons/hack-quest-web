@@ -44,7 +44,7 @@ function Success({ onPrevious }: { onPrevious: () => void }) {
   );
 }
 
-export function VerifyEmail({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function VerifyEmailModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [state, setState] = React.useState<'form' | 'success'>('form');
 
   return (

@@ -5,11 +5,13 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { RadioGroup, RadioGroupItem } from '@/components/hackathon-org/common/radio-group';
 import { TextField } from '@/components/ui/text-field';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
-import { RadioGroup, RadioGroupItem } from '../radio-group';
 import { ActionButtons } from './action-buttons';
+import { Steps } from '../constants/steps';
+import { useHackathonOrgState } from '../constants/state';
 
 const formSchema = z.object({
   hackathonName: z
@@ -53,10 +55,24 @@ const formSchema = z.object({
     .or(z.literal('')),
   hackathonMode: z.enum(['hybrid', 'online'], {
     required_error: 'You need to select a hackathon mode'
+  }),
+  venue: z.string().min(1, {
+    message: 'Venue is a required input'
   })
 });
 
-export function Info() {
+export function BasicInfoForm({
+  isEditMode = false,
+  data,
+  onCancel,
+  onSubmitCallback
+}: {
+  isEditMode?: boolean;
+  data?: any;
+  onCancel?: () => void;
+  onSubmitCallback?: (data: any) => void;
+}) {
+  const { updateStatus, onNextStep } = useHackathonOrgState();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,12 +80,50 @@ export function Info() {
       organizationName: '',
       oneLineIntro: '',
       description: '',
-      conduct: ''
+      conduct: '',
+      hackathonMode: 'hybrid',
+      venue: ''
     }
   });
 
+  const isValid = form.formState.isValid;
+  const isHybridMode = form.watch('hackathonMode') === 'hybrid';
+
+  React.useEffect(() => {
+    if (isHybridMode) {
+      form.setValue('venue', '');
+    } else {
+      form.setValue('venue', 'null');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHybridMode]);
+
+  React.useEffect(() => {
+    if (!isEditMode) {
+      if (isValid) {
+        updateStatus(Steps.BASIC_INFO, true);
+      } else {
+        updateStatus(Steps.BASIC_INFO, false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValid, isEditMode]);
+
   function onSubmit(data: z.infer<typeof formSchema>) {
+    // TODO: request for creating / updating hackathon
     console.log(data);
+    if (isEditMode) {
+      onSubmitCallback?.(data);
+    } else {
+      onNextStep();
+    }
+  }
+
+  function onCancelOrBack() {
+    if (isEditMode) {
+      onCancel?.();
+    } else {
+    }
   }
 
   return (
@@ -239,7 +293,7 @@ export function Info() {
                 <RadioGroup
                   value={field.value}
                   onValueChange={(value) => {
-                    field.onChange(value as 'hybrid' | 'online');
+                    field.onChange(value as any);
                   }}
                   className="w-full grid-cols-2"
                 >
@@ -255,7 +309,34 @@ export function Info() {
             </FormItem>
           )}
         />
-        <ActionButtons isValid={form.formState.isValid} onBack={() => {}} />
+        {isHybridMode && (
+          <FormField
+            control={form.control}
+            name="venue"
+            render={({ field }) => (
+              <FormItem className="w-full space-y-1">
+                <div className="flex items-center justify-between">
+                  <FormLabel>
+                    <span className="body-m text-neutral-rich-gray">Venue*</span>
+                  </FormLabel>
+                </div>
+                <FormControl>
+                  <TextField
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                    }}
+                    autoComplete="off"
+                    placeholder="Enter Venue Name"
+                    className="aria-[invalid=true]:border-status-error-dark"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+        <ActionButtons isEditMode={isEditMode} isValid={form.formState.isValid} onCancelOrBack={onCancelOrBack} />
       </form>
     </Form>
   );
