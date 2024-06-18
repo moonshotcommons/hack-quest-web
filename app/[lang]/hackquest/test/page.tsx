@@ -1,12 +1,18 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { AboutSectionComponentList, AboutSectionComponentMap } from '@/components/HackathonCreation';
+import {
+  AboutSectionComponentList,
+  AboutSectionComponentMap,
+  ApplicationSectionConfig
+} from '@/components/HackathonCreation';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { CustomComponentConfig } from '@/components/HackathonCreation/type';
 import { Form } from '@/components/ui/form';
 import { cn } from '@/helper/utils';
 import { FC, Fragment } from 'react';
 import { useForm } from 'react-hook-form';
+ApplicationSectionConfig;
+
 interface TestPageProps {}
 
 const TestPage: FC<TestPageProps> = (props) => {

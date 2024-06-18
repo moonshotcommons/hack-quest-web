@@ -5,12 +5,14 @@ import BioConfig from './Bio';
 import FirstNameAndLastNameConfig from './FirstNameAndLastName';
 import GenderConfig from './Gender';
 import LocationConfig from './Location';
+import UniversityConfig from './University';
 
 export const AboutSectionComponentMap: Record<string, PresetComponentConfig<any>> = {
   [FirstNameAndLastNameConfig.type]: FirstNameAndLastNameConfig,
   [BioConfig.type]: BioConfig,
   [GenderConfig.type]: GenderConfig,
-  [LocationConfig.type]: LocationConfig
+  [LocationConfig.type]: LocationConfig,
+  [UniversityConfig.type]: UniversityConfig
 };
 
 export const AboutSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
