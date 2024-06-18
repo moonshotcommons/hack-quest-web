@@ -7,8 +7,9 @@ export enum HackathonStatusType {
 
 export interface MentorType {
   name: string;
-  title: string;
+  title?: string;
   picture: string;
+  id?: string;
 }
 
 export interface HackathonRewardType {
@@ -18,6 +19,7 @@ export interface HackathonRewardType {
   place: number[];
 }
 export interface HackathonScheduleType {
+  id: string;
   desc: string;
   time: string;
   isExpand?: boolean;

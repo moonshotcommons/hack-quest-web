@@ -92,7 +92,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = 
       ref={buttonRef}
       aria-disabled={disabled}
       className={cn(
-        `relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black outline-none transition-all hover:scale-[1.05]`,
+        `text-button-m relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black outline-none transition-all hover:scale-[1.05]`,
         type === 'primary' ? 'bg-yellow-primary' : '',
         type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',

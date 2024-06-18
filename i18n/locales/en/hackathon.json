@@ -91,13 +91,16 @@
     "scheduleIntro":"Sedmagna",
     "FAQsIntro":"Sedmagna",
     "mediaPartnersUploadText":"Please upload one icon image and enter the name for each partner.",
+    "speakersUploadText":"Please upload one profile image, name and one-line intro for each speaker or judge.",
     "onlineMeetingURL":"Online Meeting URL",
     "onsiteMeetingAddress":"Onsite Meeting Address",
     "openMeeting":"Open Meeting",
     "hackathonMode":"Hackathon Mode",
     "venue":"Venue",
     "removeSection":"Remove this section",
-    "enterName":"Enter name"
+    "removeEvent":"Remove the event",
+    "enterName":"Enter name",
+    "enterIntro":"One-line intro"
 
 
 

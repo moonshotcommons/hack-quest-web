@@ -14,12 +14,12 @@ import Button from '@/components/Common/Button';
 import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
 import EditTitle from '../EditTitle';
 
-interface PartnersBoxModalProp {
+interface SpeakersSponsorsBoxModalProp {
   hackathon: HackathonType;
-  type: 'partners' | 'mediaPartners' | 'communityPartners';
+  type: 'speakersAndJudges' | 'sponsors';
 }
 
-const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) => {
+const SpeakersSponsorsBoxModal: React.FC<SpeakersSponsorsBoxModalProp> = ({ type, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [partners, setPartners] = useState<MentorType[]>([]);
@@ -35,10 +35,10 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) =
     setPartners([...partners, p]);
   };
 
-  const handleChangeName = (e: FocusEvent<HTMLInputElement>, index: number) => {
-    const name = e.target.value;
+  const handleChangeName = (e: FocusEvent<HTMLInputElement>, index: number, key: 'name' | 'title') => {
+    const val = e.target.value;
     const newPartners = cloneDeep(partners);
-    newPartners[index].name = name;
+    newPartners[index][key] = val;
     setPartners(newPartners);
   };
 
@@ -53,29 +53,28 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) =
   };
 
   const handleEditTile = (title: string) => {};
-
   const cantSubmit = useMemo(() => {
-    return partners.some((v) => !v.name || !v.picture) || !partners.length;
+    return partners.some((v) => !v.name || !v.title || !v.picture) || !partners.length;
   }, [partners]);
 
   return (
     <div className="flex w-full flex-col gap-[24px]">
       <EditTitle title={t(`hackathonDetail.${type}`)} handleEditTile={handleEditTile} />
-      <p className="body-l text-neutral-off-black">{t('hackathonDetail.mediaPartnersUploadText')}</p>
+      <p className="body-l text-neutral-off-black">{t('hackathonDetail.speakersUploadText')}</p>
       <div className="flex flex-wrap gap-[20px]">
         {partners.map((v, i) => (
           <div
-            className="group relative flex h-[56px] w-[calc((100%-60px)/4)] items-center gap-[5px] rounded-[80px] border border-neutral-medium-gray bg-neutral-white p-[5px]"
+            className="group relative flex h-[81px] w-[calc((100%-20px)/2)] items-center gap-[5px] rounded-[80px] border border-neutral-medium-gray bg-neutral-white p-[5px]"
             key={v.id}
           >
             <div
               className="absolute right-0 top-[-10px] hidden cursor-pointer group-hover:block"
               onClick={() => handleRemove(i)}
             >
-              <IoIosCloseCircle size={24} className="text-status-error-dark" />
+              <IoIosCloseCircle size={32} className="text-status-error-dark" />
             </div>
             {!v.picture ? (
-              <div className="flex-center relative h-[46px] w-[46px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[50%] border border-dashed border-neutral-medium-gray text-neutral-medium-gray">
+              <div className="flex-center relative h-[65px] w-[65px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[50%] border border-dashed border-neutral-medium-gray text-neutral-medium-gray">
                 <input
                   type="file"
                   accept="image/jpeg,image/jpg,image/png"
@@ -98,39 +97,61 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) =
                     }
                   }}
                 />
-                <IoIosAddCircle size={26} />
+                <IoIosAddCircle size={32} />
               </div>
             ) : (
-              <BaseImage src={v.picture} alt={v.name} className="h-[46px] w-[46px] flex-shrink-0 rounded-[50%]" />
+              <BaseImage src={v.picture} alt={v.name} className="h-[65px] w-[65px] flex-shrink-0 rounded-[50%]" />
             )}
-            {!v.name ? (
-              <input
-                type="text"
-                placeholder={t('hackathonDetail.enterName')}
-                className="body-s-bold w-0 flex-1 cursor-pointer border-none text-neutral-off-black outline-none"
-                maxLength={30}
-                onKeyDown={(e) => {
-                  if (e.code === 'Enter') {
-                    handleChangeName(e as any, i);
-                  }
-                }}
-                onBlur={(e) => {
-                  handleChangeName(e, i);
-                }}
-              />
-            ) : (
-              <span className="body-s-bold w-0 flex-1 truncate text-neutral-off-black" title={v.name}>
-                {v.name}
-              </span>
-            )}
+            <div className="flex h-full flex-1 flex-col justify-center overflow-hidden text-neutral-medium-gray">
+              {!v.name ? (
+                <input
+                  type="text"
+                  placeholder={t('hackathonDetail.enterName')}
+                  className="body-m-bold w-full cursor-pointer border-none text-neutral-medium-gray outline-none"
+                  maxLength={30}
+                  onKeyDown={(e) => {
+                    if (e.code === 'Enter') {
+                      handleChangeName(e as any, i, 'name');
+                    }
+                  }}
+                  onBlur={(e) => {
+                    handleChangeName(e, i, 'name');
+                  }}
+                />
+              ) : (
+                <p className="body-m-bold w-full truncate text-neutral-off-black" title={v.name}>
+                  {v.name}
+                </p>
+              )}
+              {!v.title ? (
+                <input
+                  type="text"
+                  placeholder={t('hackathonDetail.enterIntro')}
+                  className="body-xs w-full cursor-pointer border-none text-neutral-medium-gray outline-none"
+                  maxLength={50}
+                  onKeyDown={(e) => {
+                    if (e.code === 'Enter') {
+                      handleChangeName(e as any, i, 'title');
+                    }
+                  }}
+                  onBlur={(e) => {
+                    handleChangeName(e, i, 'title');
+                  }}
+                />
+              ) : (
+                <p className="body-xs w-full truncate text-neutral-off-black" title={v.title}>
+                  {v.title}
+                </p>
+              )}
+            </div>
           </div>
         ))}
         <div
-          className="h-[56px] w-[calc((100%-60px)/4)] cursor-pointer rounded-[80px] bg-neutral-off-white p-[5px]"
+          className="h-[81px] w-[calc((100%-20px)/2)] cursor-pointer rounded-[80px] bg-neutral-off-white p-[5px]"
           onClick={handleAdd}
         >
           <div className="flex-center h-full w-full rounded-[80px] border border-dashed border-neutral-light-gray text-neutral-medium-gray">
-            <IoIosAddCircle size={26} />
+            <IoIosAddCircle size={32} />
           </div>
         </div>
       </div>
@@ -159,4 +180,4 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) =
   );
 };
 
-export default PartnersBoxModal;
+export default SpeakersSponsorsBoxModal;
