@@ -25,6 +25,9 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
 }: FormRadioItemProps<TFieldValues>) => {
   if (!form || !name) {
     console.error('FormRadioItem 组件必须包裹FormRadio组件');
+    if (process.env.NODE_ENV === 'development') {
+      throw new Error('FormRadioItem 组件必须包裹FormRadio组件');
+    }
     return null;
   }
   return (
