@@ -359,7 +359,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
         <h4 className="text-h4 text-center text-neutral-black">Do you want to submit your project?</h4>
         <p className="body-m mt-5 text-center text-neutral-off-black">
           After successful submission, you will be directed to Aspecta’s builder Launchpad page. You can attest to your
-          builder’s identity and join Linea Buidlers Club there.{' '}
+          builder’s identity and join Linea Buidlers Club there.
         </p>
       </ConfirmModal>
       <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
