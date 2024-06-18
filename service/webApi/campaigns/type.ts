@@ -58,3 +58,20 @@ export interface SignatureData {
     s: `0x${string}`;
   };
 }
+
+export interface UserCertificateInfo {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  template: string;
+  exp: number;
+  credits: number;
+  signatureId: string;
+  certificateId: number;
+  certificateTime: string;
+  claimed: boolean;
+  mint: boolean;
+  username: string;
+  certificateImage: string;
+}
