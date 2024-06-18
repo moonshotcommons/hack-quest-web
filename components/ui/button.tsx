@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-
+import { LoaderIcon } from 'lucide-react';
 import { cn } from '@/helper/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center p-4 text-neutral-black disabled:text-neutral-medium-gray whitespace-nowrap rounded-full font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none',
+  'inline-flex items-center justify-center p-4 text-neutral-black disabled:text-neutral-medium-gray whitespace-nowrap rounded-full font-medium transition-all duration-300 focus-visible:outline-none disabled:cursor-not-allowed uppercase enabled:hover:scale-105',
   {
     variants: {
       variant: {
-        primary: 'bg-yellow-primary hover:bg-yellow-hover disabled:bg-neutral-light-gray',
+        primary:
+          'bg-yellow-primary hover:bg-yellow-hover disabled:bg-neutral-light-gray data-[loading=true]:bg-yellow-hover',
         outline:
           'bg-transparent border border-neutral-black hover:bg-neutral-off-white hover:border-neutral-medium-gray disabled:border-neutral-medium-gray'
       },
@@ -30,13 +31,24 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  // isLoding?: boolean;
+  isLoading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, children, variant, size, asChild = false, isLoading = false, disabled, ...props }, ref) => {
     const Component = asChild ? Slot : 'button';
-    return <Component className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+    return (
+      <Component
+        disabled={disabled || isLoading}
+        aria-disabled={disabled || isLoading}
+        data-loading={isLoading}
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      >
+        {isLoading ? <LoaderIcon className="h-5 w-5 animate-spin" /> : children}
+      </Component>
+    );
   }
 );
 
