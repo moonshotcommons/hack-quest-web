@@ -21,11 +21,17 @@ export function MintCertificateModal() {
   const { safeMintAsync } = useMintCertification();
   const { open, type, data, onClose } = useCertificateModal();
 
+  const certification = data?.certification;
+
   const isOpen = open && type === 'mint';
 
-  const canMint = data?.label?.toLowerCase()?.includes('mantle') && !data?.certification?.mint;
+  const canMint = data?.label?.toLowerCase()?.includes('mantle') && !certification?.mint;
 
-  const ecosystemName = lang === 'en' ? data?.label?.split(' ')?.[1] : data?.label?.split(' ')?.[0];
+  // const ecosystemName = lang === 'en' ? data?.name?.split(' ')?.[1] : data?.name?.split(' ')?.[0];
+
+  // const stringArray = data?.lab?.split(' ') || [];
+  // lang === 'en' ? (stringArray[0] = '') : (stringArray[0] = '');
+  // const ecosystemName = stringArray.join(' ');
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -50,18 +56,18 @@ export function MintCertificateModal() {
           <div className="mx-auto flex items-center gap-2">
             <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
             <h1 className="text-2xl font-bold text-neutral-off-black">
-              {t('modal.mint.title', { name: ecosystemName })}
+              {t('modal.mint.title', { title: data.label })}
             </h1>
           </div>
           <p className="mt-3 text-center text-sm text-neutral-medium-gray">
-            {t('modal.mint.description', { name: ecosystemName })}
+            {t('modal.mint.description', { name: data.label })}
           </p>
           <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem] shadow-idea-card">
-            <Image src={data?.certification?.image} fill alt={data?.label} />
+            <Image src={certification?.certificateImage} alt={certification?.certificateId} fill />
           </div>
           {!canMint && (
             <p className="mb-6 text-center text-sm text-neutral-medium-gray">
-              Minting {ecosystemName} Certificate is unavailable at this time. <br />
+              Minting {data.label} Certificate is unavailable at this time. <br />
               Please stay tuned for our latest updates, and we will notify you if minting becomes available.
             </p>
           )}

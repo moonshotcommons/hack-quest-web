@@ -321,3 +321,11 @@ export const toDoubleArray = <T,>(baseArray: T[], count: number) => {
   }
   return res;
 };
+
+export const wait = (time: number): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+};
