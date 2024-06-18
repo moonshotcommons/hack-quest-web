@@ -49,7 +49,7 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
           <div className="flex flex-wrap items-center gap-3">
             <Badge>{course.track}</Badge>
           </div>
-          <h1 className="text-base font-bold text-neutral-off-black">{course.title}</h1>
+          <h1 className="line-clamp-2 h-12 text-base font-bold text-neutral-off-black">{course.title}</h1>
           <Progress value={(course.progress || 0) * 100}>
             <ProgressLabel>{Math.floor((course.progress || 0) * 100)}%</ProgressLabel>
           </Progress>

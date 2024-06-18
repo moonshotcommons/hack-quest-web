@@ -7,10 +7,12 @@ import { CourseType } from '@/service/webApi/course/type';
 import { useGotoNextLesson } from '@/hooks/courses/useGotoNextLesson';
 import CompleteModal from '@/components/Web/Business/CompleteModal';
 import emitter from '@/store/emitter';
+import { useRouter } from 'next/navigation';
 
 interface UgcFooterProp {}
 
 const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
+  const router = useRouter();
   const { footerBtn, lesson, setFooterBtn, mounted } = useContext(UgcContext);
   const { onNextClick, completeModalRef, loading: nextLoading } = useGotoNextLesson(lesson!, CourseType.UGC, true);
 
@@ -33,6 +35,7 @@ const UgcFooter: React.FC<UgcFooterProp> = ({}) => {
     if (footerBtn.footerBtnStatus !== FooterButtonStatus.NEXT) {
       emitter.emit(footerBtn.footerBtnStatus);
     } else {
+      router.refresh();
       handleNext();
     }
   };
