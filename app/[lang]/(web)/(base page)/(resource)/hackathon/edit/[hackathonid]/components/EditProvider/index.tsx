@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { HackathonEditContext } from '../../constants/type';
+import { HackathonEditContext, HackathonEditModalType } from '../../constants/type';
 
 interface EditProviderProp {
   children: ReactNode;
@@ -21,7 +21,7 @@ const EditProvider: React.FC<EditProviderProp> = ({ children }) => {
     },
     {
       label: 'hackathonDetail.judging',
-      value: 'Judging'
+      value: 'judging'
     },
     {
       label: 'hackathonDetail.application',
@@ -36,11 +36,15 @@ const EditProvider: React.FC<EditProviderProp> = ({ children }) => {
       value: 'links'
     }
   ]);
+  const [modalType, setModalType] = useState<HackathonEditModalType>(HackathonEditModalType.NULL);
+
   return (
     <HackathonEditContext.Provider
       value={{
         navs,
-        setNavs
+        setNavs,
+        modalType,
+        setModalType
       }}
     >
       {children}

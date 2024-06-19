@@ -83,14 +83,24 @@
     "discord":"Discord",
     "addNewsection":"Add a new section",
     "pleaseChooseSectionType":"Please choose a section type",
-    "mediaPartnersIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "communityPartnersIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "partnersIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "speakersJudgesIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "sponsorsIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "scheduleIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "FAQsIntro":"Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "mediaPartnersUploadText":"Please upload one icon image and enter the name for each partner."
+    "mediaPartnersIntro":"Sed",
+    "communityPartnersIntro":"Sed",
+    "partnersIntro":"Sed",
+    "speakersJudgesIntro":"Sedmagna",
+    "sponsorsIntro":"Sedmagna",
+    "scheduleIntro":"Sedmagna",
+    "FAQsIntro":"Sedmagna",
+    "mediaPartnersUploadText":"Please upload one icon image and enter the name for each partner.",
+    "speakersUploadText":"Please upload one profile image, name and one-line intro for each speaker or judge.",
+    "onlineMeetingURL":"Online Meeting URL",
+    "onsiteMeetingAddress":"Onsite Meeting Address",
+    "openMeeting":"Open Meeting",
+    "hackathonMode":"Hackathon Mode",
+    "venue":"Venue",
+    "removeSection":"Remove this section",
+    "removeEvent":"Remove the event",
+    "enterName":"Enter name",
+    "enterIntro":"One-line intro"
 
 
 

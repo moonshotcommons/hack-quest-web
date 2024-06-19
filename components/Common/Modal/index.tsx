@@ -23,7 +23,7 @@ interface ModalProps {
 const IconClose: FC<{ icon?: ReactNode; className?: string }> = (props) => {
   const { icon, className, ...rest } = props;
   return icon ? (
-    <div className={cn('absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer', className)}>{icon}</div>
+    <div className={cn('absolute right-[1.25rem] top-[1.25rem] z-[999] cursor-pointer', className)}>{icon}</div>
   ) : (
     <div className="absolute right-[2.25rem] top-[2.5rem] z-[999] cursor-pointer rounded-full border border-solid border-neutral-off-white p-[0.66rem]">
       <CloseIcon width={20} height={19} color={'currentColor'} />

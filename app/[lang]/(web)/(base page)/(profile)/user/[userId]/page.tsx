@@ -7,7 +7,7 @@ interface IProps {
 const UserPage: NextPage<IProps> = (props) => {
   return (
     <>
-      <div className="flex h-full w-full flex-col ">{props.userId}</div>
+      <div className="flex h-full w-full flex-col "></div>
     </>
   );
 };
