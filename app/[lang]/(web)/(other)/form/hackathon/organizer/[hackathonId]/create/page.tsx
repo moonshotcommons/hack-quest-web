@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { MoveRightIcon } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { LoaderIcon, MoveRightIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import * as ResizablePanel from '@/components/shared/resizable-panel';
 import * as Stepper from '@/components/hackathon-org/common/stepper';
@@ -18,14 +20,39 @@ import { ApplicationForm } from '@/components/hackathon-org/forms/application';
 import { SubmissionForm } from '@/components/hackathon-org/forms/submission';
 import { STEP_ITEMS, Steps } from '@/components/hackathon-org/constants/steps';
 import { useHackathonOrgState } from '@/components/hackathon-org/constants/state';
+import webApi from '@/service';
+
+function PageSkeleton() {
+  return (
+    <div className="flex w-full flex-col items-center justify-center gap-1 py-40">
+      <LoaderIcon className="animate-spin" />
+      <span className="text-base">Loading...</span>
+    </div>
+  );
+}
 
 export default function Page() {
-  const { currentStep, status, onChangeStep } = useHackathonOrgState();
+  const { hackathonId } = useParams<{ hackathonId: string }>();
+  const { step, status, onStepChange } = useHackathonOrgState();
+
+  const { data, isLoading } = useQuery({
+    enabled: !!hackathonId,
+    staleTime: Infinity,
+    queryKey: ['hackathon', hackathonId],
+    queryFn: () => webApi.hackathonV2Api.getHackathon(hackathonId)
+  });
+
+  console.log('data', data);
+
+  if (isLoading) {
+    return <PageSkeleton />;
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
-          <h2 className="headline-h3">Shanghai Hackathon 2024</h2>
+          <h2 className="headline-h3">{data?.name}</h2>
           <p className="flex items-center gap-4 text-center text-sm font-light text-neutral-black">
             Need any help?{' '}
             <Link
@@ -38,17 +65,17 @@ export default function Page() {
             </Link>
           </p>
         </div>
-        <Button disabled={currentStep !== Steps.SUBMISSION} className="w-60">
-          finish setup {currentStep}/8
+        <Button disabled={step !== Steps.SUBMISSION} className="w-60">
+          finish setup {step}/8
         </Button>
       </div>
-      <Stepper.Root value={currentStep}>
+      <Stepper.Root value={step}>
         {STEP_ITEMS.map((item) => (
           <Stepper.Item
             completed={status[item.value]}
             key={item.value}
             value={item.value}
-            onClick={() => onChangeStep(item.value)}
+            onClick={() => onStepChange(item.value)}
           >
             {item.label}
           </Stepper.Item>
@@ -56,22 +83,22 @@ export default function Page() {
       </Stepper.Root>
       <div
         className={cn('w-full rounded-2xl bg-neutral-white p-10', {
-          'rounded-tl-none': currentStep === Steps.BASIC_INFO,
-          'rounded-tr-none': currentStep === Steps.SUBMISSION
+          'rounded-tl-none': step === Steps.BASIC_INFO,
+          'rounded-tr-none': step === Steps.SUBMISSION
         })}
       >
-        <ResizablePanel.Root value={currentStep} className="pb-2">
+        <ResizablePanel.Root value={step} className="pb-2">
           <ResizablePanel.Content value={Steps.BASIC_INFO}>
-            <BasicInfoForm />
+            <BasicInfoForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.JUDGING}>
-            <JudgingForm />
+            <JudgingForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.LINKS}>
-            <LinksForm />
+            <LinksForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.COVER}>
-            <CoverForm />
+            <CoverForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.TIMELINE}>
             <TimelineForm />

@@ -11,7 +11,7 @@ export default function Layout({
 }>) {
   const router = useRouter();
   return (
-    <div className="min-h-screen w-full bg-neutral-off-white">
+    <div className="no-scrollbar min-h-screen w-full bg-neutral-off-white">
       <header className="sticky top-0 z-50 h-16  bg-neutral-white">
         <div className="relative flex h-full w-full items-center justify-center">
           <Image src="/images/logo/black-icon-text-logo.svg" width={134} height={16} alt="hackquest" />
@@ -24,7 +24,7 @@ export default function Layout({
           </button>
         </div>
       </header>
-      <main className="mx-auto max-w-[806px] py-10">{children}</main>
+      <main className="mx-auto h-full max-w-[806px] py-10">{children}</main>
     </div>
   );
 }

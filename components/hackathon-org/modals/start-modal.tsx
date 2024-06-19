@@ -12,28 +12,43 @@ import { TextField } from '@/components/ui/text-field';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/helper/utils';
 import { HACKQUEST_DISCORD } from '@/constants/links';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
+import { useRouter } from 'next/navigation';
+import { message } from 'antd';
 
 const formSchema = z.object({
-  hackathonName: z
+  name: z
     .string()
     .min(1, {
       message: 'Hackathon name is a required input'
     })
-    .max(60, {
+    .max(80, {
       message: 'Hackathon name cannot exceed 80 characters'
     })
 });
 
 export function StartModal() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      hackathonName: ''
+      name: ''
+    }
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: { name: string }) => webApi.hackathonV2Api.createHackathon(data),
+    onSuccess: (data) => {
+      router.push(`/form/hackathon/organizer/${data.id}/create`);
+    },
+    onError: (error) => {
+      message.error(error.message);
     }
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    mutate(data);
   }
   return (
     <Dialog open={false}>
@@ -46,7 +61,7 @@ export function StartModal() {
           <form className="flex flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="hackathonName"
+              name="name"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <div className="flex items-center justify-between">
@@ -54,8 +69,8 @@ export function StartModal() {
                       <span className="sm:body-m body-s text-neutral-rich-gray">Hackathon Name*</span>
                     </FormLabel>
                     <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': form.watch('hackathonName')?.length > 80 })}>
-                        {form.watch('hackathonName')?.length}
+                      <span className={cn({ 'text-status-error': form.watch('name')?.length > 80 })}>
+                        {form.watch('name')?.length}
                       </span>
                       /80
                     </span>
@@ -75,7 +90,12 @@ export function StartModal() {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={!form.formState.isValid} className="w-60">
+            <Button
+              type="submit"
+              isLoading={isPending}
+              disabled={!form.formState.isValid || isPending}
+              className="w-60"
+            >
               start
             </Button>
           </form>
