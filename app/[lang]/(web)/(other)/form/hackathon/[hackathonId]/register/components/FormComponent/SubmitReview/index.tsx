@@ -13,6 +13,7 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import { isEmpty } from 'lodash-es';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 interface SubmitReviewProps {}
 
 const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
@@ -238,10 +239,13 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         {!isRegister && (
           <>
             <p className="body-s text-center">
-              Consensys is committed to protecting and respecting your privacy, and we’ll only use your personal
-              information to provide the products, services, and information you requested from us. From time to time,
-              we would like to contact you about our products and services, as well as other content that may be of
-              interest to you. If you consent to us contacting you for this purpose:
+              Consensys may use the contact information you provide to us to contact you about our products and
+              services. By ticking the checkbox, you consent to receive such communications. You may unsubscribe from
+              these communications at any time. For information on how to unsubscribe, as well as our privacy practices
+              and commitment to protecting your privacy, please review our Privacy Policy.{' '}
+              <Link href={'https://consensys.io/privacy-notice'} target="_blank">
+                https://consensys.io/privacy-notice
+              </Link>
             </p>
             {/* <div className="mt-6 flex justify-center gap-2 text-neutral-rich-gray">
               <span
