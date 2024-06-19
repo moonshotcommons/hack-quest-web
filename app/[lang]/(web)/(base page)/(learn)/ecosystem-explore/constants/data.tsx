@@ -39,4 +39,4 @@ export const moreRoursesData: MoreReourceType[] = [
   }
 ];
 
-export const introWeb3MockCourseId = 'd927cdac-7fcb-4516-abab-624af8e44894';
+export const introWeb3MockCourseId = '10247d47-34d8-4d1e-a7c1-6519e2d639b2';

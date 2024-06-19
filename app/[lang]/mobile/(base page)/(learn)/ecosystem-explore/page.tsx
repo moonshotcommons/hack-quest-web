@@ -39,9 +39,9 @@ const ExplorePage: React.FC<SearchParamsType> = async ({ params, searchParams })
       lang,
       keyword: searchParams.keyword || ''
     }),
-    webApi.courseApi.getCourseDetail(introWeb3MockCourseId)
+    webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(introWeb3MockCourseId)
   ]);
-  return <Explore lang={lang} ecosystems={ecosystems} keyword={searchParams.keyword} course={course} />;
+  return <Explore lang={lang} ecosystems={ecosystems} keyword={searchParams.keyword} course={course as any} />;
 };
 
 export default ExplorePage;
