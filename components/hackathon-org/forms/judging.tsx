@@ -11,9 +11,13 @@ import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
 import { ActionButtons } from './action-buttons';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import webApi from '@/service';
+import { useHackathonOrgState } from '../constants/state';
+import { Steps } from '../constants/steps';
 
 const formSchema = z.object({
-  judgingCriteria: z
+  resource: z
     .string()
     .min(1, {
       message: 'Judging criteria is a required input'
@@ -30,20 +34,66 @@ const formSchema = z.object({
     .or(z.literal(''))
 });
 
-export function JudgingForm() {
+export function JudgingForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
   const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
   const [sliderValue, setSliderValue] = React.useState(50);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    mode: 'onChange',
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      judgingCriteria: ''
+  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'judging'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      isEditMode ? onSave?.() : onNext();
     }
   });
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      resource: ''
+    }
+  });
+
+  const isValid = form.formState.isValid;
+
   const judgeAccount = form.watch('judgeAccount');
+
+  React.useEffect(() => {
+    if (!isEditMode) {
+      if (isValid) {
+        updateStatus(Steps.JUDGING, true);
+      } else {
+        updateStatus(Steps.JUDGING, false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValid, isEditMode]);
+
+  React.useEffect(() => {
+    if (initialValues) {
+      form.resetField('resource', {
+        defaultValue: initialValues?.judge.resource
+      });
+      setUserVotes(initialValues?.judge.votesProportion[0]);
+      setJudgeVotes(initialValues?.judge.votesProportion[1]);
+      setSliderValue(initialValues?.judge.votesProportion[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
 
   function onVotesChange(value: string, isUserVotes: boolean) {
     if (value === '') {
@@ -73,7 +123,12 @@ export function JudgingForm() {
   }
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    const values = {
+      id: initialValues?.id,
+      resource: data.resource,
+      votesProportion: [userVotes, judgeVotes]
+    };
+    mutation.mutate(values);
   }
 
   function addJudgeAccount() {
@@ -84,12 +139,16 @@ export function JudgingForm() {
     }, 500);
   }
 
+  function onCancelOrBack() {
+    isEditMode ? onCancel?.() : onPrevious();
+  }
+
   return (
     <Form {...form}>
       <form className="flex flex-col items-center space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="judgingCriteria"
+          name="resource"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -97,8 +156,8 @@ export function JudgingForm() {
                   <span className="body-m text-neutral-rich-gray">Judging Criteria*</span>
                 </FormLabel>
                 <span className="caption-14pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('judgingCriteria')?.length > 360 })}>
-                    {form.watch('judgingCriteria')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('resource')?.length > 360 })}>
+                    {form.watch('resource')?.length}
                   </span>
                   /360
                 </span>
@@ -190,7 +249,12 @@ export function JudgingForm() {
             </button>
           </div>
         </div>
-        <ActionButtons isValid={form.formState.isValid} isEditMode={false} />
+        <ActionButtons
+          isLoading={mutation.isPending}
+          isEditMode={isEditMode}
+          isValid={isValid}
+          onCancelOrBack={onCancelOrBack}
+        />
       </form>
     </Form>
   );

@@ -8,11 +8,13 @@ export function ConfirmModal({
   open,
   onConfirm,
   onClose,
+  isLoading = false,
   children
 }: {
   open: boolean;
   onConfirm: () => void;
   onClose: () => void;
+  isLoading?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -25,6 +27,7 @@ export function ConfirmModal({
           </Button>
           <Button
             className="w-[165px]"
+            isLoading={isLoading}
             onClick={() => {
               onConfirm();
               onClose();

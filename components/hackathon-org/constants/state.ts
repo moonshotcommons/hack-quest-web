@@ -3,10 +3,10 @@ import { Steps } from './steps';
 
 interface HackathonOrgState {
   status: Record<string, boolean>;
-  currentStep: number;
-  onChangeStep: (step: number) => void;
-  onPrevStep: () => void;
-  onNextStep: () => void;
+  step: number;
+  onStepChange: (step: number) => void;
+  onPrevious: () => void;
+  onNext: () => void;
   updateStatus: (step: number, status: boolean) => void;
 }
 
@@ -21,9 +21,9 @@ export const useHackathonOrgState = create<HackathonOrgState>((set, get) => ({
     [Steps.APPLICATION]: false,
     [Steps.SUBMISSION]: false
   },
-  currentStep: Steps.BASIC_INFO,
-  onChangeStep: (step) => set({ currentStep: step }),
-  onPrevStep: () => set({ currentStep: get().currentStep - 1 }),
-  onNextStep: () => set({ currentStep: get().currentStep + 1 }),
+  step: Steps.BASIC_INFO,
+  onStepChange: (step) => set({ step: step }),
+  onPrevious: () => set({ step: get().step - 1 }),
+  onNext: () => set({ step: get().step + 1 }),
   updateStatus: (step, status) => set((state) => ({ status: { ...state.status, [step]: status } }))
 }));

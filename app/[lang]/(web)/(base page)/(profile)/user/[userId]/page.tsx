@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 
-interface IProps {}
+interface IProps {
+  userId: string;
+}
 
 const UserPage: NextPage<IProps> = (props) => {
   return (

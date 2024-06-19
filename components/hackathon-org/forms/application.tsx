@@ -27,7 +27,17 @@ const formSchema = z.object({
   })
 });
 
-export function ApplicationForm() {
+export function ApplicationForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [open, toggle] = useToggle(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

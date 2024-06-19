@@ -12,9 +12,11 @@ import { cn } from '@/helper/utils';
 import { ActionButtons } from './action-buttons';
 import { Steps } from '../constants/steps';
 import { useHackathonOrgState } from '../constants/state';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import webApi from '@/service';
 
 const formSchema = z.object({
-  hackathonName: z
+  name: z
     .string()
     .min(1, {
       message: 'Hackathon name is a required input'
@@ -22,7 +24,7 @@ const formSchema = z.object({
     .max(80, {
       message: 'Hackathon name cannot exceed 80 characters'
     }),
-  organizationName: z
+  host: z
     .string()
     .min(1, {
       message: 'Organization name is a required input'
@@ -30,7 +32,7 @@ const formSchema = z.object({
     .max(80, {
       message: 'Organization name cannot exceed 80 characters'
     }),
-  oneLineIntro: z
+  intro: z
     .string()
     .min(1, {
       message: 'One line intro is a required input'
@@ -53,47 +55,58 @@ const formSchema = z.object({
     })
     .optional()
     .or(z.literal('')),
-  hackathonMode: z.enum(['hybrid', 'online'], {
+  mode: z.enum(['HYBRID', 'ONLINE'], {
     required_error: 'You need to select a hackathon mode'
   }),
-  venue: z.string().min(1, {
+  address: z.string().min(1, {
     message: 'Venue is a required input'
   })
 });
 
 export function BasicInfoForm({
   isEditMode = false,
-  data,
+  initialValues,
   onCancel,
-  onSubmitCallback
+  onSave
 }: {
   isEditMode?: boolean;
-  data?: any;
+  initialValues?: any;
   onCancel?: () => void;
-  onSubmitCallback?: (data: any) => void;
+  onSave?: () => void;
 }) {
-  const { updateStatus, onNextStep } = useHackathonOrgState();
+  const { updateStatus, onNext } = useHackathonOrgState();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      hackathonName: '',
-      organizationName: '',
-      oneLineIntro: '',
+      name: '',
+      host: '',
+      intro: '',
       description: '',
       conduct: '',
-      hackathonMode: 'hybrid',
-      venue: ''
+      mode: 'HYBRID',
+      address: ''
     }
   });
 
   const isValid = form.formState.isValid;
-  const isHybridMode = form.watch('hackathonMode') === 'hybrid';
+
+  const isHybridMode = form.watch('mode') === 'HYBRID';
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'info'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      isEditMode ? onSave?.() : onNext();
+    }
+  });
 
   React.useEffect(() => {
     if (isHybridMode) {
-      form.setValue('venue', '');
+      form.setValue('address', initialValues?.info?.address || '');
     } else {
-      form.setValue('venue', 'null');
+      form.setValue('address', 'null');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHybridMode]);
@@ -109,14 +122,21 @@ export function BasicInfoForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isValid, isEditMode]);
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    // TODO: request for creating / updating hackathon
-    console.log(data);
-    if (isEditMode) {
-      onSubmitCallback?.(data);
-    } else {
-      onNextStep();
+  React.useEffect(() => {
+    if (initialValues) {
+      form.reset({
+        name: initialValues?.name,
+        ...initialValues?.info
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    mutation.mutate({
+      id: initialValues?.id,
+      ...data
+    });
   }
 
   function onCancelOrBack() {
@@ -131,7 +151,7 @@ export function BasicInfoForm({
       <form className="flex flex-col items-center space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="hackathonName"
+          name="name"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -139,8 +159,8 @@ export function BasicInfoForm({
                   <span className="sm:body-m body-s text-neutral-rich-gray">Hackathon Name*</span>
                 </FormLabel>
                 <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('hackathonName')?.length > 80 })}>
-                    {form.watch('hackathonName')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('name')?.length > 80 })}>
+                    {form.watch('name')?.length}
                   </span>
                   /80
                 </span>
@@ -162,7 +182,7 @@ export function BasicInfoForm({
         />
         <FormField
           control={form.control}
-          name="organizationName"
+          name="host"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -170,8 +190,8 @@ export function BasicInfoForm({
                   <span className="sm:body-m body-s text-neutral-rich-gray">Organization Name*</span>
                 </FormLabel>
                 <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('organizationName')?.length > 80 })}>
-                    {form.watch('organizationName')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('host')?.length > 80 })}>
+                    {form.watch('host')?.length}
                   </span>
                   /80
                 </span>
@@ -193,7 +213,7 @@ export function BasicInfoForm({
         />
         <FormField
           control={form.control}
-          name="oneLineIntro"
+          name="intro"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -201,8 +221,8 @@ export function BasicInfoForm({
                   <span className="sm:body-m body-s text-neutral-rich-gray">One Line Intro*</span>
                 </FormLabel>
                 <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('oneLineIntro')?.length > 120 })}>
-                    {form.watch('oneLineIntro')?.length}
+                  <span className={cn({ 'text-status-error': form.watch('intro')?.length > 120 })}>
+                    {form.watch('intro')?.length}
                   </span>
                   /120
                 </span>
@@ -229,9 +249,9 @@ export function BasicInfoForm({
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="sm:body-m body-s text-neutral-rich-gray">Description*</span>
+                  <span className="body-m text-neutral-rich-gray">Description*</span>
                 </FormLabel>
-                <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
+                <span className="caption-14pt text-neutral-rich-gray">
                   <span className={cn({ 'text-status-error': form.watch('description')?.length > 360 })}>
                     {form.watch('description')?.length}
                   </span>
@@ -281,7 +301,7 @@ export function BasicInfoForm({
         />
         <FormField
           control={form.control}
-          name="hackathonMode"
+          name="mode"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -298,10 +318,10 @@ export function BasicInfoForm({
                   className="w-full grid-cols-2"
                 >
                   <FormControl>
-                    <RadioGroupItem value="hybrid">Hybrid</RadioGroupItem>
+                    <RadioGroupItem value="HYBRID">Hybrid</RadioGroupItem>
                   </FormControl>
                   <FormControl>
-                    <RadioGroupItem value="online">Online</RadioGroupItem>
+                    <RadioGroupItem value="ONLINE">Online</RadioGroupItem>
                   </FormControl>
                 </RadioGroup>
               </FormControl>
@@ -312,7 +332,7 @@ export function BasicInfoForm({
         {isHybridMode && (
           <FormField
             control={form.control}
-            name="venue"
+            name="address"
             render={({ field }) => (
               <FormItem className="w-full space-y-1">
                 <div className="flex items-center justify-between">
@@ -336,7 +356,12 @@ export function BasicInfoForm({
             )}
           />
         )}
-        <ActionButtons isEditMode={isEditMode} isValid={form.formState.isValid} onCancelOrBack={onCancelOrBack} />
+        <ActionButtons
+          isLoading={mutation.isPending}
+          isEditMode={isEditMode}
+          isValid={form.formState.isValid}
+          onCancelOrBack={onCancelOrBack}
+        />
       </form>
     </Form>
   );
