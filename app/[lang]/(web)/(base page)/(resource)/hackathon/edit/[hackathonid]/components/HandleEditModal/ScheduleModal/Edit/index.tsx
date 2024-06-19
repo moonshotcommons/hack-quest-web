@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRequest } from 'ahooks';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { scheduleFormSchema } from '../../../../constants/data';
+import Button from '@/components/Common/Button';
+import { LangContext } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 interface EditProp {}
 
 const Edit: React.FC<EditProp> = () => {
+  const { lang } = useContext(LangContext);
+  const { t } = useTranslation(lang, TransNs.HACKATHON);
   const defaultValues: z.infer<typeof scheduleFormSchema> = {
     eventName: ''
     // startTime: '',
@@ -25,16 +30,22 @@ const Edit: React.FC<EditProp> = () => {
     resolver: zodResolver(scheduleFormSchema),
     defaultValues: defaultValues
   });
-  console.info(form);
 
-  const { run: submitRequest, loading } = useRequest(async (values: z.infer<typeof scheduleFormSchema>) => {}, {
-    manual: true,
-    onSuccess() {},
-    onError(err) {}
-  });
+  const { run: submitRequest, loading } = useRequest(
+    async (values: z.infer<typeof scheduleFormSchema>) => {
+      console.info(values);
+    },
+    {
+      manual: true,
+      onSuccess() {},
+      onError(err) {}
+    }
+  );
+
+  const handleRemoveEvent = () => {};
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submitRequest)} className="flex h-full w-full flex-col gap-6">
+      <form className="flex h-full w-full flex-col gap-6" onSubmit={form.handleSubmit(submitRequest)}>
         <div className="flex  flex-col gap-4 text-left">
           <FormField
             control={form.control}
@@ -43,7 +54,7 @@ const Edit: React.FC<EditProp> = () => {
               <FormItem className="w-full text-left">
                 <div className="flex w-full justify-between">
                   <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-                    {'Event Name'}
+                    {'Event Name*'}
                   </FormLabel>
                   <span className="caption-14pt text-neutral-rich-gray">
                     <span className={form.watch('eventName').length > 80 ? 'text-status-error' : ''}>
@@ -59,7 +70,7 @@ const Edit: React.FC<EditProp> = () => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name={'eventName'}
             render={({ field }) => (
@@ -86,9 +97,25 @@ const Edit: React.FC<EditProp> = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
         </div>
       </form>
+      <div className="flex items-center justify-between">
+        <span className="underline-m cursor-pointer text-neutral-off-black" onClick={handleRemoveEvent}>
+          {t('hackathonDetail.removeEvent')}
+        </span>
+        <div className="flex gap-[16px]">
+          <Button
+            type="primary"
+            className="button-text-s h-[34px] w-[140px] uppercase"
+            onClick={() => {
+              console.info(form.formState.isValid);
+            }}
+          >
+            {t('add')}
+          </Button>
+        </div>
+      </div>
     </Form>
   );
 };

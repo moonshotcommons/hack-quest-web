@@ -7,6 +7,7 @@ import ListModal from './ListModal';
 import PartnersBoxModal from './PartnersBoxModal';
 import SpeakersSponsorsBoxModal from './SpeakersSponsorsBoxModal';
 import ScheduleModal from './ScheduleModal';
+import FAQsModal from './FAQsModal';
 
 interface HandleEditModalProp {
   hackathon: HackathonType;
@@ -30,13 +31,15 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
         return <SpeakersSponsorsBoxModal hackathon={hackathon} type="sponsors" />;
       case HackathonEditModalType.SCHEDULE:
         return <ScheduleModal hackathon={hackathon} />;
+      case HackathonEditModalType.FAQS:
+        return <FAQsModal hackathon={hackathon} />;
       default:
         return null;
     }
   };
 
   const test = () => {
-    return <ScheduleModal hackathon={hackathon} />;
+    return <PartnersBoxModal hackathon={hackathon} type="mediaPartners" />;
   };
 
   const onClose = () => {
@@ -44,7 +47,7 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
   };
   return (
     <Modal open={true} onClose={onClose} showCloseIcon={true} icon={<FiX size={34} />}>
-      <div className="scroll-wrap-y max-h-[85vh] w-[888px] rounded-[16px] bg-neutral-white p-[40px] pt-[60px]">
+      <div className="w-[888px] rounded-[16px] bg-neutral-white py-[40px] pt-[60px] [&>div]:flex [&>div]:max-h-[80vh] [&>div]:w-full [&>div]:flex-col [&>div]:gap-[24px]">
         {test()}
       </div>
     </Modal>

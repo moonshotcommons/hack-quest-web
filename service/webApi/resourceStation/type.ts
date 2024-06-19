@@ -53,6 +53,12 @@ export interface HackathonTypeVotesType {
   ADVOCATE: number;
   JUDGE: number;
 }
+
+export interface HacakthonFaqType {
+  question: string;
+  answer: string;
+  id: string;
+}
 export interface HackathonType {
   id: string;
   name: string;
@@ -91,6 +97,7 @@ export interface HackathonType {
   speakersAndJudges: HackathonMemberType[];
   sponsors: HackathonMemberType[];
   description: string;
+  faqs: HacakthonFaqType[];
 }
 
 export interface JoinedHackathonType {

@@ -9,6 +9,7 @@ import { v4 } from 'uuid';
 import Edit from './Edit';
 import Preview from './Preview';
 import Title from '../../Title';
+import { IoIosAddCircle } from 'react-icons/io';
 
 interface ScheduleModalProp {
   hackathon: HackathonType;
@@ -38,23 +39,33 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
     setEditIndexs([...editIndexs, i]);
   };
   return (
-    <div className="flex w-full flex-col gap-[24px]">
-      <Title title={'hackathonDetail.schedule'} />
-      <div className="flex flex-col gap-[24px]">
-        {schedules.map((schedule, i) =>
-          ~editIndexs.indexOf(i) ? (
-            <Edit key={schedule.id} />
-          ) : (
-            <Preview
-              schedule={schedule}
-              key={schedule.id}
-              handleRemoveEvent={() => handleRemoveEvent()}
-              handleEdit={() => handleEdit(i)}
-            />
-          )
-        )}
+    <div className="">
+      <div className="px-[40px]">
+        <Title title={'hackathonDetail.schedule'} />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="scroll-wrap-y flex w-full flex-1 flex-col gap-[24px] px-[40px]">
+        <div className="flex flex-col gap-[24px]">
+          {schedules.map((schedule, i) =>
+            ~editIndexs.indexOf(i) ? (
+              <Edit key={schedule.id} />
+            ) : (
+              <Preview
+                schedule={schedule}
+                key={schedule.id}
+                handleRemoveEvent={() => handleRemoveEvent()}
+                handleEdit={() => handleEdit(i)}
+              />
+            )
+          )}
+        </div>
+        <div className="h-[81px] flex-shrink-0 cursor-pointer rounded-[80px] bg-neutral-off-white p-[5px]">
+          <div className="flex-center h-full w-full rounded-[80px] border border-dashed border-neutral-light-gray text-neutral-medium-gray">
+            <IoIosAddCircle size={32} />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between px-[40px]">
         <span className="underline-m cursor-pointer text-neutral-off-black" onClick={handleRemoveSection}>
           {t('hackathonDetail.removeSection')}
         </span>

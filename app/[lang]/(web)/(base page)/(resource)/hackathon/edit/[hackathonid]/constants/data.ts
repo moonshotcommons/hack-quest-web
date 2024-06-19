@@ -68,3 +68,22 @@ export const scheduleFormSchema = z.object({
   // link: z.string().url(),
   // address: z.string()
 });
+
+export const faqsFormSchema = z.object({
+  question: z
+    .string()
+    .min(1, {
+      message: 'Question is a required input.'
+    })
+    .max(120, {
+      message: 'Question cannot exceed 120 characters.'
+    }),
+  answer: z
+    .string()
+    .min(1, {
+      message: 'Answer is a required input.'
+    })
+    .max(360, {
+      message: 'Answer cannot exceed 360 characters.'
+    })
+});
