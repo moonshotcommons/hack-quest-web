@@ -131,6 +131,7 @@ export interface UGCCourseType {
 export interface CourseBaseType {
   id: string;
   title: string;
+  name: string;
   description: string;
   type: CourseType;
   level: CourseLevelType;

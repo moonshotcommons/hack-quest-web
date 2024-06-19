@@ -11,6 +11,7 @@ import LaunchPoolApi from './webApi/launchPool';
 import HelperApi from './webApi/helper';
 import EcosystemApi from './webApi/ecosystem';
 import IdeaApi from './webApi/ideas';
+import CommonApi from './webApi/common';
 
 class WebApi {
   protected baseURL: string;
@@ -30,6 +31,7 @@ class WebApi {
   helperApi: HelperApi;
   ecosystemApi: EcosystemApi;
   ideaApi: IdeaApi;
+  commonApi: CommonApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -50,6 +52,7 @@ class WebApi {
     this.helperApi = new HelperApi(this.service);
     this.ecosystemApi = new EcosystemApi(this.service);
     this.ideaApi = new IdeaApi(this.service);
+    this.commonApi = new CommonApi(this.service);
   }
 }
 

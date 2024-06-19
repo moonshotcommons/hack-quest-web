@@ -7,8 +7,9 @@ export enum HackathonStatusType {
 
 export interface MentorType {
   name: string;
-  title: string;
+  title?: string;
   picture: string;
+  id?: string;
 }
 
 export interface HackathonRewardType {
@@ -18,6 +19,7 @@ export interface HackathonRewardType {
   place: number[];
 }
 export interface HackathonScheduleType {
+  id: string;
   desc: string;
   time: string;
   isExpand?: boolean;
@@ -51,6 +53,12 @@ export interface HackathonTypeVotesType {
   ADVOCATE: number;
   JUDGE: number;
 }
+
+export interface HacakthonFaqType {
+  question: string;
+  answer: string;
+  id: string;
+}
 export interface HackathonType {
   id: string;
   name: string;
@@ -59,6 +67,7 @@ export interface HackathonType {
   theme: CustomComponent[];
   resources: CustomComponent[];
   participants: number;
+  memberCount: number;
   hosts: Omit<MentorType, 'title'>[];
   coHosts: Omit<MentorType, 'title'>[];
   startTime: string;
@@ -87,6 +96,8 @@ export interface HackathonType {
 
   speakersAndJudges: HackathonMemberType[];
   sponsors: HackathonMemberType[];
+  description: string;
+  faqs: HacakthonFaqType[];
 }
 
 export interface JoinedHackathonType {

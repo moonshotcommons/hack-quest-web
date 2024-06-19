@@ -54,6 +54,7 @@ const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
       .catch((error) => {
         message.error(`claim ${error.msg}!`);
         setLoading(false);
+        updateMissionDataAll();
       });
   };
   const dayStreakData = useMemo(() => {
