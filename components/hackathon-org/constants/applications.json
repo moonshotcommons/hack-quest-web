@@ -1,0 +1,82 @@
+{
+  "about": [
+    {
+      "value": "name",
+      "label": "First and Last Name",
+      "required": true
+    },
+    {
+      "value": "bio",
+      "label": "Bio"
+    },
+    {
+      "value": "gender",
+      "label": "Gender"
+    },
+    {
+      "value": "resume",
+      "label": "Resume"
+    },
+    {
+      "value": "university",
+      "label": "University"
+    },
+    {
+      "value": "location",
+      "label": "Location"
+    }
+  ],
+  "online_profiles": [
+    {
+      "value": "github",
+      "label": "GitHub"
+    },
+    {
+      "value": "whatsapp",
+      "label": "WhatsApp"
+    },
+    {
+      "value": "facebook",
+      "label": "Facebook"
+    },
+    {
+      "value": "twitter",
+      "label": "Twitter"
+    },
+    {
+      "value": "linkedin",
+      "label": "LinkedIn"
+    },
+    {
+      "value": "qq",
+      "label": "QQ"
+    },
+    {
+      "value": "farcaster",
+      "label": "Farcaster"
+    }
+  ],
+  "contact": [
+    {
+      "value": "email",
+      "label": "Email",
+      "required": true
+    },
+    {
+      "value": "phone",
+      "label": "Phone Number"
+    },
+    {
+      "value": "wechat",
+      "label": "WeChat"
+    },
+    {
+      "value": "telegram",
+      "label": "Telegram"
+    },
+    {
+      "value": "discord",
+      "label": "Discord"
+    }
+  ]
+}

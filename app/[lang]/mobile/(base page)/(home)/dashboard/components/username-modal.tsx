@@ -55,7 +55,7 @@ export function UsernameModal() {
 
   const mutation = useMutation({
     mutationKey: ['claimCertificate'],
-    mutationFn: (id: string) => webApi.campaignsApi.claimCertificate({ username }, id)
+    mutationFn: (id: string) => webApi.campaignsApi.crateCertificate(id, { username })
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

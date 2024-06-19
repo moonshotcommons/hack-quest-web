@@ -1,5 +1,12 @@
 import WebService from '@/service/webService/webService';
-import { CertificationType, GetSignatureParams, MantleType, SignatureData, TargetsType } from './type';
+import {
+  CertificationType,
+  GetSignatureParams,
+  MantleType,
+  SignatureData,
+  TargetsType,
+  UserCertificateInfo
+} from './type';
 import { cache } from 'react';
 
 export enum CampaignsApiType {
@@ -93,8 +100,8 @@ class CampaignsApi {
     return this.service.get(`${CampaignsApiType.Certifications}/${certificationId}/claim`);
   }
 
-  claimCertificate(data: object, certificationId: string) {
-    return this.service.post(`${CampaignsApiType.Certifications}/${certificationId}/claim`, {
+  claimCertificate(certificationId: string, data: FormData) {
+    return this.service.post<UserCertificateInfo>(`${CampaignsApiType.Certifications}/${certificationId}/claim`, {
       data
     });
   }
@@ -105,6 +112,12 @@ class CampaignsApi {
       data: {
         txId: params.txId
       }
+    });
+  }
+
+  crateCertificate(certificationId: string, data: { username: string }) {
+    return this.service.post<UserCertificateInfo>(`${CampaignsApiType.Certifications}/${certificationId}/certificate`, {
+      data
     });
   }
 }

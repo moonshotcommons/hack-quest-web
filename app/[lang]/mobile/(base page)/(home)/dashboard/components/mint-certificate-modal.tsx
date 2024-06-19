@@ -50,7 +50,6 @@ export function MintCertificateModal() {
   const router = useRouter();
   const { safeMintAsync } = useMintCertification();
   const { open, type, data, onClose } = useCertificateModal();
-
   const isOpen = open && type === 'mint';
 
   const canMint = data?.label?.toLowerCase()?.includes('mantle') && !data?.certification?.mint;
@@ -97,7 +96,7 @@ export function MintCertificateModal() {
               expertise.
             </p>
             <div className="relative mt-5 h-[12.125rem] w-full overflow-hidden rounded-[0.5rem]">
-              <Image src={data?.certification?.image} alt={data?.label} fill />
+              <Image src={data?.certificateImage} alt={data?.certificateId} fill />
             </div>
             {canMint ? (
               <div className="mt-5 flex flex-col gap-4 rounded-2xl bg-neutral-off-white p-4">
