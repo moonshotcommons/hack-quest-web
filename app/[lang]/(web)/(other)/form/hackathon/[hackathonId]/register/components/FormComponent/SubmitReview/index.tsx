@@ -230,9 +230,11 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         </Button>
       </div>
       <ConfirmModal ref={confirmModalRef}>
-        <h4 className="text-h4 mb-9 text-center text-neutral-black">
-          Do you want to {isRegister ? 'update' : 'register'} this hackathon?
-        </h4>
+        {isRegister && (
+          <h4 className="text-h4 mb-9 text-center text-neutral-black">
+            Do you want to {isRegister ? 'update' : 'register'} this hackathon?
+          </h4>
+        )}
         {!isRegister && (
           <>
             <p className="body-s text-center">
