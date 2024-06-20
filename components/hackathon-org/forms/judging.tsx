@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,6 @@ import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
 import { ActionButtons } from './action-buttons';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
@@ -166,9 +166,6 @@ export function JudgingForm({
                 <Textarea
                   {...field}
                   authHeight={false}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="Write a judging criteria for the hackathon"
                   className="h-[76px] border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"

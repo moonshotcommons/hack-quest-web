@@ -15,53 +15,56 @@ import { useHackathonOrgState } from '../constants/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(1, {
-      message: 'Hackathon name is a required input'
-    })
-    .max(80, {
-      message: 'Hackathon name cannot exceed 80 characters'
+const formSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, {
+        message: 'Hackathon name is a required input'
+      })
+      .max(80, {
+        message: 'Hackathon name cannot exceed 80 characters'
+      }),
+    host: z
+      .string()
+      .min(1, {
+        message: 'Organization name is a required input'
+      })
+      .max(80, {
+        message: 'Organization name cannot exceed 80 characters'
+      }),
+    intro: z
+      .string()
+      .min(1, {
+        message: 'One line intro is a required input'
+      })
+      .max(120, {
+        message: 'One line intro cannot exceed 120 characters'
+      }),
+    description: z
+      .string()
+      .min(1, {
+        message: 'Description is a required input'
+      })
+      .max(360, {
+        message: 'Description cannot exceed 360 characters'
+      }),
+    conduct: z
+      .string()
+      .url({
+        message: 'Please enter a valid URL'
+      })
+      .optional()
+      .or(z.literal('')),
+    mode: z.enum(['HYBRID', 'ONLINE'], {
+      required_error: 'You need to select a hackathon mode'
     }),
-  host: z
-    .string()
-    .min(1, {
-      message: 'Organization name is a required input'
-    })
-    .max(80, {
-      message: 'Organization name cannot exceed 80 characters'
-    }),
-  intro: z
-    .string()
-    .min(1, {
-      message: 'One line intro is a required input'
-    })
-    .max(120, {
-      message: 'One line intro cannot exceed 120 characters'
-    }),
-  description: z
-    .string()
-    .min(1, {
-      message: 'Description is a required input'
-    })
-    .max(360, {
-      message: 'Description cannot exceed 360 characters'
-    }),
-  conduct: z
-    .string()
-    .url({
-      message: 'Please enter a valid URL'
-    })
-    .optional()
-    .or(z.literal('')),
-  mode: z.enum(['HYBRID', 'ONLINE'], {
-    required_error: 'You need to select a hackathon mode'
-  }),
-  address: z.string().min(1, {
-    message: 'Venue is a required input'
+    address: z.string().optional()
   })
-});
+  .refine((data) => data.mode === 'ONLINE' || (data.mode === 'HYBRID' && data.address), {
+    message: 'Venue is a required input for hybrid mode',
+    path: ['address']
+  });
 
 export function BasicInfoForm({
   isEditMode = false,
@@ -103,15 +106,6 @@ export function BasicInfoForm({
   });
 
   React.useEffect(() => {
-    if (isHybridMode) {
-      form.setValue('address', initialValues?.info?.address || '');
-    } else {
-      form.setValue('address', 'null');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHybridMode]);
-
-  React.useEffect(() => {
     if (!isEditMode) {
       if (isValid) {
         updateStatus(Steps.BASIC_INFO, true);
@@ -135,7 +129,8 @@ export function BasicInfoForm({
   function onSubmit(data: z.infer<typeof formSchema>) {
     mutation.mutate({
       id: initialValues?.id,
-      ...data
+      ...data,
+      address: data.mode === 'HYBRID' ? data.address : ''
     });
   }
 
@@ -156,9 +151,9 @@ export function BasicInfoForm({
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="sm:body-m body-s text-neutral-rich-gray">Hackathon Name*</span>
+                  <span className="body-m text-neutral-rich-gray">Hackathon Name*</span>
                 </FormLabel>
-                <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
+                <span className="caption-14pt text-neutral-rich-gray">
                   <span className={cn({ 'text-status-error': form.watch('name')?.length > 80 })}>
                     {form.watch('name')?.length}
                   </span>
@@ -168,9 +163,6 @@ export function BasicInfoForm({
               <FormControl>
                 <TextField
                   {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="Enter your hackathon name"
                   className="aria-[invalid=true]:border-status-error-dark"
@@ -187,9 +179,9 @@ export function BasicInfoForm({
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="sm:body-m body-s text-neutral-rich-gray">Organization Name*</span>
+                  <span className="body-m text-neutral-rich-gray">Organization Name*</span>
                 </FormLabel>
-                <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
+                <span className="caption-14pt text-neutral-rich-gray">
                   <span className={cn({ 'text-status-error': form.watch('host')?.length > 80 })}>
                     {form.watch('host')?.length}
                   </span>
@@ -199,9 +191,6 @@ export function BasicInfoForm({
               <FormControl>
                 <TextField
                   {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="e.g. Harvard University / Meta Platforms, Inc."
                   className="aria-[invalid=true]:border-status-error-dark"
@@ -230,9 +219,6 @@ export function BasicInfoForm({
               <FormControl>
                 <TextField
                   {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="e.g. Biggest hackathon in Shanghai"
                   className="aria-[invalid=true]:border-status-error-dark"
@@ -262,9 +248,6 @@ export function BasicInfoForm({
                 <Textarea
                   {...field}
                   authHeight={false}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="Write a brief description for your hackathon"
                   className="h-[76px] border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
@@ -287,9 +270,6 @@ export function BasicInfoForm({
               <FormControl>
                 <TextField
                   {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="Enter a URL"
                   className="aria-[invalid=true]:border-status-error-dark"
@@ -306,7 +286,7 @@ export function BasicInfoForm({
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="sm:body-m body-s text-neutral-rich-gray">Hackathon Mode (Select One)*</span>
+                  <span className="body-m text-neutral-rich-gray">Hackathon Mode (Select One)*</span>
                 </FormLabel>
               </div>
               <FormControl>
@@ -343,9 +323,6 @@ export function BasicInfoForm({
                 <FormControl>
                   <TextField
                     {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                    }}
                     autoComplete="off"
                     placeholder="Enter Venue Name"
                     className="aria-[invalid=true]:border-status-error-dark"

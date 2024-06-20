@@ -82,12 +82,12 @@ export default function Page() {
         ))}
       </Stepper.Root>
       <div
-        className={cn('w-full rounded-2xl bg-neutral-white p-10', {
+        className={cn('w-full rounded-2xl bg-neutral-white px-8 py-10', {
           'rounded-tl-none': step === Steps.BASIC_INFO,
           'rounded-tr-none': step === Steps.SUBMISSION
         })}
       >
-        <ResizablePanel.Root value={step} className="pb-2">
+        <ResizablePanel.Root value={step} className="px-2 pb-2">
           <ResizablePanel.Content value={Steps.BASIC_INFO}>
             <BasicInfoForm initialValues={data} />
           </ResizablePanel.Content>
@@ -104,7 +104,7 @@ export default function Page() {
             <TimelineForm />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.REWARDS}>
-            <RewardsForm />
+            <RewardsForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.APPLICATION}>
             <ApplicationForm />
