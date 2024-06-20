@@ -8,7 +8,17 @@ import { ActionButtons } from './action-buttons';
 import { EditCustomFieldModal } from '../modals/edit-custom-field-modal';
 import { AddFieldButton } from '../common/add-field-button';
 
-export function SubmissionForm() {
+export function SubmissionForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [open, toggle] = useToggle(false);
   return (
     <div className="flex flex-col gap-6">

@@ -6,7 +6,17 @@ import { ActionButtons } from './action-buttons';
 import { EditTrackModal } from '../modals/edit-track-modal';
 import { AddFieldButton } from '../common/add-field-button';
 
-export function RewardsForm() {
+export function RewardsForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [open, toggle] = useToggle(false);
   return (
     <div className="flex flex-col gap-6">

@@ -26,7 +26,17 @@ function DifferentCloseTime() {
   );
 }
 
-export function TimelineForm() {
+export function TimelineForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [value, setValue] = React.useState('no');
   return (
     <div className="flex flex-col gap-6">

@@ -5,13 +5,19 @@ import Image from 'next/image';
 import { message, Upload } from 'antd';
 import type { GetProp, UploadProps } from 'antd';
 import { LoaderIcon } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { TrashIcon } from '@/components/ui/icons/trash';
 import { PlusIcon } from '@/components/ui/icons/plus';
 import { useToggle } from '@/hooks/utils/use-toggle';
+import webApi from '@/service';
 import { ActionButtons } from './action-buttons';
 import { ConfirmModal } from '../modals/confirm-modal';
+import { useHackathonOrgState } from '../constants/state';
+import { Steps } from '../constants/steps';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+type UploadRequestOption = Parameters<GetProp<UploadProps, 'customRequest'>>[0];
 
 function getBase64(img: FileType, callback: (url: string) => void) {
   const reader = new FileReader();
@@ -31,30 +37,83 @@ function beforeUpload(file: FileType) {
   return isJpgOrPng && isLt2M;
 }
 
-export function CoverForm() {
+export function CoverForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [open, toggleOpen] = useToggle(false);
-  const [loading, toggle] = useToggle(false);
-  const [imageUrl, setImageUrl] = React.useState<string>(
-    'https://images.unsplash.com/photo-1718159445800-ebfe98552d96?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-  );
+  const [uploadLoading, toggleUploadLoading] = useToggle(false);
+  const [removeLoading, toggleRemoveLoading] = useToggle(false);
+  const [imageUrl, setImageUrl] = React.useState<string>('');
 
-  const onChange: UploadProps['onChange'] = (info) => {
-    if (info.file.status === 'uploading') {
-      toggle(true);
-      return;
+  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+
+  const queryClient = useQueryClient();
+
+  async function uploadImage(options: UploadRequestOption) {
+    const { file, onSuccess, onError } = options;
+    toggleUploadLoading(true);
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      await webApi.hackathonV2Api.updateHackathonImage(formData, initialValues?.id);
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      message.success('Upload Successfully');
+      onSuccess?.({});
+    } catch (error: any) {
+      console.log(error);
+      onError?.(error);
+    } finally {
+      toggleUploadLoading(false);
     }
-
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj as FileType, (url) => {
-        toggle(false);
-        setImageUrl(url);
-      });
-    }
-  };
-
-  function removeImage() {
-    setImageUrl('');
   }
+
+  async function removeImage() {
+    toggleRemoveLoading(true);
+    const formData = new FormData();
+    formData.append('image', '');
+    try {
+      await webApi.hackathonV2Api.updateHackathonImage(formData, initialValues?.id);
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      message.success('Remove Successfully');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      toggleRemoveLoading(false);
+    }
+  }
+
+  function onSaveOrNext() {
+    isEditMode ? onSave?.() : onNext();
+  }
+
+  function onCancelOrBack() {
+    isEditMode ? onCancel?.() : onPrevious();
+  }
+
+  React.useEffect(() => {
+    if (initialValues) {
+      setImageUrl(initialValues?.info?.image || '');
+    }
+  }, [initialValues]);
+
+  React.useEffect(() => {
+    if (!isEditMode) {
+      if (imageUrl) {
+        updateStatus(Steps.COVER, true);
+      } else {
+        updateStatus(Steps.COVER, false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageUrl, isEditMode]);
 
   const imagePreview = (
     <div className="relative mb-10 mt-1 h-[409px] w-full overflow-hidden rounded-[10px]">
@@ -69,18 +128,14 @@ export function CoverForm() {
     <div className="mb-10 mt-1 h-[409px] w-full rounded-[20px] bg-neutral-off-white p-[27px]">
       <Upload
         name="cover"
-        onChange={onChange}
         beforeUpload={beforeUpload}
         showUploadList={false}
         className="[&>.ant-upload]:!h-full [&>.ant-upload]:!w-full"
-        customRequest={async (option) => {
-          const { onSuccess, onError } = option;
-          // TODO: upload image
-        }}
+        customRequest={uploadImage}
       >
         <div className="flex h-full w-full cursor-pointer items-center justify-center rounded-xl border border-dashed border-neutral-medium-gray">
           <button className="outline-none" type="button">
-            {loading ? (
+            {uploadLoading ? (
               <LoaderIcon className="animate-spin text-neutral-medium-gray" />
             ) : (
               <span className="flex items-center gap-2 text-lg text-neutral-medium-gray">
@@ -98,8 +153,13 @@ export function CoverForm() {
     <div className="flex flex-col">
       <h3 className="body-m text-neutral-rich-gray">Hackathon Cover Image*</h3>
       {imageUrl ? imagePreview : uploadButton}
-      <ActionButtons isValid={true} isEditMode={false} />
-      <ConfirmModal open={open} onConfirm={removeImage} onClose={() => toggleOpen(false)}>
+      <ActionButtons
+        isValid={!!imageUrl}
+        isEditMode={isEditMode}
+        onCancelOrBack={onCancelOrBack}
+        onSaveOrNext={onSaveOrNext}
+      />
+      <ConfirmModal open={open} isLoading={removeLoading} onConfirm={removeImage} onClose={() => toggleOpen(false)}>
         Do you want to remove this image?
       </ConfirmModal>
     </div>

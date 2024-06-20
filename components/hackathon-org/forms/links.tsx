@@ -10,6 +10,13 @@ import { Button } from '@/components/ui/button';
 import { TextField } from '@/components/ui/text-field';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { ActionButtons } from './action-buttons';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import webApi from '@/service';
+import { omit } from 'lodash-es';
+import { useHackathonOrgState } from '../constants/state';
+import { Steps } from '../constants/steps';
+import { flattenObj } from '../constants/utils';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -30,13 +37,34 @@ const formSchema = z.object({
   telegram: z.string().optional().or(z.literal(''))
 });
 
-export function LinksForm() {
+export function LinksForm({
+  isEditMode = false,
+  initialValues,
+  onCancel,
+  onSave
+}: {
+  isEditMode?: boolean;
+  initialValues?: any;
+  onCancel?: () => void;
+  onSave?: () => void;
+}) {
   const [open, toggle] = useToggle(false);
+  const queryClient = useQueryClient();
+  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const user = useUserStore((state) => state.userInfo);
+
+  const mutation = useMutation({
+    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'links'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      isEditMode ? onSave?.() : onNext();
+    }
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: 'evan@gmail.com',
+      email: user?.email || '',
       website: '',
       instagram: '',
       twitter: '',
@@ -47,9 +75,41 @@ export function LinksForm() {
     }
   });
 
+  const isValid = form.formState.isValid;
+
+  React.useEffect(() => {
+    if (!isEditMode) {
+      if (isValid) {
+        updateStatus(Steps.LINKS, true);
+      } else {
+        updateStatus(Steps.LINKS, false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValid, isEditMode]);
+
+  React.useEffect(() => {
+    if (initialValues) {
+      const values = flattenObj(initialValues?.links);
+      form.reset(values);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
+
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    const values = {
+      id: initialValues?.id,
+      email: data.email,
+      website: data.website,
+      links: omit(data, 'email', 'website')
+    };
+    mutation.mutate(values);
   }
+
+  function onCancelOrBack() {
+    isEditMode ? onCancel?.() : onPrevious();
+  }
+
   return (
     <>
       <Form {...form}>
@@ -66,7 +126,7 @@ export function LinksForm() {
                   <FormControl>
                     <TextField
                       {...field}
-                      readOnly
+                      readOnly={!!user?.email}
                       onChange={(e) => {
                         field.onChange(e);
                       }}
@@ -79,9 +139,11 @@ export function LinksForm() {
                 </FormItem>
               )}
             />
-            <Button size="small" type="button" className="w-[140px] self-end" onClick={toggle}>
-              verify
-            </Button>
+            {!user?.email && (
+              <Button size="small" type="button" className="w-[140px] self-end" onClick={toggle}>
+                Verify
+              </Button>
+            )}
           </div>
           <FormField
             control={form.control}
@@ -246,7 +308,12 @@ export function LinksForm() {
               )}
             />
           </div>
-          <ActionButtons isValid={form.formState.isValid} isEditMode={false} />
+          <ActionButtons
+            isLoading={mutation.isPending}
+            isEditMode={isEditMode}
+            isValid={isValid}
+            onCancelOrBack={onCancelOrBack}
+          />
         </form>
       </Form>
       <VerifyEmailModal open={open} onClose={() => toggle(false)} />

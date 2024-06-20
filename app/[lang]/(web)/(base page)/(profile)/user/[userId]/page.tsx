@@ -1,11 +1,7 @@
-import type { NextPage } from 'next';
-
-interface IProps {}
-
-const UserPage: NextPage<IProps> = (props) => {
+const UserPage = () => {
   return (
     <>
-      <div className="flex h-full w-full flex-col "></div>
+      <div className="flex h-full w-full flex-col"></div>
     </>
   );
 };
