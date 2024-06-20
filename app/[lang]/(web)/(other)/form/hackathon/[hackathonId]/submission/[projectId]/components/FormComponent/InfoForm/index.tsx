@@ -20,7 +20,7 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { HACKATHON_SUBMIT_STEPS, LOCATIONS, TRACKS } from '../../constants';
+import { LOCATIONS, TRACKS, getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
@@ -87,10 +87,11 @@ const InfoForm: FC<
 
   const { runAsync: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>, isExit = false) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
-          ? ProjectSubmitStepType.PROJECT
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+
+      console.log(currentStep, nextStep);
+
+      const newStatus = currentStep.type === ProjectSubmitStepType.INFO ? nextStep.type : status;
 
       const formData = new FormData();
       const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
