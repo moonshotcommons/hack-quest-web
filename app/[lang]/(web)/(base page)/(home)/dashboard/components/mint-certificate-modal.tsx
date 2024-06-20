@@ -25,7 +25,7 @@ export function MintCertificateModal() {
 
   const isOpen = open && type === 'mint';
 
-  const canMint = data?.label?.toLowerCase()?.includes('mantle') && !certification?.mint;
+  const canMint = !certification?.mint;
 
   // const ecosystemName = lang === 'en' ? data?.name?.split(' ')?.[1] : data?.name?.split(' ')?.[0];
 
@@ -34,12 +34,7 @@ export function MintCertificateModal() {
   // const ecosystemName = stringArray.join(' ');
 
   const mutation = useMutation({
-    mutationFn: () =>
-      safeMintAsync({
-        sourceType: 'Certification',
-        sourceId: data?.certificationId,
-        signatureId: data?.certification?.signatureId
-      }),
+    mutationFn: () => safeMintAsync(data.certification),
     onSuccess: () => {
       onClose();
       router.refresh();

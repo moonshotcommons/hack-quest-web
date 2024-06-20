@@ -26,10 +26,11 @@ import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
 import CustomSelectField from '@/components/Web/Business/CustomSelectField';
 import ProjectTrackRadio from './ProjectTrackRadio';
-import ProjectPrizeTrackRadio from './ProjectPrizeTrackRadio';
 import emitter from '@/store/emitter';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import MenuLink from '@/constants/MenuLink';
+import FormRadio from '@/components/Common/FormRadio';
+import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -64,7 +65,7 @@ export type InfoFormSchema = z.infer<typeof formSchema>;
 const InfoForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
     Pick<HackathonSubmitStateType, 'info' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, info, tracks, simpleHackathonInfo, projectId, status, isSubmit }) => {
+> = ({ onNext, onBack, info, tracks: prizeTrack, simpleHackathonInfo, projectId, status, isSubmit }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -204,7 +205,12 @@ const InfoForm: FC<
             placeholder="Please select"
             items={LOCATIONS}
           ></CustomSelectField>
-          <ProjectPrizeTrackRadio tracks={tracks} form={form} />
+          {/* <ProjectPrizeTrackRadio tracks={tracks} form={form} /> */}
+          <FormRadio name="prizeTrack" form={form} label="Which Prize Track Do You Belong To" multiple>
+            {prizeTrack.map((t) => (
+              <FormRadioItem value={t} key={t} label={t} />
+            ))}
+          </FormRadio>
           <ProjectTrackRadio tracks={TRACKS} form={form} />
 
           {/* <div className="flex w-full justify-between gap-4">

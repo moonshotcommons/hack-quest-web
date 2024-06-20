@@ -44,7 +44,9 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
         }
       })
     );
+
     setPendingMessage('');
+
     getChatbotMessage({
       type: HelperType.Chat,
       content: pendingMessage,

@@ -287,6 +287,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
+          redirectToUrl('/dashboard');
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
@@ -422,7 +423,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     let verifyData;
     if (state) {
       verifyData = JSON.parse(atob(state as string));
-      querySource = verifyData?.source || ThirdPartyAuthType.GOOGLE;
+      verifyData?.source && (querySource = verifyData?.source);
     }
     //第一个字母大写 其余小写
     querySource = (querySource as string).toLocaleLowerCase().replace(/^\w/, (s) => s.toLocaleUpperCase());

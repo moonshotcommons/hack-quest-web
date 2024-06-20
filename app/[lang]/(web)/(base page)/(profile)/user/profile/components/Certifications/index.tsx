@@ -9,7 +9,7 @@ import Link from 'next/link';
 import CertificationModal, {
   CertificationModalInstance
 } from '@/components/Web/Business/Certification/CertificationModal';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
@@ -19,21 +19,19 @@ import message from 'antd/es/message';
 interface PersonalLinksProps {}
 
 const MintButton = (props: {
-  certification: CertificationType;
-  updateSelectCertification: (certification: CertificationType) => void;
+  certification: UserCertificateInfo;
+  updateSelectCertification: (certification: UserCertificateInfo) => void;
 }) => {
   const { certification, updateSelectCertification } = props;
   const { safeMintAsync } = useMintCertification();
 
-  const { run: safeMint, loading } = useRequest(
-    async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
-      const res = await safeMintAsync({
-        sourceType: params.sourceType,
-        sourceId: params.sourceId,
-        signatureId: params.signatureId
-      });
+  console.log(certification);
 
-      return await webApi.campaignsApi.getCertificationDetail(params.sourceId);
+  const { run: safeMint, loading } = useRequest(
+    async () => {
+      const res = await safeMintAsync(certification);
+
+      return await webApi.campaignsApi.getCertificationDetail(certification.id);
     },
     {
       manual: true,
@@ -56,7 +54,7 @@ const MintButton = (props: {
         certification.mint ? 'cursor-not-allowed opacity-40' : ''
       )}
       onClick={async () => {
-        if (!certification.name.toLowerCase().startsWith('mantle')) {
+        if (!certification.chainId) {
           const zoology = certification.name.replace(' Learning Track', '');
           message.info(`${zoology} NFT will open for minting soon!`);
           return;
@@ -65,11 +63,7 @@ const MintButton = (props: {
         if (certification.mint) {
           return;
         }
-        safeMint({
-          sourceType: 'Certification',
-          sourceId: certification.id,
-          signatureId: certification.signatureId
-        });
+        safeMint();
       }}
     >
       {certification.mint ? 'Minted' : 'Mint'}
@@ -80,7 +74,7 @@ const MintButton = (props: {
 const Certifications: FC<PersonalLinksProps> = (props) => {
   const { profile, refresh } = useContext(ProfileContext);
   const certificationModalInstance = useRef<CertificationModalInstance>(null);
-  const [selectCertification, setSelectCertification] = useState<CertificationType | null>(null);
+  const [selectCertification, setSelectCertification] = useState<UserCertificateInfo | null>(null);
 
   useEffect(() => {
     if (selectCertification) {
@@ -109,11 +103,11 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
             return (
               <li key={item.id} className="flex w-[195px] flex-col justify-center">
                 <div className=" relative h-[108px] rounded-[10px]">
-                  <Image src={item.image} fill alt="Solidity Learning Track"></Image>
+                  <Image src={item.certificateImage} fill alt="Solidity Learning Track"></Image>
                 </div>
                 <MintButton
                   certification={item}
-                  updateSelectCertification={(certification: CertificationType) => {
+                  updateSelectCertification={(certification: UserCertificateInfo) => {
                     setSelectCertification(certification);
                     refresh();
                   }}

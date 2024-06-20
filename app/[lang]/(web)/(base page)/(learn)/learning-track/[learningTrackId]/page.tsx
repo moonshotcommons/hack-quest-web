@@ -1,5 +1,4 @@
 import Tags from '@/components/Common/Tags';
-import CertificationCard from '@/components/Web/Business/Certification/CertificationCard';
 import { SectionCatalogue } from '@/components/Web/DetailPageV2/Catalogue';
 import CourseTag, { CourseTagType } from '@/components/Web/DetailPageV2/CourseTag';
 import webApi from '@/service';
@@ -103,7 +102,7 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
               </div>
 
               <div className="mt-20  flex flex-col gap-20">
-                {certification && <CertificationCard certification={certification} />}
+                {/* {certification && <CertificationCard certification={certification} />} */}
                 {learningTrackDetail.intendedLearners && (
                   <IntendedLearners intendedLearners={learningTrackDetail.intendedLearners} lang={lang} />
                 )}

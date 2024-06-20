@@ -58,7 +58,9 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
 
           <div className="">
             <p className="body-s text-neutral-medium-gray">{t('projectsDetail.prizeTrack')}</p>
-            <p>{project.prizeTrack || '-'}</p>
+            <p className="body-s line-clamp-1 w-full" title={project.prizeTrack?.split(',').join(', ')}>
+              {project.prizeTrack?.split(',').join(', ') || '-'}
+            </p>
           </div>
         </div>
         <div className="">
@@ -68,7 +70,9 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
 
           <div className="">
             <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.hackathonTrack')}</p>
-            <div className="body-s flex gap-[4px]">{project.tracks?.map((v) => <span key={v}>{v}</span>)}</div>
+            <p className="body-s line-clamp-1" title={project.tracks?.join(', ')}>
+              {project.tracks?.join(', ')}
+            </p>
           </div>
         </div>
         {project.githubLink && (
