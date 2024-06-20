@@ -143,7 +143,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           </div>
           <div>
             <p className="mb-[8px]">{t('participants')}</p>
-            <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.members?.length || 0)}</p>
+            <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
           </div>
           <div>
             <p className="mb-[8px]">{t('totalPrize')}</p>

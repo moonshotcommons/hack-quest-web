@@ -12,7 +12,7 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 import IsPublicRadio from './IsPublicRadio';
 import { useRequest } from 'ahooks';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -31,7 +31,7 @@ export type OthersFormSchema = z.infer<typeof formSchema>;
 const OthersForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep' | 'tracks'> &
     Pick<HackathonSubmitStateType, 'others' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, others, status, projectId, refreshProjectInfo, isSubmit }) => {
+> = ({ onNext, onBack, others, status, projectId, refreshProjectInfo, isSubmit, simpleHackathonInfo }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,10 +46,9 @@ const OthersForm: FC<
 
   const { run: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>, isExit = false) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 5
-          ? ProjectSubmitStepType.WALLET
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+      const newStatus = currentStep.type === ProjectSubmitStepType.OTHERS ? nextStep.type : status;
+
       const formData = new FormData();
       const { githubLink, isPublic } = values;
       ![null, undefined].includes(isPublic as any) && formData.append('isOpenSource', isPublic ? 'true' : 'false');

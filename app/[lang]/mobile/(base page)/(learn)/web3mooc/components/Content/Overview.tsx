@@ -65,6 +65,9 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
         <div className="body-s">
           <p className="mb-[.25rem] text-neutral-medium-gray">{t('ntuCourse.date')}</p>
           <p>{overviewData.date}</p>
+          <p className="text-[.75rem] leading-[140%] text-neutral-medium-gray">
+            {`Please review individual lecture schedule under Syllabus as speakers are from different time zones.`}
+          </p>
         </div>
         <div className="body-s">
           <p className="mb-[.25rem] text-neutral-medium-gray">{t('ntuCourse.time')}</p>

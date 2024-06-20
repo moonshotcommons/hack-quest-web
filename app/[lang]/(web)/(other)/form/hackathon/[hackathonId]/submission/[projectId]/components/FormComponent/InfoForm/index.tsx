@@ -20,16 +20,17 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { HACKATHON_SUBMIT_STEPS, LOCATIONS, TRACKS } from '../../constants';
+import { LOCATIONS, TRACKS, getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
 import CustomSelectField from '@/components/Web/Business/CustomSelectField';
 import ProjectTrackRadio from './ProjectTrackRadio';
-import ProjectPrizeTrackRadio from './ProjectPrizeTrackRadio';
 import emitter from '@/store/emitter';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import MenuLink from '@/constants/MenuLink';
+import FormRadio from '@/components/Common/FormRadio';
+import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -64,7 +65,7 @@ export type InfoFormSchema = z.infer<typeof formSchema>;
 const InfoForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
     Pick<HackathonSubmitStateType, 'info' | 'status' | 'isSubmit'>
-> = ({ onNext, onBack, info, tracks, simpleHackathonInfo, projectId, status, isSubmit }) => {
+> = ({ onNext, onBack, info, tracks: prizeTrack, simpleHackathonInfo, projectId, status, isSubmit }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,10 +87,11 @@ const InfoForm: FC<
 
   const { runAsync: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>, isExit = false) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
-          ? ProjectSubmitStepType.PROJECT
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+
+      console.log(currentStep, nextStep);
+
+      const newStatus = currentStep.type === ProjectSubmitStepType.INFO ? nextStep.type : status;
 
       const formData = new FormData();
       const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
@@ -204,7 +206,12 @@ const InfoForm: FC<
             placeholder="Please select"
             items={LOCATIONS}
           ></CustomSelectField>
-          <ProjectPrizeTrackRadio tracks={tracks} form={form} />
+          {/* <ProjectPrizeTrackRadio tracks={tracks} form={form} /> */}
+          <FormRadio name="prizeTrack" form={form} label="Which Prize Track Do You Belong To" multiple>
+            {prizeTrack.map((t) => (
+              <FormRadioItem value={t} key={t} label={t} />
+            ))}
+          </FormRadio>
           <ProjectTrackRadio tracks={TRACKS} form={form} />
 
           {/* <div className="flex w-full justify-between gap-4">

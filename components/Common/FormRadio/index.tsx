@@ -1,10 +1,10 @@
-import React, { FC, ReactElement, createContext, useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import React, { ReactElement, createContext, useState } from 'react';
+import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
-interface FormRadioProps {
+interface FormRadioProps<TFieldValues extends FieldValues = FieldValues> {
   children: ReactElement | ReactElement[];
-  name: string;
-  form: UseFormReturn<any, any, undefined>;
+  form: UseFormReturn<TFieldValues, any, undefined>;
+  name: Path<TFieldValues>;
   label: string;
   multiple?: boolean;
   disable?: boolean;
@@ -17,7 +17,14 @@ const FormRadioContext = createContext<{ select: SelectType; setSelect: (s: Sele
   setSelect() {}
 });
 
-const FormRadio: FC<FormRadioProps> = ({ form, label, name, children, multiple, disable }) => {
+const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
+  form,
+  label,
+  name,
+  children,
+  multiple,
+  disable
+}: FormRadioProps<TFieldValues>) => {
   const defaultSelect: string[] =
     multiple && form.getValues(name)?.split ? (form.getValues(name) || '').split(',') : [];
   const [select, setSelect] = useState<SelectType>(defaultSelect);

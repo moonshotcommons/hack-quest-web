@@ -61,7 +61,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                   <span className="body-m-bold text-neutral-off-black">
                     {hackathon.version === 'old'
                       ? hackathon.participants
-                      : separationNumber(hackathon.members?.length || 0)}
+                      : separationNumber(hackathon.memberCount || 0)}
                   </span>
                 </div>
                 <div>

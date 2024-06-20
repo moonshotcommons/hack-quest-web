@@ -1,3 +1,4 @@
+'use client';
 import MobPracticeCard from '@/components/Mobile/MobPracticeCard';
 import MobViewMoreList from '@/components/Mobile/MobViewMoreList';
 import { ProjectCourseType } from '@/service/webApi/course/type';

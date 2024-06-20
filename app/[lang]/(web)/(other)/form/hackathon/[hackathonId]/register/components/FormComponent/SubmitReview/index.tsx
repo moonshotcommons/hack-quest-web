@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
 import { FormComponentProps } from '..';
 import Image from 'next/image';
 import { HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
@@ -13,6 +13,8 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import { isEmpty } from 'lodash-es';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { HackathonPartner } from '../../../../submission/[projectId]/components/constants';
 interface SubmitReviewProps {}
 
 const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
@@ -29,9 +31,12 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
   const { redirectToUrl } = useRedirect();
   const { name, contractInfo, bio, submissionType, isRegister } = formState;
   const confirmModalRef = useRef<ConfirmModalRef>(null);
+  const [allowContract, setAllowContract] = useState(true);
   const { runAsync, loading } = useRequest(
     () => {
-      return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id);
+      return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id, {
+        allowContract: allowContract
+      });
     },
     {
       manual: true,
@@ -227,9 +232,68 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         </Button>
       </div>
       <ConfirmModal ref={confirmModalRef}>
-        <h4 className="text-h4 mb-9 text-center text-neutral-black">
-          Do you want to {isRegister ? 'update' : 'register'} this hackathon?
-        </h4>
+        {(isRegister || simpleHackathonInfo.id !== HackathonPartner.Linea) && (
+          <h4 className="text-h4 mb-9 text-center text-neutral-black">
+            Do you want to {isRegister ? 'update' : 'register'} this hackathon?
+          </h4>
+        )}
+        {!isRegister && simpleHackathonInfo.id === HackathonPartner.Linea && (
+          <>
+            <p className="body-s text-center">
+              Consensys may use the contact information you provide to us to contact you about our products and
+              services. By ticking the checkbox, you consent to receive such communications. You may unsubscribe from
+              these communications at any time. For information on how to unsubscribe, as well as our privacy practices
+              and commitment to protecting your privacy, please review our Privacy Policy.{' '}
+              <Link href={'https://consensys.io/privacy-notice'} target="_blank">
+                https://consensys.io/privacy-notice
+              </Link>
+            </p>
+            {/* <div className="mt-6 flex justify-center gap-2 text-neutral-rich-gray">
+              <span
+                className="body-s flex h-[22px] w-[22px] items-center justify-center rounded-[2px] border-[2px] border-neutral-black text-neutral-black"
+                onClick={() => {
+                  setConsent(!consent);
+                }}
+              >
+                <span
+                  className={cn(
+                    'inline-block h-[14px] w-[14px] rounded-[2px] bg-neutral-black',
+                    consent ? 'inline-block' : 'hidden'
+                  )}
+                ></span>
+              </span>
+              <span>Yes, I consent.</span>
+            </div> */}
+            <div className="mt-6 flex w-full justify-between gap-5 px-10">
+              <div
+                onClick={() => {
+                  setAllowContract(true);
+                }}
+                className={cn(
+                  `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+                  allowContract === true
+                    ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
+                    : ''
+                )}
+              >
+                <span>Yes</span>
+              </div>
+              <div
+                onClick={() => {
+                  setAllowContract(false);
+                }}
+                className={cn(
+                  `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+                  allowContract === false
+                    ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
+                    : ''
+                )}
+              >
+                <span>No</span>
+              </div>
+            </div>
+          </>
+        )}
       </ConfirmModal>
     </div>
   );
