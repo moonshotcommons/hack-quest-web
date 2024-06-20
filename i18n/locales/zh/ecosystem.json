@@ -16,5 +16,23 @@
   "build": "实战",
   "community": "社区",
   "all_ecosystems": "所有生态系统",
-  "explore_more": "探索更多"
+  "explore_more": "探索更多",
+  "learner": "学习者",
+  "builder": "开发者",
+  "modal": {
+    "claim": {
+      "description":  "完成任务即可获得 {{name}} 生态系统的官方证书。从第 1 级获得 100 分后，您将获得入门证书并升级。获得 500 分即可成为专家级 {{name}} 开发人员。"
+    },
+    "mint": {
+      "title": "恭喜！您已成为 {{title}}",
+      "description": "您已在 Web3 学习中达到重要里程碑！颁发证书以证明您的专业知识。",
+      "view_profile": "查看个人资料"
+    }
+  },
+  "course": "课程",
+  "project": "项目",
+  "explore": "探索",
+  "completed_empty": "您还没有完成任何{{name}}",
+  "enrolled_empty": "您还没有加入任何{{name}}",
+  "continue": "继续"
 }

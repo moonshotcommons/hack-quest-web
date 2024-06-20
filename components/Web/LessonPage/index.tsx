@@ -149,8 +149,13 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                     onCompleted={() => {
                       if (lesson.state !== CompleteStateType.COMPLETED) {
                         webApi.missionCenterApi.digTreasures(lessonId).then((res) => {
-                          if (res.success && res.treasureId) {
-                            treasureModalRef.current?.open(res.treasureId);
+                          if (res.success) {
+                            treasureModalRef.current?.open({
+                              treasureData: {
+                                coin: res.coin,
+                                exp: res.exp
+                              }
+                            });
                           }
                         });
                       }
@@ -179,8 +184,13 @@ const LessonPage: FC<LessonPageProps> = (props) => {
                           webApi.missionCenterApi
                             .digTreasures(lessonId)
                             .then(async (res) => {
-                              if (res.success && res.treasureId) {
-                                treasureModalRef.current?.open(res.treasureId);
+                              if (res.success) {
+                                treasureModalRef.current?.open({
+                                  treasureData: {
+                                    coin: res.coin,
+                                    exp: res.exp
+                                  }
+                                });
                                 setNextLoading(false);
                               } else {
                                 onNextClick({

@@ -14,7 +14,6 @@ const LessonFooter: React.FC<LessonFooterProps> = ({ lesson, onNextClick }) => {
 
   const { isHandleNext, nextLoading } = useContext(LessonPageContext);
   const handleNext = () => {
-    debugger;
     if (!isHandleNext) return;
     onNextClick();
   };

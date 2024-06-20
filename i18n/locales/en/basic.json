@@ -214,5 +214,10 @@
   "day":"Day",
   "all":"All",
   "copy":"Copy",
-  "share":"Share"
+  "share":"Share",
+  "collect":"Collect",
+  "treasureModalText":"The treasure you got",
+  "FAQs": "FAQs",
+  "edit":"Edit",
+  "delete":"Delete"
 }

@@ -14,7 +14,7 @@ export interface MentorType {
 export interface HackathonRewardType {
   desc: string;
   name: string;
-  totalPlace: string;
+  totalPlace: number;
   place: number[];
 }
 export interface HackathonScheduleType {
@@ -69,6 +69,7 @@ export interface HackathonType {
   guestsAndMentors: MentorType[];
   mediaPartners: MentorType[];
   communityPartners: MentorType[];
+  partners: MentorType[];
   status: HackathonStatusType;
   alias: string;
   rewardTime: string;
@@ -84,6 +85,9 @@ export interface HackathonType {
   remainingVote: number;
   projectCount: number;
   totalPlace: number;
+
+  speakersAndJudges: HackathonMemberType[];
+  sponsors: HackathonMemberType[];
 }
 
 export interface JoinedHackathonType {

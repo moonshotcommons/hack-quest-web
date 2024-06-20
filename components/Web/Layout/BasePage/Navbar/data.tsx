@@ -72,12 +72,12 @@ export const navbarList: NavbarListType[] = [
       //   description: 'navbar.learn.ecosystemDesc',
       //   needLogin: true
       // },
-      // {
-      //   id: 'explore',
-      //   label: 'navbar.learn.explore',
-      //   path: MenuLink.EXPLORE,
-      //   description: 'navbar.learn.exploreDesc'
-      // },
+      {
+        id: 'explore',
+        label: 'navbar.learn.explore',
+        path: MenuLink.EXPLORE,
+        description: 'navbar.learn.exploreDesc'
+      },
       {
         id: 'ntu-web3-mooc',
         label: 'navbar.learn.ntuCourse',
@@ -134,14 +134,14 @@ export const navbarList: NavbarListType[] = [
         description: 'navbar.reward.missionDesc',
         needLogin: true,
         needPC: true
-      },
-      {
-        id: 'campaign',
-        label: 'navbar.reward.campaign',
-        path: MenuLink.CAMPAIGINS,
-        description: 'navbar.reward.campaignDesc',
-        needLogin: true
       }
+      // {
+      //   id: 'campaign',
+      //   label: 'navbar.reward.campaign',
+      //   path: MenuLink.CAMPAIGINS,
+      //   description: 'navbar.reward.campaignDesc',
+      //   needLogin: true
+      // }
     ]
   },
   {

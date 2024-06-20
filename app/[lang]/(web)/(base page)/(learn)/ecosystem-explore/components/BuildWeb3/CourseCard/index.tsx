@@ -1,19 +1,18 @@
+'use client';
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { GoArrowRight } from 'react-icons/go';
-import { EcosystemType } from '@/service/webApi/ecosystem/type';
 import { BuildOnWebType } from '../../../constants/type';
 import BaseImage from '@/components/Common/BaseImage';
 
 interface CourseCardProp {
   course: BuildOnWebType;
-  ecosystems: EcosystemType[];
 }
 
-const CourseCard: React.FC<CourseCardProp> = ({ course, ecosystems }) => {
+const CourseCard: React.FC<CourseCardProp> = ({ course }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LEARN);
   return (
