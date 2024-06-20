@@ -422,7 +422,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     let querySource = query.get('source') || ThirdPartyAuthType.EMAIL;
     let verifyData;
     if (state) {
-      const verifyData = JSON.parse(atob(state as string));
+      verifyData = JSON.parse(atob(state as string));
       verifyData?.source && (querySource = verifyData?.source);
     }
     //第一个字母大写 其余小写
