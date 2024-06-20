@@ -41,7 +41,7 @@ export const titleTxtData = [
 export const overviewData = {
   name: 'ntuCourse.overview.title',
   date: 'Weekly sessions from 5/28-9/24/2024',
-  time: '9-10 am SGT, Tuesday / 9-10 pm EST, Monday (*Please review individual lecture schedule under Syllabus as speakers are from different time zones).',
+  time: '9-10 am SGT, Tuesday / 9-10 pm EST, Monday',
   format: 'Hybrid (In-person at NTU and Online over ZOOM)',
   discussionGroups: [
     {
@@ -85,7 +85,7 @@ export const syllabusData = [
     description:
       'This introductory session is dedicated to bridging the gap between Web2 and Web3. In this session, students will review key Web3 concepts, learn key differences between Web2 and Web3, explore the Ethereum ecosystem, and discover how to begin building in this transformative new space as a Web3 developer.',
     speaker: 'Austin Griffith, Ethereum Foundation',
-    video: '',
+    video: 'https://drive.google.com/file/d/1efRXsQZL_nkLS1ZXMLEYswNsuUYKXp1c/view',
     slide: '',
     expand: false
   },
@@ -95,8 +95,9 @@ export const syllabusData = [
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on infrastructure.',
     speaker: 'Dr. Michael Yuan, Gaianet',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1VK6U3CGXRavinw5BWSb0BTaYyYHrB0h_/view?usp=drive_link',
+    slide:
+      'https://docs.google.com/presentation/d/1EUlPND_1HO0HyiEhfcWM2pF-LlcaPyxRfMMG3-UH15c/edit#slide=id.g2dc6d916b77_1_2',
     expand: false
   },
   {
