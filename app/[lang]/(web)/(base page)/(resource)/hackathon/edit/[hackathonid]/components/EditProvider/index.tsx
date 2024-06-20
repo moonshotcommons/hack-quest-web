@@ -3,9 +3,10 @@ import { HackathonEditContext, HackathonEditModalType } from '../../constants/ty
 
 interface EditProviderProp {
   children: ReactNode;
+  updateHackathon: VoidFunction;
 }
 
-const EditProvider: React.FC<EditProviderProp> = ({ children }) => {
+const EditProvider: React.FC<EditProviderProp> = ({ children, updateHackathon }) => {
   const [navs, setNavs] = useState([
     {
       label: 'hackathonDetail.cover',
@@ -44,7 +45,8 @@ const EditProvider: React.FC<EditProviderProp> = ({ children }) => {
         navs,
         setNavs,
         modalType,
-        setModalType
+        setModalType,
+        updateHackathon
       }}
     >
       {children}

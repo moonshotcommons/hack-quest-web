@@ -86,7 +86,7 @@
     "mediaPartnersIntro":"Sed",
     "communityPartnersIntro":"Sed",
     "partnersIntro":"Sed",
-    "speakersJudgesIntro":"Sedmagna",
+    "speakersAndJudgesIntro":"Sedmagna",
     "sponsorsIntro":"Sedmagna",
     "scheduleIntro":"Sedmagna",
     "FAQsIntro":"Sedmagna",
@@ -100,8 +100,9 @@
     "removeSection":"Remove this section",
     "removeEvent":"Remove the event",
     "enterName":"Enter name",
-    "enterIntro":"One-line intro"
-
+    "enterIntro":"One-line intro",
+    "hackathonImage":"Hackathon Cover Image",
+    "uploadImage":"Upload an image"
 
 
   },

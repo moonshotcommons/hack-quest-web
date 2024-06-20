@@ -22,6 +22,7 @@ interface OnGoingHackathonCardProp {
 }
 
 const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon }) => {
+  console.info(hackathon);
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -127,7 +128,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
       onClick={goHackathonDetail}
     >
       <div className="relative h-full w-[571px] flex-shrink-0 bg-[#d9d9d9]/30">
-        <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
+        <Image src={hackathon.info.image} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
       <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
         <div className="flex">

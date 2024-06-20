@@ -29,11 +29,13 @@ export interface HackathonEditContextType {
   setNavs: (navs: HackathonEditNavType[]) => void;
   modalType: HackathonEditModalType;
   setModalType: (type: HackathonEditModalType) => void;
+  updateHackathon: VoidFunction;
 }
 
 export const HackathonEditContext = createContext<HackathonEditContextType>({
   navs: [],
   setNavs: () => {},
   modalType: HackathonEditModalType.NULL,
-  setModalType: () => {}
+  setModalType: () => {},
+  updateHackathon: () => {}
 });

@@ -8,7 +8,7 @@ interface HackathonImageProp {
 const HackathonImage: React.FC<HackathonImageProp> = ({ hackathon }) => {
   return (
     <Box className="border-transparent">
-      <img src={hackathon.image} className="w-full" alt={hackathon.alias} />
+      <img src={hackathon?.info?.image} className="w-full" alt={hackathon.alias} />
     </Box>
   );
 };

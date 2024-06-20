@@ -13,17 +13,17 @@ import { cloneDeep } from 'lodash-es';
 import Button from '@/components/Common/Button';
 import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
 import EditTitle from '../EditTitle';
+import webApi from '@/service';
 
 interface PartnersBoxModalProp {
   hackathon: HackathonType;
-  type: 'partners' | 'mediaPartners' | 'communityPartners';
 }
 
-const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) => {
+const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [partners, setPartners] = useState<MentorType[]>([]);
-  const { setModalType } = useContext(HackathonEditContext);
+  const { modalType, setModalType } = useContext(HackathonEditContext);
   const handleAdd = () => {
     // if (partners.some((v) => !v.name || !v.picture)) return;
     const p = {
@@ -59,7 +59,7 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) =
   return (
     <div className="">
       <div className="px-[40px]">
-        <EditTitle title={t(`hackathonDetail.${type}`)} handleEditTile={handleEditTile} />
+        <EditTitle title={t(`hackathonDetail.${modalType}`)} handleEditTile={handleEditTile} />
       </div>
       <div className="scroll-wrap-y flex flex-1 flex-col gap-[24px] px-[40px]">
         <p className="body-l text-neutral-off-black">{t('hackathonDetail.mediaPartnersUploadText')}</p>
@@ -87,13 +87,13 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ type, hackathon }) =
                       const formData = new FormData();
                       formData.append('file', file);
                       formData.append('filepath', `hackathons/${hackathon.id}`);
+                      formData.append('isPublic', `${true}`);
                       try {
-                        // const res = await webApi.commonApi.uploadImage(formData);
+                        const res = await webApi.commonApi.uploadImage(formData);
                         const newPartners = cloneDeep(partners);
-                        // newPartners[i].picture = res.content;
-                        newPartners[i].picture = hackathon.image;
+                        newPartners[i].picture = res.filepath;
                         setPartners(newPartners);
-                        message.success('Updated successfully');
+                        message.success('Upload successfully');
                       } catch (e: any) {
                         errorMessage(e);
                       }
