@@ -19,6 +19,7 @@ export function UsernameModal() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [username, setUsername] = React.useState('');
+
   const [userCertificateInfo, setUserCertificateInfo] = React.useState<UserCertificateInfo>();
   const { open, type, data, onOpen, onClose } = useCertificateModal();
   const isOpen = open && type === 'username';

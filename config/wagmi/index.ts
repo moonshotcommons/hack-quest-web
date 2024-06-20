@@ -23,7 +23,7 @@ export enum ChainType {
 export const config = getDefaultConfig({
   appName: 'Hackquest',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [mainnet, mantle, manta, mantaTestnet],
+  chains: [mainnet, mantle, manta, mantaTestnet, mantleSepoliaTestnet, lineaSepolia, sepolia, arbitrumSepolia],
   wallets: [
     {
       groupName: 'Recommended',
@@ -34,7 +34,11 @@ export const config = getDefaultConfig({
     [mainnet.id]: http(),
     [mantle.id]: http(),
     [manta.id]: http(),
-    [mantaTestnet.id]: http()
+    [mantaTestnet.id]: http(),
+    [mantleSepoliaTestnet.id]: http(),
+    [lineaSepolia.id]: http(),
+    [sepolia.id]: http(),
+    [arbitrumSepolia.id]: http()
   },
   ssr: true
 });
