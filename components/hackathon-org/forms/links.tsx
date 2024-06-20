@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as z from 'zod';
+import { omit } from 'lodash-es';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -13,7 +14,6 @@ import { ActionButtons } from './action-buttons';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
-import { omit } from 'lodash-es';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { flattenObj } from '../constants/utils';
@@ -127,9 +127,6 @@ export function LinksForm({
                     <TextField
                       {...field}
                       readOnly={!!user?.email}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter your contact email"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -151,14 +148,11 @@ export function LinksForm({
             render={({ field }) => (
               <FormItem className="w-full space-y-1">
                 <FormLabel>
-                  <span className="sm:body-m body-s text-neutral-rich-gray">Hackathon’s Website</span>
+                  <span className="body-m text-neutral-rich-gray">Hackathon’s Website</span>
                 </FormLabel>
                 <FormControl>
                   <TextField
                     {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                    }}
                     autoComplete="off"
                     placeholder="Enter your hackathon website"
                     className="aria-[invalid=true]:border-status-error-dark"
@@ -175,14 +169,11 @@ export function LinksForm({
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Instagram</span>
+                    <span className="body-m text-neutral-rich-gray">Instagram</span>
                   </FormLabel>
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter hackathon Instagram account"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -198,14 +189,11 @@ export function LinksForm({
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Twitter</span>
+                    <span className="body-m text-neutral-rich-gray">Twitter</span>
                   </FormLabel>
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter hackathon Twitter account"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -221,14 +209,11 @@ export function LinksForm({
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Discord</span>
+                    <span className="body-m text-neutral-rich-gray">Discord</span>
                   </FormLabel>
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter hackathon Discord account"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -244,14 +229,11 @@ export function LinksForm({
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Slack</span>
+                    <span className="body-m text-neutral-rich-gray">Slack</span>
                   </FormLabel>
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter hackathon Slack account"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -267,14 +249,11 @@ export function LinksForm({
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Farcaster</span>
+                    <span className="body-m text-neutral-rich-gray">Farcaster</span>
                   </FormLabel>
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter hackathon Farcaster account"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -290,14 +269,11 @@ export function LinksForm({
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <FormLabel>
-                    <span className="sm:body-m body-s text-neutral-rich-gray">Telegram</span>
+                    <span className="body-m text-neutral-rich-gray">Telegram</span>
                   </FormLabel>
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter hackathon Telegram account"
                       className="aria-[invalid=true]:border-status-error-dark"

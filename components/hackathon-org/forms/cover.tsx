@@ -19,12 +19,6 @@ type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 type UploadRequestOption = Parameters<GetProp<UploadProps, 'customRequest'>>[0];
 
-function getBase64(img: FileType, callback: (url: string) => void) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-}
-
 function beforeUpload(file: FileType) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
