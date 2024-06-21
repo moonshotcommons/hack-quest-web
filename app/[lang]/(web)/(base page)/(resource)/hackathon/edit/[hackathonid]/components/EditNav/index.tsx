@@ -20,7 +20,7 @@ const EditNav: React.FC<EditNavProp> = ({ curTab, setCurTab }) => {
   return (
     <div className="sticky left-0 top-0 z-[2]">
       <SlideHighlight
-        className={` flex h-[66px] w-full justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[120px]`}
+        className={` flex h-[66px] w-full justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[40px]`}
         type="LEARNING_TRACK"
         currentIndex={navs.findIndex((v) => v.value === curTab)}
       >

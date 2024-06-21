@@ -14,16 +14,22 @@ import TimeLine from './TimeLine';
 import Rewards from './Rewards';
 import Judging from './Judging';
 import Application from './Application';
+import Submission from './Submission';
+import Links from './Links';
+import PartnersBox from './PartnersBox';
+import SpeakersSponsorsBox from './SpeakersSponsorsBox';
+import Schedule from './Schedule';
+import FAQs from './FAQs';
 
 interface HackathonEditProp {
   hackathon: HackathonType;
+  isEdit?: boolean;
 }
 
-const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon: h }) => {
-  console.info(h);
+const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon: h, isEdit = false }) => {
   const [curTab, setCurTab] = useState('');
   const [hackathon, setHackathon] = useState(h);
-  const { run: updateHackathon, loading } = useRequest(
+  const { run: refreshHackathon, loading } = useRequest(
     async () => {
       const res = await webApi.resourceStationApi.getHackathonDetail(hackathon.id);
       return res;
@@ -35,10 +41,11 @@ const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon: h }) => {
       }
     }
   );
+  console.info(hackathon);
   return (
-    <EditProvider updateHackathon={updateHackathon}>
+    <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>
       <Loading loading={loading}>
-        <div className="scroll-wrap-y h-full">
+        <div className="scroll-wrap-y h-[calc(100vh-64px)]">
           <div className="container relative mx-auto pb-[80px] pt-[40px]">
             <EditNav curTab={curTab} setCurTab={setCurTab} />
             <div className="relative flex justify-between pt-[60px]">
@@ -48,15 +55,15 @@ const HackathonEdit: React.FC<HackathonEditProp> = ({ hackathon: h }) => {
                 <Rewards hackathon={hackathon} />
                 <Judging hackathon={hackathon} />
                 <Application hackathon={hackathon} />
-                {/* <Submission hackathon={hackathon} /> */}
-                {/* <Links hackathon={hackathon} /> */}
-                {/* <PartnersBox hackathon={hackathon} type="mediaPartners" /> */}
-                {/* <PartnersBox hackathon={hackathon} type="communityPartners" /> */}
-                {/* <PartnersBox hackathon={hackathon} type="partners" /> */}
-                {/* <SpeakersSponsorsBox hackathon={hackathon} type="speakersAndJudges" /> */}
-                {/* <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" /> */}
-                {/* <Schedule hackathon={hackathon} /> */}
-                {/* <FAQs hackathon={hackathon} /> */}
+                <Submission hackathon={hackathon} />
+                <Links hackathon={hackathon} />
+                <PartnersBox hackathon={hackathon} type="mediaPartners" />
+                <PartnersBox hackathon={hackathon} type="communityPartners" />
+                <PartnersBox hackathon={hackathon} type="partners" />
+                <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
+                <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
+                <Schedule hackathon={hackathon} />
+                <FAQs hackathon={hackathon} />
                 <AddSection hackathon={hackathon} />
               </div>
               <div className="relative w-[39%]">

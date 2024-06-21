@@ -27,7 +27,7 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
       case HackathonEditModalType.COMMUNITY_PARTNERS:
       case HackathonEditModalType.PARTNERS:
         return <PartnersBoxModal hackathon={hackathon} />;
-      case HackathonEditModalType.SPEAKERS_JUDGES:
+      case HackathonEditModalType.SPEAKERS:
       case HackathonEditModalType.SPONSORS:
         return <SpeakersSponsorsBoxModal hackathon={hackathon} />;
       case HackathonEditModalType.SCHEDULE:
@@ -47,19 +47,15 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
     }
   };
 
-  const test = () => {
-    return <CoverModal hackathon={hackathon} />;
-  };
-
   const onClose = () => {
     setModalType(HackathonEditModalType.NULL);
   };
   return (
     <Modal
       open={modalType !== HackathonEditModalType.NULL}
-      onClose={onClose}
+      onClose={() => {}}
       showCloseIcon={true}
-      icon={<FiX size={34} />}
+      icon={<FiX size={34} onClick={onClose} />}
     >
       {modalType !== HackathonEditModalType.NULL && (
         <div className="w-[888px] rounded-[16px] bg-neutral-white py-[40px] pt-[60px] [&>div]:flex [&>div]:max-h-[80vh] [&>div]:w-full [&>div]:flex-col [&>div]:gap-[24px]">

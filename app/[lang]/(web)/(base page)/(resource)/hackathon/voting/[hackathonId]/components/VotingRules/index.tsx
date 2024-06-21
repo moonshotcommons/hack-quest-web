@@ -12,15 +12,16 @@ interface VotingRulesProp {
 }
 
 const VotingRules: React.FC<VotingRulesProp> = ({ hackathon }) => {
-  const { lang } = useContext(LangContext);
-  const { t } = useTranslation(lang, TransNs.HACKATHON);
-  if (!hackathon.voteRules?.length) return null;
-  return (
-    <div className="flex flex-col gap-[32px]">
-      <Title title={t('hackathonVoting.votingRules')} />
-      <HackathonRenderer content={hackathon.voteRules} />
-    </div>
-  );
+  // const { lang } = useContext(LangContext);
+  // const { t } = useTranslation(lang, TransNs.HACKATHON);
+  // if (!hackathon.voteRules?.length) return null;
+  // return (
+  //   <div className="flex flex-col gap-[32px]">
+  //     <Title title={t('hackathonVoting.votingRules')} />
+  //     <HackathonRenderer content={hackathon.voteRules} />
+  //   </div>
+  // );
+  return null;
 };
 
 export default VotingRules;

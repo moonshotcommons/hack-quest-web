@@ -16,7 +16,6 @@ interface ScheduleModalProp {
 }
 
 const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
-  console.info(hackathon);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { setModalType } = useContext(HackathonEditContext);
@@ -24,10 +23,6 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
   const handleRemoveSection = () => {
     if (cantSubmit) return;
   };
-
-  const schedules = useMemo(() => {
-    return hackathon.schedule.map((v) => ({ ...v, id: v4() }));
-  }, [hackathon]);
 
   const cantSubmit = useMemo(() => {
     return false;
@@ -45,7 +40,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
       </div>
       <div className="scroll-wrap-y flex w-full flex-1 flex-col gap-[24px] px-[40px]">
         <div className="flex flex-col gap-[24px]">
-          {schedules.map((schedule, i) =>
+          {hackathon.info?.schedule?.list?.map((schedule, i) =>
             ~editIndexs.indexOf(i) ? (
               <Edit key={schedule.id} />
             ) : (

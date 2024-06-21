@@ -12,6 +12,11 @@ export interface MentorType {
   id: string;
 }
 
+export interface HackathonPartners {
+  title: string;
+  list: MentorType[];
+}
+
 export interface HackathonRewardType {
   id: string;
   hackathoId: string;
@@ -83,18 +88,25 @@ export interface HackathonInfoType {
   submission: {
     submissionField: string;
   };
-  sponsors: MentorType[];
-  partners: MentorType[];
-  mediaPartners: MentorType[];
-  speakers: MentorType[];
-  communityPartners: MentorType[];
+  sponsors: HackathonPartners;
+  partners: HackathonPartners;
+  mediaPartners: HackathonPartners;
+  speakers: HackathonPartners;
+  communityPartners: HackathonPartners;
   conduct: string;
   description: string;
   host: string;
   image: string;
   intro: string;
-  schedule: HackathonScheduleType;
+  schedule: {
+    title: string;
+    list: HackathonScheduleType[];
+  };
   mode: string;
+  faqs: {
+    title: string;
+    list: HacakthonFaqType[];
+  };
 }
 
 export interface HackathonJudgeAccountType {
@@ -125,12 +137,16 @@ export interface HackathonTimeLineType {
   rewardTime: string;
   timeZone: string;
 }
+
+export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners';
+export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
+export type HackathonInfoSPKeys = HackathonInfoParterKeys | HackathonInfoSponsorsKeys;
 export interface HackathonType {
   id: string;
   name: string;
   info: HackathonInfoType;
   judge: HackathonJudgeType;
-  links: HackathonLinkType[];
+  links: HackathonLinkType;
   memberCount: number;
   alias: string;
   status: HackathonSubmissionStatus;
@@ -141,7 +157,6 @@ export interface HackathonType {
   timeline: HackathonTimeLineType;
   votes: HackathonTypeVotesType;
   totalPrize: number;
-  faqs: HacakthonFaqType[];
 }
 
 export interface JoinedHackathonType {

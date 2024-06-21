@@ -3,6 +3,7 @@ import { HackathonRewardType, HackathonType } from '@/service/webApi/resourceSta
 import EditBox from '../EditBox';
 import { separationNumber } from '@/helper/utils';
 import { placeIndexStr } from '../../constants/data';
+import { HackathonEditModalType } from '../../constants/type';
 
 interface RewardsProp {
   hackathon: HackathonType;
@@ -21,7 +22,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
     });
   }, [hackathon]);
   return (
-    <EditBox title={'hackathonDetail.rewards'} className="p-[32px]">
+    <EditBox title={'hackathonDetail.rewards'} className="p-[32px]" type={HackathonEditModalType.REWARDS}>
       <div className="flex flex-col gap-[40px]">
         {rewards?.map((v, i) => (
           <div className="flex items-stretch" key={i}>

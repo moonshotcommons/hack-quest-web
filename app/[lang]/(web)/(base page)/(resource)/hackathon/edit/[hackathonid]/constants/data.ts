@@ -17,38 +17,38 @@ export const hackathonDetailTimeLine = [
   }
 ];
 
-export const placeIndexStr = ['First', 'Second', 'Third', 'Fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'];
-
-export const modalList = [
+export const initNavs = [
   {
-    label: 'hackathonDetail.mediaPartners',
-    type: HackathonEditModalType.MEDIA_PARTNERS
+    label: 'hackathonDetail.cover',
+    value: 'cover'
   },
   {
-    label: 'hackathonDetail.communityPartners',
-    type: HackathonEditModalType.COMMUNITY_PARTNERS
+    label: 'hackathonDetail.timeline',
+    value: 'timeline'
   },
   {
-    label: 'hackathonDetail.partners',
-    type: HackathonEditModalType.PARTNERS
+    label: 'hackathonDetail.rewards',
+    value: 'rewards'
   },
   {
-    label: 'hackathonDetail.speakersAndJudges',
-    type: HackathonEditModalType.SPEAKERS_JUDGES
+    label: 'hackathonDetail.judging',
+    value: 'judging'
   },
   {
-    label: 'hackathonDetail.sponsors',
-    type: HackathonEditModalType.SPONSORS
+    label: 'hackathonDetail.application',
+    value: 'application'
   },
   {
-    label: 'hackathonDetail.schedule',
-    type: HackathonEditModalType.SCHEDULE
+    label: 'hackathonDetail.submission',
+    value: 'submission'
   },
   {
-    label: 'FAQs',
-    type: HackathonEditModalType.FAQS
+    label: 'hackathonDetail.links',
+    value: 'links'
   }
 ];
+
+export const placeIndexStr = ['First', 'Second', 'Third', 'Fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'];
 
 export const scheduleFormSchema = z.object({
   eventName: z
@@ -70,6 +70,7 @@ export const scheduleFormSchema = z.object({
 });
 
 export const faqsFormSchema = z.object({
+  id: z.string().uuid(),
   question: z
     .string()
     .min(1, {
@@ -87,3 +88,9 @@ export const faqsFormSchema = z.object({
       message: 'Answer cannot exceed 360 characters.'
     })
 });
+
+export const faqsFormArraySchema = z.object({
+  items: z.array(faqsFormSchema)
+});
+
+export type FormValueType = z.infer<typeof faqsFormArraySchema>;

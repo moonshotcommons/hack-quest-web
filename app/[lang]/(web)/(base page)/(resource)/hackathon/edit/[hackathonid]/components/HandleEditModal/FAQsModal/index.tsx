@@ -1,18 +1,18 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import { HacakthonFaqType, HackathonType } from '@/service/webApi/resourceStation/type';
 import Title from '../../Title';
-import Button from '@/components/Common/Button';
 import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
 import { v4 } from 'uuid';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { faqsFormSchema } from '../../../constants/data';
+import { faqsFormSchema, faqsFormArraySchema, FormValueType } from '../../../constants/data';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { IoIosAddCircle } from 'react-icons/io';
 import Edit from './Edit';
+import CommonButton from '../CommonButton';
 
 interface FAQsModalProp {
   hackathon: HackathonType;
@@ -24,24 +24,32 @@ export type FaqsFormData = {
 const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { setModalType } = useContext(HackathonEditContext);
-  const handleRemoveSection = () => {};
+  const { updateHackathon } = useContext(HackathonEditContext);
 
-  const form = useForm<FaqsFormData>({
-    resolver: zodResolver(faqsFormSchema),
+  const form = useForm<FormValueType>({
+    resolver: zodResolver(faqsFormArraySchema),
     defaultValues: {
-      items: hackathon.faqs || []
+      items: hackathon.info?.faqs?.list || []
     }
   });
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'items'
   });
-  const submitRequest = (val: FaqsFormData) => {
-    console.info(val);
+  const handleSave = () => {
+    form.trigger();
+    if (cantSubmit || !form.formState.isValid) return;
+    const list = form.getValues()?.items || [];
+    updateHackathon({
+      data: {
+        faqs: {
+          list
+        }
+      }
+    });
   };
   const cantSubmit = useMemo(() => {
-    const items = form?.getValues()?.items;
+    const items = form?.getValues()?.items || [];
     return items?.some((v) => !v.question || !v.answer) || !items?.length;
   }, [form.watch()]);
 
@@ -54,7 +62,7 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
         <Form {...form}>
           <form className="flex h-full w-full flex-col gap-6">
             {fields.map((v, i) => (
-              <Edit key={i} form={form} index={i} remove={remove} />
+              <Edit key={v.id} form={form} index={i} remove={remove} />
             ))}
           </form>
         </Form>
@@ -74,28 +82,7 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between px-[40px]">
-        <span className="underline-m cursor-pointer text-neutral-off-black" onClick={handleRemoveSection}>
-          {t('hackathonDetail.removeSection')}
-        </span>
-        <div className="flex gap-[16px]">
-          <Button
-            ghost
-            className="h-[48px] w-[165px] uppercase"
-            onClick={() => setModalType(HackathonEditModalType.NULL)}
-          >
-            {t('cancel')}
-          </Button>
-          <Button
-            type="primary"
-            disabled={cantSubmit}
-            onClick={() => form.handleSubmit(submitRequest)}
-            className={`h-[48px] w-[165px] uppercase ${cantSubmit && 'bg-neutral-light-gray text-neutral-medium-gray'}`}
-          >
-            {t('handleButtonText.save')}
-          </Button>
-        </div>
-      </div>
+      <CommonButton hackathon={hackathon} handleSave={handleSave} cantSubmit={cantSubmit} />
     </div>
   );
 };

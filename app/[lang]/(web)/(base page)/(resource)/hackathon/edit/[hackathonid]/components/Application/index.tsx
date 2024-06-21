@@ -30,7 +30,7 @@ const Application: React.FC<ApplicationProp> = ({ hackathon }) => {
             <p className="mt-[4px] text-neutral-off-black">4</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-[80px]">
+        <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">
           <div>
             <p>{t('hackathonDetail.about')}</p>
             <p className="mt-[4px] text-neutral-off-black">First and Last Name / Bio (Optional)</p>

@@ -3,8 +3,15 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
+import { BasicInfoForm } from '@/components/hackathon-org/forms/basic-info';
+import { RewardsForm } from '@/components/hackathon-org/forms/rewards';
+import { SubmissionForm } from '@/components/hackathon-org/forms/submission';
+import { LinksForm } from '@/components/hackathon-org/forms/links';
+import { TimelineForm } from '@/components/hackathon-org/forms/timeline';
+import { JudgingForm } from '@/components/hackathon-org/forms/judging';
+import { ApplicationForm } from '@/components/hackathon-org/forms/application';
 
 interface BaseEditModalProp {
   hackathon: HackathonType;
@@ -13,23 +20,36 @@ interface BaseEditModalProp {
 const BaseEditModal: React.FC<BaseEditModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { modalType, setModalType } = useContext(HackathonEditContext);
+  const { modalType, setModalType, updateHackathon } = useContext(HackathonEditContext);
+  const formProp = useMemo(() => {
+    return {
+      isEditMode: true,
+      initialValues: hackathon,
+      onSave: () => {
+        updateHackathon();
+        setModalType(HackathonEditModalType.NULL);
+      },
+      onCancel: () => {
+        setModalType(HackathonEditModalType.NULL);
+      }
+    };
+  }, [hackathon]);
   const renderContent = () => {
     switch (modalType) {
       case HackathonEditModalType.INFO:
-        return null;
+        return <BasicInfoForm {...formProp} />;
       case HackathonEditModalType.TIMELINE:
-        return null;
+        return <TimelineForm {...formProp} />;
       case HackathonEditModalType.REWARDS:
-        return null;
+        return <RewardsForm {...formProp} />;
       case HackathonEditModalType.JUDGING:
-        return null;
+        return <JudgingForm {...formProp} />;
       case HackathonEditModalType.APPLICATION:
-        return null;
+        return <ApplicationForm {...formProp} />;
       case HackathonEditModalType.SUBMISSION:
-        return null;
+        return <SubmissionForm {...formProp} />;
       case HackathonEditModalType.LINKS:
-        return null;
+        return <LinksForm {...formProp} />;
     }
   };
   return (

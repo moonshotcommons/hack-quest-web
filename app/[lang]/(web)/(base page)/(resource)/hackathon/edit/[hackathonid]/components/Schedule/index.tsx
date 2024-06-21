@@ -8,6 +8,7 @@ import { IoAdd, IoRemoveOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { cloneDeep } from 'lodash-es';
 import EditBox from '../EditBox';
+import { HackathonEditModalType } from '../../constants/type';
 
 interface ScheduleProp {
   hackathon: HackathonType;
@@ -35,16 +36,23 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
   //   setSchedule(newList);
   // };
   useEffect(() => {
-    const newList = hackathon.schedule?.map((v) => ({
-      ...v,
-      isExpand: false
-    }));
+    const newList =
+      hackathon.info?.schedule?.list?.map((v) => ({
+        ...v,
+        isExpand: false
+      })) || [];
     setSchedule(newList);
   }, [hackathon]);
+  if (!schedule?.length) return null;
   return (
-    <EditBox title={'hackathonDetail.schedule'} className="rounded-[0] border-none bg-transparent p-0">
+    <EditBox
+      title={'hackathonDetail.schedule'}
+      className="rounded-[0] border-none bg-transparent p-0"
+      type={HackathonEditModalType.SCHEDULE}
+      handleDelete={() => {}}
+    >
       <div className="body-m mt-[-20px] text-neutral-rich-gray">
-        {schedule.map((v, i) => (
+        {/* {schedule?.map((v, i) => (
           <div className={`border-t  py-[20px] ${i ? 'border-neutral-medium-gray' : 'border-transparent'}`} key={i}>
             <div className={`flex ${v.children?.length > 0 && 'cursor-pointer'}`} onClick={() => handleExpand(i)}>
               <div className="w-[340px]">{v.time}</div>
@@ -82,7 +90,7 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
               </div>
             )}
           </div>
-        ))}
+        ))} */}
       </div>
     </EditBox>
   );

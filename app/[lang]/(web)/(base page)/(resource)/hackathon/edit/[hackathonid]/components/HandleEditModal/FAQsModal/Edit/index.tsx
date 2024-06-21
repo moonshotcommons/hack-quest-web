@@ -7,9 +7,10 @@ import { FaqsFormData } from '..';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { FormValueType } from '../../../../constants/data';
 
 interface EditProp {
-  form: UseFormReturn<FaqsFormData>;
+  form: UseFormReturn<FormValueType>;
   index: number;
   remove: UseFieldArrayRemove;
 }
@@ -20,7 +21,8 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
   return (
     <div className="flex flex-col gap-6 border-b border-neutral-medium-gray pb-6">
       <FormField
-        name="question"
+        control={form.control}
+        name={`items.${index}.question`}
         render={({ field }) => (
           <FormItem className="w-full text-left">
             <div className="flex w-full justify-between">
@@ -35,20 +37,16 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
               </span>
             </div>
             <FormControl>
-              <Input
-                maxLength={125}
-                placeholder={'Enter the question'}
-                {...field}
-                {...form.register(`items.${index}.question`)}
-              />
+              <Input maxLength={130} placeholder={'Enter the question'} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
       <FormField
-        name="answer"
-        render={() => (
+        control={form.control}
+        name={`items.${index}.answer`}
+        render={({ field }) => (
           <FormItem className="w-full text-left">
             <div className="flex w-full justify-between">
               <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
@@ -66,7 +64,7 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
                 maxLength={370}
                 authHeight={false}
                 placeholder={'Write the answer'}
-                {...form.register(`items.${index}.answer`)}
+                {...field}
                 className="body-m h-[128px] "
               />
             </FormControl>
