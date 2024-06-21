@@ -46,14 +46,18 @@ function TrackPreview({ track }: { track: any }) {
             <span className="body-m text-neutral-medium-gray">{track?.name}</span>
           </div>
           <Separator orientation="vertical" />
-          <ul className="flex flex-col gap-1">
-            {track?.rewards?.map((reward: any, index: number) => (
-              <li className="flex items-center justify-between" key={reward?.id}>
-                <span className="body-m text-neutral-medium-gray">{numberToOrdinal(index + 1)} Place</span>
-                <span className="body-l text-neutral-off-black">{currencyWithoutSymbol(Number(reward?.value))}</span>
-              </li>
-            ))}
-          </ul>
+          {track?.mode === 'RANK' ? (
+            <ul className="flex flex-col gap-1">
+              {track?.rewards?.map((reward: any, index: number) => (
+                <li className="flex items-center justify-between" key={reward?.id}>
+                  <span className="body-m text-neutral-medium-gray">{numberToOrdinal(index + 1)} Place</span>
+                  <span className="body-l text-neutral-off-black">{currencyWithoutSymbol(Number(reward?.value))}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="body-m text-neutral-off-black">{track?.rule}</p>
+          )}
         </div>
         <div className="flex justify-end gap-4 text-neutral-rich-gray [&_button]:underline [&_button]:outline-none">
           <button onClick={toggleEditModalOpen}>Edit</button>

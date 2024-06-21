@@ -24,60 +24,62 @@ import { AddFieldButton } from '../common/add-field-button';
 
 const rewardSchema = z.object({
   id: z.string().uuid(),
-  value: z.string().min(1, { message: 'Option is required' })
+  value: z.string().optional()
 });
 
-const formSchema = z
-  .object({
-    name: z
-      .string()
-      .min(1, {
-        message: 'Track name is a required input.'
-      })
-      .max(120, {
-        message: 'Track name cannot exceed 120 characters.'
-      }),
-    mode: z.enum(['RANK', 'OTHERS'], {
-      required_error: 'Please select a distribution method.'
-    }),
-    totalRewards: z
-      .string({
-        required_error: 'Total rewards is a required input.'
-      })
-      .optional(),
-    rule: z
-      .string()
-      .max(600, {
-        message: 'Distribution rule cannot exceed 600 characters.'
-      })
-      .optional(),
-    rewards: z.array(rewardSchema).optional()
-  })
-  .superRefine((data, ctx) => {
-    if (data.mode === 'RANK' && (!data.rewards || data.rewards.length === 0)) {
+const baseSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: 'Track name is required' })
+    .max(120, { message: 'Track name cannot exceed 120 characters' }),
+  mode: z.enum(['RANK', 'OTHERS']),
+  rewards: z.array(rewardSchema).optional(),
+  totalRewards: z.string().optional(),
+  rule: z.string().optional()
+});
+
+const formSchema = baseSchema.superRefine((data, ctx) => {
+  if (data.mode === 'RANK') {
+    if (!data.rewards || data.rewards.length === 0) {
       ctx.addIssue({
         path: ['rewards'],
-        message: 'Please add at least one option.',
-        code: z.ZodIssueCode.custom
+        code: z.ZodIssueCode.custom,
+        message: 'Rewards options must have at least one option'
       });
-    } else if (data.mode === 'OTHERS') {
-      if (!data.totalRewards) {
-        ctx.addIssue({
-          path: ['totalRewards'],
-          message: 'Total rewards is a required input.',
-          code: z.ZodIssueCode.custom
-        });
-      }
-
-      if (!data.rule) {
-        ctx.addIssue({
-          path: ['rule'],
-          message: 'Distribution rule is a required input.',
-          code: z.ZodIssueCode.custom
-        });
-      }
+    } else {
+      data.rewards.forEach((reward, index) => {
+        if (!reward.value) {
+          ctx.addIssue({
+            path: ['rewards', index, 'value'],
+            code: z.ZodIssueCode.custom,
+            message: 'Reward value is required'
+          });
+        }
+      });
     }
-  });
+  } else if (data.mode === 'OTHERS') {
+    if (!data.totalRewards) {
+      ctx.addIssue({
+        path: ['totalRewards'],
+        code: z.ZodIssueCode.custom,
+        message: 'Total rewards is required'
+      });
+    }
+    if (!data.rule) {
+      ctx.addIssue({
+        path: ['rule'],
+        code: z.ZodIssueCode.custom,
+        message: 'Distribution rule is required'
+      });
+    } else if (data.rule.length > 600) {
+      ctx.addIssue({
+        path: ['rule'],
+        code: z.ZodIssueCode.custom,
+        message: 'Distribution rule cannot exceed 600 characters'
+      });
+    }
+  }
+});
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -191,12 +193,18 @@ export function EditTrackModal({
 
   const queryClient = useQueryClient();
 
+  function handleClose() {
+    onClose?.();
+    setValue('RANK');
+    form.reset();
+  }
+
   const createMutation = useMutation({
     mutationFn: (data: any) => webApi.hackathonV2Api.createHackathonRewards(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       message.success('Rewards created successfully');
-      onClose?.();
+      handleClose();
     }
   });
 
@@ -206,7 +214,7 @@ export function EditTrackModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       message.success('Rewards updated successfully');
-      onClose?.();
+      handleClose();
     }
   });
 
@@ -239,7 +247,8 @@ export function EditTrackModal({
     if (values.mode === 'OTHERS') {
       data = {
         id,
-        ...omit(values, 'rewards')
+        ...omit(values, 'rewards', 'totalRewards'),
+        totalRewards: z.coerce.number().parse(values.totalRewards)
       };
     } else {
       data = {
@@ -257,27 +266,33 @@ export function EditTrackModal({
   }
 
   React.useEffect(() => {
-    if (initialValues && initialValues?.isEditing) {
+    if (open && initialValues && initialValues?.isEditing) {
       if (initialValues?.mode === 'RANK') {
+        setValue('RANK');
         form.reset({
           name: initialValues?.name,
           mode: initialValues?.mode,
           rewards: initialValues?.rewards
         });
       } else {
+        setValue('OTHERS');
         form.reset({
           name: initialValues?.name,
           mode: initialValues?.mode,
-          totalRewards: initialValues?.totalRewards,
+          rewards: [
+            { id: v4(), value: '' },
+            { id: v4(), value: '' }
+          ],
+          totalRewards: String(initialValues?.totalRewards),
           rule: initialValues?.rule
         });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
+  }, [initialValues, open]);
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
         className="w-[888px] max-w-[888px] gap-6 px-8 pb-10 pt-[60px] shadow-modal"
         onOpenAutoFocus={(e) => e.preventDefault()}

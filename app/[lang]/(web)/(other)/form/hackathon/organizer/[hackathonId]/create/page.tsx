@@ -42,8 +42,6 @@ export default function Page() {
     queryFn: () => webApi.hackathonV2Api.getHackathon(hackathonId)
   });
 
-  console.log('data', data);
-
   if (isLoading) {
     return <PageSkeleton />;
   }
@@ -101,7 +99,7 @@ export default function Page() {
             <CoverForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.TIMELINE}>
-            <TimelineForm />
+            <TimelineForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.REWARDS}>
             <RewardsForm initialValues={data} />
