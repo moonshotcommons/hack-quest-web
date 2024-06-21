@@ -2,7 +2,8 @@ import WebService from '@/service/webService/webService';
 import { HackathonType } from './types';
 
 export enum HackathonApiUrl {
-  HACKATHONS = '/hackathons'
+  HACKATHONS = '/hackathons',
+  USERS = '/users'
 }
 
 class HackathonApi {
@@ -49,6 +50,12 @@ class HackathonApi {
 
   removeHackathonRewards(hackathonId: string, rewardsId: string) {
     return this.service.delete<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/rewards/${rewardsId}`);
+  }
+
+  addJudgeAccount(email: string) {
+    return this.service.get<any>(`${HackathonApiUrl.USERS}/simple`, {
+      params: { email }
+    });
   }
 }
 
