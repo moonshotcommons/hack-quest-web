@@ -73,6 +73,7 @@ export interface HackathonType {
   status: HackathonStatusType;
   alias: string;
   rewardTime: string;
+  allowSubmission: boolean;
   rewards: HackathonRewardType[];
   openTime: string;
   reviewTime: string;

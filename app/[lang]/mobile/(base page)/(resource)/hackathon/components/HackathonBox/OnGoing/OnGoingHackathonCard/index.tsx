@@ -62,6 +62,22 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         );
       }
       if (hackathon.participation?.isRegister) {
+        if (!hackathon.allowSubmission) {
+          return (
+            <Button
+              size="small"
+              type="primary"
+              disabled
+              className="button-text-s h-[2.125rem] flex-1 bg-neutral-light-gray font-medium uppercase text-neutral-medium-gray opacity-100"
+            >
+              {/* {children} */}
+              <div>
+                <p className="button-text-m">Pending</p>
+              </div>
+            </Button>
+          );
+        }
+
         if (!hackathon.participation.isSubmit) {
           return !hackathon.participation.project?.id ? (
             <Button
