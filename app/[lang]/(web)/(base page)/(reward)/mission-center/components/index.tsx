@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import webApi from '@/service';
 
 import { message } from 'antd';
@@ -37,6 +37,10 @@ function MissionCenter() {
         setMissionIds([]);
       });
   };
+
+  useEffect(() => {
+    updateMissionDataAll();
+  }, []);
 
   return (
     <div className="body-s container mx-auto flex h-full  justify-between bg-neutral-off-white text-neutral-black">
