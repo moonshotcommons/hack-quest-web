@@ -130,7 +130,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   return (
     <Box
       className={cn('sticky right-0 top-[40px] flex flex-col  gap-4 text-neutral-off-black', {
-        'p-[24px] pb-[20px]': hackathon.allowSubmission
+        'p-[24px] pb-[20px]': hackathon.allowSubmission || !hackathon.participation?.isRegister
       })}
     >
       {hackathon.participation?.isRegister && (
