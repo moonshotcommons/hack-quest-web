@@ -34,11 +34,10 @@ const LearningTrackCard: React.FC<LearningTrackCardProps> = ({
       // onClick={goLearningTrackDetail}
     >
       {from === 'dashboard' && learningTrack.progress && learningTrack.progress >= 1 ? (
-        <div className={`absolute  right-[16px] top-[16px]`}>
+        <div className={`absolute  right-[16px] top-[16px] z-[10]`}>
           <CompletedIcon />
         </div>
       ) : null}
-
       <div className="flex h-full flex-1 flex-shrink-0 flex-col justify-between">
         <TrackTag track={learningTrack.track} />
         <div className="body-m-bold line-clamp-1 text-neutral-off-black">{learningTrack.name}</div>
