@@ -10,20 +10,18 @@ interface SelectableCardProps extends React.HTMLAttributes<HTMLDivElement> {
   checked?: boolean;
   disabled?: boolean;
   onCheckChange?: (checked: boolean) => void;
+  optional?: boolean;
+  defaultOptional?: boolean;
+  onOptionalChange?: (checked: boolean) => void;
 }
 
 const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((props, ref) => {
-  const { label, disabled = false, className, onCheckChange = noop } = props;
+  const { label, disabled = false, className, onCheckChange = noop, onOptionalChange = noop } = props;
 
   const id = React.useId();
 
   const [checkedState = false, setCheckedState] = useControllableState(props, 'checked', onCheckChange);
-
-  const [checked, setChecked] = React.useState(false);
-
-  function onCheckedChange(checked: boolean) {
-    setChecked(checked);
-  }
+  const [optionalState = false, setOptionalState] = useControllableState(props, 'optional', onOptionalChange);
 
   return (
     <div
@@ -32,7 +30,7 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
       aria-checked={checkedState}
       aria-disabled={disabled}
       data-state={checkedState ? 'checked' : 'unchecked'}
-      onClick={() => setCheckedState(!checkedState)}
+      onClick={() => !disabled && setCheckedState(!checkedState)}
       className={cn(
         'inline-flex h-[74px] cursor-pointer flex-col items-center justify-center whitespace-nowrap rounded-[8px] border-[3px] border-neutral-off-white px-4 transition-colors duration-200 disabled:cursor-not-allowed aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light aria-disabled:cursor-not-allowed aria-disabled:border-yellow-dark aria-disabled:bg-yellow-extra-light aria-disabled:opacity-50',
         className
@@ -47,9 +45,9 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
           <Checkbox
             id={`${id}-optional`}
             className="h-3.5 w-3.5 rounded-[2px] p-[1.5px]"
-            checked={checked}
+            checked={optionalState}
             onClick={(e) => e.stopPropagation()}
-            onCheckedChange={onCheckedChange}
+            onCheckedChange={setOptionalState}
           />
           <label
             htmlFor={`${id}-optional`}

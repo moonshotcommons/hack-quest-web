@@ -14,6 +14,7 @@ import { useToggle } from '@/hooks/utils/use-toggle';
 import { ActionButtons } from './action-buttons';
 import { EditCustomFieldModal } from '../modals/edit-custom-field-modal';
 import { AddFieldButton } from '../common/add-field-button';
+import { ApplicationSectionConfig } from '@/components/HackathonCreation';
 
 const formSchema = z.object({
   applicationType: z.enum(['solo-or-group', 'solo-only', 'group-only'], {
@@ -47,6 +48,8 @@ export function ApplicationForm({
       maximumTeamSize: ''
     }
   });
+
+  console.log(ApplicationSectionConfig);
 
   const disabled = form.watch('applicationType') === 'solo-only';
 
