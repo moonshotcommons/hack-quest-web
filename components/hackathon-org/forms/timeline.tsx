@@ -2,17 +2,20 @@
 
 import * as React from 'react';
 import * as z from 'zod';
+import { omit } from 'lodash-es';
 import { useForm, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/hackathon-org/common/radio-group';
 import { Timezone } from '@/components/hackathon-org/common/timezone';
 import { Separator } from '@/components/ui/separator';
-import { useQuery } from '@tanstack/react-query';
+import webApi from '@/service';
 import { getTimezone } from '../actions';
 import { ActionButtons } from './action-buttons';
 import { DatePicker } from '../common/date-picker';
-import { omit } from 'lodash-es';
+import { useHackathonOrgState } from '../constants/state';
+import { Steps } from '../constants/steps';
 
 const formSchema = z
   .object({
@@ -20,12 +23,12 @@ const formSchema = z
       message: 'Timezone is required'
     }),
     openReviewSame: z.enum(['true', 'false']),
-    openStartTime: z.string().min(1, {
+    openTime: z.string().min(1, {
       message: 'Registration open time is required'
     }),
-    openCloseTime: z.string().optional(),
-    reviewStartTime: z.string().optional(),
-    reviewCloseTime: z.string().min(1, {
+    openTimeEnd: z.string().optional(),
+    reviewTime: z.string().optional(),
+    reviewTimeEnd: z.string().min(1, {
       message: 'Submission close time is required'
     }),
     rewardTime: z.string().min(1, {
@@ -35,7 +38,7 @@ const formSchema = z
   .refine(
     (data) => {
       if (data.openReviewSame === 'false') {
-        return !!data.openCloseTime;
+        return !!data.openTimeEnd;
       }
       return true;
     },
@@ -47,7 +50,7 @@ const formSchema = z
   .refine(
     (data) => {
       if (data.openReviewSame === 'false') {
-        return !!data.reviewStartTime;
+        return !!data.reviewTime;
       }
       return true;
     },
@@ -64,7 +67,7 @@ function SameCloseTime() {
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={control}
-          name="openStartTime"
+          name="openTime"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -81,7 +84,7 @@ function SameCloseTime() {
         />
         <FormField
           control={control}
-          name="openCloseTime"
+          name="openTimeEnd"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -101,7 +104,7 @@ function SameCloseTime() {
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={control}
-          name="reviewStartTime"
+          name="reviewTime"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -118,7 +121,7 @@ function SameCloseTime() {
         />
         <FormField
           control={control}
-          name="reviewCloseTime"
+          name="reviewTimeEnd"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -164,7 +167,7 @@ function DifferentCloseTime() {
     <div className="flex flex-col gap-6">
       <FormField
         control={control}
-        name="openStartTime"
+        name="openTime"
         render={({ field }) => (
           <FormItem className="w-full space-y-1">
             <div className="flex items-center justify-between">
@@ -182,7 +185,7 @@ function DifferentCloseTime() {
       <Separator />
       <FormField
         control={control}
-        name="reviewCloseTime"
+        name="reviewTimeEnd"
         render={({ field }) => (
           <FormItem className="space-y-1">
             <div className="flex items-center justify-between">
@@ -230,6 +233,9 @@ export function TimelineForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
+  const queryClient = useQueryClient();
+  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+
   const { data: timezone } = useQuery({
     staleTime: Infinity,
     queryKey: ['timezone'],
@@ -245,9 +251,30 @@ export function TimelineForm({
     }
   });
 
+  const mutation = useMutation({
+    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'timeline'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      isEditMode ? onSave?.() : onNext();
+    }
+  });
+
+  const isValid = form.formState.isValid;
+
+  React.useEffect(() => {
+    if (!isEditMode) {
+      if (isValid) {
+        updateStatus(Steps.TIMELINE, true);
+      } else {
+        updateStatus(Steps.TIMELINE, false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValid, isEditMode]);
+
   React.useEffect(() => {
     if (timezone) {
-      form.reset({ timeZone: timezone });
+      form.reset({ timeZone: timezone, openReviewSame: 'false' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timezone]);
@@ -256,14 +283,18 @@ export function TimelineForm({
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     if (data.openReviewSame === 'true') {
-      data = omit(data, 'openCloseTime', 'reviewStartTime');
+      data = omit(data, 'openTimeEnd', 'reviewTime');
     }
     const values = {
       id: initialValues?.id,
       ...data,
       openReviewSame: data.openReviewSame === 'true'
     };
-    console.log(values);
+    mutation.mutate(values);
+  }
+
+  function onCancelOrBack() {
+    isEditMode ? onCancel?.() : onPrevious();
   }
 
   return (
@@ -315,10 +346,10 @@ export function TimelineForm({
         {openReviewSame === 'false' && <SameCloseTime />}
         {openReviewSame === 'true' && <DifferentCloseTime />}
         <ActionButtons
-          // isLoading={mutation.isPending}
+          isLoading={mutation.isPending}
           isEditMode={isEditMode}
-          isValid={form.formState.isValid}
-          // onCancelOrBack={onCancelOrBack}
+          isValid={isValid}
+          onCancelOrBack={onCancelOrBack}
         />
       </form>
     </Form>

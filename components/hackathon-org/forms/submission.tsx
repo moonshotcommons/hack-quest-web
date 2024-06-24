@@ -7,6 +7,7 @@ import { useToggle } from '@/hooks/utils/use-toggle';
 import { ActionButtons } from './action-buttons';
 import { EditCustomFieldModal } from '../modals/edit-custom-field-modal';
 import { AddFieldButton } from '../common/add-field-button';
+import { SubmissionSectionConfig } from '@/components/HackathonCreation';
 
 export function SubmissionForm({
   isEditMode = false,
@@ -20,6 +21,7 @@ export function SubmissionForm({
   onSave?: () => void;
 }) {
   const [open, toggle] = useToggle(false);
+  console.log(SubmissionSectionConfig);
   return (
     <div className="flex flex-col gap-6">
       <label className="body-l text-neutral-off-black">
