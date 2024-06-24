@@ -29,15 +29,13 @@ export interface HackathonRewardType {
 }
 export interface HackathonScheduleType {
   id: string;
-  desc: string;
-  time: string;
-  isExpand?: boolean;
-  children: {
-    desc: string;
-    link?: string;
-    time: string;
-    address?: string;
-  }[];
+  eventName: string;
+  startTime: string;
+  endTime: string;
+  speakerNames: string;
+  description: string;
+  link: string;
+  address: string;
 }
 
 export interface HackathonMemberType {

@@ -1,4 +1,4 @@
-import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/edit/[hackathonId]/constants/type';
+import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 export const week = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
