@@ -6,29 +6,29 @@ import { LangContext } from '@/components/Provider/Lang';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 
 interface EditNavProp {
-  curTab: string;
-  setCurTab: (tab: string) => void;
+  curAnchorIndex: number;
+  handleClickAnchor: (index: number) => void;
 }
 
-const EditNav: React.FC<EditNavProp> = ({ curTab, setCurTab }) => {
+const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { navs } = useContext(HackathonEditContext);
   useEffect(() => {
-    !curTab && setCurTab(navs[0]?.value);
+    handleClickAnchor(0);
   }, [navs]);
   return (
     <div className="sticky left-0 top-0 z-[2]">
       <SlideHighlight
         className={` flex h-[66px] w-full justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[40px]`}
         type="LEARNING_TRACK"
-        currentIndex={navs.findIndex((v) => v.value === curTab)}
+        currentIndex={curAnchorIndex}
       >
-        {navs.map((v) => (
+        {navs.map((v, i) => (
           <div
             key={v.value}
-            className={`flex h-full cursor-pointer items-center  ${v.value === curTab ? 'body-m-bold text-neutral-off-black' : 'body-m text-neutral-medium-gray'}`}
-            onClick={() => setCurTab(v.value)}
+            className={`flex h-full cursor-pointer items-center  ${curAnchorIndex === i ? 'body-m-bold text-neutral-off-black' : 'body-m text-neutral-medium-gray'}`}
+            onClick={() => handleClickAnchor(i)}
           >
             {t(v.label)}
           </div>
