@@ -207,7 +207,13 @@ const InfoForm: FC<
             items={LOCATIONS}
           ></CustomSelectField>
           {/* <ProjectPrizeTrackRadio tracks={tracks} form={form} /> */}
-          <FormRadio name="prizeTrack" form={form} label="Which Prize Track Do You Belong To" multiple>
+          <FormRadio
+            name="prizeTrack"
+            form={form}
+            label="Which Prize Track Do You Belong To"
+            multiple
+            className={cn('flex-wrap', { '[&>div]:w-[calc((100%-20px)/2)]': prizeTrack.length > 1 })}
+          >
             {prizeTrack.map((t) => (
               <FormRadioItem value={t} key={t} label={t} />
             ))}
