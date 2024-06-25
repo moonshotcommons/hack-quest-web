@@ -84,7 +84,7 @@ const ContractForm: FC<
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 text-left">
-            <p className="body-l text-neutral-off-black">Please provide at least one contact information</p>
+            <p className="body-l text-neutral-off-black">Please provide at least two contact information</p>
             <CustomFormField
               form={form}
               placeholder="Enter your Email address"
