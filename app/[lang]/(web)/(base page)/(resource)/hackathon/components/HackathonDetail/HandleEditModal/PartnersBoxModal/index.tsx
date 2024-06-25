@@ -9,7 +9,7 @@ import { errorMessage } from '@/helper/ui';
 
 import BaseImage from '@/components/Common/BaseImage';
 import { cloneDeep } from 'lodash-es';
-import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
+import { HackathonEditContext } from '../../../../constants/type';
 import EditTitle from '../EditTitle';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';

@@ -1,13 +1,13 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { HacakthonFaqType, HackathonType } from '@/service/webApi/resourceStation/type';
 import Title from '../../Title';
-import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
+import { HackathonEditContext } from '../../../../constants/type';
 import { v4 } from 'uuid';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { faqsFormSchema, faqsFormArraySchema, FormValueType } from '../../../../constants/data';
+import { faqsFormArraySchema, FormValueType } from '../../../../constants/data';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { IoIosAddCircle } from 'react-icons/io';
