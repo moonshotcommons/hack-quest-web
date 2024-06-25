@@ -28,8 +28,7 @@
   },
   "hackathonDetail": {
     "timeline": "Timeline",
-    "registrationOpen": "Registration Open",
-    "submissionsClose": "Submissions Close",
+    "submissions": "Submissions",
     "rewardAnnouncement": "Reward Announcement",
     "about": "About",
     "theme": "Theme",
@@ -46,7 +45,7 @@
     "usersPartitipated": "users partitipated",
     "continueSubmission": "Continue Submission",
     "haveRegistered": "You have registered in this hackathon",
-    "haveSubmission": "You have an ongoing submission",
+    "haveSubmission": "You have submitted this hackathon",
     "firstPlace": "First Place",
     "secondPlace": "Second Place",
     "thirdPlace": "Third Place",
@@ -63,7 +62,7 @@
     "submission":"Submission",
     "links":"Links",
     "partners":"Partners",
-    "speakersAndJudges":"Speakers & Judges",
+    "speakers":"Speakers & Judges",
     "sponsors":"Sponsors",
     "info":"Info",
     "judgingCriteria":"Judging Criteria",
@@ -86,7 +85,7 @@
     "mediaPartnersIntro":"Sed",
     "communityPartnersIntro":"Sed",
     "partnersIntro":"Sed",
-    "speakersJudgesIntro":"Sedmagna",
+    "speakersIntro":"Sedmagna",
     "sponsorsIntro":"Sedmagna",
     "scheduleIntro":"Sedmagna",
     "FAQsIntro":"Sedmagna",
@@ -100,8 +99,13 @@
     "removeSection":"Remove this section",
     "removeEvent":"Remove the event",
     "enterName":"Enter name",
-    "enterIntro":"One-line intro"
-
+    "enterIntro":"One-line intro",
+    "hackathonImage":"Hackathon Cover Image",
+    "uploadImage":"Upload an image",
+    "confirmRemove":"Do you want to remove this {{block}}",
+    "faqs":"FAQs",
+    "description":"Description",
+    "rewardsAndProjects":"Rewards and Projects"
 
 
   },

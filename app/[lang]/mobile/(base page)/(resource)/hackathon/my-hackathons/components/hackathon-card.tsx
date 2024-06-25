@@ -15,7 +15,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon.rewardTime
+    targetDate: hackathon?.timeline?.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
