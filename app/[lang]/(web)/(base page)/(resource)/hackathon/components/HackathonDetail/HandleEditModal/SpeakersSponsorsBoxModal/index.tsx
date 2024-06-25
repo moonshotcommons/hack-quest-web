@@ -9,14 +9,13 @@ import { errorMessage } from '@/helper/ui';
 
 import BaseImage from '@/components/Common/BaseImage';
 import { cloneDeep } from 'lodash-es';
-import Button from '@/components/Common/Button';
-import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
+import { HackathonEditContext } from '../../../../constants/type';
 import EditTitle from '../EditTitle';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
-import RemoveSectionModal, { RemoveSectionModalRef } from '../../RemoveSectionModal';
+import { RemoveSectionModalRef } from '../../RemoveSectionModal';
 import CommonButton from '../CommonButton';
 
 interface SpeakersSponsorsBoxModalProp {

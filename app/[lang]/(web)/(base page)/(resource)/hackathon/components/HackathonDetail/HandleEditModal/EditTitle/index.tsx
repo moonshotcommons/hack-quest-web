@@ -1,12 +1,5 @@
 import { errorMessage } from '@/helper/ui';
-import webApi from '@/service';
-import {
-  HackathonInfoParterKeys,
-  HackathonInfoSPKeys,
-  HackathonInfoSponsorsKeys,
-  HackathonType,
-  MentorType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonInfoSPKeys, HackathonType, MentorType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useEffect, useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import { HackathonEditContext } from '../../../../constants/type';
