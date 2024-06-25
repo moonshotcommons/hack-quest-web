@@ -17,7 +17,7 @@ const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
       <p className="body-m text-left text-neutral-rich-gray">
         {`Which Hackathon Track Do You Belong To (Please select all that apply)`}
       </p>
-      <div className="flex w-full justify-between gap-5">
+      <div className="flex w-full flex-wrap gap-5">
         {tracks.map((track) => {
           return (
             <div
@@ -35,7 +35,7 @@ const ProjectTrackRadio = ({ form, tracks }: ProjectTypeRadioProps) => {
                 form.trigger('track');
               }}
               className={cn(
-                `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+                `body-m flex w-full max-w-[8.0625rem] cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
                 selectTracks.includes(track.value)
                   ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
                   : ''

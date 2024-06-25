@@ -2,19 +2,26 @@
 
 import * as React from 'react';
 import * as z from 'zod';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/helper/utils';
-import { ActionButtons } from './action-buttons';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
+import { ActionButtons } from './action-buttons';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
+
+type JudgeAccount = {
+  id: string;
+  email: string;
+  nickname: string;
+  avatar: string;
+};
 
 const formSchema = z.object({
   resource: z
@@ -48,6 +55,7 @@ export function JudgingForm({
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
   const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
   const [sliderValue, setSliderValue] = React.useState(50);
+  const [judgeAccounts, setJudgeAccounts] = React.useState<JudgeAccount[]>([]);
 
   const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
 
@@ -131,12 +139,29 @@ export function JudgingForm({
     mutation.mutate(values);
   }
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
+    onSuccess: (data) => {
+      setJudgeAccounts((prev) => [...prev, data]);
+    },
+    onError: (error: any) => {
+      if (error.code === 404) {
+        form.setError('judgeAccount', {
+          message: 'Please enter a valid email address that has been registered in HackQuest.'
+        });
+      }
+    }
+  });
+
   function addJudgeAccount() {
-    setTimeout(() => {
-      form.setError('judgeAccount', {
-        message: 'Please enter a valid email address that has been registered in HackQuest.'
-      });
-    }, 500);
+    const email = form.getValues('judgeAccount');
+    if (email) {
+      mutate(email);
+    }
+  }
+
+  function removeJudgeAccount(email: string) {
+    setJudgeAccounts((prev) => prev.filter((judge) => judge.email !== email));
   }
 
   function onCancelOrBack() {
@@ -166,9 +191,6 @@ export function JudgingForm({
                 <Textarea
                   {...field}
                   authHeight={false}
-                  onChange={(e) => {
-                    field.onChange(e);
-                  }}
                   autoComplete="off"
                   placeholder="Write a judging criteria for the hackathon"
                   className="h-[76px] border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
@@ -218,7 +240,10 @@ export function JudgingForm({
                 <div className="peer flex h-[50px] w-full items-center rounded-[8px] border border-neutral-light-gray p-3 transition-colors focus-within:border-neutral-medium-gray aria-[invalid=true]:border-status-error-dark">
                   <input
                     value={field.value}
-                    onChange={field.onChange}
+                    onChange={(e) => {
+                      field.onChange(e.target.value);
+                      form.clearErrors('judgeAccount');
+                    }}
                     type="text"
                     placeholder="e.g. bob@gmail.com"
                     className="flex-1 outline-none"
@@ -228,6 +253,7 @@ export function JudgingForm({
                     size="small"
                     type="button"
                     className="w-[140px]"
+                    isLoading={isPending}
                     onClick={addJudgeAccount}
                   >
                     Add
@@ -239,15 +265,26 @@ export function JudgingForm({
           )}
         />
         <div className="w-full">
-          <Separator />
-          <div className="mt-5 flex items-center">
-            <div className="relative h-[50px] w-[50px] rounded-full bg-yellow-dark"></div>
-            <span className="body-m ml-3 text-neutral-off-black">Evan</span>
-            <span className="body-m ml-auto text-neutral-medium-gray">evan@gmail.com</span>
-            <button type="button" className="body-m ml-10 text-neutral-off-black underline">
-              Remove
-            </button>
-          </div>
+          {judgeAccounts.length > 0 && (
+            <React.Fragment>
+              {judgeAccounts.map((account) => (
+                <div className="flex items-center" key={account.email}>
+                  <div className="relative h-[50px] w-[50px] rounded-full bg-yellow-dark">
+                    <Image src={account.avatar} alt="avatar" fill />
+                  </div>
+                  <span className="body-m ml-3 text-neutral-off-black">{account.nickname}</span>
+                  <span className="body-m ml-auto text-neutral-medium-gray">{account.email}</span>
+                  <button
+                    type="button"
+                    className="body-m ml-10 text-neutral-off-black underline"
+                    onClick={() => removeJudgeAccount(account.email)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </React.Fragment>
+          )}
         </div>
         <ActionButtons
           isLoading={mutation.isPending}

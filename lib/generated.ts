@@ -120,6 +120,483 @@ export const airdropAbi = [
 ] as const;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CertificateNFT
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const certificateNftAbi = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+    inputs: [
+      { name: '_name', internalType: 'string', type: 'string' },
+      { name: '_symbol', internalType: 'string', type: 'string' }
+    ]
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'sender', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'owner', internalType: 'address', type: 'address' }
+    ],
+    name: 'ERC721IncorrectOwner'
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'ERC721InsufficientApproval'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'approver', internalType: 'address', type: 'address' }],
+    name: 'ERC721InvalidApprover'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'operator', internalType: 'address', type: 'address' }],
+    name: 'ERC721InvalidOperator'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'ERC721InvalidOwner'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'receiver', internalType: 'address', type: 'address' }],
+    name: 'ERC721InvalidReceiver'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'ERC721InvalidSender'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ERC721NonexistentToken'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'OwnableInvalidOwner'
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'OwnableUnauthorizedAccount'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true
+      }
+    ],
+    name: 'Approval'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false }
+    ],
+    name: 'ApprovalForAll'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: '_fromTokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false
+      },
+      {
+        name: '_toTokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false
+      }
+    ],
+    name: 'BatchMetadataUpdate'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: '_tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false
+      }
+    ],
+    name: 'MetadataUpdate'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      }
+    ],
+    name: 'OwnershipTransferred'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true
+      }
+    ],
+    name: 'Transfer'
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: false
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false
+      },
+      {
+        name: 'certificate',
+        internalType: 'struct CertificateNFT.Certificate',
+        type: 'tuple',
+        components: [
+          { name: 'userId', internalType: 'string', type: 'string' },
+          { name: 'chaidId', internalType: 'string', type: 'string' },
+          { name: 'classId', internalType: 'string', type: 'string' },
+          { name: 'certificateId', internalType: 'string', type: 'string' },
+          { name: 'leveID', internalType: 'string', type: 'string' },
+          { name: 'standby_one', internalType: 'string', type: 'string' }
+        ],
+        indexed: false
+      }
+    ],
+    name: 'mintEvent'
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'approve',
+    outputs: []
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'baseURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'certificates',
+    outputs: [
+      { name: 'userId', internalType: 'string', type: 'string' },
+      { name: 'chaidId', internalType: 'string', type: 'string' },
+      { name: 'classId', internalType: 'string', type: 'string' },
+      { name: 'certificateId', internalType: 'string', type: 'string' },
+      { name: 'leveID', internalType: 'string', type: 'string' },
+      { name: 'standby_one', internalType: 'string', type: 'string' }
+    ]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }]
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [{ name: '_messageHash', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'getEthSignedMessageHash',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }]
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [
+      { name: '_account', internalType: 'address', type: 'address' },
+      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'userId', internalType: 'string', type: 'string' },
+      { name: 'chainId', internalType: 'string', type: 'string' },
+      { name: 'classId', internalType: 'string', type: 'string' },
+      { name: 'certificateId', internalType: 'string', type: 'string' },
+      { name: 'levelId', internalType: 'string', type: 'string' },
+      { name: 'standby_one', internalType: 'string', type: 'string' }
+    ],
+    name: 'getMessageHash',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' }
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }]
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_account', internalType: 'address', type: 'address' },
+      { name: 'userId', internalType: 'string', type: 'string' },
+      { name: 'chainId', internalType: 'string', type: 'string' },
+      { name: 'classId', internalType: 'string', type: 'string' },
+      { name: 'certificateId', internalType: 'string', type: 'string' },
+      { name: 'levelId', internalType: 'string', type: 'string' },
+      { name: 'standby_one', internalType: 'string', type: 'string' },
+      { name: '_signature', internalType: 'bytes', type: 'bytes' }
+    ],
+    name: 'mint',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }]
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'safeTransferFrom',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' }
+    ],
+    name: 'safeTransferFrom',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' }
+    ],
+    name: 'setApprovalForAll',
+    outputs: []
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'signer',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'tokenId',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenIsMint',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }]
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }]
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' }
+    ],
+    name: 'transferFrom',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_newBaseURI', internalType: 'string', type: 'string' }],
+    name: 'updateBaseURI',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }]
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
+      {
+        name: 'certificate',
+        internalType: 'struct CertificateNFT.Certificate',
+        type: 'tuple',
+        components: [
+          { name: 'userId', internalType: 'string', type: 'string' },
+          { name: 'chaidId', internalType: 'string', type: 'string' },
+          { name: 'classId', internalType: 'string', type: 'string' },
+          { name: 'certificateId', internalType: 'string', type: 'string' },
+          { name: 'leveID', internalType: 'string', type: 'string' },
+          { name: 'standby_one', internalType: 'string', type: 'string' }
+        ]
+      }
+    ],
+    name: 'updateCertificate',
+    outputs: []
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_signer', internalType: 'address', type: 'address' }],
+    name: 'updateSigner',
+    outputs: []
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_msgHash', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_signature', internalType: 'bytes', type: 'bytes' }
+    ],
+    name: 'verify',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }]
+  }
+] as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LaunchapToken
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1193,6 +1670,382 @@ export const useWatchAirdropEvent = /*#__PURE__*/ createUseWatchContractEvent({
 export const useWatchAirdropOwnershipTransferredEvent = /*#__PURE__*/ createUseWatchContractEvent({
   abi: airdropAbi,
   eventName: 'OwnershipTransferred'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__
+ */
+export const useReadCertificateNft = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"balanceOf"`
+ */
+export const useReadCertificateNftBalanceOf = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'balanceOf'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"baseURI"`
+ */
+export const useReadCertificateNftBaseUri = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'baseURI'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"certificates"`
+ */
+export const useReadCertificateNftCertificates = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'certificates'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"getApproved"`
+ */
+export const useReadCertificateNftGetApproved = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'getApproved'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"getEthSignedMessageHash"`
+ */
+export const useReadCertificateNftGetEthSignedMessageHash = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'getEthSignedMessageHash'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"getMessageHash"`
+ */
+export const useReadCertificateNftGetMessageHash = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'getMessageHash'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"isApprovedForAll"`
+ */
+export const useReadCertificateNftIsApprovedForAll = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'isApprovedForAll'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"name"`
+ */
+export const useReadCertificateNftName = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'name'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"owner"`
+ */
+export const useReadCertificateNftOwner = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'owner'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"ownerOf"`
+ */
+export const useReadCertificateNftOwnerOf = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'ownerOf'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"signer"`
+ */
+export const useReadCertificateNftSigner = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'signer'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"supportsInterface"`
+ */
+export const useReadCertificateNftSupportsInterface = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'supportsInterface'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"symbol"`
+ */
+export const useReadCertificateNftSymbol = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'symbol'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"tokenId"`
+ */
+export const useReadCertificateNftTokenId = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'tokenId'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"tokenIsMint"`
+ */
+export const useReadCertificateNftTokenIsMint = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'tokenIsMint'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"tokenURI"`
+ */
+export const useReadCertificateNftTokenUri = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'tokenURI'
+});
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"verify"`
+ */
+export const useReadCertificateNftVerify = /*#__PURE__*/ createUseReadContract({
+  abi: certificateNftAbi,
+  functionName: 'verify'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__
+ */
+export const useWriteCertificateNft = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"approve"`
+ */
+export const useWriteCertificateNftApprove = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'approve'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"mint"`
+ */
+export const useWriteCertificateNftMint = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'mint'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"renounceOwnership"`
+ */
+export const useWriteCertificateNftRenounceOwnership = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'renounceOwnership'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"safeTransferFrom"`
+ */
+export const useWriteCertificateNftSafeTransferFrom = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'safeTransferFrom'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"setApprovalForAll"`
+ */
+export const useWriteCertificateNftSetApprovalForAll = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'setApprovalForAll'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"transferFrom"`
+ */
+export const useWriteCertificateNftTransferFrom = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'transferFrom'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"transferOwnership"`
+ */
+export const useWriteCertificateNftTransferOwnership = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'transferOwnership'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"updateBaseURI"`
+ */
+export const useWriteCertificateNftUpdateBaseUri = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'updateBaseURI'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"updateCertificate"`
+ */
+export const useWriteCertificateNftUpdateCertificate = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'updateCertificate'
+});
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"updateSigner"`
+ */
+export const useWriteCertificateNftUpdateSigner = /*#__PURE__*/ createUseWriteContract({
+  abi: certificateNftAbi,
+  functionName: 'updateSigner'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__
+ */
+export const useSimulateCertificateNft = /*#__PURE__*/ createUseSimulateContract({ abi: certificateNftAbi });
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"approve"`
+ */
+export const useSimulateCertificateNftApprove = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'approve'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"mint"`
+ */
+export const useSimulateCertificateNftMint = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'mint'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"renounceOwnership"`
+ */
+export const useSimulateCertificateNftRenounceOwnership = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'renounceOwnership'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"safeTransferFrom"`
+ */
+export const useSimulateCertificateNftSafeTransferFrom = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'safeTransferFrom'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"setApprovalForAll"`
+ */
+export const useSimulateCertificateNftSetApprovalForAll = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'setApprovalForAll'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"transferFrom"`
+ */
+export const useSimulateCertificateNftTransferFrom = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'transferFrom'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"transferOwnership"`
+ */
+export const useSimulateCertificateNftTransferOwnership = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'transferOwnership'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"updateBaseURI"`
+ */
+export const useSimulateCertificateNftUpdateBaseUri = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'updateBaseURI'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"updateCertificate"`
+ */
+export const useSimulateCertificateNftUpdateCertificate = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'updateCertificate'
+});
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link certificateNftAbi}__ and `functionName` set to `"updateSigner"`
+ */
+export const useSimulateCertificateNftUpdateSigner = /*#__PURE__*/ createUseSimulateContract({
+  abi: certificateNftAbi,
+  functionName: 'updateSigner'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__
+ */
+export const useWatchCertificateNftEvent = /*#__PURE__*/ createUseWatchContractEvent({ abi: certificateNftAbi });
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"Approval"`
+ */
+export const useWatchCertificateNftApprovalEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'Approval'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"ApprovalForAll"`
+ */
+export const useWatchCertificateNftApprovalForAllEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'ApprovalForAll'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"BatchMetadataUpdate"`
+ */
+export const useWatchCertificateNftBatchMetadataUpdateEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'BatchMetadataUpdate'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"MetadataUpdate"`
+ */
+export const useWatchCertificateNftMetadataUpdateEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'MetadataUpdate'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ */
+export const useWatchCertificateNftOwnershipTransferredEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'OwnershipTransferred'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"Transfer"`
+ */
+export const useWatchCertificateNftTransferEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'Transfer'
+});
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link certificateNftAbi}__ and `eventName` set to `"mintEvent"`
+ */
+export const useWatchCertificateNftMintEventEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: certificateNftAbi,
+  eventName: 'mintEvent'
 });
 
 /**

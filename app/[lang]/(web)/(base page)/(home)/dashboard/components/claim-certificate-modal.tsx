@@ -17,7 +17,7 @@ export function ClaimCertificateModal() {
   const isOpen = open && type === 'claim';
 
   const ecosystemName = lang === 'en' ? data?.label?.split(' ')[1] : data?.label?.split(' ')[0];
-  console.log(data);
+
   function handleClaim() {
     onOpen('username', data);
   }

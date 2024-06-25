@@ -6,7 +6,7 @@ import { VscChevronDown } from 'react-icons/vsc';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
+import { HackathonEditModalType } from '../../../constants/type';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
 
 interface PartnersBoxProp {
@@ -25,7 +25,7 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
   if (!list.length) return null;
   return (
     <EditBox
-      title={hackathon.info?.[type].title || `hackathonDetail.${type}`}
+      title={hackathon.info?.[type]?.title || `hackathonDetail.${type}`}
       className="border-none bg-transparent p-0"
       type={type as HackathonEditModalType}
       handleDelete={() => removeSectionRef.current?.open()}

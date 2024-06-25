@@ -3,7 +3,7 @@ import Modal from '@/components/Common/Modal';
 import { cn } from '@/helper/utils';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';
 import iconXp from '@/public/images/mission-center/icon_xp.png';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
 import { forwardRef, useContext, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';
@@ -14,7 +14,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 
 interface CertificationModalProps {
-  certification: CertificationType;
+  certification: UserCertificateInfo;
   showCoin?: boolean;
   completed?: boolean;
   campaignId?: string;

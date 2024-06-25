@@ -1,8 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useRequest } from 'ahooks';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { scheduleFormSchema } from '../../../../../constants/data';
@@ -11,10 +10,12 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { Textarea } from '@/components/ui/textarea';
-import { v4 } from 'uuid';
 import { cloneDeep } from 'lodash-es';
 import { HackathonScheduleType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { HackathonEditContext } from '../../../../../constants/type';
+import { DatePicker } from '@/components/hackathon-org/common/date-picker';
+import dayjs from 'dayjs';
+import { InfoIcon } from 'lucide-react';
 
 interface EditProp {
   hackathon: HackathonType;
@@ -28,6 +29,7 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const defaultValues: z.infer<typeof scheduleFormSchema> = cloneDeep(schedule);
   const { loading } = useContext(HackathonEditContext);
+  const [timeError, setTimeError] = useState('');
   const form = useForm<z.infer<typeof scheduleFormSchema>>({
     resolver: zodResolver(scheduleFormSchema),
     defaultValues: defaultValues
@@ -41,6 +43,16 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
     form.trigger();
     if (cantSubmit || !form.formState.isValid) return;
     const value = form?.getValues();
+    const { startTime, endTime } = value;
+    if (dayjs(startTime).isAfter(endTime)) {
+      // form.setError('endTime', {
+      //   type: 'manual',
+      //   message: 'The end time must be longer than the start time'
+      // });
+      setTimeError('The end time must be longer than the start time');
+      return;
+    }
+    setTimeError('');
     handleAdd(value);
   };
 
@@ -72,7 +84,9 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
             )}
           />
           <div>
-            <label className="body-m text-neutral-off-black">Timezone*</label>
+            <FormLabel>
+              <span className="body-m text-neutral-rich-gray">Timezone*</span>
+            </FormLabel>
             <Input
               disabled
               className="body-m bg-neutral-light-gray text-neutral-medium-gray"
@@ -81,13 +95,47 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
           </div>
           <FormField
             control={form.control}
-            name={'eventName'}
+            name="startTime"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <div className="flex items-center justify-between">
+                  <FormLabel className="body-m text-neutral-rich-gray">{'Start Time*'}</FormLabel>
+                </div>
+                <FormControl>
+                  <DatePicker {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="endTime"
+            render={({ field }) => (
+              <FormItem className="w-full ">
+                <div className="flex items-center justify-between">
+                  <FormLabel className="body-m text-neutral-rich-gray">{'End Time*'}</FormLabel>
+                </div>
+                <FormControl>
+                  <DatePicker {...field} />
+                </FormControl>
+                <FormMessage />
+                {timeError && (
+                  <div className={`body-s flex items-center text-status-error-dark`}>
+                    <InfoIcon className="mr-1.5 h-4 w-4" />
+                    {timeError}
+                  </div>
+                )}
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={'speakerNames'}
             render={({ field }) => (
               <FormItem className="w-full text-left">
                 <div className="flex w-full justify-between">
-                  <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-                    {'Speaker Names'}
-                  </FormLabel>
+                  <FormLabel className="body-m text-neutral-rich-gray">{'Speaker Names'}</FormLabel>
                 </div>
                 <FormControl>
                   <Input placeholder={'Enter the names of all speakers'} className="body-m" {...field} />
@@ -119,23 +167,6 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
                     {...field}
                     className="body-m body-m h-[128px] border-neutral-light-gray py-3"
                   />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name={'speakerNames'}
-            render={({ field }) => (
-              <FormItem className="w-full text-left">
-                <div className="flex w-full justify-between">
-                  <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-                    {'Speaker Names'}
-                  </FormLabel>
-                </div>
-                <FormControl>
-                  <Input placeholder={'Enter the names of all speakers'} className="body-m" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -184,7 +215,8 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
         <div className="flex gap-[16px]">
           <Button
             type="primary"
-            className="button-text-s h-[34px] w-[140px] uppercase"
+            disabled={cantSubmit}
+            className={`button-text-s h-[34px] w-[140px] uppercase ${cantSubmit && 'bg-neutral-light-gray text-neutral-medium-gray'}`}
             loading={loading}
             onClick={() => {
               add();

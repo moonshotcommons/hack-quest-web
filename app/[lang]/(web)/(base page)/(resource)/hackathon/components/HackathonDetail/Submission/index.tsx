@@ -16,7 +16,7 @@ const Submission: React.FC<SubmissionProp> = ({ hackathon }) => {
   return (
     <EditBox title={'hackathonDetail.submission'} type={HackathonEditModalType.SUBMISSION}>
       <div className="body-m flex flex-col gap-[24px] text-neutral-medium-gray">
-        <div className="flex flex-wrap gap-x-[80px] gap-y-[80px]">
+        <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">
           <div>
             <p>{t('hackathonDetail.projectDetail')}</p>
             <p className="mt-[4px] text-neutral-off-black">One-Line Intro / Detailed Intro</p>

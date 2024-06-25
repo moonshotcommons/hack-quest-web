@@ -1,6 +1,6 @@
 export enum Lang {
-  ZH = 'zh',
-  EN = 'en'
+  EN = 'en',
+  ZH = 'zh'
 }
 
 export enum TransNs {
@@ -17,7 +17,7 @@ export enum TransNs {
   AUTH = 'auth'
 }
 export const cookieName = 'i18next';
-export const locales = [Lang.ZH, Lang.EN];
+export const locales = [Lang.EN, Lang.ZH];
 export const transNs = [
   TransNs.BASIC,
   TransNs.LEARN,

@@ -100,3 +100,11 @@ export const HackathonEditContext = createContext<HackathonEditContextType>({
   setLoading: () => {},
   isEdit: false
 });
+
+export interface HackathonDetailContextType {
+  navs: HackathonEditNavType[];
+}
+
+export const HackathonDetailContext = createContext<HackathonDetailContextType>({
+  navs: []
+});

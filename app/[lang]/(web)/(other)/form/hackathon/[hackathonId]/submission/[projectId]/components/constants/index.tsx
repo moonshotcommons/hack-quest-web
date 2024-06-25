@@ -71,11 +71,15 @@ export const LOCATIONS = [
   },
   {
     label: 'Other',
-    value: 'Other'
+    value: ProjectLocation.OTHER
   }
 ];
 
 export const TRACKS = [
+  {
+    label: 'SocialFi',
+    value: 'SocialFi'
+  },
   {
     label: 'DeFi',
     value: 'DeFi'
@@ -89,12 +93,24 @@ export const TRACKS = [
     value: 'GameFi'
   },
   {
-    label: 'SociFi',
-    value: 'SociFi'
-  },
-  {
     label: 'Infra',
     value: 'Infra'
+  },
+  {
+    label: 'DAO',
+    value: 'DAO'
+  },
+  {
+    label: 'RWA',
+    value: 'RWA'
+  },
+  {
+    label: 'AI',
+    value: 'AI'
+  },
+  {
+    label: 'Other',
+    value: 'Other'
   }
 ];
 

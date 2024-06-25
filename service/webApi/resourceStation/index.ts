@@ -236,8 +236,10 @@ class ResourceStationApi {
   }
 
   /** 注册hackathon */
-  registerHackathon(hackathonId: string) {
-    return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register`);
+  registerHackathon(hackathonId: string, data: object = {}) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register`, {
+      data
+    });
   }
 
   getHackathonPrizeTracks(hackathonId: string) {

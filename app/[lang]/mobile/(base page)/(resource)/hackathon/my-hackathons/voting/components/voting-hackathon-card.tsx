@@ -10,29 +10,31 @@ export function VotingHackathonCard({ hackathon }: { hackathon: HackathonVoteTyp
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon.rewardTime
+    targetDate: hackathon.timeline?.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
   const currentTime = moment();
-  const isEnded = currentTime.isAfter(moment(hackathon.rewardTime));
+  const isEnded = currentTime.isAfter(moment(hackathon.timeline?.rewardTime));
 
   return (
     <div className="flex w-full rounded-xl bg-neutral-white shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
       <div className="relative h-[7.5rem] w-[7.5rem] overflow-hidden">
-        {hackathon.image && <Image src={hackathon.image} fill alt={hackathon.alias} className="rounded-l-xl" />}
+        {hackathon.info?.image && (
+          <Image src={hackathon.info?.image} fill alt={hackathon.alias} className="rounded-l-xl" />
+        )}
       </div>
       <div className="flex flex-1 flex-col justify-between px-3 py-2">
         <h1 className="text-sm text-neutral-black">{hackathon.name}</h1>
         {isEnded ? (
           <>
             <span className="inline-flex items-center justify-center self-start rounded-[0.5rem] border border-neutral-medium-gray px-2 py-1 text-xs font-light text-neutral-medium-gray">
-              CLOSED {moment(hackathon?.rewardTime).format('ll')}
+              CLOSED {moment(hackathon?.timeline?.rewardTime).format('ll')}
             </span>
             <div className="flex items-center justify-between">
               <div className="flex flex-col gap-1 text-xs font-light">
                 <h4 className="text-neutral-medium-gray">Participants</h4>
-                <p className="text-neutral-off-black">{hackathon.participants}</p>
+                <p className="text-neutral-off-black">{hackathon.memberCount}</p>
               </div>
               <div className="flex flex-col gap-1 text-xs font-light">
                 <h4 className="text-neutral-medium-gray">Total Prize</h4>
@@ -40,7 +42,7 @@ export function VotingHackathonCard({ hackathon }: { hackathon: HackathonVoteTyp
               </div>
               <div className="flex flex-col gap-1 text-xs font-light">
                 <h4 className="text-neutral-medium-gray">Host</h4>
-                <p className="text-neutral-off-black underline">{hackathon?.hosts[0]?.name}</p>
+                <p className="text-neutral-off-black underline">{hackathon?.info?.host}</p>
               </div>
             </div>
           </>

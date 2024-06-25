@@ -19,6 +19,7 @@ function getLocale(request: NextRequest): Lang {
   const languages = new Negotiator({ headers }).languages();
 
   return match(languages, locales, defaultLocale) as Lang;
+  // return defaultLocale;
 }
 
 export function middleware(request: NextRequest) {

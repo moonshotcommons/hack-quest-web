@@ -12,9 +12,19 @@ interface EditBoxProp {
   children: ReactNode;
   type?: HackathonEditModalType;
   handleDelete?: VoidFunction;
+  isExpandAll?: boolean;
+  handleExpandAll?: VoidFunction;
 }
 
-const EditBox: React.FC<EditBoxProp> = ({ title, className, children, type, handleDelete }) => {
+const EditBox: React.FC<EditBoxProp> = ({
+  title,
+  className,
+  children,
+  type,
+  handleDelete,
+  handleExpandAll,
+  isExpandAll
+}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { setModalType, isEdit } = useContext(HackathonEditContext);
@@ -22,12 +32,19 @@ const EditBox: React.FC<EditBoxProp> = ({ title, className, children, type, hand
     <div className="flex flex-col gap-[32px]">
       <div className="flex items-center justify-between">
         <Title title={title} />
-        {isEdit && (
-          <div className="underline-l flex cursor-pointer gap-[12px] text-neutral-off-black">
-            {handleDelete && <div onClick={handleDelete}>{t('remove')}</div>}
-            {type && <div onClick={() => setModalType(type)}>{t('edit')}</div>}
-          </div>
-        )}
+        <div>
+          {isEdit && (
+            <div className="underline-l flex cursor-pointer gap-[12px] text-neutral-off-black">
+              {handleDelete && <div onClick={handleDelete}>{t('remove')}</div>}
+              {type && <div onClick={() => setModalType(type)}>{t('edit')}</div>}
+            </div>
+          )}
+          {!isEdit && handleExpandAll && (
+            <div className="underline-m cursor-pointer text-neutral-black" onClick={handleExpandAll}>
+              {isExpandAll ? t('courses.collapseAll') : t('courses.expandAll')}
+            </div>
+          )}
+        </div>
       </div>
       <div
         className={cn(

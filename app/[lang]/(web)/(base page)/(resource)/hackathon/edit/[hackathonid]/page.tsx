@@ -5,7 +5,7 @@ import { Lang } from '@/i18n/config';
 import { getHackathonById } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
-import HackathonDetail from '../../components/HackathonDetail';
+import HackathonEditDetail from './components';
 
 interface HackathonIdProps {
   params: {
@@ -36,7 +36,7 @@ const HackahtonEditPage: FC<HackathonIdProps> = async function ({ params }: Hack
   }
   return (
     <>
-      <HackathonDetail hackathon={hackathon} isEdit={true} />
+      <HackathonEditDetail hackathon={hackathon} isEdit={true} />
     </>
   );
 };

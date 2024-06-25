@@ -21,7 +21,7 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const isEnd = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.rewardTime);
+    return dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
   }, [hackathon]);
   if ((isEnd && (!project.vote || rankInfo?.rank !== 1)) || !rankInfo || !hackathon) return null;
   return (
@@ -54,7 +54,7 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
         {(!project.vote || !isEnd) && (
           <div className="mt-[.5rem]">
             <CountDown
-              time={hackathon?.rewardTime}
+              time={hackathon?.timeline?.rewardTime}
               countItemClassName="bg-neutral-white body-m-bold"
               formatClassName="body-s"
             />

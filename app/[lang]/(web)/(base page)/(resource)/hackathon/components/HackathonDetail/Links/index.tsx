@@ -4,7 +4,7 @@ import EditBox from '../EditBox';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonEditModalType } from '../../../constants/type';
+import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
 
 interface LinksProp {
   hackathon: HackathonType;
@@ -21,6 +21,8 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
     }));
     return ls || [];
   }, [hackathon]);
+  const { navs } = useContext(HackathonEditContext);
+  if (!navs.some((v) => v.value !== 'links')) return null;
   return (
     <EditBox title={'hackathonDetail.links'} type={HackathonEditModalType.LINKS}>
       <div className="body-m flex flex-col gap-[24px] text-neutral-medium-gray">
@@ -31,7 +33,7 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
           </div>
           <div>
             <p>{t('hackathonDetail.linkToCodeOfConduct')}</p>
-            <p className="mt-[4px] text-neutral-off-black">Use HackQuest’s standard code of conduct</p>
+            <p className="mt-[4px] text-neutral-off-black">{hackathon.links?.website}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">

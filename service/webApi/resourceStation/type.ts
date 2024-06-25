@@ -131,10 +131,14 @@ export interface HackathonTimeLineType {
   id: string;
   openReviewSame: boolean;
   openTime: string;
+  openTimeEnd: string;
   reviewTime: string;
+  reviewTimeEnd: string;
   rewardTime: string;
   timeZone: string;
 }
+
+export type HackathonTimeLineKeyType = 'openTime' | 'openTimeEnd' | 'reviewTime' | 'reviewTimeEnd' | 'rewardTime';
 
 export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners';
 export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
@@ -155,6 +159,8 @@ export interface HackathonType {
   timeline: HackathonTimeLineType;
   votes: HackathonTypeVotesType;
   totalPrize: number;
+  projectCount: number;
+  remainingVote: number;
 }
 
 export interface JoinedHackathonType {

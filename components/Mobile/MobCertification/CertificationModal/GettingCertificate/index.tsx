@@ -2,7 +2,7 @@ import Button from '@/components/Common/Button';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import message from 'antd/es/message';
 
@@ -13,7 +13,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 interface GettingCertificateProps {
-  certification: CertificationType;
+  certification: UserCertificateInfo;
   refreshCertification?: VoidFunction;
   closeModal?: VoidFunction;
 }
@@ -66,12 +66,8 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
   const { t } = useTranslation(lang, TransNs.REWARD);
 
   const { run: safeMint, loading } = useRequest(
-    async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
-      const res = await safeMintAsync({
-        sourceType: params.sourceType,
-        sourceId: params.sourceId,
-        signatureId: params.signatureId
-      });
+    async () => {
+      const res = await safeMintAsync(certification);
 
       return res;
     },
@@ -155,11 +151,7 @@ const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refres
             if (certification.mint) {
               return;
             }
-            safeMint({
-              sourceType: 'Certification',
-              sourceId: certification.id,
-              signatureId: certification.signatureId
-            });
+            safeMint();
           }}
         >
           {certification.mint ? 'Minted' : 'Mint'}

@@ -145,7 +145,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
         // onClick={onLogin}
         block
         className="
-          
+
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
@@ -435,7 +435,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     let verifyData;
     if (state) {
       verifyData = JSON.parse(atob(state as string));
-      querySource = verifyData?.source || ThirdPartyAuthType.GOOGLE;
+      verifyData?.source && (querySource = verifyData?.source);
     }
     //第一个字母大写 其余小写
     querySource = (querySource as string).toLocaleLowerCase().replace(/^\w/, (s) => s.toLocaleUpperCase());

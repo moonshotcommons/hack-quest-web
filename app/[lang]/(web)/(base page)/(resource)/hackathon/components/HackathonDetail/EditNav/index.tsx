@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { HackathonEditContext } from '../../../constants/type';
+import React, { useContext, useEffect, useMemo } from 'react';
+import { HackathonEditContext, HackathonEditNavType } from '../../../constants/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
@@ -8,12 +8,16 @@ import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 interface EditNavProp {
   curAnchorIndex: number;
   handleClickAnchor: (index: number) => void;
+  navList?: HackathonEditNavType[];
 }
 
-const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor }) => {
+const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, navList }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { navs } = useContext(HackathonEditContext);
+  const { navs: n } = useContext(HackathonEditContext);
+  const navs = useMemo(() => {
+    return navList?.length ? navList : n;
+  }, [navList, n]);
   useEffect(() => {
     handleClickAnchor(0);
   }, [navs]);

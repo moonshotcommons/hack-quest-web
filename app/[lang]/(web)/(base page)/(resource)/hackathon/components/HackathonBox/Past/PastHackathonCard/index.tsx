@@ -29,7 +29,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
     >
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
         <div className="relative h-0 w-full rounded-t-[10px] bg-[#D9D9D9] pt-[43%]">
-          {hackathon.image && <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>}
+          <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
         </div>
         <div className="flex h-[206px] flex-col justify-between px-[20px] py-[20px]">
           <h2 className="text-h3-mob line-clamp-1 text-neutral-off-black">{hackathon.name}</h2>
@@ -37,7 +37,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
             <>
               <div>
                 <p className="body-s mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.votingCloseIn')}</p>
-                <CountDown time={hackathon.rewardTime} countItemClassName="body-m-bold" />
+                <CountDown time={hackathon.timeline?.rewardTime} countItemClassName="body-m-bold" />
               </div>
               <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
                 <div>
@@ -53,15 +53,13 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
           ) : (
             <>
               <div className="body-s-bold w-fit rounded-[8px] border-[2px] border-neutral-medium-gray px-[12px] py-[4px] uppercase text-neutral-medium-gray">
-                closed {moment(hackathon.rewardTime).format('ll')}
+                closed {moment(hackathon.timeline?.rewardTime).format('ll')}
               </div>
               <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
                 <div>
                   <span className="">{t('participants')}</span>
                   <span className="body-m-bold text-neutral-off-black">
-                    {hackathon.version === 'old'
-                      ? hackathon.participants
-                      : separationNumber(hackathon.memberCount || 0)}
+                    {separationNumber(hackathon.memberCount || 0)}
                   </span>
                 </div>
                 <div>
@@ -70,7 +68,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                 </div>
                 <div>
                   <span className="">{t('host')}</span>
-                  <span className="body-m-bold text-neutral-off-black underline">{hackathon.hosts?.[0]?.name}</span>
+                  <span className="body-m-bold text-neutral-off-black underline">{hackathon.info?.host}</span>
                 </div>
               </div>
             </>

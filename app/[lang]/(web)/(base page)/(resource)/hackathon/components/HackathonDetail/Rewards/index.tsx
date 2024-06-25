@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { HackathonRewardType, HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
 import { separationNumber } from '@/helper/utils';
 import { HackathonEditModalType } from '../../../constants/type';

@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { HackathonScheduleType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
 import { v4 } from 'uuid';
@@ -13,6 +13,7 @@ import CommonButton from '../CommonButton';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../../RemoveSectionModal';
 import { cloneDeep } from 'lodash-es';
 import { scheduleDefaultValues } from '../../../../constants/data';
+import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 
 interface ScheduleModalProp {
   hackathon: HackathonType;
@@ -21,14 +22,52 @@ interface ScheduleModalProp {
 const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { modalType, setModalType } = useContext(HackathonEditContext);
+  const { modalType, setModalType, updateHackathon, loading } = useContext(HackathonEditContext);
   const [schedules, setSchedules] = useState<HackathonScheduleType[]>([]);
   const [editIds, setEditIds] = useState<string[]>([]);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
+  const [open, setOpen] = useState(false);
+  const [removeSchedule, setRemoveSchedule] = useState<HackathonScheduleType | null>(null);
+  const handleRemoveEvent = (item: HackathonScheduleType, index?: number) => {
+    const isExist = hackathon.info?.schedule?.list?.some((v) => v.id === item.id);
+    if (isExist) {
+      setOpen(true);
+      setRemoveSchedule(item);
+    } else {
+      const newSchedules = cloneDeep(schedules);
+      newSchedules.splice(index as number, 1);
+      setSchedules(newSchedules);
+    }
+  };
 
-  const handleRemoveEvent = () => {};
+  const handleConfirmRemoveEvent = () => {
+    const newSchedules = hackathon.info?.schedule?.list.filter((v) => v.id !== removeSchedule?.id);
+    updateHackathon({
+      data: {
+        schedule: {
+          list: newSchedules
+        }
+      },
+      closeModal: false
+    });
+  };
 
-  const handleAdd = () => {};
+  const handleAdd = (item: HackathonScheduleType) => {
+    const index = schedules.findIndex((v) => v.id === item.id);
+    const newSchedules = cloneDeep(schedules);
+    if (index >= 0) {
+      newSchedules[index] = item;
+    } else {
+      newSchedules.push(item);
+    }
+    updateHackathon({
+      data: {
+        schedule: {
+          list: newSchedules
+        }
+      }
+    });
+  };
   useEffect(() => {
     const newSchedules = hackathon.info?.schedule?.list || [];
     setSchedules(newSchedules);
@@ -40,20 +79,20 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
       </div>
       <div className="scroll-wrap-y flex w-full flex-1 flex-col gap-[24px] px-[40px]">
         <div className="flex flex-col gap-[24px]">
-          {schedules.map((schedule) =>
+          {schedules.map((schedule, i) =>
             ~editIds.indexOf(schedule.id) ? (
               <Edit
                 key={schedule.id}
                 hackathon={hackathon}
                 schedule={schedule}
-                handleRemoveEvent={handleRemoveEvent}
+                handleRemoveEvent={() => handleRemoveEvent(schedule, i)}
                 handleAdd={handleAdd}
               />
             ) : (
               <Preview
                 schedule={schedule}
                 key={schedule.id}
-                handleRemoveEvent={() => handleRemoveEvent()}
+                handleRemoveEvent={() => handleRemoveEvent(schedule)}
                 handleEdit={() => setEditIds([...editIds, schedule.id])}
               />
             )
@@ -86,6 +125,11 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
         cantSubmit={false}
       />
       <RemoveSectionModal ref={removeSectionRef} type={modalType} />
+      <ConfirmModal open={open} onClose={() => setOpen(false)} onConfirm={handleConfirmRemoveEvent} isLoading={loading}>
+        {`${t('hackathonDetail.confirmRemove', {
+          block: `${removeSchedule?.eventName} ${t('hackathonDetail.schedule')}`
+        })}`}
+      </ConfirmModal>
     </div>
   );
 };

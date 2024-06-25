@@ -60,19 +60,22 @@ const Overview: React.FC<OverviewProp> = () => {
 
       <div className="flex h-[498px] flex-col justify-between">
         <h1 className="text-h3">{t(overviewData.name)}</h1>
-        <div className="body-m">
+        <div className="body-s">
           <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.date')}</p>
           <p>{overviewData.date}</p>
         </div>
-        <div className="body-m ">
+        <div className="body-s">
           <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.time')}</p>
           <p className="leading-[140%]">{overviewData.time}</p>
+          <p className="text-[.75rem] leading-[140%] text-neutral-medium-gray">
+            {`Please review individual lecture schedule under Syllabus as speakers are from different time zones.`}
+          </p>
         </div>
-        <div className="body-m">
+        <div className="body-s">
           <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.overview.format')}</p>
           <p>{overviewData.format}</p>
         </div>
-        <div className="body-m">
+        <div className="body-s">
           <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.overview.hosts')}</p>
           <div className="flex items-center gap-[20px]">
             <Image src={HackLogo} height={28} alt="hack_logo" />
@@ -81,7 +84,7 @@ const Overview: React.FC<OverviewProp> = () => {
             </div>
           </div>
         </div>
-        <div className="body-m">
+        <div className="body-s">
           <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.overview.discussionGroups')}</p>
           <div className="flex items-center gap-[40px]">
             {overviewData.discussionGroups.map((v) => (

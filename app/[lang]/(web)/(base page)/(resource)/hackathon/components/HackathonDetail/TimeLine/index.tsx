@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import React, { useContext, useMemo } from 'react';
+import { HackathonTimeLineKeyType, HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonDetailTimeLine } from '../../../constants/data';
@@ -7,15 +7,20 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HackathonEditModalType } from '../../../constants/type';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface TimeLineProp {
   hackathon: HackathonType;
+  isEdit?: boolean;
 }
 
-const TimeLine: React.FC<TimeLineProp> = ({ hackathon }) => {
+const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const stepIndex = 0;
+  const { getStepIndex } = useDealHackathonData();
+  const stepIndex = useMemo(() => {
+    return isEdit ? 0 : getStepIndex(hackathon);
+  }, [isEdit]);
   return (
     <EditBox title={'hackathonDetail.timeline'} type={HackathonEditModalType.TIMELINE}>
       <div className="relative flex items-center justify-between ">
@@ -30,12 +35,26 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon }) => {
             <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
               {t(`hackathonDetail.${v.key}`)}
             </p>
-            <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
-              {dayjs(hackathon?.timeline?.[v.time as 'openTime' | 'reviewTime' | 'rewardTime'])
-                .tz()
-                .format('MMM D,YY H:mm')}
-              (GMT+8)
-            </p>
+            <div className="mt-[4px] flex h-[44px] flex-col justify-center">
+              <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
+                  .tz()
+                  .format('MMM D,YYYY H:mm')}
+                (GMT+8)
+              </p>
+              {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] &&
+                dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]).isBefore(
+                  hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]
+                ) && (
+                  <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                    {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
+                      .tz()
+                      .format('MMM D,YYYY H:mm')}
+                    (GMT+8)
+                  </p>
+                )}
+            </div>
+
             <div
               className={`flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed  ${i === stepIndex ? 'border-neutral-rich-gray' : 'border-transparent'}`}
             >

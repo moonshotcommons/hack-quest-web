@@ -32,16 +32,16 @@ export const animateProps: MotionProps = {
 
 export const hackathonDetailTimeLine = [
   {
-    key: 'registrationOpen',
-    time: 'openTime'
+    key: 'registration',
+    time: ['openTime', 'openTimeEnd']
   },
   {
-    key: 'submissionsClose',
-    time: 'reviewTime'
+    key: 'submissions',
+    time: ['reviewTime', 'reviewTimeEnd']
   },
   {
     key: 'rewardAnnouncement',
-    time: 'rewardTime'
+    time: ['rewardTime']
   }
 ];
 
@@ -60,7 +60,7 @@ export const hackathonVoteProjectSort = [
   }
 ];
 
-export const initNavs = [
+export const initEditNavs = [
   {
     label: 'hackathonDetail.cover',
     value: 'cover'
@@ -91,6 +91,21 @@ export const initNavs = [
   }
 ];
 
+export const initDetailNavs = [
+  {
+    label: 'hackathonDetail.cover',
+    value: 'cover'
+  },
+  {
+    label: 'hackathonDetail.timeline',
+    value: 'timeline'
+  },
+  {
+    label: 'hackathonDetail.description',
+    value: 'description'
+  }
+];
+
 export const placeIndexStr = ['First', 'Second', 'Third', 'Fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'];
 
 export const scheduleFormSchema = z.object({
@@ -103,13 +118,17 @@ export const scheduleFormSchema = z.object({
     .max(80, {
       message: 'Event Name cannot exceed 80 characters.'
     }),
-  startTime: z.string().min(1),
-  endTime: z.string().min(1),
+  startTime: z.string().min(1, {
+    message: 'Start Time is a required input.'
+  }),
+  endTime: z.string().min(1, {
+    message: 'End Time is a required input.'
+  }),
   speakerNames: z.string(),
   description: z.string().max(360, {
     message: 'Description cannot exceed 360 characters.'
   }),
-  link: z.string().url(),
+  link: z.string(),
   address: z.string()
 });
 

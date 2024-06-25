@@ -3,7 +3,7 @@ import { FC, useContext, useMemo, useRef } from 'react';
 import CertificationModal, { CertificationModalInstance } from '../../CertificationModal';
 import Button from '@/components/Common/Button';
 import { CertificationCardContext } from '../CertificationCardProvider';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { useRequest } from 'ahooks';
@@ -14,7 +14,7 @@ import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 
 interface LearnMoreButtonProps {
-  certification: CertificationType;
+  certification: UserCertificateInfo;
 }
 
 const LearnMoreButton: FC<LearnMoreButtonProps> = ({ certification: propCertification }) => {
