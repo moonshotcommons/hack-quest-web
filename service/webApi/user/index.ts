@@ -17,6 +17,7 @@ import {
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
+import { cache } from 'react';
 
 export enum UserApiType {
   CheckEmail = '/users/verify-email',
@@ -344,6 +345,18 @@ class UserApi {
   }
   notificationDeteleById(id: string) {
     return this.service.delete(`${UserApiType.Notifications}/${id}`);
+  }
+
+  /** 获取用户总数 */
+  getUserCount() {
+    return this.service.get<{ total: number }>(`/users/count`);
+  }
+
+  async fetchUserCount(): ReturnType<typeof this.getUserCount> {
+    const cacheFn = cache(async () => {
+      return this.getUserCount();
+    });
+    return cacheFn();
   }
 }
 
