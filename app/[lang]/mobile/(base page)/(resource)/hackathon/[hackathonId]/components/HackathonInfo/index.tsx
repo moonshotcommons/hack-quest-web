@@ -195,7 +195,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </div>
             <p className="body-s">{`${
               hackathon.version === 'old' ? hackathon.participants : hackathon.members?.length || 0
-            } ${t('usersPartitipated')}`}</p>
+            } ${t('hackathonDetail.usersPartitipated')}`}</p>
           </div>
         </div>
       )}

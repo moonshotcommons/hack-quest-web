@@ -80,7 +80,7 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
           <div className="flex-1">
             <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.hackathonTrack')}</p>
             <p className="line-clamp-1" title={project.tracks?.join(', ')}>
-              {project.tracks?.join(', ')}
+              {project.tracks?.join(', ') || '-'}
             </p>
           </div>
         </div>
