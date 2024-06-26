@@ -34,6 +34,7 @@ import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
 import SolvedProblem from './SolvedProblem';
 import Challenges from './Challenges';
 import Technologies from './Technologies';
+import Tagline from './Tagline';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
@@ -86,7 +87,7 @@ const InfoForm: FC<
     // track: z.string().min(2, {
     //   message: 'You need to select a track.'
     // }),
-    tagline: string().min(0),
+    tagline: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     technologies: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     solvedProblem: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     challenges: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
@@ -102,7 +103,7 @@ const InfoForm: FC<
       }),
     detailedIntro: z
       .string()
-      .min(1, {
+      .min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1, {
         message: 'detailedIntro must be at least 16 characters.'
       })
       .max(600, {
@@ -164,7 +165,7 @@ const InfoForm: FC<
       detailedIntro && formData.append('description', detailedIntro);
       intro && formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
-      // formData.append('tagline', tagline);
+      formData.append('tagline', tagline);
       formData.append('technologies', technologies);
       formData.append('solvedProblem', solvedProblem);
       formData.append('challenges', challenges);
@@ -252,8 +253,8 @@ const InfoForm: FC<
     form.setValue('teamID', teamID as string);
     form.setValue('roomNumber', roomNumber as string);
     if (
-      intro &&
-      detailedIntro &&
+      (intro || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
+      (detailedIntro || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
       projectName &&
       projectLogo &&
       (track || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
@@ -350,8 +351,8 @@ const InfoForm: FC<
           </div> */}
 
           {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <IntroName form={form} />}
-          <DetailIntroName form={form} />
-          {/* {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />} */}
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <DetailIntroName form={form} />}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <SolvedProblem form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Challenges form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Technologies form={form} />}
