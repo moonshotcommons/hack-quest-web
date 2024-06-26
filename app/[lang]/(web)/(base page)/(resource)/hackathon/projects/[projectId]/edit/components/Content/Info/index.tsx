@@ -20,7 +20,6 @@ import {
   TRACKS
 } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 import Title from '@/components/Common/Title';
-import Tagline from './Tagline';
 import SolvedProblem from './SolvedProblem';
 import Challenges from './Challenges';
 import Technologies from './Technologies';
@@ -63,11 +62,11 @@ const Info: FC<InfoProps> = ({ form, setLogo, hackathon, isClose }) => {
       {hackathon.id !== HackathonPartner.Hack4Bengal && (
         <ProjectTrackRadio tracks={TRACKS} form={form} isClose={isClose} />
       )}
-      <IntroName form={form} />
+      {hackathon.id !== HackathonPartner.Hack4Bengal && <IntroName form={form} />}
       <DetailIntroName form={form} />
       {hackathon.id === HackathonPartner.Hack4Bengal && (
         <>
-          <Tagline form={form} />
+          {/* <Tagline form={form} /> */}
           <SolvedProblem form={form} />
           <Challenges form={form} />
           <Technologies form={form} />
