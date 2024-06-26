@@ -10,6 +10,7 @@ import { Steps } from '../constants/steps';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useSubmissionState } from './submission/state';
+import { updateState } from '../constants/utils';
 
 export function SubmissionForm({
   isEditMode = false,
@@ -22,6 +23,7 @@ export function SubmissionForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
+  const { submission } = initialValues?.info;
   const queryClient = useQueryClient();
   const {
     basicInfoState,
@@ -58,28 +60,27 @@ export function SubmissionForm({
       submission: {
         BasicInfo: basicInfoState.filter((i) => i.selected),
         ProjectDetail: projectDetailState.filter((i) => i.selected),
-        Additions: additionState.filter((i) => i.selected)
+        Additions: additionState
+          .filter((i) => i.selected)
+          .filter((i) => i.type !== 'Pitch Video' && i.type !== 'Project Demo'),
+        Videos: additionState
+          .filter((i) => i.selected)
+          .filter((i) => i.type === 'Pitch Video' || i.type === 'Project Demo')
       }
     };
     mutation.mutate(data);
   }
 
   React.useEffect(() => {
-    if (Object.keys(initialValues?.info?.submission || {}).length > 0) {
-      const updateState = (currentState: any, newValues: any) => {
-        const newValuesMap = new Map(newValues.map((item: any) => [item.id, item]));
-        return currentState
-          .map((item: any) => newValuesMap.get(item.id) || item)
-          .concat(
-            newValues.filter((item: any) => !currentState.some((existingItem: any) => existingItem.id === item.id))
-          );
-      };
-      setBasicInfoState(updateState(basicInfoState, initialValues?.info?.submission.BasicInfo || []));
-      setProjectDetailState(updateState(projectDetailState, initialValues?.info?.submission.ProjectDetail || []));
-      setAdditionState(updateState(additionState, initialValues?.info?.submission.Additions || []));
+    if (Object.keys(submission || {}).length > 0) {
+      setBasicInfoState(updateState(basicInfoState, submission?.BasicInfo || []));
+      setProjectDetailState(updateState(projectDetailState, submission?.ProjectDetail || []));
+      setAdditionState(
+        updateState(additionState, [...(submission?.Additions || []), ...(submission?.Videos || [])] || [])
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues?.info?.submission]);
+  }, [submission]);
 
   return (
     <div className="flex flex-col gap-6">

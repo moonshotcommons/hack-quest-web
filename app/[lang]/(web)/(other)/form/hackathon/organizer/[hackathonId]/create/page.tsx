@@ -46,8 +46,6 @@ export default function Page() {
     return <PageSkeleton />;
   }
 
-  console.log('data', data);
-
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -107,7 +105,7 @@ export default function Page() {
             <RewardsForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.APPLICATION}>
-            <ApplicationForm />
+            <ApplicationForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.SUBMISSION}>
             <SubmissionForm initialValues={data} />
