@@ -51,6 +51,23 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
+        if (!hackathon.allowSubmission) {
+          return (
+            <Button
+              size="small"
+              type="primary"
+              disabled
+              className=" h-[60px] w-full bg-neutral-light-gray font-medium uppercase text-neutral-medium-gray opacity-100"
+            >
+              {/* {children} */}
+              <div>
+                <p className="button-text-m">Pending</p>
+                <p className="button-text-m text-[10px] font-light leading-normal">{`You'll be notified by 8:00p.m. on Feb 13, 2024 (GMT+8)`}</p>
+              </div>
+            </Button>
+          );
+        }
+
         if (!hackathon.participation.isSubmit) {
           return !hackathon.participation.project?.id ? (
             <Button
@@ -93,11 +110,13 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   return (
     <div className="flex flex-col  gap-[1.25rem]  text-neutral-off-black">
       {(hackathon.participation?.isRegister || hackathon.participation?.isSubmit) && (
-        <div className="body-s flex items-center gap-[.25rem] rounded-[1rem] border border-status-error bg-status-error-light p-[1rem] text-neutral-medium-gray ">
-          <WarningIcon size={16} color="var(--status-error)" />
-          {hackathon.participation?.isSubmit ? (
+        <div className="body-s flex items-center justify-center gap-[.25rem] rounded-[1rem] border border-yellow-dark bg-yellow-extra-light p-[1rem] text-neutral-off-black ">
+          <WarningIcon size={16} color="var(--yellow-dark)" />
+          {!hackathon.allowSubmission && <span>You have submitted the registration request</span>}
+          {hackathon.allowSubmission && hackathon.participation?.isSubmit && (
             <span>{t('hackathonDetail.haveSubmission')}</span>
-          ) : (
+          )}
+          {hackathon.allowSubmission && !hackathon.participation?.isSubmit && (
             <span>{t('hackathonDetail.haveRegistered')}</span>
           )}
         </div>
