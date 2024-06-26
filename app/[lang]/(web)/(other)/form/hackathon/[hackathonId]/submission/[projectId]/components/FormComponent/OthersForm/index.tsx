@@ -12,7 +12,7 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 import IsPublicRadio from './IsPublicRadio';
 import { useRequest } from 'ahooks';
-import { getHackathonStepInfo } from '../../constants';
+import { HackathonPartner, getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -23,7 +23,11 @@ import MenuLink from '@/constants/MenuLink';
 
 const formSchema = z.object({
   githubLink: z.string().min(0).optional(),
-  isPublic: z.boolean()
+  isPublic: z.boolean(),
+  figma: z.string().min(0).optional(),
+  playstore: z.string().min(0).optional(),
+  googleDrive: z.string().min(0).optional(),
+  other: z.string().min(0).optional()
 });
 
 export type OthersFormSchema = z.infer<typeof formSchema>;
@@ -50,9 +54,11 @@ const OthersForm: FC<
       const newStatus = currentStep.type === ProjectSubmitStepType.OTHERS ? nextStep.type : status;
 
       const formData = new FormData();
-      const { githubLink, isPublic } = values;
+      const { githubLink, isPublic, figma, playstore, googleDrive, other } = values;
       ![null, undefined].includes(isPublic as any) && formData.append('isOpenSource', isPublic ? 'true' : 'false');
       githubLink && formData.append('githubLink', githubLink || '');
+      const links = { figma, playstore, googleDrive, other };
+      formData.append('links', JSON.stringify(links));
       formData.append('status', isExit ? ProjectSubmitStepType.OTHERS : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
@@ -62,7 +68,8 @@ const OthersForm: FC<
         status: newStatus,
         newOtherInfo: {
           isPublic,
-          githubLink: githubLink || ''
+          githubLink: githubLink || '',
+          links
         }
       };
     },
@@ -92,7 +99,12 @@ const OthersForm: FC<
   }
 
   useEffect(() => {
-    const { githubLink, isPublic } = others!;
+    const { githubLink, isPublic, links } = others!;
+    const { figma, playstore, googleDrive, other } = links || {};
+    form.setValue('figma', figma);
+    form.setValue('playstore', playstore);
+    form.setValue('googleDrive', googleDrive);
+    form.setValue('other', other);
     githubLink && form.setValue('githubLink', githubLink);
     typeof isPublic === 'boolean' && form.setValue('isPublic', !!isPublic);
     if (githubLink && typeof isPublic === 'boolean') form.trigger();
@@ -120,6 +132,12 @@ const OthersForm: FC<
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <p className="text-left">
+              Relevant links such as the website where your project is hosted, GitHub Repo, Playstore link for your app,
+              or even Figma and Google Drive links.
+            </p>
+          )}
           <CustomFormField
             name="githubLink"
             form={form}
@@ -127,6 +145,14 @@ const OthersForm: FC<
             placeholder="Paste Github link here"
           />
           <IsPublicRadio form={form} />
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <>
+              <CustomFormField name="figma" label="Figma (optional)" placeholder="" form={form} />
+              <CustomFormField name="playstore" label="Playstore (optional)" placeholder="" form={form} />
+              <CustomFormField name="googleDrive" label="Google Drive (optional)" placeholder="" form={form} />
+              <CustomFormField name="other" label="Other (optional)" placeholder="" form={form} />
+            </>
+          )}
           <div className="flex justify-end gap-4">
             <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back

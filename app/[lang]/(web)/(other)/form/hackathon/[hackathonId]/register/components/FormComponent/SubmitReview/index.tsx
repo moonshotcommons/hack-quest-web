@@ -78,11 +78,11 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
 
   const NameBlock = (
     <div
-      className="body-s flex cursor-pointer items-center rounded-[8px] border border-neutral-light-gray bg-neutral-white p-6 text-neutral-off-black"
+      className="body-s flex cursor-pointer items-center rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3 text-neutral-off-black"
       onClick={() => gotoStep(0)}
     >
-      <span className="flex-1 text-left">{isEmpty(submissionType.team) ? 'Name' : 'Team Name'}</span>
-      <span className="flex-1 text-left">
+      <span className="body-l-bold flex-1 text-left">{isEmpty(submissionType.team) ? 'Name' : 'Team Name'}</span>
+      <span className="body-m flex-1 text-left">
         {isEmpty(submissionType.team) ? name.firstName + ' ' + name.lastName : submissionType.team?.name}
       </span>
       {arrowIcon}
@@ -92,23 +92,39 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
   const ContractInfoBlock = (
     <div className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
       <div
-        className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+        className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
         onClick={() => gotoStep(1)}
       >
         <span>Contact Info</span>
         {arrowIcon}
       </div>
-      <div className="body-xs flex items-center justify-between text-neutral-off-black">
+      <div className="body-m flex items-center justify-between text-neutral-off-black">
         <span>Email</span>
-        {!!contractInfo.weChat && <span>{contractInfo.weChat}</span>}
-        {!contractInfo.weChat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
+        {!!contractInfo.email && <span>{contractInfo.email}</span>}
+        {!contractInfo.email && <span className="text-neutral-medium-gray">{'No Set'}</span>}
       </div>
-      <div className="body-xs flex items-center justify-between text-neutral-off-black">
-        <span>WeChat</span>
-        {!!contractInfo.weChat && <span>{contractInfo.weChat}</span>}
-        {!contractInfo.weChat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
-      </div>
-      <div className="body-xs flex items-center justify-between text-neutral-off-black">
+      {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
+        <div className="body-m flex items-center justify-between text-neutral-off-black">
+          <span>WeChat</span>
+          {!!contractInfo.weChat && <span>{contractInfo.weChat}</span>}
+          {!contractInfo.weChat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
+        </div>
+      )}
+      {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+        <div className="body-m flex items-center justify-between text-neutral-off-black">
+          <span>Discord</span>
+          {!!contractInfo.discord && <span>{contractInfo.discord}</span>}
+          {!contractInfo.discord && <span className="text-neutral-medium-gray">{'No Set'}</span>}
+        </div>
+      )}
+      {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+        <div className="body-m flex items-center justify-between text-neutral-off-black">
+          <span>CollegeName</span>
+          {!!contractInfo.collegeName && <span>{contractInfo.collegeName}</span>}
+          {!contractInfo.collegeName && <span className="text-neutral-medium-gray">{'No Set'}</span>}
+        </div>
+      )}
+      <div className="body-m flex items-center justify-between text-neutral-off-black">
         <span>Telegram</span>
         {!!contractInfo.telegram && <span>{contractInfo.telegram}</span>}
         {!contractInfo.telegram && <span className="text-neutral-medium-gray">{'No Set'}</span>}
@@ -119,27 +135,27 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
   const BioBlock = (
     <div className="flex min-h-[150px] flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
       <div
-        className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+        className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
         onClick={() => gotoStep(2)}
       >
         <span>Bio</span>
         {arrowIcon}
       </div>
-      <p className="caption-12pt text-left text-neutral-off-black">{bio}</p>
+      <p className="body-m text-left text-neutral-off-black">{bio}</p>
     </div>
   );
 
   const TeamBlock = (
     <div className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
       <div
-        className="body-s flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+        className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
         onClick={() => gotoStep(3)}
       >
         <span>Submission Type</span>
         {arrowIcon}
       </div>
       <div className="flex items-center justify-between">
-        <span className="body-xs flex items-center text-neutral-off-black">
+        <span className="body-m flex items-center text-neutral-off-black">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="11.5" stroke="#3E3E3E" />
             <g clipPath="url(#clip0_8109_38558)">
@@ -156,7 +172,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
           </svg>
           <span className="ml-1">{formState.submissionType.type}</span>
         </span>
-        <span className="body-xs text-neutral-medium-gray">
+        <span className="body-m text-neutral-medium-gray">
           {submissionType.type === 'Solo Project'
             ? '1'
             : !!Object.keys(submissionType.teamDetail || {}).length
@@ -166,7 +182,7 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         </span>
       </div>
       <hr className="my-1" />
-      <div className="body-xs flex flex-col gap-4 py-1">
+      <div className="body-m flex flex-col gap-4 py-1">
         {submissionType.type === 'Solo Project' && (
           <div key={name.firstName + ' ' + name.lastName} className="flex items-center justify-between">
             <div className="flex items-center gap-1">
@@ -204,12 +220,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         <p className="body-l text-left text-neutral-off-black">
           Please check all information before you submit the registration
         </p>
-        <div className="mt-4 flex gap-6 [&>div]:w-[calc(50%-12px)]">
-          <div className="flex flex-col gap-6">
-            {NameBlock}
-            {ContractInfoBlock}
-            {BioBlock}
-          </div>
+        <div className="mt-4 flex flex-col gap-6">
+          {NameBlock}
+          {ContractInfoBlock}
+          {BioBlock}
           {TeamBlock}
         </div>
       </div>
