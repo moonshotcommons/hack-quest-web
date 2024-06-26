@@ -14,12 +14,12 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
   const totalPrize = getTotalPrize(vote.rewards);
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: vote.rewardTime
+    targetDate: vote.timeline?.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
 
-  const status = currentTime.isAfter(moment(vote.rewardTime)) ? 'ended' : 'ongoing';
+  const status = currentTime.isAfter(moment(vote.timeline?.rewardTime)) ? 'ended' : 'ongoing';
   function goHackathonDetail() {
     redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`);
   }
@@ -45,11 +45,11 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
         <>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Closed on</h4>
-            <span className="body-s text-neutral-off-black">{moment(vote?.rewardTime).format('ll')}</span>
+            <span className="body-s text-neutral-off-black">{moment(vote?.timeline?.rewardTime).format('ll')}</span>
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Participants</h4>
-            <span className="body-s text-neutral-off-black">{vote.participants}</span>
+            <span className="body-s text-neutral-off-black">{vote.memberCount || 0}</span>
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Total Prize</h4>
@@ -57,7 +57,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
           </div>
           <div className="flex flex-col gap-1">
             <h4 className="body-s text-neutral-medium-gray">Host</h4>
-            <span className="body-s text-neutral-off-black underline">{vote.hosts[0].name}</span>
+            <span className="body-s text-neutral-off-black underline">{vote.info?.host}</span>
           </div>
         </>
       ) : (

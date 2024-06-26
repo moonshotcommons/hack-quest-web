@@ -8,6 +8,7 @@ import Speakers from './Speakers';
 import Sponsors from './Sponsors';
 import CourseDesc from './CourseDesc';
 import MediaCommunity from './MediaCommunity';
+import { MentorType } from '@/service/webApi/resourceStation/type';
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
@@ -42,8 +43,8 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
       <Syllabus />
       <Speakers refreshOffsetTop={getOffsetTops} />
       <Sponsors refreshOffsetTop={getOffsetTops} />
-      <MediaCommunity title="strategicPartners" listData={strategicPartners} />
-      <MediaCommunity title="mediaPartners" listData={mediaPartners} />
+      <MediaCommunity title="strategicPartners" listData={strategicPartners as MentorType[]} />
+      <MediaCommunity title="mediaPartners" listData={mediaPartners as MentorType[]} />
     </div>
   );
 };

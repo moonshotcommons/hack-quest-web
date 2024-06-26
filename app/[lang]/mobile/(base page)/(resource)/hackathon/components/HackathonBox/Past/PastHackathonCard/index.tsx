@@ -29,8 +29,8 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
       className="block w-full"
     >
       <div className="card-hover flex h-[7.5rem] overflow-hidden rounded-[.75rem] bg-neutral-white ">
-        <div className="relative h-full w-[7.5rem] bg-[#d9d9d9]/30">
-          <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
+        <div className="relative h-full w-[7.5rem] bg-neutral-light-gray">
+          <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
         </div>
         <div className="flex h-full flex-1 flex-col justify-between p-[.75rem] text-neutral-off-black">
           <h2 className="body-s line-clamp-1 text-neutral-off-black">{hackathon.name}</h2>
@@ -41,7 +41,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                   {t('hackathonVoting.votingCloseIn')}
                 </p>
                 <CountDown
-                  time={hackathon.rewardTime}
+                  time={hackathon.timeline?.rewardTime}
                   countItemClassName="caption-12pt px-[.25rem] py-[.0625rem]"
                   className="gap-[.5rem]"
                   formatClassName="caption-10pt"
@@ -61,16 +61,12 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
           ) : (
             <>
               <div className="caption-10pt w-fit rounded-[.5rem] border-[.0625rem] border-neutral-medium-gray px-[.5rem] py-[.25rem] uppercase text-neutral-medium-gray">
-                closed {moment(hackathon.rewardTime).format('ll')}
+                closed {moment(hackathon.timeline?.rewardTime).format('ll')}
               </div>
               <div className="caption-10pt flex items-center justify-between text-neutral-medium-gray">
                 <div>
                   <p className="mb-[.25rem]">{t('participants')}</p>
-                  <p className=" text-neutral-off-black">
-                    {hackathon.version === 'old'
-                      ? hackathon.participants
-                      : separationNumber(hackathon.memberCount || 0)}
-                  </p>
+                  <p className=" text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
                 </div>
                 <div>
                   <p className="mb-[.25rem]">{t('totalPrize')}</p>
@@ -78,7 +74,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                 </div>
                 <div className="w-[33%]">
                   <p className="mb-[.25rem]">{t('host')}</p>
-                  <p className=" truncate text-neutral-off-black underline">{hackathon.hosts?.[0]?.name}</p>
+                  <p className=" truncate text-neutral-off-black underline">{hackathon.info?.host}</p>
                 </div>
               </div>
             </>

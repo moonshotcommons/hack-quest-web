@@ -72,11 +72,14 @@ class ResourceStationApi {
 
   /** 获取hackathon详情数据 */
   getHackathonDetail(id: string, token?: string) {
-    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    const params = token
+      ? {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      : {};
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, params);
   }
   /** 获取hackathon 可以投票的project */
   // getVoteProjectsByHackathonId(hackathonId: string, params: object) {

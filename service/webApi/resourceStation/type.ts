@@ -7,28 +7,35 @@ export enum HackathonStatusType {
 
 export interface MentorType {
   name: string;
-  title?: string;
+  title: string;
   picture: string;
-  id?: string;
+  id: string;
+}
+
+export interface HackathonPartners {
+  title: string;
+  list: MentorType[];
 }
 
 export interface HackathonRewardType {
-  desc: string;
+  id: string;
+  hackathoId: string;
+  mode: string;
+  rule: string;
   name: string;
-  totalPlace: number;
-  place: number[];
+  totalRewards: number;
+  rewards: Record<string, any>;
+  rewardsArr: Record<string, any>[];
 }
 export interface HackathonScheduleType {
   id: string;
-  desc: string;
-  time: string;
-  isExpand?: boolean;
-  children: {
-    desc: string;
-    link?: string;
-    time: string;
-    address?: string;
-  }[];
+  eventName: string;
+  startTime: string;
+  endTime: string;
+  speakerNames: string;
+  description: string;
+  link: string;
+  address: string;
 }
 
 export interface HackathonMemberType {
@@ -59,45 +66,101 @@ export interface HacakthonFaqType {
   answer: string;
   id: string;
 }
+
+export enum HackathonSubmissionStatus {
+  INFO = 'INFO',
+  APPLICATION = 'APPLICATION',
+  SUBMISSION = 'SUBMISSION',
+  LINKS = 'LINKS',
+  COVER = 'COVER',
+  TIMELINE = 'TIMELINE',
+  REWARDS = 'REWARDS',
+  JUDGING = 'JUDGING'
+}
+
+export interface HackathonInfoType {
+  address: string;
+  application: {
+    applicationField: string;
+  };
+  submission: {
+    submissionField: string;
+  };
+  sponsors: HackathonPartners;
+  partners: HackathonPartners;
+  mediaPartners: HackathonPartners;
+  speakers: HackathonPartners;
+  communityPartners: HackathonPartners;
+  conduct: string;
+  description: string;
+  host: string;
+  image: string;
+  intro: string;
+  schedule: {
+    title: string;
+    list: HackathonScheduleType[];
+  };
+  mode: string;
+  faqs: {
+    title: string;
+    list: HacakthonFaqType[];
+  };
+}
+
+export interface HackathonJudgeAccountType {
+  email: string;
+  nickname: string;
+  avatar: string;
+}
+
+export interface HackathonJudgeType {
+  id: string;
+  judgeAccounts: HackathonJudgeAccountType[];
+  resource: string;
+  votesProportion: number[];
+}
+
+export interface HackathonLinkType {
+  email: string;
+  id: string;
+  links: Record<string, any>;
+  website: string;
+}
+
+export interface HackathonTimeLineType {
+  id: string;
+  openReviewSame: boolean;
+  openTime: string;
+  openTimeEnd: string;
+  reviewTime: string;
+  reviewTimeEnd: string;
+  rewardTime: string;
+  timeZone: string;
+}
+
+export type HackathonTimeLineKeyType = 'openTime' | 'openTimeEnd' | 'reviewTime' | 'reviewTimeEnd' | 'rewardTime';
+
+export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners';
+export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
+export type HackathonInfoSPKeys = HackathonInfoParterKeys | HackathonInfoSponsorsKeys;
 export interface HackathonType {
   id: string;
   name: string;
-  image: string;
-  about: CustomComponent[];
-  theme: CustomComponent[];
-  resources: CustomComponent[];
-  participants: number;
+  info: HackathonInfoType;
+  judge: HackathonJudgeType;
+  links: HackathonLinkType;
   memberCount: number;
-  hosts: Omit<MentorType, 'title'>[];
-  coHosts: Omit<MentorType, 'title'>[];
-  startTime: string;
-  endTime: string;
-  address: string;
-  applyLink: string;
-  guestsAndMentors: MentorType[];
-  mediaPartners: MentorType[];
-  communityPartners: MentorType[];
-  partners: MentorType[];
-  status: HackathonStatusType;
   alias: string;
-  rewardTime: string;
-  rewards: HackathonRewardType[];
-  openTime: string;
-  reviewTime: string;
-  schedule: HackathonScheduleType[];
-  participation?: HackathonRegisterInfo;
+  status: HackathonSubmissionStatus;
   members: HackathonMemberType[];
-  version: string;
-  voteRules: CustomComponent[];
+  sectionSequences: string[];
+  participation?: HackathonRegisterInfo;
+  rewards: HackathonRewardType[];
+  timeline: HackathonTimeLineType;
   votes: HackathonTypeVotesType;
-  remainingVote: number;
+  totalPrize: number;
   projectCount: number;
-  totalPlace: number;
-
-  speakersAndJudges: HackathonMemberType[];
-  sponsors: HackathonMemberType[];
-  description: string;
-  faqs: HacakthonFaqType[];
+  remainingVote: number;
 }
 
 export interface JoinedHackathonType {

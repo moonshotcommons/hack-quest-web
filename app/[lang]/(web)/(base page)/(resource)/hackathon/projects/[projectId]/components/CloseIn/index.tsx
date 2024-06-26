@@ -22,7 +22,7 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const isEnd = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.rewardTime);
+    return dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
   }, [hackathon]);
   if ((isEnd && (!project.vote || rankInfo?.rank !== 1)) || !rankInfo || !hackathon) return null;
   return (
@@ -39,7 +39,7 @@ const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
           <>
             <span className="body-s text-neutral-medium-gray">{t('hackathonVoting.votingCloseIn')}</span>
             <CountDown
-              time={hackathon?.rewardTime}
+              time={hackathon?.timeline?.rewardTime}
               countItemClassName={'bg-neutral-white body-l-bold'}
               formatClassName="body-m"
             />
