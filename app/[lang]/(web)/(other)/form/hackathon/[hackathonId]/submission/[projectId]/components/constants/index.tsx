@@ -45,10 +45,20 @@ export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: ProjectSubmitStepType; 
 ];
 
 export const getHackathonSteps = (hackathonId: string) => {
-  hackathonId = '12112';
   switch (hackathonId) {
     case HackathonPartner.Linea:
       return HACKATHON_SUBMIT_STEPS;
+    case HackathonPartner.Hack4Bengal: {
+      const steps = HACKATHON_SUBMIT_STEPS.filter((step) => {
+        return ![
+          ProjectSubmitStepType.PROJECT,
+          ProjectSubmitStepType.PITCH_VIDEO,
+          ProjectSubmitStepType.WALLET,
+          ProjectSubmitStepType.LINKS
+        ].includes(step.type);
+      });
+      return steps.map((item, index) => ({ ...item, stepNumber: index }));
+    }
     default: {
       const steps = HACKATHON_SUBMIT_STEPS.filter((step) => {
         return ![ProjectSubmitStepType.PROJECT, ProjectSubmitStepType.LINKS].includes(step.type);
@@ -59,7 +69,6 @@ export const getHackathonSteps = (hackathonId: string) => {
 };
 
 export const getHackathonStepInfo = (hackathonId: string, type: ProjectSubmitStepType) => {
-  hackathonId = '12112';
   const steps = getHackathonSteps(hackathonId);
   const currentStep = steps.find((step) => step.type === type)!;
   const nextStep = currentStep && steps[currentStep.stepNumber + 1];
@@ -152,5 +161,6 @@ export const ProjectTypes = [
 ];
 
 export enum HackathonPartner {
-  Linea = '61b378f5-14ce-4136-b0f4-74b659175013'
+  Linea = '61b378f5-14ce-4136-b0f4-74b659175013',
+  Hack4Bengal = 'f56dcb6f-5e0e-4ef4-a456-d036fbc5c2da'
 }

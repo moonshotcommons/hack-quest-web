@@ -175,6 +175,58 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           <span className="body-m flex items-center  text-neutral-off-black">Open Source</span>
           <span className="body-m text-neutral-off-black">{others.isPublic ? 'Yes' : 'No'}</span>
         </div>
+        {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+          <>
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Figma</span>
+              {others.links?.figma && (
+                <Link
+                  href={others.links?.figma}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {others.links?.figma}
+                </Link>
+              )}
+            </div>
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Playstore</span>
+              {others.links?.playstore && (
+                <Link
+                  href={others.links?.playstore}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {others.links?.playstore}
+                </Link>
+              )}
+            </div>
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Google Drive</span>
+              {others.links?.googleDrive && (
+                <Link
+                  href={others.links?.googleDrive}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {others.links?.googleDrive}
+                </Link>
+              )}
+            </div>
+            <div className="flex flex-1 items-center justify-between gap-4">
+              <span className="body-m flex items-center  text-neutral-off-black">Other</span>
+              {others.links?.other && (
+                <Link
+                  href={others.links?.other}
+                  className="body-m inline-block w-7/12 truncate text-neutral-off-black"
+                  target="_blank"
+                >
+                  {others.links?.other}
+                </Link>
+              )}
+            </div>
+          </>
+        )}
       </div>
     );
   }
@@ -246,9 +298,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           gotoStep(currentStep.stepNumber);
         }}
       >
-        <div className="flex flex-1 items-center">
+        <div className="flex flex-1 items-center overflow-hidden">
           <span className="body-l-bold flex w-[130px] items-center text-neutral-off-black">Project Demo</span>
-          {formState.projectDemo && (
+          {formState.projectDemo && simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
             <Image
               src={'/images/icons/video_icon.png'}
               alt="demo video"
@@ -256,6 +308,11 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
               height={48}
               className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
             />
+          )}
+          {formState.projectDemo && simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <Link href={formState.projectDemo} className="body-m inline-block w-7/12 truncate text-neutral-off-black">
+              {formState.projectDemo}
+            </Link>
           )}
         </div>
         {arrowIcon}
@@ -352,18 +409,34 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             <span className="body-m flex items-center  text-neutral-off-black">Name</span>
             <span className="body-m text-neutral-off-black">{info.projectName}</span>
           </div>
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">Location</span>
+              <span className="body-m text-neutral-off-black">{LOCATIONS_SHORT[info.location as ProjectLocation]}</span>
+            </div>
+          )}
           <div className="flex flex-1 items-center justify-between">
-            <span className="body-m flex items-center  text-neutral-off-black">Location</span>
-            <span className="body-m text-neutral-off-black">{LOCATIONS_SHORT[info.location as ProjectLocation]}</span>
+            <span className="body-m flex items-center text-neutral-off-black">Prize Track</span>
+            <span className="body-m text-right text-neutral-off-black">{info.prizeTrack}</span>
           </div>
-          <div className="flex flex-1 items-center justify-between">
-            <span className="body-m flex items-center  text-neutral-off-black">Prize Track</span>
-            <span className="body-m text-neutral-off-black">{info.prizeTrack}</span>
-          </div>
-          <div className="flex flex-1 items-center justify-between">
-            <span className="body-m flex items-center  text-neutral-off-black">Hackathon Track</span>
-            <span className="body-m text-neutral-off-black">{info.track}</span>
-          </div>
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center text-neutral-off-black">Hackathon Track</span>
+              <span className="body-m text-neutral-off-black">{info.track}</span>
+            </div>
+          )}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">Team ID</span>
+              <span className="body-m text-neutral-off-black">{info.teamID}</span>
+            </div>
+          )}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <div className="flex flex-1 items-center justify-between">
+              <span className="body-m flex items-center  text-neutral-off-black">Room Number</span>
+              <span className="body-m text-neutral-off-black">{info.roomNumber}</span>
+            </div>
+          )}
         </div>
         {/* Track */}
         <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
@@ -376,6 +449,30 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
           <span>Detailed Introduction</span>
           <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.detailedIntro}</p>
         </div>
+        {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+          <>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+              <span>Tagline</span>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.tagline}</p>
+            </div>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+              <span>The problem it solves</span>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.solvedProblem}</p>
+            </div>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+              <span>Challenges I ran into</span>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.tagline}</p>
+            </div>
+            <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+            <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+              <span>Technologies I used</span>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.tagline}</p>
+            </div>
+          </>
+        )}
       </div>
     );
   }

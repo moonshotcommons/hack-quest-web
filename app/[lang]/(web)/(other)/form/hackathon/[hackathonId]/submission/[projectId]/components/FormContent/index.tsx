@@ -1,6 +1,6 @@
 'use client';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { HACKATHON_SUBMIT_STEPS, getHackathonSteps } from '../constants';
+import { HACKATHON_SUBMIT_STEPS, HackathonPartner, getHackathonSteps } from '../constants';
 import FormComponent from '../FormComponent';
 import FormHeader from '../FormHeader';
 import { HackathonSubmitStateType } from '../../type';
@@ -31,13 +31,25 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       location: '',
       track: '',
       intro: '',
-      detailedIntro: ''
+      detailedIntro: '',
+      tagline: '',
+      technologies: '',
+      solvedProblem: '',
+      challenges: '',
+      teamID: '',
+      roomNumber: ''
     },
     pitchVideo: '',
     projectDemo: '',
     others: {
       githubLink: '',
-      isPublic: undefined
+      isPublic: undefined,
+      links: {
+        figma: '',
+        playstore: '',
+        googleDrive: '',
+        other: ''
+      }
     },
     project: {
       efrog: undefined,
@@ -94,7 +106,13 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       isOpenSource,
       status,
       thumbnail,
-      wallet
+      wallet,
+      tagline,
+      technologies,
+      solvedProblem,
+      challenges,
+      teamID,
+      roomNumber
     } = projectInfo!;
 
     const currentStep = steps.find((step) => step.type === status)!;
@@ -109,7 +127,13 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       track: tracks.join(','),
       location: location,
       intro: introduction,
-      detailedIntro: description
+      detailedIntro: description,
+      tagline,
+      technologies,
+      solvedProblem,
+      challenges,
+      teamID,
+      roomNumber
     };
 
     setFormState({
@@ -121,8 +145,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
         submitType: submitType
       },
       links: {
-        ...formState.links,
-        ...links
+        ...(formState.links || {}),
+        ...(links || {})
       },
       status,
       projectId: id,
@@ -130,7 +154,11 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       projectDemo: demo,
       others: {
         isPublic: isOpenSource,
-        githubLink
+        githubLink,
+        links: {
+          ...(formState.others.links || {}),
+          ...(links || {})
+        }
       },
       wallet
     });
@@ -164,11 +192,15 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       formData.append('introduction', formState.info.intro);
       formData.append('description', formState.info.detailedIntro);
       formData.append('githubLink', formState.others.githubLink);
+
       formData.append('isOpenSource', String(formState.others.isPublic));
       formData.append('efrog', String(formState.project.efrog));
       formData.append('croak', String(formState.project.croak));
       formData.append('submitType', String(formState.project.submitType));
-      formData.append('links', JSON.stringify(formState.links));
+      simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal &&
+        formData.append('links', JSON.stringify(formState.links));
+      simpleHackathonInfo.id === HackathonPartner.Hack4Bengal &&
+        formData.append('links', JSON.stringify(formState.others.links));
       formData.append('status', status);
 
       return webApi.resourceStationApi.submitProject(
