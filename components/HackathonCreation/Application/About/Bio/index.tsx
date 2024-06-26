@@ -31,8 +31,18 @@ export const BioConfig: PresetComponentConfig<BioProps> = {
     placeholder: '',
     maxField: 360
   },
-  validate(values: { bio: string }, form) {
-    return [getValidateResult(z.string().min(10).max(360).safeParse(values.bio), form, 'bio')];
+  validate(values: { bio: string }, form, config) {
+    return [
+      getValidateResult(
+        z
+          .string()
+          .min(config.optional ? 0 : 1)
+          .max(360)
+          .safeParse(values.bio),
+        form,
+        'bio'
+      )
+    ];
   }
 };
 

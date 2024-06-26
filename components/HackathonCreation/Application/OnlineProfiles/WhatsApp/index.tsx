@@ -27,7 +27,8 @@ export const WhatsAppConfig: PresetComponentConfig<WhatsAppProps, CustomComponen
   optional: false,
   property: {
     label: 'WhatsApp',
-    placeholder: 'Enter a WhatsApp Account'
+    placeholder: 'Enter a WhatsApp Account',
+    name: 'whatsApp'
   },
   validate(values: { whatsApp: string }, form) {
     return [getValidateResult(z.string().min(10).max(100).safeParse(values.whatsApp), form, 'whatsApp')];

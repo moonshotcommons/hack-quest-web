@@ -13,7 +13,7 @@ interface FormRadioItemProps<TFieldValues extends FieldValues = FieldValues> {
   setSelect?: (v: any[]) => void;
 }
 
-const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
+export const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
   form,
   name,
   value,

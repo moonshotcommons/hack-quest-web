@@ -30,8 +30,8 @@ export const FacebookConfig: PresetComponentConfig<FacebookProps, CustomComponen
     placeholder: 'Enter a Facebook Account',
     name: 'facebook'
   },
-  validate(values: { Facebook: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.Facebook), form, 'Facebook')];
+  validate(values: { facebook: string }, form) {
+    return [getValidateResult(z.string().min(10).max(100).safeParse(values.facebook), form, 'facebook')];
   }
 };
 

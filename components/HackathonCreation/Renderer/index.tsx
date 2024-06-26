@@ -29,6 +29,7 @@ export const renderFormComponent = (config: CustomComponentConfig, form: any) =>
     case CustomFormComponentType.Textarea:
       return null;
     default:
+      console.log(PresetComponentMap);
       if (PresetComponentMap[config.type]) {
         const Component = PresetComponentMap[config.type].component;
         return <Component {...config.property} config={config} form={form}></Component>;

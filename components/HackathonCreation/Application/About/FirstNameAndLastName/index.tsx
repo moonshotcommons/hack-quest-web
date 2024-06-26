@@ -18,7 +18,7 @@ const FirstNameAndLastName: FC<FirstNameAndLastNameProps> = ({ form }) => {
   );
 };
 
-FirstNameAndLastName.displayName = 'FirstNameAndLastName';
+FirstNameAndLastName.displayName = 'First and Last Name';
 
 export const FirstNameAndLastNameConfig: PresetComponentConfig<FirstNameAndLastNameProps> = {
   id: v4(),
@@ -26,11 +26,27 @@ export const FirstNameAndLastNameConfig: PresetComponentConfig<FirstNameAndLastN
   optional: false,
   component: FirstNameAndLastName,
   property: {},
-  validate(values: { firstName: string; lastName: string }, form) {
+  validate(values: { firstName: string; lastName: string }, form, config) {
     const { firstName, lastName } = values;
     return [
-      getValidateResult(z.string().min(1).max(30).safeParse(firstName), form, 'firstName'),
-      getValidateResult(z.string().min(1).max(30).safeParse(lastName), form, 'lastName')
+      getValidateResult(
+        z
+          .string()
+          .min(config.optional ? 0 : 1)
+          .max(30)
+          .safeParse(firstName),
+        form,
+        'firstName'
+      ),
+      getValidateResult(
+        z
+          .string()
+          .min(config.optional ? 0 : 1)
+          .max(30)
+          .safeParse(lastName),
+        form,
+        'lastName'
+      )
     ];
   }
 };

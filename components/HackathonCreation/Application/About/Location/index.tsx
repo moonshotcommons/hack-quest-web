@@ -30,8 +30,18 @@ export const LocationConfig: PresetComponentConfig<LocationProps, CustomComponen
     placeholder: 'e.g. Paris, France',
     name: 'location'
   },
-  validate(values: { location: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.location), form, 'location')];
+  validate(values: { location: string }, form, config) {
+    return [
+      getValidateResult(
+        z
+          .string()
+          .min(config.optional ? 0 : 1)
+          .max(100)
+          .safeParse(values.location),
+        form,
+        'location'
+      )
+    ];
   }
 };
 

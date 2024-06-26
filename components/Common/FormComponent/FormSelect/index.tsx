@@ -12,7 +12,7 @@ interface FormSelectProps<TFieldValues extends FieldValues = FieldValues> {
   items: { label: string; value: any }[];
 }
 
-const FormSelect = <TFieldValues extends FieldValues = FieldValues>({
+export const FormSelect = <TFieldValues extends FieldValues = FieldValues>({
   form,
   label,
   name,

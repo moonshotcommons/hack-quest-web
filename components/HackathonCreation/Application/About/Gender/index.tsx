@@ -30,7 +30,10 @@ export const GenderConfig: PresetComponentConfig<GenderProps> = {
   optional: false,
   component: Gender,
   property: {},
-  validate(values: { gender: string }, form) {
+  validate(values: { gender: string }, form, config) {
+    if (config.optional) {
+      return [true];
+    }
     return [
       getValidateResult(
         z.enum(['Man', 'Woman', 'Others'], { required_error: 'You need to select a gender' }).safeParse(values.gender),

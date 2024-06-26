@@ -30,8 +30,18 @@ export const UniversityConfig: PresetComponentConfig<UniversityProps, CustomComp
     name: 'university',
     placeholder: 'e.g. Cambridge University'
   },
-  validate(values: { university: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.university), form, 'university')];
+  validate(values: { university: string }, form, config) {
+    return [
+      getValidateResult(
+        z
+          .string()
+          .min(config.optional ? 0 : 1)
+          .max(100)
+          .safeParse(values.university),
+        form,
+        'university'
+      )
+    ];
   }
 };
 

@@ -28,7 +28,7 @@ export const QQConfig: PresetComponentConfig<QQProps, CustomComponentConfig['pro
   property: {
     label: 'QQ',
     placeholder: 'Enter a QQ Account',
-    name: 'QQ'
+    name: 'qq'
   },
   validate(values: { qq: string }, form) {
     return [getValidateResult(z.string().min(10).max(100).safeParse(values.qq), form, 'qq')];
