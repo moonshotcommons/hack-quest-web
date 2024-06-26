@@ -27,6 +27,7 @@ export interface PresetComponentConfig<T = {}, P = {}> {
   component: FC<T>;
   settingComponent?: FC<any> | null | undefined;
   required?: boolean;
+  selected?: boolean;
   property: (T extends { form: any } ? Omit<T, 'form' | 'config'> : T) & P;
   validate: (values: any, form: UseFormReturn<FieldValues, any, undefined>) => boolean[];
 }
