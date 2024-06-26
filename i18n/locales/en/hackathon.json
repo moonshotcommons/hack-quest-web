@@ -54,8 +54,7 @@
     "openZoomMeeting": "Open Zoom meeting",
     "submitWarning": "You are not the team owner, please contact the administrator",
     "editSubmission": "edit submission",
-
-
+    "overview": "Overview",
     "cover":"Cover",
     "judging":"Judging",
     "application":"Application",
@@ -77,6 +76,8 @@
     "contact":"Contact",
     "projectDetail":"Project Detail",
     "additions":"Additions",
+    "videos":"Videos",
+    "basicInfo":"Basic Info",
     "yourContactEmail":"Your Contact Email",
     "linkToCodeOfConduct":"Link to Code of Conduct",
     "discord":"Discord",
@@ -105,9 +106,8 @@
     "confirmRemove":"Do you want to remove this {{block}}",
     "faqs":"FAQs",
     "description":"Description",
-    "rewardsAndProjects":"Rewards and Projects"
-
-
+    "rewardsAndProjects":"Rewards and Projects",
+    "viewDetail":"View Detail"
   },
   "projectsDetail": {
     "title": {
