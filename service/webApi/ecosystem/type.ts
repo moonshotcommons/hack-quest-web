@@ -1,6 +1,7 @@
 import { Lang } from '@/i18n/config';
 import { CourseDetailType } from '../course/type';
 import { CertificationType } from '../campaigns/type';
+import { HackathonType } from '../resourceStation/type';
 
 export interface EcosystemType {
   id: string;
@@ -44,6 +45,7 @@ export interface EcosystemTask {
   subTitle: string;
   courses: CourseDetailType[];
   learningTracks: CourseDetailType[];
+  hackathons?: HackathonType[];
   extra?: {
     link: string;
   };
