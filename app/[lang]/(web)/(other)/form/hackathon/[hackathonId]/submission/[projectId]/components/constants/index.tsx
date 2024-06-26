@@ -44,6 +44,28 @@ export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: ProjectSubmitStepType; 
   }
 ];
 
+export const getHackathonSteps = (hackathonId: string) => {
+  hackathonId = '12112';
+  switch (hackathonId) {
+    case HackathonPartner.Linea:
+      return HACKATHON_SUBMIT_STEPS;
+    default: {
+      const steps = HACKATHON_SUBMIT_STEPS.filter((step) => {
+        return ![ProjectSubmitStepType.PROJECT, ProjectSubmitStepType.LINKS].includes(step.type);
+      });
+      return steps.map((item, index) => ({ ...item, stepNumber: index }));
+    }
+  }
+};
+
+export const getHackathonStepInfo = (hackathonId: string, type: ProjectSubmitStepType) => {
+  hackathonId = '12112';
+  const steps = getHackathonSteps(hackathonId);
+  const currentStep = steps.find((step) => step.type === type)!;
+  const nextStep = currentStep && steps[currentStep.stepNumber + 1];
+  return { currentStep, nextStep };
+};
+
 export const LOCATIONS_SHORT = {
   [ProjectLocation.AMERICAS]: 'Americas',
   [ProjectLocation.ASIA_PACIFIC]: 'Asia Pacific',
@@ -128,3 +150,7 @@ export const ProjectTypes = [
     value: 'Other'
   }
 ];
+
+export enum HackathonPartner {
+  Linea = '61b378f5-14ce-4136-b0f4-74b659175013'
+}

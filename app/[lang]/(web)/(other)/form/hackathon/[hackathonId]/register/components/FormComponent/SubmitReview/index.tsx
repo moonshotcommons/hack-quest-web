@@ -14,6 +14,7 @@ import { isEmpty } from 'lodash-es';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { HackathonPartner } from '../../../../submission/[projectId]/components/constants';
 interface SubmitReviewProps {}
 
 const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
@@ -231,12 +232,12 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         </Button>
       </div>
       <ConfirmModal ref={confirmModalRef}>
-        {isRegister && (
+        {(isRegister || simpleHackathonInfo.id !== HackathonPartner.Linea) && (
           <h4 className="text-h4 mb-9 text-center text-neutral-black">
             Do you want to {isRegister ? 'update' : 'register'} this hackathon?
           </h4>
         )}
-        {!isRegister && (
+        {!isRegister && simpleHackathonInfo.id === HackathonPartner.Linea && (
           <>
             <p className="body-s text-center">
               Consensys may use the contact information you provide to us to contact you about our products and

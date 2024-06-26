@@ -1,6 +1,6 @@
 'use client';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { HACKATHON_SUBMIT_STEPS } from '../constants';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { HACKATHON_SUBMIT_STEPS, getHackathonSteps } from '../constants';
 import FormComponent from '../FormComponent';
 import FormHeader from '../FormHeader';
 import { HackathonSubmitStateType } from '../../type';
@@ -55,6 +55,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     isSubmit: false
   });
 
+  const steps = useMemo(() => {
+    return getHackathonSteps(simpleHackathonInfo.id);
+  }, [simpleHackathonInfo]);
+
   const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   const onNext = (state: Partial<HackathonSubmitStateType>) => {
@@ -92,7 +96,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       thumbnail,
       wallet
     } = projectInfo!;
-    const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
+
+    const currentStep = steps.find((step) => step.type === status)!;
     setCurrent(currentStep.stepNumber);
 
     const links = typeof originLinks === 'string' ? JSON.parse(originLinks as string) : originLinks;
@@ -151,7 +156,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
 
   const { runAsync: editRequest } = useRequest(
     () => {
-      const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
+      const status = steps.find((item) => item.stepNumber === current)!.type;
       const formData = new FormData();
       formData.append('name', formState.info.projectName);
       formData.append('hackathonId', simpleHackathonInfo.id);
@@ -204,7 +209,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
       <FormHeader
-        steps={HACKATHON_SUBMIT_STEPS}
+        steps={steps}
         current={current}
         description="Hackathon Submission"
         title={simpleHackathonInfo?.name || ''}
@@ -216,7 +221,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       )}
       {current > -1 && (
         <FormComponent
-          type={HACKATHON_SUBMIT_STEPS[current].type}
+          type={steps[current].type}
           simpleHackathonInfo={simpleHackathonInfo}
           onNext={onNext}
           onBack={onBack}
