@@ -105,10 +105,10 @@ export default function Page() {
             <RewardsForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.APPLICATION}>
-            <ApplicationForm />
+            <ApplicationForm initialValues={data} />
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.SUBMISSION}>
-            <SubmissionForm />
+            <SubmissionForm initialValues={data} />
           </ResizablePanel.Content>
         </ResizablePanel.Root>
       </div>

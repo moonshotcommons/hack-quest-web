@@ -37,7 +37,7 @@ const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
           </div>
         )}
         <div>
-          <p className="text-neutral-medium-gray">{t('description')}</p>
+          <p className="text-neutral-medium-gray">{'Description'}</p>
           <p className="text-neutral-rich-gray">{hackathon.info?.description}</p>
         </div>
       </div>

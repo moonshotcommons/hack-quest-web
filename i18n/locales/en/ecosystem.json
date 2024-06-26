@@ -34,5 +34,7 @@
   "project": "project",
   "completed_empty": "You don’t have a completed {{name}}",
   "enrolled_empty": "You’re not enrolled in any {{name}}",
-  "continue": "Continue"
+  "continue": "Continue",
+  "submitted": "Submitted",
+  "learn_more": "Learn More"
 }

@@ -4,7 +4,7 @@ import { CustomComponentConfig, FormCustomComponent } from '../type';
 import { v4 } from 'uuid';
 import { CustomFormComponentType } from '../Renderer';
 
-export const IGNORE_FIELDS = ['component', 'validate', 'settingComponent'];
+export const IGNORE_FIELDS = ['component', 'validate', 'settingComponent'] as const;
 
 export const getValidateResult = (
   validResult: z.SafeParseReturnType<string, string>,
