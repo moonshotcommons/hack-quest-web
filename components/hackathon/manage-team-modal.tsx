@@ -94,15 +94,6 @@ export function ManageTeamModal() {
     queryFn: () => webApi.resourceStationApi.getHackathonTeamDetail(code)
   });
 
-  // const removeTeamMutation = useMutation({
-  //   mutationKey: ['removeTeam', code],
-  //   mutationFn: () => webApi.resourceStationApi.deleteTeam(code),
-  //   onSuccess: () => {
-  //     onClose();
-  //     router.refresh();
-  //   }
-  // });
-
   const onDeleteGroup = (team: HackathonTeam) => {
     groupActionConfirmRef.current?.open<ActionType.DeleteTeam>({
       type: ActionType.DeleteTeam,
