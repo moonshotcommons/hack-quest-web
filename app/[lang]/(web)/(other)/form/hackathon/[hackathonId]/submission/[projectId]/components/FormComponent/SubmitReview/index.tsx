@@ -468,12 +468,12 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext' | 'tracks'>> =
             <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
             <div className="body-m flex flex-col gap-1 text-neutral-off-black">
               <span>Challenges I ran into</span>
-              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.tagline}</p>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.challenges}</p>
             </div>
             <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
             <div className="body-m flex flex-col gap-1 text-neutral-off-black">
               <span>Technologies I used</span>
-              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.tagline}</p>
+              <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.technologies}</p>
             </div>
           </>
         )}
