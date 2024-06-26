@@ -272,26 +272,25 @@ export function TimelineForm({
   }, [isValid, isEditMode]);
 
   React.useEffect(() => {
-    if (timezone) {
+    if (timezone && !initialValues?.timeline) {
       form.reset({ timeZone: timezone, openReviewSame: 'false' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timezone]);
+  }, [timezone, initialValues?.timeline]);
 
   const openReviewSame = form.watch('openReviewSame');
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    if (data.openReviewSame === 'true') {
-      data = {
-        ...data,
-        reviewTime: data.openTime,
-        openTimeEnd: data.reviewTimeEnd
-      };
-    }
+    const isSame = data.openReviewSame === 'true';
     const values = {
       id: initialValues?.id,
-      ...data,
-      openReviewSame: data.openReviewSame === 'true'
+      timeZone: data.timeZone,
+      openReviewSame: isSame,
+      openTime: new Date(data.openTime).toJSON(),
+      openTimeEnd: isSame ? new Date(data.reviewTimeEnd).toJSON() : new Date(data.openTimeEnd!).toJSON(),
+      reviewTime: isSame ? new Date(data.openTime).toJSON() : new Date(data.reviewTime!).toJSON(),
+      reviewTimeEnd: new Date(data.reviewTimeEnd).toJSON(),
+      rewardTime: new Date(data.rewardTime).toJSON()
     };
     mutation.mutate(values);
   }
@@ -299,6 +298,21 @@ export function TimelineForm({
   function onCancelOrBack() {
     isEditMode ? onCancel?.() : onPrevious();
   }
+
+  React.useEffect(() => {
+    if (initialValues?.timeline) {
+      form.reset({
+        openReviewSame: initialValues?.timeline?.openReviewSame?.toString(),
+        timeZone: initialValues?.timeline?.timeZone,
+        openTime: new Date(initialValues?.timeline?.openTime).toISOString().slice(0, 16),
+        openTimeEnd: new Date(initialValues?.timeline?.openTimeEnd).toISOString().slice(0, 16),
+        reviewTime: new Date(initialValues?.timeline?.reviewTime).toISOString().slice(0, 16),
+        reviewTimeEnd: new Date(initialValues?.timeline?.reviewTimeEnd).toISOString().slice(0, 16),
+        rewardTime: new Date(initialValues?.timeline?.rewardTime).toISOString().slice(0, 16)
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues?.timeline]);
 
   return (
     <Form {...form}>
