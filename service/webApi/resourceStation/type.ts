@@ -78,14 +78,46 @@ export enum HackathonSubmissionStatus {
   JUDGING = 'JUDGING'
 }
 
+export interface HackathonApplicationLabelType {
+  id: string;
+  property: {
+    label: string;
+    name: string;
+    placeholder: string;
+  };
+  required: boolean;
+  selected: boolean;
+  optional: boolean;
+  type: string;
+}
+
+export interface HackathonApplicationPropertyType {
+  id: string;
+  property: {
+    maxSize: number;
+    minSize: number;
+    type: string;
+  };
+  type: string;
+}
+export interface HackathonApplicationType {
+  About: HackathonApplicationLabelType[];
+  Contact: HackathonApplicationLabelType[];
+  OnlineProfiles: HackathonApplicationLabelType[];
+  ApplicationType: HackathonApplicationPropertyType;
+}
+
+export interface HackathonSubmissionType {
+  Additions: HackathonApplicationLabelType[];
+  BasicInfo: HackathonApplicationLabelType[];
+  ProjectDetail: HackathonApplicationLabelType[];
+  Videos: HackathonApplicationLabelType[];
+}
+
 export interface HackathonInfoType {
   address: string;
-  application: {
-    applicationField: string;
-  };
-  submission: {
-    submissionField: string;
-  };
+  application: HackathonApplicationType;
+  submission: HackathonSubmissionType;
   sponsors: HackathonPartners;
   partners: HackathonPartners;
   mediaPartners: HackathonPartners;

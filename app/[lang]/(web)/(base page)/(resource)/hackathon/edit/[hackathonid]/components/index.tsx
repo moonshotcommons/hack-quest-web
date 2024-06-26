@@ -21,6 +21,7 @@ import AddSection from '../../../components/HackathonDetail/AddSection';
 import HandleEditModal from '../../../components/HackathonDetail/HandleEditModal';
 import { OffsetTopsType } from '../../../constants/type';
 import EditInfo from '../../../components/HackathonDetail/EditInfo';
+import ViewButton from '../../../components/HackathonDetail/ViewButton';
 
 interface HackathonEditDetailProp {
   hackathon: HackathonType;
@@ -90,6 +91,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
     setTimeout(() => {
       getOffsetTops();
     }, 300);
+    console.info(hackathon);
   }, [hackathon]);
   return (
     <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>
@@ -116,8 +118,9 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
                 <AddSection hackathon={hackathon} />
               </div>
               <div className="relative w-[39%]">
-                <div className="sticky left-0 top-[70px]">
+                <div className="sticky left-0 top-[70px] flex flex-col gap-[48px]">
                   <EditInfo hackathon={hackathon} />
+                  <ViewButton hackathon={hackathon} />
                 </div>
               </div>
             </div>

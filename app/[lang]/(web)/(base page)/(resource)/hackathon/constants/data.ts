@@ -103,6 +103,29 @@ export const initDetailNavs = [
   {
     label: 'hackathonDetail.description',
     value: 'description'
+  },
+  {
+    label: 'hackathonDetail.judging',
+    value: 'judging'
+  }
+];
+
+export const initMobileDetailNavs = [
+  {
+    label: 'hackathonDetail.overview',
+    value: 'overview'
+  },
+  {
+    label: 'hackathonDetail.description',
+    value: 'description'
+  },
+  {
+    label: 'hackathonDetail.timeline',
+    value: 'timeline'
+  },
+  {
+    label: 'hackathonDetail.judging',
+    value: 'judging'
   }
 ];
 

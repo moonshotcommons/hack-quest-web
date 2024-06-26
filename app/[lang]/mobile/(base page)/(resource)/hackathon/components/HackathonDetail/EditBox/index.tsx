@@ -32,7 +32,7 @@ const EditBox: React.FC<EditBoxProp> = ({
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { setModalType, isEdit } = useContext(HackathonEditContext);
   return (
-    <div className="flex flex-col gap-[1rem]">
+    <div className="flex flex-col gap-[1rem] px-[1.25rem]">
       {title && (
         <div className="flex items-center justify-between">
           <Title title={title} />

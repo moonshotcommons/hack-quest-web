@@ -12,8 +12,9 @@ import DetailInfo from '../../components/HackathonDetail/DetailInfo';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import Description from '../../components/HackathonDetail/Decription';
 import RewardsProjects from '../../components/HackathonDetail/RewardsProjects';
-import { initDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
+import { initMobileDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import EditNav from '../../components/HackathonDetail/EditNav';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -42,11 +43,13 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     const newOffsetTops = [];
     const childNodes = contentRef.current?.childNodes || [];
     for (let i = 0; i < childNodes?.length; i++) {
-      const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
-      newOffsetTops.push({
-        title: ``,
-        offsetTop: offsetTop
-      });
+      if (i !== 1) {
+        const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
+        newOffsetTops.push({
+          title: ``,
+          offsetTop: offsetTop - 60
+        });
+      }
     }
     setOffsetTops(newOffsetTops);
   };
@@ -75,7 +78,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
         label: `hackathonDetail.${v.type}`,
         value: v.type
       }));
-    const list = [...initDetailNavs, ...addList];
+    const list = [...initMobileDetailNavs, ...addList];
     const rewards =
       index < 2
         ? {
@@ -96,15 +99,11 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     }, 300);
   }, []);
   return (
-    <div
-      className="scroll-wrap-y h-[calc(100vh-4rem)] px-[1.25rem] pb-[6.25rem] pt-[1.25rem]"
-      ref={boxRef}
-      onScroll={handleScoll}
-    >
+    <div className="scroll-wrap-y h-[calc(100vh-4rem)] pb-[6.25rem]" ref={boxRef} onScroll={handleScoll}>
       {hackathon.id && (
-        <div className="flex flex-col gap-[3.75rem]">
+        <div className="relative flex flex-col gap-[3.75rem]  pt-[1.25rem]" ref={contentRef}>
           <DetailInfo hackathon={hackathon} />
-          {/* <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} /> */}
+          <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
           <Description hackathon={hackathon} />
           <TimeLine hackathon={hackathon} />
 
