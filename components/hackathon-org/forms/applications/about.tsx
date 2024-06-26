@@ -28,6 +28,17 @@ export function About() {
     setAboutState(newValues);
   };
 
+  function onConfirm(data: any) {
+    const newValues = [...aboutState];
+    const index = aboutState.findIndex((i) => i.id === data.id);
+    if (index !== -1) {
+      newValues[index] = data;
+      setAboutState(newValues);
+    } else {
+      setAboutState([...aboutState, data]);
+    }
+  }
+
   return (
     <div className="w-full">
       <label className="body-m text-neutral-off-black">About</label>
@@ -60,9 +71,7 @@ export function About() {
       <EditCustomFieldModal
         open={open}
         initialValues={initialValues}
-        onConfirm={(data) => {
-          setAboutState([...aboutState, data]);
-        }}
+        onConfirm={onConfirm}
         onClose={() => {
           toggle(false);
           setInitialValues(undefined);

@@ -28,6 +28,17 @@ export function OnlineProfile() {
     setOnlineProfileState(newValues);
   };
 
+  function onConfirm(data: any) {
+    const newValues = [...onlineProfileState];
+    const index = onlineProfileState.findIndex((i) => i.id === data.id);
+    if (index !== -1) {
+      newValues[index] = data;
+      setOnlineProfileState(newValues);
+    } else {
+      setOnlineProfileState([...onlineProfileState, data]);
+    }
+  }
+
   return (
     <div className="w-full">
       <label className="body-m text-neutral-off-black">Online Profiles</label>
@@ -60,9 +71,7 @@ export function OnlineProfile() {
       <EditCustomFieldModal
         open={open}
         initialValues={initialValues}
-        onConfirm={(data) => {
-          setOnlineProfileState([...onlineProfileState, data]);
-        }}
+        onConfirm={onConfirm}
         onClose={() => {
           toggle(false);
           setInitialValues(undefined);

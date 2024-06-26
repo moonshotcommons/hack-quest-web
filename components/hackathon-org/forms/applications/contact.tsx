@@ -28,6 +28,17 @@ export function Contact() {
     setContactState(newValues);
   };
 
+  function onConfirm(data: any) {
+    const newValues = [...contactState];
+    const index = contactState.findIndex((i) => i.id === data.id);
+    if (index !== -1) {
+      newValues[index] = data;
+      setContactState(newValues);
+    } else {
+      setContactState([...contactState, data]);
+    }
+  }
+
   return (
     <div className="w-full">
       <label className="body-m text-neutral-off-black">Contact</label>
@@ -60,9 +71,7 @@ export function Contact() {
       <EditCustomFieldModal
         open={open}
         initialValues={initialValues}
-        onConfirm={(data) => {
-          setContactState([...contactState, data]);
-        }}
+        onConfirm={onConfirm}
         onClose={() => {
           toggle(false);
           setInitialValues(undefined);

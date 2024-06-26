@@ -55,6 +55,7 @@ export function SubmissionForm({
   }
 
   function onSaveOrNext() {
+    const videos = additionState.filter((i) => i.type === 'Pitch Video' || i.type === 'Project Demo');
     const data = {
       id: initialValues?.id,
       submission: {
@@ -63,9 +64,7 @@ export function SubmissionForm({
         Additions: additionState
           .filter((i) => i.selected)
           .filter((i) => i.type !== 'Pitch Video' && i.type !== 'Project Demo'),
-        Videos: additionState
-          .filter((i) => i.selected)
-          .filter((i) => i.type === 'Pitch Video' || i.type === 'Project Demo')
+        ...(videos.length > 0 && { Videos: videos })
       }
     };
     mutation.mutate(data);

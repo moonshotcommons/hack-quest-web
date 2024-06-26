@@ -89,12 +89,12 @@ export function LinksForm({
   }, [isValid, isEditMode]);
 
   React.useEffect(() => {
-    if (initialValues) {
+    if (initialValues?.links) {
       const values = flattenObj(initialValues?.links);
       form.reset(values);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
+  }, [initialValues?.links]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     const values = {

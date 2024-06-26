@@ -17,7 +17,6 @@ import { AddFieldButton } from '../common/add-field-button';
 import { v4 } from 'uuid';
 import { CustomTextField } from '../common/custom-text-field';
 import { InfoIcon } from 'lucide-react';
-import { useApplicationState } from '../forms/applications/state';
 
 const optionSchema = z.object({
   value: z.string().optional()
@@ -184,7 +183,6 @@ export function EditCustomFieldModal({
   onConfirm?: (data: any) => void;
   onClose?: () => void;
 }) {
-  const { aboutState, setAboutState } = useApplicationState();
   const [value, setValue] = React.useState('radio');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -219,8 +217,6 @@ export function EditCustomFieldModal({
     onConfirm?.(values);
     handleClose();
   }
-
-  console.info(initialValues);
 
   React.useEffect(() => {
     if (open && initialValues) {
@@ -263,17 +259,26 @@ export function EditCustomFieldModal({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="w-[888px] max-w-[888px] gap-6 px-10 pb-10 pt-[60px] shadow-modal">
-        <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
-          Add a New Field
-        </h1>
+      <DialogContent className="no-scrollbar max-h-[825px] w-[888px] max-w-[888px] gap-6 overflow-y-auto px-8 pb-10 pt-[60px] shadow-modal">
+        <div className="px-2">
+          <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
+            {initialValues ? 'Edit Field' : 'Add a New Field'}
+          </h1>
+        </div>
         <Form {...form}>
-          <form className="flex flex-col items-center space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="flex flex-col items-center space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit(onSubmit)();
+            }}
+          >
             <FormField
               control={form.control}
               name="type"
               render={({ field }) => (
-                <FormItem className="w-full space-y-1">
+                <FormItem className="w-full space-y-1 px-2">
                   <FormControl>
                     <RadioGroup
                       value={field.value}
@@ -304,7 +309,7 @@ export function EditCustomFieldModal({
               control={form.control}
               name="label"
               render={({ field }) => (
-                <FormItem className="w-full space-y-1">
+                <FormItem className="w-full space-y-1 px-2">
                   <div className="flex items-center justify-between">
                     <FormLabel>
                       <span className="body-m text-neutral-rich-gray">Question*</span>
@@ -335,7 +340,7 @@ export function EditCustomFieldModal({
               control={form.control}
               name="placeholder"
               render={({ field }) => (
-                <FormItem className="w-full space-y-1">
+                <FormItem className="w-full space-y-1 px-2">
                   <div className="flex items-center justify-between">
                     <FormLabel>
                       <span className="sm:body-m body-s text-neutral-rich-gray">Description</span>
@@ -362,7 +367,7 @@ export function EditCustomFieldModal({
                 </FormItem>
               )}
             />
-            <ResizablePanel.Root value={value} className="w-full pb-2">
+            <ResizablePanel.Root value={value} className="w-full px-2 pb-2">
               <ResizablePanel.Content value="radio">
                 <SelectionForm form={form} />
               </ResizablePanel.Content>
@@ -370,12 +375,12 @@ export function EditCustomFieldModal({
                 <QAForm form={form} />
               </ResizablePanel.Content>
             </ResizablePanel.Root>
-            <div className="flex w-full items-center justify-end gap-2">
+            <div className="flex w-full items-center justify-end gap-2 px-2">
               <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
                 Cancel
               </Button>
               <Button className="w-[165px]" type="submit" disabled={!form.formState.isValid}>
-                Add
+                {initialValues ? 'Save Changes' : 'Add'}
               </Button>
             </div>
           </form>
