@@ -86,7 +86,7 @@ const InfoForm: FC<
     // track: z.string().min(2, {
     //   message: 'You need to select a track.'
     // }),
-    tagline: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    tagline: string().min(0),
     technologies: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     solvedProblem: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     challenges: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
@@ -94,7 +94,7 @@ const InfoForm: FC<
     roomNumber: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     intro: z
       .string()
-      .min(1, {
+      .min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1, {
         message: 'Intro must be at least 2 characters.'
       })
       .max(120, {
@@ -164,7 +164,7 @@ const InfoForm: FC<
       detailedIntro && formData.append('description', detailedIntro);
       intro && formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
-      formData.append('tagline', tagline);
+      // formData.append('tagline', tagline);
       formData.append('technologies', technologies);
       formData.append('solvedProblem', solvedProblem);
       formData.append('challenges', challenges);
