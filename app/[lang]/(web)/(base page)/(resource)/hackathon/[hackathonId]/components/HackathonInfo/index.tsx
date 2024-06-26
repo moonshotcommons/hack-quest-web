@@ -10,7 +10,6 @@ import Box from '../components/Box';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import WarningIcon from '@/components/Common/Icon/Warning';
 import CountDown from '@/components/Web/Business/CountDown';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -128,11 +127,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     );
   };
   return (
-    <Box
-      className={cn('sticky right-0 top-[40px] flex flex-col  gap-4 text-neutral-off-black', {
-        'p-[24px] pb-[20px]': hackathon.allowSubmission || !hackathon.participation?.isRegister
-      })}
-    >
+    <Box className={cn('sticky right-0 top-[40px] flex flex-col  gap-4 text-neutral-off-black')}>
       {hackathon.participation?.isRegister && (
         <div className="flex h-10 w-full items-center justify-center gap-1 bg-yellow-extra-light">
           <span>
@@ -157,12 +152,8 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         </div>
       )}
 
-      <div
-        className={cn('flex flex-col  gap-4', {
-          'px-6 pb-5': hackathon.participation?.isRegister && !hackathon.allowSubmission
-        })}
-      >
-        {(hackathon.participation?.isRegister || hackathon.participation?.isSubmit) && hackathon.allowSubmission && (
+      <div className={cn('flex flex-col  gap-4', 'px-6 pb-5')}>
+        {/* {(hackathon.participation?.isRegister || hackathon.participation?.isSubmit) && hackathon.allowSubmission && (
           <div className="body-s flex items-center gap-[4px] rounded-[16px] border border-status-error bg-status-error-light p-[16px] text-neutral-medium-gray ">
             <WarningIcon size={16} color="var(--status-error)" />
             {hackathon.participation?.isSubmit ? (
@@ -171,7 +162,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
               <span>{t('hackathonDetail.haveRegistered')}</span>
             )}
           </div>
-        )}
+        )} */}
 
         <h1 className="text-h3 ">{hackathon.name}</h1>
         {stepIndex === 0 ? (
