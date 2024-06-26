@@ -25,16 +25,16 @@ const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, nav
     handleClickAnchor(0);
   }, [navs]);
   return (
-    <div className="sticky left-0 top-0 z-[2]">
+    <div className="no-scrollbar sticky left-0  top-0 z-[2] overflow-auto border-y border-neutral-light-gray bg-neutral-white">
       <SlideHighlight
-        className={` flex h-[66px] w-full justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[40px]`}
+        className={` flex h-[3.1875rem] gap-[1rem]  px-[1.25rem]`}
         type="LEARNING_TRACK"
         currentIndex={curAnchorIndex}
       >
         {navs.map((v, i) => (
           <div
             key={v.value}
-            className={`flex h-full cursor-pointer items-center  ${curAnchorIndex === i ? 'body-m-bold text-neutral-off-black' : 'body-m text-neutral-medium-gray'}`}
+            className={`flex h-full cursor-pointer items-center whitespace-nowrap  ${curAnchorIndex === i ? 'body-xs-bold text-neutral-off-black' : 'body-xs text-neutral-medium-gray'}`}
             onClick={() => handleClickAnchor(i)}
           >
             {t(v.label)}
