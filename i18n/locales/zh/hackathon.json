@@ -28,8 +28,7 @@
   },
   "hackathonDetail": {
     "timeline": "时间线",
-    "registrationOpen": "Registration Open",
-    "submissionsClose": "Submissions Close",
+    "submissions": "Submissions",
     "rewardAnnouncement": "Reward Announcement",
     "about": "关于",
     "theme": "主题",
@@ -46,7 +45,7 @@
     "usersPartitipated": "users partitipated",
     "continueSubmission": "Continue Submission",
     "haveRegistered": "You have registered in this hackathon",
-    "haveSubmission": "You have an ongoing submission",
+    "haveSubmission": "You have submitted this hackathon",
     "firstPlace": "First Place",
     "secondPlace": "Second Place",
     "thirdPlace": "Third Place",

@@ -5,7 +5,7 @@ import { Lang } from '@/i18n/config';
 import { getHackathonById } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
-import HackathonEdit from './components';
+import HackathonEditDetail from './components';
 
 interface HackathonIdProps {
   params: {
@@ -31,13 +31,12 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
 
 const HackahtonEditPage: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
   const hackathon = await getHackathonById(params.hackathonId);
-  hackathon.faqs = [{ question: 'question111', answer: 'answer222', id: '123' }];
   if (isUuid(params.hackathonId)) {
     permanentRedirect(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`);
   }
   return (
     <>
-      <HackathonEdit hackathon={hackathon} />
+      <HackathonEditDetail hackathon={hackathon} isEdit={true} />
     </>
   );
 };

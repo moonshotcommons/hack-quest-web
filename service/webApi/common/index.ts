@@ -11,13 +11,21 @@ class CommnApi {
   }
 
   uploadImage(file: FormData) {
-    return this.service.post<{ content: string }>(CommnApiType.UPLOAD_IMAGE, {
+    return this.service.post<{ filepath: string }>(CommnApiType.UPLOAD_IMAGE, {
       data: file,
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
   }
+  // uploadImage(data: { file: FormData; isPublic: boolean }) {
+  //   return this.service.post<{ filepath: string }>(CommnApiType.UPLOAD_IMAGE, {
+  //     data,
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   });
+  // }
 }
 
 export default CommnApi;

@@ -123,7 +123,6 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
     if (!body) {
       return null;
     }
-
     return (
       <p
         ref={ref}

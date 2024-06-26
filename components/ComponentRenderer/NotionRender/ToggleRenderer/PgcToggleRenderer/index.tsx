@@ -33,7 +33,7 @@ const PgcToggleRenderer: FC<PgcToggleRendererProps> = (props) => {
     ? (contextExpandDataRight as PgcExpandDataType[])
     : (contextExpandData as PgcExpandDataType[]);
   const changeShowChild = (status: boolean) => {
-    if (!expandData) {
+    if (!expandData?.length) {
       setShowChild(status);
       return;
     }
