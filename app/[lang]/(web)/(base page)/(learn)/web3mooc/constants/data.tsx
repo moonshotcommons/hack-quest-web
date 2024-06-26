@@ -106,13 +106,13 @@ export const syllabusData = [
     description:
       'Gain a comprehensive understanding of the current Web3 ecosystem. Explore different blockchain ecosystems and key protocols and standards, with an emphasis on DeFi.',
     speaker: 'Diane Dai, DODO',
-    video: '',
+    video: 'https://drive.google.com/file/d/1vTONLHT2zcZSsECXhjmlnmhc56A9dEkO/view',
     slide: '',
     expand: false
   },
   {
     name: 'Cross-Chain Future: Smart Contract and Interoperability',
-    time: '9-10:30 AM SGT, June 25th 2024 / 9-10:30 PM EST, June 24th 2024',
+    time: '9-10:30 AM SGT, August 6th 2024 / 9-10:30 PM EST, August 5th 2024',
     description:
       'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
     speaker: 'Sergey Gorbunov, Axelar',

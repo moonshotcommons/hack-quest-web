@@ -161,6 +161,12 @@ export type ProjectType = {
   croak: boolean;
   submitType: string;
   links: string | Record<string, string>;
+  tagline: string;
+  technologies: string;
+  solvedProblem: string;
+  challenges: string;
+  teamID: string;
+  roomNumber: string;
 };
 
 export interface ProjectDataType {
@@ -267,6 +273,8 @@ export interface HackathonRegisterInfo {
   remainingVote: number;
   totalVote: number;
   voteRole: HackathonTypeVotesRoleType;
+  discord: string;
+  collegeName: string;
 }
 
 export interface RegisterInfoBody {
@@ -277,6 +285,8 @@ export interface RegisterInfoBody {
   email?: string;
   bio?: string | null;
   status?: HackathonRegisterStep;
+  discord?: string;
+  collegeName?: string;
 }
 
 export interface HackathonTeam {
