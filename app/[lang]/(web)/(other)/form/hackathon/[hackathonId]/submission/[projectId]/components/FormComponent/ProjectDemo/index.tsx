@@ -130,7 +130,7 @@ const ProjectDemo: FC<
           />
 
           <div className="flex justify-end gap-4">
-            <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" disabled onClick={onBack}>
+            <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack}>
               Back
             </Button>
 

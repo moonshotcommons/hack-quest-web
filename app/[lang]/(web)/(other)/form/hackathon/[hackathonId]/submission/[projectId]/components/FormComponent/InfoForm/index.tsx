@@ -31,7 +31,6 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import MenuLink from '@/constants/MenuLink';
 import FormRadio from '@/components/Common/FormRadio';
 import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
-import Tagline from './Tagline';
 import SolvedProblem from './SolvedProblem';
 import Challenges from './Challenges';
 import Technologies from './Technologies';
@@ -87,7 +86,7 @@ const InfoForm: FC<
     // track: z.string().min(2, {
     //   message: 'You need to select a track.'
     // }),
-    tagline: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    tagline: string().min(0),
     technologies: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     solvedProblem: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     challenges: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
@@ -95,7 +94,7 @@ const InfoForm: FC<
     roomNumber: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     intro: z
       .string()
-      .min(1, {
+      .min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1, {
         message: 'Intro must be at least 2 characters.'
       })
       .max(120, {
@@ -165,7 +164,7 @@ const InfoForm: FC<
       detailedIntro && formData.append('description', detailedIntro);
       intro && formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
-      formData.append('tagline', tagline);
+      // formData.append('tagline', tagline);
       formData.append('technologies', technologies);
       formData.append('solvedProblem', solvedProblem);
       formData.append('challenges', challenges);
@@ -350,9 +349,9 @@ const InfoForm: FC<
             </div>
           </div> */}
 
-          <IntroName form={form} />
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <IntroName form={form} />}
           <DetailIntroName form={form} />
-          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />}
+          {/* {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />} */}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <SolvedProblem form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Challenges form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Technologies form={form} />}

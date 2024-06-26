@@ -160,9 +160,15 @@ const Content: React.FC<ContentProp> = ({
     !form.getValues('projectName') ||
     !form.getValues('projectLogo') ||
     !form.getValues('prizeTrack') ||
-    !form.getValues('intro') ||
+    (!form.getValues('intro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
     !form.getValues('detailedIntro') ||
-    (form.getValues('track').split(',').length < 1 && hackathon.id !== HackathonPartner.Hack4Bengal);
+    (form.getValues('track').split(',').length < 1 && hackathon.id !== HackathonPartner.Hack4Bengal) ||
+    (hackathon.id === HackathonPartner.Hack4Bengal &&
+      (!form.getValues('solvedProblem') ||
+        !form.getValues('technologies') ||
+        !form.getValues('challenges') ||
+        !form.getValues('teamID') ||
+        !form.getValues('roomNumber')));
 
   const projectDisable =
     (typeof form.getValues('efrog') !== 'boolean' ||
