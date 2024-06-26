@@ -1,5 +1,5 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
 import FacebookConfig from './Facebook';
 import FarcasterNameConfig from './Farcaster';
@@ -19,6 +19,6 @@ export const ContractSectionComponentMap: Record<string, PresetComponentConfig<a
   [WhatsAppConfig.type]: WhatsAppConfig
 };
 
-export const ContractSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  ContractSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const ContractSectionComponentList = Object.values(ContractSectionComponentMap).map((cfg) =>
+  omit(cfg, IGNORE_FIELDS)
+);

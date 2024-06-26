@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as z from 'zod';
-import { omit } from 'lodash-es';
 import { useForm, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -283,7 +282,11 @@ export function TimelineForm({
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     if (data.openReviewSame === 'true') {
-      data = omit(data, 'openTimeEnd', 'reviewTime');
+      data = {
+        ...data,
+        reviewTime: data.openTime,
+        openTimeEnd: data.reviewTimeEnd
+      };
     }
     const values = {
       id: initialValues?.id,

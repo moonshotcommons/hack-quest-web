@@ -1,77 +1,107 @@
 {
-  "basic_info": [
+  "BasicInfo": [
     {
-      "value": "logo",
-      "label": "Logo",
-      "required": true
+      "id": "64062a54-285e-441c-9d65-776a9724b81b",
+      "type": "Logo",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "name",
-      "label": "Name",
-      "required": true
+      "id": "0d7ae248-0f84-412f-a90d-f45e9d26316f",
+      "type": "Name",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "location",
-      "label": "Location",
-      "required": true
+      "id": "fadab38e-38d6-47f2-9547-92e245a04b94",
+      "type": "Location",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "prize_track",
-      "label": "Prize Track",
-      "required": true
+      "id": "3d04d74b-f6f0-4778-b038-948fa7c47966",
+      "type": "Prize Track",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "hackathon_track",
-      "label": "Hackathon Track",
-      "required": true
+      "id": "346e5e53-09be-4c80-b3ac-784e1d22235f",
+      "type": "Hackathon Track",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "wallet_connect",
-      "label": "Wallet Connect",
-      "required": true
+      "id": "4a6ba2ad-acb1-4319-8c9c-938c258be49b",
+      "type": "Wallet Connect",
+      "required": true,
+      "selected": true,
+      "property": {}
     }
   ],
-  "project_detail": [
+  "ProjectDetail": [
     {
-      "value": "one_line_Intro",
-      "label": "One-Line Intro",
-      "required": true
+      "id": "373f302e-76a8-486a-a5d7-66ccecdc9288",
+      "type": "One-Line Intro",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "detailed_Intro",
-      "label": "Detailed Intro",
-      "required": true
+      "id": "e8cbe0d2-7378-4858-b409-20b5ae53e9c6",
+      "type": "Detailed Intro",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "team_background",
-      "label": "Team Background"
+      "id": "916b195a-7614-406f-bc05-96e40a03c24d",
+      "type": "Team Background",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "progress_during_hackathon",
-      "label": "Progress During hackathon"
+      "id": "1b6c13db-27a8-4f6e-92c9-ae89268a0fc8",
+      "type": "Progress During hackathon",
+      "optional": false,
+      "property": {}
     }
   ],
-  "additions": [
+  "Additions": [
     {
-      "value": "github_open_source",
-      "label": "Github & Open Source",
-      "required": true
+      "id": "5a7fc18a-8a75-4ff9-8b84-ee3742479e81",
+      "type": "Github & Open Source",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "contract_address",
-      "label": "Contract Address"
+      "id": "3a5a9591-1ee3-4c23-9db3-4143d69af386",
+      "type": "Contract Address",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "pitch_video",
-      "label": "Pitch Video"
+      "id": "87dcabfb-ff92-4b3e-9fff-c34f5d3328b8",
+      "type": "Pitch Video",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "project_demo",
-      "label": "Project Demo"
+      "id": "b4428d08-8887-48aa-a366-165d4cb55451",
+      "type": "Project Demo",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "fundraising_status",
-      "label": "Fundraising Status"
+      "id": "ff2aeec1-3079-4ef0-8f9d-17aff6aacabc",
+      "type": "Fundraising Status",
+      "optional": false,
+      "property": {}
     }
   ]
 }

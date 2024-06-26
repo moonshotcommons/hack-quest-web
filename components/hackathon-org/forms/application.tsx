@@ -6,15 +6,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/hackathon-org/common/radio-group';
-import applications from '@/components/hackathon-org/constants/applications.json';
-import { SelectableCard } from '@/components/hackathon-org/common/selectable-card';
 import { Separator } from '@/components/ui/separator';
 import { TextField } from '@/components/ui/text-field';
 import { useToggle } from '@/hooks/utils/use-toggle';
+import { About } from './applications/about';
+import { OnlineProfile } from './applications/online-profile';
+import { Contact } from './applications/contact';
 import { ActionButtons } from './action-buttons';
-import { EditCustomFieldModal } from '../modals/edit-custom-field-modal';
-import { AddFieldButton } from '../common/add-field-button';
-import { ApplicationSectionConfig } from '@/components/HackathonCreation';
 
 const formSchema = z.object({
   applicationType: z.enum(['solo-or-group', 'solo-only', 'group-only'], {
@@ -48,8 +46,6 @@ export function ApplicationForm({
       maximumTeamSize: ''
     }
   });
-
-  console.log(ApplicationSectionConfig);
 
   const disabled = form.watch('applicationType') === 'solo-only';
 
@@ -150,37 +146,12 @@ export function ApplicationForm({
             Select the profile fields you wish to make mandatory in your hackathon application. The shorter your form
             is, the faster you stack up the applications.
           </p>
-          <div className="w-full">
-            <label className="body-m text-neutral-off-black">About</label>
-            <div className="mt-1 grid w-full grid-cols-3 gap-3">
-              {applications.about.map((item) => (
-                <SelectableCard key={item.value} label={item.label} disabled={item.required} />
-              ))}
-              <AddFieldButton iconOnly onClick={() => toggle(true)} />
-            </div>
-          </div>
-          <div className="w-full">
-            <label className="body-m text-neutral-off-black">Online Profiles</label>
-            <div className="mt-1 grid w-full grid-cols-3 gap-3">
-              {applications.online_profiles.map((item) => (
-                <SelectableCard key={item.value} label={item.label} />
-              ))}
-              <AddFieldButton iconOnly onClick={() => toggle(true)} />
-            </div>
-          </div>
-          <div className="w-full">
-            <label className="body-m text-neutral-off-black">Contact</label>
-            <div className="mt-1 grid w-full grid-cols-3 gap-3">
-              {applications.contact.map((item) => (
-                <SelectableCard key={item.value} label={item.label} disabled={item.required} />
-              ))}
-              <AddFieldButton iconOnly onClick={() => toggle(true)} />
-            </div>
-          </div>
-          <ActionButtons isEditMode={false} isValid={form.formState.isValid} />
+          <About />
+          <OnlineProfile />
+          <Contact />
+          <ActionButtons isEditMode={false} isValid />
         </form>
       </Form>
-      <EditCustomFieldModal open={open} onClose={() => toggle(false)} />
     </div>
   );
 }

@@ -3,24 +3,39 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useControllableState } from '@/hooks/state/use-controllable-state';
 import { cn } from '@/helper/utils';
 import { noop } from '@/lib/utils';
+import { XIcon } from 'lucide-react';
 
 interface SelectableCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  itemId: string;
+  isEditable?: boolean;
   label?: React.ReactNode;
   defaultChecked?: boolean;
   checked?: boolean;
   disabled?: boolean;
-  onCheckChange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void;
   optional?: boolean;
   defaultOptional?: boolean;
   onOptionalChange?: (checked: boolean) => void;
+  onEdit?: (id: string) => void;
+  onRemove?: (id: string) => void;
 }
 
 const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((props, ref) => {
-  const { label, disabled = false, className, onCheckChange = noop, onOptionalChange = noop } = props;
+  const {
+    itemId,
+    isEditable = false,
+    label,
+    disabled = false,
+    className,
+    onCheckedChange = noop,
+    onOptionalChange = noop,
+    onEdit,
+    onRemove
+  } = props;
 
   const id = React.useId();
 
-  const [checkedState = false, setCheckedState] = useControllableState(props, 'checked', onCheckChange);
+  const [checkedState = false, setCheckedState] = useControllableState(props, 'checked', onCheckedChange);
   const [optionalState = false, setOptionalState] = useControllableState(props, 'optional', onOptionalChange);
 
   return (
@@ -32,15 +47,27 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
       data-state={checkedState ? 'checked' : 'unchecked'}
       onClick={() => !disabled && setCheckedState(!checkedState)}
       className={cn(
-        'inline-flex h-[74px] cursor-pointer flex-col items-center justify-center whitespace-nowrap rounded-[8px] border-[3px] border-neutral-off-white px-4 transition-colors duration-200 disabled:cursor-not-allowed aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light aria-disabled:cursor-not-allowed aria-disabled:border-yellow-dark aria-disabled:bg-yellow-extra-light aria-disabled:opacity-50',
+        'group relative inline-flex h-[74px] cursor-pointer flex-col items-center justify-center whitespace-nowrap rounded-[8px] border-[3px] border-neutral-off-white px-4 transition-colors duration-200 disabled:cursor-not-allowed aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light aria-disabled:cursor-not-allowed aria-disabled:border-yellow-dark aria-disabled:bg-yellow-extra-light aria-disabled:opacity-50',
         className
       )}
     >
       <span className="body-m text-neutral-black">
         {label}
         {disabled && '*'}
+        {isEditable && (
+          <button
+            type="button"
+            className="ml-2 text-sm text-neutral-medium-gray underline outline-none"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit?.(itemId);
+            }}
+          >
+            Edit
+          </button>
+        )}
       </span>
-      {checkedState && (
+      {checkedState && !disabled && (
         <div className="flex items-center space-x-1">
           <Checkbox
             id={`${id}-optional`}
@@ -57,6 +84,19 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
             Set as an optional field
           </label>
         </div>
+      )}
+      {isEditable && (
+        <button
+          type="button"
+          aria-label="Remove option"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove?.(itemId);
+          }}
+          className="absolute -right-2 -top-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-status-error opacity-0 outline-none transition-opacity group-hover:opacity-100"
+        >
+          <XIcon size={20} className="text-neutral-white" />
+        </button>
       )}
     </div>
   );

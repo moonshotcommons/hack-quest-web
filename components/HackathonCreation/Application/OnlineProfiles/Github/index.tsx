@@ -25,6 +25,7 @@ export const GithubConfig: PresetComponentConfig<GithubProps, CustomComponentCon
   type: Github.displayName,
   component: Github,
   optional: false,
+  required: true,
   property: {
     label: 'Github',
     placeholder: 'Enter a GitHub Account',

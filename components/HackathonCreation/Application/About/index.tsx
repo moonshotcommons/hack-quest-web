@@ -1,5 +1,5 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
 import BioConfig from './Bio';
 import FirstNameAndLastNameConfig from './FirstNameAndLastName';
@@ -15,6 +15,4 @@ export const AboutSectionComponentMap: Record<string, PresetComponentConfig<any>
   [UniversityConfig.type]: UniversityConfig
 };
 
-export const AboutSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  AboutSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const AboutSectionComponentList = Object.values(AboutSectionComponentMap).map((cfg) => omit(cfg, IGNORE_FIELDS));
