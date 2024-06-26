@@ -161,10 +161,11 @@ const Content: React.FC<ContentProp> = ({
     !form.getValues('projectLogo') ||
     !form.getValues('prizeTrack') ||
     (!form.getValues('intro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-    !form.getValues('detailedIntro') ||
+    (!form.getValues('detailedIntro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
     (form.getValues('track').split(',').length < 1 && hackathon.id !== HackathonPartner.Hack4Bengal) ||
     (hackathon.id === HackathonPartner.Hack4Bengal &&
       (!form.getValues('solvedProblem') ||
+        !form.getValues('tagline') ||
         !form.getValues('technologies') ||
         !form.getValues('challenges') ||
         !form.getValues('teamID') ||
@@ -231,9 +232,8 @@ const Content: React.FC<ContentProp> = ({
         formData.append('tracks[]', t);
       });
 
-      {
-        hackathon.id !== HackathonPartner.Hack4Bengal && formData.append('location', location);
-      }
+      hackathon.id !== HackathonPartner.Hack4Bengal && formData.append('location', location);
+
       formData.append('description', detailedIntro);
       formData.append('introduction', intro);
       formData.append('isOpenSource', String(isPublic));

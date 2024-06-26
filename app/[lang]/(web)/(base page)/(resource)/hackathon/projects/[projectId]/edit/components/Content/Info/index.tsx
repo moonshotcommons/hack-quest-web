@@ -23,6 +23,7 @@ import Title from '@/components/Common/Title';
 import SolvedProblem from './SolvedProblem';
 import Challenges from './Challenges';
 import Technologies from './Technologies';
+import Tagline from './Tagline';
 
 interface InfoProps {
   form: UseFormReturn<FormSchema, any, undefined>;
@@ -63,10 +64,10 @@ const Info: FC<InfoProps> = ({ form, setLogo, hackathon, isClose }) => {
         <ProjectTrackRadio tracks={TRACKS} form={form} isClose={isClose} />
       )}
       {hackathon.id !== HackathonPartner.Hack4Bengal && <IntroName form={form} />}
-      <DetailIntroName form={form} />
+      {hackathon.id !== HackathonPartner.Hack4Bengal && <DetailIntroName form={form} />}
       {hackathon.id === HackathonPartner.Hack4Bengal && (
         <>
-          {/* <Tagline form={form} /> */}
+          <Tagline form={form} />
           <SolvedProblem form={form} />
           <Challenges form={form} />
           <Technologies form={form} />
