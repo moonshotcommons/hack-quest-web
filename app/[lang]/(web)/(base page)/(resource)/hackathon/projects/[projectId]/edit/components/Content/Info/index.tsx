@@ -15,10 +15,15 @@ import ProjectPrizeTrackRadio from './ProjectPrizeTrackRadio';
 import { UseFormReturn } from 'react-hook-form';
 import { FormSchema } from '../constants';
 import {
+  HackathonPartner,
   LOCATIONS,
   TRACKS
 } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 import Title from '@/components/Common/Title';
+import Tagline from './Tagline';
+import SolvedProblem from './SolvedProblem';
+import Challenges from './Challenges';
+import Technologies from './Technologies';
 
 interface InfoProps {
   form: UseFormReturn<FormSchema, any, undefined>;
@@ -45,44 +50,43 @@ const Info: FC<InfoProps> = ({ form, setLogo, hackathon, isClose }) => {
           />
         </div>
       </div>
-      <CustomSelectField
-        form={form}
-        label="Where are you located?"
-        name="location"
-        placeholder="Please select"
-        items={LOCATIONS}
-      />
+      {hackathon.id !== HackathonPartner.Hack4Bengal && (
+        <CustomSelectField
+          form={form}
+          label="Where are you located?"
+          name="location"
+          placeholder="Please select"
+          items={LOCATIONS}
+        />
+      )}
       <ProjectPrizeTrackRadio tracks={hackathon.rewards.map((item) => item.name)} form={form} isClose={isClose} />
-      <ProjectTrackRadio tracks={TRACKS} form={form} isClose={isClose} />
-
-      {/* <div className="flex w-full justify-between gap-4">
-            <div className="flex-1">
-              <CustomSelectField
-                form={form}
-                label="Which Prize Track Do You Belong To"
-                name="track"
-                placeholder="Please select"
-                items={TRACKS}
-              />
-            </div>
-            <div className="flex-1">
-              <CustomSelectField
-                form={form}
-                label="Which Hackathon Track Do You Belong To"
-                name="prizeTrack"
-                placeholder="Please select"
-                items={tracks.map((track) => {
-                  return {
-                    label: track,
-                    value: track
-                  };
-                })}
-              />
-            </div>
-          </div> */}
-
+      {hackathon.id !== HackathonPartner.Hack4Bengal && (
+        <ProjectTrackRadio tracks={TRACKS} form={form} isClose={isClose} />
+      )}
       <IntroName form={form} />
       <DetailIntroName form={form} />
+      {hackathon.id === HackathonPartner.Hack4Bengal && (
+        <>
+          <Tagline form={form} />
+          <SolvedProblem form={form} />
+          <Challenges form={form} />
+          <Technologies form={form} />
+          <CustomFormField
+            name="teamID"
+            label="Team ID"
+            placeholder="You unique team id provided by the Hack4Bengal team, e.g.: H4B000"
+            form={form}
+            className="bg-neutral-off-white focus:bg-neutral-white"
+          />
+          <CustomFormField
+            name="roomNumber"
+            label="Room Number"
+            placeholder=""
+            form={form}
+            className="bg-neutral-off-white focus:bg-neutral-white"
+          />
+        </>
+      )}
     </div>
   );
 };
