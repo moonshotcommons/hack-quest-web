@@ -13,9 +13,10 @@ import Title from '../Title';
 interface MediaCommunityProp {
   listData: MentorType[];
   title: string;
+  isHack4Bengal: boolean;
 }
 
-const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
+const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData = [], title, isHack4Bengal }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
@@ -27,13 +28,22 @@ const MediaCommunity: React.FC<MediaCommunityProp> = ({ listData, title }) => {
     <div>
       <Title title={t(`hackathonDetail.${title}`)} />
       <div className="flex flex-wrap gap-[.5rem]">
-        {showList.map((v: MentorType, i: number) => (
-          <div key={i} className="w-[calc((100%-0.5rem)/2)]">
-            <div className="relative h-0 w-full pt-[45%]">
-              <Image src={v.picture as string} fill alt="picture" className="object-contain"></Image>
+        {!isHack4Bengal &&
+          showList.map((v: MentorType, i: number) => (
+            <div key={i} className="w-[calc((100%-0.5rem)/2)]">
+              <div className="relative h-0 w-full pt-[45%]">
+                <Image src={v.picture as string} fill alt="picture" className="object-contain"></Image>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        {isHack4Bengal &&
+          showList.map((v: MentorType, i: number) => (
+            <div key={i} className="w-[calc((100%-0.5rem)/2)] rounded-full border-2 border-[#7e7e7e] px-4 py-1">
+              <div className="relative h-0 w-full pt-[40%]">
+                <Image src={v.picture as string} fill alt="picture" className="object-contain"></Image>
+              </div>
+            </div>
+          ))}
       </div>
       {listData.length > 12 && (
         <div className="body-s mt-[1rem] flex justify-end">

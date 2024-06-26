@@ -67,6 +67,20 @@ export interface HackathonType {
   address: string;
   applyLink: string;
   guestsAndMentors: MentorType[];
+  sections: {
+    hosts: MentorType[];
+    venue: MentorType[];
+    coHosts: MentorType[];
+    goldSponsor: MentorType[];
+    titleSponsor: MentorType[];
+    trackPartner: MentorType[];
+    bronzeSponsor: MentorType[];
+    mediaPartners: MentorType[];
+    silverSponsor: MentorType[];
+    platinumSponsor: MentorType[];
+    guestsAndMentors: MentorType[];
+    communityPartners: MentorType[];
+  };
   mediaPartners: MentorType[];
   communityPartners: MentorType[];
   status: HackathonStatusType;
