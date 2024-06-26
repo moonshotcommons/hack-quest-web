@@ -31,7 +31,6 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import MenuLink from '@/constants/MenuLink';
 import FormRadio from '@/components/Common/FormRadio';
 import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
-import Tagline from './Tagline';
 import SolvedProblem from './SolvedProblem';
 import Challenges from './Challenges';
 import Technologies from './Technologies';
@@ -350,9 +349,9 @@ const InfoForm: FC<
             </div>
           </div> */}
 
-          <IntroName form={form} />
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <IntroName form={form} />}
           <DetailIntroName form={form} />
-          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />}
+          {/* {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />} */}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <SolvedProblem form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Challenges form={form} />}
           {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Technologies form={form} />}
