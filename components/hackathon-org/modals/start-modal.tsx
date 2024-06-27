@@ -28,7 +28,12 @@ const formSchema = z.object({
     })
 });
 
-export function StartModal() {
+interface StartModalProps {
+  open: boolean;
+  onClose: VoidFunction;
+}
+
+export function StartModal({ open, onClose }: StartModalProps) {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,7 +56,7 @@ export function StartModal() {
     mutate(data);
   }
   return (
-    <Dialog open={false}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-[808px] max-w-[808px] gap-8 px-10 py-16 [&_.close-icon]:right-7 [&_.close-icon]:top-7">
         <DialogHeader className="space-y-4">
           <DialogTitle>Name Your Hackathon!</DialogTitle>

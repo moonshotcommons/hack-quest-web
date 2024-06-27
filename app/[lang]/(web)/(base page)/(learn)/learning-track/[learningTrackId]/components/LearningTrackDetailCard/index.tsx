@@ -43,7 +43,7 @@ export default LearningTrackDetailCard;
 
 const certificationIcon = (
   <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_3458_27936)">
+    <g clipPath="url(#clip0_3458_27936)">
       <rect width="24" height="24" transform="translate(0 0.299805)" fill="white" />
       <path
         d="M12 15.2998C15.866 15.2998 19 12.1658 19 8.2998C19 4.43381 15.866 1.2998 12 1.2998C8.13401 1.2998 5 4.43381 5 8.2998C5 12.1658 8.13401 15.2998 12 15.2998Z"

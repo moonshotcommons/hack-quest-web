@@ -12,6 +12,7 @@
   "allHackathons": "所有黑客松",
   "onGoingHackathon": "正在进行的黑客松",
   "pastHackathon": "已经结束的黑客松",
+  "draft": "草稿",
   "featuredProjects": "推荐项目",
   "submitNow": "Submit Now",
   "liveNow": "Live Now",
@@ -213,5 +214,18 @@
   "voting": {
     "title": "黑客松投票",
     "description": "准备好有所作为吧! 🌟 在黑客马拉松中为你最喜欢的项目投票。你的意见很重要!让我们一起支持这些很棒的想法吧! 🚀"
+  },
+  "organizer":{
+    "title":"Hackathon Organizer",
+    "description":"Welcome to the Hackathon Organizer Dashboard! Here, you can effortlessly manage your hackathons from start to finish. Create new events, edit ongoing ones, and review past successes—all in one place. Streamline your organizing process and focus on fostering innovation and collaboration.",
+    "startNewHackathon":"start a new hackathon",
+    "empty": "你没有{{type}}的黑客松",
+    "ongoing":"进行中",
+    "draft":"草稿",
+    "past":"已结束",
+    "continueEditing":"continue editing",
+    "previewSubmit":"preview / submit",
+    "requiredSections":"Required Sections",
+    "optionalSections":"Optional Sections"
   }
 }
