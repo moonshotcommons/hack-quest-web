@@ -21,6 +21,7 @@ import { cn } from '@/helper/utils';
 import { RadioGroup, RadioGroupItem } from '../common/radio-group';
 import { CustomTextField } from '../common/custom-text-field';
 import { AddFieldButton } from '../common/add-field-button';
+import { numberToOrdinalWord } from '@/lib/utils';
 
 const rewardSchema = z.object({
   id: z.string().uuid(),
@@ -254,7 +255,12 @@ export function EditTrackModal({
       data = {
         id,
         totalRewards,
-        ...omit(values, 'totalRewards', 'rule')
+        ...omit(values, 'totalRewards', 'rule'),
+        rewards: values.rewards?.map((r, index) => ({
+          id: r.id,
+          value: z.coerce.number().parse(r.value),
+          label: `${numberToOrdinalWord(index + 1)} Place`
+        }))
       };
     }
 
@@ -272,7 +278,10 @@ export function EditTrackModal({
         form.reset({
           name: initialValues?.name,
           mode: initialValues?.mode,
-          rewards: initialValues?.rewards
+          rewards: initialValues?.rewards.map((r: any) => ({
+            id: r.id,
+            value: String(r.value)
+          }))
         });
       } else {
         setValue('OTHERS');
