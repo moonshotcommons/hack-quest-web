@@ -20,8 +20,6 @@ export function BuildSection({ tasks }: { tasks: EcosystemTask[] }) {
     return url;
   };
 
-  console.log('tasks', tasks);
-
   return (
     <Accordion type="multiple" defaultValue={['item-1']} className="flex flex-col gap-6">
       {tasks.map((task, index) => (

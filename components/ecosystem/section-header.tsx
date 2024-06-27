@@ -56,7 +56,7 @@ export function SectionHeader({
         </span>
         <span className="flex flex-col gap-1">
           <span className="text-left text-base font-bold leading-[160%] text-neutral-off-black sm:text-lg">
-            {title} {progress && !claimed && showProgress && `(${progress[0]}/${progress[1]})`}
+            {title} {progress && progress[1] > 0 && !claimed && showProgress && `(${progress[0]}/${progress[1]})`}
           </span>
           <span className="flex items-center gap-2">
             <Badge>{tag}</Badge>
