@@ -117,7 +117,7 @@ export function BasicInfoForm({
   }, [isValid, isEditMode]);
 
   React.useEffect(() => {
-    if (initialValues) {
+    if (initialValues && initialValues?.info) {
       form.reset({
         name: initialValues?.name,
         ...initialValues?.info

@@ -24,6 +24,7 @@ export const FirstNameAndLastNameConfig: PresetComponentConfig<FirstNameAndLastN
   id: v4(),
   type: FirstNameAndLastName.displayName,
   optional: false,
+  required: true,
   component: FirstNameAndLastName,
   property: {},
   validate(values: { firstName: string; lastName: string }, form, config) {

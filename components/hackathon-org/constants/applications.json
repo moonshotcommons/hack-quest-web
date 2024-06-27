@@ -1,82 +1,160 @@
 {
-  "about": [
+  "About": [
     {
-      "value": "name",
-      "label": "First and Last Name",
-      "required": true
+      "id": "e0c6f627-ff25-4fbe-8274-8d703aaea80a",
+      "type": "First and Last Name",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "bio",
-      "label": "Bio"
+      "id": "cdc8b7aa-9c3f-46cf-a3a9-44a429500256",
+      "type": "Bio",
+      "optional": false,
+      "property": {
+        "name": "bio",
+        "label": "Bio",
+        "placeholder": "Enter your bio",
+        "maxField": 360
+      }
     },
     {
-      "value": "gender",
-      "label": "Gender"
+      "id": "64a9b8e7-0a87-499a-8569-18c25521dc86",
+      "type": "Gender",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "resume",
-      "label": "Resume"
+      "id": "d86c5bff-32c2-43e5-a095-8ca8877b218f",
+      "type": "Resume",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "university",
-      "label": "University"
+      "id": "d0eb4922-bbc2-4d6d-8a06-fee699de91d1",
+      "type": "University",
+      "optional": false,
+      "property": {
+        "name": "university",
+        "label": "University",
+        "placeholder": "e.g. Cambridge University"
+      }
     },
     {
-      "value": "location",
-      "label": "Location"
+      "id": "d2236a07-0ead-4406-98e9-96b4b16377fc",
+      "type": "Location",
+      "optional": false,
+      "property": {
+        "name": "location",
+        "label": "Location",
+        "placeholder": "e.g. Paris, France"
+      }
     }
   ],
-  "online_profiles": [
+  "OnlineProfiles": [
     {
-      "value": "github",
-      "label": "GitHub"
+      "id": "097047c9-0253-4eae-92be-2c3c34e3b7f3",
+      "type": "GitHub",
+      "required": true,
+      "selected": true,
+      "property": {
+        "name": "github",
+        "label": "Github",
+        "placeholder": "Enter a GitHub Account"
+      }
     },
     {
-      "value": "whatsapp",
-      "label": "WhatsApp"
+      "id": "4e85f64f-752c-4802-a521-90e8abdd0c86",
+      "type": "WhatsApp",
+      "optional": false,
+      "property": {
+        "name": "whatsapp",
+        "label": "WhatsApp",
+        "placeholder": "Enter a WhatsApp Account"
+      }
     },
     {
-      "value": "facebook",
-      "label": "Facebook"
+      "id": "22cf1c13-64c5-4863-9783-cae4a72d4cc3",
+      "type": "Facebook",
+      "optional": false,
+      "property": {
+        "name": "facebook",
+        "label": "Facebook",
+        "placeholder": "Enter a Facebook Account"
+      }
     },
     {
-      "value": "twitter",
-      "label": "Twitter"
+      "id": "82c5062e-cbd2-45ef-96fc-a4e76966ef66",
+      "type": "Twitter",
+      "optional": false,
+      "property": {
+        "name": "twitter",
+        "label": "Twitter",
+        "placeholder": "Enter a Twitter Account"
+      }
     },
     {
-      "value": "linkedin",
-      "label": "LinkedIn"
+      "id": "d7b1b62c-8acf-40e6-aa34-c92b1a269e43",
+      "type": "LinkedIn",
+      "optional": false,
+      "property": {
+        "name": "linkedIn",
+        "label": "LinkedIn",
+        "placeholder": "Enter a LinkedIn Account"
+      }
     },
     {
-      "value": "qq",
-      "label": "QQ"
+      "id": "d18972e8-99ee-442f-b868-d627da8b2746",
+      "type": "QQ",
+      "optional": false,
+      "property": {
+        "name": "QQ",
+        "label": "QQ",
+        "placeholder": "Enter a QQ Account"
+      }
     },
     {
-      "value": "farcaster",
-      "label": "Farcaster"
+      "id": "d17d6133-76ff-4cda-8b92-cb9831a63b38",
+      "type": "Farcaster",
+      "optional": false,
+      "property": {
+        "name": "farcaster",
+        "label": "Farcaster",
+        "placeholder": "Enter a Farcaster Account"
+      }
     }
   ],
-  "contact": [
+  "Contact": [
     {
-      "value": "email",
-      "label": "Email",
-      "required": true
+      "id": "031d61ab-499f-46dc-ab29-3bda92f13907",
+      "type": "Email",
+      "required": true,
+      "selected": true,
+      "property": {}
     },
     {
-      "value": "phone",
-      "label": "Phone Number"
+      "id": "3d79fceb-95fd-4073-8f20-754eee04701a",
+      "type": "Phone Number",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "wechat",
-      "label": "WeChat"
+      "id": "52061f6f-788f-4046-a69a-f4e6f07721ce",
+      "type": "WeChat",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "telegram",
-      "label": "Telegram"
+      "id": "401613c3-a110-4e79-a59f-f98b81db9521",
+      "type": "Telegram",
+      "optional": false,
+      "property": {}
     },
     {
-      "value": "discord",
-      "label": "Discord"
+      "id": "7beb7025-10bd-4f8e-8ab9-594a095506fc",
+      "type": "Discord",
+      "optional": false,
+      "property": {}
     }
   ]
 }

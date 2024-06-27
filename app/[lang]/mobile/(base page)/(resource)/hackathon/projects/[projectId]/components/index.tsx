@@ -41,7 +41,7 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, otherProjects }) 
     }
   );
   const isShowVoting = useMemo(() => {
-    const isEnd = dayjs().tz().isAfter(hackathon?.rewardTime);
+    const isEnd = dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
     return !!(((isEnd && project.vote) || !isEnd) && project.isSubmit);
   }, [hackathon, project]);
   return (

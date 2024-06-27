@@ -92,16 +92,17 @@ export function JudgingForm({
   }, [isValid, isEditMode]);
 
   React.useEffect(() => {
-    if (initialValues) {
+    if (initialValues?.judge) {
       form.resetField('resource', {
         defaultValue: initialValues?.judge.resource
       });
       setUserVotes(initialValues?.judge.votesProportion[0]);
       setJudgeVotes(initialValues?.judge.votesProportion[1]);
       setSliderValue(initialValues?.judge.votesProportion[0]);
+      setJudgeAccounts(initialValues?.judge.judgeAccounts);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
+  }, [initialValues?.judge]);
 
   function onVotesChange(value: string, isUserVotes: boolean) {
     if (value === '') {
@@ -134,7 +135,8 @@ export function JudgingForm({
     const values = {
       id: initialValues?.id,
       resource: data.resource,
-      votesProportion: [userVotes, judgeVotes]
+      votesProportion: [userVotes, judgeVotes],
+      judgeAccounts: judgeAccounts?.map((account) => account.id)
     };
     mutation.mutate(values);
   }

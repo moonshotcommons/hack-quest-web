@@ -34,5 +34,7 @@
   "explore": "探索",
   "completed_empty": "您还没有完成任何{{name}}",
   "enrolled_empty": "您还没有加入任何{{name}}",
-  "continue": "继续"
+  "continue": "继续",
+   "submitted": "已提交",
+  "learn_more": "了解更多"
 }

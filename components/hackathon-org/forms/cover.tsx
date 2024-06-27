@@ -93,10 +93,10 @@ export function CoverForm({
   }
 
   React.useEffect(() => {
-    if (initialValues) {
+    if (initialValues?.info?.image) {
       setImageUrl(initialValues?.info?.image || '');
     }
-  }, [initialValues]);
+  }, [initialValues?.info?.image]);
 
   React.useEffect(() => {
     if (!isEditMode) {

@@ -20,6 +20,10 @@ export const searchTabData = [
     value: 'Study Notes'
   },
   {
+    label: 'User Spotlight',
+    value: 'User Spotlight'
+  },
+  {
     label: 'Others',
     value: 'Others'
   }

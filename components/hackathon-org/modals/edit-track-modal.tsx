@@ -297,9 +297,11 @@ export function EditTrackModal({
         className="w-[888px] max-w-[888px] gap-6 px-8 pb-10 pt-[60px] shadow-modal"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
-          {initialValues?.isEditing ? 'Edit' : 'Add a New'} Track
-        </h1>
+        <div className="px-2">
+          <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
+            {initialValues?.isEditing ? 'Edit' : 'Add a New'} Track
+          </h1>
+        </div>
         <Form {...form}>
           <form className="flex flex-col items-center space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -369,7 +371,7 @@ export function EditTrackModal({
                 <OthersForm form={form} />
               </ResizablePanel.Content>
             </ResizablePanel.Root>
-            <div className="flex w-full items-center justify-end gap-2">
+            <div className="flex w-full items-center justify-end gap-2 px-2">
               <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
                 Cancel
               </Button>
@@ -379,7 +381,7 @@ export function EditTrackModal({
                 disabled={!form.formState.isValid}
                 isLoading={createMutation.isPending || updateMutation.isPending}
               >
-                {initialValues?.isEditing ? 'Save' : 'Add'}
+                {initialValues?.isEditing ? 'Save Changes' : 'Add'}
               </Button>
             </div>
           </form>

@@ -1,5 +1,5 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
 import FacebookConfig from './Facebook';
 import FarcasterNameConfig from './Farcaster';
@@ -10,15 +10,15 @@ import TwitterConfig from './Twitter';
 import WhatsAppConfig from './WhatsApp';
 
 export const OnlineProfilesSectionComponentMap: Record<string, PresetComponentConfig<any>> = {
-  [FacebookConfig.type]: FacebookConfig,
-  [FarcasterNameConfig.type]: FarcasterNameConfig,
   [GithubConfig.type]: GithubConfig,
+  [WhatsAppConfig.type]: WhatsAppConfig,
+  [FacebookConfig.type]: FacebookConfig,
+  [TwitterConfig.type]: TwitterConfig,
   [LinkedInConfig.type]: LinkedInConfig,
   [QQConfig.type]: QQConfig,
-  [TwitterConfig.type]: TwitterConfig,
-  [WhatsAppConfig.type]: WhatsAppConfig
+  [FarcasterNameConfig.type]: FarcasterNameConfig
 };
 
-export const OnlineProfilesSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  OnlineProfilesSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const OnlineProfilesSectionComponentList = Object.values(OnlineProfilesSectionComponentMap).map((cfg) =>
+  omit(cfg, IGNORE_FIELDS)
+);
