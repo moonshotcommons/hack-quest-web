@@ -53,7 +53,7 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
       return;
     }
     setTimeError('');
-    handleAdd(value);
+    handleAdd(value as HackathonScheduleType);
   };
 
   return (
@@ -222,7 +222,7 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
               add();
             }}
           >
-            {t('add')}
+            {hackathon.info?.schedule?.list?.some((v) => v.id === schedule.id) ? t('change') : t('add')}
           </Button>
         </div>
       </div>

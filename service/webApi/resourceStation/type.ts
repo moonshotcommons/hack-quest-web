@@ -2,6 +2,7 @@ import { CustomComponent } from '@/components/ComponentRenderer/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
+  DRAFT = 'draft',
   PAST = 'past'
 }
 
@@ -24,8 +25,11 @@ export interface HackathonRewardType {
   rule: string;
   name: string;
   totalRewards: number;
-  rewards: Record<string, any>;
-  rewardsArr: Record<string, any>[];
+  rewards: {
+    id: string;
+    label: string;
+    value: number;
+  }[];
 }
 export interface HackathonScheduleType {
   id: string;

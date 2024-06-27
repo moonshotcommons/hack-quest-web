@@ -222,5 +222,7 @@
   "delete": "Delete",
   "remove": "Remove",
   "description": "Description",
-  "uploadImage": "upload Image"
+  "uploadImage": "upload Image",
+  "add":"Add",
+  "change":"Change"
 }
