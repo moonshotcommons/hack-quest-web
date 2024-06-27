@@ -12,6 +12,7 @@ export enum ApplicationSectionType {
 export enum SubmissionSectionType {
   BasicInfo = 'BasicInfo',
   ProjectDetail = 'ProjectDetail',
+  Videos = 'Videos',
   Additions = 'Additions'
 }
 

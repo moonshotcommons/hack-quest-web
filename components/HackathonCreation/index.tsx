@@ -8,7 +8,8 @@ import {
 import {
   BasicInfoSectionComponentMap,
   ProjectDetailSectionComponentMap,
-  AdditionsSectionComponentMap
+  AdditionsSectionComponentMap,
+  VideosSectionComponentMap
 } from './Submission';
 
 export const PresetComponentMap = {
@@ -18,7 +19,8 @@ export const PresetComponentMap = {
   ...ApplicationTypeSectionComponentMap,
   ...BasicInfoSectionComponentMap,
   ...ProjectDetailSectionComponentMap,
-  ...AdditionsSectionComponentMap
+  ...AdditionsSectionComponentMap,
+  ...VideosSectionComponentMap
 };
 
 export * from './Application';

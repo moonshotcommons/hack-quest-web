@@ -7,6 +7,7 @@ import { z } from 'zod';
 
 interface FirstNameAndLastNameProps {
   form: any;
+  config: PresetComponentConfig;
 }
 
 const FirstNameAndLastName: FC<FirstNameAndLastNameProps> = ({ form }) => {

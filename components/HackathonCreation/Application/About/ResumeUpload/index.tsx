@@ -7,6 +7,8 @@ import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
 import { z } from 'zod';
+import { RcFile } from 'antd/es/upload';
+import webApi from '@/service';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -83,7 +85,23 @@ const ResumeUpload: FC<ResumeUploadProps> = ({ form, onFileChange }) => {
           listType="picture-card"
           className="group my-[1px] mt-1 [&>div]:flex [&>div]:!h-[152px] [&>div]:!w-[118px] [&>div]:items-center [&>div]:justify-center [&>div]:!rounded-[12px] [&>div]:border [&>div]:border-dashed [&>div]:!border-neutral-medium-gray [&>div]:!bg-neutral-off-white [&>div]:hover:!border-yellow-primary"
           showUploadList={false}
-          // customRequest={() => {}}
+          customRequest={async (option) => {
+            setLoading(true);
+            const { onProgress, onSuccess, onError } = option;
+            const file = option.file as RcFile;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filePath', 'hackathons/members/resume');
+            formData.append('isPublic', 'true');
+            try {
+              const res = await webApi.commonApi.uploadImage(formData);
+              form.setValue('resume', res.filepath);
+              onSuccess?.({}, new XMLHttpRequest());
+            } catch (err: any) {
+              onError?.(err);
+            }
+            setLoading(false);
+          }}
           beforeUpload={beforeUpload}
           onChange={handleChange}
         >

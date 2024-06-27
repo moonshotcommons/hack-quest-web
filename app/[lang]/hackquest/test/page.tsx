@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { ApplicationSectionConfig, ProjectDetailSectionComponentList } from '@/components/HackathonCreation';
+import { ApplicationSectionConfig, VideosSectionComponentList } from '@/components/HackathonCreation';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { CustomComponentConfig } from '@/components/HackathonCreation/type';
 import { Form } from '@/components/ui/form';
@@ -31,7 +31,7 @@ const TestPage: FC<TestPageProps> = (props) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-6">
-            {ProjectDetailSectionComponentList.map((config, index) => {
+            {VideosSectionComponentList.map((config, index) => {
               return <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
             })}
           </div>
