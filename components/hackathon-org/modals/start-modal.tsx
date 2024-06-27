@@ -3,32 +3,32 @@
 import * as React from 'react';
 import Link from 'next/link';
 import * as z from 'zod';
+import { message } from 'antd';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MoveRightIcon } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { TextField } from '@/components/ui/text-field';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/helper/utils';
 import { HACKQUEST_DISCORD } from '@/constants/links';
-import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { useRouter } from 'next/navigation';
-import { message } from 'antd';
 
 const formSchema = z.object({
   name: z
     .string()
     .min(1, {
-      message: 'Hackathon name is a required input'
+      message: 'Hackathon name is required'
     })
     .max(80, {
       message: 'Hackathon name cannot exceed 80 characters'
     })
 });
 
-export function StartModal() {
+export function StartModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,7 +51,7 @@ export function StartModal() {
     mutate(data);
   }
   return (
-    <Dialog open={false}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-[808px] max-w-[808px] gap-8 px-10 py-16 [&_.close-icon]:right-7 [&_.close-icon]:top-7">
         <DialogHeader className="space-y-4">
           <DialogTitle>Name Your Hackathon!</DialogTitle>
@@ -78,9 +78,6 @@ export function StartModal() {
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter your hackathon name"
                       className="aria-[invalid=true]:border-status-error-dark"

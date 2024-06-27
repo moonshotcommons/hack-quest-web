@@ -117,7 +117,7 @@ export function BasicInfoForm({
   }, [isValid, isEditMode]);
 
   React.useEffect(() => {
-    if (initialValues && initialValues?.info) {
+    if (initialValues) {
       form.reset({
         name: initialValues?.name,
         ...initialValues?.info
@@ -298,7 +298,7 @@ export function BasicInfoForm({
                   className="w-full grid-cols-2"
                 >
                   <FormControl>
-                    <RadioGroupItem value="HYBRID">Hybrid</RadioGroupItem>
+                    <RadioGroupItem value="HYBRID">Hybrid / Offline</RadioGroupItem>
                   </FormControl>
                   <FormControl>
                     <RadioGroupItem value="ONLINE">Online</RadioGroupItem>

@@ -2,15 +2,15 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { LoaderIcon, MoveRightIcon } from 'lucide-react';
+import { MoveRightIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import * as ResizablePanel from '@/components/shared/resizable-panel';
 import * as Stepper from '@/components/hackathon-org/common/stepper';
 import { HACKQUEST_DISCORD } from '@/constants/links';
 import { BasicInfoForm } from '@/components/hackathon-org/forms/basic-info';
-import { JudgingForm } from '@/components/hackathon-org/forms/judging';
 import { cn } from '@/helper/utils';
 import { LinksForm } from '@/components/hackathon-org/forms/links';
 import { CoverForm } from '@/components/hackathon-org/forms/cover';
@@ -21,12 +21,19 @@ import { SubmissionForm } from '@/components/hackathon-org/forms/submission';
 import { STEP_ITEMS, Steps } from '@/components/hackathon-org/constants/steps';
 import { useHackathonOrgState } from '@/components/hackathon-org/constants/state';
 import webApi from '@/service';
+import loading from '@/public/images/other/loading.png';
+import { JudgingOverrideForm } from '@/components/hackathon-org/forms/judging-override';
 
-function PageSkeleton() {
+function PageLoading() {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-1 py-40">
-      <LoaderIcon className="animate-spin" />
-      <span className="text-base">Loading...</span>
+      <Image
+        src={loading}
+        width={48}
+        height={48}
+        alt="loading"
+        className="absolute animate-spin object-contain opacity-100"
+      />
     </div>
   );
 }
@@ -43,7 +50,7 @@ export default function Page() {
   });
 
   if (isLoading) {
-    return <PageSkeleton />;
+    return <PageLoading />;
   }
 
   return (
@@ -82,16 +89,16 @@ export default function Page() {
       <div
         className={cn('w-full rounded-2xl bg-neutral-white px-8 py-10', {
           'rounded-tl-none': step === Steps.BASIC_INFO,
-          'rounded-tr-none': step === Steps.SUBMISSION
+          'rounded-tr-none': step === Steps.JUDGING
         })}
       >
         <ResizablePanel.Root value={step} className="px-2 pb-2">
           <ResizablePanel.Content value={Steps.BASIC_INFO}>
             <BasicInfoForm initialValues={data} />
           </ResizablePanel.Content>
-          <ResizablePanel.Content value={Steps.JUDGING}>
+          {/* <ResizablePanel.Content value={Steps.JUDGING}>
             <JudgingForm initialValues={data} />
-          </ResizablePanel.Content>
+          </ResizablePanel.Content> */}
           <ResizablePanel.Content value={Steps.LINKS}>
             <LinksForm initialValues={data} />
           </ResizablePanel.Content>
@@ -109,6 +116,9 @@ export default function Page() {
           </ResizablePanel.Content>
           <ResizablePanel.Content value={Steps.SUBMISSION}>
             <SubmissionForm initialValues={data} />
+          </ResizablePanel.Content>
+          <ResizablePanel.Content value={Steps.JUDGING}>
+            <JudgingOverrideForm initialValues={data} />
           </ResizablePanel.Content>
         </ResizablePanel.Root>
       </div>

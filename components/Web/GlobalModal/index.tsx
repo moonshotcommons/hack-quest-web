@@ -15,7 +15,7 @@ const GlobalModal: FC<GlobalModalProps> = (props) => {
       <PlaygroundSelectModal />
       <TipsModal />
       <DocumentationPortal />
-      <StartModal />
+      <StartModal open={false} onClose={() => {}} />
       <NotificationModal />
     </>
   );
