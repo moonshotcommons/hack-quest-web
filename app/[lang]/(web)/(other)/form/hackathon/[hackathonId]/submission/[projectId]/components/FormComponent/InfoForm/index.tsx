@@ -84,9 +84,6 @@ const InfoForm: FC<
     location: z.string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1),
     prizeTrack: z.string().min(1),
     track: z.string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1),
-    // track: z.string().min(2, {
-    //   message: 'You need to select a track.'
-    // }),
     tagline: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     technologies: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
     solvedProblem: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
@@ -239,11 +236,11 @@ const InfoForm: FC<
       teamID,
       roomNumber
     } = info!;
-    form.setValue('intro', intro);
-    form.setValue('detailedIntro', detailedIntro);
+    form.setValue('intro', intro || '');
+    form.setValue('detailedIntro', detailedIntro || '');
     form.setValue('projectName', projectName);
     form.setValue('projectLogo', projectLogo);
-    form.setValue('track', track as string);
+    form.setValue('track', (track as string) || '');
     form.setValue('location', (location as string) || '');
     form.setValue('prizeTrack', prizeTrack as string);
     form.setValue('tagline', tagline as string);
@@ -252,6 +249,7 @@ const InfoForm: FC<
     form.setValue('challenges', challenges as string);
     form.setValue('teamID', teamID as string);
     form.setValue('roomNumber', roomNumber as string);
+
     if (
       (intro || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
       (detailedIntro || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
@@ -380,7 +378,7 @@ const InfoForm: FC<
                 'button-text-m w-[165px] px-0 py-4 uppercase',
                 !form.formState.isValid || (!logo && !form.getValues('projectLogo')) ? 'bg-neutral-light-gray' : ''
               )}
-              // disabled={!form.formState.isValid || (!logo && !form.getValues('projectLogo'))}
+              disabled={!form.formState.isValid || (!logo && !form.getValues('projectLogo'))}
               loading={loading}
               onClick={() => console.log(form.getValues())}
             >
