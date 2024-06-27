@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { XIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Modal from '@/components/Common/Modal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
@@ -17,6 +17,7 @@ import { wait } from '@/helper/utils';
 
 export function UsernameModal() {
   const router = useRouter();
+  const { ecosystemId } = useParams<{ ecosystemId: string }>();
   const queryClient = useQueryClient();
   const [username, setUsername] = React.useState('');
 
@@ -36,7 +37,7 @@ export function UsernameModal() {
   const { mutateAsync, isPending: claimLoading } = useMutation({
     mutationKey: ['claimCertificate'],
     mutationFn: ({ id, formData }: { id: string; formData: FormData }) =>
-      webApi.campaignsApi.claimCertificate(id, formData)
+      webApi.ecosystemApi.claimCertificateOverride(id, formData)
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -57,7 +58,7 @@ export function UsernameModal() {
 
       const formData = new FormData();
       formData.append('file', file);
-      mutateAsync({ id: data?.certificationId, formData }).then((res) => {
+      mutateAsync({ id: ecosystemId, formData }).then((res) => {
         setUsername('');
         onClose();
         setLoading(false);

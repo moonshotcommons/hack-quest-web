@@ -1,6 +1,6 @@
 import WebService from '@/service/webService/webService';
 import { EcosystemDetailType, EcosystemTask, EcosystemType, LevelType } from './type';
-import { CertificationType } from '../campaigns/type';
+import { CertificationType, UserCertificateInfo } from '../campaigns/type';
 
 export enum EcosystemApiType {
   ECOSYSTEMS = 'ecosystems'
@@ -96,6 +96,12 @@ class EcosystemApi {
       headers: {
         Authorization: `Bearer ${token}`
       }
+    });
+  }
+
+  claimCertificateOverride(ecosystemId: string, data: FormData) {
+    return this.service.post<UserCertificateInfo>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels/claim`, {
+      data
     });
   }
 }
