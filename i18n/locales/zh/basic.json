@@ -221,5 +221,7 @@
   "delete": "删除",
   "remove": "移除",
   "description": "描述",
-  "uploadImage": "上传图片"
+  "uploadImage": "上传图片",
+   "add":"新增",
+  "change":"修改"
 }

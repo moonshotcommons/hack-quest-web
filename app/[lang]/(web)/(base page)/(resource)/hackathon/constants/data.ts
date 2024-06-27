@@ -1,5 +1,7 @@
 import { MotionProps } from 'framer-motion';
 import { z } from 'zod';
+import { HackathonTabType } from './type';
+import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 export const projectSort = [
   {
@@ -151,7 +153,7 @@ export const scheduleFormSchema = z.object({
   description: z.string().max(360, {
     message: 'Description cannot exceed 360 characters.'
   }),
-  link: z.string(),
+  link: z.string().url().optional(),
   address: z.string()
 });
 
@@ -190,3 +192,26 @@ export const faqsFormArraySchema = z.object({
 });
 
 export type FormValueType = z.infer<typeof faqsFormArraySchema>;
+
+export const hackathonDashboardTab: HackathonTabType[] = [
+  {
+    label: 'onGoingHackathon',
+    value: HackathonStatusType.ON_GOING,
+    count: 0
+  },
+  {
+    label: 'draft',
+    value: HackathonStatusType.DRAFT,
+    count: 0
+  },
+  {
+    label: 'pastHackathon',
+    value: HackathonStatusType.PAST,
+    count: 0
+  }
+];
+
+export const hackathonSections = {
+  require: ['info', 'application', 'submission', 'links', 'cover', 'timeline', 'rewards', 'judging'],
+  optional: ['mediaPartners', 'communityPartners', 'partners', 'speakers', 'sponsors', 'schedule', 'faqs']
+};

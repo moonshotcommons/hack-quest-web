@@ -12,6 +12,7 @@
   "allHackathons": "All Hackathons",
   "onGoingHackathon": "Ongoing Hackathon",
   "pastHackathon": "Past Hackathon",
+  "draft": "Draft",
   "featuredProjects": "Featured Projects",
   "submitNow": "Submit Now",
   "liveNow": "Live Now",
@@ -201,7 +202,6 @@
     "vote": "vote",
     "empty": "You didn’t {{type}} in any hackathon",
     "back": "Back To Your Hackathon"
-
   },
   "explore": {
     "title": "Explore Hackathons",
@@ -214,5 +214,18 @@
   "voting": {
     "title": "Hackathon Voting",
     "description": "Get ready to make a difference! 🌟 Vote for your favorite projects in the hackathon. Your opinion counts! Let's support these awesome ideas together! 🚀"
+  },
+  "organizer":{
+    "title":"Hackathon Organizer",
+    "description":"Welcome to the Hackathon Organizer Dashboard! Here, you can effortlessly manage your hackathons from start to finish. Create new events, edit ongoing ones, and review past successes—all in one place. Streamline your organizing process and focus on fostering innovation and collaboration.",
+    "startNewHackathon":"start a new hackathon",
+    "empty": "You didn’t have any {{type}}",
+    "ongoing":"on going hackathon",
+    "draft":"draft",
+    "past":"past hackathon",
+    "continueEditing":"continue editing",
+    "previewSubmit":"preview / submit",
+    "requiredSections":"Required Sections",
+    "optionalSections":"Optional Sections"
   }
 }

@@ -47,8 +47,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
         schedule: {
           list: newSchedules
         }
-      },
-      closeModal: false
+      }
     });
   };
 
@@ -65,6 +64,11 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
         schedule: {
           list: newSchedules
         }
+      },
+      closeModal: false,
+      cb() {
+        const newEditIds = editIds.filter((v) => v !== item.id);
+        setEditIds(newEditIds);
       }
     });
   };
