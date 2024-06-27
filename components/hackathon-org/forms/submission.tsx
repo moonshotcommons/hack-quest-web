@@ -23,7 +23,7 @@ export function SubmissionForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
-  const { submission } = initialValues?.info;
+  const submission = initialValues?.info?.submission;
   const queryClient = useQueryClient();
   const {
     basicInfoState,

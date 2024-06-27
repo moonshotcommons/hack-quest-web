@@ -64,7 +64,7 @@ export function ApplicationForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
-  const { application } = initialValues?.info;
+  const application = initialValues?.info?.application;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
