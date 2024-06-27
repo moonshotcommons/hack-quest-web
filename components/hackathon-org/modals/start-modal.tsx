@@ -28,7 +28,12 @@ const formSchema = z.object({
     })
 });
 
-export function StartModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+interface StartModalProps {
+  open: boolean;
+  onClose: VoidFunction;
+}
+
+export function StartModal({ open, onClose }: StartModalProps) {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

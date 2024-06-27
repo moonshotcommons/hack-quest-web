@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { XIcon } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
@@ -51,6 +51,7 @@ function ClaimCertificateForm() {
 
 export function UsernameModal() {
   const router = useRouter();
+  const { ecosystemId } = useParams<{ ecosystemId: string }>();
   const queryClient = useQueryClient();
   const [username, setUsername] = React.useState('');
   const [userCertificateInfo, setUserCertificateInfo] = React.useState<UserCertificateInfo>();
@@ -63,7 +64,7 @@ export function UsernameModal() {
   const [loading, setLoading] = React.useState(false);
 
   const mutation = useMutation({
-    mutationKey: ['claimCertificate'],
+    mutationKey: ['createCertificate'],
     mutationFn: (id: string) => webApi.campaignsApi.crateCertificate(id, { username }),
     onError: (error, variables, context) => errorMessage(error)
   });
@@ -71,7 +72,7 @@ export function UsernameModal() {
   const { mutateAsync, isPending: claimLoading } = useMutation({
     mutationKey: ['claimCertificate'],
     mutationFn: ({ id, formData }: { id: string; formData: FormData }) =>
-      webApi.campaignsApi.claimCertificate(id, formData)
+      webApi.ecosystemApi.claimCertificateOverride(id, formData)
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -92,7 +93,7 @@ export function UsernameModal() {
 
       const formData = new FormData();
       formData.append('file', file);
-      mutateAsync({ id: data?.certificationId, formData }).then((res) => {
+      mutateAsync({ id: ecosystemId, formData }).then((res) => {
         setUsername('');
         onClose();
         setLoading(false);
