@@ -209,6 +209,7 @@ const SubmissionTypeForm: FC<
               onRemoveMember={onRemoveMember}
               teamDetail={submissionType.teamDetail as HackathonTeamDetail}
               userId={submissionType.userId!}
+              hackathonId={simpleHackathonInfo.id}
             />
           )}
           {type === 'Group Project' && groupType === 'member' && (

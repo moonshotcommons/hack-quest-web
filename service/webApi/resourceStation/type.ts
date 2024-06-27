@@ -326,6 +326,7 @@ export interface HackathonTeamDetail {
   name: string;
   creatorId: string;
   createdAt: string;
+  hackathonId: string;
   updatedAt: string;
   members: TeamMemberInfo[];
 }

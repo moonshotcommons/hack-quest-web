@@ -103,10 +103,19 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </Button>
           );
         } else {
+          if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+            return (
+              <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
+                <Button type="primary" className="button-text-l h-[60px] w-full uppercase  hover:scale-[1]">
+                  {t('hackathonDetail.editSubmission')}
+                </Button>
+              </Link>
+            );
+          }
           return (
-            <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
+            <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}`}>
               <Button type="primary" className="button-text-l h-[60px] w-full uppercase  hover:scale-[1]">
-                {t('hackathonDetail.editSubmission')}
+                {t('hackathonDetail.viewTeamProject')}
               </Button>
             </Link>
           );

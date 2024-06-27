@@ -85,10 +85,23 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </Button>
           );
         } else {
+          if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+            return (
+              <Button
+                type="primary"
+                className="button-text-m h-[3rem] w-full uppercase  hover:scale-[1]"
+                onClick={() => setTipsModalOpenState(true)}
+              >
+                {t('hackathonDetail.editSubmission')}
+              </Button>
+            );
+          }
           return (
-            <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
-              {t('youHavesubmitted')}
-            </Button>
+            <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}`}>
+              <Button type="primary" className="button-text-m h-[3rem] w-full uppercase  hover:scale-[1]">
+                {t('hackathonDetail.viewTeamProject')}
+              </Button>
+            </Link>
           );
         }
       }
