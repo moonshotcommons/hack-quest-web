@@ -16,7 +16,6 @@ interface NumberListItemRendererProps {
 
 const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   const { component, parent, nextComponent, prevComponent, position } = props;
-  console.info(props);
   let children = parent?.isRoot ? parent.content : parent.children;
   const { pageType, isMobile } = useGlobalRendererContext();
 
