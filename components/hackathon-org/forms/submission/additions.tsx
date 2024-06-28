@@ -2,8 +2,9 @@ import * as React from 'react';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { SelectableCard } from '../../common/selectable-card';
 import { AddFieldButton } from '../../common/add-field-button';
-import { isCustomField, useSubmissionState } from './state';
+import { useSubmissionState } from './state';
 import { EditCustomFieldModal } from '../../modals/edit-custom-field-modal';
+import { validateCustomField } from '../../constants/utils';
 
 export function Additions() {
   const [initialValues, setInitialValues] = React.useState<any>(undefined);
@@ -50,9 +51,9 @@ export function Additions() {
           <SelectableCard
             itemId={item.id}
             key={index}
-            label={isCustomField(item) ? item.property.label : item.type}
+            label={validateCustomField(item) ? item.property.label : item.title}
             disabled={item?.required}
-            isEditable={isCustomField(item)}
+            isEditable={validateCustomField(item)}
             checked={item?.selected}
             onCheckedChange={(checked) => onCheckedChange(item.id, checked)}
             optional={item.optional}
