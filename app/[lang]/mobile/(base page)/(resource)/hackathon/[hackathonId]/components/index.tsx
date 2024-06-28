@@ -32,14 +32,14 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
           <Theme hackathon={hackathon} />
           <TimeLine hackathon={hackathon} />
           <Rewards hackathon={hackathon} />
-          <GuestMentors listData={hackathon.sections.guestsAndMentors} />
+          <GuestMentors listData={hackathon.guestsAndMentors} />
           <MediaCommunity
-            listData={hackathon.sections.mediaPartners}
+            listData={hackathon.mediaPartners}
             title="mediaPartners"
             isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
           />
           <MediaCommunity
-            listData={hackathon.sections.communityPartners}
+            listData={hackathon.communityPartners}
             title="communityPartners"
             isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
           />

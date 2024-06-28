@@ -85,7 +85,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </Button>
           );
         } else {
-          if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+          if (
+            !hackathon.participation?.team ||
+            hackathon.participation?.team?.creatorId === hackathon.participation?.userId
+          ) {
             return (
               <Button
                 type="primary"
