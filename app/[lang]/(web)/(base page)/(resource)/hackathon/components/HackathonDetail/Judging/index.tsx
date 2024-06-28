@@ -34,7 +34,7 @@ const Judging: React.FC<JudgingProp> = ({ hackathon }) => {
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingAccounts')}</p>
           <div className="body-m mt-[4px] flex flex-wrap gap-x-[40px] gap-y-[12px] text-neutral-off-black">
-            {hackathon.judge.judgeAccounts.map((v, i) => (
+            {hackathon.judge?.judgeAccounts?.map((v, i) => (
               <div key={i} className="flex items-center gap-[12px]">
                 <BaseImage src={v.avatar} alt={v.nickname} className="h-[50px] w-[50px] rounded-[50%]" />
                 <span>{v.nickname}</span>
