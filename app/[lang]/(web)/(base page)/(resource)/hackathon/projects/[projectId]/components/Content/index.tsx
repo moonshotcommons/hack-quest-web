@@ -39,7 +39,7 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop, project, rankInfo, hacka
       <Overview project={project} hackathon={hackathon} />
       {isShowVoting && <Voting project={project} rankInfo={rankInfo} hackathon={hackathon} />}
       <Videos project={project} />
-      <Introduction project={project} />
+      {<Introduction project={project} />}
       <Team project={project} />
     </div>
   );

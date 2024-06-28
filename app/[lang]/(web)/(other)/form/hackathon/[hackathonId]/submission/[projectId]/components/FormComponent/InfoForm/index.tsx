@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { string, z } from 'zod';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
 import { FC, memo, useContext, useEffect, useRef, useState } from 'react';
@@ -20,7 +20,7 @@ import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import webApi from '@/service';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import { HACKATHON_SUBMIT_STEPS, LOCATIONS, TRACKS } from '../../constants';
+import { HackathonPartner, LOCATIONS, TRACKS, getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import { isEqual } from 'lodash-es';
@@ -31,15 +31,25 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import MenuLink from '@/constants/MenuLink';
 import FormRadio from '@/components/Common/FormRadio';
 import FormRadioItem from '@/components/Common/FormRadio/FormRadioItem';
+import SolvedProblem from './SolvedProblem';
+import Challenges from './Challenges';
+import Technologies from './Technologies';
+import Tagline from './Tagline';
 
 const formSchema = z.object({
   projectLogo: z.string().url(),
   projectName: z.string().min(1, {
     message: 'Project Name must be at least 2 characters.'
   }),
-  location: z.string().min(1),
+  location: z.string().min(1) || '',
   prizeTrack: z.string().min(1),
   track: z.string().min(1),
+  tagline: string().min(0),
+  technologies: string().min(0),
+  solvedProblem: string().min(0),
+  challenges: string().min(0),
+  teamID: string().min(0),
+  roomNumber: string().min(0),
   // track: z.string().min(2, {
   //   message: 'You need to select a track.'
   // }),
@@ -66,6 +76,37 @@ const InfoForm: FC<
   Omit<FormComponentProps, 'type' | 'formState' | 'setCurrentStep'> &
     Pick<HackathonSubmitStateType, 'info' | 'status' | 'isSubmit'>
 > = ({ onNext, onBack, info, tracks: prizeTrack, simpleHackathonInfo, projectId, status, isSubmit }) => {
+  const formSchema = z.object({
+    projectLogo: z.string().url(),
+    projectName: z.string().min(1, {
+      message: 'Project Name must be at least 2 characters.'
+    }),
+    location: z.string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1),
+    prizeTrack: z.string().min(1),
+    track: z.string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1),
+    tagline: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    technologies: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    solvedProblem: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    challenges: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    teamID: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    roomNumber: string().min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 1 : 0),
+    intro: z
+      .string()
+      .min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1, {
+        message: 'Intro must be at least 2 characters.'
+      })
+      .max(120, {
+        message: 'The intro field cannot exceed 160 characters'
+      }),
+    detailedIntro: z
+      .string()
+      .min(simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 0 : 1, {
+        message: 'detailedIntro must be at least 16 characters.'
+      })
+      .max(600, {
+        message: 'The detailed intro field cannot exceed 600 characters'
+      })
+  });
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,10 +114,14 @@ const InfoForm: FC<
       projectLogo: '',
       projectName: '',
       intro: '',
-      location: info.location,
+      location: '',
       prizeTrack: info.prizeTrack,
       detailedIntro: '',
-      track: info.track || ''
+      track: info.track || '',
+      tagline: '',
+      technologies: '',
+      solvedProblem: '',
+      challenges: ''
     }
   });
   const [logo, setLogo] = useState<UploadFile | null>(null);
@@ -87,13 +132,27 @@ const InfoForm: FC<
 
   const { runAsync: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>, isExit = false) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 0
-          ? ProjectSubmitStepType.PROJECT
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+
+      console.log(currentStep, nextStep);
+
+      const newStatus = currentStep.type === ProjectSubmitStepType.INFO ? nextStep.type : status;
 
       const formData = new FormData();
-      const { projectName, track, detailedIntro, intro, prizeTrack, location } = values;
+      const {
+        projectName,
+        track,
+        detailedIntro,
+        intro,
+        prizeTrack,
+        location,
+        tagline,
+        technologies,
+        solvedProblem,
+        challenges,
+        teamID,
+        roomNumber
+      } = values;
       projectName && formData.append('name', projectName);
       prizeTrack && formData.append('prizeTrack', prizeTrack);
       (track || '').split(',').forEach((t) => {
@@ -103,6 +162,12 @@ const InfoForm: FC<
       detailedIntro && formData.append('description', detailedIntro);
       intro && formData.append('introduction', intro);
       formData.append('hackathonId', simpleHackathonInfo.id);
+      formData.append('tagline', tagline);
+      formData.append('technologies', technologies);
+      formData.append('solvedProblem', solvedProblem);
+      formData.append('challenges', challenges);
+      formData.append('teamID', teamID);
+      formData.append('roomNumber', roomNumber);
       formData.append('status', isExit ? ProjectSubmitStepType.INFO : newStatus!);
       logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
 
@@ -156,15 +221,51 @@ const InfoForm: FC<
   }
 
   useEffect(() => {
-    const { intro, detailedIntro, projectName, projectLogo, track, prizeTrack, location } = info!;
-    form.setValue('intro', intro);
-    form.setValue('detailedIntro', detailedIntro);
+    const {
+      intro,
+      detailedIntro,
+      projectName,
+      projectLogo,
+      track,
+      prizeTrack,
+      location,
+      tagline,
+      technologies,
+      solvedProblem,
+      challenges,
+      teamID,
+      roomNumber
+    } = info!;
+    form.setValue('intro', intro || '');
+    form.setValue('detailedIntro', detailedIntro || '');
     form.setValue('projectName', projectName);
     form.setValue('projectLogo', projectLogo);
-    form.setValue('track', track as string);
-    form.setValue('location', location as string);
+    form.setValue('track', (track as string) || '');
+    form.setValue('location', (location as string) || '');
     form.setValue('prizeTrack', prizeTrack as string);
-    if (intro && detailedIntro && projectName && projectLogo && track && location && prizeTrack) form.trigger();
+    form.setValue('tagline', tagline as string);
+    form.setValue('technologies', technologies as string);
+    form.setValue('solvedProblem', solvedProblem as string);
+    form.setValue('challenges', challenges as string);
+    form.setValue('teamID', teamID as string);
+    form.setValue('roomNumber', roomNumber as string);
+
+    if (
+      (intro || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
+      (detailedIntro || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
+      projectName &&
+      projectLogo &&
+      (track || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
+      (location || simpleHackathonInfo.id === HackathonPartner.Hack4Bengal) &&
+      prizeTrack &&
+      (tagline || simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal) &&
+      (technologies || simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal) &&
+      (solvedProblem || simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal) &&
+      (challenges || simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal) &&
+      (teamID || simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal) &&
+      (roomNumber || simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal)
+    )
+      form.trigger();
   }, [info]);
 
   useEffect(() => {
@@ -198,20 +299,28 @@ const InfoForm: FC<
               />
             </div>
           </div>
-          <CustomSelectField
-            form={form}
-            label="Where are you located?"
-            name="location"
-            placeholder="Please select"
-            items={LOCATIONS}
-          ></CustomSelectField>
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
+            <CustomSelectField
+              form={form}
+              label="Where are you located?"
+              name="location"
+              placeholder="Please select"
+              items={LOCATIONS}
+            ></CustomSelectField>
+          )}
           {/* <ProjectPrizeTrackRadio tracks={tracks} form={form} /> */}
-          <FormRadio name="prizeTrack" form={form} label="Which Prize Track Do You Belong To" multiple>
+          <FormRadio
+            name="prizeTrack"
+            form={form}
+            label="Which Prize Track Do You Belong To"
+            multiple
+            className={cn('flex-wrap', { '[&>div]:w-[calc((100%-20px)/2)]': prizeTrack.length > 1 })}
+          >
             {prizeTrack.map((t) => (
               <FormRadioItem value={t} key={t} label={t} />
             ))}
           </FormRadio>
-          <ProjectTrackRadio tracks={TRACKS} form={form} />
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <ProjectTrackRadio tracks={TRACKS} form={form} />}
 
           {/* <div className="flex w-full justify-between gap-4">
             <div className="flex-1">
@@ -239,8 +348,24 @@ const InfoForm: FC<
             </div>
           </div> */}
 
-          <IntroName form={form} />
-          <DetailIntroName form={form} />
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <IntroName form={form} />}
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && <DetailIntroName form={form} />}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Tagline form={form} />}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <SolvedProblem form={form} />}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Challenges form={form} />}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && <Technologies form={form} />}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <CustomFormField
+              name="teamID"
+              label="Team ID"
+              placeholder="You unique team id provided by the Hack4Bengal team, e.g.: H4B000"
+              form={form}
+            />
+          )}
+          {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
+            <CustomFormField name="roomNumber" label="Room Number" placeholder="" form={form} />
+          )}
+
           <div className="flex justify-end gap-4">
             <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" disabled onClick={onBack}>
               Back
@@ -255,6 +380,7 @@ const InfoForm: FC<
               )}
               disabled={!form.formState.isValid || (!logo && !form.getValues('projectLogo'))}
               loading={loading}
+              onClick={() => console.log(form.getValues())}
             >
               {isSubmit ? 'update' : 'Save'} and Next
             </Button>
