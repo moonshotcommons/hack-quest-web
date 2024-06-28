@@ -44,10 +44,10 @@ const useDealHackathonData = () => {
   };
 
   const getTotalPrize = (rewards: HackathonRewardType[]) => {
-    const total = rewards.reduce((pre, next) => {
+    const total = rewards?.reduce((pre, next) => {
       return pre + Number(next.totalRewards);
     }, 0);
-    return total;
+    return total || 0;
   };
 
   const getStepIndex = (hackathon: HackathonType) => {
