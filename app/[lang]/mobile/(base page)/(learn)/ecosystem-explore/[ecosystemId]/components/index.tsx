@@ -16,9 +16,13 @@ interface EcosystemDetailProp {
 }
 
 const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem, task, levels }) => {
-  const learn = useMemo(() => {
+  const newTask = useMemo(() => {
     task?.learn?.map((v) => (v.courses = v.courses || v.learningTracks));
-    return task?.learn;
+    task?.build?.map((v) => (v.courses = v.courses || v.hackathons));
+    return {
+      learn: task?.learn || [],
+      build: task?.build || []
+    };
   }, [task]);
   return (
     <div>
@@ -31,8 +35,8 @@ const EcosystemDetail: React.FC<EcosystemDetailProp> = ({ lang, ecosystem, task,
           <div className="border-l border-dashed border-neutral-medium-gray"></div>
         </div>
         <div className="flex flex-1 flex-col gap-[2.5rem]">
-          <EcoList list={learn || []} />
-          <CourseList list={task.build || []} />
+          <EcoList list={newTask.learn || []} />
+          <CourseList list={newTask.build || []} />
           <MoreResource lang={lang} />
         </div>
       </div>

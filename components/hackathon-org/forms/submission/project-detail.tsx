@@ -4,6 +4,7 @@ import { SelectableCard } from '../../common/selectable-card';
 import { AddFieldButton } from '../../common/add-field-button';
 import { useSubmissionState } from './state';
 import { EditCustomFieldModal } from '../../modals/edit-custom-field-modal';
+import { validateCustomField } from '../../constants/utils';
 
 export function ProjectDetail() {
   const [initialValues, setInitialValues] = React.useState<any>(undefined);
@@ -50,9 +51,9 @@ export function ProjectDetail() {
           <SelectableCard
             itemId={item.id}
             key={index}
-            label={item.type === 'radio' || item.type === 'input' ? item.property.label : item.type}
+            label={validateCustomField(item) ? item.property.label : item.title}
             disabled={item?.required}
-            isEditable={item.type === 'radio' || item.type === 'input'}
+            isEditable={validateCustomField(item)}
             checked={item?.selected}
             onCheckedChange={(checked) => onCheckedChange(item.id, checked)}
             optional={item.optional}

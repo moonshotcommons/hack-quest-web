@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 import MenuLink from '@/constants/MenuLink';
+import webApi from '@/service';
 
 interface TopBannerProps {
   lang: Lang;
@@ -13,6 +14,13 @@ interface TopBannerProps {
 
 const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
   const { t } = await useTranslation(lang, TransNs.LANDING);
+
+  let userCount = '10k+';
+
+  try {
+    let { total } = await webApi.userApi.fetchUserCount();
+    userCount = total.toLocaleString();
+  } catch (err) {}
 
   const getLandingTitle = () => {
     switch (lang) {
@@ -79,7 +87,9 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
           <Image src="/images/landing/code_icon.png" alt="code" width={48} height={48}></Image>
           <div className="text-neutral-off-white">
             <p className="body-m">{t('TopBanner.learnAndBuildAlongside')}</p>
-            <p className="body-xl-bold">9k+ {t('TopBanner.developers')}</p>
+            <p className="body-xl-bold">
+              {userCount} {t('TopBanner.developers')}
+            </p>
           </div>
         </BubbleCard>
       </div>

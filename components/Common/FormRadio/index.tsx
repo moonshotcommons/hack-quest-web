@@ -1,3 +1,4 @@
+import { cn } from '@/helper/utils';
 import React, { ReactElement, useState } from 'react';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
@@ -8,6 +9,7 @@ interface FormRadioProps<TFieldValues extends FieldValues = FieldValues> {
   label: string;
   multiple?: boolean;
   disable?: boolean;
+  className?: string;
 }
 
 export type SelectType = string[] | boolean[] | number[];
@@ -18,7 +20,8 @@ const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
   name,
   children,
   multiple,
-  disable
+  disable,
+  className
 }: FormRadioProps<TFieldValues>) => {
   const defaultSelect: string[] =
     multiple && form.getValues(name)?.split ? (form.getValues(name) || '').split(',') : [];
@@ -37,7 +40,7 @@ const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
   return (
     <div className="flex w-full flex-col gap-3">
       <p className="body-m text-left text-neutral-rich-gray">{label}</p>
-      <div className="flex w-full justify-between gap-5">
+      <div className={cn('flex w-full justify-between gap-5', className)}>
         {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child;
           return React.cloneElement(child, { name, form, disable, ...multipleProps } as any);
