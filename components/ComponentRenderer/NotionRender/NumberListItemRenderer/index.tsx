@@ -11,10 +11,11 @@ interface NumberListItemRendererProps {
   nextComponent: NotionComponent | CustomComponent | null;
   component: NotionComponent | CustomComponent;
   parent: any;
+  position?: number;
 }
 
 const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
-  const { component, parent, nextComponent, prevComponent } = props;
+  const { component, parent, nextComponent, prevComponent, position } = props;
   let children = parent?.isRoot ? parent.content : parent.children;
   const { pageType, isMobile } = useGlobalRendererContext();
 
@@ -27,7 +28,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
       }
       firstIndex = i;
     }
-    return currentIndex - firstIndex;
+    return currentIndex - firstIndex || position || 0;
   }, [children, component]);
 
   const getMobileClassName = () => {
