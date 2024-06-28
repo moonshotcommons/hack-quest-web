@@ -42,12 +42,12 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     }))
   );
   const links = useMemo(() => {
-    const keys = Object.keys(hackathon.links?.links) || [];
+    const keys = Object.keys(hackathon.links?.links || {}) || [];
     const ls = keys.map((k) => ({
       icon: thirdPartyMedia[k as 'x'].icon,
       link: hackathon.links?.links?.[k]
     }));
-    return ls;
+    return ls || [];
   }, [hackathon]);
 
   const renderButton = () => {
@@ -198,7 +198,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
           <div className="mt-[.25rem] flex items-center gap-[.75rem]">
-            {links.map((v, i) => (
+            {links?.map((v, i) => (
               <Link
                 key={i}
                 href={v.link}
