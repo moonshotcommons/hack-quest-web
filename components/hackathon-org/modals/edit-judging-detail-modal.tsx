@@ -15,26 +15,36 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
+import { TextField } from '@/components/ui/text-field';
 
 const formSchema = z.object({
   resource: z
     .string()
     .min(1, {
-      message: 'Judging criteria is required'
+      message: 'Field is required'
     })
     .max(360, {
-      message: 'Judging criteria cannot exceed 360 characters'
+      message: 'Field cannot exceed 360 characters'
     }),
-  mode: z.enum(['all', 'judges'], {
+  judgingMode: z.enum(['all', 'judges'], {
     required_error: 'Please select a judging mode'
   }),
   votingMode: z.enum(['fixed', 'score'], {
     required_error: 'Please select a voting mode'
   }),
+  judgeVotes: z.string().min(1, {
+    message: 'Field is required'
+  }),
+  maxVotes: z.string().min(1, {
+    message: 'Field is required'
+  }),
+  requiredJudges: z.string().min(1, {
+    message: 'Field is required'
+  }),
   judgeAccount: z
     .string()
     .email({
-      message: 'Please enter a valid email address'
+      message: 'Invalid email address'
     })
     .optional()
     .or(z.literal(''))
@@ -49,6 +59,7 @@ export function EditJudgingDetailModal({
   initialValues?: any;
   onOpenChange?: (open: boolean) => void;
 }) {
+  const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
   const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
   const [sliderValue, setSliderValue] = React.useState(50);
@@ -62,11 +73,11 @@ export function EditJudgingDetailModal({
     }
   });
 
-  const mode = form.watch('mode');
+  const judgingMode = form.watch('judgingMode');
+  const votingMode = form.watch('votingMode');
+  const judgeAccount = form.watch('judgeAccount');
 
   const isValid = form.formState.isValid;
-
-  const judgeAccount = form.watch('judgeAccount');
 
   function onVotesChange(value: string, isUserVotes: boolean) {
     if (value === '') {
@@ -102,14 +113,17 @@ export function EditJudgingDetailModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="no-scrollbar max-h-[calc(100vh-20px)] w-[888px] max-w-[888px] gap-6 overflow-y-auto px-10 pb-10 pt-[60px] shadow-modal"
+        className="flex w-[888px] max-w-[888px] flex-col gap-6 overflow-y-auto px-10 pb-10 pt-[60px] shadow-modal"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
+        <h1 className="headline-h3 relative shrink-0 pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
           Web3 Track
         </h1>
         <Form {...form}>
-          <form className="flex flex-col items-center space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="no-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
             <FormField
               control={form.control}
               name="resource"
@@ -141,7 +155,7 @@ export function EditJudgingDetailModal({
             />
             <FormField
               control={form.control}
-              name="mode"
+              name="judgingMode"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <div className="flex items-center justify-between">
@@ -181,7 +195,7 @@ export function EditJudgingDetailModal({
                       onCheckedChange={(checked) => {
                         toggleChecked(checked);
                         if (checked) {
-                          form.resetField('mode');
+                          form.resetField('judgingMode');
                           setKey(+new Date());
                         }
                       }}
@@ -234,6 +248,7 @@ export function EditJudgingDetailModal({
                       <FormControl>
                         <RadioGroupItem
                           value="score"
+                          disabled={judgingMode === 'all'}
                           className="flex h-[86px] flex-col items-center justify-center gap-1 px-8"
                         >
                           <span className="text-neutral-black">Project Scoring</span>
@@ -243,6 +258,76 @@ export function EditJudgingDetailModal({
                         </RadioGroupItem>
                       </FormControl>
                     </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="judgeVotes"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-1">
+                  <div className="flex items-center justify-between">
+                    <FormLabel>
+                      <span className="body-m text-neutral-rich-gray">How many votes does each judge have?*</span>
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <TextField
+                      {...field}
+                      autoComplete="off"
+                      placeholder="e.g. 100"
+                      className="aria-[invalid=true]:border-status-error-dark"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="maxVotes"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-1">
+                  <div className="flex items-center justify-between">
+                    <FormLabel>
+                      <span className="body-m text-neutral-rich-gray">
+                        The maximum number of votes each judge can cast for each project*
+                      </span>
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <TextField
+                      {...field}
+                      autoComplete="off"
+                      placeholder="e.g. 100"
+                      className="aria-[invalid=true]:border-status-error-dark"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="requiredJudges"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-1">
+                  <div className="flex items-center justify-between">
+                    <FormLabel>
+                      <span className="body-m text-neutral-rich-gray">
+                        How many judges are needed to vote for each project?*
+                      </span>
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <TextField
+                      {...field}
+                      autoComplete="off"
+                      placeholder="e.g. 5"
+                      className="aria-[invalid=true]:border-status-error-dark"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -339,8 +424,22 @@ export function EditJudgingDetailModal({
                 </React.Fragment>
               )}
             </div>
+            <input ref={submitInputRef} type="submit" className="hidden" />
           </form>
         </Form>
+        <div className="flex shrink-0 justify-end gap-4">
+          <Button className="w-[165px]" variant="outline">
+            Cancel
+          </Button>
+          <Button
+            className="w-[165px]"
+            onClick={() => {
+              submitInputRef.current?.click();
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
