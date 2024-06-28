@@ -2,19 +2,23 @@ import { cn } from '@/helper/utils';
 import { UseFormReturn } from 'react-hook-form';
 import { SubmissionTypeFormSchema } from '..';
 import { SubmissionType } from '../../../../type';
+import { HackathonPartner } from '../../../../../submission/[projectId]/components/constants';
 
 interface ProjectTypeRadioProps {
   form: UseFormReturn<SubmissionTypeFormSchema, any, undefined>;
   submissionType: SubmissionType;
+  hackathonId: string;
 }
 
-const ProjectTypeRadio = ({ form, submissionType }: ProjectTypeRadioProps) => {
+const ProjectTypeRadio = ({ form, submissionType, hackathonId }: ProjectTypeRadioProps) => {
   return (
     <div className="flex w-full flex-col gap-4">
       <p className="body-l text-left text-neutral-off-black">Please choose the project type you want to submit</p>
       <div className="flex w-full justify-between gap-5">
         <div
           onClick={() => {
+            if (hackathonId === HackathonPartner.Hack4Bengal) return;
+
             if (!!Object.keys(submissionType.team || {}).length) {
               return;
             }
@@ -27,9 +31,17 @@ const ProjectTypeRadio = ({ form, submissionType }: ProjectTypeRadioProps) => {
             form.watch('type') === 'Solo Project'
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : '',
-            !!Object.keys(submissionType.team || {}).length ? '!cursor-not-allowed' : ''
+            !!Object.keys(submissionType.team || {}).length || hackathonId === HackathonPartner.Hack4Bengal
+              ? '!cursor-not-allowed'
+              : ''
           )}
-          title={!!Object.keys(submissionType.team || {}).length ? 'You must first delete or leave the team!' : ''}
+          title={
+            !!Object.keys(submissionType.team || {}).length
+              ? 'You must first delete or leave the team!'
+              : hackathonId === HackathonPartner.Hack4Bengal
+                ? 'Solo participation is not allowed!'
+                : ''
+          }
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="16" cy="16" r="15.5" stroke="#3E3E3E" />

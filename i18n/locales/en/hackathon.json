@@ -54,14 +54,23 @@
     "orientation": "Orientation",
     "openZoomMeeting": "Open Zoom meeting",
     "submitWarning": "You are not the team owner, please contact the administrator",
-    "editSubmission": "edit submission"
+    "editSubmission": "edit submission",
+    "judgingCriteria": "Judging Criteria",
+    "titleSponsor": "Title Sponsor",
+    "platinumSponsor": "Partners Sponsor",
+    "goldSponsor": "Gold Sponsor",
+    "silverSponsor": "Silver Sponsor",
+    "bronzeSponsor": "Bronze Sponsor",
+    "venue": "Venue Education & Partner",
+    "trackPartner": "Track Partner",
+    "viewTeamProject": "View team project"
   },
   "projectsDetail": {
     "title": {
       "info": "Info",
       "overview": "Overview",
       "voting": "Voting",
-      "votingFor":"Voting for {{name}}",
+      "votingFor": "Voting for {{name}}",
       "videos": "Videos",
       "introduction": "Introduction",
       "team": "Team"
@@ -148,7 +157,6 @@
     "vote": "vote",
     "empty": "You didn’t {{type}} in any hackathon",
     "back": "Back To Your Hackathon"
-
   },
   "explore": {
     "title": "Explore Hackathons",

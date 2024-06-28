@@ -11,22 +11,25 @@ interface HackathonRendererProp {
 const HackathonRenderer: React.FC<HackathonRendererProp> = ({ content }) => {
   return (
     <div className="w-full">
-      <ComponentRendererProvider type={PageType.HACKATHON} CustomComponentRenderer={HackathonCustomRenderer}>
-        {content?.map((component: CustomComponent, index: number) => {
-          const prevComponent = index === 0 ? null : content[index - 1];
-          const nextComponent = index === content.length - 1 ? null : content[index + 1];
-          return (
-            <ComponentRenderer
-              key={component.id}
-              component={component}
-              parent={{}}
-              position={index}
-              prevComponent={prevComponent}
-              nextComponent={nextComponent}
-            />
-          );
-        })}
-      </ComponentRendererProvider>
+      {content?.map && (
+        <ComponentRendererProvider type={PageType.HACKATHON} CustomComponentRenderer={HackathonCustomRenderer}>
+          {content?.map((component: CustomComponent, index: number) => {
+            const prevComponent = index === 0 ? null : content[index - 1];
+            const nextComponent = index === content.length - 1 ? null : content[index + 1];
+            return (
+              <ComponentRenderer
+                key={component.id}
+                component={component}
+                parent={{}}
+                position={index}
+                prevComponent={prevComponent}
+                nextComponent={nextComponent}
+              />
+            );
+          })}
+        </ComponentRendererProvider>
+      )}
+      {!content?.map && <p>{content as any}</p>}
     </div>
   );
 };

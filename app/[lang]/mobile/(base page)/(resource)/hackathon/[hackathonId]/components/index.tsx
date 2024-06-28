@@ -11,6 +11,7 @@ import MediaCommunity from './components/MediaCommunity';
 import HackathonInfo from './HackathonInfo';
 import Theme from './Theme';
 import Resource from './Resource';
+import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 
 interface HackDetailProps {
   hackathon: HackathonType;
@@ -32,8 +33,51 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
           <TimeLine hackathon={hackathon} />
           <Rewards hackathon={hackathon} />
           <GuestMentors listData={hackathon.guestsAndMentors} />
-          <MediaCommunity listData={hackathon.mediaPartners} title="mediaPartners" />
-          <MediaCommunity listData={hackathon.communityPartners} title="communityPartners" />
+          <MediaCommunity
+            listData={hackathon.mediaPartners}
+            title="mediaPartners"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.communityPartners}
+            title="communityPartners"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.titleSponsor}
+            title="titleSponsor"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.platinumSponsor}
+            title="platinumSponsor"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.goldSponsor}
+            title="goldSponsor"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.silverSponsor}
+            title="silverSponsor"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.bronzeSponsor}
+            title="bronzeSponsor"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.venue}
+            title="venue"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
+          <MediaCommunity
+            listData={hackathon.sections.trackPartner}
+            title="trackPartner"
+            isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
+          />
           <Resource hackathon={hackathon} />
           <Schedule hackathon={hackathon} />
         </div>

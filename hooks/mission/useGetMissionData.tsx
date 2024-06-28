@@ -31,7 +31,7 @@ export const useGetMissionData = () => {
   };
   const updateTreasures = async () => {
     let res = await webApi.missionCenterApi.getTreasures();
-    setUserTreasure(res || []);
+    setUserTreasure?.(res || []);
   };
   const updateAll = async () => {
     await updateMissionData();

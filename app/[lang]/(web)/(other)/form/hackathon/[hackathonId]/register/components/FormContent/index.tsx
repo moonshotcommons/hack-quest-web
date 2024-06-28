@@ -31,7 +31,9 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
     contractInfo: {
       email: '',
       weChat: '',
-      telegram: ''
+      telegram: '',
+      discord: '',
+      collegeName: ''
     },
     bio: '',
     submissionType: {
@@ -62,14 +64,33 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
   };
 
   const init = (registerInfo: HackathonRegisterInfo, teamDetail: HackathonTeamDetail | {}) => {
-    const { firstName, lastName, bio, status, weChat, email, team, userId, telegram, avatar, isRegister } =
-      registerInfo;
+    const {
+      firstName,
+      lastName,
+      bio,
+      status,
+      weChat,
+      email,
+      team,
+      userId,
+      telegram,
+      avatar,
+      isRegister,
+      discord,
+      collegeName
+    } = registerInfo;
 
     const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
 
     setCurrent(currentStep.stepNumber);
     const name = { firstName: firstName || '', lastName: lastName || '' };
-    const contractInfo = { weChat: weChat || '', telegram: telegram || '', email: email || '' };
+    const contractInfo = {
+      weChat: weChat || '',
+      telegram: telegram || '',
+      email: email || '',
+      discord: discord || '',
+      collegeName: collegeName || ''
+    };
 
     const isSoloRegister = status === HackathonRegisterStep.Review && !Object.keys(team || {}).length;
     const isNullType = status === HackathonRegisterStep.SubmissionType && !Object.keys(team || {}).length;

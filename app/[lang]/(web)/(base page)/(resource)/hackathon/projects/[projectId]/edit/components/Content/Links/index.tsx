@@ -13,7 +13,7 @@ const Links: FC<{ form: UseFormReturn<FormSchema, any, undefined>; isClose: bool
   return (
     <div className="flex flex-col gap-8">
       <Title>
-        <span className="text-h3">Project</span>
+        <span className="text-h3">Links</span>
       </Title>
       <CustomFormField
         name="contractLink"

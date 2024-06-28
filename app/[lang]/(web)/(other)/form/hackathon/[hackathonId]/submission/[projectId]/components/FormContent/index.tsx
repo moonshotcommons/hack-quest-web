@@ -1,6 +1,6 @@
 'use client';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { HACKATHON_SUBMIT_STEPS } from '../constants';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { HACKATHON_SUBMIT_STEPS, HackathonPartner, getHackathonSteps } from '../constants';
 import FormComponent from '../FormComponent';
 import FormHeader from '../FormHeader';
 import { HackathonSubmitStateType } from '../../type';
@@ -31,13 +31,25 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       location: '',
       track: '',
       intro: '',
-      detailedIntro: ''
+      detailedIntro: '',
+      tagline: '',
+      technologies: '',
+      solvedProblem: '',
+      challenges: '',
+      teamID: '',
+      roomNumber: ''
     },
     pitchVideo: '',
     projectDemo: '',
     others: {
       githubLink: '',
-      isPublic: undefined
+      isPublic: undefined,
+      links: {
+        figma: '',
+        playstore: '',
+        googleDrive: '',
+        other: ''
+      }
     },
     project: {
       efrog: undefined,
@@ -54,6 +66,10 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     wallet: '',
     isSubmit: false
   });
+
+  const steps = useMemo(() => {
+    return getHackathonSteps(simpleHackathonInfo.id);
+  }, [simpleHackathonInfo]);
 
   const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
@@ -90,9 +106,16 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       isOpenSource,
       status,
       thumbnail,
-      wallet
+      wallet,
+      tagline,
+      technologies,
+      solvedProblem,
+      challenges,
+      teamID,
+      roomNumber
     } = projectInfo!;
-    const currentStep = HACKATHON_SUBMIT_STEPS.find((step) => step.type === status)!;
+
+    const currentStep = steps.find((step) => step.type === status)!;
     setCurrent(currentStep.stepNumber);
 
     const links = typeof originLinks === 'string' ? JSON.parse(originLinks as string) : originLinks;
@@ -104,7 +127,13 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       track: tracks.join(','),
       location: location,
       intro: introduction,
-      detailedIntro: description
+      detailedIntro: description,
+      tagline,
+      technologies,
+      solvedProblem,
+      challenges,
+      teamID,
+      roomNumber
     };
 
     setFormState({
@@ -116,8 +145,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
         submitType: submitType
       },
       links: {
-        ...formState.links,
-        ...links
+        ...(formState.links || {}),
+        ...(links || {})
       },
       status,
       projectId: id,
@@ -125,7 +154,11 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       projectDemo: demo,
       others: {
         isPublic: isOpenSource,
-        githubLink
+        githubLink,
+        links: {
+          ...(formState.others.links || {}),
+          ...(links || {})
+        }
       },
       wallet
     });
@@ -151,7 +184,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
 
   const { runAsync: editRequest } = useRequest(
     () => {
-      const status = HACKATHON_SUBMIT_STEPS.find((item) => item.stepNumber === current)!.type;
+      const status = steps.find((item) => item.stepNumber === current)!.type;
       const formData = new FormData();
       formData.append('name', formState.info.projectName);
       formData.append('hackathonId', simpleHackathonInfo.id);
@@ -159,11 +192,15 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       formData.append('introduction', formState.info.intro);
       formData.append('description', formState.info.detailedIntro);
       formData.append('githubLink', formState.others.githubLink);
+
       formData.append('isOpenSource', String(formState.others.isPublic));
       formData.append('efrog', String(formState.project.efrog));
       formData.append('croak', String(formState.project.croak));
       formData.append('submitType', String(formState.project.submitType));
-      formData.append('links', JSON.stringify(formState.links));
+      simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal &&
+        formData.append('links', JSON.stringify(formState.links));
+      simpleHackathonInfo.id === HackathonPartner.Hack4Bengal &&
+        formData.append('links', JSON.stringify(formState.others.links));
       formData.append('status', status);
 
       return webApi.resourceStationApi.submitProject(
@@ -204,7 +241,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
   return (
     <div className="flex w-full flex-col justify-center gap-6 text-center">
       <FormHeader
-        steps={HACKATHON_SUBMIT_STEPS}
+        steps={steps}
         current={current}
         description="Hackathon Submission"
         title={simpleHackathonInfo?.name || ''}
@@ -216,7 +253,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       )}
       {current > -1 && (
         <FormComponent
-          type={HACKATHON_SUBMIT_STEPS[current].type}
+          type={steps[current].type}
           simpleHackathonInfo={simpleHackathonInfo}
           onNext={onNext}
           onBack={onBack}

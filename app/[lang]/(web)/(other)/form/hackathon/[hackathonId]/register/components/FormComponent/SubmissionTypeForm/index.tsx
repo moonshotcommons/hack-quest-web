@@ -29,6 +29,7 @@ import { errorMessage } from '@/helper/ui';
 import { HACKATHON_SUBMIT_STEPS } from '../../constants';
 import Link from 'next/link';
 import { HACKQUEST_DISCORD } from '@/constants/links';
+import { HackathonPartner } from '../../../../submission/[projectId]/components/constants';
 
 const formSchema = z.object({
   type: z.enum(['Solo Project', 'Group Project'], {
@@ -53,7 +54,7 @@ const SubmissionTypeForm: FC<
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      type: undefined,
+      type: simpleHackathonInfo.id === HackathonPartner.Hack4Bengal ? 'Group Project' : undefined,
       teamName: '',
       teamCode: ''
     }
@@ -170,15 +171,17 @@ const SubmissionTypeForm: FC<
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <ProjectTypeRadio form={form} submissionType={submissionType} />
-          <div className="caption-14pt flex justify-between text-neutral-off-black">
-            <p>Are you looking for a teammate? Follow HackQuest Discord to find your dream team!</p>
-            <Link href={HACKQUEST_DISCORD} target="_blank">
-              <LinkArrow direction="right" decorate>
-                Go to Discord
-              </LinkArrow>
-            </Link>
-          </div>
+          <ProjectTypeRadio form={form} submissionType={submissionType} hackathonId={simpleHackathonInfo.id} />
+          {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
+            <div className="caption-14pt flex justify-between text-neutral-off-black">
+              <p>Are you looking for a teammate? Follow HackQuest Discord to find your dream team!</p>
+              <Link href={HACKQUEST_DISCORD} target="_blank">
+                <LinkArrow direction="right" decorate>
+                  Go to Discord
+                </LinkArrow>
+              </Link>
+            </div>
+          )}
           {type === 'Group Project' && groupType === null && (
             <div className="flex flex-col gap-3 text-left">
               <p>Create a new team or join an existing one.</p>
@@ -206,6 +209,7 @@ const SubmissionTypeForm: FC<
               onRemoveMember={onRemoveMember}
               teamDetail={submissionType.teamDetail as HackathonTeamDetail}
               userId={submissionType.userId!}
+              hackathonId={simpleHackathonInfo.id}
             />
           )}
           {type === 'Group Project' && groupType === 'member' && (

@@ -4,6 +4,8 @@ export interface ContractInfo {
   email?: string;
   weChat?: string;
   telegram?: string;
+  discord?: string;
+  collegeName?: string;
 }
 
 export interface SubmissionType {

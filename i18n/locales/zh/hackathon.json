@@ -54,7 +54,16 @@
     "orientation": "Orientation",
     "openZoomMeeting": "Open Zoom meeting",
     "submitWarning": "You are not the team owner, please contact the administrator",
-    "editSubmission": "edit submission"
+    "editSubmission": "edit submission",
+    "judgingCriteria": "评审标准",
+    "titleSponsor": "标题赞助商",
+    "platinumSponsor": "白金赞助商",
+    "goldSponsor": "金牌赞助商",
+    "silverSponsor": "银牌赞助商",
+    "bronzeSponsor": "青铜赞助商",
+    "venue": "场地及教育合作伙伴",
+    "trackPartner": "跟踪合作伙伴",
+    "viewTeamProject": "查看团队项目"
   },
   "projectsDetail": {
     "title": {
