@@ -80,7 +80,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
               {/* {children} */}
               <div>
                 <p className="button-text-l">Pending</p>
-                <p className="body-xs font-light leading-normal">{`You'll be notified by 8:00p.m. on Feb 13, 2024 (GMT+8)`}</p>
+                <p className="body-xs font-light leading-normal">{`You'll be notified by 6:30p.m. on June 28th, 2024`}</p>
               </div>
             </Button>
           );
