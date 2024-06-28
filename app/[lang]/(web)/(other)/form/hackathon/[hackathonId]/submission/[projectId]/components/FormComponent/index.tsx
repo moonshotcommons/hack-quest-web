@@ -9,6 +9,8 @@ import SubmitReview from './SubmitReview';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import ProjectForm from './ProjectForm';
 import LinksForm from './LinksForm';
+import { HackathonPartner } from '../constants';
+import ProjectDemo from './ProjectDemo';
 
 export interface FormComponentProps {
   type: ProjectSubmitStepType;
@@ -50,6 +52,15 @@ const FormComponent: FC<FormComponentProps> = (props) => {
         />
       );
     case ProjectSubmitStepType.DEMO:
+      if (props.simpleHackathonInfo.id === HackathonPartner.Hack4Bengal)
+        return (
+          <ProjectDemo
+            {...rest}
+            projectDemo={formState.projectDemo}
+            status={formState.status}
+            isSubmit={formState.isSubmit}
+          />
+        );
       return (
         <ProjectDemoUpload
           {...rest}

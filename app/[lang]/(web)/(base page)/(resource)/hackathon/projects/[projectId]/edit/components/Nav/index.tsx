@@ -4,7 +4,7 @@ import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import { OffsetTopsType } from '../../../../../constants/type';
-import { sectionData } from '../../constants';
+
 import Button from '@/components/Common/Button';
 
 interface NavProp {
@@ -14,11 +14,13 @@ interface NavProp {
   onSava: VoidFunction;
   onExit: VoidFunction;
   submitDisable: boolean;
+  sectionData: string[];
 }
 
-const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex, onSava, onExit, submitDisable }) => {
+const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex, onSava, onExit, submitDisable, sectionData }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+
   return (
     <div className="body-l sticky left-0 top-[80px] w-[365px] pr-[40px]">
       <div>

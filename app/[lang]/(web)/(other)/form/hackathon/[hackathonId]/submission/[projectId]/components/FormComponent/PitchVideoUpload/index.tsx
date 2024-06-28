@@ -12,7 +12,7 @@ import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { getHackathonStepInfo } from '../../constants';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -108,10 +108,8 @@ const InfoForm: FC<
 
   const { run: onSubmit, loading: submitLoading } = useRequest(
     async () => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 2
-          ? ProjectSubmitStepType.DEMO
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+      const newStatus = currentStep.type === ProjectSubmitStepType.PITCH_VIDEO ? nextStep.type : status;
 
       const formData = new FormData();
       formData.append('status', newStatus);

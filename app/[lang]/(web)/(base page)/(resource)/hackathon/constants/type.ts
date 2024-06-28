@@ -1,4 +1,4 @@
-import { ProjectType } from '@/service/webApi/resourceStation/type';
+import { HackathonStatusType, ProjectType } from '@/service/webApi/resourceStation/type';
 import { createContext } from 'react';
 
 export interface OffsetTopsType {
@@ -108,3 +108,9 @@ export interface HackathonDetailContextType {
 export const HackathonDetailContext = createContext<HackathonDetailContextType>({
   navs: []
 });
+
+export interface HackathonTabType {
+  label: string;
+  value: HackathonStatusType;
+  count?: number;
+}

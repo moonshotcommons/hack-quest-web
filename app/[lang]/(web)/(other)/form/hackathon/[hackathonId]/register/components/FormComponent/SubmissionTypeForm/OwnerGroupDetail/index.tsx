@@ -2,6 +2,7 @@ import { HackathonTeam, HackathonTeamDetail, TeamMemberInfo } from '@/service/we
 import message from 'antd/es/message';
 import Image from 'next/image';
 import { FC, useCallback } from 'react';
+import { HackathonPartner } from '../../../../../submission/[projectId]/components/constants';
 
 interface OwnerGroupDetailProps {
   team: HackathonTeam;
@@ -9,9 +10,17 @@ interface OwnerGroupDetailProps {
   onDelete: (team: HackathonTeam) => void;
   onRemoveMember: (team: HackathonTeam, userInfo: TeamMemberInfo) => void;
   userId: string;
+  hackathonId: string;
 }
 
-const OwnerGroupDetail: FC<OwnerGroupDetailProps> = ({ team, onDelete, onRemoveMember, userId, teamDetail }) => {
+const OwnerGroupDetail: FC<OwnerGroupDetailProps> = ({
+  team,
+  onDelete,
+  onRemoveMember,
+  userId,
+  teamDetail,
+  hackathonId
+}) => {
   // const [teamDetail, setTeamDetail] = useState<HackathonTeamDetail>();
 
   const copyCode = useCallback(async () => {
@@ -51,7 +60,8 @@ const OwnerGroupDetail: FC<OwnerGroupDetailProps> = ({ team, onDelete, onRemoveM
           />
         </svg>
         <p className="body-s leading-[160%] text-neutral-medium-gray">
-          This hackathon let’s you have upto 5 teammates. Share the code below to add teammates.
+          This hackathon let’s you have upto {hackathonId === HackathonPartner.Hack4Bengal ? '4' : '5'} teammates. Share
+          the code below to add teammates.
         </p>
       </div>
       <div className="my-1 flex flex-col gap-1">

@@ -2,6 +2,7 @@ import { CustomComponent } from '@/components/ComponentRenderer/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
+  DRAFT = 'draft',
   PAST = 'past'
 }
 
@@ -24,8 +25,11 @@ export interface HackathonRewardType {
   rule: string;
   name: string;
   totalRewards: number;
-  rewards: Record<string, any>;
-  rewardsArr: Record<string, any>[];
+  rewards: {
+    id: string;
+    label: string;
+    value: number;
+  }[];
 }
 export interface HackathonScheduleType {
   id: string;
@@ -182,6 +186,21 @@ export interface HackathonType {
   judge: HackathonJudgeType;
   links: HackathonLinkType;
   memberCount: number;
+  sections: {
+    hosts: MentorType[];
+    venue: MentorType[];
+    coHosts: MentorType[];
+    goldSponsor: MentorType[];
+    titleSponsor: MentorType[];
+    trackPartner: MentorType[];
+    bronzeSponsor: MentorType[];
+    mediaPartners: MentorType[];
+    silverSponsor: MentorType[];
+    platinumSponsor: MentorType[];
+    guestsAndMentors: MentorType[];
+    communityPartners: MentorType[];
+  };
+  allowSubmission: boolean;
   alias: string;
   status: HackathonSubmissionStatus;
   members: HackathonMemberType[];
@@ -265,6 +284,12 @@ export type ProjectType = {
   croak: boolean;
   submitType: string;
   links: string | Record<string, string>;
+  tagline: string;
+  technologies: string;
+  solvedProblem: string;
+  challenges: string;
+  teamID: string;
+  roomNumber: string;
 };
 
 export interface ProjectDataType {
@@ -371,6 +396,8 @@ export interface HackathonRegisterInfo {
   remainingVote: number;
   totalVote: number;
   voteRole: HackathonTypeVotesRoleType;
+  discord: string;
+  collegeName: string;
 }
 
 export interface RegisterInfoBody {
@@ -381,6 +408,8 @@ export interface RegisterInfoBody {
   email?: string;
   bio?: string | null;
   status?: HackathonRegisterStep;
+  discord?: string;
+  collegeName?: string;
 }
 
 export interface HackathonTeam {
@@ -406,6 +435,7 @@ export interface HackathonTeamDetail {
   name: string;
   creatorId: string;
   createdAt: string;
+  hackathonId: string;
   updatedAt: string;
   members: TeamMemberInfo[];
 }

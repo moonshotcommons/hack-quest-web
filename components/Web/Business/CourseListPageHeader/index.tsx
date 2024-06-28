@@ -9,7 +9,7 @@ import { FC, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { GoX } from 'react-icons/go';
 interface CourseListPageHeaderProps {
-  title: string;
+  title: string | ReactNode;
   description: string;
   coverImage?: ReactNode;
   coverImageUrl?: string | StaticImport;

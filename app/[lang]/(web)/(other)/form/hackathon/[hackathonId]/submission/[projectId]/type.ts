@@ -27,6 +27,12 @@ export interface HackathonSubmitStateType {
     prizeTrack: string;
     location: string;
     detailedIntro: string;
+    tagline: string;
+    technologies: string;
+    solvedProblem: string;
+    challenges: string;
+    teamID: string;
+    roomNumber: string;
   };
   project: {
     efrog?: boolean;
@@ -45,6 +51,12 @@ export interface HackathonSubmitStateType {
   others: {
     githubLink: string;
     isPublic?: boolean;
+    links?: {
+      figma?: string;
+      playstore?: string;
+      googleDrive?: string;
+      other?: string;
+    };
   };
   wallet: string;
 }

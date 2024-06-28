@@ -6,7 +6,6 @@ import { useToggle } from '@/hooks/utils/use-toggle';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { currencyWithoutSymbol } from '@/lib/currency';
 import { Separator } from '@/components/ui/separator';
-import { numberToOrdinal } from '@/lib/utils';
 import webApi from '@/service';
 import { ActionButtons } from './action-buttons';
 import { EditTrackModal } from '../modals/edit-track-modal';
@@ -50,7 +49,7 @@ function TrackPreview({ track }: { track: any }) {
             <ul className="flex flex-col gap-1">
               {track?.rewards?.map((reward: any, index: number) => (
                 <li className="flex items-center justify-between" key={reward?.id}>
-                  <span className="body-m text-neutral-medium-gray">{numberToOrdinal(index + 1)} Place</span>
+                  <span className="body-m text-neutral-medium-gray">{reward?.label}</span>
                   <span className="body-l text-neutral-off-black">{currencyWithoutSymbol(Number(reward?.value))}</span>
                 </li>
               ))}

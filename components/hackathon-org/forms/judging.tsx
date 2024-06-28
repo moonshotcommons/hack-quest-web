@@ -145,6 +145,7 @@ export function JudgingForm({
     mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
     onSuccess: (data) => {
       setJudgeAccounts((prev) => [...prev, data]);
+      form.resetField('judgeAccount');
     },
     onError: (error: any) => {
       if (error.code === 404) {
@@ -155,9 +156,10 @@ export function JudgingForm({
     }
   });
 
-  function addJudgeAccount() {
+  async function addJudgeAccount() {
+    const isValid = await form.trigger('judgeAccount');
     const email = form.getValues('judgeAccount');
-    if (email) {
+    if (email && isValid) {
       mutate(email);
     }
   }
@@ -251,7 +253,7 @@ export function JudgingForm({
                     className="flex-1 outline-none"
                   />
                   <Button
-                    disabled={!judgeAccount || !!form.formState.errors.judgeAccount}
+                    disabled={!judgeAccount}
                     size="small"
                     type="button"
                     className="w-[140px]"
@@ -272,7 +274,7 @@ export function JudgingForm({
               {judgeAccounts.map((account) => (
                 <div className="flex items-center" key={account.email}>
                   <div className="relative h-[50px] w-[50px] rounded-full bg-yellow-dark">
-                    <Image src={account.avatar} alt="avatar" fill />
+                    <Image src={account.avatar} alt="avatar" className="rounded-full" fill />
                   </div>
                   <span className="body-m ml-3 text-neutral-off-black">{account.nickname}</span>
                   <span className="body-m ml-auto text-neutral-medium-gray">{account.email}</span>
@@ -291,7 +293,7 @@ export function JudgingForm({
         <ActionButtons
           isLoading={mutation.isPending}
           isEditMode={isEditMode}
-          isValid={isValid}
+          isValid={true}
           onCancelOrBack={onCancelOrBack}
         />
       </form>

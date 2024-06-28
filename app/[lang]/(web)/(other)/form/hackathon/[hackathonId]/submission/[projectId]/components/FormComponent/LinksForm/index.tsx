@@ -11,7 +11,7 @@ import { cn } from '@/helper/utils';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { HackathonSubmitStateType } from '../../../type';
 import { useRequest } from 'ahooks';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -50,10 +50,9 @@ const OthersForm: FC<
 
   const { run: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>, isExit = false) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 4
-          ? ProjectSubmitStepType.OTHERS
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+      const newStatus = currentStep.type === ProjectSubmitStepType.LINKS ? nextStep.type : status;
+
       const formData = new FormData();
 
       formData.append('links', JSON.stringify(values));

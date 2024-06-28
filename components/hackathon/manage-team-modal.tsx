@@ -17,6 +17,7 @@ import { copyText } from '@/helper/utils';
 import GroupActionConfirm, { GroupActionConfirmRef } from './GroupActionConfirm';
 import { useGroupAction } from './GroupActionConfirm/useGroupAction';
 import { ActionType } from './GroupActionConfirm/type';
+import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 
 interface State {
   open: boolean;
@@ -93,15 +94,6 @@ export function ManageTeamModal() {
     queryFn: () => webApi.resourceStationApi.getHackathonTeamDetail(code)
   });
 
-  // const removeTeamMutation = useMutation({
-  //   mutationKey: ['removeTeam', code],
-  //   mutationFn: () => webApi.resourceStationApi.deleteTeam(code),
-  //   onSuccess: () => {
-  //     onClose();
-  //     router.refresh();
-  //   }
-  // });
-
   const onDeleteGroup = (team: HackathonTeam) => {
     groupActionConfirmRef.current?.open<ActionType.DeleteTeam>({
       type: ActionType.DeleteTeam,
@@ -151,7 +143,8 @@ export function ManageTeamModal() {
         <div className="flex w-full items-center rounded-2xl bg-neutral-off-white p-4 text-neutral-medium-gray">
           <InfoIcon size={16} />
           <span className="ml-1 text-sm">
-            This hackathon let’s you have upto 5 teammates. Share the code below to add teammates.
+            This hackathon let’s you have upto {data?.hackathonId === HackathonPartner.Hack4Bengal ? '4' : '5'}{' '}
+            teammates. Share the code below to add teammates.
           </span>
         </div>
         <div className="w-full">

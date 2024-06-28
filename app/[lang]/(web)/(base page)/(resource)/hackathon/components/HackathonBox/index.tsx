@@ -1,7 +1,5 @@
 'use client';
 import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
-import OnGoing from './OnGoing';
-import Past from './Past';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
 import Tab from './Tab';
 import MenuLink from '@/constants/MenuLink';
@@ -10,27 +8,22 @@ import { useContext } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import Mini from './Mini';
 import Link from 'next/link';
 
 interface HackathonBoxProp {
-  page: number;
   curTab: HackathonStatusType;
-  hackathonList: HackathonType[];
-  total: number;
-  limit: number;
-  miniHackathonList: HackathonType[];
+  hackathons: HackathonType[];
 }
-const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab, hackathonList, total, limit, miniHackathonList }) => {
+const HackathonBox: React.FC<HackathonBoxProp> = ({ curTab, hackathons }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const renderHackathon = () => {
-    switch (curTab) {
-      case HackathonStatusType.ON_GOING:
-        return <OnGoing hackathonList={hackathonList} />;
-      case HackathonStatusType.PAST:
-        return <Past page={page} hackathonList={hackathonList} total={total} limit={limit} />;
-    }
+    // switch (curTab) {
+    //   case HackathonStatusType.ON_GOING:
+    //     return <OnGoing hackathonList={hackathonList} />;
+    //   case HackathonStatusType.PAST:
+    //     return <Past page={page} hackathonList={hackathonList} total={total} limit={limit} />;
+    // }
   };
   const buttonNode = () => {
     return (
@@ -54,10 +47,9 @@ const HackathonBox: React.FC<HackathonBoxProp> = ({ page, curTab, hackathonList,
         buttonNode={buttonNode()}
         className="pb-[40px]"
       />
-      <Mini miniHackathonList={miniHackathonList} />
       <div className="text-h3 mb-[12px] mt-[40px] text-neutral-black">{t('allHackathons')}</div>
       <Tab curTab={curTab} />
-      <div className="mb-[40px]">{renderHackathon()}</div>
+      {/* <div className="mb-[40px]">{renderHackathon()}</div> */}
     </div>
   );
 };
