@@ -32,7 +32,7 @@ const DetailIntroName: FC<DetailIntroNameProps> = ({ form }) => {
                 'What problem does your project want to solve, how does it solve the problem, business model, etc.'
               }
               {...field}
-              className="body-m !mt-1 box-border flex h-[76px] min-h-[76px] items-center border-neutral-light-gray bg-neutral-off-white !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray focus:bg-neutral-white"
+              className="body-m !mt-1 box-border flex h-[76px] min-h-[76px] items-center border-neutral-light-gray  bg-neutral-off-white !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray focus:bg-neutral-white"
             />
           </FormControl>
           <FormMessage />

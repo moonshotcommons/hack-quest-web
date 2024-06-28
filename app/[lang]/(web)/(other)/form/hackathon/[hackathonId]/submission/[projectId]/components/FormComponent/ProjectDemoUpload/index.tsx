@@ -9,7 +9,7 @@ import LoadingIcon from '@/components/Common/LoadingIcon';
 import webApi from '@/service';
 import { RcFile } from 'antd/es/upload';
 import VideoReview from '../../VideoReview';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { getHackathonStepInfo } from '../../constants';
 import { useRequest } from 'ahooks';
 import { errorMessage } from '@/helper/ui';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
@@ -107,10 +107,8 @@ const ProjectDemoUpload: FC<
 
   const { run: onSubmit, loading: submitLoading } = useRequest(
     async () => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 3
-          ? ProjectSubmitStepType.LINKS
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+      const newStatus = currentStep.type === ProjectSubmitStepType.DEMO ? nextStep.type : status;
 
       const formData = new FormData();
       formData.append('status', newStatus);

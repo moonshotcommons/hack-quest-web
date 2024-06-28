@@ -129,6 +129,7 @@ export interface UGCCourseType {
 
 /** 课程基础字段 */
 export interface CourseBaseType {
+  alias: string;
   id: string;
   title: string;
   name: string;

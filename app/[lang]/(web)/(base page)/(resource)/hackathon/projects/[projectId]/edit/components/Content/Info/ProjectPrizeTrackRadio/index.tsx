@@ -11,11 +11,15 @@ interface ProjectTypeRadioProps {
 
 const ProjectPrizeTrackRadio = ({ form, tracks, isClose }: ProjectTypeRadioProps) => {
   const [selectTracks, setSelectTracks] = useState<string[]>(form.watch('prizeTrack').split(','));
-  console.log(selectTracks);
+
   return (
     <div className="flex w-full flex-col gap-3">
       <p className="body-m text-left text-neutral-rich-gray">Which Hackathon Track Do You Belong To</p>
-      <div className="flex w-full justify-between gap-5">
+      <div
+        className={cn('flex w-full flex-wrap justify-between gap-5', {
+          '[&>div]:w-[calc((100%-20px)/2)]': tracks.length > 1
+        })}
+      >
         {tracks.map((track) => {
           return (
             <div

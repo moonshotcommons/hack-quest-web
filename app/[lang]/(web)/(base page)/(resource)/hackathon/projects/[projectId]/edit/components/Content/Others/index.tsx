@@ -6,8 +6,14 @@ import CustomFormField from '@/components/Web/Business/CustomFormField';
 import IsPublicRadio from './IsPublicRadio';
 import { FormSchema } from '../constants';
 import Title from '@/components/Common/Title';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
+import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 
-const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined>; isClose: boolean }> = ({ form, isClose }) => {
+const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined>; isClose: boolean; project: ProjectType }> = ({
+  form,
+  isClose,
+  project
+}) => {
   // function onSubmit(values: z.infer<typeof formSchema>) {
   //   // setContractInfo();
   //   if (
@@ -42,6 +48,38 @@ const OthersForm: FC<{ form: UseFormReturn<FormSchema, any, undefined>; isClose:
         placeholder="Paste Github link here"
       />
       <IsPublicRadio form={form} isClose={isClose} />
+      {project.hackathonId === HackathonPartner.Hack4Bengal && (
+        <>
+          <CustomFormField
+            name="figma"
+            label="Figma (optional)"
+            placeholder=""
+            form={form}
+            className="bg-neutral-off-white focus:bg-neutral-white"
+          />
+          <CustomFormField
+            name="playstore"
+            label="Playstore (optional)"
+            placeholder=""
+            form={form}
+            className="bg-neutral-off-white focus:bg-neutral-white"
+          />
+          <CustomFormField
+            name="googleDrive"
+            label="Google Drive (optional)"
+            placeholder=""
+            form={form}
+            className="bg-neutral-off-white focus:bg-neutral-white"
+          />
+          <CustomFormField
+            name="other"
+            label="Other (optional)"
+            placeholder=""
+            form={form}
+            className="bg-neutral-off-white focus:bg-neutral-white"
+          />
+        </>
+      )}
     </div>
   );
 };
