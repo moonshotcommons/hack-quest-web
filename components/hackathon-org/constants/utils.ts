@@ -16,3 +16,7 @@ export function updateState<T extends Record<string, any>>(currentState: T, newV
     .map((item: any) => newValuesMap.get(item.id) || item)
     .concat(newValues.filter((item: any) => !currentState.some((existingItem: any) => existingItem.id === item.id)));
 }
+
+export function validateCustomField(field: any) {
+  return field.type === 'radio' || field.type === 'input';
+}
