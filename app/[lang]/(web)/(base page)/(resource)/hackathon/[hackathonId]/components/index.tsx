@@ -19,7 +19,6 @@ interface HackDetailProps {
 }
 
 const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
-  // console.log(hackathon);
   return (
     <div className="container mx-auto pb-[120px] pt-[40px]">
       <div className="min-h-[50vh] w-full">
@@ -33,14 +32,14 @@ const HackDetail: FC<HackDetailProps> = ({ hackathon }) => {
                 <JudgingCriteria hackathon={hackathon} />
                 <TimeLine hackathon={hackathon} />
                 <Rewards hackathon={hackathon} />
-                <GuestMentors listData={hackathon.sections.guestsAndMentors} />
+                <GuestMentors listData={hackathon.guestsAndMentors} />
                 <MediaCommunity
-                  listData={hackathon.sections.mediaPartners}
+                  listData={hackathon.mediaPartners}
                   title="mediaPartners"
                   isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
                 />
                 <MediaCommunity
-                  listData={hackathon.sections.communityPartners}
+                  listData={hackathon.communityPartners}
                   title="communityPartners"
                   isHack4Bengal={hackathon.id === HackathonPartner.Hack4Bengal}
                 />

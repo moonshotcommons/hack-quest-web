@@ -80,7 +80,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
               {/* {children} */}
               <div>
                 <p className="button-text-l">Pending</p>
-                <p className="body-xs font-light leading-normal">{`You'll be notified by 8:00p.m. on Feb 13, 2024 (GMT+8)`}</p>
+                <p className="body-xs font-light leading-normal">{`You'll be notified by 6:30p.m. on June 28th, 2024`}</p>
               </div>
             </Button>
           );
@@ -103,7 +103,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </Button>
           );
         } else {
-          if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+          if (
+            !hackathon.participation?.team ||
+            hackathon.participation?.team?.creatorId === hackathon.participation?.userId
+          ) {
             return (
               <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
                 <Button type="primary" className="button-text-l h-[60px] w-full uppercase  hover:scale-[1]">
@@ -136,7 +139,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     );
   };
   return (
-    <Box className={cn('sticky right-0 top-[40px] flex flex-col  gap-4 text-neutral-off-black')}>
+    <Box className={cn('sticky right-0 top-[40px] flex flex-col text-neutral-off-black')}>
       {hackathon.participation?.isRegister && (
         <div className="flex h-10 w-full items-center justify-center gap-1 bg-yellow-extra-light">
           <span>
@@ -161,7 +164,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         </div>
       )}
 
-      <div className={cn('flex flex-col  gap-4', 'px-6 pb-5')}>
+      <div className={cn('flex flex-col  gap-4', 'px-6 py-5')}>
         {/* {(hackathon.participation?.isRegister || hackathon.participation?.isSubmit) && hackathon.allowSubmission && (
           <div className="body-s flex items-center gap-[4px] rounded-[16px] border border-status-error bg-status-error-light p-[16px] text-neutral-medium-gray ">
             <WarningIcon size={16} color="var(--status-error)" />
@@ -173,7 +176,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
           </div>
         )} */}
 
-        <h1 className="text-h3 ">{hackathon.name}</h1>
+        <h1 className="text-h3">{hackathon.name}</h1>
         {stepIndex === 0 ? (
           <div className="body-l-bold w-fit rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
             {t('liveNow')}

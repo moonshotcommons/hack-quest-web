@@ -146,6 +146,8 @@ const Content: React.FC<ContentProp> = ({
     partnerTooling: links.partnerTooling || ''
   };
 
+  console.log(project);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues

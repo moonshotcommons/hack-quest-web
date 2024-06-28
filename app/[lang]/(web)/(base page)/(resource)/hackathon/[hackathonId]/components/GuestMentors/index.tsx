@@ -17,6 +17,7 @@ const GuestMentors: React.FC<GuestMentorsProp> = ({ listData }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
+
   const showList = useMemo(() => {
     return showAll ? cloneDeep(listData) : listData?.slice(0, 6);
   }, [showAll, listData]);

@@ -62,7 +62,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
               {/* {children} */}
               <div>
                 <p className="button-text-m">Pending</p>
-                <p className="button-text-m text-[10px] font-light leading-normal">{`You'll be notified by 8:00p.m. on Feb 13, 2024 (GMT+8)`}</p>
+                <p className="button-text-m text-[10px] font-light leading-normal">{`You'll be notified by 6:30p.m. on June 28th, 2024`}</p>
               </div>
             </Button>
           );
@@ -85,7 +85,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             </Button>
           );
         } else {
-          if (hackathon.participation?.team?.creatorId === hackathon.participation?.userId) {
+          if (
+            !hackathon.participation?.team ||
+            hackathon.participation?.team?.creatorId === hackathon.participation?.userId
+          ) {
             return (
               <Button
                 type="primary"
