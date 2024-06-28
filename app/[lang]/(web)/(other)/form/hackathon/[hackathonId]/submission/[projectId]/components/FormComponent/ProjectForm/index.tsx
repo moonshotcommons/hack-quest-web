@@ -10,7 +10,7 @@ import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
 import { useRequest } from 'ahooks';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { getHackathonStepInfo } from '../../constants';
 import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -47,10 +47,13 @@ const ProjectForm: FC<
 
   const { run: submitRequest, loading } = useRequest(
     async (values: z.infer<typeof formSchema>, isExit = false) => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
-          ? ProjectSubmitStepType.PITCH_VIDEO
-          : status;
+      // const newStatus =
+      //   HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 1
+      //     ? ProjectSubmitStepType.PITCH_VIDEO
+      //     : status;
+
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+      const newStatus = currentStep.type === ProjectSubmitStepType.PROJECT ? nextStep.type : status;
 
       const formData = new FormData();
       const { efrog, croak, submitType } = values;

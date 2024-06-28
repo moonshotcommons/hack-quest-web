@@ -1,38 +1,36 @@
 import { FC } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { InfoFormSchema } from '..';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { FormSchema } from '../../constants';
 
-interface DetailIntroNameProps {
-  form: UseFormReturn<FormSchema, any, undefined>;
+interface ChallengesProps {
+  form: UseFormReturn<InfoFormSchema, any, undefined>;
 }
 
-const DetailIntroName: FC<DetailIntroNameProps> = ({ form }) => {
+const Challenges: FC<ChallengesProps> = ({ form }) => {
   return (
     <FormField
       control={form.control}
-      name={'detailedIntro'}
+      name={'challenges'}
       render={({ field }) => (
         <FormItem className="w-full text-left">
           <div className="flex w-full justify-between">
             <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
-              {'Detailed Intro of Your Project'}
+              {'Challenges I ran into'}
             </FormLabel>
             <span className="caption-14pt text-neutral-rich-gray">
-              <span className={form.watch('detailedIntro').length > 120 ? 'text-status-error' : ''}>
-                {form.watch('detailedIntro').length}
+              <span className={form.watch('challenges').length > 600 ? 'text-status-error' : ''}>
+                {form.watch('challenges').length}
               </span>
               /600
             </span>
           </div>
           <FormControl>
             <Textarea
-              placeholder={
-                'What problem does your project want to solve, how does it solve the problem, business model, etc.'
-              }
+              placeholder={'Any obstacles you overcame while building your project'}
               {...field}
-              className="body-m !mt-1 box-border flex h-[76px] min-h-[76px] items-center border-neutral-light-gray  bg-neutral-off-white !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray focus:bg-neutral-white"
+              className="body-m !mt-1 box-border flex h-[76px] min-h-[76px] items-center border-neutral-light-gray !py-[11px] px-6 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
             />
           </FormControl>
           <FormMessage />
@@ -42,4 +40,4 @@ const DetailIntroName: FC<DetailIntroNameProps> = ({ form }) => {
   );
 };
 
-export default DetailIntroName;
+export default Challenges;

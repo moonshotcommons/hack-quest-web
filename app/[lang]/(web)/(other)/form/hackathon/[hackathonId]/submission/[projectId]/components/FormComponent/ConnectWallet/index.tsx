@@ -5,7 +5,7 @@ import { FormComponentProps } from '..';
 import { cn } from '@/helper/utils';
 import { HackathonSubmitStateType } from '../../../type';
 import { ConnectButton } from './ConnectButton';
-import { HACKATHON_SUBMIT_STEPS } from '../../constants';
+import { getHackathonStepInfo } from '../../constants';
 import { useRequest } from 'ahooks';
 import message from 'antd/es/message';
 import webApi from '@/service';
@@ -28,10 +28,8 @@ const ConnectWallet: FC<
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
-      const newStatus =
-        HACKATHON_SUBMIT_STEPS.find((item) => item.type === status)!.stepNumber === 6
-          ? ProjectSubmitStepType.REVIEW
-          : status;
+      const { currentStep, nextStep } = getHackathonStepInfo(simpleHackathonInfo.id, status);
+      const newStatus = currentStep.type === ProjectSubmitStepType.WALLET ? nextStep.type : status;
 
       const formData = new FormData();
       formData.append('status', newStatus);
