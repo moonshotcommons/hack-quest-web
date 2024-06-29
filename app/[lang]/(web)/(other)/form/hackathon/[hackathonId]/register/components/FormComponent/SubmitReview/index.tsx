@@ -108,7 +108,7 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
                 {
                   <div>
                     {section.map((cfg) => {
-                      return <div>{cfg.id}</div>;
+                      return <div key={cfg.id}>{cfg.id}</div>;
                     })}
                   </div>
                 }
