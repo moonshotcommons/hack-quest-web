@@ -12,7 +12,8 @@ const buttonVariants = cva(
         primary:
           'bg-yellow-primary hover:bg-yellow-hover disabled:bg-neutral-light-gray data-[loading=true]:bg-yellow-hover',
         outline:
-          'bg-transparent border border-neutral-black hover:bg-neutral-off-white hover:border-neutral-medium-gray disabled:border-neutral-medium-gray'
+          'bg-transparent border border-neutral-black hover:bg-neutral-off-white hover:border-neutral-medium-gray disabled:border-neutral-medium-gray',
+        ghost: 'bg-transparent hover:bg-neutral-off-white disabled:bg-transparent'
       },
       size: {
         large: 'h-[3.75rem] text-lg',

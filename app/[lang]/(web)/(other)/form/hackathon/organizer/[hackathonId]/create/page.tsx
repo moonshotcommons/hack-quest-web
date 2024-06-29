@@ -70,7 +70,7 @@ export default function Page() {
             </Link>
           </p>
         </div>
-        <Button disabled={step !== Steps.SUBMISSION} className="w-60">
+        <Button disabled={step !== STEP_ITEMS.length} className="w-60">
           finish setup {step}/8
         </Button>
       </div>
@@ -88,8 +88,8 @@ export default function Page() {
       </Stepper.Root>
       <div
         className={cn('w-full rounded-2xl bg-neutral-white px-8 py-10', {
-          'rounded-tl-none': step === Steps.BASIC_INFO,
-          'rounded-tr-none': step === Steps.JUDGING
+          'rounded-tl-none': step === 1,
+          'rounded-tr-none': step === STEP_ITEMS.length
         })}
       >
         <ResizablePanel.Root value={step} className="px-2 pb-2">
