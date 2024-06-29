@@ -1,31 +1,19 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
-import { ForwardRefRenderFunction, ReactNode, forwardRef, useImperativeHandle, useState } from 'react';
+import { ForwardRefRenderFunction, forwardRef, useImperativeHandle, useState } from 'react';
 
 import { useRequest } from 'ahooks';
-import { cn } from '@/helper/utils';
 
-interface ConfirmModalProps {
-  children: ReactNode;
-  confirmText?: string;
-  cancelText?: string;
-  className?: string;
-  disabled?: boolean;
+interface GroupActionConfirmProps {}
+
+export interface DisconnectModalRef {
+  open: (params: { onConfirm: () => Promise<unknown>; onConfirmCallback?: VoidFunction }) => void;
 }
 
-interface Params {
-  onConfirm: () => Promise<unknown>;
-  onCancel?: () => void;
-  onConfirmCallback?: () => void;
-}
-
-export interface ConfirmModalRef {
-  open: (params: Params) => void;
-}
-
-const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps> = (props, ref) => {
-  const { children, confirmText, cancelText, className, disabled = false } = props;
-  const [option, setOption] = useState<Params | null>(null);
+const DisconnectModal: ForwardRefRenderFunction<DisconnectModalRef, GroupActionConfirmProps> = (props, ref) => {
+  const [option, setOption] = useState<{ onConfirm: () => Promise<unknown>; onConfirmCallback?: VoidFunction } | null>(
+    null
+  );
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
@@ -41,6 +29,7 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
     () => {
       return option!.onConfirm();
     },
+
     {
       manual: true,
       onSuccess() {
@@ -50,10 +39,6 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
       }
     }
   );
-
-  const cancel = () => {
-    option?.onCancel?.();
-  };
 
   return (
     <Modal
@@ -73,29 +58,28 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
         </svg>
       }
     >
-      <div className={cn('w-[calc(100vw-40px)] rounded-[16px] bg-neutral-white px-5 py-10 sm:w-[532px]', className)}>
-        {children}
-        <div className="mt-9 flex justify-center gap-2">
+      <div className="flex w-[532px] flex-col gap-9 rounded-[16px] bg-neutral-white px-5 py-10">
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to disconnect your wallet?</h4>
+        <div className="flex justify-center gap-2">
           <Button
             ghost
             className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black outline-none"
             onClick={() => {
               setOpen(false);
-              cancel();
             }}
           >
-            {cancelText || 'cancel'}
+            cancel
           </Button>
           <Button
             className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
             type="primary"
             loading={loading}
-            disabled={disabled || loading}
+            disabled={loading}
             onClick={() => {
               option?.onConfirm && confirm();
             }}
           >
-            {confirmText || 'confirm'}
+            yes
           </Button>
         </div>
       </div>
@@ -103,4 +87,4 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
   );
 };
 
-export default forwardRef(ConfirmModal);
+export default forwardRef(DisconnectModal);
