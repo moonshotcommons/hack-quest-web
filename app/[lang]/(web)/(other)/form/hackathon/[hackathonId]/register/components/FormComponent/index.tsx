@@ -1,53 +1,53 @@
 import { FC } from 'react';
-import ContractForm from './ContractForm';
-import NameForm from './NameForm';
-import BioForm from './BioForm';
-import SubmissionTypeForm from './SubmissionTypeForm';
+
 import { HackathonRegisterStateType } from '../../type';
 import SubmitReview from './SubmitReview';
-import {
-  HackathonRegisterInfo,
-  HackathonRegisterStep,
-  HackathonTeamDetail
-} from '@/service/webApi/resourceStation/type';
+import { HackathonRegisterInfo, HackathonTeamDetail, SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
+import { ApplicationSectionType } from '@/components/HackathonCreation/type';
+import AboutSectionForm from './AboutSectionForm';
+import OnlineProfilesSectionForm from './OnlineProfilesSectionForm';
+import ContactSectionForm from './ContactSectionForm';
+import ApplicationTypeSectionForm from './ApplicationTypeSectionForm';
 
 export interface FormComponentProps {
-  type: HackathonRegisterStep;
-  onNext: (state: Partial<HackathonRegisterStateType>) => void;
-  onBack: VoidFunction;
+  type: ApplicationSectionType | 'Review';
+  hackathonInfo: SimpleHackathonInfo;
   formState: HackathonRegisterStateType;
   setCurrentStep: (step: number) => void;
-  simpleHackathonInfo: { id: string; name: string; alias: string };
   refreshRegisterInfo: () => Promise<{ registerInfo: HackathonRegisterInfo; teamDetail: HackathonTeamDetail | {} }>;
 }
 
+export type CommonFormComponentProps = Pick<FormComponentProps, 'refreshRegisterInfo'> & {
+  info: HackathonRegisterStateType['info'];
+  isRegister: boolean;
+};
+
 const FormComponent: FC<FormComponentProps> = (props) => {
-  const { type, formState, setCurrentStep, ...rest } = props;
+  const { type, hackathonInfo, formState, setCurrentStep, ...rest } = props;
+  const { info, isRegister } = formState;
+  const { About, OnlineProfiles, Contact, ApplicationType } = hackathonInfo.info.application;
+
   switch (type) {
-    case HackathonRegisterStep.Name:
-      return <NameForm {...rest} name={formState.name} status={formState.status} isRegister={formState.isRegister} />;
-    case HackathonRegisterStep.Contact:
+    case ApplicationSectionType.About:
+      return <AboutSectionForm sectionConfig={About} info={info} isRegister={isRegister} {...rest} />;
+    case ApplicationSectionType.OnlineProfiles:
+      return <OnlineProfilesSectionForm sectionConfig={OnlineProfiles} info={info} isRegister={isRegister} {...rest} />;
+    case ApplicationSectionType.Contact:
+      return <ContactSectionForm sectionConfig={Contact} info={info} isRegister={isRegister} {...rest} />;
+    case ApplicationSectionType.ApplicationType:
       return (
-        <ContractForm
+        <ApplicationTypeSectionForm sectionConfig={ApplicationType} info={info} isRegister={isRegister} {...rest} />
+      );
+    case 'Review':
+      return (
+        <SubmitReview
+          info={info}
+          isRegister={isRegister}
+          sectionConfig={hackathonInfo.info.application}
           {...rest}
-          contractInfo={formState.contractInfo}
-          status={formState.status}
-          isRegister={formState.isRegister}
+          setCurrentStep={setCurrentStep}
         />
       );
-    case HackathonRegisterStep.Bio:
-      return <BioForm {...rest} bio={formState.bio} status={formState.status} isRegister={formState.isRegister} />;
-    case HackathonRegisterStep.SubmissionType:
-      return (
-        <SubmissionTypeForm
-          {...rest}
-          submissionType={formState.submissionType}
-          status={formState.status}
-          isRegister={formState.isRegister}
-        />
-      );
-    case HackathonRegisterStep.Review:
-      return <SubmitReview {...rest} formState={formState} setCurrentStep={setCurrentStep} />;
   }
 };
 

@@ -18,7 +18,7 @@
     },
     {
       "id": "fadab38e-38d6-47f2-9547-92e245a04b94",
-      "type": "Location",
+      "type": "SubmissionLocation",
       "title": "Location",
       "required": true,
       "selected": true,
