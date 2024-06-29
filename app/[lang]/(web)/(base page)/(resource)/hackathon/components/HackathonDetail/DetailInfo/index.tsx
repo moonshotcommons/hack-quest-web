@@ -36,12 +36,12 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
   const links = useMemo(() => {
-    const keys = Object.keys(hackathon.links?.links) || [];
+    const keys = Object.keys(hackathon.links?.links || {}) || [];
     const ls = keys.map((k) => ({
       icon: thirdPartyMedia[k as 'x'].icon,
       link: hackathon.links?.links?.[k]
     }));
-    return ls;
+    return ls || [];
   }, [hackathon]);
   const handleSubmit = (id: string) => {
     if (
@@ -209,7 +209,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         <div>
           <p className="text-neutral-medium-gray">{`Links`}</p>
           <div className="mt-[4px] flex items-center gap-[12px]">
-            {links.map((v, i) => (
+            {links?.map((v, i) => (
               <Link
                 key={i}
                 href={v.link}
