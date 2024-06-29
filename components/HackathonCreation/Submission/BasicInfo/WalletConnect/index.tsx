@@ -13,11 +13,13 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
 import { z } from 'zod';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 
-export interface ConnectWalletProps {}
+export interface ConnectWalletProps {
+  form: any;
+  config: PresetComponentConfig;
+}
 
-export const ConnectWallet: FC<ConnectWalletProps> = memo(({}) => {
+export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => {
   const disconnectModalRef = useRef<DisconnectModalRef>(null);
   const { redirectToUrl } = useRedirect();
 
@@ -79,10 +81,12 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({}) => {
     };
   }, []);
 
+  const requiredTag = config.optional ? '' : '*';
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
-        <p className="body-m text-left text-neutral-rich-gray">Please connect a walletPlease</p>
+        <p className="body-m text-left text-neutral-rich-gray">{'Please connect a walletPlease' + requiredTag}</p>
         {/* <div className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray">
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -131,8 +135,11 @@ export const ConnectWalletConfig: PresetComponentConfig<ConnectWalletProps> = {
   component: ConnectWallet,
   optional: false,
   property: {},
-  validate(values: { ConnectWallet: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.ConnectWallet), form, 'ConnectWallet')];
+  getValidator(config) {
+    const validator = z.string().min(config.optional ? 0 : 1);
+    return {
+      wallet: config.optional ? validator.optional() : validator
+    };
   }
 };
 

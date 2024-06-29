@@ -1,5 +1,4 @@
 import FormTextarea from '@/components/Common/FormComponent/FormTextarea';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -31,14 +30,14 @@ export const ProgressDuringHackathonConfig: PresetComponentConfig<ProgressDuring
     placeholder: 'Describe how your team work on the hackathon project step by step',
     maxField: 600
   },
-  validate(values: { progressDuringHackathon: string }, form) {
-    return [
-      getValidateResult(
-        z.string().min(10).max(600).safeParse(values.progressDuringHackathon),
-        form,
-        'progressDuringHackathon'
-      )
-    ];
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(600);
+    return {
+      progressDuringHackathon: config.optional ? validator.optional() : validator
+    };
   }
 };
 

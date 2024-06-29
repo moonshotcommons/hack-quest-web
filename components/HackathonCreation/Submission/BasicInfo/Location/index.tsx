@@ -1,5 +1,4 @@
 import { FormSelect } from '@/components/Common/FormComponent';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -11,11 +10,12 @@ interface LocationProps {
   config: CustomComponentConfig;
 }
 
-const Location: FC<LocationProps> = ({ config: propConfig, form }) => {
+const Location: FC<LocationProps> = ({ config, form }) => {
+  const requiredTag = config.optional ? '' : '*';
   return (
     <FormSelect
       form={form}
-      label="Where are you located?"
+      label={'Where are you located?' + requiredTag}
       name="location"
       placeholder="Please select"
       items={LOCATIONS}
@@ -23,16 +23,20 @@ const Location: FC<LocationProps> = ({ config: propConfig, form }) => {
   );
 };
 
-Location.displayName = 'Location';
+Location.displayName = 'SubmissionLocation';
 
-export const LocationConfig: PresetComponentConfig<LocationProps, CustomComponentConfig['property']> = {
+export const LocationConfig: PresetComponentConfig<LocationProps> = {
   id: v4(),
   type: Location.displayName,
   component: Location,
   optional: false,
   property: {},
-  validate(values: { location: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.location), form, 'location')];
+  getValidator(config) {
+    const arr = LOCATIONS.map((item) => item.value) as [string, ...string[]];
+    const validator = z.enum(arr);
+    return {
+      location: config.optional ? validator.optional() : validator
+    };
   }
 };
 

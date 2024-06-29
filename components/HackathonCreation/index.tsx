@@ -1,6 +1,6 @@
 import {
   AboutSectionComponentMap,
-  ContractSectionComponentMap,
+  ContactSectionComponentMap,
   OnlineProfilesSectionComponentMap,
   ApplicationTypeSectionComponentMap
 } from './Application';
@@ -14,7 +14,7 @@ import {
 
 export const PresetComponentMap = {
   ...AboutSectionComponentMap,
-  ...ContractSectionComponentMap,
+  ...ContactSectionComponentMap,
   ...OnlineProfilesSectionComponentMap,
   ...ApplicationTypeSectionComponentMap,
   ...BasicInfoSectionComponentMap,

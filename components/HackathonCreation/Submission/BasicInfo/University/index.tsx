@@ -1,5 +1,4 @@
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -30,8 +29,12 @@ export const UniversityConfig: PresetComponentConfig<UniversityProps, CustomComp
     name: 'university',
     placeholder: 'e.g. Cambridge University'
   },
-  validate(values: { university: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.university), form, 'university')];
+  getValidator(config) {
+    const validator = z.string().min(config.optional ? 0 : 1);
+
+    return {
+      location: config.optional ? validator.optional() : validator
+    };
   }
 };
 

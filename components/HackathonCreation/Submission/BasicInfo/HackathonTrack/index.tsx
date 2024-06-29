@@ -1,7 +1,6 @@
 import { FormRadio } from '@/components/Common/FormComponent';
 import FormRadioItem from '@/components/Common/FormComponent/FormRadio/FormRadioItem';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
-import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
+import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
@@ -24,14 +23,18 @@ const HackathonTrack: FC<HackathonTrackProps> = ({ form, config }) => {
 
 HackathonTrack.displayName = 'HackathonTrack';
 
-export const HackathonTrackConfig: PresetComponentConfig<HackathonTrackProps, CustomComponentConfig['property']> = {
+export const HackathonTrackConfig: PresetComponentConfig<HackathonTrackProps> = {
   id: v4(),
   type: HackathonTrack.displayName,
   component: HackathonTrack,
   optional: false,
   property: {},
-  validate(values: { hackathonTrack: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.hackathonTrack), form, 'hackathonTrack')];
+  getValidator(config) {
+    const arr = TRACKS.map((item) => item.value) as [string, ...string[]];
+    const validator = z.enum(arr);
+    return {
+      hackathonTracks: config.optional ? validator.optional() : validator
+    };
   }
 };
 

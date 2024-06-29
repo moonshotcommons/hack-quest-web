@@ -1,4 +1,3 @@
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { FC } from 'react';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
@@ -10,10 +9,16 @@ interface ProjectNameProps {
   config: CustomComponentConfig;
 }
 
-const ProjectName: FC<ProjectNameProps> = ({ config: propConfig, form }) => {
+const ProjectName: FC<ProjectNameProps> = ({ config, form }) => {
+  const requiredTag = config.optional ? '' : '*';
   return (
     <div className="w-full">
-      <FormInput name="projectName" form={form} label="Project Name" placeholder="Enter your project name" />
+      <FormInput
+        name="projectName"
+        form={form}
+        label={'Project Name' + requiredTag}
+        placeholder="Enter your project name"
+      />
     </div>
   );
 };
@@ -25,13 +30,15 @@ export const ProjectNameConfig: PresetComponentConfig<ProjectNameProps> = {
   type: ProjectName.displayName,
   component: ProjectName,
   optional: false,
-  property: {
-    label: 'ProjectName',
-    placeholder: 'Enter a ProjectName Account',
-    name: 'ProjectName'
-  },
-  validate(values: { ProjectName: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.ProjectName), form, 'ProjectName')];
+  property: {},
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(100);
+    return {
+      location: config.optional ? validator.optional() : validator
+    };
   }
 };
 

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
 import { z } from 'zod';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -20,9 +19,10 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 
 interface ProjectLogoProps {
   form: UseFormReturn<any, any, undefined>;
+  config: PresetComponentConfig;
 }
 
-const ProjectLogo: FC<ProjectLogoProps> = ({ form }) => {
+const ProjectLogo: FC<ProjectLogoProps> = ({ form, config }) => {
   const [loading, setLoading] = useState(false);
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -76,9 +76,11 @@ const ProjectLogo: FC<ProjectLogoProps> = ({ form }) => {
     </button>
   );
 
+  const requiredTag = config.optional ? '' : '*';
+
   return (
     <div className="w-[120px] text-left">
-      <span className="body-m leading-[160%]">Project Logo</span>
+      <span className="body-m leading-[160%]">{'Project Logo' + requiredTag}</span>
       <Upload
         name="avatar"
         accept="image/*"
@@ -107,8 +109,11 @@ export const ProjectLogoConfig: PresetComponentConfig<ProjectLogoProps> = {
   component: ProjectLogo,
   optional: false,
   property: {},
-  validate(values: { projectLogo: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.projectLogo), form, 'projectLogo')];
+  getValidator(config) {
+    const validator = z.string().url();
+    return {
+      projectLogo: config.optional ? validator.optional() : validator
+    };
   }
 };
 

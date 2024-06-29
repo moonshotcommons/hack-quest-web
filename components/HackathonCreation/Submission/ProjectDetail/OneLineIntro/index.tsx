@@ -1,5 +1,4 @@
 import FormTextarea from '@/components/Common/FormComponent/FormTextarea';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -31,8 +30,14 @@ export const OneLineIntroConfig: PresetComponentConfig<OneLineIntroProps> = {
     placeholder: 'Enter your one line intro',
     maxField: 120
   },
-  validate(values: { oneLineIntro: string }, form) {
-    return [getValidateResult(z.string().min(10).max(120).safeParse(values.oneLineIntro), form, 'oneLineIntro')];
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(120);
+    return {
+      oneLineIntro: config.optional ? validator.optional() : validator
+    };
   }
 };
 

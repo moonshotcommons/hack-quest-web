@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
-import { Upload, message, type UploadProps, UploadFile } from 'antd';
+import { Upload, message, type UploadProps } from 'antd';
 import LoadingIcon from '@/components/Common/LoadingIcon';
 import { UseFormReturn } from 'react-hook-form';
 import Image from 'next/image';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
-import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
+import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
 import { z } from 'zod';
 import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
+import { FormInput } from '@/components/Common/FormComponent';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -21,23 +21,20 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 
 interface ResumeUploadProps {
   form: UseFormReturn<any, any, undefined>;
-  onFileChange: (file: UploadFile) => void;
+  config: PresetComponentConfig;
 }
 
-const ResumeUpload: FC<ResumeUploadProps> = ({ form, onFileChange }) => {
+const ResumeUpload: FC<ResumeUploadProps> = ({ form, config }) => {
   const [loading, setLoading] = useState(false);
+
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
     }
     if (info.file.status === 'done') {
-      // Get this url from response in real world.
       getBase64(info.file.originFileObj as FileType, (url) => {
-        setLoading(false);
-        onFileChange(info.file);
-        form.setValue('projectLogo', info.file.originFileObj);
-        form.trigger('projectLogo');
+        form.trigger('resume');
       });
     }
   };
@@ -76,9 +73,11 @@ const ResumeUpload: FC<ResumeUploadProps> = ({ form, onFileChange }) => {
     </button>
   );
 
+  const requiredTag = config.optional ? '' : '*';
+
   return (
     <div className="text-left">
-      <span className="body-m leading-[160%]">Resume</span>
+      <span className="body-m leading-[160%]">{'Resume' + requiredTag} </span>
       <div className="mt-2 w-fit rounded-[1rem] bg-neutral-off-white p-2">
         <Upload
           name="avatar"
@@ -91,11 +90,12 @@ const ResumeUpload: FC<ResumeUploadProps> = ({ form, onFileChange }) => {
             const file = option.file as RcFile;
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('filePath', 'hackathons/members/resume');
+            formData.append('filepath', 'hackathons/members/resume');
             formData.append('isPublic', 'true');
             try {
               const res = await webApi.commonApi.uploadImage(formData);
               form.setValue('resume', res.filepath);
+              form.trigger('resume');
               onSuccess?.({}, new XMLHttpRequest());
             } catch (err: any) {
               onError?.(err);
@@ -105,38 +105,30 @@ const ResumeUpload: FC<ResumeUploadProps> = ({ form, onFileChange }) => {
           beforeUpload={beforeUpload}
           onChange={handleChange}
         >
-          {form.getValues('projectLogo') ? (
-            <Image src={form.getValues('projectLogo')} alt="logo" width={118} height={152} />
+          {form.getValues('resume') ? (
+            <Image src={form.getValues('resume')} alt="logo" width={118} height={152} />
           ) : (
             uploadButton
           )}
         </Upload>
       </div>
+      <FormInput name="resume" label="" placeholder="" form={form} className="hidden" />
     </div>
   );
 };
 ResumeUpload.displayName = 'ResumeUpload';
 
-export const ResumeUploadConfig: PresetComponentConfig<ResumeUploadProps, CustomComponentConfig['property']> = {
+export const ResumeUploadConfig: PresetComponentConfig<ResumeUploadProps> = {
   id: v4(),
   type: ResumeUpload.displayName,
   component: ResumeUpload,
   optional: false,
-  property: {
-    onFileChange(file) {}
-  },
-  validate(values: { location: string }, form, config) {
-    return [
-      getValidateResult(
-        z
-          .string()
-          .min(config.optional ? 0 : 1)
-          .max(100)
-          .safeParse(values.location),
-        form,
-        'resume'
-      )
-    ];
+  property: {},
+  getValidator(config) {
+    const validator = z.string().url();
+    return {
+      resume: config.optional ? validator.optional() : validator
+    };
   }
 };
 

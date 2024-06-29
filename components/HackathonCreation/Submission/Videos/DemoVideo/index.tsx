@@ -1,4 +1,3 @@
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
@@ -151,8 +150,11 @@ export const DemoVideoConfig: PresetComponentConfig<DemoVideoProps> = {
   optional: false,
   component: DemoVideo,
   property: {},
-  validate(values: { demoVideo: string }, form) {
-    return [getValidateResult(z.string().min(10).max(600).safeParse(values.demoVideo), form, 'demoVideo')];
+  getValidator(config) {
+    const validator = z.string().url();
+    return {
+      demoVideo: config.optional ? validator.optional() : validator
+    };
   }
 };
 

@@ -2,9 +2,15 @@ import { FieldValues, UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { CustomComponentConfig, FormCustomComponent } from '../type';
 import { v4 } from 'uuid';
-import { CustomFormComponentType } from '../Renderer';
 
-export const IGNORE_FIELDS = ['component', 'validate', 'settingComponent'] as const;
+export enum CustomFormComponentType {
+  Select = 'select',
+  Radio = 'radio',
+  Input = 'input',
+  Textarea = 'textarea'
+}
+
+export const IGNORE_FIELDS = ['component', 'validate', 'settingComponent', 'getValidator'] as const;
 
 export const getValidateResult = (
   validResult: z.SafeParseReturnType<string, string>,

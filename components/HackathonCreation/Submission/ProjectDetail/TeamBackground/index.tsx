@@ -1,5 +1,4 @@
 import FormTextarea from '@/components/Common/FormComponent/FormTextarea';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -26,13 +25,19 @@ export const TeamBackgroundConfig: PresetComponentConfig<TeamBackgroundProps> = 
   optional: false,
   component: TeamBackground,
   property: {
-    name: 'TeamBackground',
+    name: 'teamBackground',
     label: 'Team Background',
     placeholder: 'Describe your team and teammates',
     maxField: 600
   },
-  validate(values: { TeamBackground: string }, form) {
-    return [getValidateResult(z.string().min(10).max(600).safeParse(values.TeamBackground), form, 'TeamBackground')];
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(600);
+    return {
+      progressDuteamBackgroundringHackathon: config.optional ? validator.optional() : validator
+    };
   }
 };
 

@@ -12,12 +12,12 @@ const IsPublicRadio = ({ form }: ProjectTypeRadioProps) => {
       <div className="flex w-full justify-between gap-5">
         <div
           onClick={() => {
-            form.setValue('isPublic', true);
-            form.trigger('isPublic');
+            form.setValue('isOpenSource', true);
+            form.trigger('isOpenSource');
           }}
           className={cn(
             `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
-            form.watch('isPublic') === true
+            form.watch('isOpenSource') === true
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : ''
           )}
@@ -26,12 +26,12 @@ const IsPublicRadio = ({ form }: ProjectTypeRadioProps) => {
         </div>
         <div
           onClick={() => {
-            form.setValue('isPublic', false);
-            form.trigger('isPublic');
+            form.setValue('isOpenSource', false);
+            form.trigger('isOpenSource');
           }}
           className={cn(
             `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
-            form.watch('isPublic') === false
+            form.watch('isOpenSource') === false
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : ''
           )}

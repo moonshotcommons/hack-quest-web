@@ -1,5 +1,5 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
 import ProjectLogoConfig from './ProjectLogo';
 import ProjectNameConfig from './ProjectName';
@@ -17,6 +17,6 @@ export const BasicInfoSectionComponentMap: Record<string, PresetComponentConfig<
   [WalletConnectConfig.type]: WalletConnectConfig
 };
 
-export const BasicInfoSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  BasicInfoSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const BasicInfoSectionComponentList = Object.values(BasicInfoSectionComponentMap).map((cfg) =>
+  omit(cfg, IGNORE_FIELDS)
+);

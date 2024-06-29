@@ -1,5 +1,4 @@
 import FormTextarea from '@/components/Common/FormComponent/FormTextarea';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -31,8 +30,14 @@ export const DetailedIntroConfig: PresetComponentConfig<DetailedIntroProps> = {
     placeholder: 'What problem does your project want to solve, how does it solve the problem, business model, etc.',
     maxField: 600
   },
-  validate(values: { detailedIntro: string }, form) {
-    return [getValidateResult(z.string().min(10).max(600).safeParse(values.detailedIntro), form, 'detailedIntro')];
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(600);
+    return {
+      detailedIntro: config.optional ? validator.optional() : validator
+    };
   }
 };
 

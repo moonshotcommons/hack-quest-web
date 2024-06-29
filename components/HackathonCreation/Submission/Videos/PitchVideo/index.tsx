@@ -1,4 +1,3 @@
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC, useState } from 'react';
 import { v4 } from 'uuid';
@@ -151,8 +150,11 @@ export const PitchVideoConfig: PresetComponentConfig<PitchVideoProps> = {
   optional: false,
   component: PitchVideo,
   property: {},
-  validate(values: { PitchVideo: string }, form) {
-    return [getValidateResult(z.string().min(10).max(600).safeParse(values.PitchVideo), form, 'PitchVideo')];
+  getValidator(config) {
+    const validator = z.string().url();
+    return {
+      pitchVideo: config.optional ? validator.optional() : validator
+    };
   }
 };
 

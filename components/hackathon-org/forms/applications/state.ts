@@ -18,7 +18,6 @@ export const useApplicationState = create<ApplicationStore>((set) => ({
   // @ts-expect-error
   aboutState: [...applications.About],
   onlineProfileState: [...applications.OnlineProfiles],
-  // @ts-expect-error
   contactState: [...applications.Contact],
   setAboutState: (payload) => set({ aboutState: payload }),
   setOnlineProfileState: (payload) => set({ onlineProfileState: payload }),

@@ -29,7 +29,7 @@
     },
     {
       "id": "d86c5bff-32c2-43e5-a095-8ca8877b218f",
-      "type": "Resume",
+      "type": "ResumeUpload",
       "title": "Resume",
       "optional": false,
       "property": {}
@@ -48,7 +48,7 @@
     {
       "id": "d2236a07-0ead-4406-98e9-96b4b16377fc",
       "type": "Location",
-      "title": "Location",
+      "title": "ApplicationLocation",
       "optional": false,
       "property": {
         "name": "location",
@@ -76,7 +76,7 @@
       "title": "WhatsApp",
       "optional": false,
       "property": {
-        "name": "whatsapp",
+        "name": "whatsApp",
         "label": "WhatsApp",
         "placeholder": "Enter a WhatsApp Account"
       }
@@ -120,7 +120,7 @@
       "title": "QQ",
       "optional": false,
       "property": {
-        "name": "QQ",
+        "name": "qq",
         "label": "QQ",
         "placeholder": "Enter a QQ Account"
       }
@@ -144,35 +144,55 @@
       "title": "Email",
       "required": true,
       "selected": true,
-      "property": {}
+      "property": {
+        "label": "Email",
+        "placeholder": "Enter an Email address",
+        "name": "email"
+      }
     },
     {
       "id": "3d79fceb-95fd-4073-8f20-754eee04701a",
-      "type": "Phone Number",
+      "type": "PhoneNumber",
       "title": "Phone Number",
       "optional": false,
-      "property": {}
+      "property": {
+        "label": "Phone Number",
+        "placeholder": "Enter you phone number",
+        "name": "phoneNumber"
+      }
     },
     {
       "id": "52061f6f-788f-4046-a69a-f4e6f07721ce",
       "type": "WeChat",
       "title": "WeChat",
       "optional": false,
-      "property": {}
+      "property": {
+        "label": "WeChat",
+        "placeholder": "Enter a WeChat Account",
+        "name": "weChat"
+      }
     },
     {
       "id": "401613c3-a110-4e79-a59f-f98b81db9521",
       "type": "Telegram",
       "title": "Telegram",
       "optional": false,
-      "property": {}
+      "property": {
+        "label": "Telegram",
+        "placeholder": "Enter a Telegram Account",
+        "name": "telegram"
+      }
     },
     {
       "id": "7beb7025-10bd-4f8e-8ab9-594a095506fc",
       "type": "Discord",
       "title": "Discord",
       "optional": false,
-      "property": {}
+      "property": {
+        "label": "Discord",
+        "placeholder": "Enter a Discord Account",
+        "name": "discord"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
 import OneLineIntroConfig from './OneLineIntro';
 import DetailedIntroLogoConfig from './DetailedIntro';
@@ -13,6 +13,6 @@ export const ProjectDetailSectionComponentMap: Record<string, PresetComponentCon
   [ProgressDuringHackathonConfig.type]: ProgressDuringHackathonConfig
 };
 
-export const ProjectDetailSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  ProjectDetailSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const ProjectDetailSectionComponentList = Object.values(ProjectDetailSectionComponentMap).map((cfg) =>
+  omit(cfg, IGNORE_FIELDS)
+);

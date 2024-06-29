@@ -1,4 +1,3 @@
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import CustomFormField from '@/components/Web/Business/CustomFormField';
 import { FC } from 'react';
@@ -27,17 +26,19 @@ const GithubOpenSource: FC<GithubOpenSourceProps> = ({ config: propConfig, form 
 
 GithubOpenSource.displayName = 'GithubOpenSource';
 
-export const GithubOpenSourceConfig: PresetComponentConfig<GithubOpenSourceProps, CustomComponentConfig['property']> = {
+export const GithubOpenSourceConfig: PresetComponentConfig<GithubOpenSourceProps> = {
   id: v4(),
   type: GithubOpenSource.displayName,
   component: GithubOpenSource,
   optional: false,
   property: {},
-  validate(values: { githubLink: string; openSource: boolean }, form) {
-    return [
-      getValidateResult(z.string().min(10).max(100).safeParse(values.githubLink), form, 'githubLink'),
-      getValidateResult(z.string().safeParse(values.openSource), form, 'openSource')
-    ];
+  getValidator(config) {
+    const validator = z.string().min(config.optional ? 0 : 1);
+    const isOpenSourceValidator = z.boolean();
+    return {
+      githubLink: config.optional ? validator.optional() : validator,
+      isOpenSource: config.optional ? isOpenSourceValidator.optional() : isOpenSourceValidator
+    };
   }
 };
 

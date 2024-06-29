@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import { ApplicationSectionConfig, VideosSectionComponentList } from '@/components/HackathonCreation';
+import { AboutSectionComponentList, ApplicationSectionConfig } from '@/components/HackathonCreation';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { CustomComponentConfig } from '@/components/HackathonCreation/type';
 import { Form } from '@/components/ui/form';
@@ -13,7 +13,6 @@ interface TestPageProps {}
 
 const TestPage: FC<TestPageProps> = (props) => {
   const form = useForm();
-  console.log('BasicInfoSectionComponentList');
   const onSubmit = (values: any) => {
     console.log(values);
 
@@ -31,7 +30,7 @@ const TestPage: FC<TestPageProps> = (props) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-6">
-            {VideosSectionComponentList.map((config, index) => {
+            {AboutSectionComponentList.map((config, index) => {
               return <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
             })}
           </div>

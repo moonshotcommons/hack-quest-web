@@ -30,7 +30,7 @@ export interface PresetComponentConfig<T = {}, P = {}> {
   required?: boolean;
   selected?: boolean;
   property: (T extends { form: any } ? Omit<T, 'form' | 'config'> : T) & P;
-  validate: (values: any, form: UseFormReturn<FieldValues, any, undefined>, config: PresetComponentConfig) => boolean[];
+  getValidator: (config: PresetComponentConfig) => {};
 }
 
 type PropertyType = {
@@ -39,7 +39,7 @@ type PropertyType = {
     label: string;
     name?: string;
   };
-  select: { name?: string };
+  select: { name?: string; label: string; placeholder: string };
   radio: {
     placeholder: string;
     label: string;

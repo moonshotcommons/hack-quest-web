@@ -1,5 +1,4 @@
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -30,17 +29,11 @@ export const ContractAddressConfig: PresetComponentConfig<ContractAddressProps, 
     placeholder: 'Paste contract address here',
     name: 'contractAddress'
   },
-  validate(values: { contractAddress: string }, form, config) {
-    return [
-      getValidateResult(
-        z
-          .string()
-          .min(config.optional ? 0 : 1)
-          .safeParse(values.contractAddress),
-        form,
-        'contractAddress'
-      )
-    ];
+  getValidator(config) {
+    const validator = z.string().min(config.optional ? 0 : 1);
+    return {
+      prizeTrack: config.optional ? validator.optional() : validator
+    };
   }
 };
 

@@ -58,10 +58,15 @@ function TeamMemberCard({
   return (
     <div className="flex w-full items-center border-b border-b-neutral-light-gray py-2">
       <div className="relative h-9 w-9 rounded-full bg-neutral-light-gray">
-        <Image src={member.avatar} fill alt={member.firstName + ` ` + member.lastName} className="rounded-full" />
+        <Image
+          src={member.avatar}
+          fill
+          alt={member.info?.about?.firstName + ` ` + member.info?.about?.lastName}
+          className="rounded-full"
+        />
       </div>
       <span className="body-m ml-2 text-neutral-off-black">
-        {member.firstName + ` ` + member.lastName} {isAdmin && '(You)'}
+        {member.info?.about?.firstName + ` ` + member.info?.about?.lastName} {isAdmin && '(You)'}
       </span>
       {isAdmin ? (
         <span className="body-m ml-auto text-neutral-medium-gray">Admin</span>

@@ -1,6 +1,5 @@
 import FormRadioItem from '@/components/Common/FormComponent/FormRadio/FormRadioItem';
 import FormRadio from '@/components/Common/FormComponent/FormRadio';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -8,13 +7,15 @@ import { z } from 'zod';
 
 interface GenderProps {
   form: any;
+  config: PresetComponentConfig;
 }
 
 const GENDER = ['Man', 'Woman', 'Others'];
 
-const Gender: FC<GenderProps> = ({ form }) => {
+const Gender: FC<GenderProps> = ({ form, config }) => {
+  const requiredTag = config.optional ? '' : '*';
   return (
-    <FormRadio name="gender" form={form} label="Gender">
+    <FormRadio name="gender" form={form} label={'Gender' + requiredTag}>
       {GENDER.map((gender) => (
         <FormRadioItem value={gender} key={gender} label={gender} />
       ))}
@@ -30,17 +31,12 @@ export const GenderConfig: PresetComponentConfig<GenderProps> = {
   optional: false,
   component: Gender,
   property: {},
-  validate(values: { gender: string }, form, config) {
-    if (config.optional) {
-      return [true];
-    }
-    return [
-      getValidateResult(
-        z.enum(['Man', 'Woman', 'Others'], { required_error: 'You need to select a gender' }).safeParse(values.gender),
-        form,
-        'gender'
-      )
-    ];
+  getValidator(config) {
+    // const validator = z.enum(['Man', 'Woman', 'Others'], { required_error: 'You need to select a gender' });
+    const validator = z.string().min(config.optional ? 0 : 1);
+    return {
+      gender: config.optional ? validator.optional() : validator
+    };
   }
 };
 
