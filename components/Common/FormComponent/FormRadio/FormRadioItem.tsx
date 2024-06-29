@@ -13,7 +13,7 @@ interface FormRadioItemProps<TFieldValues extends FieldValues = FieldValues> {
   setSelect?: (v: any[]) => void;
 }
 
-const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
+export const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
   form,
   name,
   value,
@@ -43,8 +43,8 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
           setSelect(newSelect);
         } else {
           form.setValue(name, value);
-          form.trigger(name);
         }
+        form.trigger(name);
       }}
       className={cn(
         `body-m flex h-[50px]  w-full items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white bg-neutral-white px-5 py-3`,

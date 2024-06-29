@@ -164,9 +164,9 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({ formSta
           </div>
         )}
         {Object.keys(submissionType.teamDetail || {}) &&
-          ((submissionType.teamDetail as HackathonTeamDetail).members || []).map((member) => {
+          ((submissionType.teamDetail as HackathonTeamDetail).members || []).map((member: any, index) => {
             return (
-              <div key={member.firstName + ' ' + member.lastName} className="flex items-center justify-between">
+              <div key={index} className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
                   <Image src={member.avatar || ''} alt="测试" width={24} height={24} className="rounded-full" />
                   <span className="text-neutral-off-black">

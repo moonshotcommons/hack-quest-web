@@ -1,6 +1,6 @@
 import {
   AboutSectionComponentMap,
-  ContractSectionComponentMap,
+  ContactSectionComponentMap,
   OnlineProfilesSectionComponentMap,
   ApplicationTypeSectionComponentMap
 } from './Application';
@@ -8,17 +8,19 @@ import {
 import {
   BasicInfoSectionComponentMap,
   ProjectDetailSectionComponentMap,
-  AdditionsSectionComponentMap
+  AdditionsSectionComponentMap,
+  VideosSectionComponentMap
 } from './Submission';
 
 export const PresetComponentMap = {
   ...AboutSectionComponentMap,
-  ...ContractSectionComponentMap,
+  ...ContactSectionComponentMap,
   ...OnlineProfilesSectionComponentMap,
   ...ApplicationTypeSectionComponentMap,
   ...BasicInfoSectionComponentMap,
   ...ProjectDetailSectionComponentMap,
-  ...AdditionsSectionComponentMap
+  ...AdditionsSectionComponentMap,
+  ...VideosSectionComponentMap
 };
 
 export * from './Application';

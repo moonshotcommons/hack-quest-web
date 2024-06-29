@@ -1,6 +1,5 @@
 import FormTextarea from '@/components/Common/FormComponent/FormTextarea';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
-import { PresetComponentConfig } from '@/components/HackathonCreation/type';
+import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
@@ -12,10 +11,12 @@ export interface BioProps {
   placeholder: string;
   maxField: number;
   validator?: any;
+  config: CustomComponentConfig;
 }
 
-const Bio: FC<BioProps> = (props) => {
-  return <FormTextarea {...props} />;
+const Bio: FC<BioProps> = ({ config, label, ...rest }) => {
+  const requiredTag = config.optional ? '' : '*';
+  return <FormTextarea {...rest} label={label + requiredTag} />;
 };
 
 Bio.displayName = 'Bio';
@@ -31,8 +32,14 @@ export const BioConfig: PresetComponentConfig<BioProps> = {
     placeholder: '',
     maxField: 360
   },
-  validate(values: { bio: string }, form) {
-    return [getValidateResult(z.string().min(10).max(360).safeParse(values.bio), form, 'bio')];
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(360);
+    return {
+      bio: config.optional ? validator.optional() : validator
+    };
   }
 };
 

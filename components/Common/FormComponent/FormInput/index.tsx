@@ -17,7 +17,7 @@ interface FormInputProps<TFieldValues extends FieldValues = FieldValues> {
   onBlur?: () => void;
 }
 
-const FormInput = <TFieldValues extends FieldValues = FieldValues>({
+export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
   form,
   label,
   name,

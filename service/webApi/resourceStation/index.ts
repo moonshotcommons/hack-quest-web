@@ -17,9 +17,10 @@ import {
   ProjectDataType,
   ProjectRankType,
   ProjectType,
-  RegisterInfoBody
+  SimpleHackathonInfo
 } from './type';
 import { isUuid } from '@/helper/utils';
+import { ApplicationSectionType } from '@/components/HackathonCreation/type';
 
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
@@ -179,9 +180,7 @@ class ResourceStationApi {
 
   /** 获取hackathon的简单信息 */
   getSimpleHackathonInfo(hackathonId: string) {
-    return this.service.get<{ id: string; name: string; alias: string }>(
-      `${ResourceStationApiType.Hackathon}/${hackathonId}/simple`
-    );
+    return this.service.get<SimpleHackathonInfo>(`${ResourceStationApiType.Hackathon}/${hackathonId}/simple`);
   }
 
   /** 获取用户注册的hackathon信息 */
@@ -190,7 +189,10 @@ class ResourceStationApi {
   }
 
   /** 更新注册信息 */
-  updateHackathonRegisterInfo(hackathonId: string, data: RegisterInfoBody) {
+  updateHackathonRegisterInfo<T extends { info: object; status: ApplicationSectionType | 'Review' }>(
+    hackathonId: string,
+    data: T
+  ) {
     return this.service.post<{}>(`${ResourceStationApiType.Hackathon}/${hackathonId}/members`, {
       data
     });

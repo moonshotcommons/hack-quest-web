@@ -1,5 +1,4 @@
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -30,8 +29,11 @@ export const FacebookConfig: PresetComponentConfig<FacebookProps, CustomComponen
     placeholder: 'Enter a Facebook Account',
     name: 'facebook'
   },
-  validate(values: { Facebook: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.Facebook), form, 'Facebook')];
+  getValidator(config) {
+    const validator = z.string().min(config.optional ? 0 : 1);
+    return {
+      facebook: config.optional ? validator.optional() : validator
+    };
   }
 };
 

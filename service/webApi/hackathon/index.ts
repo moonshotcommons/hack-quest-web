@@ -59,6 +59,18 @@ class HackathonApi {
       params: { email }
     });
   }
+
+  sendVerifyEmail(hackathonId: string, email: string) {
+    return this.service.get<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/send-verify-email`, {
+      params: { email }
+    });
+  }
+
+  checkEmail(hackathonId: string, code: string) {
+    return this.service.get<any>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/check-email`, {
+      params: { code }
+    });
+  }
 }
 
 export default HackathonApi;

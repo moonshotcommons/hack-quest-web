@@ -224,5 +224,6 @@
   "description": "Description",
   "uploadImage": "upload Image",
   "add":"Add",
-  "change":"Change"
+  "change":"Change",
+  "download":"Download"
 }

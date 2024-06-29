@@ -1,24 +1,16 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
-import FacebookConfig from './Facebook';
-import FarcasterNameConfig from './Farcaster';
-import GithubConfig from './Github';
-import LinkedInConfig from './LinkedIn';
-import QQConfig from './QQ';
-import TwitterConfig from './Twitter';
-import WhatsAppConfig from './WhatsApp';
+import GithubOpenSourceConfig from './GithubOpenSource';
+import ContractAddressConfig from './ContractAddress';
+import FundraisingStatusConfig from './FundraisingStatus';
 
 export const AdditionsSectionComponentMap: Record<string, PresetComponentConfig<any>> = {
-  [FacebookConfig.type]: FacebookConfig,
-  [FarcasterNameConfig.type]: FarcasterNameConfig,
-  [GithubConfig.type]: GithubConfig,
-  [LinkedInConfig.type]: LinkedInConfig,
-  [QQConfig.type]: QQConfig,
-  [TwitterConfig.type]: TwitterConfig,
-  [WhatsAppConfig.type]: WhatsAppConfig
+  [GithubOpenSourceConfig.type]: GithubOpenSourceConfig,
+  [ContractAddressConfig.type]: ContractAddressConfig,
+  [FundraisingStatusConfig.type]: FundraisingStatusConfig
 };
 
-export const AdditionsSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  AdditionsSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const AdditionsSectionComponentList = Object.values(AdditionsSectionComponentMap).map((cfg) =>
+  omit(cfg, IGNORE_FIELDS)
+);

@@ -43,7 +43,7 @@
     "hostBy": "Host by",
     "cohostBy": "Cohost by",
     "submissionReview": "SUBMISSIONS REVIEW",
-    "usersPartitipated": "users partitipated",
+    "usersParticipated": "users participated",
     "continueSubmission": "Continue Submission",
     "haveRegistered": "You have registered in this hackathon",
     "haveSubmission": "You have submitted this hackathon",
@@ -96,7 +96,7 @@
     "onsiteMeetingAddress": "Onsite Meeting Address",
     "openMeeting": "Open Meeting",
     "hackathonMode": "Hackathon Mode",
-    "venue": "Venue",
+    "Venue": "Venue",
     "removeSection": "Remove this section",
     "removeEvent": "Remove the event",
     "enterName": "Enter name",
@@ -116,7 +116,8 @@
     "bronzeSponsor": "青铜赞助商",
     "venue": "场地及教育合作伙伴",
     "trackPartner": "跟踪合作伙伴",
-    "viewTeamProject": "查看团队项目"
+    "viewTeamProject": "查看团队项目",
+    "registrationData":"Registration Data"
   },
   "projectsDetail": {
     "title": {

@@ -1,5 +1,4 @@
 import FormInput from '@/components/Common/FormComponent/FormInput';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -7,18 +6,25 @@ import { z } from 'zod';
 
 interface FirstNameAndLastNameProps {
   form: any;
+  config: PresetComponentConfig;
 }
 
-const FirstNameAndLastName: FC<FirstNameAndLastNameProps> = ({ form }) => {
+const FirstNameAndLastName: FC<FirstNameAndLastNameProps> = ({ form, config }) => {
+  const requiredTag = config.optional ? '' : '*';
   return (
     <div className="flex justify-between gap-4">
-      <FormInput form={form} placeholder="Enter your first name" label="First Name" name={'firstName'} />
-      <FormInput form={form} placeholder="Enter your last name" label="Last Name" name="lastName" />
+      <FormInput
+        form={form}
+        placeholder="Enter your first name"
+        label={'First Name' + requiredTag}
+        name={'firstName'}
+      />
+      <FormInput form={form} placeholder="Enter your last name" label={'Last Name' + requiredTag} name="lastName" />
     </div>
   );
 };
 
-FirstNameAndLastName.displayName = 'FirstNameAndLastName';
+FirstNameAndLastName.displayName = 'First and Last Name';
 
 export const FirstNameAndLastNameConfig: PresetComponentConfig<FirstNameAndLastNameProps> = {
   id: v4(),
@@ -27,12 +33,15 @@ export const FirstNameAndLastNameConfig: PresetComponentConfig<FirstNameAndLastN
   required: true,
   component: FirstNameAndLastName,
   property: {},
-  validate(values: { firstName: string; lastName: string }, form) {
-    const { firstName, lastName } = values;
-    return [
-      getValidateResult(z.string().min(1).max(30).safeParse(firstName), form, 'firstName'),
-      getValidateResult(z.string().min(1).max(30).safeParse(lastName), form, 'lastName')
-    ];
+  getValidator(config) {
+    const validator = z
+      .string()
+      .min(config.optional ? 0 : 1)
+      .max(30);
+    return {
+      firstName: config.optional ? validator.optional() : validator,
+      lastName: config.optional ? validator.optional() : validator
+    };
   }
 };
 

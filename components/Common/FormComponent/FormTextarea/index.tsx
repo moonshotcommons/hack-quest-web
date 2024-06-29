@@ -1,5 +1,6 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/helper/utils';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 interface FormTextareaProps<TFieldValues extends FieldValues = FieldValues> {
@@ -8,14 +9,16 @@ interface FormTextareaProps<TFieldValues extends FieldValues = FieldValues> {
   label: string;
   placeholder: string;
   maxField: number;
+  className?: string;
 }
 
-const FormTextarea = <TFieldValues extends FieldValues = FieldValues>({
+export const FormTextarea = <TFieldValues extends FieldValues = FieldValues>({
   form,
   name,
   label,
   placeholder,
-  maxField
+  maxField,
+  className
 }: FormTextareaProps<TFieldValues>) => {
   return (
     <FormField
@@ -39,7 +42,10 @@ const FormTextarea = <TFieldValues extends FieldValues = FieldValues>({
               authHeight={false}
               placeholder={placeholder}
               {...field}
-              className="body-m h-[128px] border-neutral-light-gray px-6 py-3 text-[16px] font-normal leading-[160%] text-neutral-medium-gray"
+              className={cn(
+                'body-m h-[128px] border-neutral-light-gray px-6 py-3 text-[16px] font-normal leading-[160%] text-neutral-medium-gray',
+                className
+              )}
             />
           </FormControl>
           <FormMessage />
