@@ -223,5 +223,6 @@
   "description": "描述",
   "uploadImage": "上传图片",
    "add":"新增",
-  "change":"修改"
+  "change":"修改",
+  "download":"下载"
 }

@@ -9,20 +9,30 @@ import { useContext } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { separationNumber } from '@/helper/utils';
+import { exportToExcel, separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
+import { FiDownload } from 'react-icons/fi';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;
   isVoting?: boolean;
+  isDashboard?: boolean;
 }
 
-const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) => {
+const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, isDashboard }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
+  const downloadMember = () => {
+    const data = [
+      { name: 'John', age: 25, email: 'john@example.com' },
+      { name: 'Jane', age: 30, email: 'jane@example.com' },
+      { name: 'Bob', age: 35, email: 'bob@example.com' }
+    ];
+    exportToExcel(data, 'members');
+  };
   return (
     <Link
       href={isVoting ? `${MenuLink.HACKATHON_VOTING}/${hackathon.alias}` : `${MenuLink.HACKATHON}/${hackathon.alias}`}
@@ -66,10 +76,25 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                   <span className="">{t('totalPrize')}</span>
                   <span className="body-m-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</span>
                 </div>
-                <div>
-                  <span className="">{t('host')}</span>
-                  <span className="body-m-bold text-neutral-off-black underline">{hackathon.info?.host}</span>
-                </div>
+                {isDashboard ? (
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      downloadMember();
+                    }}
+                  >
+                    <span className="">{t('hackathonDetail.registrationData')}</span>
+                    <div className="underline-m flex items-center gap-[4px] text-neutral-off-black underline">
+                      <FiDownload />
+                      <span>Download</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <span className="">{t('host')}</span>
+                    <span className="body-m-bold text-neutral-off-black underline">{hackathon.info?.host}</span>
+                  </div>
+                )}
               </div>
             </>
           )}
