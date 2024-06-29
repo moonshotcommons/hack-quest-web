@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as z from 'zod';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
@@ -15,6 +14,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { TextField } from '@/components/ui/text-field';
+import { AddJudgeAccounts } from './add-judge-accounts';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
 
 const formSchema = z
   .object({
@@ -26,73 +28,73 @@ const formSchema = z
       .max(360, {
         message: 'Field cannot exceed 360 characters'
       }),
-    judgingMode: z.enum(['all', 'judges']).optional(),
-    useVoting: z.boolean().default(false).optional(),
-    votingMode: z.enum(['fixed', 'score']).optional(),
-    judgeVotes: z.string().optional(),
-    maxVotes: z.string().optional(),
-    requiredJudges: z.string().optional(),
+    judgeMode: z.enum(['all', 'judges']).optional(),
+    disableJudge: z.boolean().default(false).optional(),
+    voteMode: z.enum(['fixed', 'score']).optional(),
+    judgeTotalVotes: z.string().optional(),
+    judgeProjectVote: z.string().optional(),
+    projectJudgeCount: z.string().optional(),
     judgeAccount: z.string().email().optional().or(z.literal(''))
   })
   .superRefine((data, ctx) => {
-    if (!data.useVoting) {
-      if (!data.judgingMode) {
+    if (!data.disableJudge) {
+      if (!data.judgeMode) {
         ctx.addIssue({
-          path: ['judgingMode'],
+          path: ['judgeMode'],
           code: z.ZodIssueCode.custom,
           message: 'Please select judging mode'
         });
-      } else if (data.judgingMode === 'all') {
-        if (!data.votingMode) {
+      } else if (data.judgeMode === 'all') {
+        if (!data.voteMode) {
           ctx.addIssue({
-            path: ['votingMode'],
+            path: ['voteMode'],
             code: z.ZodIssueCode.custom,
             message: 'Please select voting mode'
           });
         } else {
-          if (!data.judgeVotes) {
+          if (!data.judgeTotalVotes) {
             ctx.addIssue({
-              path: ['judgeVotes'],
+              path: ['judgeTotalVotes'],
               code: z.ZodIssueCode.custom,
               message: 'Field is required'
             });
           }
-          if (!data.maxVotes) {
+          if (!data.judgeProjectVote) {
             ctx.addIssue({
-              path: ['maxVotes'],
+              path: ['judgeProjectVote'],
               code: z.ZodIssueCode.custom,
               message: 'Field is required'
             });
           }
         }
       } else {
-        if (!data.votingMode) {
+        if (!data.voteMode) {
           ctx.addIssue({
-            path: ['votingMode'],
+            path: ['voteMode'],
             code: z.ZodIssueCode.custom,
             message: 'Please select voting mode'
           });
         } else {
-          if (data.votingMode === 'fixed') {
-            if (!data.maxVotes) {
+          if (data.voteMode === 'fixed') {
+            if (!data.judgeProjectVote) {
               ctx.addIssue({
-                path: ['maxVotes'],
+                path: ['judgeProjectVote'],
                 code: z.ZodIssueCode.custom,
                 message: 'Field is required'
               });
             }
           }
-          if (data.votingMode === 'score') {
-            if (!data.maxVotes) {
+          if (data.voteMode === 'score') {
+            if (!data.judgeProjectVote) {
               ctx.addIssue({
-                path: ['maxVotes'],
+                path: ['judgeProjectVote'],
                 code: z.ZodIssueCode.custom,
                 message: 'Field is required'
               });
             }
-            if (!data.requiredJudges) {
+            if (!data.projectJudgeCount) {
               ctx.addIssue({
-                path: ['requiredJudges'],
+                path: ['projectJudgeCount'],
                 code: z.ZodIssueCode.custom,
                 message: 'Field is required'
               });
@@ -102,6 +104,13 @@ const formSchema = z
       }
     }
   });
+
+export type JudgeAccount = {
+  id: string;
+  email: string;
+  nickname: string;
+  avatar: string;
+};
 
 export function EditJudgingDetailModal({
   open,
@@ -116,8 +125,10 @@ export function EditJudgingDetailModal({
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
   const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
   const [sliderValue, setSliderValue] = React.useState(50);
-  const [judgeAccounts, setJudgeAccounts] = React.useState<any[]>([]);
+  const [judgeAccounts, setJudgeAccounts] = React.useState<JudgeAccount[]>([]);
   const [key, setKey] = React.useState<number>(+new Date());
+  const latestJudgeMode = React.useRef<string | undefined>(undefined);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -125,9 +136,24 @@ export function EditJudgingDetailModal({
     }
   });
 
-  const useVoting = form.watch('useVoting');
-  const judgingMode = form.watch('judgingMode');
-  const votingMode = form.watch('votingMode');
+  const { mutate, isPending } = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
+    onSuccess: (data) => {
+      setJudgeAccounts((prev) => [...prev, data]);
+      form.resetField('judgeAccount');
+    },
+    onError: (error: any) => {
+      if (error.code === 404) {
+        form.setError('judgeAccount', {
+          message: 'Please enter a valid email address that has been registered in HackQuest.'
+        });
+      }
+    }
+  });
+
+  const disableJudge = form.watch('disableJudge');
+  const judgeMode = form.watch('judgeMode');
+  const voteMode = form.watch('voteMode');
   const judgeAccount = form.watch('judgeAccount');
 
   const isValid = form.formState.isValid;
@@ -159,18 +185,31 @@ export function EditJudgingDetailModal({
     setJudgeVotes(100 - value);
   }
 
+  async function addJudgeAccount() {
+    const isValid = await form.trigger('judgeAccount');
+    const email = form.getValues('judgeAccount');
+    if (email && isValid) {
+      mutate(email);
+    }
+  }
+
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
   }
 
+  function onClose() {
+    onOpenChange?.(false);
+    form.reset();
+  }
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className="flex w-[888px] max-w-[888px] flex-col gap-6 overflow-y-auto px-10 pb-10 pt-[60px] shadow-modal"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <h1 className="headline-h3 relative shrink-0 pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
-          Web3 Track
+          {initialValues?.name}
         </h1>
         <Form {...form}>
           <form
@@ -208,7 +247,7 @@ export function EditJudgingDetailModal({
             />
             <FormField
               control={form.control}
-              name="judgingMode"
+              name="judgeMode"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <div className="flex items-center justify-between">
@@ -225,16 +264,17 @@ export function EditJudgingDetailModal({
                       value={field.value}
                       onValueChange={(value) => {
                         field.onChange(value as any);
+                        latestJudgeMode.current = value;
                       }}
                       className="w-full grid-cols-2"
                     >
                       <FormControl>
-                        <RadioGroupItem disabled={useVoting} value="all">
+                        <RadioGroupItem disabled={disableJudge} value="all">
                           Users + Judges
                         </RadioGroupItem>
                       </FormControl>
                       <FormControl>
-                        <RadioGroupItem disabled={useVoting} value="judges">
+                        <RadioGroupItem disabled={disableJudge} value="judges">
                           Judges Only
                         </RadioGroupItem>
                       </FormControl>
@@ -246,24 +286,30 @@ export function EditJudgingDetailModal({
             />
             <FormField
               control={form.control}
-              name="useVoting"
+              name="disableJudge"
               render={({ field }) => (
                 <FormItem className="!mt-3 flex w-full flex-row items-start space-x-2.5 space-y-0">
                   <FormControl>
                     <Checkbox
-                      id="useVoting"
+                      id="disableJudge"
                       checked={field.value}
                       onCheckedChange={(checked) => {
                         field.onChange(checked as boolean);
+                        setKey(+new Date());
                         if (checked) {
-                          form.resetField('judgingMode');
-                          setKey(+new Date());
+                          form.resetField('judgeMode');
+                        } else {
+                          console.log(latestJudgeMode.current);
+                          if (latestJudgeMode.current) {
+                            // @ts-expect-error
+                            form.setValue('judgeMode', latestJudgeMode.current);
+                          }
                         }
                       }}
                     />
                   </FormControl>
                   <FormLabel
-                    htmlFor="useVoting"
+                    htmlFor="disableJudge"
                     className="select-none text-sm text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
                   >
                     We are not going to use HackQuest voting and judging system for this track
@@ -271,12 +317,12 @@ export function EditJudgingDetailModal({
                 </FormItem>
               )}
             />
-            {!!judgingMode && (
+            {!!judgeMode && (
               <>
                 <Separator />
                 <FormField
                   control={form.control}
-                  name="votingMode"
+                  name="voteMode"
                   render={({ field }) => (
                     <FormItem className="w-full space-y-1">
                       <div className="flex items-center justify-between">
@@ -309,7 +355,7 @@ export function EditJudgingDetailModal({
                           <FormControl>
                             <RadioGroupItem
                               value="score"
-                              disabled={judgingMode === 'all'}
+                              disabled={judgeMode === 'all'}
                               className="flex h-[86px] flex-col items-center justify-center gap-1 px-8"
                             >
                               <span className="text-neutral-black">Project Scoring</span>
@@ -324,10 +370,10 @@ export function EditJudgingDetailModal({
                     </FormItem>
                   )}
                 />
-                {judgingMode === 'all' && votingMode === 'fixed' && (
+                {judgeMode === 'all' && voteMode === 'fixed' && (
                   <FormField
                     control={form.control}
-                    name="judgeVotes"
+                    name="judgeTotalVotes"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
                         <div className="flex items-center justify-between">
@@ -350,10 +396,10 @@ export function EditJudgingDetailModal({
                     )}
                   />
                 )}
-                {!!votingMode && (
+                {!!voteMode && (
                   <FormField
                     control={form.control}
-                    name="maxVotes"
+                    name="judgeProjectVote"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
                         <div className="flex items-center justify-between">
@@ -378,10 +424,10 @@ export function EditJudgingDetailModal({
                     )}
                   />
                 )}
-                {votingMode === 'score' && (
+                {voteMode === 'score' && (
                   <FormField
                     control={form.control}
-                    name="requiredJudges"
+                    name="projectJudgeCount"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
                         <div className="flex items-center justify-between">
@@ -406,7 +452,7 @@ export function EditJudgingDetailModal({
                     )}
                   />
                 )}
-                {judgingMode === 'all' && (
+                {judgeMode === 'all' && (
                   <div className="w-full space-y-1">
                     <label className="body-m text-neutral-rich-gray">Votes Proportion (%)*</label>
                     <div className="flex justify-between gap-10">
@@ -458,16 +504,16 @@ export function EditJudgingDetailModal({
                               form.clearErrors('judgeAccount');
                             }}
                             type="text"
-                            placeholder="e.g. bob@gmail.com"
+                            placeholder="e.g. example@gmail.com"
                             className="flex-1 outline-none"
                           />
                           <Button
-                            disabled={!judgeAccount || !!form.formState.errors.judgeAccount}
+                            disabled={!judgeAccount}
                             size="small"
                             type="button"
                             className="w-[140px]"
-                            // isLoading={isPending}
-                            // onClick={addJudgeAccount}
+                            isLoading={isPending}
+                            onClick={addJudgeAccount}
                           >
                             Add
                           </Button>
@@ -477,40 +523,19 @@ export function EditJudgingDetailModal({
                     </FormItem>
                   )}
                 />
-                <div className="w-full">
-                  {judgeAccounts.length > 0 && (
-                    <React.Fragment>
-                      {judgeAccounts.map((account) => (
-                        <div className="flex items-center" key={account.email}>
-                          <div className="relative h-[50px] w-[50px] rounded-full bg-yellow-dark">
-                            <Image src={account.avatar} alt="avatar" fill />
-                          </div>
-                          <span className="body-m ml-3 text-neutral-off-black">{account.nickname}</span>
-                          <span className="body-m ml-auto text-neutral-medium-gray">{account.email}</span>
-                          <button
-                            type="button"
-                            className="body-m ml-10 text-neutral-off-black underline"
-                            // onClick={() => removeJudgeAccount(account.email)}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      ))}
-                    </React.Fragment>
-                  )}
-                </div>
+                <AddJudgeAccounts judgeAccounts={judgeAccounts} setJudgeAccounts={setJudgeAccounts} />
               </>
             )}
             <input ref={submitInputRef} type="submit" className="hidden" />
           </form>
         </Form>
         <div className="flex shrink-0 justify-end gap-4">
-          <Button className="w-[165px]" variant="outline">
+          <Button className="w-[165px]" variant="outline" onClick={onClose}>
             Cancel
           </Button>
           <Button
             className="w-[165px]"
-            disabled={!form.formState.isValid}
+            disabled={!isValid}
             onClick={() => {
               submitInputRef.current?.click();
             }}

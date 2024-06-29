@@ -54,6 +54,24 @@ class HackathonApi {
     return this.service.delete<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/rewards/${rewardsId}`);
   }
 
+  createHackathonJudge(data: Record<string, any>) {
+    const { id, ...rest } = data;
+    return this.service.post<void>(`${HackathonApiUrl.HACKATHONS}/${id}/judge`, {
+      data: rest
+    });
+  }
+
+  updateHackathonJudge(judgeId: string, data: Record<string, any>) {
+    const { id, ...rest } = data;
+    return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${id}/judge/${judgeId}`, {
+      data: rest
+    });
+  }
+
+  removeHackathonJudge(hackathonId: string, judgeId: string) {
+    return this.service.delete<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge/${judgeId}`);
+  }
+
   addJudgeAccount(email: string) {
     return this.service.get<any>(`${HackathonApiUrl.USERS}/simple`, {
       params: { email }

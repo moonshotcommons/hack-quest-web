@@ -29,6 +29,7 @@ export function JudgingOverrideForm({
   onSave?: () => void;
 }) {
   console.log(initialValues?.rewards);
+  const [value, setValue] = React.useState<any>({});
   const [open, toggle] = useToggle(false);
   return (
     <div className="flex flex-col gap-6">
@@ -40,7 +41,17 @@ export function JudgingOverrideForm({
             className="flex items-center justify-between rounded-2xl border border-neutral-light-gray p-5"
           >
             <h2 className="text-lg font-bold text-neutral-rich-gray">{reward?.name}</h2>
-            <Button size="small" onClick={toggle}>
+            <Button
+              size="small"
+              onClick={() => {
+                setValue({
+                  id: reward?.id,
+                  hackathonId: reward?.hackathonId,
+                  name: reward?.name
+                });
+                toggle(true);
+              }}
+            >
               Set judging details
             </Button>
           </div>
@@ -51,7 +62,7 @@ export function JudgingOverrideForm({
       <div className="flex justify-end">
         <ActionButtons isLastStep isEditMode={isEditMode} />
       </div>
-      <EditJudgingDetailModal open={open} onOpenChange={toggle} />
+      <EditJudgingDetailModal initialValues={value} open={open} onOpenChange={toggle} />
     </div>
   );
 }
