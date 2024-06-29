@@ -16,6 +16,8 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { getRandomAvatars } from '@/helper/random';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -37,6 +39,19 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
 
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
+
+  const { redirectToUrl } = useRedirect();
+
+  const handleRegister = () => {
+    if (!userInfo) {
+      mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+      mobileNavModalToggleOpenHandle.toggleOpen();
+    } else {
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
+    }
+  };
+
   const renderButton = () => {
     if (stepIndex < 1) {
       if (!hackathon.participation?.isRegister) {
@@ -44,7 +59,10 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
         return (
           <Button
             className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-            onClick={() => setTipsModalOpenState(true)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRegister();
+            }}
           >
             {buttonText}
           </Button>

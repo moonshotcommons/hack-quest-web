@@ -1,31 +1,18 @@
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
-import { ForwardRefRenderFunction, ReactNode, forwardRef, useImperativeHandle, useState } from 'react';
-
+import Image from 'next/image';
+import { ForwardRefRenderFunction, forwardRef, useImperativeHandle, useState } from 'react';
+import { ActionType, GetParams, OptionType } from './type';
 import { useRequest } from 'ahooks';
-import { cn } from '@/helper/utils';
 
-interface ConfirmModalProps {
-  children: ReactNode;
-  confirmText?: string;
-  cancelText?: string;
-  className?: string;
-  disabled?: boolean;
+interface GroupActionConfirmProps {}
+
+export interface GroupActionConfirmRef {
+  open: <T extends ActionType>(params: GetParams<T>) => void;
 }
 
-interface Params {
-  onConfirm: () => Promise<unknown>;
-  onCancel?: () => void;
-  onConfirmCallback?: () => void;
-}
-
-export interface ConfirmModalRef {
-  open: (params: Params) => void;
-}
-
-const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps> = (props, ref) => {
-  const { children, confirmText, cancelText, className, disabled = false } = props;
-  const [option, setOption] = useState<Params | null>(null);
+const GroupActionConfirm: ForwardRefRenderFunction<GroupActionConfirmRef, GroupActionConfirmProps> = (props, ref) => {
+  const [option, setOption] = useState<OptionType | null>(null);
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
@@ -41,6 +28,7 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
     () => {
       return option!.onConfirm();
     },
+
     {
       manual: true,
       onSuccess() {
@@ -53,6 +41,12 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
 
   const cancel = () => {
     option?.onCancel?.();
+  };
+
+  const title = {
+    [ActionType.LeaveTeam]: 'Do you want to leave this team?',
+    [ActionType.DeleteTeam]: 'Do you want to delete this team permanently?',
+    [ActionType.RemoveMember]: 'Do you want to remove this member from the team?'
   };
 
   return (
@@ -73,29 +67,41 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
         </svg>
       }
     >
-      <div className={cn('w-[calc(100vw-40px)] rounded-[16px] bg-neutral-white px-5 py-10 sm:w-[532px]', className)}>
-        {children}
-        <div className="mt-9 flex justify-center gap-2">
+      <div className="w-[calc(100vw-40px)] rounded-[16px] bg-neutral-white px-5 py-10">
+        <h4 className="text-h4-mob mb-5 text-center text-neutral-black">{!!option?.type && title[option.type]}</h4>
+
+        <div className="flex justify-center">
+          {option?.type !== ActionType.RemoveMember && (
+            <p className="body-s text-center leading-[160%] text-neutral-off-black">{option?.teamName}</p>
+          )}
+          {option?.type === ActionType.RemoveMember && (
+            <div className="body-m flex items-center gap-2 text-neutral-off-black">
+              <Image src={option.userInfo.avatar} alt="avatar" width={36} height={36} />
+              <span>{option.userInfo.firstName + ' ' + option.userInfo.lastName}</span>
+            </div>
+          )}
+        </div>
+        <div className="mt-9 flex w-full justify-center gap-2">
           <Button
             ghost
-            className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black outline-none"
+            className="button-text-m h-[2.125rem] w-[calc((100%-8px)/2)] px-0 py-0 uppercase text-neutral-black outline-none"
             onClick={() => {
               setOpen(false);
               cancel();
             }}
           >
-            {cancelText || 'cancel'}
+            cancel
           </Button>
           <Button
-            className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
+            className="button-text-m h-[2.125rem] w-[calc((100%-8px)/2)] px-0 py-0 uppercase text-neutral-black"
             type="primary"
             loading={loading}
-            disabled={disabled || loading}
+            disabled={loading}
             onClick={() => {
               option?.onConfirm && confirm();
             }}
           >
-            {confirmText || 'confirm'}
+            yes
           </Button>
         </div>
       </div>
@@ -103,4 +109,4 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
   );
 };
 
-export default forwardRef(ConfirmModal);
+export default forwardRef(GroupActionConfirm);
