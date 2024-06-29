@@ -61,6 +61,13 @@ export function LinksForm({
     }
   });
 
+  const sendEmailMutation = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.sendVerifyEmail(initialValues?.id, email),
+    onSuccess: () => {
+      toggle(true);
+    }
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -75,6 +82,7 @@ export function LinksForm({
     }
   });
 
+  const email = form.watch('email');
   const isValid = form.formState.isValid;
 
   React.useEffect(() => {
@@ -137,7 +145,17 @@ export function LinksForm({
               )}
             />
             {!user?.email && (
-              <Button size="small" type="button" className="w-[140px] self-end" onClick={toggle}>
+              <Button
+                size="small"
+                disabled={!form.formState.isValid}
+                type="button"
+                isLoading={sendEmailMutation.isPending}
+                className="w-[140px] self-end"
+                onClick={() => {
+                  const email = form.getValues('email');
+                  sendEmailMutation.mutate(email);
+                }}
+              >
                 Verify
               </Button>
             )}
@@ -292,7 +310,7 @@ export function LinksForm({
           />
         </form>
       </Form>
-      <VerifyEmailModal open={open} onClose={() => toggle(false)} />
+      <VerifyEmailModal email={email} hackathonId={initialValues?.id} open={open} onClose={() => toggle(false)} />
     </>
   );
 }
