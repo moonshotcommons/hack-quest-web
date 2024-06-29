@@ -76,6 +76,7 @@ export function CoverForm({
     try {
       await webApi.hackathonV2Api.updateHackathonImage(formData, initialValues?.id);
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      setImageUrl('');
       message.success('Remove Successfully');
     } catch (error) {
       console.log(error);
