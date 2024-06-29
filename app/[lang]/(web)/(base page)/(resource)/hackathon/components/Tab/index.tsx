@@ -13,9 +13,10 @@ interface TabProp {
   curTab: HackathonStatusType;
   hackathonTab: HackathonTabType[];
   path: MenuLink;
+  changeTab?: (tab: HackathonStatusType) => void;
 }
 
-const Tab: React.FC<TabProp> = ({ curTab, hackathonTab, path }) => {
+const Tab: React.FC<TabProp> = ({ curTab, hackathonTab, path, changeTab }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const getUrl = (tab: HackathonStatusType) => {
@@ -27,16 +28,27 @@ const Tab: React.FC<TabProp> = ({ curTab, hackathonTab, path }) => {
       type="LEARNING_TRACK"
       currentIndex={hackathonTab.findIndex((v) => v.value === curTab)}
     >
-      {hackathonTab.map((v) => (
-        <Link key={v.value} href={getUrl(v.value)} scroll={false}>
+      {hackathonTab.map((v) =>
+        changeTab ? (
           <div
+            key={v.value}
+            onClick={() => changeTab(v.value)}
             className={`body-xl cursor-pointer  text-neutral-off-black ${curTab === v.value ? '  body-xl-bold ' : ' '}`}
           >
             {t(v.label)}
             {'count' in v && `(${v.count})`}
           </div>
-        </Link>
-      ))}
+        ) : (
+          <Link key={v.value} href={getUrl(v.value)} scroll={false}>
+            <div
+              className={`body-xl cursor-pointer  text-neutral-off-black ${curTab === v.value ? '  body-xl-bold ' : ' '}`}
+            >
+              {t(v.label)}
+              {'count' in v && `(${v.count})`}
+            </div>
+          </Link>
+        )
+      )}
     </SlideHighlight>
   );
 };

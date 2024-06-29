@@ -17,6 +17,8 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
 import { FiDownload } from 'react-icons/fi';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -41,6 +43,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
   const stepIndex = getStepIndex(hackathon);
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [warningOpen, setWarningOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleSubmit = (id: string) => {
     if (
       hackathon.participation?.team?.creatorId === hackathon.participation?.userId ||
@@ -140,12 +143,25 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
   };
 
   const downloadMember = () => {
-    const data = [
-      { name: 'John', age: 25, email: 'john@example.com' },
-      { name: 'Jane', age: 30, email: 'jane@example.com' },
-      { name: 'Bob', age: 35, email: 'bob@example.com' }
-    ];
-    exportToExcel(data, 'members');
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .getHackathonMember(hackathon.id)
+      .then((res) => {
+        const data = res.data?.map((v) => {
+          return {
+            ...v,
+            team: JSON.stringify(v.team)
+          };
+        });
+        exportToExcel(data, 'members');
+      })
+      .catch((err) => {
+        errorMessage(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -172,31 +188,40 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
             <p className="mb-[8px]">{t('participants')}</p>
             <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
           </div>
-          <div>
-            <p className="mb-[8px]">{t('totalPrize')}</p>
-            <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
-          </div>
+
           {isDashboard ? (
-            <div
-              className="w-[40%]"
-              onClick={(e) => {
-                e.stopPropagation();
-                downloadMember();
-              }}
-            >
-              <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>
-              <div className="relative flex h-[36px] items-center gap-[8px] text-[24px] text-neutral-off-black underline underline">
-                <FiDownload />
-                <span>Download</span>
+            <>
+              <div>
+                <p className="mb-[8px]">{t('submittedProjects')}</p>
+                <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.projectCount || 0)}</p>
               </div>
-            </div>
+              <div
+                className="w-[40%]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  downloadMember();
+                }}
+              >
+                <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>
+                <div className="relative flex h-[36px] items-center gap-[8px] text-[24px] text-neutral-off-black underline underline">
+                  <FiDownload />
+                  <span>Download</span>
+                </div>
+              </div>
+            </>
           ) : (
-            <div className="w-[40%]">
-              <p className="mb-[8px]">{t('host')}</p>
-              <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
-                <p className="absolute left-0 top-0 w-full truncate">{hackathon.info?.host || '-'}</p>
+            <>
+              <div>
+                <p className="mb-[8px]">{t('totalPrize')}</p>
+                <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
               </div>
-            </div>
+              <div className="w-[40%]">
+                <p className="mb-[8px]">{t('host')}</p>
+                <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
+                  <p className="absolute left-0 top-0 w-full truncate">{hackathon.info?.host || '-'}</p>
+                </div>
+              </div>
+            </>
           )}
         </div>
         {/* <div className="flex gap-[16px]">

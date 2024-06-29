@@ -192,6 +192,7 @@ export interface HackathonType {
   judge: HackathonJudgeType;
   links: HackathonLinkType;
   memberCount: number;
+  enable: boolean;
   sections: {
     hosts: MentorType[];
     venue: MentorType[];
