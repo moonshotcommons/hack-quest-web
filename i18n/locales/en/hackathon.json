@@ -43,7 +43,7 @@
     "hostBy": "Host by",
     "cohostBy": "Cohost by",
     "submissionReview": "SUBMISSIONS REVIEW",
-    "usersPartitipated": "users partitipated",
+    "usersParticipated": "users participated",
     "continueSubmission": "Continue Submission",
     "haveRegistered": "You have registered in this hackathon",
     "haveSubmission": "You have submitted this hackathon",
@@ -97,7 +97,7 @@
     "onsiteMeetingAddress": "Onsite Meeting Address",
     "openMeeting": "Open Meeting",
     "hackathonMode": "Hackathon Mode",
-    "venue": "Venue",
+    "Venue": "Venue",
     "removeSection": "Remove this section",
     "removeEvent": "Remove the event",
     "enterName": "Enter name",
@@ -116,7 +116,8 @@
     "bronzeSponsor": "Bronze Sponsor",
     "venue": "Venue Education & Partner",
     "trackPartner": "Track Partner",
-    "viewTeamProject": "View team project"
+    "viewTeamProject": "View team project",
+    "registrationData":"Registration Data"
   },
   "projectsDetail": {
     "title": {

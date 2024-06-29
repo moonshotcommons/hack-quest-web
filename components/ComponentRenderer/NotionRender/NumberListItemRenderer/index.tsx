@@ -28,7 +28,7 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
       }
       firstIndex = i;
     }
-    return currentIndex - firstIndex || position;
+    return currentIndex - firstIndex ?? (position || 0);
   }, [children, component]);
 
   const getMobileClassName = () => {

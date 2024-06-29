@@ -32,11 +32,11 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab, hackathons }) => {
     }
     switch (curTab) {
       case HackathonStatusType.ON_GOING:
-        return <OnGoing hackathonList={hackathons} />;
+        return <OnGoing hackathonList={hackathons} isDashboard={true} />;
       case HackathonStatusType.DRAFT:
         return <Draft hackathonList={hackathons} />;
       case HackathonStatusType.PAST:
-        return <Past page={0} hackathonList={hackathons} total={0} limit={0} />;
+        return <Past page={0} hackathonList={hackathons} total={0} limit={0} isDashboard={true} />;
     }
   };
   const buttonNode = () => {

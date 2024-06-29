@@ -32,7 +32,7 @@ const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
         </div>
         {hackathon.info?.address && (
           <div>
-            <p className="text-neutral-medium-gray">{t('hackathonDetail.venue')}</p>
+            <p className="text-neutral-medium-gray">{t('hackathonDetail.Venue')}</p>
             <p>{hackathon.info?.address}</p>
           </div>
         )}

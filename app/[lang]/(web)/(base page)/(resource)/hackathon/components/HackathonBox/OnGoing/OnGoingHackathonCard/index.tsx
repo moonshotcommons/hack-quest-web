@@ -9,19 +9,21 @@ import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { separationNumber } from '@/helper/utils';
+import { exportToExcel, separationNumber } from '@/helper/utils';
 import CountDown from '@/components/Web/Business/CountDown';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import Link from 'next/link';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
+import { FiDownload } from 'react-icons/fi';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
+  isDashboard?: boolean;
 }
 
-const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon }) => {
+const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isDashboard }) => {
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -136,6 +138,16 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
       </Link>
     );
   };
+
+  const downloadMember = () => {
+    const data = [
+      { name: 'John', age: 25, email: 'john@example.com' },
+      { name: 'Jane', age: 30, email: 'jane@example.com' },
+      { name: 'Bob', age: 35, email: 'bob@example.com' }
+    ];
+    exportToExcel(data, 'members');
+  };
+
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -164,12 +176,28 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
             <p className="mb-[8px]">{t('totalPrize')}</p>
             <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
           </div>
-          <div className="w-[40%]">
-            <p className="mb-[8px]">{t('host')}</p>
-            <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
-              <p className="absolute left-0 top-0 w-full truncate">{hackathon.info?.host || '-'}</p>
+          {isDashboard ? (
+            <div
+              className="w-[40%]"
+              onClick={(e) => {
+                e.stopPropagation();
+                downloadMember();
+              }}
+            >
+              <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>
+              <div className="relative flex h-[36px] items-center gap-[8px] text-[24px] text-neutral-off-black underline underline">
+                <FiDownload />
+                <span>Download</span>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-[40%]">
+              <p className="mb-[8px]">{t('host')}</p>
+              <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
+                <p className="absolute left-0 top-0 w-full truncate">{hackathon.info?.host || '-'}</p>
+              </div>
+            </div>
+          )}
         </div>
         {/* <div className="flex gap-[16px]">
           {renderButton()}

@@ -182,7 +182,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         </div>
         {hackathon.info?.address && (
           <div>
-            <p className="text-neutral-medium-gray">{t('hackathonDetail.venue')}</p>
+            <p className="text-neutral-medium-gray">{t('hackathonDetail.Venue')}</p>
             <p>{hackathon.info?.address}</p>
           </div>
         )}
@@ -201,7 +201,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
                 ))}
               </div>
 
-              <p className="body-m">{`${1} ${t('hackathonDetail.usersPartitipated')}`}</p>
+              <p className="body-m">{`${1} ${t('hackathonDetail.usersParticipated')}`}</p>
             </div>
           </div>
         )}
