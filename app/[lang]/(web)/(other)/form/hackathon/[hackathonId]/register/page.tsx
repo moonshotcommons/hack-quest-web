@@ -10,7 +10,7 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = async ({ params: { hac
   const hackathonInfo = await webApi.resourceStationApi.getSimpleHackathonInfo(hackathonId);
 
   return (
-    <div className="mx-auto my-4 flex w-full max-w-[806px] flex-col justify-center rounded-[16px] bg-neutral-white p-10">
+    <div className="mx-auto my-10 mb-20 flex w-full max-w-[806px] flex-col justify-center rounded-[16px] bg-neutral-white p-10">
       <FormContent simpleHackathonInfo={hackathonInfo} />
     </div>
   );

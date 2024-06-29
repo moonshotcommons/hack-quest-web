@@ -1,5 +1,4 @@
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
-import { getValidateResult } from '@/components/HackathonCreation/constants';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { FC } from 'react';
 import { v4 } from 'uuid';
@@ -30,8 +29,11 @@ export const LinkedInConfig: PresetComponentConfig<LinkedInProps, CustomComponen
     placeholder: 'Enter a LinkedIn Account',
     name: 'linkedIn'
   },
-  validate(values: { linkedIn: string }, form) {
-    return [getValidateResult(z.string().min(10).max(100).safeParse(values.linkedIn), form, 'linkedIn')];
+  getValidator(config) {
+    const validator = z.string().min(config.optional ? 0 : 1);
+    return {
+      linkedIn: config.optional ? validator.optional() : validator
+    };
   }
 };
 

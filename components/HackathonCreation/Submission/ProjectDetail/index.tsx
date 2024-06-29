@@ -1,24 +1,18 @@
 import { omit } from 'lodash-es';
-import { PresetComponentConfig, IgnoreFields } from '../../type';
+import { PresetComponentConfig } from '../../type';
 import { IGNORE_FIELDS } from '../../constants';
-import FacebookConfig from './Facebook';
-import FarcasterNameConfig from './Farcaster';
-import GithubConfig from './Github';
-import LinkedInConfig from './LinkedIn';
-import QQConfig from './QQ';
-import TwitterConfig from './Twitter';
-import WhatsAppConfig from './WhatsApp';
+import OneLineIntroConfig from './OneLineIntro';
+import DetailedIntroLogoConfig from './DetailedIntro';
+import TeamBackgroundLogoConfig from './TeamBackground';
+import ProgressDuringHackathonConfig from './ProgressDuringHackathon';
 
 export const ProjectDetailSectionComponentMap: Record<string, PresetComponentConfig<any>> = {
-  [FacebookConfig.type]: FacebookConfig,
-  [FarcasterNameConfig.type]: FarcasterNameConfig,
-  [GithubConfig.type]: GithubConfig,
-  [LinkedInConfig.type]: LinkedInConfig,
-  [QQConfig.type]: QQConfig,
-  [TwitterConfig.type]: TwitterConfig,
-  [WhatsAppConfig.type]: WhatsAppConfig
+  [OneLineIntroConfig.type]: OneLineIntroConfig,
+  [DetailedIntroLogoConfig.type]: DetailedIntroLogoConfig,
+  [TeamBackgroundLogoConfig.type]: TeamBackgroundLogoConfig,
+  [ProgressDuringHackathonConfig.type]: ProgressDuringHackathonConfig
 };
 
-export const ProjectDetailSectionComponentList: Omit<PresetComponentConfig, IgnoreFields>[] = Object.values(
-  ProjectDetailSectionComponentMap
-).map((cfg) => omit(cfg, IGNORE_FIELDS));
+export const ProjectDetailSectionComponentList = Object.values(ProjectDetailSectionComponentMap).map((cfg) =>
+  omit(cfg, IGNORE_FIELDS)
+);

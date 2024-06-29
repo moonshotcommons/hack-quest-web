@@ -1,10 +1,6 @@
 'use client';
 import Button from '@/components/Common/Button';
-import {
-  AboutSectionComponentList,
-  AboutSectionComponentMap,
-  ApplicationSectionConfig
-} from '@/components/HackathonCreation';
+import { AboutSectionComponentList, ApplicationSectionConfig } from '@/components/HackathonCreation';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { CustomComponentConfig } from '@/components/HackathonCreation/type';
 import { Form } from '@/components/ui/form';
@@ -17,14 +13,15 @@ interface TestPageProps {}
 
 const TestPage: FC<TestPageProps> = (props) => {
   const form = useForm();
-
   const onSubmit = (values: any) => {
-    AboutSectionComponentList.forEach((config) => {
-      const fullConfig = AboutSectionComponentMap[(config as any).type];
-      if (fullConfig.validate) {
-        console.log(fullConfig.validate(values, form));
-      }
-    });
+    console.log(values);
+
+    // AboutSectionComponentList.forEach((config) => {
+    //   const fullConfig = AboutSectionComponentMap[(config as any).type];
+    //   if (fullConfig.validate) {
+    //     console.log(fullConfig.validate(values, form, config as PresetComponentConfig));
+    //   }
+    // });
   };
   const onBack = () => {};
 
@@ -32,7 +29,7 @@ const TestPage: FC<TestPageProps> = (props) => {
     <div className="container mx-auto">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <div>
+          <div className="flex flex-col gap-6">
             {AboutSectionComponentList.map((config, index) => {
               return <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
             })}

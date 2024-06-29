@@ -1,4 +1,10 @@
 import { CustomComponent } from '@/components/ComponentRenderer/type';
+import {
+  ApplicationSectionType,
+  CustomComponentConfig,
+  PresetComponentConfig,
+  SubmissionSectionType
+} from '@/components/HackathonCreation/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
@@ -386,7 +392,7 @@ export interface HackathonRegisterInfo {
   telegram: string | null;
   team: HackathonTeam | null;
   bio: string | null;
-  status: HackathonRegisterStep;
+  status: ApplicationSectionType | 'Review';
   createdAt: string;
   updatedAt: string;
   avatar: string;
@@ -398,6 +404,7 @@ export interface HackathonRegisterInfo {
   voteRole: HackathonTypeVotesRoleType;
   discord: string;
   collegeName: string;
+  info: Record<string, object>;
 }
 
 export interface RegisterInfoBody {
@@ -421,11 +428,7 @@ export interface HackathonTeam {
 
 export interface TeamMemberInfo {
   userId: string;
-  firstName: string;
-  lastName: string;
-  weChat: string;
-  telegram: string;
-  bio: string;
+  info: Record<string, any>;
   isAdmin: boolean;
   avatar: string;
 }
@@ -509,4 +512,34 @@ export interface FaucetRecordType {
 export interface ProjectRankType {
   total: number;
   rank: number;
+}
+
+export interface SimpleHackathonInfo {
+  id: string;
+  name: string;
+  alias: string;
+  creatorId: string;
+  status: string;
+  sectionSequences: [];
+  createdAt: Date;
+  updatedAt: Date;
+  info: {
+    application: {
+      [ApplicationSectionType.ApplicationType]: {
+        id: string;
+        type: string;
+        property: {
+          type?: 'Solo or Group' | 'Solo Only' | 'Group Only';
+          minSize?: number;
+          maxSize?: number;
+        };
+      };
+      [ApplicationSectionType.About]: (PresetComponentConfig | CustomComponentConfig)[];
+      [ApplicationSectionType.Contact]: (PresetComponentConfig | CustomComponentConfig)[];
+      [ApplicationSectionType.OnlineProfiles]: (PresetComponentConfig | CustomComponentConfig)[];
+    };
+    submission: {
+      [Key in SubmissionSectionType]: (PresetComponentConfig | CustomComponentConfig)[];
+    };
+  };
 }
