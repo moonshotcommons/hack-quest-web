@@ -28,7 +28,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
                 <p className=" text-h2-mob mb-[.25rem]">{v.totalPlace} USD</p>
                 <p className="body-s text-neutral-medium-gray">
                   {t('hackathonDetail.trackTotalReward', {
-                    track: v.name
+                    track: ''
                   })}
                 </p>
               </div>
