@@ -58,7 +58,7 @@ const OthersForm: FC<
       ![null, undefined].includes(isPublic as any) && formData.append('isOpenSource', isPublic ? 'true' : 'false');
       githubLink && formData.append('githubLink', githubLink || '');
       const links = { figma, playstore, googleDrive, other };
-      formData.append('links', JSON.stringify(links));
+      (figma || playstore || googleDrive || other) && formData.append('links', JSON.stringify(links));
       formData.append('status', isExit ? ProjectSubmitStepType.OTHERS : newStatus!);
 
       const res = await webApi.resourceStationApi.submitProject(formData, projectId);
