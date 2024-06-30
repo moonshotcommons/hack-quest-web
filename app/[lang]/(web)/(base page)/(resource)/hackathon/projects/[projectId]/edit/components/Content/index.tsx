@@ -246,7 +246,7 @@ const Content: React.FC<ContentProp> = ({
       formData.append('technologies', technologies || '');
       formData.append('teamID', teamID || '');
       formData.append('roomNumber', roomNumber || '');
-      formData.append('demo', demo || '');
+      // formData.append('demo', demo || '');
 
       const links = {
         contractLink: contractLink || '',
