@@ -2,8 +2,6 @@
 import { FC, memo, useEffect, useRef } from 'react';
 import { ConnectButton } from './ConnectButton';
 import { useRequest } from 'ahooks';
-import message from 'antd/es/message';
-import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import DisconnectModal, { DisconnectModalRef } from './DisconnectModal';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -13,6 +11,8 @@ import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/Confirm
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
 import { z } from 'zod';
+import { FormInput } from '@/components/Common/FormComponent';
+import Image from 'next/image';
 
 export interface ConnectWalletProps {
   form: any;
@@ -42,28 +42,31 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
     }
   );
 
-  const { runAsync: disconnect, loading: disConnectLoading } = useRequest(
-    async () => {
-      const formData = new FormData();
-      formData.append('wallet', '');
-      formData.append('status', ProjectSubmitStepType.WALLET);
-      // await webApi.resourceStationApi.submitProject(formData, projectId);
-      // await refreshProjectInfo();
-    },
-    {
-      manual: true,
-      onSuccess() {
-        message.success(`Disconnect the wallet successfully`);
-      },
-      onError(err) {
-        errorMessage(err);
-      }
-    }
-  );
+  // const { runAsync: disconnect, loading: disConnectLoading } = useRequest(
+  //   async () => {
+  //     const formData = new FormData();
+  //     formData.append('wallet', '');
+  //     formData.append('status', ProjectSubmitStepType.WALLET);
+  //     // await webApi.resourceStationApi.submitProject(formData, projectId);
+  //     // await refreshProjectInfo();
+  //   },
+  //   {
+  //     manual: true,
+  //     onSuccess() {
+  //       message.success(`Disconnect the wallet successfully`);
+  //     },
+  //     onError(err) {
+  //       errorMessage(err);
+  //     }
+  //   }
+  // );
 
   const onDisconnect = () => {
     disconnectModalRef.current?.open({
-      onConfirm: disconnect
+      onConfirm: () => {
+        form.setValue('wallet', '');
+        return Promise.resolve();
+      }
     });
   };
 
@@ -81,7 +84,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
     };
   }, []);
 
-  const requiredTag = config.optional ? '' : '*';
+  const requiredTag = config.optional ? ' (Optional)' : '*';
 
   return (
     <div className="flex flex-col gap-6">
@@ -99,10 +102,9 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
           <span>Connect A New Wallet</span>
         </div> */}
         <ConnectButton
-          wallet={'wallet'}
-          projectId={'projectId'}
-          // refreshProjectInfo={refreshProjectInfo}
-          onDisconnect={onDisconnect}
+          form={form}
+
+          // onDisconnect={onDisconnect}
         />
         <div className="flex items-center gap-1 rounded-[16px] bg-neutral-off-white p-4">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +120,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
           </p>
         </div>
       </div>
-
+      <FormInput name="wallet" form={form} label="" placeholder="" className="hidden" />
       <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
         <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
       </ConfirmModal>
@@ -135,6 +137,17 @@ export const ConnectWalletConfig: PresetComponentConfig<ConnectWalletProps> = {
   component: ConnectWallet,
   optional: false,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Wallet Information</span>
+        <p className="body-m flex gap-1 text-left text-neutral-off-black">
+          <Image src={'/images/login/metamask.svg'} alt="wallet" width={26} height={26} />
+          <span>{info.wallet.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
+        </p>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().min(config.optional ? 0 : 1);
     return {

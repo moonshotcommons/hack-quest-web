@@ -1,84 +1,44 @@
 import { FC } from 'react';
-import { HackathonSubmitStateType } from '../../type';
-import InfoForm from './InfoForm';
-import PitchVideoUpload from './PitchVideoUpload';
-import ProjectDemoUpload from './ProjectDemoUpload';
-import OthersForm from './OthersForm';
-import ConnectWallet from './ConnectWallet';
+import { ProjectSubmitStateType } from '../../type';
 import SubmitReview from './SubmitReview';
-import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
-import ProjectForm from './ProjectForm';
-import LinksForm from './LinksForm';
-import { HackathonPartner } from '../constants';
-import ProjectDemo from './ProjectDemo';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
+import { SubmissionSectionType } from '@/components/HackathonCreation/type';
+import BasicInfoSectionForm from './BasicInfoSectionForm';
+import ProjectDetailSectionForm from './ProjectDetailSectionForm';
+import VideosSectionForm from './VideosSectionForm';
+import AdditionsSectionForm from './AdditionsSectionForm';
 
 export interface FormComponentProps {
-  type: ProjectSubmitStepType;
-  onNext: (state: Partial<HackathonSubmitStateType>) => void;
-  onBack: VoidFunction;
-  formState: HackathonSubmitStateType;
+  type: SubmissionSectionType | 'Review';
+  formState: ProjectSubmitStateType;
   setCurrentStep: (step: number) => void;
-  simpleHackathonInfo: { id: string; name: string; alias: string };
-  tracks: string[];
+  hackathonInfo: SimpleHackathonInfo;
   projectId: string | undefined;
-  refreshProjectInfo: VoidFunction;
+  refreshProjectInfo: () => Promise<any>;
+  isSubmit: boolean;
 }
 
+export type CommonFormComponentProps = Pick<FormComponentProps, 'isSubmit' | 'projectId' | 'refreshProjectInfo'>;
+
 const FormComponent: FC<FormComponentProps> = (props) => {
-  const { type, formState, setCurrentStep, tracks, ...rest } = props;
+  const { type, hackathonInfo, formState, setCurrentStep, ...rest } = props;
+  const { BasicInfo: basicInfo, ProjectDetail: projectDetail, Videos: videos, Additions: additions } = formState;
+  const submission = hackathonInfo.info.submission;
+  const { BasicInfo, ProjectDetail, Videos, Additions } = submission;
 
   switch (type) {
-    case ProjectSubmitStepType.INFO:
+    case SubmissionSectionType.BasicInfo:
+      return <BasicInfoSectionForm sectionConfig={BasicInfo} basicInfo={basicInfo} {...rest} />;
+    case SubmissionSectionType.Videos:
+      return <VideosSectionForm sectionConfig={Videos} videos={videos} {...rest} />;
+    case SubmissionSectionType.ProjectDetail:
+      return <ProjectDetailSectionForm sectionConfig={ProjectDetail} projectDetail={projectDetail} {...rest} />;
+    case SubmissionSectionType.Additions:
+      return <AdditionsSectionForm sectionConfig={Additions} additions={additions} {...rest} />;
+    case 'Review':
       return (
-        <InfoForm
-          {...rest}
-          info={formState.info}
-          tracks={tracks}
-          status={formState.status}
-          isSubmit={formState.isSubmit}
-        />
+        <SubmitReview sectionConfig={submission} formState={formState} {...rest} setCurrentStep={setCurrentStep} />
       );
-    case ProjectSubmitStepType.PROJECT:
-      return (
-        <ProjectForm {...rest} project={formState.project} status={formState.status} isSubmit={formState.isSubmit} />
-      );
-    case ProjectSubmitStepType.PITCH_VIDEO:
-      return (
-        <PitchVideoUpload
-          {...rest}
-          pitchVideo={formState.pitchVideo}
-          status={formState.status}
-          isSubmit={formState.isSubmit}
-        />
-      );
-    case ProjectSubmitStepType.DEMO:
-      if (props.simpleHackathonInfo.id === HackathonPartner.Hack4Bengal)
-        return (
-          <ProjectDemo
-            {...rest}
-            projectDemo={formState.projectDemo}
-            status={formState.status}
-            isSubmit={formState.isSubmit}
-          />
-        );
-      return (
-        <ProjectDemoUpload
-          {...rest}
-          projectDemo={formState.projectDemo}
-          status={formState.status}
-          isSubmit={formState.isSubmit}
-        />
-      );
-    case ProjectSubmitStepType.LINKS:
-      return <LinksForm {...rest} links={formState.links} status={formState.status} isSubmit={formState.isSubmit} />;
-    case ProjectSubmitStepType.OTHERS:
-      return <OthersForm {...rest} others={formState.others} status={formState.status} isSubmit={formState.isSubmit} />;
-    case ProjectSubmitStepType.WALLET:
-      return (
-        <ConnectWallet {...rest} wallet={formState.wallet} status={formState.status} isSubmit={formState.isSubmit} />
-      );
-    case ProjectSubmitStepType.REVIEW:
-      return <SubmitReview {...rest} formState={formState} setCurrentStep={setCurrentStep} />;
   }
 };
 

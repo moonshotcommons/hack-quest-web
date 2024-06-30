@@ -9,6 +9,8 @@ import { z } from 'zod';
 import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
 import { FormInput } from '@/components/Common/FormComponent';
+import { FaFilePdf } from 'react-icons/fa6';
+import { IMAGE_SUFFIX } from '@/constants';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -23,6 +25,17 @@ interface ResumeUploadProps {
   form: UseFormReturn<any, any, undefined>;
   config: PresetComponentConfig;
 }
+
+const renderContent = (link: string, width = 118, height = 152) => {
+  const ext = (link || '').split('.').pop()?.toLowerCase() || '';
+  if (ext === 'pdf') {
+    return <FaFilePdf />;
+  }
+  if (IMAGE_SUFFIX.includes(ext)) {
+    return <Image src={link} alt="resume" width={width} height={width} className="object-contain" />;
+  }
+  return <span className="text-neutral-medium-gray">{`Display not supported`}</span>;
+};
 
 const ResumeUpload: FC<ResumeUploadProps> = ({ form, config }) => {
   const [loading, setLoading] = useState(false);
@@ -73,7 +86,9 @@ const ResumeUpload: FC<ResumeUploadProps> = ({ form, config }) => {
     </button>
   );
 
-  const requiredTag = config.optional ? '' : '*';
+  const requiredTag = config.optional ? ' (Optional)' : '*';
+
+  const ext = (form.getValues('resume') || '').split('.').pop();
 
   return (
     <div className="text-left">
@@ -105,11 +120,7 @@ const ResumeUpload: FC<ResumeUploadProps> = ({ form, config }) => {
           beforeUpload={beforeUpload}
           onChange={handleChange}
         >
-          {form.getValues('resume') ? (
-            <Image src={form.getValues('resume')} alt="logo" width={118} height={152} />
-          ) : (
-            uploadButton
-          )}
+          {form.getValues('resume') ? renderContent(form.getValues('resume'), 118, 152) : uploadButton}
         </Upload>
       </div>
       <FormInput name="resume" label="" placeholder="" form={form} className="hidden" />
@@ -124,6 +135,16 @@ export const ResumeUploadConfig: PresetComponentConfig<ResumeUploadProps> = {
   component: ResumeUpload,
   optional: false,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Resume</span>
+        <div className="relative h-16 w-12 overflow-hidden rounded-[4px] border border-neutral-light-gray shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]">
+          {info.resume ? renderContent(info.resume, 48, 64) : ''}
+        </div>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().url();
     return {

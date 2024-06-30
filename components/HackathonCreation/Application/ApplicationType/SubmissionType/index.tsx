@@ -25,6 +25,9 @@ export const SubmissionTypeConfig: PresetComponentConfig<SubmissionTypeProps> = 
   settingComponent: null,
   optional: false,
   property: {},
+  displayRender(info) {
+    return <></>;
+  },
   getValidator(config) {
     return {};
   }

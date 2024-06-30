@@ -18,7 +18,7 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
       <div className="mb-[8px]">
         <div className="flex gap-[.75rem]">
           <div className="relative h-[3.5rem] w-[3.5rem] flex-shrink-0  overflow-hidden">
-            {project.thumbnail && <Image src={project.thumbnail} alt={project.name} fill className="object-cover" />}
+            {project.logo && <Image src={project.logo} alt={project.name} fill className="object-cover" />}
           </div>
           <div className="w-0 flex-1 overflow-hidden">
             <Link
@@ -33,7 +33,7 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="body-xs mt-[8px] line-clamp-3  text-neutral-rich-gray">{project.description}</div>
+        <div className="body-xs mt-[8px] line-clamp-3  text-neutral-rich-gray">{project.detail.detailedIntro}</div>
       </div>
       <div className="h-[63px] w-full rounded-[8px] bg-neutral-off-white px-[12px] py-[8px]">
         <HandleVote view={ViewValue.GRID} project={project} />

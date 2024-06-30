@@ -4,69 +4,99 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, Fragment, useEffect } from 'react';
+import { FC, Fragment, useEffect, useRef } from 'react';
 import { CommonFormComponentProps } from '..';
-import { cn } from '@/helper/utils';
+import { cn, isUuid } from '@/helper/utils';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import { getHackathonStepInfo } from '../../constants';
+import { getHackathonStepInfo, getHackathonSubmissionSteps } from '../../constants';
 import { isEqual } from 'lodash-es';
 import {
   useHackathonConfig,
   useValidatorFormSchema
 } from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
 import {
-  ApplicationSectionType,
   CustomComponentConfig,
-  PresetComponentConfig
+  PresetComponentConfig,
+  SubmissionSectionType
 } from '@/components/HackathonCreation/type';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
+import { useLang } from '@/components/Provider/Lang';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import { ProjectSubmitStateType } from '../../../type';
+import { omit } from 'lodash-es';
 
-interface AboutSectionFormProps {
+interface AdditionsSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
+  additions: ProjectSubmitStateType['Additions'];
 }
 
-const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = ({
+const AdditionsSectionForm: FC<AdditionsSectionFormProps & CommonFormComponentProps> = ({
   sectionConfig,
-  info,
-  isRegister,
-  refreshRegisterInfo
+  additions,
+  projectId,
+  isSubmit,
+  refreshProjectInfo
 }) => {
   const formSchema = useValidatorFormSchema(sectionConfig);
   const form = useForm({
     resolver: zodResolver(formSchema)
   });
-
-  const about = info.About;
+  const { lang } = useLang();
 
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
 
-  sectionConfig.sort((cfg) => {
-    if (cfg.type === 'ResumeUpload') {
-      return -1;
-    } else return 1;
-  });
-
   const { run: submitRequest, loading } = useRequest(
-    async (values: Record<string, string>) => {
-      // form.trigger();
-      const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.About);
+    async (values: Record<string, string>, isExit = false) => {
+      const { nextStep } = getHackathonStepInfo(
+        hackathonSteps as ReturnType<typeof getHackathonSubmissionSteps>,
+        SubmissionSectionType.Additions
+      );
+
+      const fields: Record<string, any> = {};
+      const info: Record<string, any> = {};
+
+      Object.keys(values).forEach((key) => {
+        if (isUuid(key)) {
+          const config = sectionConfig.find((cfg) => cfg.id === key)!;
+          fields[key] = {
+            label: (config as CustomComponentConfig).property.label,
+            value: values[key]
+          };
+        } else {
+          info[key] = values[key];
+        }
+      });
+
       const state = {
-        info: {
+        additions: {
           ...info,
-          [ApplicationSectionType.About]: values
+          fields
         },
-        status: nextStep.type
+        hackathonId: hackathonInfo.id,
+        status: isExit ? SubmissionSectionType.Additions : nextStep.type
       };
-      await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
-      // await refreshRegisterInfo();
-      return state;
+
+      const res = await webApi.resourceStationApi.submitProject(state, projectId);
+      await refreshProjectInfo();
+      let result = {
+        state: {
+          ...omit(state, ['additions']),
+          Additions: state.additions
+        },
+        isExit,
+        res
+      };
+
+      return result;
     },
     {
       manual: true,
-      onSuccess(state) {
+      debounceWait: 300,
+      onSuccess({ res, state, isExit }) {
+        if (isExit) return;
         onNext(state);
       },
       onError(err) {
@@ -76,7 +106,8 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   );
 
   function onSubmit(values: Record<string, string>) {
-    const isSame = isEqual(values, about);
+    debugger;
+    const isSame = isEqual(values, additions);
     if (isSame) {
       onNext();
       return;
@@ -85,15 +116,28 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   }
 
   useEffect(() => {
-    for (let key in about) {
-      form.setValue(key, about[key] as string);
+    for (let key in additions) {
+      switch (key) {
+        case 'id':
+          break;
+        case 'fields':
+          for (let k in additions[key] || {}) {
+            additions[key] && form.setValue(k, additions[key]![k].value);
+          }
+        default:
+          form.setValue(key, additions[key]);
+          break;
+      }
     }
-    const propValues = Object.values(about);
+
+    const propValues = Object.values(additions);
     const requiredCount = sectionConfig.filter((cfg) => !cfg.optional);
     if (propValues.length >= requiredCount.length) {
       form.trigger();
     }
-  }, [about]);
+  }, [additions]);
+
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
   return (
     <div>
@@ -109,7 +153,7 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
               htmlType="button"
               ghost
               className="button-text-m w-[165px] px-0 py-4 uppercase"
-              disabled={hackathonSteps[0].type === ApplicationSectionType.About}
+              disabled={hackathonSteps[0].type === SubmissionSectionType.Additions}
               onClick={onBack}
             >
               Back
@@ -128,13 +172,16 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
               // }}
               disabled={!form.formState.isValid}
             >
-              {isRegister ? 'update' : 'Save'} And Next
+              {isSubmit ? 'update' : 'Save'} And Next
             </Button>
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };
 
-export default AboutSectionForm;
+export default AdditionsSectionForm;

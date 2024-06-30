@@ -12,10 +12,17 @@ interface HackathonTrackProps {
 }
 
 const HackathonTrack: FC<HackathonTrackProps> = ({ form, config }) => {
+  const requiredTag = config.optional ? ' (Optional)' : '*';
   return (
-    <FormRadio name="HackathonTrack" form={form} label="Which Prize Track Do You Belong To" multiple>
+    <FormRadio
+      name="tracks"
+      form={form}
+      label={'Which Prize Track Do You Belong To' + requiredTag}
+      multiple
+      className="flex-wrap justify-start"
+    >
       {TRACKS.map((t) => (
-        <FormRadioItem value={t.value} key={t.value} label={t.label} />
+        <FormRadioItem value={t.value} key={t.value} label={t.label} className="max-w-[8.0625rem]" />
       ))}
     </FormRadio>
   );
@@ -29,11 +36,18 @@ export const HackathonTrackConfig: PresetComponentConfig<HackathonTrackProps> = 
   component: HackathonTrack,
   optional: false,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Hackathon Track</span>
+        <span className="body-m text-neutral-off-black">{info.tracks.join(',') ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
-    const arr = TRACKS.map((item) => item.value) as [string, ...string[]];
-    const validator = z.enum(arr);
+    const validator = z.string().min(config.optional ? 0 : 1);
     return {
-      hackathonTracks: config.optional ? validator.optional() : validator
+      tracks: config.optional ? validator.optional() : validator
     };
   }
 };

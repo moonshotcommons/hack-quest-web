@@ -29,6 +29,14 @@ export const TelegramConfig: PresetComponentConfig<TelegramProps, CustomComponen
     placeholder: 'Enter a Telegram Account',
     name: 'telegram'
   },
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Telegram</span>
+        <span className="body-m text-neutral-off-black">{info.telegram ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().min(config.optional ? 0 : 1);
     return {

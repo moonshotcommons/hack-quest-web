@@ -29,6 +29,14 @@ export const FacebookConfig: PresetComponentConfig<FacebookProps, CustomComponen
     placeholder: 'Enter a Facebook Account',
     name: 'facebook'
   },
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Facebook</span>
+        <span className="body-m text-neutral-off-black">{info.facebook ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().min(config.optional ? 0 : 1);
     return {

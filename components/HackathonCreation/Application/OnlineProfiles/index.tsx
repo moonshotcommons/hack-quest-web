@@ -8,7 +8,7 @@ import LinkedInConfig from './LinkedIn';
 import QQConfig from './QQ';
 import TwitterConfig from './Twitter';
 import WhatsAppConfig from './WhatsApp';
-console.log(GithubConfig);
+
 export const OnlineProfilesSectionComponentMap: Record<string, PresetComponentConfig<any>> = {
   [GithubConfig.type]: GithubConfig,
   [WhatsAppConfig.type]: WhatsAppConfig,

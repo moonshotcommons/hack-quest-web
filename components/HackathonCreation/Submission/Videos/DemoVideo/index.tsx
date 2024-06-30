@@ -6,10 +6,11 @@ import VideoSwitch from '../VideoSwitch';
 import { FormInput } from '@/components/Common/FormComponent';
 import VideoReview from '../VideoReview';
 import { Upload, UploadProps, message } from 'antd';
-import { getVideoDuration } from '@/helper/utils';
+import { cn, getVideoDuration } from '@/helper/utils';
 import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
 import LoadingIcon from '@/components/Common/LoadingIcon';
+import Image from 'next/image';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -22,9 +23,9 @@ interface DemoVideoProps {
 export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
   const [videoType, setVideoType] = useState<'upload' | 'link'>('upload');
 
+  const requiredTag = config.optional ? ' (Optional)' : '*';
   const [loading, setLoading] = useState(false);
-  const hackathon = { id: '1231' };
-  const project = { id: '123' };
+
   const onDelete = () => {
     // confirmRef.current?.open({
     //   onConfirm: deleteRequest
@@ -94,50 +95,59 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
     </div>
   );
 
+  const demoVideo = form.getValues('demoVideo');
+
   return (
     <div className="flex flex-col gap-2">
       <div className="body-m flex items-center gap-3 leading-[160%]">
         <VideoSwitch videoType={videoType} setVideoType={setVideoType} />
         <span>
-          Please {videoType === 'upload' ? 'Upload' : 'Link'} Your Video Demo Of Your Product{' '}
-          {config.optional ? '(Optional)' : ''}
+          Please {videoType === 'upload' ? 'Upload' : 'Link'} Your Video Demo Of Your Product {requiredTag}
         </span>
       </div>
-      {videoType === 'link' && <FormInput name="demoVideo" label="" placeholder="Paste a video URL" form={form} />}
-      {videoType === 'upload' && (
-        <div className="">
-          {form.getValues('demoVideo') && <VideoReview url={form.getValues('demoVideo')} onDelete={onDelete} />}
-          {!form.getValues('demoVideo') && (
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="group my-[1px] mt-1 !flex h-[152px] w-[270px] items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
-              showUploadList={false}
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-              customRequest={async (option) => {
-                setLoading(true);
-                const { onProgress, onSuccess, onError } = option;
-                const file = option.file as RcFile;
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('filepath', `hackathons/projects/${hackathon.id}/${project.id}/demoVideo`);
-                formData.append('isPublic', 'true');
-                try {
-                  const res = await webApi.commonApi.uploadImage(formData);
-                  form.setValues('demoVideo', res.filepath);
-                  onSuccess?.({}, new XMLHttpRequest());
-                } catch (err: any) {
-                  onError?.(err);
-                }
-                setLoading(false);
-              }}
-            >
-              {uploadButton}
-            </Upload>
-          )}
-        </div>
-      )}
+
+      <FormInput
+        name="demoVideo"
+        label=""
+        placeholder="Paste a video URL"
+        className={cn(videoType === 'link' ? 'inline-block' : 'hidden')}
+        form={form}
+      />
+
+      <div className={cn(videoType === 'upload' ? 'block' : 'hidden')}>
+        {demoVideo && demoVideo.includes('hackquest.io') && <VideoReview url={demoVideo} onDelete={onDelete} />}
+        {(!demoVideo || !demoVideo.includes('hackquest.io')) && (
+          <Upload
+            name="avatar"
+            listType="picture-card"
+            className="group my-[1px] mt-1 !flex h-[152px] w-[270px] items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
+            showUploadList={false}
+            beforeUpload={beforeUpload}
+            onChange={handleChange}
+            customRequest={async (option) => {
+              setLoading(true);
+              const { onProgress, onSuccess, onError } = option;
+              const file = option.file as RcFile;
+              const formData = new FormData();
+              formData.append('file', file);
+              formData.append('filepath', `hackathons/projects/demoVideo`);
+              formData.append('isPublic', 'true');
+              try {
+                const res = await webApi.commonApi.uploadImage(formData);
+                form.setValue('demoVideo', res.filepath);
+                form.trigger('pitchViddemoVideoeo');
+                onSuccess?.({}, new XMLHttpRequest());
+              } catch (err: any) {
+                onError?.(err);
+                message.error(err.message);
+              }
+              setLoading(false);
+            }}
+          >
+            {uploadButton}
+          </Upload>
+        )}
+      </div>
     </div>
   );
 };
@@ -150,6 +160,22 @@ export const DemoVideoConfig: PresetComponentConfig<DemoVideoProps> = {
   optional: false,
   component: DemoVideo,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Demo Video</span>
+        {info.demoVideo && (
+          <Image
+            src={'/images/icons/video_icon.png'}
+            alt="demo Video"
+            width={48}
+            height={48}
+            className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+          />
+        )}
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().url();
     return {

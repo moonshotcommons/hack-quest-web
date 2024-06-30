@@ -18,11 +18,11 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
   const videoTab = useMemo(() => {
     const pitch = {
       label: t('projectsDetail.pitchVideo'),
-      url: project.video
+      url: project.pitchVideo
     };
     const demo = {
       label: t('projectsDetail.demoVideo'),
-      url: project.demo
+      url: project.demoVideo
     };
     return [pitch, demo].filter((v: any) => v?.url);
   }, [project]);

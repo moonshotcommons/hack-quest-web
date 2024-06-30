@@ -24,10 +24,10 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
   const hackathonSteps = getHackathonRegisterSteps(simpleHackathonInfo.info.application);
   const [formState, setFormState] = useState<HackathonRegisterStateType>({
     info: {
-      about: {},
-      onlineProfiles: {},
-      contact: {},
-      applicationType: {
+      About: {},
+      OnlineProfiles: {},
+      Contact: {},
+      ApplicationType: {
         type: null,
         groupType: undefined,
         team: {},
@@ -65,10 +65,10 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
       ...formState,
       status: status,
       info: {
-        about: info.about! || {},
-        onlineProfiles: info.onlineProfiles || {},
-        contact: info.contact || {},
-        applicationType: {
+        About: info.About! || {},
+        OnlineProfiles: info.OnlineProfiles || {},
+        Contact: info.Contact || {},
+        ApplicationType: {
           type: isNullType ? null : isSoloRegister ? 'Solo Project' : 'Group Project',
           groupType:
             !!Object.keys(team || {}).length && team?.creatorId === userId
@@ -138,6 +138,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
       hackathonSteps={hackathonSteps}
       onNext={onNext}
       onBack={onBack}
+      prizeTracks={[]}
     >
       <div className="flex w-full flex-col justify-center gap-6 text-center">
         <FormHeader

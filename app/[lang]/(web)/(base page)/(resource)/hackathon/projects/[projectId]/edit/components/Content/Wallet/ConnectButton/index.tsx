@@ -37,7 +37,8 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ wallet, projectId, onDis
     async (address: `0x${string}`) => {
       const formData = new FormData();
       formData.append('wallet', address);
-      await webApi.resourceStationApi.submitProject(formData, projectId);
+      // @ts-expect-error
+      await webApi.resourceStationApi.submitProject({}, projectId);
       router.refresh();
     },
     {

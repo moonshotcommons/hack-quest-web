@@ -1,77 +1,44 @@
 import { StepItem } from '@/components/Common/Steps';
-import { ProjectLocation, ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
-
-export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: ProjectSubmitStepType; stepNumber: number })[] = [
+import { ProjectLocation, SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
+import { SubmissionSectionType } from '@/components/HackathonCreation/type';
+export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: SubmissionSectionType | 'Review'; stepNumber: number })[] = [
   {
-    title: 'Info',
-    type: ProjectSubmitStepType.INFO,
+    title: 'Basic Info',
+    type: SubmissionSectionType.BasicInfo,
     stepNumber: 0
   },
   {
-    title: 'Project',
-    type: ProjectSubmitStepType.PROJECT,
+    title: 'Project Detail',
+    type: SubmissionSectionType.ProjectDetail,
     stepNumber: 1
   },
   {
-    title: 'Pitch Video',
-    type: ProjectSubmitStepType.PITCH_VIDEO,
+    title: 'Videos',
+    type: SubmissionSectionType.Videos,
     stepNumber: 2
   },
   {
-    title: 'Project Demo',
-    type: ProjectSubmitStepType.DEMO,
+    title: 'Additions',
+    type: SubmissionSectionType.Additions,
     stepNumber: 3
   },
   {
-    title: 'Links',
-    type: ProjectSubmitStepType.LINKS,
-    stepNumber: 4
-  },
-  {
-    title: 'Others',
-    type: ProjectSubmitStepType.OTHERS,
-    stepNumber: 5
-  },
-  {
-    title: 'Wallet',
-    type: ProjectSubmitStepType.WALLET,
-    stepNumber: 6
-  },
-  {
     title: 'Review',
-    type: ProjectSubmitStepType.REVIEW,
-    stepNumber: 7
+    type: 'Review',
+    stepNumber: 4
   }
 ];
 
-export const getHackathonSteps = (hackathonId: string) => {
-  switch (hackathonId) {
-    case HackathonPartner.Linea:
-      return HACKATHON_SUBMIT_STEPS;
-    case HackathonPartner.Hack4Bengal: {
-      const steps = HACKATHON_SUBMIT_STEPS.filter((step) => {
-        return ![
-          ProjectSubmitStepType.PROJECT,
-          ProjectSubmitStepType.PITCH_VIDEO,
-          ProjectSubmitStepType.WALLET,
-          ProjectSubmitStepType.LINKS
-        ].includes(step.type);
-      });
-      return steps.map((item, index) => ({ ...item, stepNumber: index }));
-    }
-    default: {
-      const steps = HACKATHON_SUBMIT_STEPS.filter((step) => {
-        return ![ProjectSubmitStepType.PROJECT, ProjectSubmitStepType.LINKS].includes(step.type);
-      });
-      return steps.map((item, index) => ({ ...item, stepNumber: index }));
-    }
-  }
+export const getHackathonSubmissionSteps = (application: SimpleHackathonInfo['info']['submission']) => {
+  const sections = Object.keys(application) as SubmissionSectionType[];
+  return HACKATHON_SUBMIT_STEPS.filter(
+    (item) => sections.includes(item.type as SubmissionSectionType) || item.type === 'Review'
+  ).map((item, index) => ({ ...item, stepNumber: index }));
 };
 
-export const getHackathonStepInfo = (hackathonId: string, type: ProjectSubmitStepType) => {
-  const steps = getHackathonSteps(hackathonId);
-  const currentStep = steps.find((step) => step.type === type)!;
-  const nextStep = currentStep && steps[currentStep.stepNumber + 1];
+export const getHackathonStepInfo = (hackatgonSteps: typeof HACKATHON_SUBMIT_STEPS, type: SubmissionSectionType) => {
+  const currentStep = hackatgonSteps.find((step) => step.type === type)!;
+  const nextStep = currentStep && hackatgonSteps[currentStep.stepNumber + 1];
   return { currentStep, nextStep };
 };
 

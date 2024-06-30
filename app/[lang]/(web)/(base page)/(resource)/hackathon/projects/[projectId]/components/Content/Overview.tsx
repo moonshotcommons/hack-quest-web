@@ -21,22 +21,24 @@ interface OverviewProp {
 const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const githubLink = project.addition.githubLink || '';
+  const isOpenSource = project.addition.isOpenSource;
   const newGithubLink = useMemo(() => {
-    return /^[http]/.test(project.githubLink) ? project.githubLink : `https://${project.githubLink}`;
-  }, [project]);
+    return /^[http]/.test(githubLink) ? githubLink : `https://${githubLink}`;
+  }, [githubLink]);
 
-  const showGithubModule = project.isOpenSource && project.githubLink;
+  const showGithubModule = isOpenSource && githubLink;
 
   return (
     <div className="flex flex-col gap-[32px]">
       <div className="flex gap-[24px]">
         <div className="relative h-[124px] w-[124px] flex-shrink-0 overflow-hidden rounded-[24px] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]">
-          <Image src={project.thumbnail} alt={project.name} fill className="object-cover" />
+          <Image src={project.logo} alt={project.name} fill className="object-cover" />
         </div>
         <div className="flex flex-col justify-center gap-[16px]">
           <h1 className="text-h2 text-neutral-off-black">{project.name}</h1>
-          <p className="line-clamp-2" title={project.description}>
-            {project.description}
+          <p className="line-clamp-2" title={project.detail.detailedIntro}>
+            {project.detail.detailedIntro}
           </p>
         </div>
       </div>

@@ -77,7 +77,8 @@ const PatchVideoUpload: FC<{ pitchVideo?: string; projectId: string; isClose: bo
       const formData = new FormData();
       formData.append('video', '');
       formData.append('status', ProjectSubmitStepType.PITCH_VIDEO);
-      await webApi.resourceStationApi.submitProject(formData, projectId);
+      // @ts-expect-error
+      await webApi.resourceStationApi.submitProject({}, projectId);
       // await refreshProjectInfo();
       router.refresh();
     },
@@ -144,7 +145,8 @@ const PatchVideoUpload: FC<{ pitchVideo?: string; projectId: string; isClose: bo
             const formData = new FormData();
             formData.append('video', file);
             try {
-              await webApi.resourceStationApi.submitProject(formData, projectId);
+              // @ts-expect-error
+              await webApi.resourceStationApi.submitProject({}, projectId);
               router.refresh();
               onSuccess?.({}, new XMLHttpRequest());
             } catch (err: any) {

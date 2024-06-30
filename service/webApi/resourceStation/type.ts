@@ -252,50 +252,71 @@ export interface ProjectTeamType {
 }
 export interface ProjectMemberType {
   avatar: string;
-  bio: string;
-  firstName: string;
-  lastName: string;
-  telegram: string;
-  email: string;
-  userId: string;
-  weChat: string;
+  info: any;
   isAdmin: boolean;
+  userId: string;
+}
+
+export interface BasicInfo {
+  logo: string;
+  name: string;
+  alias?: string;
+  location: string;
+  prizeTrack: string;
+  tracks: string[];
+  wallet: string;
+  fields: Record<string, any>;
+}
+
+export interface ProjectDetail {
+  oneLineIntro: string;
+  detailedIntro: string;
+  teamBackground: string;
+  progress: string;
+  fields: Record<string, any>;
+}
+
+export interface Videos {
+  pitchVideo: string;
+  demoVideo: string;
+}
+
+export interface Additions {
+  isOpenSource: boolean;
+  contract: string;
+  fundraisingStatus: string;
+  githubLink: string;
+  fields: Record<string, any>;
 }
 
 export type ProjectType = {
   id: string;
   name: string;
-  description: string;
-  video: string;
-  introduction: string;
   team: ProjectTeamType;
   hackathonId: string;
-  location: string;
   hackathonName: string;
+  location: string;
+  addition: Partial<Additions>;
+  detail: Partial<ProjectDetail>;
   prizeTrack: string;
   tracks: string[];
-  status: ProjectSubmitStepType;
+  status: SubmissionSectionType | 'Review';
+  creatorId: string;
   featured: boolean;
-  apolloDay: boolean;
-  thumbnail: string;
+  logo: string;
   alias: string;
-  demo: string;
+  demoVideo: string;
+  pitchVideo: string;
+  fields: Record<string, { label: string; value: any }>;
   wallet: string;
-  isOpenSource: boolean;
-  githubLink: string;
   members: ProjectMemberType[];
   vote: number;
   isSubmit: boolean;
-  efrog: boolean;
-  croak: boolean;
   submitType: string;
-  links: string | Record<string, string>;
-  tagline: string;
-  technologies: string;
-  solvedProblem: string;
-  challenges: string;
-  teamID: string;
-  roomNumber: string;
+  teamId: string;
+  winner: false;
+  //! 没有这个字段了
+  apolloDay?: string;
 };
 
 export interface ProjectDataType {
@@ -404,7 +425,7 @@ export interface HackathonRegisterInfo {
   voteRole: HackathonTypeVotesRoleType;
   discord: string;
   collegeName: string;
-  info: Record<string, object>;
+  info: Record<ApplicationSectionType, object>;
 }
 
 export interface RegisterInfoBody {
@@ -452,25 +473,6 @@ export enum ProjectSubmitStepType {
   OTHERS = 'OTHERS',
   WALLET = 'WALLET',
   REVIEW = 'REVIEW'
-}
-
-export interface ProjectSubmitBody {
-  name?: string;
-  hackathonId: string;
-  prizeTrack?: string;
-  description?: string;
-  thumbnail?: string;
-  video?: string;
-  demo?: string;
-  introduction?: string;
-  location?: ProjectLocation;
-  githubLink?: string;
-  isOpenSource?: boolean;
-  wallet?: string;
-  status?: ProjectSubmitStepType;
-  team?: string;
-  tracks?: string[];
-  creatorId?: string;
 }
 
 export enum ProjectLocation {
@@ -542,4 +544,14 @@ export interface SimpleHackathonInfo {
       [Key in SubmissionSectionType]: (PresetComponentConfig | CustomComponentConfig)[];
     };
   };
+}
+
+/** 项目提交时候接口需要的表单参数 */
+export interface ProjectSubmitBody {
+  status: SubmissionSectionType | 'Review';
+  hackathonId: string;
+  basicInfo?: Record<string, any>;
+  videos?: Record<string, any>;
+  projectDetail?: Record<string, any>;
+  additions?: Record<string, any>;
 }

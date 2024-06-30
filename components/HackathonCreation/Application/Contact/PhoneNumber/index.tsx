@@ -29,6 +29,14 @@ export const PhoneNumberConfig: PresetComponentConfig<PhoneNumberProps, CustomCo
     placeholder: 'Enter you phone number',
     name: 'phoneNumber'
   },
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Phone Number</span>
+        <span className="body-m text-neutral-off-black">{info.phoneNumber ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z
       .string()
