@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import submissions from '../../constants/submissions.json';
 
-export type SubmissionState = (typeof submissions.Additions)[number] & {
+export type SubmissionState = (typeof submissions)['Additions' | 'BasicInfo' | 'ProjectDetail'][number] & {
   property: Record<string, any>;
 };
 

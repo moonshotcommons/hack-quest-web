@@ -55,7 +55,7 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
 }) => {
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
-  const applicationType = info.applicationType;
+  const applicationType = info.ApplicationType;
 
   const { type: propType, maxSize, minSize } = sectionConfig.property;
   const defaultType =
@@ -84,7 +84,7 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
 
   const { run: submitRequest, loading } = useRequest(
     async (values: Record<string, string>) => {
-      const { nextStep } = getHackathonStepInfo(hackathonSteps, ApplicationSectionType.ApplicationType);
+      const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.ApplicationType);
       const state = {
         info: info,
         status: nextStep.type

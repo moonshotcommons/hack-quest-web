@@ -4,14 +4,16 @@
       "id": "64062a54-285e-441c-9d65-776a9724b81b",
       "type": "Logo",
       "title": "Logo",
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
     },
     {
       "id": "0d7ae248-0f84-412f-a90d-f45e9d26316f",
-      "type": "Name",
+      "type": "ProjectName",
       "title": "Name",
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
@@ -20,21 +22,23 @@
       "id": "fadab38e-38d6-47f2-9547-92e245a04b94",
       "type": "SubmissionLocation",
       "title": "Location",
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
     },
     {
       "id": "3d04d74b-f6f0-4778-b038-948fa7c47966",
-      "type": "Prize Track",
+      "type": "PrizeTrack",
       "title": "Prize Track",
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
     },
     {
       "id": "346e5e53-09be-4c80-b3ac-784e1d22235f",
-      "type": "Hackathon Track",
+      "type": "HackathonTrack",
       "title": "Hackathon Track",
       "required": true,
       "selected": true,
@@ -42,8 +46,9 @@
     },
     {
       "id": "4a6ba2ad-acb1-4319-8c9c-938c258be49b",
-      "type": "Wallet Connect",
+      "type": "ConnectWallet",
       "title": "Wallet Connect",
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
@@ -52,71 +57,103 @@
   "ProjectDetail": [
     {
       "id": "373f302e-76a8-486a-a5d7-66ccecdc9288",
-      "type": "One-Line Intro",
+      "type": "OneLineIntro",
       "title": "One-Line Intro",
       "required": true,
       "selected": true,
-      "property": {}
+      "optional": false,
+      "property": {
+        "name": "oneLineIntro",
+        "label": "One Line Intro of Your Project",
+        "placeholder": "Enter your one line intro",
+        "maxField": 120
+      }
     },
     {
       "id": "e8cbe0d2-7378-4858-b409-20b5ae53e9c6",
-      "type": "Detailed Intro",
+      "type": "DetailedIntro",
       "title": "Detailed Intro",
       "required": true,
       "selected": true,
-      "property": {}
+      "optional": false,
+      "property": {
+        "name": "detailedIntro",
+        "label": "Detailed Intro of Your Project",
+        "placeholder": "What problem does your project want to solve, how does it solve the problem, business model, etc.",
+        "maxField": 600
+      }
     },
     {
       "id": "916b195a-7614-406f-bc05-96e40a03c24d",
-      "type": "Team Background",
+      "type": "TeamBackground",
       "title": "Team Background",
       "optional": false,
-      "property": {}
+      "property": {
+        "name": "teamBackground",
+        "label": "Team Background",
+        "placeholder": "Describe your team and teammates",
+        "maxField": 600
+      }
     },
     {
       "id": "1b6c13db-27a8-4f6e-92c9-ae89268a0fc8",
-      "type": "Progress During hackathon",
+      "type": "ProgressDuringHackathon",
       "title": "Progress During hackathon",
       "optional": false,
-      "property": {}
+      "property": {
+        "name": "progress",
+        "label": "Progress During Hackathon",
+        "placeholder": "Describe how your team work on the hackathon project step by step",
+        "maxField": 600
+      }
     }
   ],
   "Additions": [
     {
       "id": "5a7fc18a-8a75-4ff9-8b84-ee3742479e81",
-      "type": "Github & Open Source",
+      "type": "GithubOpenSource",
       "title": "Github & Open Source",
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
     },
     {
       "id": "3a5a9591-1ee3-4c23-9db3-4143d69af386",
-      "type": "Contract Address",
+      "type": "ContractAddress",
       "title": "Contract Address",
       "optional": false,
-      "property": {}
+      "property": {
+        "name": "contract",
+        "label": "Contract Address",
+        "placeholder": "Paste contract address here"
+      }
     },
     {
       "id": "87dcabfb-ff92-4b3e-9fff-c34f5d3328b8",
-      "type": "Pitch Video",
+      "type": "PitchVideo",
       "title": "Pitch Video",
       "optional": false,
       "property": {}
     },
     {
       "id": "b4428d08-8887-48aa-a366-165d4cb55451",
-      "type": "Project Demo",
+      "type": "DemoVideo",
       "title": "Project Demo",
       "optional": false,
       "property": {}
     },
     {
       "id": "ff2aeec1-3079-4ef0-8f9d-17aff6aacabc",
-      "type": "Fundraising Status",
+      "type": "FundraisingStatus",
       "title": "Fundraising Status",
       "optional": false,
-      "property": {}
+      "property": {
+        "name": "fundraisingStatus",
+        "label": "Fundraising Status",
+        "placeholder": "Describe your fundraising status",
+        "maxField": 600
+      }
     }
   ]
 }

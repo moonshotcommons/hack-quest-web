@@ -3,12 +3,13 @@ import { UseFormReturn } from 'react-hook-form';
 
 interface ProjectTypeRadioProps {
   form: UseFormReturn<any, any, undefined>;
+  requiredTag: string;
 }
 
-const IsPublicRadio = ({ form }: ProjectTypeRadioProps) => {
+const IsPublicRadio = ({ form, requiredTag }: ProjectTypeRadioProps) => {
   return (
     <div className="flex w-full flex-col gap-3">
-      <p className="body-m text-left text-neutral-rich-gray">Is This An Open Source Project</p>
+      <p className="body-m text-left text-neutral-rich-gray">{'Is This An Open Source Project' + requiredTag}</p>
       <div className="flex w-full justify-between gap-5">
         <div
           onClick={() => {

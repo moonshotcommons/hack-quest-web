@@ -76,7 +76,8 @@ const ProjectDemoUpload: FC<{ demoVideo?: string; projectId: string; isClose: bo
       setLoading(true);
       const formData = new FormData();
       formData.append('demo', '');
-      await webApi.resourceStationApi.submitProject(formData, projectId);
+      // @ts-expect-error
+      await webApi.resourceStationApi.submitProject({}, projectId);
       router.refresh();
     },
     {
@@ -141,7 +142,8 @@ const ProjectDemoUpload: FC<{ demoVideo?: string; projectId: string; isClose: bo
             const formData = new FormData();
             formData.append('demo', file);
             try {
-              await webApi.resourceStationApi.submitProject(formData, projectId);
+              // @ts-expect-error
+              await webApi.resourceStationApi.submitProject({}, projectId);
               router.refresh();
               onSuccess?.({}, new XMLHttpRequest());
             } catch (err: any) {

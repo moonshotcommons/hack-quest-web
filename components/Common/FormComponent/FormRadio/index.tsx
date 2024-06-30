@@ -1,5 +1,5 @@
 import { cn } from '@/helper/utils';
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 interface FormRadioProps {
@@ -25,9 +25,7 @@ export const FormRadio: FC<FormRadioProps> = ({
   className,
   description
 }) => {
-  const defaultSelect: string[] =
-    multiple && form.getValues(name)?.split ? (form.getValues(name) || '').split(',') : [];
-  const [select, setSelect] = useState<SelectType>(defaultSelect);
+  const [select, setSelect] = useState<SelectType>([]);
 
   let multipleProps = {};
 
@@ -38,6 +36,14 @@ export const FormRadio: FC<FormRadioProps> = ({
       setSelect
     };
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      const defaultSelect: string[] =
+        multiple && form.getValues(name)?.split ? (form.getValues(name) || '').split(',') : [];
+      setSelect(defaultSelect);
+    }, 300);
+  }, []);
 
   return (
     <div className="flex w-full flex-col gap-3">

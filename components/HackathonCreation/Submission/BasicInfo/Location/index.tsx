@@ -3,7 +3,7 @@ import { CustomComponentConfig, PresetComponentConfig } from '@/components/Hacka
 import { FC } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
-import { LOCATIONS } from './constant';
+import { LOCATIONS, LOCATIONS_SHORT } from './constant';
 
 interface LocationProps {
   form: any;
@@ -11,7 +11,8 @@ interface LocationProps {
 }
 
 const Location: FC<LocationProps> = ({ config, form }) => {
-  const requiredTag = config.optional ? '' : '*';
+  const requiredTag = config.optional ? ' (Optional)' : '*';
+
   return (
     <FormSelect
       form={form}
@@ -31,6 +32,16 @@ export const LocationConfig: PresetComponentConfig<LocationProps> = {
   component: Location,
   optional: false,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Location</span>
+        <span className="body-m text-neutral-off-black">
+          {(LOCATIONS_SHORT as Record<string, string>)[info.location] ?? ''}
+        </span>
+      </div>
+    );
+  },
   getValidator(config) {
     const arr = LOCATIONS.map((item) => item.value) as [string, ...string[]];
     const validator = z.enum(arr);

@@ -30,6 +30,17 @@ export const DetailedIntroConfig: PresetComponentConfig<DetailedIntroProps> = {
     placeholder: 'What problem does your project want to solve, how does it solve the problem, business model, etc.',
     maxField: 600
   },
+  displayRender(info) {
+    return (
+      <>
+        <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+        <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+          <span>Detailed Intro of Your Project</span>
+          <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.detailedIntro ?? ''}</p>
+        </div>
+      </>
+    );
+  },
   getValidator(config) {
     const validator = z
       .string()

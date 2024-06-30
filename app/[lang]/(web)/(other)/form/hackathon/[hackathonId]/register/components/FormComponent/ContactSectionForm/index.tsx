@@ -38,7 +38,7 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
     resolver: zodResolver(formSchema)
   });
 
-  const contact = info.contact;
+  const contact = info.Contact;
 
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
@@ -51,7 +51,7 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
 
   const { run: submitRequest, loading } = useRequest(
     async (values: Record<string, string>) => {
-      const { nextStep } = getHackathonStepInfo(hackathonSteps, ApplicationSectionType.Contact);
+      const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.Contact);
       const state = {
         info: {
           ...info,

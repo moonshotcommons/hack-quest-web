@@ -20,7 +20,7 @@ const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, isShowVoting
     if (!isShowVoting) {
       navs = navs.filter((v) => v !== 'projectsDetail.title.voting');
     }
-    if (!project?.video && !project?.demo) {
+    if (!project?.pitchVideo && !project?.demoVideo) {
       navs = navs.filter((v) => v !== 'projectsDetail.title.videos');
     }
     if (!project?.members?.length) {

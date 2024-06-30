@@ -33,7 +33,7 @@ const Videos: React.FC<VideosProp> = ({ project, isClose, form }) => {
           project.hackathonId === HackathonPartner.Hack4Bengal ? (
             <ProjectDemo form={form} />
           ) : (
-            <ProjectDemoUpload demoVideo={project.demo} projectId={project.id} isClose={isClose} />
+            <ProjectDemoUpload demoVideo={project.demoVideo} projectId={project.id} isClose={isClose} />
           )
       }
     ];
@@ -41,7 +41,7 @@ const Videos: React.FC<VideosProp> = ({ project, isClose, form }) => {
     if (project.hackathonId !== HackathonPartner.Hack4Bengal) {
       tabs.push({
         label: t('projectsDetail.pitchVideo'),
-        component: <PitchVideoUpload pitchVideo={project.video} projectId={project.id} isClose={isClose} />
+        component: <PitchVideoUpload pitchVideo={project.pitchVideo} projectId={project.id} isClose={isClose} />
       });
     }
 

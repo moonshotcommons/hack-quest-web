@@ -29,6 +29,14 @@ export const LocationConfig: PresetComponentConfig<LocationProps, CustomComponen
     placeholder: 'e.g. Paris, France',
     name: 'location'
   },
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Location</span>
+        <span className="body-m text-neutral-off-black">{info.location ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().min(config.optional ? 0 : 1);
     return {

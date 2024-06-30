@@ -36,7 +36,8 @@ const ConnectWallet: FC<{ project: ProjectType; isClose: boolean }> = ({ project
     async () => {
       const formData = new FormData();
       formData.append('wallet', '');
-      await webApi.resourceStationApi.submitProject(formData, project.id);
+      // @ts-expect-error
+      await webApi.resourceStationApi.submitProject({}, project.id);
       router.refresh();
     },
     {

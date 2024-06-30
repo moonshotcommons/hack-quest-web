@@ -105,7 +105,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
                   key={i}
                   className="relative ml-[-10px] h-[42px] w-[42px] overflow-hidden rounded-[50%] border border-neutral-white"
                 >
-                  <Image src={v.thumbnail} alt={v.name} fill className="object-contain"></Image>
+                  <Image src={v.logo} alt={v.name} fill className="object-contain"></Image>
                 </div>
               ))}
             </div>

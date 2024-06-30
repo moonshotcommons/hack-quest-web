@@ -7,6 +7,9 @@ import Image from 'next/image';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
 import { v4 } from 'uuid';
 import { z } from 'zod';
+import { RcFile } from 'antd/es/upload';
+import webApi from '@/service';
+import { IMAGE_SUFFIX } from '@/constants';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -32,10 +35,9 @@ const ProjectLogo: FC<ProjectLogoProps> = ({ form, config }) => {
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj as FileType, (url) => {
-        setLoading(false);
-
-        form.setValue('projectLogo', url);
-        form.trigger('projectLogo');
+        // setLoading(false);
+        // form.setValue('logo', url);
+        form.trigger('logo');
       });
     }
   };
@@ -76,7 +78,7 @@ const ProjectLogo: FC<ProjectLogoProps> = ({ form, config }) => {
     </button>
   );
 
-  const requiredTag = config.optional ? '' : '*';
+  const requiredTag = config.optional ? ' (Optional)' : '*';
 
   return (
     <div className="w-[120px] text-left">
@@ -87,12 +89,29 @@ const ProjectLogo: FC<ProjectLogoProps> = ({ form, config }) => {
         listType="picture-card"
         className="group my-[1px] mt-1 [&>div]:flex [&>div]:!h-12 [&>div]:!w-12 [&>div]:items-center [&>div]:justify-center [&>div]:!rounded-[8px] [&>div]:border [&>div]:border-dashed [&>div]:!border-neutral-medium-gray [&>div]:!bg-neutral-off-white [&>div]:hover:!border-yellow-primary"
         showUploadList={false}
-        // customRequest={() => {}}
+        customRequest={async (option) => {
+          setLoading(true);
+          const { onProgress, onSuccess, onError } = option;
+          const file = option.file as RcFile;
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('filepath', 'hackathons/projects/logo');
+          formData.append('isPublic', 'true');
+          try {
+            const res = await webApi.commonApi.uploadImage(formData);
+            form.setValue('logo', res.filepath);
+            form.trigger('logo');
+            onSuccess?.({}, new XMLHttpRequest());
+          } catch (err: any) {
+            onError?.(err);
+          }
+          setLoading(false);
+        }}
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
-        {form.getValues('projectLogo') ? (
-          <Image src={form.getValues('projectLogo')} alt="logo" width={48} height={48} />
+        {form.getValues('logo') ? (
+          <Image src={form.getValues('logo')} alt="logo" width={48} height={48} />
         ) : (
           uploadButton
         )}
@@ -109,12 +128,30 @@ export const ProjectLogoConfig: PresetComponentConfig<ProjectLogoProps> = {
   component: ProjectLogo,
   optional: false,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Logo</span>
+        <div className="relative overflow-hidden rounded-[4px] border border-neutral-light-gray shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]">
+          {info.logo ? renderContent(info.logo) : ''}
+        </div>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().url();
     return {
-      projectLogo: config.optional ? validator.optional() : validator
+      logo: config.optional ? validator.optional() : validator
     };
   }
+};
+
+const renderContent = (link: string, width = 48, height = 48) => {
+  const ext = (link || '').split('.').pop()?.toLowerCase() || '';
+  if (IMAGE_SUFFIX.includes(ext)) {
+    return <Image src={link} alt="resume" width={width} height={width} className="object-contain" />;
+  }
+  return <span className="text-neutral-medium-gray">{`Display not supported`}</span>;
 };
 
 export default ProjectLogoConfig;

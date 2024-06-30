@@ -16,6 +16,7 @@ import {
   PagedType,
   ProjectDataType,
   ProjectRankType,
+  ProjectSubmitBody,
   ProjectType,
   SimpleHackathonInfo
 } from './type';
@@ -249,7 +250,7 @@ class ResourceStationApi {
   }
 
   /** 提交project */
-  submitProject(data: FormData, projectId?: string) {
+  submitProject(data: ProjectSubmitBody, projectId?: string) {
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
     return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data
@@ -257,7 +258,7 @@ class ResourceStationApi {
   }
 
   /** 更新project */
-  updateProject(projectId: string, data: FormData) {
+  updateProject(projectId: string, data: ProjectSubmitBody) {
     return this.service.patch<{ id: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
       data
     });

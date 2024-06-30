@@ -25,10 +25,21 @@ export const ProgressDuringHackathonConfig: PresetComponentConfig<ProgressDuring
   optional: false,
   component: ProgressDuringHackathon,
   property: {
-    name: 'progressDuringHackathon',
+    name: 'progress',
     label: 'Progress During Hackathon',
     placeholder: 'Describe how your team work on the hackathon project step by step',
     maxField: 600
+  },
+  displayRender(info) {
+    return (
+      <>
+        <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+        <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+          <span>Progress During Hackathon</span>
+          <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.progress ?? ''}</p>
+        </div>
+      </>
+    );
   },
   getValidator(config) {
     const validator = z
@@ -36,7 +47,7 @@ export const ProgressDuringHackathonConfig: PresetComponentConfig<ProgressDuring
       .min(config.optional ? 0 : 1)
       .max(600);
     return {
-      progressDuringHackathon: config.optional ? validator.optional() : validator
+      progress: config.optional ? validator.optional() : validator
     };
   }
 };
