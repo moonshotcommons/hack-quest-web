@@ -84,6 +84,8 @@
     },
     "build": {
       "title": "Build",
+      "hackathonOrganizer":"Host A Hackathon",
+      "hackathonOrganizerDesc":"Host your own hackathon",
       "myHackathon": "My Hackathon",
       "myHackathonDesc": "View all my hackathon events",
       "exploreHackathons": "Explore Hackathons",

@@ -157,7 +157,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   };
   return (
     <EditBox title={'hackathonDetail.info'} type={HackathonEditModalType.INFO} className="relative overflow-hidden">
-      <div className={`body-m flex flex-col gap-[16px]  text-neutral-off-black ${tipsRender() ? 'pt-32px' : ''}`}>
+      <div className={`body-m flex flex-col gap-[16px]  text-neutral-off-black ${tipsRender() ? 'pt-[32px]' : ''}`}>
         {tipsRender()}
         <div>
           <h1 className="text-h3">{hackathon.name}</h1>

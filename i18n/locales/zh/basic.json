@@ -86,6 +86,8 @@
     },
     "build": {
       "title": "实战",
+      "hackathonOrganizer":"黑客松组织",
+      "hackathonOrganizerDesc":"创建你的黑客松",
       "myHackathon": "我的黑客松",
       "myHackathonDesc": "查看所有的黑客松活动",
       "exploreHackathons": "黑客松探索",

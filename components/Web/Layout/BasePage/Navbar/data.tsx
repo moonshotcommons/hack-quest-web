@@ -91,6 +91,14 @@ export const navbarList: NavbarListType[] = [
     id: 'build',
     menu: [
       {
+        id: 'hackathon-organizer',
+        label: 'navbar.build.hackathonOrganizer',
+        path: MenuLink.HACKATHON,
+        description: 'navbar.build.hackathonOrganizerDesc',
+        needLogin: true,
+        needPC: true
+      },
+      {
         id: 'my-hackathon',
         label: 'navbar.build.myHackathon',
         path: MenuLink.HACKATHON_DASHBOARD,
