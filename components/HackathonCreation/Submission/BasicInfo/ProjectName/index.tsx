@@ -10,20 +10,15 @@ interface ProjectNameProps {
 }
 
 const ProjectName: FC<ProjectNameProps> = ({ config, form }) => {
-  const requiredTag = config.optional ? '' : '*';
+  const requiredTag = config.optional ? ' (Optional)' : '*';
   return (
     <div className="w-full">
-      <FormInput
-        name="projectName"
-        form={form}
-        label={'Project Name' + requiredTag}
-        placeholder="Enter your project name"
-      />
+      <FormInput name="name" form={form} label={'Project Name' + requiredTag} placeholder="Enter your project name" />
     </div>
   );
 };
 
-ProjectName.displayName = 'Name';
+ProjectName.displayName = 'ProjectName';
 
 export const ProjectNameConfig: PresetComponentConfig<ProjectNameProps> = {
   id: v4(),
@@ -31,13 +26,21 @@ export const ProjectNameConfig: PresetComponentConfig<ProjectNameProps> = {
   component: ProjectName,
   optional: false,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Name</span>
+        <span className="body-m text-neutral-off-black">{info.name ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z
       .string()
       .min(config.optional ? 0 : 1)
       .max(100);
     return {
-      location: config.optional ? validator.optional() : validator
+      name: config.optional ? validator.optional() : validator
     };
   }
 };

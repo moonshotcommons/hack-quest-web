@@ -29,6 +29,14 @@ export const EmailConfig: PresetComponentConfig<EmailProps, CustomComponentConfi
     placeholder: 'Enter an Email address',
     name: 'email'
   },
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Email</span>
+        <span className="body-m text-neutral-off-black">{info.email ?? ''}</span>
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().email();
     return {

@@ -18,7 +18,7 @@ const CalendarCard: React.FC<CalendarCardProp> = ({ project }) => {
       <div className="">
         <div className="flex gap-[8px]">
           <div className="relative h-[2rem] w-[2rem]  overflow-hidden">
-            {project.thumbnail && <Image src={project.thumbnail} alt={project.name} fill className="object-cover" />}
+            {project.logo && <Image src={project.logo} alt={project.name} fill className="object-cover" />}
           </div>
           <div className="w-0 flex-1 overflow-hidden">
             <div className="headline-h5 flex flex-1 items-center justify-between">
@@ -37,7 +37,9 @@ const CalendarCard: React.FC<CalendarCardProp> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="caption-10pt mt-[8px] line-clamp-3  text-neutral-rich-gray">{project.description}</div>
+        <div className="caption-10pt mt-[8px] line-clamp-3  text-neutral-rich-gray">
+          {project.detail?.detailedIntro}
+        </div>
       </div>
     </Link>
   );

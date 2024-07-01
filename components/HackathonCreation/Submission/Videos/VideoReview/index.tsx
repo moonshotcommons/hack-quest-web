@@ -9,11 +9,9 @@ const VideoReview: FC<VideoReviewProps> = ({ url, onDelete }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);
 
-  // const hover = useHover(ref.current, {});
-
   return (
     <div
-      className="relative h-full w-full"
+      className="relative h-[152px] w-[270px] overflow-hidden"
       ref={ref}
       onMouseEnter={() => {
         setShowDeleteIcon(true);
@@ -40,7 +38,7 @@ const VideoReview: FC<VideoReviewProps> = ({ url, onDelete }) => {
           </svg>
         </span>
       )}
-      <video controls className="relative w-full">
+      <video controls className="relative w-full object-contain">
         {<source src={url} />}
       </video>
     </div>

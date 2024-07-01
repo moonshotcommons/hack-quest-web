@@ -21,10 +21,10 @@ export interface SubmissionType {
 export interface HackathonRegisterStateType {
   status: ApplicationSectionType | 'Review';
   info: {
-    about: Record<string, any>;
-    onlineProfiles: Record<string, any>;
-    contact: Record<string, any>;
-    applicationType: SubmissionType;
+    [ApplicationSectionType.About]: Record<string, any>;
+    [ApplicationSectionType.OnlineProfiles]: Record<string, any>;
+    [ApplicationSectionType.Contact]: Record<string, any>;
+    [ApplicationSectionType.ApplicationType]: SubmissionType;
   };
   isRegister: boolean;
   // setName: (name: string) => void;

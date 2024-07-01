@@ -30,13 +30,26 @@ export const TeamBackgroundConfig: PresetComponentConfig<TeamBackgroundProps> = 
     placeholder: 'Describe your team and teammates',
     maxField: 600
   },
+  displayRender(info) {
+    return (
+      <>
+        <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
+        <div className="body-m flex flex-col gap-1 text-neutral-off-black">
+          <span>Team Background</span>
+          <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">
+            {info.teamBackground ?? ''}
+          </p>
+        </div>
+      </>
+    );
+  },
   getValidator(config) {
     const validator = z
       .string()
       .min(config.optional ? 0 : 1)
       .max(600);
     return {
-      progressDuteamBackgroundringHackathon: config.optional ? validator.optional() : validator
+      teamBackground: config.optional ? validator.optional() : validator
     };
   }
 };

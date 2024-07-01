@@ -54,3 +54,8 @@ export const getOtherProjects = cache(async function (keyword: string, activePro
   });
   return res.data.filter((project) => project.id !== activeProjectId);
 });
+
+export const getHackathonsByCreator = cache(function (): Promise<HackathonType[]> {
+  const token = cookies().get('token')?.value || '';
+  return webApi.resourceStationApi.getHackathonsByCreator(token as string);
+});

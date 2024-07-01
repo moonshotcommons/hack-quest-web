@@ -1,15 +1,17 @@
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
 import VideoSwitch from '../VideoSwitch';
 import { FormInput } from '@/components/Common/FormComponent';
 import VideoReview from '../VideoReview';
 import { Upload, UploadProps, message } from 'antd';
-import { getVideoDuration } from '@/helper/utils';
+import { cn, getVideoDuration } from '@/helper/utils';
 import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
 import LoadingIcon from '@/components/Common/LoadingIcon';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import Image from 'next/image';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -21,14 +23,15 @@ interface PitchVideoProps {
 
 export const PitchVideo: FC<PitchVideoProps> = ({ form, config }) => {
   const [videoType, setVideoType] = useState<'upload' | 'link'>('upload');
-
   const [loading, setLoading] = useState(false);
-  const hackathon = { id: '1231' };
-  const project = { id: '123' };
+  const confirmRef = useRef<ConfirmModalRef>(null);
+  const requiredTag = config.optional ? ' (Optional)' : '*';
   const onDelete = () => {
-    // confirmRef.current?.open({
-    //   onConfirm: deleteRequest
-    // });
+    confirmRef.current?.open({
+      onConfirm: async () => {
+        form.setValue('pitchVideo', '');
+      }
+    });
   };
 
   const beforeUpload = async (file: FileType) => {
@@ -94,50 +97,63 @@ export const PitchVideo: FC<PitchVideoProps> = ({ form, config }) => {
     </div>
   );
 
+  const pitchVideo = form.getValues('pitchVideo');
+
   return (
     <div className="flex flex-col gap-2">
       <div className="body-m flex items-center gap-3 leading-[160%]">
         <VideoSwitch videoType={videoType} setVideoType={setVideoType} />
         <span>
-          Please {videoType === 'upload' ? 'Upload' : 'Link'} Your Pitch Video, Max 4 mins{' '}
-          {config.optional ? '(Optional)' : ''}
+          Please {videoType === 'upload' ? 'Upload' : 'Link'} Your Pitch Video, Max 4 mins {requiredTag}
         </span>
       </div>
-      {videoType === 'link' && <FormInput name="pitchVideo" label="" placeholder="Paste a video URL" form={form} />}
-      {videoType === 'upload' && (
-        <div className="">
-          {form.getValues('pitchVideo') && <VideoReview url={form.getValues('pitchVideo')} onDelete={onDelete} />}
-          {!form.getValues('pitchVideo') && (
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="group my-[1px] mt-1 !flex h-[152px] w-[270px] items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
-              showUploadList={false}
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-              customRequest={async (option) => {
-                setLoading(true);
-                const { onProgress, onSuccess, onError } = option;
-                const file = option.file as RcFile;
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('filepath', `hackathons/projects/${hackathon.id}/${project.id}/pitchVideo`);
-                formData.append('isPublic', 'true');
-                try {
-                  const res = await webApi.commonApi.uploadImage(formData);
-                  form.setValues('demo', res.filepath);
-                  onSuccess?.({}, new XMLHttpRequest());
-                } catch (err: any) {
-                  onError?.(err);
-                }
-                setLoading(false);
-              }}
-            >
-              {uploadButton}
-            </Upload>
-          )}
-        </div>
-      )}
+
+      <FormInput
+        name="pitchVideo"
+        label=""
+        placeholder="Paste a video URL"
+        form={form}
+        className={cn(videoType === 'link' ? 'inline-block' : 'hidden')}
+      />
+      <div className={cn(videoType === 'upload' ? 'block' : 'hidden')}>
+        {pitchVideo && pitchVideo.includes('hackquest.io') && (
+          <VideoReview url={form.getValues('pitchVideo')} onDelete={onDelete} />
+        )}
+        {(!pitchVideo || !pitchVideo.includes('hackquest.io')) && (
+          <Upload
+            name="avatar"
+            listType="picture-card"
+            className="group my-[1px] mt-1 !flex h-[152px] w-[270px] items-center justify-center [&>div>span]:!relative [&>div>span]:!flex [&>div>span]:!h-full [&>div>span]:!w-full [&>div]:!h-full [&>div]:!w-full  [&>div]:!rounded-[32px] [&>div]:!border-none [&>div]:!bg-neutral-off-white"
+            showUploadList={false}
+            beforeUpload={beforeUpload}
+            onChange={handleChange}
+            customRequest={async (option) => {
+              setLoading(true);
+              const { onProgress, onSuccess, onError } = option;
+              const file = option.file as RcFile;
+              const formData = new FormData();
+              formData.append('file', file);
+              formData.append('filepath', `hackathons/projects/pitchVideo`);
+              formData.append('isPublic', 'true');
+              try {
+                const res = await webApi.commonApi.uploadImage(formData);
+                form.setValue('pitchVideo', res.filepath);
+                form.trigger('pitchVideo');
+                onSuccess?.({}, new XMLHttpRequest());
+              } catch (err: any) {
+                onError?.(err);
+                message.error(err.message);
+              }
+              setLoading(false);
+            }}
+          >
+            {uploadButton}
+          </Upload>
+        )}
+      </div>
+      <ConfirmModal confirmText="YES" ref={confirmRef}>
+        <p className="text-h4 text-center text-neutral-black">Do you want to remove this video?</p>
+      </ConfirmModal>
     </div>
   );
 };
@@ -150,6 +166,22 @@ export const PitchVideoConfig: PresetComponentConfig<PitchVideoProps> = {
   optional: false,
   component: PitchVideo,
   property: {},
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Pitch Video</span>
+        {info.pitchVideo && (
+          <Image
+            src={'/images/icons/video_icon.png'}
+            alt="pitch Video"
+            width={48}
+            height={48}
+            className="rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.12)]"
+          />
+        )}
+      </div>
+    );
+  },
   getValidator(config) {
     const validator = z.string().url();
     return {

@@ -27,12 +27,20 @@ export const ContractAddressConfig: PresetComponentConfig<ContractAddressProps, 
   property: {
     label: 'Contract Address',
     placeholder: 'Paste contract address here',
-    name: 'contractAddress'
+    name: 'contract'
+  },
+  displayRender(info) {
+    return (
+      <div className="flex flex-1 items-center justify-between">
+        <span className="body-m flex items-center  text-neutral-off-black">Contract Address</span>
+        <span className="body-m text-neutral-off-black">{info.contract ?? ''}</span>
+      </div>
+    );
   },
   getValidator(config) {
     const validator = z.string().min(config.optional ? 0 : 1);
     return {
-      prizeTrack: config.optional ? validator.optional() : validator
+      contract: config.optional ? validator.optional() : validator
     };
   }
 };

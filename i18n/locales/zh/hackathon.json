@@ -20,6 +20,7 @@
   "checkPastHackathon": "Check Past Hackathon",
   "checkAllProjects": "Check All Projects",
   "viewAllProjects": "查看该黑客松的所有项目",
+  "submittedProjects":"Submitted Projects",
   "projects": {
     "projects": "Project Archive",
     "projectsDescription": "Welcome to the central repository for accessing all previous projects from our various hackathons.",

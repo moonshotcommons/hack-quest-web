@@ -8,6 +8,7 @@ import {
   FaucetRecordType,
   FaucetType,
   HackathonDataType,
+  HackathonMemberType,
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
@@ -16,6 +17,7 @@ import {
   PagedType,
   ProjectDataType,
   ProjectRankType,
+  ProjectSubmitBody,
   ProjectType,
   SimpleHackathonInfo
 } from './type';
@@ -249,7 +251,7 @@ class ResourceStationApi {
   }
 
   /** 提交project */
-  submitProject(data: FormData, projectId?: string) {
+  submitProject(data: ProjectSubmitBody, projectId?: string) {
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
     return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data
@@ -257,7 +259,7 @@ class ResourceStationApi {
   }
 
   /** 更新project */
-  updateProject(projectId: string, data: FormData) {
+  updateProject(projectId: string, data: ProjectSubmitBody) {
     return this.service.patch<{ id: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
       data
     });
@@ -290,6 +292,20 @@ class ResourceStationApi {
     return this.service.post(`${ResourceStationApiType.Faucets}/claim`, {
       data
     });
+  }
+
+  getHackathonsByCreator(token?: string) {
+    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/creator`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getHackathonMember(hackathoId: string) {
+    return this.service.get<{ data: HackathonMemberType[] }>(
+      `${ResourceStationApiType.Hackathon}/${hackathoId}/members`
+    );
   }
 }
 

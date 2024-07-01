@@ -8,7 +8,6 @@ interface HackathonSubmitPageProps {
 
 const HackathonSubmitPage: FC<HackathonSubmitPageProps> = async ({ params: { hackathonId, projectId } }) => {
   const hackathonInfo = await webApi.resourceStationApi.getSimpleHackathonInfo(hackathonId);
-
   const tracks = await webApi.resourceStationApi.getHackathonPrizeTracks(hackathonId);
 
   return (

@@ -38,7 +38,7 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
     resolver: zodResolver(formSchema)
   });
 
-  const onlineProfiles = info.onlineProfiles;
+  const onlineProfiles = info.OnlineProfiles;
 
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
@@ -51,7 +51,7 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
 
   const { run: submitRequest, loading } = useRequest(
     async (values: Record<string, string>) => {
-      const { nextStep } = getHackathonStepInfo(hackathonSteps, ApplicationSectionType.OnlineProfiles);
+      const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.OnlineProfiles);
       const state = {
         info: {
           ...info,

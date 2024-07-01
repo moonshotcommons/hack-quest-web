@@ -11,6 +11,7 @@ interface FormRadioItemProps<TFieldValues extends FieldValues = FieldValues> {
   select?: any[];
   disable?: boolean;
   setSelect?: (v: any[]) => void;
+  className?: string;
 }
 
 export const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
@@ -21,7 +22,8 @@ export const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
   select = [] as any[],
   setSelect = () => {},
   multiple = false,
-  disable = false
+  disable = false,
+  className
 }: FormRadioItemProps<TFieldValues>) => {
   if (!form || !name) {
     console.error('FormRadioItem 组件必须包裹FormRadio组件');
@@ -51,7 +53,8 @@ export const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
         (multiple ? select.includes(value) : form.watch(name) === value)
           ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
           : '',
-        disable ? 'cursor-not-allowed' : 'cursor-pointer'
+        disable ? 'cursor-not-allowed' : 'cursor-pointer',
+        className
       )}
     >
       <span>{label}</span>

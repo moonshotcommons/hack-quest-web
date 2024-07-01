@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import moment from 'moment';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
@@ -13,6 +13,8 @@ import { exportToExcel, separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
 import { FiDownload } from 'react-icons/fi';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;
@@ -25,13 +27,27 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
+  const [loading, setLoading] = useState(false);
   const downloadMember = () => {
-    const data = [
-      { name: 'John', age: 25, email: 'john@example.com' },
-      { name: 'Jane', age: 30, email: 'jane@example.com' },
-      { name: 'Bob', age: 35, email: 'bob@example.com' }
-    ];
-    exportToExcel(data, 'members');
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .getHackathonMember(hackathon.id)
+      .then((res) => {
+        const data = res.data?.map((v) => {
+          return {
+            ...v,
+            team: JSON.stringify(v.team)
+          };
+        });
+        exportToExcel(data, 'members');
+      })
+      .catch((err) => {
+        errorMessage(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <Link

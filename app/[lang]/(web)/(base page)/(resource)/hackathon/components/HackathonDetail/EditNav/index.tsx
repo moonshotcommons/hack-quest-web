@@ -22,7 +22,7 @@ const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, nav
     handleClickAnchor(0);
   }, [navs]);
   return (
-    <div className="sticky left-0 top-0 z-[2]">
+    <div className="sticky left-0 top-[20px] z-[2]">
       <SlideHighlight
         className={` flex h-[66px] w-full justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white px-[40px]`}
         type="LEARNING_TRACK"

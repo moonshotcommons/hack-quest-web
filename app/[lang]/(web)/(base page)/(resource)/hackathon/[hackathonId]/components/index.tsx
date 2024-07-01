@@ -121,7 +121,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
             <FAQs hackathon={hackathon} />
           </div>
           <div className="relative w-[39%]">
-            <div className="sticky left-0 top-[70px]">
+            <div className="sticky left-0 top-[106px]">
               <DetailInfo hackathon={hackathon} />
             </div>
           </div>

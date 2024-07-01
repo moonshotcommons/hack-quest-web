@@ -20,15 +20,18 @@ const NumberListItemRenderer: FC<NumberListItemRendererProps> = (props) => {
   const { pageType, isMobile } = useGlobalRendererContext();
 
   const index = useMemo(() => {
-    const currentIndex = children?.findIndex((child: any) => child.id === component.id);
-    let firstIndex = 0;
-    for (let i = currentIndex; i >= 0; i--) {
-      if (children[i].type !== NotionComponentType.NUMBERED_LIST_ITEM) {
-        break;
+    if (children) {
+      const currentIndex = children?.findIndex((child: any) => child.id === component.id);
+      let firstIndex = 0;
+      for (let i = currentIndex; i >= 0; i--) {
+        if (children[i].type !== NotionComponentType.NUMBERED_LIST_ITEM) {
+          break;
+        }
+        firstIndex = i;
       }
-      firstIndex = i;
+      return currentIndex - firstIndex;
     }
-    return currentIndex - firstIndex ?? (position || 0);
+    return position || 0;
   }, [children, component]);
 
   const getMobileClassName = () => {

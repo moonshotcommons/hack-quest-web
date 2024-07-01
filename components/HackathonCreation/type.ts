@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { IGNORE_FIELDS } from './constants';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
 
@@ -31,6 +31,7 @@ export interface PresetComponentConfig<T = {}, P = {}> {
   selected?: boolean;
   property: (T extends { form: any } ? Omit<T, 'form' | 'config'> : T) & P;
   getValidator: (config: PresetComponentConfig) => {};
+  displayRender: (info: any) => ReactNode;
 }
 
 type PropertyType = {
@@ -62,6 +63,7 @@ type GenerateCustomComponentConfig<T extends keyof PropertyType> = {
   optional: boolean;
   property: PropertyType[T];
   validate?: (values: any, form: UseFormReturn<FieldValues, any, undefined>, fieldId: string) => boolean[];
+  displayRender: (info: Record<string, any>, config: CustomComponentConfig) => ReactNode;
 };
 
 export type CustomComponentConfig =
