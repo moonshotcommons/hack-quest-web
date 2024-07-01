@@ -31,7 +31,7 @@ const AgendaCard: React.FC<AgendaCardProp> = ({ project }) => {
             {project.tracks?.map((v, i) => <TrackTag track={v} key={i} />)}
           </div>
         </div>
-        <p className="body-xs line-clamp-3 text-neutral-rich-gray">{project.detail.detailedIntro}</p>
+        <p className="body-xs line-clamp-3 text-neutral-rich-gray">{project.detail?.detailedIntro}</p>
       </div>
       <div className="h-full w-[209px] rounded-[8px] bg-neutral-off-white p-[12px] pt-[40px]">
         <HandleVote view={ViewValue.AGENDA} project={project} />
