@@ -20,7 +20,7 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
   const project = await getHackathonProjectById(params.projectId);
   return {
     title: project.name,
-    description: project.detail.detailedIntro,
+    description: project.detail?.detailedIntro,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}${query}`,
       languages: {
