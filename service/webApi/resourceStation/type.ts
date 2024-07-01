@@ -193,20 +193,20 @@ export interface HackathonType {
   links: HackathonLinkType;
   memberCount: number;
   enable: boolean;
-  sections: {
-    hosts: MentorType[];
-    venue: MentorType[];
-    coHosts: MentorType[];
-    goldSponsor: MentorType[];
-    titleSponsor: MentorType[];
-    trackPartner: MentorType[];
-    bronzeSponsor: MentorType[];
-    mediaPartners: MentorType[];
-    silverSponsor: MentorType[];
-    platinumSponsor: MentorType[];
-    guestsAndMentors: MentorType[];
-    communityPartners: MentorType[];
-  };
+  // sections: {
+  //   hosts: MentorType[];
+  //   venue: MentorType[];
+  //   coHosts: MentorType[];
+  //   goldSponsor: MentorType[];
+  //   titleSponsor: MentorType[];
+  //   trackPartner: MentorType[];
+  //   bronzeSponsor: MentorType[];
+  //   mediaPartners: MentorType[];
+  //   silverSponsor: MentorType[];
+  //   platinumSponsor: MentorType[];
+  //   guestsAndMentors: MentorType[];
+  //   communityPartners: MentorType[];
+  // };
   allowSubmission: boolean;
   alias: string;
   status: HackathonSubmissionStatus;
