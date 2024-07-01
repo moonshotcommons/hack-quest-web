@@ -8,6 +8,7 @@ import {
   FaucetRecordType,
   FaucetType,
   HackathonDataType,
+  HackathonMemberType,
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
@@ -291,6 +292,20 @@ class ResourceStationApi {
     return this.service.post(`${ResourceStationApiType.Faucets}/claim`, {
       data
     });
+  }
+
+  getHackathonsByCreator(token?: string) {
+    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/creator`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getHackathonMember(hackathoId: string) {
+    return this.service.get<{ data: HackathonMemberType[] }>(
+      `${ResourceStationApiType.Hackathon}/${hackathoId}/members`
+    );
   }
 }
 

@@ -118,7 +118,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
                 <AddSection hackathon={hackathon} />
               </div>
               <div className="relative w-[39%]">
-                <div className="sticky left-0 top-[70px] flex flex-col gap-[48px]">
+                <div className="sticky left-0 top-[106px] flex flex-col gap-[48px]">
                   <EditInfo hackathon={hackathon} />
                   <ViewButton hackathon={hackathon} />
                 </div>
