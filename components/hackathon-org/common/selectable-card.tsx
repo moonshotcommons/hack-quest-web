@@ -47,12 +47,12 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
       data-state={checkedState ? 'checked' : 'unchecked'}
       onClick={() => !disabled && setCheckedState(!checkedState)}
       className={cn(
-        'group relative inline-flex h-[74px] cursor-pointer flex-col items-center justify-center whitespace-nowrap rounded-[8px] border-[3px] border-neutral-off-white px-4 transition-colors duration-200 disabled:cursor-not-allowed aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light aria-disabled:cursor-not-allowed aria-disabled:border-yellow-dark aria-disabled:bg-yellow-extra-light aria-disabled:opacity-50',
+        'group relative inline-flex h-[74px] cursor-pointer flex-col items-center justify-center whitespace-nowrap rounded-[8px] border-[3px] border-neutral-off-white px-3 transition-colors duration-200 disabled:cursor-not-allowed aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light aria-disabled:cursor-not-allowed aria-disabled:border-yellow-dark aria-disabled:bg-yellow-extra-light aria-disabled:opacity-50',
         className
       )}
     >
-      <span className="body-m text-neutral-black">
-        {label}
+      <div className="body-m flex max-w-full items-center text-neutral-black">
+        <span className="truncate">{label}</span>
         {disabled && '*'}
         {isEditable && (
           <button
@@ -66,7 +66,7 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
             Edit
           </button>
         )}
-      </span>
+      </div>
       {checkedState && !disabled && (
         <div className="flex items-center space-x-1">
           <Checkbox

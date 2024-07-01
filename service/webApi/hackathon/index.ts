@@ -55,9 +55,9 @@ class HackathonApi {
   }
 
   createHackathonJudge(data: Record<string, any>) {
-    const { id, ...rest } = data;
-    return this.service.post<void>(`${HackathonApiUrl.HACKATHONS}/${id}/judge`, {
-      data: rest
+    const hackathonId = data.hackathonId;
+    return this.service.post<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge`, {
+      data
     });
   }
 

@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { MoveRightIcon } from 'lucide-react';
@@ -21,22 +20,8 @@ import { SubmissionForm } from '@/components/hackathon-org/forms/submission';
 import { STEP_ITEMS, Steps } from '@/components/hackathon-org/constants/steps';
 import { useHackathonOrgState } from '@/components/hackathon-org/constants/state';
 import webApi from '@/service';
-import loading from '@/public/images/other/loading.png';
 import { JudgingOverrideForm } from '@/components/hackathon-org/forms/judging-override';
-
-function PageLoading() {
-  return (
-    <div className="flex w-full flex-col items-center justify-center gap-1 py-40">
-      <Image
-        src={loading}
-        width={48}
-        height={48}
-        alt="loading"
-        className="absolute animate-spin object-contain opacity-100"
-      />
-    </div>
-  );
-}
+import { Spinner } from '@/components/ui/spinner';
 
 export default function Page() {
   const { hackathonId } = useParams<{ hackathonId: string }>();
@@ -50,7 +35,11 @@ export default function Page() {
   });
 
   if (isLoading) {
-    return <PageLoading />;
+    return (
+      <div className="flex w-full flex-col items-center justify-center gap-1 py-20">
+        <Spinner size={40} />
+      </div>
+    );
   }
 
   return (

@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -15,7 +16,6 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { TextField } from '@/components/ui/text-field';
 import { AddJudgeAccounts } from './add-judge-accounts';
-import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 
 const formSchema = z
@@ -31,7 +31,7 @@ const formSchema = z
     judgeMode: z.enum(['all', 'judges']).optional(),
     disableJudge: z.boolean().default(false).optional(),
     voteMode: z.enum(['fixed', 'score']).optional(),
-    judgeTotalVotes: z.string().optional(),
+    judgeTotalVote: z.string().optional(),
     judgeProjectVote: z.string().optional(),
     projectJudgeCount: z.string().optional(),
     judgeAccount: z.string().email().optional().or(z.literal(''))
@@ -52,9 +52,9 @@ const formSchema = z
             message: 'Please select voting mode'
           });
         } else {
-          if (!data.judgeTotalVotes) {
+          if (!data.judgeTotalVote) {
             ctx.addIssue({
-              path: ['judgeTotalVotes'],
+              path: ['judgeTotalVote'],
               code: z.ZodIssueCode.custom,
               message: 'Field is required'
             });
@@ -121,6 +121,7 @@ export function EditJudgingDetailModal({
   initialValues?: any;
   onOpenChange?: (open: boolean) => void;
 }) {
+  const queryClient = useQueryClient();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
   const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
@@ -132,7 +133,8 @@ export function EditJudgingDetailModal({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      resource: ''
+      resource: '',
+      disableJudge: false
     }
   });
 
@@ -149,6 +151,20 @@ export function EditJudgingDetailModal({
         });
       }
     }
+  });
+
+  const createMutation = useMutation({
+    mutationKey: ['createJudge'],
+    mutationFn: (data: any) => webApi.hackathonV2Api.createHackathonJudge(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      onClose();
+    }
+  });
+
+  const updateMutation = useMutation({
+    mutationKey: ['updateJudge', initialValues?.id],
+    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathonJudge(initialValues?.id, data)
   });
 
   const disableJudge = form.watch('disableJudge');
@@ -194,7 +210,50 @@ export function EditJudgingDetailModal({
   }
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    let values: any = {
+      rewardId: initialValues?.rewardId,
+      hackathonId: initialValues?.hackathonId,
+      resource: data.resource,
+      disableJudge: data.disableJudge
+    };
+    if (!data.disableJudge) {
+      values = {
+        ...values,
+        judgeMode: data.judgeMode,
+        voteMode: data.voteMode
+      };
+      if (data.judgeMode === 'all') {
+        values = {
+          ...values,
+          judgeTotalVote: z.coerce.number().parse(data.judgeTotalVote),
+          judgeProjectVote: z.coerce.number().parse(data.judgeProjectVote),
+          votesProportion: [userVotes, judgeVotes],
+          judgeAccounts: judgeAccounts.map((account) => account.id)
+        };
+      } else {
+        if (judgeAccounts.length === 0) {
+          form.setError('judgeAccount', {
+            message: 'Please enter at least one judge account'
+          });
+          return;
+        }
+        if (data.voteMode === 'fixed') {
+          values = {
+            ...values,
+            judgeProjectVote: z.coerce.number().parse(data.judgeProjectVote),
+            judgeAccounts: judgeAccounts.map((account) => account.id)
+          };
+        } else {
+          values = {
+            ...values,
+            judgeProjectVote: z.coerce.number().parse(data.judgeProjectVote),
+            projectJudgeCount: z.coerce.number().parse(data.projectJudgeCount),
+            judgeAccounts: judgeAccounts.map((account) => account.id)
+          };
+        }
+      }
+    }
+    updateMutation.mutate(values);
   }
 
   function onClose() {
@@ -299,7 +358,6 @@ export function EditJudgingDetailModal({
                         if (checked) {
                           form.resetField('judgeMode');
                         } else {
-                          console.log(latestJudgeMode.current);
                           if (latestJudgeMode.current) {
                             // @ts-expect-error
                             form.setValue('judgeMode', latestJudgeMode.current);
@@ -373,7 +431,7 @@ export function EditJudgingDetailModal({
                 {judgeMode === 'all' && voteMode === 'fixed' && (
                   <FormField
                     control={form.control}
-                    name="judgeTotalVotes"
+                    name="judgeTotalVote"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
                         <div className="flex items-center justify-between">
@@ -493,7 +551,9 @@ export function EditJudgingDetailModal({
                   render={({ field }) => (
                     <FormItem className="w-full space-y-1">
                       <FormLabel>
-                        <span className="body-m text-neutral-rich-gray">Judge Accounts</span>
+                        <span className="body-m text-neutral-rich-gray">
+                          Judge Accounts{judgeMode === 'judges' && '*'}
+                        </span>
                       </FormLabel>
                       <FormControl>
                         <div className="peer flex h-[50px] w-full items-center rounded-[8px] border border-neutral-light-gray p-3 transition-colors focus-within:border-neutral-medium-gray aria-[invalid=true]:border-status-error-dark">
@@ -536,6 +596,7 @@ export function EditJudgingDetailModal({
           <Button
             className="w-[165px]"
             disabled={!isValid}
+            isLoading={createMutation.isPending}
             onClick={() => {
               submitInputRef.current?.click();
             }}

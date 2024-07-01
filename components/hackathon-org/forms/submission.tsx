@@ -33,13 +33,13 @@ export function SubmissionForm({
     setProjectDetailState,
     setAdditionState
   } = useSubmissionState();
-  const { updateStatus, onPrevious } = useHackathonOrgState();
+  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
 
   const mutation = useMutation({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'submission'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
-      isEditMode && onSave?.();
+      isEditMode ? onSave?.() : onNext();
     }
   });
 
