@@ -1,10 +1,8 @@
 import { FC } from 'react';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
-import { getHackathonsByCreator, getHackathonsList } from '@/service/cach/resource/hackathon';
+import { getHackathonsByCreator } from '@/service/cach/resource/hackathon';
 import Dashboard from './components/Dashboard';
 import { Lang } from '@/i18n/config';
-import webApi from '@/service';
-import { permanentRedirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 interface HackathonProps {
