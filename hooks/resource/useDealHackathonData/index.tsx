@@ -62,7 +62,7 @@ const useDealHackathonData = () => {
 
   const dealModalList = (hackathon: HackathonType) => {
     const newList = modalList.map((v) => {
-      const added = hackathon.info?.[v.type as HackathonInfoSPKeys | 'schedule' | 'faqs']?.list?.length > 0;
+      const added = hackathon.info?.sections?.[v.type as HackathonInfoSPKeys | 'schedule' | 'faqs']?.list?.length > 0;
       return {
         ...v,
         added
@@ -70,6 +70,8 @@ const useDealHackathonData = () => {
     });
     return newList;
   };
+
+  // const getSection
 
   return {
     getRunFromTime,

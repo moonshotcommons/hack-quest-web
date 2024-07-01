@@ -124,29 +124,33 @@ export interface HackathonSubmissionType {
   Videos: HackathonApplicationLabelType[];
 }
 
-export interface HackathonInfoType {
-  address: string;
-  application: HackathonApplicationType;
-  submission: HackathonSubmissionType;
+export interface HackathonInfoSectionsType {
   sponsors: HackathonPartners;
   partners: HackathonPartners;
   mediaPartners: HackathonPartners;
   speakers: HackathonPartners;
   communityPartners: HackathonPartners;
+  schedule: {
+    title: string;
+    list: HackathonScheduleType[];
+  };
+  faqs: {
+    title: string;
+    list: HacakthonFaqType[];
+  };
+}
+
+export interface HackathonInfoType {
+  address: string;
+  application: HackathonApplicationType;
+  submission: HackathonSubmissionType;
+  sections: HackathonInfoSectionsType;
   conduct: string;
   description: string;
   host: string;
   image: string;
   intro: string;
-  schedule: {
-    title: string;
-    list: HackathonScheduleType[];
-  };
   mode: string;
-  faqs: {
-    title: string;
-    list: HacakthonFaqType[];
-  };
 }
 
 export interface HackathonJudgeAccountType {
@@ -193,6 +197,7 @@ export interface HackathonType {
   links: HackathonLinkType;
   memberCount: number;
   enable: boolean;
+  progress: string[];
   // sections: {
   //   hosts: MentorType[];
   //   venue: MentorType[];

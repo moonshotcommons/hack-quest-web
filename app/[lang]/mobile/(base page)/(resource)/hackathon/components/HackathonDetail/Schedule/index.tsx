@@ -41,7 +41,7 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
   };
   useEffect(() => {
     const newList =
-      hackathon.info?.schedule?.list?.map((v) => ({
+      hackathon.info?.sections?.schedule?.list?.map((v) => ({
         ...v,
         isExpand: false
       })) || [];

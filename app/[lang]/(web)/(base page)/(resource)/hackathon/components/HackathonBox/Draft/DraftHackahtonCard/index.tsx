@@ -15,6 +15,7 @@ interface DraftHackahtonCardProp {
 }
 
 const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => {
+  console.info(hackathon);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
     if (isEdited) {
       redirectToUrl(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`);
     } else {
-      setOpen(true);
+      redirectToUrl(`${MenuLink.FORM_HACKATHON_ORGANIZER}/${hackathon.alias}/create`);
     }
   };
   return (
@@ -45,10 +46,10 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
             {hackathonSections.require.map((v) => (
               <div
                 key={v}
-                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${false ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
+                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${hackathon.progress.includes(v) ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
               >
                 <span>{t(`hackathonDetail.${v}`)}</span>
-                {false ? (
+                {hackathon.progress.includes(v) ? (
                   <CompletedIcon size={14} />
                 ) : (
                   <div className="h-[14px] w-[14px] rounded-[50%] bg-neutral-off-white"></div>
@@ -66,10 +67,10 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
             {hackathonSections.optional.map((v) => (
               <div
                 key={v}
-                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${false ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
+                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${hackathon.progress.includes(v) ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
               >
                 <span>{t(`hackathonDetail.${v}`)}</span>
-                {false ? (
+                {hackathon.progress.includes(v) ? (
                   <CompletedIcon size={14} />
                 ) : (
                   <div className="h-[14px] w-[14px] rounded-[50%] bg-neutral-off-white"></div>

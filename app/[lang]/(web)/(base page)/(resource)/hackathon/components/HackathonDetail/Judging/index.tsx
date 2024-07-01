@@ -15,7 +15,7 @@ const Judging: React.FC<JudgingProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <EditBox title={'hackathonDetail.judging'} type={HackathonEditModalType.JUDGING}>
+    <EditBox title={'hackathonDetail.judge'} type={HackathonEditModalType.JUDGE}>
       <div className="body-m flex flex-col gap-[24px]">
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
