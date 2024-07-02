@@ -327,7 +327,6 @@ export const getYoutubeId = (url: string) => {
   const regex = /^(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=|embed\/|v\/)?([\w-]{11})(?:\S+)?$/;
   const match = url.match(regex);
 
-  // 如果匹配成功，则返回视频 ID
   if (match && match[1]) {
     return match[1];
   }
