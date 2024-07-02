@@ -20,6 +20,12 @@ class HackathonApi {
     return this.service.post<HackathonType>(HackathonApiUrl.HACKATHONS, { data });
   }
 
+  verifyHackathonName(name: string) {
+    return this.service.get<{ allow: boolean }>(`${HackathonApiUrl.HACKATHONS}/verify-name`, {
+      params: { name }
+    });
+  }
+
   updateHackathon(data: Record<string, any>, status: string) {
     const { id, ...rest } = data;
     return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${id}/${status}`, {
