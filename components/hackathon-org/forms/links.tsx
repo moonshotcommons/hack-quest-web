@@ -19,22 +19,14 @@ import { Steps } from '../constants/steps';
 import { flattenObj } from '../constants/utils';
 
 const formSchema = z.object({
-  email: z.string().email({
-    message: 'Please enter a valid email address'
-  }),
-  website: z
-    .string()
-    .url({
-      message: 'Please enter a valid website address'
-    })
-    .optional()
-    .or(z.literal('')),
-  instagram: z.string().optional().or(z.literal('')),
-  twitter: z.string().optional().or(z.literal('')),
-  discord: z.string().optional().or(z.literal('')),
-  slack: z.string().optional().or(z.literal('')),
-  farcaster: z.string().optional().or(z.literal('')),
-  telegram: z.string().optional().or(z.literal(''))
+  email: z.string().email(),
+  website: z.string().url().optional().or(z.literal('')),
+  instagram: z.string().url().optional().or(z.literal('')),
+  twitter: z.string().url().optional().or(z.literal('')),
+  discord: z.string().url().optional().or(z.literal('')),
+  slack: z.string().url().optional().or(z.literal('')),
+  farcaster: z.string().url().optional().or(z.literal('')),
+  telegram: z.string().url().optional().or(z.literal(''))
 });
 
 export function LinksForm({
@@ -50,14 +42,14 @@ export function LinksForm({
 }) {
   const [open, toggle] = useToggle(false);
   const queryClient = useQueryClient();
-  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const { updateStatus, onStepChange } = useHackathonOrgState();
   const user = useUserStore((state) => state.userInfo);
 
   const mutation = useMutation({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'links'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
-      isEditMode ? onSave?.() : onNext();
+      isEditMode ? onSave?.() : onStepChange(Steps.COVER);
     }
   });
 
@@ -115,7 +107,7 @@ export function LinksForm({
   }
 
   function onCancelOrBack() {
-    isEditMode ? onCancel?.() : onPrevious();
+    isEditMode ? onCancel?.() : onStepChange(Steps.BASIC_INFO);
   }
 
   return (

@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import useMeasure from '@/hooks/dom/use-measure';
+import { cn } from '@/helper/utils';
 
 const PanelContext = React.createContext<{ value: string | number }>({ value: '' });
 
 export function Root({
   children,
+  className,
   value,
   ...rest
 }: {
@@ -17,8 +19,7 @@ export function Root({
     <motion.div
       animate={{ height: bounds.height > 0 ? bounds.height : undefined }}
       transition={{ type: 'spring', bounce: 0, duration: 0.8 }}
-      style={{ overflow: 'hidden', position: 'relative' }}
-      className="w-full"
+      className={cn('relative w-full overflow-hidden', className)}
     >
       <div ref={ref}>
         <PanelContext.Provider value={{ value }}>

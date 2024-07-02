@@ -183,6 +183,7 @@ export function EditCustomFieldModal({
   onConfirm?: (data: any) => void;
   onClose?: () => void;
 }) {
+  const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('radio');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -259,15 +260,15 @@ export function EditCustomFieldModal({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="no-scrollbar max-h-[825px] w-[888px] max-w-[888px] gap-6 overflow-y-auto px-8 pb-10 pt-[60px] shadow-modal">
-        <div className="px-2">
+      <DialogContent className="no-scrollbar flex w-[888px] max-w-[888px] flex-col gap-6 overflow-y-auto px-8 pb-10 pt-[60px] shadow-modal">
+        <div className="shrink-0 px-2">
           <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
             {initialValues ? 'Edit Field' : 'Add a New Field'}
           </h1>
         </div>
         <Form {...form}>
           <form
-            className="flex flex-col items-center space-y-6"
+            className="no-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto"
             onSubmit={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -367,7 +368,7 @@ export function EditCustomFieldModal({
                 </FormItem>
               )}
             />
-            <ResizablePanel.Root value={value} className="w-full px-2 pb-2">
+            <ResizablePanel.Root value={value} className="w-full overflow-visible px-2 pb-2">
               <ResizablePanel.Content value="radio">
                 <SelectionForm form={form} />
               </ResizablePanel.Content>
@@ -375,16 +376,23 @@ export function EditCustomFieldModal({
                 <QAForm form={form} />
               </ResizablePanel.Content>
             </ResizablePanel.Root>
-            <div className="flex w-full items-center justify-end gap-2 px-2">
-              <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
-                Cancel
-              </Button>
-              <Button className="w-[165px]" type="submit" disabled={!form.formState.isValid}>
-                {initialValues ? 'Save Changes' : 'Add'}
-              </Button>
-            </div>
+            <input ref={submitInputRef} type="submit" className="hidden" />
           </form>
         </Form>
+        <div className="flex w-full items-center justify-end gap-2 px-2">
+          <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            className="w-[165px]"
+            disabled={!form.formState.isValid}
+            onClick={() => {
+              submitInputRef.current?.click();
+            }}
+          >
+            {initialValues ? 'Save Changes' : 'Add'}
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );

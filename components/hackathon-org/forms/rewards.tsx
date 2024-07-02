@@ -4,7 +4,6 @@ import * as React from 'react';
 import { message } from 'antd';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { currencyWithoutSymbol } from '@/lib/currency';
 import { Separator } from '@/components/ui/separator';
 import webApi from '@/service';
 import { ActionButtons } from './action-buttons';
@@ -13,6 +12,7 @@ import { AddFieldButton } from '../common/add-field-button';
 import { ConfirmModal } from '../modals/confirm-modal';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
+import { separationNumber } from '@/helper/utils';
 
 function TrackPreview({ track }: { track: any }) {
   const [editModalOpen, toggleEditModalOpen] = useToggle(false);
@@ -41,7 +41,7 @@ function TrackPreview({ track }: { track: any }) {
       <div className="flex w-full flex-col gap-3 rounded-2xl border border-neutral-light-gray bg-neutral-white px-8 pb-4 pt-8">
         <div className="grid h-full w-full grid-cols-[auto_1px_420px] gap-5">
           <div className="flex flex-col items-center justify-center px-2">
-            <h2 className="headline-h3 text-neutral-off-black">{currencyWithoutSymbol(track?.totalRewards)}</h2>
+            <h2 className="headline-h3 text-neutral-off-black">{separationNumber(track?.totalRewards || 0)} USD</h2>
             <span className="body-m text-neutral-medium-gray">{track?.name}</span>
           </div>
           <Separator orientation="vertical" />
@@ -50,7 +50,9 @@ function TrackPreview({ track }: { track: any }) {
               {track?.rewards?.map((reward: any, index: number) => (
                 <li className="flex items-center justify-between" key={reward?.id}>
                   <span className="body-m text-neutral-medium-gray">{reward?.label}</span>
-                  <span className="body-l text-neutral-off-black">{currencyWithoutSymbol(Number(reward?.value))}</span>
+                  <span className="body-l text-neutral-off-black">
+                    {separationNumber(Number(reward?.value || 0))} USD
+                  </span>
                 </li>
               ))}
             </ul>
@@ -87,7 +89,7 @@ export function RewardsForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
-  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const { updateStatus, onStepChange } = useHackathonOrgState();
   const [open, toggle] = useToggle(false);
 
   const isValid = initialValues?.rewards?.length > 0;
@@ -104,11 +106,11 @@ export function RewardsForm({
   }, [isValid, isEditMode]);
 
   function onCancelOrBack() {
-    isEditMode ? onCancel?.() : onPrevious();
+    isEditMode ? onCancel?.() : onStepChange(Steps.SUBMISSION);
   }
 
   function onSaveOrNext() {
-    isEditMode ? onSave?.() : onNext();
+    isEditMode ? onSave?.() : onStepChange(Steps.JUDGING);
   }
 
   return (
