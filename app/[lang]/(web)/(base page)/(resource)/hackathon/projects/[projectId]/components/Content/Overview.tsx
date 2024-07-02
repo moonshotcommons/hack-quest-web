@@ -37,8 +37,8 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
         </div>
         <div className="flex flex-col justify-center gap-[16px]">
           <h1 className="text-h2 text-neutral-off-black">{project.name}</h1>
-          <p className="line-clamp-2" title={project.detail.detailedIntro}>
-            {project.detail.detailedIntro}
+          <p className="line-clamp-2" title={project.detail?.detailedIntro}>
+            {project.detail?.detailedIntro}
           </p>
         </div>
       </div>

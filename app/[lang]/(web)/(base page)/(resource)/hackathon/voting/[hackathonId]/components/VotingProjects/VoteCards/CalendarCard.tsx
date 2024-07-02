@@ -38,7 +38,7 @@ const CalendarCard: React.FC<CalendarCardProp> = ({ project }) => {
           </div>
         </div>
         <div className="caption-10pt mt-[8px] line-clamp-3 h-[41px] text-neutral-rich-gray">
-          {project.detail.detailedIntro}
+          {project.detail?.detailedIntro}
         </div>
       </div>
     </Link>

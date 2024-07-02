@@ -43,7 +43,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
             ))}
           </div>
           <h2 className="body-m-bold truncate text-neutral-off-black">{project.name}</h2>
-          <div className="body-s line-clamp-2 text-neutral-rich-gray">{project.detail.detailedIntro}</div>
+          <div className="body-s line-clamp-2 text-neutral-rich-gray">{project.detail?.detailedIntro}</div>
         </div>
         <div className="caption-12pt flex items-center gap-[10px]  text-neutral-rich-gray">
           {/* <span className="flex-shrink-0">2022 Summer</span>
