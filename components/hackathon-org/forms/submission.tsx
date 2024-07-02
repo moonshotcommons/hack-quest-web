@@ -55,7 +55,9 @@ export function SubmissionForm({
   }
 
   function onSaveOrNext() {
-    const videos = additionState.filter((i) => i.type === 'Pitch Video' || i.type === 'Project Demo');
+    const videos = additionState.filter(
+      (i) => i.id === '87dcabfb-ff92-4b3e-9fff-c34f5d3328b8' || i.id === 'b4428d08-8887-48aa-a366-165d4cb55451'
+    );
     const data = {
       id: initialValues?.id,
       submission: {
@@ -63,7 +65,9 @@ export function SubmissionForm({
         ProjectDetail: projectDetailState.filter((i) => i.selected),
         Additions: additionState
           .filter((i) => i.selected)
-          .filter((i) => i.type !== 'Pitch Video' && i.type !== 'Project Demo'),
+          .filter(
+            (i) => i.id !== '87dcabfb-ff92-4b3e-9fff-c34f5d3328b8' && i.id !== 'b4428d08-8887-48aa-a366-165d4cb55451'
+          ),
         ...(videos.length > 0 && { Videos: videos })
       }
     };
