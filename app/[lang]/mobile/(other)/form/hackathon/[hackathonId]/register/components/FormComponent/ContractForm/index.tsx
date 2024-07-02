@@ -122,7 +122,7 @@ const ContractForm: FC<
               <CustomFormField
                 form={form}
                 placeholder="Enter your WeChat account"
-                label="WeChat (optional"
+                label="WeChat (optional)"
                 name={'weChat'}
               />
             )}
