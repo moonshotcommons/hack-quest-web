@@ -4,24 +4,24 @@ import * as React from 'react';
 import Link from 'next/link';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MoveRightIcon } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { TextField } from '@/components/ui/text-field';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/helper/utils';
 import { HACKQUEST_DISCORD } from '@/constants/links';
-import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { useRouter } from 'next/navigation';
-import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 const formSchema = z.object({
   name: z
     .string()
     .min(1, {
-      message: 'Hackathon name is a required input'
+      message: 'Hackathon name is required'
     })
     .max(80, {
       message: 'Hackathon name cannot exceed 80 characters'
@@ -35,6 +35,9 @@ interface StartModalProps {
 
 export function StartModal({ open, onClose }: StartModalProps) {
   const router = useRouter();
+
+  const [isPending, startTransition] = React.useTransition();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,18 +45,20 @@ export function StartModal({ open, onClose }: StartModalProps) {
     }
   });
 
-  const { mutate, isPending } = useMutation({
+  const mutation = useMutation({
     mutationFn: (data: { name: string }) => webApi.hackathonV2Api.createHackathon(data),
     onSuccess: (data) => {
-      router.push(`/form/hackathon/organizer/${data.id}/create`);
+      startTransition(() => {
+        router.push(`/form/hackathon/organizer/${data.alias}/create`);
+      });
     },
     onError: (error) => {
-      message.error(error.message);
+      errorMessage(error);
     }
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutate(data);
+    mutation.mutate(data);
   }
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -83,9 +88,6 @@ export function StartModal({ open, onClose }: StartModalProps) {
                   <FormControl>
                     <TextField
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}
                       autoComplete="off"
                       placeholder="Enter your hackathon name"
                       className="aria-[invalid=true]:border-status-error-dark"
@@ -97,7 +99,7 @@ export function StartModal({ open, onClose }: StartModalProps) {
             />
             <Button
               type="submit"
-              isLoading={isPending}
+              isLoading={mutation.isPending}
               disabled={!form.formState.isValid || isPending}
               className="w-60"
             >

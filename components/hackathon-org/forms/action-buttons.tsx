@@ -20,9 +20,11 @@ export function ActionButtons({
       <Button type="button" variant="outline" onClick={onCancelOrBack}>
         {isEditMode ? 'Cancel' : 'Back'}
       </Button>
-      <Button type="submit" disabled={!isValid} isLoading={isLoading} onClick={onSaveOrNext}>
-        {isEditMode ? 'Save' : isLastStep ? 'Submit' : 'Next'}
-      </Button>
+      {(!isLastStep || isEditMode) && (
+        <Button type="submit" disabled={!isValid} isLoading={isLoading} onClick={onSaveOrNext}>
+          {isEditMode ? 'Save' : 'Next'}
+        </Button>
+      )}
     </div>
   );
 }

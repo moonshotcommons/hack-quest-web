@@ -32,8 +32,6 @@ export function BasicInfo() {
     setBasicInfoState(newValues);
   };
 
-  console.log(basicInfoState);
-
   function onConfirm(data: any) {
     const newValues = [...basicInfoState];
     const index = basicInfoState.findIndex((i) => i.id === data.id);

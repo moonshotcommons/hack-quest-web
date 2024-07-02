@@ -12,8 +12,8 @@ class HackathonApi {
     this.service = service;
   }
 
-  getHackathon(id: string) {
-    return this.service.get<HackathonType>(`${HackathonApiUrl.HACKATHONS}/${id}`);
+  getHackathon(alias: string) {
+    return this.service.get<HackathonType>(`${HackathonApiUrl.HACKATHONS}/${alias}`);
   }
 
   createHackathon(data: { name: string }) {
@@ -52,6 +52,24 @@ class HackathonApi {
 
   removeHackathonRewards(hackathonId: string, rewardsId: string) {
     return this.service.delete<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/rewards/${rewardsId}`);
+  }
+
+  createHackathonJudge(data: Record<string, any>) {
+    const hackathonId = data.hackathonId;
+    return this.service.post<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge`, {
+      data
+    });
+  }
+
+  updateHackathonJudge(judgeId: string, data: Record<string, any>) {
+    const hackathonId = data.hackathonId;
+    return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge/${judgeId}`, {
+      data
+    });
+  }
+
+  removeHackathonJudge(hackathonId: string, judgeId: string) {
+    return this.service.delete<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge/${judgeId}`);
   }
 
   addJudgeAccount(email: string) {

@@ -15,9 +15,8 @@ import * as ResizablePanel from '@/components/shared/resizable-panel';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { TextField } from '@/components/ui/text-field';
 import { Textarea } from '@/components/ui/textarea';
-import { currencyWithoutSymbol } from '@/lib/currency';
 import webApi from '@/service';
-import { cn } from '@/helper/utils';
+import { cn, separationNumber } from '@/helper/utils';
 import { RadioGroup, RadioGroupItem } from '../common/radio-group';
 import { CustomTextField } from '../common/custom-text-field';
 import { AddFieldButton } from '../common/add-field-button';
@@ -102,7 +101,7 @@ function RankingForm({ totalRewards, form }: { form: UseFormReturn<FormValues>; 
               register={form.register}
               index={index}
               remove={remove}
-              placeholder="e.g. 5,000 USD"
+              placeholder="e.g. 5000"
             />
           ))}
           <AddFieldButton variant="outline" onClick={() => append({ id: v4(), value: '' })}>
@@ -118,7 +117,9 @@ function RankingForm({ totalRewards, form }: { form: UseFormReturn<FormValues>; 
       </div>
       <div className="body-m flex flex-col gap-2.5">
         <label className="text-neutral-rich-gray">Total Rewards*</label>
-        <p className="font-bold text-neutral-off-black">{totalRewards ? currencyWithoutSymbol(totalRewards) : '-'}</p>
+        <p className="font-bold text-neutral-off-black">
+          {totalRewards ? `${separationNumber(totalRewards || 0)} USD` : '-'}
+        </p>
       </div>
     </div>
   );
@@ -141,7 +142,7 @@ function OthersForm({ form }: { form: UseFormReturn<FormValues> }) {
               <TextField
                 {...field}
                 autoComplete="off"
-                placeholder="e.g. 10,000 USD"
+                placeholder="e.g. 10000"
                 className="aria-[invalid=true]:border-status-error-dark"
               />
             </FormControl>
@@ -190,6 +191,7 @@ export function EditTrackModal({
   initialValues?: any;
   onClose?: () => void;
 }) {
+  const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('RANK');
 
   const queryClient = useQueryClient();
@@ -303,16 +305,19 @@ export function EditTrackModal({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="w-[888px] max-w-[888px] gap-6 px-8 pb-10 pt-[60px] shadow-modal"
+        className="no-scrollbar flex w-[888px] max-w-[888px] flex-col gap-6 overflow-y-auto px-8 pb-10 pt-[60px] shadow-modal"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <div className="px-2">
+        <div className="shrink-0 px-2">
           <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
             {initialValues?.isEditing ? 'Edit' : 'Add a New'} Track
           </h1>
         </div>
         <Form {...form}>
-          <form className="flex flex-col items-center space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="no-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
             <FormField
               control={form.control}
               name="name"
@@ -372,7 +377,7 @@ export function EditTrackModal({
                 </FormItem>
               )}
             />
-            <ResizablePanel.Root value={value} className="w-full px-2 pb-2">
+            <ResizablePanel.Root value={value} className="w-full overflow-visible px-2 pb-2">
               <ResizablePanel.Content value="RANK">
                 <RankingForm form={form} totalRewards={totalRewards} />
               </ResizablePanel.Content>
@@ -380,21 +385,22 @@ export function EditTrackModal({
                 <OthersForm form={form} />
               </ResizablePanel.Content>
             </ResizablePanel.Root>
-            <div className="flex w-full items-center justify-end gap-2 px-2">
-              <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
-                Cancel
-              </Button>
-              <Button
-                className="w-[165px]"
-                type="submit"
-                disabled={!form.formState.isValid}
-                isLoading={createMutation.isPending || updateMutation.isPending}
-              >
-                {initialValues?.isEditing ? 'Save Changes' : 'Add'}
-              </Button>
-            </div>
+            <input ref={submitInputRef} type="submit" className="hidden" />
           </form>
         </Form>
+        <div className="flex w-full shrink-0 items-center justify-end gap-2 px-2">
+          <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            className="w-[165px]"
+            disabled={!form.formState.isValid}
+            isLoading={createMutation.isPending || updateMutation.isPending}
+            onClick={() => submitInputRef.current?.click()}
+          >
+            {initialValues?.isEditing ? 'Save Changes' : 'Add'}
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
