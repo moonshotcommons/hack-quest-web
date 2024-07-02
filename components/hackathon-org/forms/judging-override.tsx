@@ -25,7 +25,7 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
   return (
     <div className="flex flex-col gap-5 rounded-2xl border border-neutral-light-gray p-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-neutral-rich-gray">{data?.name}</h2>
+        <h2 className="text-lg font-bold text-neutral-rich-gray">{data?.rewardName}</h2>
         <Button
           variant={isEdit ? 'outline' : 'primary'}
           size="small"
@@ -130,14 +130,10 @@ export function JudgingOverrideForm({
   const isAllSelected = initialValues?.judge?.some((item: any) => item?.judgeMode === 'all');
 
   const judges = initialValues?.judge?.map((item: any) => {
-    const relatedItem = initialValues?.rewards?.find((i: any) => i?.id === item?.rewardId);
-    if (relatedItem) {
-      return {
-        ...item,
-        disabledAll: !item?.judgeMode ? isAllSelected : item?.judgeMode === 'all' ? false : isAllSelected,
-        name: relatedItem?.name
-      };
-    }
+    return {
+      ...item,
+      disabledAll: !item?.judgeMode ? isAllSelected : item?.judgeMode === 'all' ? false : isAllSelected
+    };
   });
 
   function onCancelOrBack() {
