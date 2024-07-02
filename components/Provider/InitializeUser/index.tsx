@@ -7,6 +7,7 @@ import { useHandleNotification } from '@/hooks/notification/useHandleNotificatio
 import { useGetEcosystemData } from '@/hooks/ecosystem/useGetEcosystemData';
 import { Lang } from '@/i18n/config';
 import { LoginResponse } from '@/service/webApi/user/type';
+import { useLoadUserInfo } from '@/hooks/auth/useGetUserInfo';
 
 interface InitializeUserProviderProps {
   children: ReactNode;
@@ -14,9 +15,10 @@ interface InitializeUserProviderProps {
   userInfo: Partial<LoginResponse> | null;
 }
 
-const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, children, userInfo }) => {
-  useNavAuth(userInfo);
-  const setUserInfo = useUserStore((state) => state.setUserInfo);
+const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, children, userInfo: propUserInfo }) => {
+  const { waitingLoadUserInfo } = useLoadUserInfo(propUserInfo);
+  useNavAuth(propUserInfo, waitingLoadUserInfo);
+  const userInfo = useUserStore((state) => state.userInfo);
   const { updateMissionDataAll } = useGetMissionData();
   const { updateNotification } = useHandleNotification();
   const { getEcosystems } = useGetEcosystemData();
@@ -28,11 +30,8 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, childre
 
   useEffect(() => {
     if (userInfo) {
-      setUserInfo(userInfo);
-      setTimeout(() => {
-        updateMissionDataAll();
-        updateNotification();
-      }, 200);
+      updateMissionDataAll();
+      updateNotification();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);

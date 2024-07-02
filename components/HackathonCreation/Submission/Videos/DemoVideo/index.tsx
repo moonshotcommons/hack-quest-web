@@ -178,6 +178,7 @@ export const DemoVideoConfig: PresetComponentConfig<DemoVideoProps> = {
   },
   getValidator(config) {
     const validator = z.string().url();
+    console.log('config.optional', config.optional);
     return {
       demoVideo: config.optional ? validator.optional() : validator
     };

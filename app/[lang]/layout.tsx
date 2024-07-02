@@ -63,7 +63,10 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children, params: { lang } }: RootLayoutProps) {
-  const userInfo = await webApi.userApi.getUserInfo();
+  let userInfo = null;
+  try {
+    userInfo = await webApi.userApi.getUserInfo();
+  } catch (err) {}
   return (
     <html
       lang={lang}

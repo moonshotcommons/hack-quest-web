@@ -13,10 +13,85 @@ import {
 import Title from '@/components/Common/Title';
 import { CustomComponentConfig, SubmissionSectionType } from '@/components/HackathonCreation/type';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { isEqual } from 'lodash-es';
+import { isEqual, omit } from 'lodash-es';
 import { Form } from '@/components/ui/form';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/ui';
+
+function getDefaultValues(project: ProjectType) {
+  const {
+    name,
+    prizeTrack,
+    tracks,
+    location,
+    wallet,
+    logo,
+    fields = {},
+    pitchVideo,
+    demoVideo,
+    detail = {},
+    addition = {}
+  } = project!;
+
+  const defaultBasicInfo = {
+    logo: logo || '',
+    name: name || '',
+    location: location || '',
+    prizeTrack: prizeTrack || '',
+    tracks: tracks.join(','),
+    wallet: wallet || '',
+    pitchVideo: pitchVideo || undefined,
+    demoVideo: demoVideo || undefined,
+    fields
+  };
+
+  const defaultProjectDetail = omit(detail, 'id');
+
+  const defaultAdditions = omit(addition, 'id');
+
+  const defaultValues: Record<string, any> = {
+    ...omit(defaultBasicInfo, 'fields'),
+    ...omit(defaultProjectDetail, 'fields'),
+    ...omit(defaultAdditions, 'fields')
+  };
+
+  for (let key in fields) {
+    defaultValues[key] = fields[key].value;
+  }
+
+  for (let key in detail.fields || {}) {
+    defaultValues[key] = detail.fields?.[key].value;
+  }
+
+  for (let key in addition.fields || {}) {
+    defaultValues[key] = addition.fields?.[key].value;
+  }
+
+  return { defaultValues, defaultBasicInfo, defaultProjectDetail, defaultAdditions };
+}
+
+const copyValues = (oldValues: Record<string, any>, values: Record<string, any>): Record<string, any> => {
+  const newValues: Record<string, any> = structuredClone(oldValues);
+  for (let key in newValues) {
+    if (key === 'fields') {
+      for (let id in newValues[key]) {
+        newValues[key][id].value = values[id];
+      }
+      continue;
+    }
+
+    if (key === 'tracks') {
+      newValues[key] = values[key].split(',');
+      continue;
+    }
+
+    newValues[key] = values[key];
+  }
+  return newValues;
+};
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
@@ -41,11 +116,16 @@ const Content: React.FC<ContentProp> = ({
   const fullSectionConfig = hackathon.info.submission;
   const sectionData = getHackathonSubmissionSteps(fullSectionConfig, ['Review']);
 
+  const { defaultValues, defaultBasicInfo, defaultProjectDetail, defaultAdditions } = getDefaultValues(project);
+
   const formSchema = useValidatorFormSchema(fullSectionConfig, true);
 
   const form = useForm({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues
   });
+
+  const formState = useFormState(form);
 
   const getOffsetTops = () => {
     const offsetTops = [];
@@ -69,104 +149,37 @@ const Content: React.FC<ContentProp> = ({
     getOffsetTops();
   }, [project]);
 
-  // const { runAsync: onSubmitRequest, loading } = useRequest(
-  //   async () => {
-  //     const values = form.getValues();
-  //     if (
-  //       form.getValues('isPublic') === true &&
-  //       !/^https?:\/\/(www\.)?github\.com\/[^/]+\/.*$/.test((form.getValues('githubLink') || '').trim())
-  //     ) {
-  //       form.setError('githubLink', {
-  //         message: 'Invalid GitHub URL'
-  //       });
-  //       return;
-  //     }
+  const { runAsync: onSubmitRequest, loading } = useRequest(
+    async (values: Record<string, any>) => {
+      const basicInfo: Record<string, any> = copyValues(defaultBasicInfo, values);
+      const projectDetail: Record<string, any> = copyValues(defaultProjectDetail, values);
+      const additions: Record<string, any> = copyValues(defaultAdditions, values);
 
-  //     const formData = new FormData();
-  //     const {
-  //       projectName,
-  //       track,
-  //       detailedIntro,
-  //       intro,
-  //       prizeTrack,
-  //       location,
-  //       isPublic,
-  //       githubLink,
-  //       tagline,
-  //       solvedProblem,
-  //       challenges,
-  //       technologies,
-  //       teamID,
-  //       roomNumber,
-  //       contractLink,
-  //       projectLink,
-  //       socialLink,
-  //       partnerTooling,
-  //       figma,
-  //       playstore,
-  //       demo,
-  //       googleDrive,
-  //       other
-  //     } = values;
-  //     formData.append('name', projectName);
-  //     formData.append('prizeTrack', prizeTrack);
+      const res = await webApi.resourceStationApi.submitProject({ basicInfo, projectDetail, additions }, project.id);
+      return {
+        res,
+        newInfo: {
+          ...values
+        }
+      };
+    },
+    {
+      manual: true,
+      debounceWait: 300,
+      onSuccess() {
+        redirectToUrl(`/hackathon/projects/${project.id}`);
+      },
+      onError(err) {
+        errorMessage(err);
+      }
+    }
+  );
 
-  //     track.split(',').forEach((t) => {
-  //       formData.append('tracks[]', t);
-  //     });
-
-  //     hackathon.id !== HackathonPartner.Hack4Bengal && formData.append('location', location);
-
-  //     formData.append('description', detailedIntro);
-  //     formData.append('introduction', intro);
-  //     formData.append('isOpenSource', String(isPublic));
-  //     formData.append('githubLink', githubLink || '');
-  //     formData.append('tagline', tagline || '');
-  //     formData.append('solvedProblem', solvedProblem || '');
-  //     formData.append('challenges', challenges || '');
-  //     formData.append('technologies', technologies || '');
-  //     formData.append('teamID', teamID || '');
-  //     formData.append('roomNumber', roomNumber || '');
-  //     formData.append('demo', demo || '');
-
-  //     const links = {
-  //       contractLink: contractLink || '',
-  //       projectLink: projectLink || '',
-  //       socialLink: socialLink || '',
-  //       partnerTooling: partnerTooling || '',
-  //       figma: figma || '',
-  //       playstore: playstore || '',
-  //       googleDrive: googleDrive || '',
-  //       other: other || ''
-  //     };
-
-  //     formData.append('links', JSON.stringify(links));
-
-  //     logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
-  //     const res = await webApi.resourceStationApi.submitProject(formData, project.id);
-  //     return {
-  //       res,
-  //       newInfo: {
-  //         ...values
-  //       }
-  //     };
-  //   },
-  //   {
-  //     manual: true,
-  //     onSuccess() {
-  //       redirectToUrl(`/hackathon/projects/${project.id}`);
-  //     },
-  //     onError(err) {
-  //       errorMessage(err);
-  //     }
-  //   }
-  // );
-
-  const onSubmit = () => {
-    if (isEqual({}, form.getValues())) {
+  const onSubmit = (values: any) => {
+    if (isEqual(defaultValues, values)) {
       redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
-      // onSubmitRequest();
+      onSubmitRequest(values);
     }
   };
 
@@ -174,9 +187,9 @@ const Content: React.FC<ContentProp> = ({
     if (isEqual({}, form.getValues()) || isClose) {
       redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
-      // exitConfirmRef.current?.open({
-      //   onConfirm: onSubmitRequest
-      // });
+      exitConfirmRef.current?.open({
+        onConfirm: () => onSubmitRequest(form.getValues())
+      });
     }
   };
 
@@ -201,9 +214,11 @@ const Content: React.FC<ContentProp> = ({
               curAnchorIndex={curAnchorIndex}
               offsetTops={offsetTops}
               handleClickAnchor={handleClickAnchor}
-              onSava={onSubmit}
+              onSava={() => {
+                // onSubmit(form.getValues());
+              }}
               onExit={onExit}
-              submitDisable={isClose}
+              submitDisable={isClose || !formState.isValid || isEqual(defaultValues, form.getValues())}
             />
           </div>
           <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
@@ -212,7 +227,7 @@ const Content: React.FC<ContentProp> = ({
               return (
                 <div key={sectionKey} className="flex flex-col gap-8">
                   <Title>
-                    <span className="text-h3">{sectionKey}</span>
+                    <span className="text-h3">{sectionData.find((item) => item.type === sectionKey)?.title}</span>
                   </Title>
                   <div className="flex flex-col gap-8 text-neutral-rich-gray">
                     {sectionConfig.map((config, index) => {

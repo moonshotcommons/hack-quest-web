@@ -573,8 +573,8 @@ export interface SimpleHackathonInfo {
 
 /** 项目提交时候接口需要的表单参数 */
 export interface ProjectSubmitBody {
-  status: SubmissionSectionType | 'Review';
-  hackathonId: string;
+  status?: SubmissionSectionType | 'Review';
+  hackathonId?: string;
   basicInfo?: Record<string, any>;
   videos?: Record<string, any>;
   projectDetail?: Record<string, any>;

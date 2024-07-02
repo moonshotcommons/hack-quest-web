@@ -41,7 +41,7 @@ const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex, onSava, onE
           type="primary"
           htmlType="submit"
           className="button-text-m uppercase"
-          onClick={onSava}
+          // onClick={onSava}
           disabled={submitDisable}
         >
           Save & resubmit
