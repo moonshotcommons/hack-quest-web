@@ -6,9 +6,10 @@ import { getToken } from '@/helper/user-token';
 import { useRedirect } from '../router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
+import { LoginResponse } from '@/service/webApi/user/type';
 
-function useNavAuth(waitingUserData: boolean) {
-  const userInfo = useUserStore((state) => state.userInfo);
+function useNavAuth(userInfo: Partial<LoginResponse> | null) {
+  // const userInfo = useUserStore((state) => state.userInfo);
   const setAuthType = useUserStore((state) => state.setAuthType);
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
@@ -16,7 +17,6 @@ function useNavAuth(waitingUserData: boolean) {
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   useEffect(() => {
-    if (waitingUserData) return;
     const redirect_url = query.get('redirect_url');
     // 已经登录了
     if (userInfo) {
@@ -38,7 +38,7 @@ function useNavAuth(waitingUserData: boolean) {
       redirectToUrl(V2_LANDING_PATH);
       setAuthType(AuthType.LOGIN);
     }
-  }, [waitingUserData, userInfo, pathname, isLandingPage, redirectToUrl, setAuthType]);
+  }, [userInfo, pathname, isLandingPage, redirectToUrl, setAuthType]);
 }
 
 export default useNavAuth;

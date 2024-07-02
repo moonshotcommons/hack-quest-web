@@ -16,6 +16,9 @@ export function setToken(token: string) {
 export function getToken() {
   if (typeof window === 'object') {
     return localStorage.getItem(TOKEN_KEY) || '';
+  } else {
+    const { cookies } = require('next/headers');
+    return cookies().get('token')?.value || '';
   }
 }
 

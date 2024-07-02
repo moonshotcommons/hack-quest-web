@@ -10,14 +10,16 @@ import { TransNs } from '@/i18n/config';
 import Notification from './Notification';
 import CoinXp from './CoinXp';
 import Avatar from './Avatar';
-interface UserProps {}
+import { LoginResponse } from '@/service/webApi/user/type';
+interface UserProps {
+  userInfo: Partial<LoginResponse> | null;
+}
 
-const User: FC<UserProps> = () => {
+const User: FC<UserProps> = ({ userInfo }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
-  const { userInfo, setAuthType, setAuthModalOpen } = useUserStore(
+  const { setAuthType, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
-      userInfo: state.userInfo,
       setAuthType: state.setAuthType,
       setAuthModalOpen: state.setAuthModalOpen
     }))
@@ -48,7 +50,7 @@ const User: FC<UserProps> = () => {
                   </Suspense>
                 </div>
                 <Notification />
-                <Avatar />
+                <Avatar userInfo={userInfo} />
               </div>
             ) : (
               <div className="abc flex gap-4">

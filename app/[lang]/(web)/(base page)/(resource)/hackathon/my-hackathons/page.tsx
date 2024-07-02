@@ -31,6 +31,7 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
 
 export default async function Page({ params }: { params: { lang: Lang } }) {
   const { t } = await useTranslation(params.lang, TransNs.HACKATHON);
+
   try {
     const { hackathons, stats } = await getJoinedHackathons();
     const votes = await getHackathonVote();

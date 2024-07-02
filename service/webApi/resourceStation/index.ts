@@ -41,31 +41,22 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(params: object, token?: string) {
+  getHackathonList(params: object) {
     return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      params
     });
   }
 
   /** 获取已加入的 hackathon 列表  */
-  getJoinedHackathons(token?: string, params?: object) {
+  getJoinedHackathons(params?: object) {
     return this.service.get<JoinedHackathonType>(`${ResourceStationApiType.Hackathon}/joined`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      params
     });
   }
 
-  getHackathonVote(token?: string, params?: object) {
+  getHackathonVote(params?: object) {
     return this.service.get<HackathonVoteType[]>(`${ResourceStationApiType.Hackathon}/voting`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      params
     });
   }
 
@@ -74,15 +65,8 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon详情数据 */
-  getHackathonDetail(id: string, token?: string) {
-    const params = token
-      ? {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      : {};
-    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, params);
+  getHackathonDetail(id: string) {
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`);
   }
   /** 获取hackathon 可以投票的project */
   // getVoteProjectsByHackathonId(hackathonId: string, params: object) {
@@ -113,12 +97,8 @@ class ResourceStationApi {
   }
 
   /** 获取project详情数据 */
-  getProjectsDetail(id: string, token?: string) {
-    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  getProjectsDetail(id: string) {
+    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`);
   }
 
   /**  */

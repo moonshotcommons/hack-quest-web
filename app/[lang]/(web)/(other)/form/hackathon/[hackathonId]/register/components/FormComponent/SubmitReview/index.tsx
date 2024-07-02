@@ -144,13 +144,13 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
           ((ApplicationType.teamDetail as HackathonTeamDetail).members || []).map((member) => {
             return (
               <div
-                key={member.info?.about?.firstName + ' ' + member.info?.about?.lastName}
+                key={member.info?.About?.firstName + ' ' + member.info?.About?.lastName}
                 className="flex items-center justify-between"
               >
                 <div className="flex items-center gap-1">
                   <Image src={member.avatar || ''} alt="测试" width={24} height={24} className="rounded-full" />
                   <span className="text-neutral-off-black">
-                    {member.info?.about?.firstName + ' ' + member.info?.about?.lastName}
+                    {member.info?.About?.firstName + ' ' + member.info?.About?.lastName}
                     {member.userId === ApplicationType.userId && ' (You)'}
                   </span>
                 </div>

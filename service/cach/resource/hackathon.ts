@@ -4,34 +4,34 @@ import {
   HackathonType,
   HackathonVoteType,
   JoinedHackathonType,
-  ProjectType
+  ProjectType,
+  SimpleHackathonInfo
 } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service/index';
 import { cookies } from 'next/headers';
 
 export const getHackathonsList = cache(function (param: object): Promise<HackathonDataType> {
-  const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getHackathonList(param, token as string);
+  return webApi.resourceStationApi.getHackathonList(param);
 });
 
 export const getJoinedHackathons = cache(function (params?: object): Promise<JoinedHackathonType> {
-  const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getJoinedHackathons(token, params);
+  return webApi.resourceStationApi.getJoinedHackathons(params);
 });
 
 export const getHackathonVote = cache(function (params?: object): Promise<HackathonVoteType[]> {
-  const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getHackathonVote(token, params);
+  return webApi.resourceStationApi.getHackathonVote(params);
 });
 
 export const getHackathonById = cache(function (id: string): Promise<HackathonType> {
-  const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getHackathonDetail(id as string, token as string);
+  return webApi.resourceStationApi.getHackathonDetail(id as string);
+});
+
+export const getSimpleHackathonInfo = cache(function (id: string): Promise<SimpleHackathonInfo> {
+  return webApi.resourceStationApi.getSimpleHackathonInfo(id as string);
 });
 
 export const getHackathonProjectById = cache(function (projectId: string): Promise<ProjectType> {
-  const token = cookies().get('token')?.value || '';
-  return webApi.resourceStationApi.getProjectsDetail(projectId, token as string);
+  return webApi.resourceStationApi.getProjectsDetail(projectId);
 });
 
 export const getFeaturedProjects = async function (): Promise<ProjectType[]> {

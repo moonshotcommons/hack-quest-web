@@ -29,7 +29,7 @@ interface ResumeUploadProps {
 const renderContent = (link: string, width = 118, height = 152) => {
   const ext = (link || '').split('.').pop()?.toLowerCase() || '';
   if (ext === 'pdf') {
-    return <FaFilePdf />;
+    return <FaFilePdf size={40} />;
   }
   if (IMAGE_SUFFIX.includes(ext)) {
     return <Image src={link} alt="resume" width={width} height={width} className="object-contain" />;

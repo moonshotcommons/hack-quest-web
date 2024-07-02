@@ -11,7 +11,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { getHackathonStepInfo } from '../../constants';
-import { isEqual } from 'lodash-es';
+import { isEqual, omit } from 'lodash-es';
 import {
   useHackathonConfig,
   useValidatorFormSchema
@@ -54,8 +54,10 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.OnlineProfiles);
       const state = {
         info: {
-          ...info,
-          onlineProfiles: values
+          info: {
+            ...omit(info, ApplicationSectionType.ApplicationType),
+            [ApplicationSectionType.OnlineProfiles]: values
+          }
         },
         status: nextStep.type
       };
@@ -65,6 +67,7 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
     },
     {
       manual: true,
+      debounceWait: 300,
       onSuccess(state) {
         onNext(state);
       },
@@ -101,13 +104,13 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-6">
-          <div className="flex flex-wrap gap-6">
+          <div
+            className="flex flex-wrap gap-6
+          "
+          >
+            {/* [&>div]:w-[calc(50%-12px)] */}
             {sectionConfig.map((config, index) => {
-              return (
-                <div key={config.id} className="w-[calc(50%-12px)]">
-                  <Fragment>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>
-                </div>
-              );
+              return <Fragment key={config.id}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
             })}
           </div>
           <div className="flex justify-end gap-4">

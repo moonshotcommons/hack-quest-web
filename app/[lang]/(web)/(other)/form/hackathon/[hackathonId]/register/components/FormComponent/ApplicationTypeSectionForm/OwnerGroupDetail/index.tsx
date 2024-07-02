@@ -88,7 +88,7 @@ const OwnerGroupDetail: FC<OwnerGroupDetailProps> = ({
       <div className="my-1 flex flex-col gap-1">
         <p className="body-m text-left text-neutral-rich-gray">Team Members ({teamDetail?.members.length || 0})</p>
         {(teamDetail?.members || []).map((member) => {
-          const memberInfo = member.info.about || {};
+          const memberInfo = member.info.About || {};
           return (
             <div className="flex items-center justify-between py-2" key={member.userId}>
               <span className="flex  items-center gap-2 ">

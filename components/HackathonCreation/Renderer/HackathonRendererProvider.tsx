@@ -2,7 +2,7 @@ import { getHackathonRegisterSteps } from '@/app/[lang]/(web)/(other)/form/hacka
 
 import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import { FC, ReactNode, createContext, useContext, useMemo } from 'react';
-import { CustomComponentConfig, PresetComponentConfig } from '../type';
+import { CustomComponentConfig, PresetComponentConfig, SubmissionSectionType } from '../type';
 import { PresetComponentMap } from '..';
 import { z } from 'zod';
 
@@ -17,6 +17,7 @@ interface HackathonRenderProviderProps {
   onNext: (state?: Partial<ProjectSubmitStateType | HackathonRegisterStateType | any>) => void;
   onBack: VoidFunction;
   prizeTracks: string[];
+  handleType?: 'submission' | 'edit';
 }
 
 type HackathonRendererContextType = Omit<HackathonRenderProviderProps, 'children' | 'simpleHackathonInfo'> & {
@@ -28,11 +29,18 @@ const HackathonRendererContext = createContext<HackathonRendererContextType>({
   hackathonSteps: [],
   onNext: () => {},
   onBack: () => {},
-  prizeTracks: []
+  prizeTracks: [],
+  handleType: 'submission'
 });
 
-export const HackathonRendererProvider: FC<HackathonRenderProviderProps> = ({ children, ...rest }) => {
-  return <HackathonRendererContext.Provider value={rest}>{children}</HackathonRendererContext.Provider>;
+export const HackathonRendererProvider: FC<HackathonRenderProviderProps> = ({
+  children,
+  handleType = 'submission',
+  ...rest
+}) => {
+  return (
+    <HackathonRendererContext.Provider value={{ ...rest, handleType }}>{children}</HackathonRendererContext.Provider>
+  );
 };
 
 export const useHackathonConfig = (): HackathonRendererContextType => {
@@ -41,11 +49,22 @@ export const useHackathonConfig = (): HackathonRendererContextType => {
   return context;
 };
 
-export const useValidatorFormSchema = (sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[]) => {
+export const useValidatorFormSchema = (
+  sectionConfig:
+    | (PresetComponentConfig<{}, {}> | CustomComponentConfig)[]
+    | { [Key in SubmissionSectionType]: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[] },
+  isFlat = false
+) => {
   const formSchema = useMemo(() => {
     let schema = {};
 
-    sectionConfig.forEach((cfg) => {
+    if (isFlat) {
+      sectionConfig = Object.values(sectionConfig).reduce((prev, curr) => {
+        return [...prev, ...curr];
+      }, []);
+    }
+
+    (sectionConfig as (PresetComponentConfig<{}, {}> | CustomComponentConfig)[]).forEach((cfg) => {
       const fullConfig = PresetComponentMap[cfg.type];
       if (fullConfig) {
         const mergeConfig = { ...fullConfig, ...cfg };
@@ -56,6 +75,7 @@ export const useValidatorFormSchema = (sectionConfig: (PresetComponentConfig<{},
         schema = { ...schema, [cfg.id]: cfg.optional ? validator.optional() : validator };
       }
     });
+
     return z.object(schema);
   }, []);
 

@@ -61,12 +61,12 @@ function TeamMemberCard({
         <Image
           src={member.avatar}
           fill
-          alt={member.info?.about?.firstName + ` ` + member.info?.about?.lastName}
+          alt={member.info?.About?.firstName + ` ` + member.info?.About?.lastName}
           className="rounded-full"
         />
       </div>
       <span className="body-m ml-2 text-neutral-off-black">
-        {member.info?.about?.firstName + ` ` + member.info?.about?.lastName} {isAdmin && '(You)'}
+        {member.info?.About?.firstName + ` ` + member.info?.About?.lastName} {isAdmin && '(You)'}
       </span>
       {isAdmin ? (
         <span className="body-m ml-auto text-neutral-medium-gray">Admin</span>

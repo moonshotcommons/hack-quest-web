@@ -17,7 +17,7 @@ const IsPublicRadio = ({ form, requiredTag }: ProjectTypeRadioProps) => {
             form.trigger('isOpenSource');
           }}
           className={cn(
-            `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+            `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white bg-white px-5 py-3`,
             form.watch('isOpenSource') === true
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : ''
@@ -31,7 +31,7 @@ const IsPublicRadio = ({ form, requiredTag }: ProjectTypeRadioProps) => {
             form.trigger('isOpenSource');
           }}
           className={cn(
-            `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white px-5 py-3`,
+            `body-m flex h-[50px]  w-full cursor-pointer items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white bg-neutral-white px-5 py-3`,
             form.watch('isOpenSource') === false
               ? 'border-yellow-dark bg-yellow-extra-light shadow-[0px_0px_8px_0px_rgba(249,216,28,0.30)]'
               : ''

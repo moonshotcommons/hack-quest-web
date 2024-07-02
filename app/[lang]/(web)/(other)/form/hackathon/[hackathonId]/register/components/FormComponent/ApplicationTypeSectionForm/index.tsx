@@ -26,6 +26,7 @@ import { HACKQUEST_DISCORD } from '@/constants/links';
 import Link from 'next/link';
 import LinkArrow from '@/components/Common/LinkArrow';
 import GroupProjectForm from './GroupProjectForm';
+import { omit } from 'lodash-es';
 
 interface ApplicationTypeSectionFormProps {
   sectionConfig: {
@@ -86,7 +87,7 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
     async (values: Record<string, string>) => {
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.ApplicationType);
       const state = {
-        info: info,
+        info: omit(info, ApplicationSectionType.ApplicationType),
         status: nextStep.type
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);

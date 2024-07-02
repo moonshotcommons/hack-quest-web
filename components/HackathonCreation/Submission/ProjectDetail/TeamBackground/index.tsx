@@ -11,12 +11,13 @@ export interface TeamBackgroundProps {
   placeholder: string;
   maxField: number;
   validator?: any;
+  config: PresetComponentConfig;
 }
 
-const TeamBackground: FC<TeamBackgroundProps> = (props) => {
-  return <FormTextarea {...props} className="h-[76px]" />;
+const TeamBackground: FC<TeamBackgroundProps> = ({ config, label, ...props }) => {
+  const requiredTag = config.optional ? ' (Optional)' : '*';
+  return <FormTextarea {...props} className="h-[76px]" label={label + requiredTag} />;
 };
-
 TeamBackground.displayName = 'TeamBackground';
 
 export const TeamBackgroundConfig: PresetComponentConfig<TeamBackgroundProps> = {

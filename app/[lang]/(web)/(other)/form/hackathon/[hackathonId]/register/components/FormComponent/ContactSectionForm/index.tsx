@@ -11,7 +11,7 @@ import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { getHackathonStepInfo } from '../../constants';
-import { isEqual } from 'lodash-es';
+import { isEqual, omit } from 'lodash-es';
 import {
   useHackathonConfig,
   useValidatorFormSchema
@@ -54,8 +54,8 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.Contact);
       const state = {
         info: {
-          ...info,
-          contact: values
+          ...omit(info, ApplicationSectionType.ApplicationType),
+          [ApplicationSectionType.Contact]: values
         },
         status: nextStep.type
       };

@@ -29,10 +29,15 @@ export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: SubmissionSectionType |
   }
 ];
 
-export const getHackathonSubmissionSteps = (application: SimpleHackathonInfo['info']['submission']) => {
+export const getHackathonSubmissionSteps = (
+  application: SimpleHackathonInfo['info']['submission'],
+  ignoreTypes: string[] = []
+) => {
   const sections = Object.keys(application) as SubmissionSectionType[];
   return HACKATHON_SUBMIT_STEPS.filter(
-    (item) => sections.includes(item.type as SubmissionSectionType) || item.type === 'Review'
+    (item) =>
+      (sections.includes(item.type as SubmissionSectionType) || item.type === 'Review') &&
+      !ignoreTypes.includes(item.type)
   ).map((item, index) => ({ ...item, stepNumber: index }));
 };
 

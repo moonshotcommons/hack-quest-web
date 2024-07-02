@@ -1,12 +1,27 @@
-import React from 'react';
-import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
+import React, { Fragment, useEffect, useRef } from 'react';
+import { ProjectType, SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 
 import { OffsetTopsType } from '../../../../../constants/type';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import Nav from '../Nav';
+import { getHackathonSubmissionSteps } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
+import {
+  HackathonRendererProvider,
+  useValidatorFormSchema
+} from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
+import Title from '@/components/Common/Title';
+import { CustomComponentConfig, SubmissionSectionType } from '@/components/HackathonCreation/type';
+import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { isEqual } from 'lodash-es';
+import { Form } from '@/components/ui/form';
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
   project: ProjectType;
-  hackathon: HackathonType;
+  hackathon: SimpleHackathonInfo;
   handleClickAnchor: (index: number) => void;
   curAnchorIndex: number;
   offsetTops: OffsetTopsType[];
@@ -22,149 +37,37 @@ const Content: React.FC<ContentProp> = ({
   handleClickAnchor,
   isClose
 }) => {
-  // const boxRef = useRef<HTMLFormElement>(null);
-  // const sectionData = getSectionData(hackathon.id);
-  // const getOffsetTops = () => {
-  //   const offsetTops = [];
-  //   const childNodes = boxRef.current?.childNodes || [];
-  //   for (let i = 0; i < childNodes?.length; i++) {
-  //     const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
-  //     offsetTops.push({
-  //       title: `${sectionData[i]}`,
-  //       offsetTop: offsetTop
-  //     });
-  //   }
-  //   setOffsetTop(offsetTops);
-  // };
-  // const [logo, setLogo] = useState<UploadFile | null>(null);
+  const boxRef = useRef<HTMLFormElement>(null);
+  const fullSectionConfig = hackathon.info.submission;
+  const sectionData = getHackathonSubmissionSteps(fullSectionConfig, ['Review']);
 
-  // const { redirectToUrl } = useRedirect();
+  const formSchema = useValidatorFormSchema(fullSectionConfig, true);
 
-  // const exitConfirmRef = useRef<ConfirmModalRef>(null);
+  const form = useForm({
+    resolver: zodResolver(formSchema)
+  });
 
-  // useEffect(() => {
-  //   getOffsetTops();
-  // }, [project]);
+  const getOffsetTops = () => {
+    const offsetTops = [];
+    const childNodes = boxRef.current?.childNodes || [];
+    const navData = sectionData.map((s) => s.title as string);
+    for (let i = 0; i < childNodes?.length; i++) {
+      const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
+      offsetTops.push({
+        title: `${navData[i]}`,
+        offsetTop: offsetTop
+      });
+    }
+    setOffsetTop(offsetTops);
+  };
 
-  // const links = typeof project.links === 'string' ? JSON.parse(project.links as string) : project.links;
+  const { redirectToUrl } = useRedirect();
 
-  // const formSchema = z.object({
-  //   projectLogo: z.string().url(),
-  //   projectName: z.string().min(1, {
-  //     message: 'Project Name must be at least 2 characters.'
-  //   }),
-  //   location: z.string().min(1),
-  //   prizeTrack: z.string().min(1),
-  //   track: z.string().min(1),
-  //   githubLink: z.string().min(0).optional(),
-  //   isPublic: z.boolean(),
-  //   submitType: z.string().min(0),
-  //   efrog: z.boolean(),
-  //   croak: z.boolean(),
-  //   demo: z.string().url(),
-  //   figma: z.string().min(0).optional(),
-  //   playstore: z.string().min(0).optional(),
-  //   googleDrive: z.string().min(0).optional(),
-  //   other: z.string().min(0).optional(),
-  //   contractLink: z.string().url(),
-  //   projectLink: z.string().url(),
-  //   socialLink: z.string().url(),
-  //   partnerTooling: z.string().min(1).max(360),
-  //   tagline: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-  //   technologies: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-  //   solvedProblem: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-  //   challenges: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-  //   teamID: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-  //   roomNumber: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-  //   intro: z
-  //     .string()
-  //     .min(1, {
-  //       message: 'Intro must be at least 2 characters.'
-  //     })
-  //     .max(120, {
-  //       message: 'The intro field cannot exceed 160 characters'
-  //     }),
-  //   detailedIntro: z
-  //     .string()
-  //     .min(1, {
-  //       message: 'detailedIntro must be at least 16 characters.'
-  //     })
-  //     .max(600, {
-  //       message: 'The detailed intro field cannot exceed 600 characters'
-  //     })
-  // });
+  const exitConfirmRef = useRef<ConfirmModalRef>(null);
 
-  // const defaultValues: z.infer<typeof formSchema> = {
-  //   projectLogo: project.thumbnail,
-  //   projectName: project.name,
-  //   intro: project.introduction,
-  //   location: project.location,
-  //   prizeTrack: project.prizeTrack,
-  //   detailedIntro: project.description,
-  //   track: project.tracks.join(','),
-  //   isPublic: project.isOpenSource,
-  //   githubLink: project.githubLink,
-  //   efrog: project.efrog,
-  //   demo: project.demo,
-  //   figma: links?.figma || '',
-  //   playstore: links?.playstore || '',
-  //   googleDrive: links?.googleDrive || '',
-  //   other: links?.other || '',
-  //   tagline: project.tagline,
-  //   technologies: project.technologies,
-  //   solvedProblem: project.solvedProblem,
-  //   challenges: project.challenges,
-  //   teamID: project.teamID,
-  //   roomNumber: project.roomNumber,
-  //   croak: project.croak,
-  //   submitType: project.submitType,
-  //   contractLink: links.contractLink || '',
-  //   projectLink: links.projectLink || '',
-  //   socialLink: links.socialLink || '',
-  //   partnerTooling: links.partnerTooling || ''
-  // };
-
-  // console.log(project);
-
-  // const form = useForm<z.infer<typeof formSchema>>({
-  //   resolver: zodResolver(formSchema),
-  //   defaultValues: defaultValues
-  //   // disabled: isClose
-  // });
-
-  // const otherFormDisable =
-  //   typeof form.getValues('isPublic') !== 'boolean' ||
-  //   (form.getValues('isPublic') === true && !(form.getValues('githubLink') || '').trim());
-
-  // const infoDisable =
-  //   !form.getValues('projectName') ||
-  //   !form.getValues('projectLogo') ||
-  //   !form.getValues('prizeTrack') ||
-  //   (!form.getValues('intro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-  //   (!form.getValues('detailedIntro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-  //   (form.getValues('track').split(',').length < 1 && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-  //   (hackathon.id === HackathonPartner.Hack4Bengal &&
-  //     (!form.getValues('solvedProblem') ||
-  //       !form.getValues('tagline') ||
-  //       !form.getValues('technologies') ||
-  //       !form.getValues('challenges') ||
-  //       !form.getValues('teamID') ||
-  //       !form.getValues('roomNumber')));
-
-  // const projectDisable =
-  //   (typeof form.getValues('efrog') !== 'boolean' ||
-  //     typeof form.getValues('croak') !== 'boolean' ||
-  //     !form.getValues('submitType')) &&
-  //   hackathon.id !== HackathonPartner.Hack4Bengal;
-
-  // const linksDisable =
-  //   (!form.getValues('contractLink') ||
-  //     !form.getValues('projectLink') ||
-  //     !form.getValues('socialLink') ||
-  //     !form.getValues('partnerTooling')) &&
-  //   hackathon.id !== HackathonPartner.Hack4Bengal;
-
-  // const demoVideoDisable = !form.getValues('demo') && hackathon.id === HackathonPartner.Hack4Bengal;
+  useEffect(() => {
+    getOffsetTops();
+  }, [project]);
 
   // const { runAsync: onSubmitRequest, loading } = useRequest(
   //   async () => {
@@ -259,57 +162,75 @@ const Content: React.FC<ContentProp> = ({
   //   }
   // );
 
-  // const onSubmit = () => {
-  //   if (isEqual(defaultValues, form.getValues())) {
-  //     redirectToUrl(`/hackathon/projects/${project.id}`);
-  //   } else {
-  //     onSubmitRequest();
-  //   }
-  // };
+  const onSubmit = () => {
+    if (isEqual({}, form.getValues())) {
+      redirectToUrl(`/hackathon/projects/${project.id}`);
+    } else {
+      // onSubmitRequest();
+    }
+  };
 
-  // const onExit = () => {
-  //   if (isEqual(defaultValues, form.getValues()) || isClose) {
-  //     redirectToUrl(`/hackathon/projects/${project.id}`);
-  //   } else {
-  //     exitConfirmRef.current?.open({
-  //       onConfirm: onSubmitRequest
-  //     });
-  //   }
-  // };
+  const onExit = () => {
+    if (isEqual({}, form.getValues()) || isClose) {
+      redirectToUrl(`/hackathon/projects/${project.id}`);
+    } else {
+      // exitConfirmRef.current?.open({
+      //   onConfirm: onSubmitRequest
+      // });
+    }
+  };
+
+  const sortSectionKeys = (Object.keys(fullSectionConfig) as SubmissionSectionType[]).sort((a, b) => {
+    return sectionData.findIndex((step) => step.type === a) - sectionData.findIndex((step) => step.type === b);
+  });
 
   return (
-    <>
-      <div className="relative">
-        {/* <Nav
-          sectionData={sectionData}
-          curAnchorIndex={curAnchorIndex}
-          offsetTops={offsetTops}
-          handleClickAnchor={handleClickAnchor}
-          onSava={onSubmit}
-          onExit={onExit}
-          submitDisable={
-            isClose || infoDisable || otherFormDisable || projectDisable || linksDisable || demoVideoDisable
-          }
-        />
-      </div>
-      <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-[60px]" ref={boxRef}>
-            <Info form={form as any} setLogo={setLogo} hackathon={hackathon} isClose={isClose} />
-            {hackathon.id === HackathonPartner.Linea && <Project form={form as any} isClose={isClose} />}
-            <Videos project={project} isClose={isClose} form={form as any} />
-            {hackathon.id === HackathonPartner.Linea && <Links form={form as any} isClose={isClose} />}
-            <Others form={form as any} isClose={isClose} project={project} />
-            {hackathon.id !== HackathonPartner.Hack4Bengal && <Wallet project={project} isClose={isClose} />}
-          </form>
-        </Form>
-        <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
-          <h4 className="text-h4 text-center text-neutral-black">
-            Do you want to save the submission process & leave?
-          </h4>
-        </ConfirmModal> */}
-      </div>
-    </>
+    <HackathonRendererProvider
+      simpleHackathonInfo={hackathon}
+      hackathonSteps={sectionData}
+      onNext={() => {}}
+      onBack={() => {}}
+      prizeTracks={hackathon.rewards.map((item) => item.name)}
+      handleType="edit"
+    >
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex">
+          <div className="relative">
+            <Nav
+              sectionData={sectionData.map((s) => s.title as string)}
+              curAnchorIndex={curAnchorIndex}
+              offsetTops={offsetTops}
+              handleClickAnchor={handleClickAnchor}
+              onSava={onSubmit}
+              onExit={onExit}
+              submitDisable={isClose}
+            />
+          </div>
+          <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
+            {sortSectionKeys.map((sectionKey) => {
+              const sectionConfig = fullSectionConfig[sectionKey];
+              return (
+                <div key={sectionKey} className="flex flex-col gap-8">
+                  <Title>
+                    <span className="text-h3">{sectionKey}</span>
+                  </Title>
+                  <div className="flex flex-col gap-8 text-neutral-rich-gray">
+                    {sectionConfig.map((config, index) => {
+                      return (
+                        <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </form>
+      </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
+    </HackathonRendererProvider>
   );
 };
 

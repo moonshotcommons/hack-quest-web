@@ -1,25 +1,21 @@
 import MenuLink from '@/constants/MenuLink';
 import { cn } from '@/helper/utils';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
-import { useUserStore } from '@/store/zustand/userStore';
 import React, { useState } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 import Image from 'next/image';
 import { BurialPoint } from '@/helper/burialPoint';
 import DropDownMotion from '@/components/Common/DropDownMotion';
 import UserDropCard from '../../Business/UserDropCard';
 import { LoginResponse } from '@/service/webApi/user/type';
 
-interface AvatarProp {}
+interface AvatarProp {
+  userInfo: Partial<LoginResponse> | null;
+}
 
-const Avatar: React.FC<AvatarProp> = () => {
+const Avatar: React.FC<AvatarProp> = ({ userInfo }) => {
   const pathname = useCustomPathname();
   const [showUserDropCard, setShowUserDropCard] = useState(false);
-  const { userInfo } = useUserStore(
-    useShallow((state) => ({
-      userInfo: state.userInfo
-    }))
-  );
+
   return (
     <div
       className={`relative  flex h-full items-center `}

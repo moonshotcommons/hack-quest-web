@@ -4,22 +4,33 @@ import FormRadioItem from '@/components/Common/FormComponent/FormRadio/FormRadio
 import { CustomComponentConfig } from '@/components/HackathonCreation/type';
 import { PresetComponentMap } from '..';
 import { CustomFormComponentType } from '../constants';
+import { cn } from '@/helper/utils';
 
 export const renderFormComponent = (config: CustomComponentConfig, form: any) => {
   const name = config.property?.name ? config.property?.name : config.id;
   let label = (config as CustomComponentConfig).property.label;
-  label = config.optional && label ? label : label + '*';
+  label = config.optional && label ? label + ' (Optional)' : label + '*';
 
   switch (config.type) {
     case CustomFormComponentType.Input:
       return <FormInput form={form} {...config.property} label={label} name={name} />;
     case CustomFormComponentType.Radio:
       return (
-        <FormRadio form={form} {...config.property} label={label} name={name}>
+        // <div className="!w-full">
+        <FormRadio
+          form={form}
+          {...config.property}
+          label={label}
+          name={name}
+          className={cn('flex w-full flex-wrap justify-between gap-5', {
+            '[&>div]:w-[calc((100%-20px)/2)]': config.property.options.length > 1
+          })}
+        >
           {config.property.options.map((option, index) => (
             <FormRadioItem value={option} key={String(option) + index} label={String(option)} />
           ))}
         </FormRadio>
+        // </div>
       );
     case CustomFormComponentType.Select:
       return null;
