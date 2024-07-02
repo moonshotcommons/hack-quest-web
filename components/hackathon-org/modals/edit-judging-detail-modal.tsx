@@ -17,6 +17,7 @@ import { Slider } from '@/components/ui/slider';
 import { TextField } from '@/components/ui/text-field';
 import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
+import { message } from 'antd';
 
 const formSchema = z
   .object({
@@ -28,7 +29,7 @@ const formSchema = z
       .max(360, {
         message: 'Field cannot exceed 360 characters'
       }),
-    judgeMode: z.enum(['all', 'judges']).optional(),
+    judgeMode: z.enum(['all', 'judges']).nullable().default(null).optional(),
     disableJudge: z.boolean().default(false).optional(),
     voteMode: z.enum(['fixed', 'score']).optional(),
     judgeTotalVote: z.string().optional(),
@@ -115,11 +116,11 @@ export type JudgeAccount = {
 export function EditJudgingDetailModal({
   open,
   initialValues,
-  onOpenChange
+  onClose
 }: {
   open?: boolean;
   initialValues?: any;
-  onOpenChange?: (open: boolean) => void;
+  onClose?: () => void;
 }) {
   const queryClient = useQueryClient();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
@@ -142,7 +143,7 @@ export function EditJudgingDetailModal({
     mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
     onSuccess: (data) => {
       setJudgeAccounts((prev) => [...prev, data]);
-      form.resetField('judgeAccount');
+      form.resetField('judgeAccount', { defaultValue: '' });
     },
     onError: (error: any) => {
       if (error.code === 404) {
@@ -153,18 +154,14 @@ export function EditJudgingDetailModal({
     }
   });
 
-  const createMutation = useMutation({
-    mutationKey: ['createJudge'],
-    mutationFn: (data: any) => webApi.hackathonV2Api.createHackathonJudge(data),
+  const mutation = useMutation({
+    mutationKey: ['updateJudge', initialValues?.id],
+    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathonJudge(initialValues?.id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
-      onClose();
+      message.success('Success');
+      handleClose();
     }
-  });
-
-  const updateMutation = useMutation({
-    mutationKey: ['updateJudge', initialValues?.id],
-    mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathonJudge(initialValues?.id, data)
   });
 
   const disableJudge = form.watch('disableJudge');
@@ -214,7 +211,14 @@ export function EditJudgingDetailModal({
       rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
       resource: data.resource,
-      disableJudge: data.disableJudge
+      disableJudge: data.disableJudge,
+      judgeMode: null,
+      voteMode: null,
+      judgeTotalVote: null,
+      judgeProjectVote: null,
+      projectJudgeCount: null,
+      votesProportion: [],
+      judgeAccounts: []
     };
     if (!data.disableJudge) {
       values = {
@@ -253,16 +257,72 @@ export function EditJudgingDetailModal({
         }
       }
     }
-    updateMutation.mutate(values);
+    mutation.mutate(values);
   }
 
-  function onClose() {
-    onOpenChange?.(false);
+  function onReset() {
     form.reset();
+    latestJudgeMode.current = undefined;
+    setUserVotes(50);
+    setJudgeVotes(50);
+    setSliderValue(50);
+    setJudgeAccounts([]);
   }
+
+  function handleClose() {
+    onReset();
+    onClose?.();
+  }
+
+  React.useEffect(() => {
+    if (initialValues && open && initialValues?.disableJudge !== null) {
+      if (!initialValues?.disableJudge) {
+        latestJudgeMode.current = initialValues?.judgeMode;
+        if (initialValues?.judgeMode === 'all') {
+          form.reset({
+            resource: initialValues?.resource || '',
+            disableJudge: initialValues?.disableJudge,
+            judgeMode: initialValues?.judgeMode,
+            voteMode: initialValues?.voteMode,
+            judgeTotalVote: z.coerce.string().parse(initialValues?.judgeTotalVote || ''),
+            judgeProjectVote: z.coerce.string().parse(initialValues?.judgeProjectVote || '')
+          });
+        } else {
+          if (initialValues?.voteMode === 'fixed') {
+            form.reset({
+              resource: initialValues?.resource || '',
+              disableJudge: initialValues?.disableJudge,
+              judgeMode: initialValues?.judgeMode,
+              voteMode: initialValues?.voteMode,
+              judgeProjectVote: z.coerce.string().parse(initialValues?.judgeProjectVote || '')
+            });
+          } else {
+            form.reset({
+              resource: initialValues?.resource || '',
+              disableJudge: initialValues?.disableJudge,
+              judgeMode: initialValues?.judgeMode,
+              voteMode: initialValues?.voteMode,
+              projectJudgeCount: z.coerce.string().parse(initialValues?.projectJudgeCount || ''),
+              judgeProjectVote: z.coerce.string().parse(initialValues?.judgeProjectVote || '')
+            });
+          }
+        }
+      } else {
+        form.reset({
+          resource: initialValues?.resource || '',
+          disableJudge: initialValues?.disableJudge
+        });
+      }
+      setUserVotes(initialValues?.votesProportion?.[0] || 50);
+      setJudgeVotes(initialValues?.votesProportion?.[1] || 50);
+      setSliderValue(initialValues?.votesProportion?.[0] || 50);
+      setJudgeAccounts(initialValues?.judgeAccounts);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues, open]);
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
         className="flex w-[888px] max-w-[888px] flex-col gap-6 overflow-y-auto px-10 pb-10 pt-[60px] shadow-modal"
         onOpenAutoFocus={(e) => e.preventDefault()}
@@ -320,15 +380,18 @@ export function EditJudgingDetailModal({
                   <FormControl>
                     <RadioGroup
                       key={key}
-                      value={field.value}
+                      value={field.value as string}
                       onValueChange={(value) => {
                         field.onChange(value as any);
                         latestJudgeMode.current = value;
+                        if (value === 'all') {
+                          form.resetField('voteMode', { defaultValue: 'fixed' });
+                        }
                       }}
                       className="w-full grid-cols-2"
                     >
                       <FormControl>
-                        <RadioGroupItem disabled={disableJudge} value="all">
+                        <RadioGroupItem disabled={disableJudge || initialValues?.disabledAll} value="all">
                           Users + Judges
                         </RadioGroupItem>
                       </FormControl>
@@ -356,11 +419,11 @@ export function EditJudgingDetailModal({
                         field.onChange(checked as boolean);
                         setKey(+new Date());
                         if (checked) {
-                          form.resetField('judgeMode');
+                          form.resetField('judgeMode', { defaultValue: null });
                         } else {
                           if (latestJudgeMode.current) {
                             // @ts-expect-error
-                            form.setValue('judgeMode', latestJudgeMode.current);
+                            form.resetField('judgeMode', { defaultValue: latestJudgeMode.current });
                           }
                         }
                       }}
@@ -590,13 +653,13 @@ export function EditJudgingDetailModal({
           </form>
         </Form>
         <div className="flex shrink-0 justify-end gap-4">
-          <Button className="w-[165px]" variant="outline" onClick={onClose}>
+          <Button className="w-[165px]" variant="outline" onClick={handleClose}>
             Cancel
           </Button>
           <Button
             className="w-[165px]"
             disabled={!isValid}
-            isLoading={createMutation.isPending}
+            isLoading={mutation.isPending}
             onClick={() => {
               submitInputRef.current?.click();
             }}

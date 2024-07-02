@@ -77,7 +77,7 @@ export function BasicInfoForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
-  const { updateStatus, onNext } = useHackathonOrgState();
+  const { updateStatus, onStepChange } = useHackathonOrgState();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -101,7 +101,7 @@ export function BasicInfoForm({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'info'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
-      isEditMode ? onSave?.() : onNext();
+      isEditMode ? onSave?.() : onStepChange(Steps.LINKS);
     }
   });
 
@@ -120,7 +120,12 @@ export function BasicInfoForm({
     if (initialValues) {
       form.reset({
         name: initialValues?.name,
-        ...initialValues?.info
+        host: initialValues?.info?.host || '',
+        intro: initialValues?.info?.intro || '',
+        description: initialValues?.info?.description || '',
+        conduct: initialValues?.info?.conduct || '',
+        mode: initialValues?.info?.mode || 'HYBRID',
+        address: initialValues?.info?.address || ''
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

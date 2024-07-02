@@ -12,8 +12,8 @@ class HackathonApi {
     this.service = service;
   }
 
-  getHackathon(id: string) {
-    return this.service.get<HackathonType>(`${HackathonApiUrl.HACKATHONS}/${id}`);
+  getHackathon(alias: string) {
+    return this.service.get<HackathonType>(`${HackathonApiUrl.HACKATHONS}/${alias}`);
   }
 
   createHackathon(data: { name: string }) {
@@ -62,9 +62,9 @@ class HackathonApi {
   }
 
   updateHackathonJudge(judgeId: string, data: Record<string, any>) {
-    const { id, ...rest } = data;
-    return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${id}/judge/${judgeId}`, {
-      data: rest
+    const hackathonId = data.hackathonId;
+    return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge/${judgeId}`, {
+      data
     });
   }
 

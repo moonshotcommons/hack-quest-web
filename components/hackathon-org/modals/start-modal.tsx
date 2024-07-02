@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Link from 'next/link';
 import * as z from 'zod';
-import { message } from 'antd';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/helper/utils';
 import { HACKQUEST_DISCORD } from '@/constants/links';
 import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 const formSchema = z.object({
   name: z
@@ -35,6 +35,9 @@ interface StartModalProps {
 
 export function StartModal({ open, onClose }: StartModalProps) {
   const router = useRouter();
+
+  const [isPending, startTransition] = React.useTransition();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,18 +45,20 @@ export function StartModal({ open, onClose }: StartModalProps) {
     }
   });
 
-  const { mutate, isPending } = useMutation({
+  const mutation = useMutation({
     mutationFn: (data: { name: string }) => webApi.hackathonV2Api.createHackathon(data),
     onSuccess: (data) => {
-      router.push(`/form/hackathon/organizer/${data.id}/create`);
+      startTransition(() => {
+        router.push(`/form/hackathon/organizer/${data.alias}/create`);
+      });
     },
     onError: (error) => {
-      message.error(error.message);
+      errorMessage(error);
     }
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutate(data);
+    mutation.mutate(data);
   }
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -94,7 +99,7 @@ export function StartModal({ open, onClose }: StartModalProps) {
             />
             <Button
               type="submit"
-              isLoading={isPending}
+              isLoading={mutation.isPending}
               disabled={!form.formState.isValid || isPending}
               className="w-60"
             >

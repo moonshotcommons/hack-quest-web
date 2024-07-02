@@ -1,13 +1,12 @@
 export enum Steps {
-  BASIC_INFO = 1,
-  // JUDGING = 2,
-  LINKS = 2,
-  COVER = 3,
-  TIMELINE = 4,
-  REWARDS = 5,
-  APPLICATION = 6,
-  SUBMISSION = 7,
-  JUDGING = 8
+  BASIC_INFO = 'info',
+  LINKS = 'links',
+  COVER = 'cover',
+  TIMELINE = 'timeline',
+  APPLICATION = 'application',
+  SUBMISSION = 'submission',
+  REWARDS = 'rewards',
+  JUDGING = 'judge'
 }
 
 export const STEP_ITEMS = [
@@ -15,10 +14,6 @@ export const STEP_ITEMS = [
     value: Steps.BASIC_INFO,
     label: 'Info'
   },
-  // {
-  //   value: Steps.JUDGING,
-  //   label: 'Judging'
-  // },
   {
     value: Steps.LINKS,
     label: 'Links'
@@ -32,16 +27,16 @@ export const STEP_ITEMS = [
     label: 'Timeline'
   },
   {
-    value: Steps.REWARDS,
-    label: 'Rewards'
-  },
-  {
     value: Steps.APPLICATION,
     label: 'Appl.'
   },
   {
     value: Steps.SUBMISSION,
     label: 'Sub.'
+  },
+  {
+    value: Steps.REWARDS,
+    label: 'Rewards'
   },
   {
     value: Steps.JUDGING,
