@@ -15,9 +15,9 @@ const Hackathon: FC<HackathonProps> = async ({ searchParams = {}, params: { lang
   const status = searchParams.curTab || HackathonStatusType.ON_GOING;
   try {
     const hackathons = await getHackathonsByCreator();
-
     return <Dashboard curTab={status} hackathons={hackathons || []} />;
   } catch (error) {
+    console.info(error);
     // permanentRedirect(`/`);
   }
 };
