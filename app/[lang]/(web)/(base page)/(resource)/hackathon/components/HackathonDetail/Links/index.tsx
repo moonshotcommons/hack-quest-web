@@ -15,10 +15,12 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const links = useMemo(() => {
     const keys = Object.keys(hackathon.links?.links) || [];
-    const ls = keys.map((v) => ({
-      label: v,
-      value: hackathon.links?.links?.[v]
-    }));
+    const ls = keys
+      .map((v) => ({
+        label: v,
+        value: hackathon.links?.links?.[v]
+      }))
+      .filter((v) => v.value);
     return ls || [];
   }, [hackathon]);
   const { navs } = useContext(HackathonEditContext);
@@ -37,8 +39,8 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
           </div>
         </div>
         <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">
-          {links.map((v) => (
-            <div key={v.value}>
+          {links.map((v, i) => (
+            <div key={i}>
               <p className="capitalize">{v.label}</p>
               <p className="mt-[4px] text-neutral-off-black">{v.value}</p>
             </div>

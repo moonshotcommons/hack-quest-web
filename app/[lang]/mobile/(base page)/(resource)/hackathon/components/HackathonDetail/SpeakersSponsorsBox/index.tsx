@@ -20,12 +20,12 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
   const [showAll, setShowAll] = useState(false);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
   const list = useMemo(() => {
-    return hackathon.info?.[type]?.list || [];
+    return hackathon.info?.sections?.[type]?.list || [];
   }, [hackathon, type]);
   if (!list.length) return null;
   return (
     <EditBox
-      title={hackathon.info?.[type]?.title || `hackathonDetail.${type}`}
+      title={hackathon.info?.sections?.[type]?.title || `hackathonDetail.${type}`}
       className="border-none bg-transparent p-0"
       type={type as HackathonEditModalType}
       handleDelete={() => removeSectionRef.current?.open()}

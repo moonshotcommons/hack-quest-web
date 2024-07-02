@@ -41,13 +41,13 @@ const FAQs: React.FC<FAQsProp> = ({ hackathon }) => {
   };
   useEffect(() => {
     const newList =
-      hackathon.info?.faqs?.list?.map((v) => ({
+      hackathon.info?.sections?.faqs?.list?.map((v) => ({
         ...v,
         isExpand: false
       })) || [];
     setFaqs(newList);
   }, [hackathon]);
-  if (!hackathon.info?.faqs?.list?.length) return;
+  if (!hackathon.info?.sections?.faqs?.list?.length) return;
   return (
     <EditBox
       title={'FAQs'}

@@ -15,16 +15,16 @@ const Submission: React.FC<SubmissionProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const submission = useMemo(() => {
     const sub = hackathon.info?.submission || {};
-    const Additions = sub.Additions.filter((v) => v.selected)
+    const Additions = sub.Additions?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const BasicInfo = sub.BasicInfo.filter((v) => v.selected)
+    const BasicInfo = sub.BasicInfo?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const ProjectDetail = sub.ProjectDetail.filter((v) => v.selected)
+    const ProjectDetail = sub.ProjectDetail?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const Videos = sub.Videos.filter((v) => v.selected)
+    const Videos = sub.Videos?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
     return {

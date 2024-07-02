@@ -9,6 +9,7 @@ interface OnGoingProp {
 }
 
 const OnGoing: React.FC<OnGoingProp> = ({ hackathonList, isDashboard }) => {
+  if (isDashboard && !hackathonList.length) return null;
   return (
     <>
       {!hackathonList.length ? (

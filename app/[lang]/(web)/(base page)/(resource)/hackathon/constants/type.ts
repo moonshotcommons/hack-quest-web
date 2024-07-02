@@ -61,7 +61,7 @@ export enum HackathonEditModalType {
   INFO = 'info',
   TIMELINE = 'timeline',
   REWARDS = 'rewards',
-  JUDGING = 'judging',
+  JUDGE = 'judge',
   APPLICATION = 'application',
   SUBMISSION = 'submission',
   LINKS = 'links',

@@ -32,3 +32,8 @@ export const modalList = [
     type: HackathonEditModalType.FAQS
   }
 ];
+
+export const hackathonSections = {
+  require: ['info', 'application', 'submission', 'links', 'cover', 'timeline', 'rewards', 'judge'],
+  optional: ['mediaPartners', 'communityPartners', 'partners', 'speakers', 'sponsors', 'schedule', 'faqs']
+};

@@ -7,11 +7,11 @@ import { TransNs } from '@/i18n/config';
 import BaseImage from '@/components/Common/BaseImage';
 import { HackathonEditModalType } from '../../../constants/type';
 
-interface JudgingProp {
+interface DetailJugingProp {
   hackathon: HackathonType;
 }
 
-const Judging: React.FC<JudgingProp> = ({ hackathon }) => {
+const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
@@ -57,4 +57,4 @@ const Judging: React.FC<JudgingProp> = ({ hackathon }) => {
   );
 };
 
-export default Judging;
+export default DetailJuging;

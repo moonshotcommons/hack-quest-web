@@ -42,7 +42,7 @@ const BaseEditModal: React.FC<BaseEditModalProp> = ({ hackathon }) => {
         return <TimelineForm {...formProp} />;
       case HackathonEditModalType.REWARDS:
         return <RewardsForm {...formProp} />;
-      case HackathonEditModalType.JUDGING:
+      case HackathonEditModalType.JUDGE:
         return <JudgingForm {...formProp} />;
       case HackathonEditModalType.APPLICATION:
         return <ApplicationForm {...formProp} />;

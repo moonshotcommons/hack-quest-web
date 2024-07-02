@@ -4,7 +4,6 @@ import EditBox from '../EditBox';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import BaseImage from '@/components/Common/BaseImage';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 interface JudgingProp {
@@ -15,9 +14,9 @@ const Judging: React.FC<JudgingProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <EditBox title={'hackathonDetail.judging'} type={HackathonEditModalType.JUDGING}>
+    <EditBox title={'hackathonDetail.judge'} type={HackathonEditModalType.JUDGE}>
       <div className="body-s flex flex-col gap-[24px]">
-        <div>
+        {/* <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
           <div className="mt-[4px] whitespace-pre-line text-neutral-rich-gray">{hackathon.judge?.resource}</div>
         </div>
@@ -41,7 +40,7 @@ const Judging: React.FC<JudgingProp> = ({ hackathon }) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </EditBox>
   );

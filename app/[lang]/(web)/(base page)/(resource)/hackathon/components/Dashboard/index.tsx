@@ -39,9 +39,9 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   };
   const hackathons = useMemo(() => {
     const hackathon = {
-      [HackathonStatusType.ON_GOING]: h.filter((v) => !v.enable && v.timeline && !isPast(v.timeline)),
-      [HackathonStatusType.DRAFT]: h.filter((v) => v.enable || !v.timeline),
-      [HackathonStatusType.PAST]: h.filter((v) => !v.enable && v.timeline && isPast(v.timeline))
+      [HackathonStatusType.ON_GOING]: h.filter((v) => v.enable && v.timeline && !isPast(v.timeline)),
+      [HackathonStatusType.DRAFT]: h.filter((v) => !v.enable || !v.timeline),
+      [HackathonStatusType.PAST]: h.filter((v) => v.enable && v.timeline && isPast(v.timeline))
     };
     const newHackathonTab = cloneDeep(hackathonDashboardTab).map((v) => {
       v.count = hackathon[v.value].length || 0;
