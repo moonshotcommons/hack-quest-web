@@ -4,8 +4,6 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditNav from '../../components/HackathonDetail/EditNav';
 import Cover from '../../components/HackathonDetail/Cover';
 import TimeLine from '../../components/HackathonDetail/TimeLine';
-import Rewards from '../../components/HackathonDetail/Rewards';
-import Judging from '../../components/HackathonDetail/Judging';
 import PartnersBox from '../../components/HackathonDetail/PartnersBox';
 import SpeakersSponsorsBox from '../../components/HackathonDetail/SpeakersSponsorsBox';
 import Schedule from '../../components/HackathonDetail/Schedule';
@@ -16,6 +14,8 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { initDetailNavs } from '../../constants/data';
 import Description from '../../components/HackathonDetail/Decription';
 import RewardsProjects from '../../components/HackathonDetail/RewardsProjects';
+import DetailJuging from '../../components/HackathonDetail/DetailJuging';
+import DetailRewards from '../../components/HackathonDetail/DetailRewards';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -107,11 +107,11 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
             <TimeLine hackathon={hackathon} />
             <Description hackathon={hackathon} />
             {navList.some((v) => v.value === 'rewards') ? (
-              <Rewards hackathon={hackathon} />
+              <DetailRewards hackathon={hackathon} />
             ) : (
               <RewardsProjects hackathon={hackathon} />
             )}
-            <Judging hackathon={hackathon} />
+            <DetailJuging hackathon={hackathon} />
             <PartnersBox hackathon={hackathon} type="mediaPartners" />
             <PartnersBox hackathon={hackathon} type="communityPartners" />
             <PartnersBox hackathon={hackathon} type="partners" />

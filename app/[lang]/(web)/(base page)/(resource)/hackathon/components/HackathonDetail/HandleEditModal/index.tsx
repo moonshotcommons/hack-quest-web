@@ -36,7 +36,7 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
         return <FAQsModal hackathon={hackathon} />;
       case HackathonEditModalType.TIMELINE:
       case HackathonEditModalType.REWARDS:
-      case HackathonEditModalType.JUDGING:
+      case HackathonEditModalType.JUDGE:
       case HackathonEditModalType.APPLICATION:
       case HackathonEditModalType.SUBMISSION:
       case HackathonEditModalType.LINKS:

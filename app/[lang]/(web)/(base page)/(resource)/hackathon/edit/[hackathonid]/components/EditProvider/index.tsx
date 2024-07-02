@@ -27,7 +27,7 @@ const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, 
           id: hackathon.id,
           ...data
         },
-        'info'
+        modalType
       )
       .then(() => {
         refreshHackathon();

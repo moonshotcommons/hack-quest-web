@@ -6,7 +6,7 @@ import {
   HackathonType
 } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
-import { modalList } from './data';
+import { hackathonSections, modalList } from './data';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -71,7 +71,34 @@ const useDealHackathonData = () => {
     return newList;
   };
 
-  // const getSection
+  const getSectionProgress = (progress: string[]) => {
+    const { require, optional } = hackathonSections;
+    let requireCompletedLen = 0;
+    const requires = require.map((v) => {
+      const isCompleted = progress.includes(v);
+      isCompleted && (requireCompletedLen += 1);
+      return {
+        value: v,
+        isCompleted
+      };
+    });
+    let optionalCompletedLen = 0;
+    const optionals = optional.map((v) => {
+      const isCompleted = progress.includes(v);
+      isCompleted && (optionalCompletedLen += 1);
+      return {
+        value: v,
+        isCompleted
+      };
+    });
+    return {
+      requires,
+      requireCompletedLen,
+      optionals,
+      optionalCompletedLen,
+      requireCompleted: requireCompletedLen === requires.length
+    };
+  };
 
   return {
     getRunFromTime,
@@ -79,7 +106,8 @@ const useDealHackathonData = () => {
     getParticipantsStr,
     getTotalPrize,
     getStepIndex,
-    dealModalList
+    dealModalList,
+    getSectionProgress
   };
 };
 

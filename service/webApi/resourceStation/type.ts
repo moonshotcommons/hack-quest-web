@@ -164,6 +164,13 @@ export interface HackathonJudgeType {
   judgeAccounts: HackathonJudgeAccountType[];
   resource: string;
   votesProportion: number[];
+  judgeMode: string;
+  judgeProjectVote: number;
+  judgeTotalVote: number;
+  projectJudgeCount: number;
+  voteMode: string;
+  rewardName: string;
+  rewardId: string;
 }
 
 export interface HackathonLinkType {
@@ -193,7 +200,7 @@ export interface HackathonType {
   id: string;
   name: string;
   info: HackathonInfoType;
-  judge: HackathonJudgeType;
+  judge: HackathonJudgeType[];
   links: HackathonLinkType;
   memberCount: number;
   enable: boolean;
