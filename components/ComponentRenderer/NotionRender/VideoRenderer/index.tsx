@@ -2,8 +2,9 @@ import { FC } from 'react';
 import { NotionComponent } from '../type';
 import { CustomComponent, PageType } from '../../type';
 import { useGlobalRendererContext } from '../..';
-import { cn } from '@/helper/utils';
+import { cn, getYoutubeId } from '@/helper/utils';
 import { HEADING_TYPES } from '../HeaderRenderer';
+import YouTube from 'react-youtube';
 
 interface VideoRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
@@ -16,7 +17,7 @@ interface VideoRendererProps {
 const VideoRenderer: FC<VideoRendererProps> = (props) => {
   const { component, nextComponent, prevComponent } = props;
   const { pageType, isMobile } = useGlobalRendererContext();
-
+  const videoUrl = component.content.file?.url || component.content.external?.url;
   const getMobileClassName = () => {
     switch (pageType) {
       case PageType.PGC:
@@ -47,6 +48,20 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
     }
   };
 
+  const isYoutubeUrl = videoUrl.includes('youtube') || videoUrl.includes('youtu.be');
+
+  const renderVideo = () => {
+    if (isYoutubeUrl) {
+      return <YouTube videoId={getYoutubeId(videoUrl)} loading="lazy" iframeClassName="w-full" />;
+    } else {
+      return (
+        <video controls className={`w-full`}>
+          <source src={videoUrl}></source>
+        </video>
+      );
+    }
+  };
+
   return (
     <div
       datatype={component.type}
@@ -57,10 +72,7 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
         prevComponent === null ? 'mt-0' : ''
       )}
     >
-      <video controls>
-        {/* width="400px" */}
-        {<source src={component.content.file.url} />}
-      </video>
+      {renderVideo()}
     </div>
   );
 };

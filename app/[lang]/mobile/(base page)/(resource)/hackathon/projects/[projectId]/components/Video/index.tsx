@@ -1,4 +1,5 @@
 'use client';
+import { getYoutubeId } from '@/helper/utils';
 import Link from 'next/link';
 import { FC } from 'react';
 import YouTube from 'react-youtube';
@@ -8,11 +9,6 @@ interface ProjectVideoProps {
 }
 
 const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ videoUrl }) {
-  const getYoutubeId = (uri: string) => {
-    const url = new URL(uri);
-    return url.searchParams.get('v') || '';
-  };
-
   const isYoutubeUrl = videoUrl.includes('youtube') || videoUrl.includes('youtu.be');
 
   const renderVideo = () => {
