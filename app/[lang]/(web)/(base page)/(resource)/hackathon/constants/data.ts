@@ -76,7 +76,7 @@ export const initEditNavs = [
     value: 'rewards'
   },
   {
-    label: 'hackathonDetail.judging',
+    label: 'hackathonDetail.judge',
     value: 'judging'
   },
   {
@@ -107,7 +107,7 @@ export const initDetailNavs = [
     value: 'description'
   },
   {
-    label: 'hackathonDetail.judging',
+    label: 'hackathonDetail.judge',
     value: 'judging'
   }
 ];
@@ -126,7 +126,7 @@ export const initMobileDetailNavs = [
     value: 'timeline'
   },
   {
-    label: 'hackathonDetail.judging',
+    label: 'hackathonDetail.judge',
     value: 'judging'
   }
 ];
@@ -211,7 +211,11 @@ export const hackathonDashboardTab: HackathonTabType[] = [
   }
 ];
 
-export const hackathonSections = {
-  require: ['info', 'application', 'submission', 'links', 'cover', 'timeline', 'rewards', 'judging'],
-  optional: ['mediaPartners', 'communityPartners', 'partners', 'speakers', 'sponsors', 'schedule', 'faqs']
+export const judgeModeLabel = {
+  all: 'Users + Judges',
+  judges: 'Judges Only'
+};
+export const voteModeLabel = {
+  fixed: 'Fixed Number of Vote',
+  score: 'Project Scoring'
 };

@@ -1,6 +1,7 @@
 import { cn } from '@/helper/utils';
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { FormInput } from '..';
 
 interface FormRadioProps {
   children: ReactElement | ReactElement[];
@@ -57,6 +58,8 @@ export const FormRadio: FC<FormRadioProps> = ({
           return React.cloneElement(child, { name, form, disable, ...multipleProps } as any);
         })}
       </div>
+
+      <FormInput name={name} label="" placeholder="" form={form} className="hidden" />
     </div>
   );
 };

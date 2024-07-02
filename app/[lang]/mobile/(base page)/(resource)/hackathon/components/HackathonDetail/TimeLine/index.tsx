@@ -36,7 +36,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
           className={`absolute left-[1rem]  w-[.1875rem] rounded-[6.25rem]   ${stepIndex > 0 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'} ${h.h1 ? 'top-[3.25rem]  h-[1.75rem] ' : 'top-[4rem]  h-[3rem] '}`}
         ></div>
         <div
-          className={`rounded-[6.25rem]] absolute   left-[1rem]  w-[.1875rem] ${stepIndex > 1 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'} ${h.h2 ? 'bottom-[3.25rem]  h-[1.75rem] ' : 'bottom-[4rem]  h-[3rem] '}`}
+          className={`rounded-[6.25rem]] absolute   left-[1rem]  w-[.1875rem] ${stepIndex > 1 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'} ${h.h2 ? 'bottom-[3.25rem]  h-[1.75rem] ' : 'bottom-[3.25rem]  h-[2.5rem] '}`}
         ></div>
         {hackathonDetailTimeLine.map((v, i) => (
           <div className="flex items-center gap-[2.5rem]" key={i}>
@@ -53,14 +53,14 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
                 {t(`hackathonDetail.${v.key}`)}
               </p>
               <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
-                {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
+                {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
                   .tz()
-                  .format('MMM D,YY H:mm')}
+                  .format('MMM D,YYYY H:mm')}
                 (GMT+8)
               </p>
               {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] &&
-                dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]).isBefore(
-                  hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]
+                !dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]).isSame(
+                  hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType]
                 ) && (
                   <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
                     {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])

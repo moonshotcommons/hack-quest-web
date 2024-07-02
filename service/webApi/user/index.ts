@@ -142,7 +142,10 @@ class UserApi {
 
   /** 获取用户信息 */
   getUserInfo() {
-    return this.service.get<LoginResponse>(UserApiType.UserInfo);
+    const cacheFn = cache(async () => {
+      return this.service.get<LoginResponse>(UserApiType.UserInfo);
+    });
+    return cacheFn();
   }
 
   /**

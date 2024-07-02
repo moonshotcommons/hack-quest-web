@@ -47,8 +47,8 @@
     },
     {
       "id": "d2236a07-0ead-4406-98e9-96b4b16377fc",
-      "type": "Location",
-      "title": "ApplicationLocation",
+      "type": "ApplicationLocation",
+      "title": "Location",
       "optional": false,
       "property": {
         "name": "location",

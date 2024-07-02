@@ -29,7 +29,7 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
   const form = useForm<FormValueType>({
     resolver: zodResolver(faqsFormArraySchema),
     defaultValues: {
-      items: hackathon.info?.faqs?.list || []
+      items: hackathon.info?.sections?.faqs?.list || []
     }
   });
   const { fields, append, remove } = useFieldArray({

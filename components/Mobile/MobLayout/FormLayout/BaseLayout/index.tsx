@@ -5,14 +5,16 @@ import NavBar, { NavbarProps } from '../Navbar';
 
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface V2LayoutProps {
   navbarData: NavbarProps;
   // footerData: IFooterProps;
   children: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
-const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
+const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) => {
   const pathname = useCustomPathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
   // const renderBreadcrumb = useCallback(() => {
@@ -40,7 +42,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     <div className={`relative w-full  `}>
       <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-black">
         <NavBar {...navbarData}>
-          <User></User>
+          <User userInfo={userInfo}></User>
         </NavBar>
       </div>
       <div

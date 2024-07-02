@@ -13,6 +13,8 @@ import { v4 } from 'uuid';
 import { z } from 'zod';
 import { FormInput } from '@/components/Common/FormComponent';
 import Image from 'next/image';
+import { useHackathonConfig } from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
+import { cn } from '@/helper/utils';
 
 export interface ConnectWalletProps {
   form: any;
@@ -24,6 +26,8 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
   const { redirectToUrl } = useRedirect();
 
   const exitConfirmRef = useRef<ConfirmModalRef>(null);
+
+  const { handleType } = useHackathonConfig();
 
   const { run: onSubmit, loading } = useRequest(
     async () => {
@@ -106,7 +110,12 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
 
           // onDisconnect={onDisconnect}
         />
-        <div className="flex items-center gap-1 rounded-[16px] bg-neutral-off-white p-4">
+        <div
+          className={cn(
+            'flex items-center gap-1 rounded-[16px] p-4',
+            handleType === 'edit' ? 'bg-neutral-light-gray' : 'bg-neutral-off-white'
+          )}
+        >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"

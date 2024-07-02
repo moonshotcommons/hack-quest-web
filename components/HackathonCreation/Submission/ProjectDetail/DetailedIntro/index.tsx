@@ -11,10 +11,12 @@ export interface DetailedIntroProps {
   placeholder: string;
   maxField: number;
   validator?: any;
+  config: PresetComponentConfig;
 }
 
-const DetailedIntro: FC<DetailedIntroProps> = (props) => {
-  return <FormTextarea {...props} className="h-[76px]" />;
+const DetailedIntro: FC<DetailedIntroProps> = ({ config, label, ...props }) => {
+  const requiredTag = config.optional ? ' (Optional)' : '*';
+  return <FormTextarea {...props} className="h-[76px]" label={label + requiredTag} />;
 };
 
 DetailedIntro.displayName = 'DetailedIntro';

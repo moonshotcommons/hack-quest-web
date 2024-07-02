@@ -2,6 +2,7 @@ import { FormRadio } from '@/components/Common/FormComponent';
 import FormRadioItem from '@/components/Common/FormComponent/FormRadio/FormRadioItem';
 import { useHackathonConfig } from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
+import { cn } from '@/helper/utils';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
@@ -17,7 +18,15 @@ const PrizeTrack: FC<PrizeTrackProps> = ({ form, config }) => {
   if (!prizeTracks.length) return null;
 
   return (
-    <FormRadio name={'prizeTrack'} form={form} label={'Which Prize Track Do You Belong To' + requiredTag} multiple>
+    <FormRadio
+      name={'prizeTrack'}
+      form={form}
+      label={'Which Prize Track Do You Belong To' + requiredTag}
+      multiple
+      className={cn('flex w-full flex-wrap justify-between gap-5', {
+        '[&>div]:w-[calc((100%-20px)/2)]': prizeTracks.length > 1
+      })}
+    >
       {prizeTracks.map((t) => (
         <FormRadioItem value={t} key={t} label={t} />
       ))}

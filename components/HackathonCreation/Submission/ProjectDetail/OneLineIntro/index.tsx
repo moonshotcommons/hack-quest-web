@@ -11,10 +11,12 @@ export interface OneLineIntroProps {
   placeholder: string;
   maxField: number;
   validator?: any;
+  config: PresetComponentConfig;
 }
 
-const OneLineIntro: FC<OneLineIntroProps> = (props) => {
-  return <FormTextarea {...props} className="h-[76px]" />;
+const OneLineIntro: FC<OneLineIntroProps> = ({ config, label, ...props }) => {
+  const requiredTag = config.optional ? ' (Optional)' : '*';
+  return <FormTextarea {...props} className="h-[76px]" label={label + requiredTag} />;
 };
 
 OneLineIntro.displayName = 'OneLineIntro';

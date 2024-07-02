@@ -1,5 +1,4 @@
-'use client';
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 import NavBar from '../Navbar';
 import AIFloatButton from '@/components/Web/AI/AIFloatButton';
 
@@ -7,9 +6,7 @@ export interface V2LayoutProps {
   children: ReactNode;
 }
 
-const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
-  useEffect(() => {}, []);
-
+const V2Layout: React.FC<V2LayoutProps> = async ({ children }) => {
   return (
     <div className={`flex h-[100vh] w-full flex-col overflow-hidden`}>
       <div className="flex w-full items-center bg-neutral-black">

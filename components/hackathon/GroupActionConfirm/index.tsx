@@ -77,7 +77,7 @@ const GroupActionConfirm: ForwardRefRenderFunction<GroupActionConfirmRef, GroupA
           {option?.type === ActionType.RemoveMember && (
             <div className="body-m flex items-center gap-2 text-neutral-off-black">
               <Image src={option.userInfo.avatar} alt="avatar" width={36} height={36} />
-              <span>{option.userInfo.info?.about?.firstName + ' ' + option.userInfo?.info?.about?.lastName}</span>
+              <span>{option.userInfo.info?.About?.firstName + ' ' + option.userInfo?.info?.About?.lastName}</span>
             </div>
           )}
         </div>
