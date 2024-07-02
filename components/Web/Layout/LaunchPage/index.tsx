@@ -12,7 +12,10 @@ export interface LayoutProps {
 const V2Layout: FC<LayoutProps> = async (props) => {
   let { children, navbarData } = props;
   navbarData.navList = navbarList;
-  const userInfo = await webApi.userApi.getUserInfo();
+  let userInfo = null;
+  try {
+    userInfo = await webApi.userApi.getUserInfo();
+  } catch (err) {}
   return (
     <BaseLayout navbarData={navbarData} userInfo={userInfo}>
       {children}
