@@ -43,8 +43,8 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
                 (GMT+8)
               </p>
               {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] &&
-                dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]).isBefore(
-                  hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]
+                !dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]).isSame(
+                  hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType]
                 ) && (
                   <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
                     {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])

@@ -14,8 +14,8 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { initDetailNavs } from '../../constants/data';
 import Description from '../../components/HackathonDetail/Decription';
 import RewardsProjects from '../../components/HackathonDetail/RewardsProjects';
-import DetailJuging from '../../components/HackathonDetail/DetailJuging';
-import DetailRewards from '../../components/HackathonDetail/DetailRewards';
+import Rewards from '../../components/HackathonDetail/Rewards';
+import Judging from '../../components/HackathonDetail/Judging';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -107,11 +107,11 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
             <TimeLine hackathon={hackathon} />
             <Description hackathon={hackathon} />
             {navList.some((v) => v.value === 'rewards') ? (
-              <DetailRewards hackathon={hackathon} />
+              <Rewards hackathon={hackathon} />
             ) : (
               <RewardsProjects hackathon={hackathon} />
             )}
-            <DetailJuging hackathon={hackathon} />
+            <Judging hackathon={hackathon} />
             <PartnersBox hackathon={hackathon} type="mediaPartners" />
             <PartnersBox hackathon={hackathon} type="communityPartners" />
             <PartnersBox hackathon={hackathon} type="partners" />

@@ -76,6 +76,7 @@ export enum HackathonEditModalType {
 
 export interface UpdateHackathonParamType {
   data: Record<string, any>;
+  status?: string;
   closeModal?: boolean;
   cb?: VoidFunction;
 }
