@@ -92,8 +92,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
       ...formState,
       BasicInfo,
       Videos,
-      ProjectDetail: detail,
-      Additions: addition,
+      ProjectDetail: detail || {},
+      Additions: addition || {},
       status,
       projectId: id,
       isSubmit

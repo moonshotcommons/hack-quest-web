@@ -11,10 +11,12 @@ export interface ProgressDuringHackathonProps {
   placeholder: string;
   maxField: number;
   validator?: any;
+  config: PresetComponentConfig;
 }
 
-const ProgressDuringHackathon: FC<ProgressDuringHackathonProps> = (props) => {
-  return <FormTextarea {...props} className="h-[76px]" />;
+const ProgressDuringHackathon: FC<ProgressDuringHackathonProps> = ({ config, label, ...props }) => {
+  const requiredTag = config.optional ? ' (Optional)' : '*';
+  return <FormTextarea {...props} className="h-[76px]" label={label + requiredTag} />;
 };
 
 ProgressDuringHackathon.displayName = 'ProgressDuringHackathon';

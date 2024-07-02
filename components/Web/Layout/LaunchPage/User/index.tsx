@@ -3,7 +3,6 @@ import { cn } from '@/helper/utils';
 import Image from 'next/image';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
-import { useShallow } from 'zustand/react/shallow';
 import { LoginResponse } from '@/service/webApi/user/type';
 import Button from '@/components/Common/Button';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
@@ -14,21 +13,16 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import UserDropCard from '../UserDropCard';
 import MenuLink from '@/constants/MenuLink';
-interface UserProps {}
+interface UserProps {
+  userInfo: Partial<LoginResponse> | null;
+}
 
-const User: FC<UserProps> = () => {
+const User: FC<UserProps> = ({ userInfo }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const [showUserDropCard, setShowUserDropCard] = useState(false);
   const userDropCardRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
-
-  const { userInfo } = useUserStore(
-    useShallow((state) => ({
-      userInfo: state.userInfo,
-      authRouteType: state.authRouteType
-    }))
-  );
 
   const setAuthType = useUserStore((state) => state.setAuthType);
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);

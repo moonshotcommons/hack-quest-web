@@ -23,6 +23,10 @@ const V2Layout: FC<LayoutProps> = (props) => {
     });
   }
   navbarData.navList = navList.filter((v: NavbarListType) => v.menu.length || v.type === 'outSide');
-  return <BaseLayout navbarData={navbarData}>{children}</BaseLayout>;
+  return (
+    <BaseLayout navbarData={navbarData} userInfo={userInfo}>
+      {children}
+    </BaseLayout>
+  );
 };
 export default V2Layout;

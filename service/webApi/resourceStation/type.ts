@@ -545,6 +545,17 @@ export interface SimpleHackathonInfo {
       [Key in SubmissionSectionType]: (PresetComponentConfig | CustomComponentConfig)[];
     };
   };
+  rewards: { name: string }[];
+  timeline: {
+    id: string;
+    timeZone: string;
+    openReviewSame: boolean;
+    openTime: string;
+    openTimeEnd: string;
+    reviewTime: string;
+    reviewTimeEnd: string;
+    rewardTime: string;
+  };
 }
 
 /** 项目提交时候接口需要的表单参数 */

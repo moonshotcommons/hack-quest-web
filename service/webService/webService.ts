@@ -42,7 +42,7 @@ class WebService {
   }
 
   requestInterceptor(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
-    const token = getToken();
+    let token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

@@ -1,22 +1,22 @@
 'use client';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
-import { useLoadUserInfo } from '@/hooks/auth/useGetUserInfo';
 import useNavAuth from '@/hooks/router/userNavAuth';
 import { useUserStore } from '@/store/zustand/userStore';
 import { FC, ReactNode, useEffect } from 'react';
 import { useHandleNotification } from '@/hooks/notification/useHandleNotification';
 import { useGetEcosystemData } from '@/hooks/ecosystem/useGetEcosystemData';
 import { Lang } from '@/i18n/config';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 interface InitializeUserProviderProps {
   children: ReactNode;
   lang: Lang;
+  userInfo: Partial<LoginResponse> | null;
 }
 
-const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, children }) => {
-  const { waitingLoadUserInfo } = useLoadUserInfo();
-  useNavAuth(waitingLoadUserInfo);
-  const userInfo = useUserStore((state) => state.userInfo);
+const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, children, userInfo }) => {
+  useNavAuth(userInfo);
+  const setUserInfo = useUserStore((state) => state.setUserInfo);
   const { updateMissionDataAll } = useGetMissionData();
   const { updateNotification } = useHandleNotification();
   const { getEcosystems } = useGetEcosystemData();
@@ -28,8 +28,11 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, childre
 
   useEffect(() => {
     if (userInfo) {
-      updateMissionDataAll();
-      updateNotification();
+      setUserInfo(userInfo);
+      setTimeout(() => {
+        updateMissionDataAll();
+        updateNotification();
+      }, 200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);

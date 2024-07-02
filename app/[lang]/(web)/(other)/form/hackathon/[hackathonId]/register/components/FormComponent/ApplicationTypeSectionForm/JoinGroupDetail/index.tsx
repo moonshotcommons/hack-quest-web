@@ -39,7 +39,7 @@ const JoinGroupDetail: FC<JoinGroupDetailProps> = ({ team, onLeaveTeam, userId, 
         <p className="body-m text-left text-neutral-rich-gray">Team Members ({teamDetail?.members.length || 0})</p>
         <div className="flex flex-col gap-2">
           {(teamDetail?.members || []).map((member) => {
-            const memberInfo = member.info.about;
+            const memberInfo = member.info.About;
             return (
               <div className="flex items-center justify-between py-2" key={member.userId}>
                 <span className="flex  items-center gap-2 ">
