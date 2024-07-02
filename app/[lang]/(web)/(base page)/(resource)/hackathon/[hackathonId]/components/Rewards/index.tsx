@@ -28,29 +28,53 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
                 <p className=" text-h2 mb-[12px]">{v.totalPlace} USD</p>
                 <p className="body-l text-neutral-medium-gray">
                   {t('hackathonDetail.trackTotalReward', {
-                    track: v.name
+                    track: ''
                   })}
                 </p>
               </div>
               {v.place?.length > 0 && (
                 <>
-                  <div className="flex  flex-1 justify-center self-stretch ">
+                  <div className="mx-[30px]  flex w-[1px] justify-center self-stretch ">
                     <div className="h-full w-[1px] bg-neutral-light-gray"></div>
                   </div>
 
                   <div className="body-xl flex w-[42%] flex-col gap-[12px] [&>div]:flex [&>div]:items-center [&>div]:justify-between ">
-                    <div>
-                      <span className="body-m text-neutral-medium-gray">{t('hackathonDetail.firstPlace')}</span>
-                      <span>{v.place?.[0] || 0} USD</span>
-                    </div>
-                    <div>
-                      <span className="body-m text-neutral-medium-gray">{t('hackathonDetail.secondPlace')}</span>
-                      <span>{v.place?.[1] || 0} USD</span>
-                    </div>
-                    <div>
-                      <span className="body-m text-neutral-medium-gray">{t('hackathonDetail.thirdPlace')}</span>
-                      <span>{v.place?.[2] || 0} USD</span>
-                    </div>
+                    {v.place?.[0] > 0 && (
+                      <div>
+                        <span className="body-m text-neutral-medium-gray">{t('hackathonDetail.firstPlace')}</span>
+                        <span>{v.place?.[0] || 0} USD</span>
+                      </div>
+                    )}
+                    {v.place?.[1] > 0 && (
+                      <div>
+                        <span className="body-m text-neutral-medium-gray">{t('hackathonDetail.secondPlace')}</span>
+                        <span>{v.place?.[1] || 0} USD</span>
+                      </div>
+                    )}
+                    {v.place?.[2] > 0 && (
+                      <div>
+                        <span className="body-m text-neutral-medium-gray">{t('hackathonDetail.thirdPlace')}</span>
+                        <span>{v.place?.[2] || 0} USD</span>
+                      </div>
+                    )}
+                    {v.place?.[3] > 0 && (
+                      <div>
+                        <span className="body-m text-neutral-medium-gray">{'Fourth Place'}</span>
+                        <span>{v.place?.[3] || 0} USD</span>
+                      </div>
+                    )}
+                    {v.place?.[4] > 0 && (
+                      <div>
+                        <span className="body-m text-neutral-medium-gray">{'Fifth Place'}</span>
+                        <span>{v.place?.[4] || 0} USD</span>
+                      </div>
+                    )}
+                    {v.place?.[5] > 0 && (
+                      <div>
+                        <span className="body-m text-neutral-medium-gray">{'Sixth Place'}</span>
+                        <span>{v.place?.[5] || 0} USD</span>
+                      </div>
+                    )}
                   </div>
                 </>
               )}

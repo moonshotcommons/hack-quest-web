@@ -20,7 +20,7 @@ const DetailIntroName: FC<DetailIntroNameProps> = ({ form }) => {
               {'Detailed Intro of Your Project'}
             </FormLabel>
             <span className="caption-14pt text-neutral-rich-gray">
-              <span className={form.watch('detailedIntro').length > 120 ? 'text-status-error' : ''}>
+              <span className={form.watch('detailedIntro').length > 600 ? 'text-status-error' : ''}>
                 {form.watch('detailedIntro').length}
               </span>
               /600

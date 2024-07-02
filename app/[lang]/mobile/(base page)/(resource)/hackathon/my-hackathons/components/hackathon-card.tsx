@@ -11,6 +11,7 @@ import { cn } from '@/helper/utils';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { ManageTeamModal } from '@/components/hackathon/manage-team-modal';
 
 export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const { redirectToUrl } = useRedirect();
@@ -109,6 +110,7 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
         )}
         <HackathonCardAction hackathon={hackathon} />
       </div>
+      <ManageTeamModal />
       <LeaveTeamModal team={hackathon.participation?.team!} />
       <WithdrawModal />
     </div>
