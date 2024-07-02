@@ -171,6 +171,7 @@ export interface HackathonJudgeType {
   voteMode: string;
   rewardName: string;
   rewardId: string;
+  disableJudge: boolean;
 }
 
 export interface HackathonLinkType {

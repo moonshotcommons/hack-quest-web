@@ -31,7 +31,8 @@ const RemoveSectionModal = forwardRef<RemoveSectionModalRef, RemoveSectionModalP
         updateHackathon({
           data: {
             [type]: {}
-          }
+          },
+          status: type
         });
       }}
     >
