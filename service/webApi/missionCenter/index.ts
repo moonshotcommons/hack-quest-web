@@ -6,7 +6,10 @@ import {
   BadgesType,
   MissionDataType,
   DigTreasuresResponse,
-  OpenTreasuresResponse
+  OpenTreasuresResponse,
+  InviteResponseType,
+  UserLevelRankResponseType,
+  ClaimResponse
 } from './type';
 
 export enum MissionCenterApiType {
@@ -46,7 +49,7 @@ class MissionCenterApi {
   /** mission claim */
   missionClaim(missionIds: string[]) {
     const url = `${MissionCenterApiType.Missions}/claim`;
-    return this.service.post(url, {
+    return this.service.post<ClaimResponse[]>(url, {
       data: {
         missionIds
       }
@@ -71,6 +74,18 @@ class MissionCenterApi {
         id: treasuresId
       }
     });
+  }
+
+  getRank() {
+    return this.service.get<UserLevelRankResponseType>(`${MissionCenterApiType.Missions}/rank`);
+  }
+
+  getInvited() {
+    return this.service.get<InviteResponseType>(`${MissionCenterApiType.Missions}/invited`);
+  }
+
+  restoreStreak() {
+    return this.service.get(`${MissionCenterApiType.Missions}/re-sign`);
   }
 }
 

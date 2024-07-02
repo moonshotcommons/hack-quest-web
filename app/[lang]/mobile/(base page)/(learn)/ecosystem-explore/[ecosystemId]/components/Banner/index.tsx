@@ -14,7 +14,7 @@ const Banner: React.FC<BannerProp> = ({ lang, ecosystem }) => {
   return (
     <div className="bg-neutral-white px-[1.25rem] py-[1.5rem]">
       <div className="relative mb-[2rem] h-[4rem] w-[7.5rem] overflow-hidden">
-        <Image src={ecosystem?.info?.image} alt={ecosystem?.info?.name} fill className="object-cover" />
+        <Image src={ecosystem?.info?.image} alt={ecosystem?.info?.name} fill className="object-contain" />
       </div>
       <h1 className="text-h2-mob text-neutral-black">{ecosystem?.info?.name}</h1>
       <p className="body-s  mt-[.5rem] text-neutral-medium-gray">{ecosystem?.info?.description}</p>

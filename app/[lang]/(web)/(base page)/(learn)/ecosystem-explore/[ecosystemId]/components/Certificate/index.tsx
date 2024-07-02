@@ -1,43 +1,22 @@
 import { EcosystemDetailType, LevelType } from '@/service/webApi/ecosystem/type';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MedalCover from '@/public/images/learn/medal_cover.png';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
-import { getToken } from '@/helper/user-token';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface CertificateProp {
   ecosystem: EcosystemDetailType;
+  levels: LevelType[];
 }
 
-const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
-  const [levels, setLevels] = useState<LevelType[]>([]);
-  const { run } = useRequest(
-    async () => {
-      const token = getToken();
-      const res = await webApi.ecosystemApi.getLevels(ecosystem?.info.id, token as string);
-      return res;
-    },
-    {
-      manual: true,
-      onSuccess(res) {
-        setLevels(res);
-      }
-    }
-  );
-
-  useEffect(() => {
-    if (ecosystem?.info?.id) {
-      run();
-    }
-  }, [ecosystem]);
+const Certificate: React.FC<CertificateProp> = ({ ecosystem, levels }) => {
   return (
-    <div className="flex items-center gap-[48px] rounded-[16px] bg-neutral-white p-[24px]">
+    <div className="flex items-center gap-[48px] rounded-[16px] bg-yellow-extra-light p-[24px]">
       <div className="flex-1">
         <div>
           <Image src={MedalCover} alt={''} width={30} height={40} />
         </div>
-        <h2 className="body-xl-bold mb-[24px] mt-[16px] text-neutral-off-black">{ecosystem?.info?.name} Certificate</h2>
+        <h2 className="body-l-bold mb-[8px] mt-[16px] text-neutral-off-black">{ecosystem?.info?.name} Certificate</h2>
         <p className="body-m text-neutral-medium-gray">{ecosystem?.info?.certificateDesc}</p>
       </div>
       <div className="flex flex-shrink-0 items-center gap-[24px]">
@@ -51,11 +30,13 @@ const Certificate: React.FC<CertificateProp> = ({ ecosystem }) => {
                 />
               </svg>
             )}
-            <div>
-              <div className="overflow-hidden rounded-[8px] shadow-[0_0_8px_rgba(0,0,0,0.12)]">
-                <Image src={v.certification.image} alt={v.label} width={283} height={160} />
-              </div>
-              <div className="body-m-bold mt-[14px] text-center">
+            <div className="flex flex-col items-center">
+              <BaseImage
+                src={v.certification.image}
+                alt={v.label}
+                className="h-[100px] w-[177px] rounded-[8px] shadow-[0_0_8px_rgba(0,0,0,0.12)]"
+              />
+              <div className="body-s-bold mt-[14px] text-center">
                 Lvl {v.level}. {v.label}
               </div>
             </div>

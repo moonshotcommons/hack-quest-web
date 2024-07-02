@@ -59,7 +59,7 @@ const CourseFilterList = <T extends CourseBaseType>({
         sort={sort}
         updateSort={(newSort) => {
           setSort(newSort);
-          debugger;
+
           onFilterParamsUpdate(mergeFilterParams(filters, newSort));
         }}
       ></FilterSelect>

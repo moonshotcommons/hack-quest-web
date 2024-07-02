@@ -29,11 +29,12 @@ const EnterInviteCode = <T,>(props: EnterInviteCodeProps<T>) => {
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
   const { connectState: propConnectState, refreshConnectState, projectId } = props;
   const connectState = propConnectState as TwitterConnectState;
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   const [formData, setFormData] = useState<{
     inviteCode: string;
   }>({
-    inviteCode: ''
+    inviteCode: query.get('inviteCode') || ''
   });
 
   const [formState, setFormState] = useState({
@@ -196,6 +197,7 @@ const EnterInviteCode = <T,>(props: EnterInviteCodeProps<T>) => {
             delay={500}
             clear
             theme={'light'}
+            value={formData.inviteCode}
             onChange={(e) => {
               setFormData({
                 ...formData,

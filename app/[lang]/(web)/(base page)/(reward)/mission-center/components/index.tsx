@@ -1,62 +1,84 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import webApi from '@/service';
 
-import { message } from 'antd';
-import { BurialPoint } from '@/helper/burialPoint';
+import message from 'antd/es/message';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
-import { MissionCenterContext } from '../constants/type';
 import UserInfo from './UserInfo';
-import ClaimContent from './ClaimContent';
-import { useUserStore } from '@/store/zustand/userStore';
-import { LoginResponse } from '@/service/webApi/user/type';
+import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
+import DailyQuests from './DailyQuests';
+import BeginnerRewards from './BeginnerRewards';
+import Achievements from './Achievements';
+import MissionBg from '@/public/images/mission-center/mission_bg.png';
+import DayStreak from './DayStreak';
+import Leaderboard from './Leaderboard';
+import ReferEarn from './ReferEarn';
+import { MissionStatus } from '@/service/webApi/missionCenter/type';
+import Loading from '@/components/Common/Loading';
+import ContentSkeleton from './ContentSkeleton';
 
 function MissionCenter() {
-  const userInfo = useUserStore((state) => state.userInfo);
   const { updateMissionDataAll } = useGetMissionData();
-  const [loading, setLoading] = useState(false);
-  const [missionIds, setMissionIds] = useState<string[]>([]);
+  const missionData = useMissionCenterStore((state) => state.missionData);
 
-  const missionClaim = (missionIds: string[], cb?: () => {}) => {
-    if (loading) return;
-    setMissionIds(missionIds);
-    BurialPoint.track(`mission-center-claim`);
-    setLoading(true);
+  const missionClaim = (missionIds: string[], cb?: VoidFunction) => {
     webApi.missionCenterApi
       .missionClaim(missionIds)
       .then(async () => {
         await updateMissionDataAll();
+        cb && cb();
         message.success('success');
       })
       .catch(async (error) => {
         message.error(`claim ${error.msg}!`);
-      })
-      .finally(() => {
         cb && cb();
-        setLoading(false);
-        setMissionIds([]);
       });
   };
+
+  const beginnerRewardsOver = useMemo(() => {
+    return missionData.beginnerRewards.every((v) => v.status === MissionStatus.CLAIMED);
+  }, [missionData]);
 
   useEffect(() => {
     updateMissionDataAll();
   }, []);
 
-  return (
-    <div className="body-s container mx-auto flex h-full  justify-between bg-neutral-off-white text-neutral-black">
-      <MissionCenterContext.Provider
-        value={{
-          loading,
-          missionIds,
-          changeMissionIds: (ids: string[]) => {
-            setMissionIds(ids);
-          },
-          updateMissionDataAll
-        }}
-      >
-        <UserInfo userInfo={userInfo as LoginResponse} />
-        <ClaimContent missionClaim={missionClaim} />
-      </MissionCenterContext.Provider>
+  return !missionData?.all?.length ? (
+    <Loading loading={true}>
+      <ContentSkeleton />
+    </Loading>
+  ) : (
+    <div
+      className="container mx-auto flex min-h-screen gap-[40px] pb-[100px] pt-[40px]"
+      style={{
+        backgroundImage: `url(${MissionBg.src})`,
+        backgroundPosition: 'right bottom',
+        backgroundSize: '80% auto',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <div className="flex flex-1 flex-col gap-[40px]">
+        <UserInfo />
+        <DailyQuests missionDatas={missionData.dailyQuests} missionClaim={missionClaim} />
+        {beginnerRewardsOver ? (
+          <>
+            <Achievements missionDatas={missionData.milestones} missionClaim={missionClaim} />
+            <BeginnerRewards missionDatas={missionData.beginnerRewards} missionClaim={missionClaim} />
+          </>
+        ) : (
+          <>
+            <BeginnerRewards missionDatas={missionData.beginnerRewards} missionClaim={missionClaim} />
+            <Achievements missionDatas={missionData.milestones} missionClaim={missionClaim} />
+          </>
+        )}
+      </div>
+      <div className="relative w-[420px] flex-shrink-0">
+        <div className="sticky right-0 top-[40px] flex flex-col gap-[40px]">
+          <DayStreak />
+          <Leaderboard />
+          <ReferEarn />
+        </div>
+      </div>
     </div>
   );
 }

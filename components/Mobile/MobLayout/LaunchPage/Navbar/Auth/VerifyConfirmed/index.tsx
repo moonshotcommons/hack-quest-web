@@ -145,7 +145,7 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
         // onClick={onLogin}
         block
         className="
-          
+
           text-[1.125rem]
           bg-auth-primary-button-bg hover:bg-auth-primary-button-hover-bg
           text-auth-primary-button-text-color hover:text-auth-primary-button-text-hover-color
@@ -173,8 +173,15 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 };
 
 const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const loginThreeParty = async (type: ThirdPartyAuthType) => {
-    const res = (await webApi.userApi.getAuthUrl(type)) as any;
+    const inviteCode = query.get('inviteCode');
+    const params = inviteCode
+      ? {
+          inviteCode
+        }
+      : {};
+    const res = (await webApi.userApi.getAuthUrl(type, params)) as any;
     window.location.href = res?.url;
   };
 
@@ -338,14 +345,14 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   );
 
-  const verifyGoogle = (code: string) => {
+  const verifyGoogle = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Google三方登录code验证');
     if (code) {
       webApi.userApi
         .googleVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}&inviteCode=${inviteCode}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -378,7 +385,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   };
 
-  const verifyGithub = (code: string) => {
+  const verifyGithub = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Github三方登录code验证');
 
     if (code) {
@@ -386,7 +393,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         .githubVerify(code)
         .then((res: any) => {
           if (res.status === 'UNACTIVATED') {
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}&inviteCode=${inviteCode}`, true);
             setTimeout(() => {
               setAuthType({
                 type: AuthType.INVITE_CODE,
@@ -425,8 +432,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     const state = query.get('state');
     let code = query.get('code');
     let querySource = query.get('source') || ThirdPartyAuthType.EMAIL;
+    let verifyData;
     if (state) {
-      const verifyData = JSON.parse(atob(state as string));
+      verifyData = JSON.parse(atob(state as string));
       verifyData?.source && (querySource = verifyData?.source);
     }
     //第一个字母大写 其余小写
@@ -434,10 +442,10 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     setSource(querySource as ThirdPartyAuthType);
     switch (querySource) {
       case ThirdPartyAuthType.GOOGLE:
-        verifyGoogle(code as string);
+        verifyGoogle(code as string, verifyData?.inviteCode || '');
         break;
       case ThirdPartyAuthType.GITHUB:
-        verifyGithub(code as string);
+        verifyGithub(code as string, verifyData?.inviteCode || '');
         break;
       default:
         verifyEmail(token as string);
