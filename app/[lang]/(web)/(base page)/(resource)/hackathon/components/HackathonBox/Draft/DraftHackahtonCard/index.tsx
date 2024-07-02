@@ -24,7 +24,7 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
     hackathon.progress || []
   );
   const handleClickButton = () => {
-    if (!requireCompleted) {
+    if (requireCompleted) {
       redirectToUrl(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`);
     } else {
       redirectToUrl(`${MenuLink.FORM_HACKATHON_ORGANIZER}/${hackathon.alias}/create`);

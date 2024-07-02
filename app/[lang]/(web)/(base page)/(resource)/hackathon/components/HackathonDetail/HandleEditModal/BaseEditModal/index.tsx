@@ -10,8 +10,8 @@ import { RewardsForm } from '@/components/hackathon-org/forms/rewards';
 import { SubmissionForm } from '@/components/hackathon-org/forms/submission';
 import { LinksForm } from '@/components/hackathon-org/forms/links';
 import { TimelineForm } from '@/components/hackathon-org/forms/timeline';
-import { JudgingForm } from '@/components/hackathon-org/forms/judging';
 import { ApplicationForm } from '@/components/hackathon-org/forms/application';
+import { JudgingOverrideForm } from '@/components/hackathon-org/forms/judging-override';
 
 interface BaseEditModalProp {
   hackathon: HackathonType;
@@ -43,7 +43,7 @@ const BaseEditModal: React.FC<BaseEditModalProp> = ({ hackathon }) => {
       case HackathonEditModalType.REWARDS:
         return <RewardsForm {...formProp} />;
       case HackathonEditModalType.JUDGE:
-        return <JudgingForm {...formProp} />;
+        return <JudgingOverrideForm {...formProp} />;
       case HackathonEditModalType.APPLICATION:
         return <ApplicationForm {...formProp} />;
       case HackathonEditModalType.SUBMISSION:
