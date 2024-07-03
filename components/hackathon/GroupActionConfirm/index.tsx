@@ -67,7 +67,7 @@ const GroupActionConfirm: ForwardRefRenderFunction<GroupActionConfirmRef, GroupA
         </svg>
       }
     >
-      <div className="w-[532px] rounded-[16px] bg-neutral-white px-5 py-10">
+      <div className="w-[calc(100vw-40px)] rounded-[16px] bg-neutral-white px-5 py-10 sm:w-[532px]">
         <h4 className="text-h4 mb-5 text-center text-neutral-black">{!!option?.type && title[option.type]}</h4>
 
         <div className="flex justify-center">

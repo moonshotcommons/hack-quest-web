@@ -32,7 +32,9 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop, project, rankInfo, hacka
   };
 
   useEffect(() => {
-    getOffsetTops();
+    setTimeout(() => {
+      getOffsetTops();
+    }, 1000);
   }, [project, isShowVoting]);
   return (
     <div className="body-m flex flex-1 flex-shrink-0 flex-col gap-[60px] text-neutral-off-black" ref={boxRef}>

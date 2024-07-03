@@ -30,6 +30,7 @@ const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ videoUrl }) 
       );
     }
   };
+
   return (
     <>
       <div className="w-full rounded-[.625rem] bg-gray-300">{renderVideo()}</div>
