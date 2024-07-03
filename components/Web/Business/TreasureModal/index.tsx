@@ -8,10 +8,11 @@ import { FiX } from 'react-icons/fi';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import ChestCover from '@/public/images/mission-center/chest_cover.png';
 import CoinIcon from '@/public/images/mission-center/coin_icon.png';
 import XpIcon from '@/public/images/mission-center/xp_icon.png';
 import Loading from '@/components/Common/Loading';
+import Lottie, { useLottie } from 'lottie-react';
+import treasureJson from './constants/treasure.json';
 
 export enum TreasureType {
   DIG = 'dig',
@@ -41,6 +42,11 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { View } = useLottie({
+    animationData: treasureJson,
+    loop: true
+  });
+  console.info(View);
   const openTreasures = async (params: openParamType) => {
     const { treasureId, treasureData, digCallback } = params;
     let res = treasureData;
@@ -70,10 +76,10 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
   return (
     <Modal open={open} onClose={() => setOpen(false)} showCloseIcon={true} icon={<FiX size={26} color={'#000'} />}>
       <Loading loading={loading}>
-        <div className="flex min-h-[23.375rem] w-[40rem] flex-col items-center gap-[3rem] rounded-[1rem] bg-yellow-extra-light p-[3rem] wap:w-[90vw]">
+        <div className="flex  min-h-[33.75rem] w-[30rem] flex-col items-center gap-[1rem] rounded-[1rem] bg-yellow-extra-light p-[1rem] pb-[2rem] wap:w-[90vw]">
           {!loading && (
             <>
-              <Image src={ChestCover} alt={'chest-cover'} width={64} height={51} />
+              <Lottie animationData={treasureJson} loop={true} />
               <div className="flex flex-col items-center gap-[1rem]">
                 <p className="body-xl-bold text-neutral-rich-gray">{t('treasureModalText')}</p>
                 <div className="body-m-bold flex items-center gap-[2rem] text-neutral-off-black">

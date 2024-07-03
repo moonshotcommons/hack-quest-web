@@ -56,6 +56,12 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
     });
   };
 
+  // useEffect(() => {
+  //   form.reset({
+  //     items: hackathon.info?.sections?.faqs?.list || []
+  //   });
+  // }, [hackathon]);
+
   return (
     <div className="">
       <div className="px-[40px]">
