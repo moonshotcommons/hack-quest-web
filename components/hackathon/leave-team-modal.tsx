@@ -39,7 +39,7 @@ export function LeaveTeamModal({ team }: { team: HackathonTeam }) {
   });
   return (
     <Modal open={open} onClose={() => {}}>
-      <div className="relative flex w-[532px] flex-col items-center rounded-2xl bg-neutral-white py-10 shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)]">
+      <div className="relative flex w-[calc(100vw-40px)] flex-col items-center rounded-2xl bg-neutral-white py-10 shadow-[0px_4px_8px_0px_rgba(0,0,0,0.12)] sm:w-[532px]">
         <button aria-label="Close Modal" className="absolute right-5 top-5 outline-none" onClick={onClose}>
           <XIcon size={20} />
         </button>

@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useUserStore } from '@/store/zustand/userStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -27,6 +28,9 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
       userInfo: state.userInfo
     }))
   );
+
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
+
   const { redirectToUrl } = useRedirect();
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
@@ -45,6 +49,16 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   const handleButton = () => {
     setTipsModalOpenState(true);
   };
+
+  const handleRegister = () => {
+    if (!userInfo) {
+      mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+      mobileNavModalToggleOpenHandle.toggleOpen();
+    } else {
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
+    }
+  };
+
   const renderButton = () => {
     if (stepIndex < 1) {
       if (!hackathon.participation?.isRegister) {
@@ -54,7 +68,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
             className="button-text-s h-[2.125rem] flex-1  bg-yellow-primary p-0 uppercase"
             onClick={(e) => {
               e.stopPropagation();
-              handleButton();
+              handleRegister();
             }}
           >
             {buttonText}

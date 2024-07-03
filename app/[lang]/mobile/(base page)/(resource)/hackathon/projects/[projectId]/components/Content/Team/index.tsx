@@ -18,7 +18,7 @@ const Team: React.FC<TeamProp> = ({ project }) => {
     <div className="flex flex-col gap-[1.5rem]">
       <Title title={t('projectsDetail.title.team')} />
       <div className="w-full">
-        <p className="body-m-bold">11111</p>
+        <p className="body-m-bold">{project.team?.name}</p>
         <div className="mt-[.75rem] flex flex-col gap-[.75rem]">
           {project.members?.map((member) => (
             <div key={member.userId} className="w-full">

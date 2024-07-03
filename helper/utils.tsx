@@ -323,6 +323,17 @@ export const toDoubleArray = <T,>(baseArray: T[], count: number) => {
   return res;
 };
 
+export const getYoutubeId = (url: string) => {
+  if (!url) return '';
+  const regex = /^(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=|embed\/|v\/)?([\w-]{11})(?:\S+)?$/;
+  const match = url.match(regex);
+
+  if (match && match[1]) {
+    return match[1];
+  }
+  return '';
+};
+
 export const wait = (time: number): Promise<void> => {
   return new Promise((resolve) => {
     setTimeout(() => {

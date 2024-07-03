@@ -73,7 +73,7 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
         </svg>
       }
     >
-      <div className={cn('w-[532px] rounded-[16px] bg-neutral-white px-5 py-10', className)}>
+      <div className={cn('w-[calc(100vw-40px)] rounded-[16px] bg-neutral-white px-5 py-10 sm:w-[532px]', className)}>
         {children}
         <div className="mt-9 flex justify-center gap-2">
           <Button
