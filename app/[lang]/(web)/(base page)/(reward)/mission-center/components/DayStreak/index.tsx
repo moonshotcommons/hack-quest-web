@@ -94,9 +94,7 @@ const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
               )}
               {m.status === MissionStatus.CLAIMED && <CompletedIcon size={32} />}
             </div>
-            <p className="body-xs mt-[4px] text-center text-neutral-medium-gray" onClick={() => handleClaim('1')}>
-              {weekInitials[i]}
-            </p>
+            <p className="body-xs mt-[4px] text-center text-neutral-medium-gray">{weekInitials[i]}</p>
           </div>
         ))}
       </div>
