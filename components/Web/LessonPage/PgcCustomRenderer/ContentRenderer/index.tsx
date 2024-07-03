@@ -27,6 +27,7 @@ const ContentRenderer: FC<ContentRendererProps> = (props) => {
           leftLength > 1 ? 'border border-lesson-title-box-border-color' : '',
           isPlayground ? 'flex flex-1 flex-col overflow-hidden' : 'mb-5  px-[20px] py-[15px]'
         )}
+        datatype="content"
       >
         <div
           className={`flex items-center justify-between ${leftLength > 1 ? 'cursor-pointer' : ''}`}
