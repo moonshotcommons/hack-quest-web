@@ -184,9 +184,9 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
   const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
-    <div>
+    <div className="pb-[7.5rem]">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <ProjectTypeRadio
             form={form}
             submissionType={applicationType}
@@ -194,7 +194,7 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
             config={sectionConfig.property}
           />
           {hackathonInfo.id !== HackathonPartner.Hack4Bengal && (
-            <div className="caption-14pt flex justify-between text-neutral-off-black">
+            <div className="caption-12pt flex flex-col justify-between gap-2 text-left text-neutral-off-black">
               <p>Are you looking for a teammate? Follow HackQuest Discord to find your dream team!</p>
               <Link href={HACKQUEST_DISCORD} target="_blank">
                 <LinkArrow direction="right" decorate>
@@ -205,7 +205,7 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
           )}
           {type === 'Group Project' && groupType === null && (
             <div className="flex flex-col gap-3 text-left">
-              <p>Create a new team or join an existing one.</p>
+              <p className="body-m">Create a new team or join an existing one.</p>
               <GroupProjectForm
                 form={form}
                 onCreateTeam={async () => {
@@ -242,29 +242,28 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
               teamDetail={applicationType.teamDetail as HackathonTeamDetail}
             />
           )}
-          <div className="flex justify-end gap-4">
+
+          <div className="fixed bottom-5 flex w-full gap-[.625rem]">
             <Button
-              htmlType="button"
-              ghost
-              className="button-text-m w-[165px] px-0 py-4 uppercase"
+              className="button-text-m w-[calc((100%-10px-40px)/2)] bg-neutral-black px-0 py-4 uppercase text-white"
               disabled={hackathonSteps[0].type === ApplicationSectionType.ApplicationType}
               onClick={onBack}
+              htmlType="button"
             >
               Back
             </Button>
             <Button
               type="primary"
-              loading={loading}
               htmlType="submit"
-              className={cn('button-text-m min-w-[165px] px-0 py-4 uppercase', disabled ? 'bg-neutral-light-gray' : '')}
-              onClick={(e) => {
-                e.preventDefault();
-                onSubmit(form.getValues());
-              }}
+              className={cn(
+                'button-text-m w-[calc((100%-16px-40px)/2)] px-0 py-4 uppercase',
+                disabled ? 'bg-neutral-light-gray text-neutral-medium-gray opacity-100' : ''
+              )}
               disabled={disabled}
+              loading={loading}
             >
               {isRegister ? 'update' : 'Save'} And Next
-            </Button>
+            </Button>{' '}
           </div>
         </form>
       </Form>

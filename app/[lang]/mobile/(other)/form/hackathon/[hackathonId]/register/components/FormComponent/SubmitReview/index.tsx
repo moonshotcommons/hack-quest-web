@@ -96,14 +96,14 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
   const TeamBlock = (
     <div className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
       <div
-        className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
+        className="body-m-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
         onClick={() => gotoStep(3)}
       >
         <span>Submission Type</span>
         {arrowIcon}
       </div>
       <div className="flex items-center justify-between">
-        <span className="body-m flex items-center text-neutral-off-black">
+        <span className="body-s flex items-center text-neutral-off-black">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="11.5" stroke="#3E3E3E" />
             <g clipPath="url(#clip0_8109_38558)">
@@ -120,7 +120,7 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
           </svg>
           <span className="ml-1">{ApplicationType.type}</span>
         </span>
-        <span className="body-m text-neutral-medium-gray">
+        <span className="body-s text-neutral-medium-gray">
           {ApplicationType.type === 'Solo Project'
             ? '1'
             : !!Object.keys(ApplicationType.teamDetail || {}).length
@@ -130,7 +130,7 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
         </span>
       </div>
       <hr className="my-1" />
-      <div className="body-m flex flex-col gap-4 py-1">
+      <div className="body-s flex flex-col gap-4 py-1">
         {ApplicationType.type === 'Solo Project' && (
           <div key={About.firstName + ' ' + About.lastName} className="flex items-center justify-between">
             <div className="flex items-center gap-1">
@@ -165,9 +165,9 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
     </div>
   );
   return (
-    <div>
+    <div className="pb-[7.5rem]">
       <div className="">
-        <p className="body-l text-left text-neutral-off-black">
+        <p className="body-m text-left text-neutral-off-black">
           Please check all information before you submit the registration
         </p>
         <div className="mt-4 flex flex-col gap-4">
@@ -189,11 +189,11 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
                     }
                   }}
                 >
-                  <span className="body-l-bold pb-2">{key}</span>
+                  <span className="body-m-bold pb-2">{key}</span>
                   <span>{arrowIcon}</span>
                 </div>
                 {
-                  <div className="flex flex-col gap-2 text-left">
+                  <div className="[&_span]:!body-s flex flex-col gap-2 text-left">
                     {section.map((cfg) => {
                       const fullConfig = PresetComponentMap[cfg.type];
                       if (fullConfig) return <div key={cfg.id}>{fullConfig.displayRender(info[key])}</div>;
@@ -208,15 +208,19 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
           })}
         </div>
       </div>
-      <div className="mt-6 flex justify-end gap-4">
-        <Button ghost className="button-text-m w-[165px] px-0 py-4 uppercase" onClick={onBack} htmlType="button">
+      <div className="fixed bottom-5 flex w-full gap-[.625rem]">
+        <Button
+          className="button-text-m w-[calc((100%-10px-40px)/2)] bg-neutral-black px-0 py-4 uppercase text-white"
+          onClick={onBack}
+          htmlType="button"
+        >
           Back
         </Button>
         <Button
           type="primary"
           htmlType="submit"
           className={cn(
-            'button-text-m w-[165px] px-0 py-4 uppercase'
+            'button-text-m w-[calc((100%-16px-40px)/2)] px-0 py-4 uppercase'
             //  disabled ? 'bg-neutral-light-gray' : ''
           )}
           // disabled={disabled}
@@ -228,7 +232,7 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
       </div>
       <ConfirmModal ref={confirmModalRef}>
         {(isRegister || hackathonInfo.id !== HackathonPartner.Linea) && (
-          <h4 className="text-h4 mb-9 text-center text-neutral-black">
+          <h4 className="sm:text-h4 text-h4-mob mb-9 text-center text-neutral-black">
             Do you want to {isRegister ? 'update' : 'register'} this hackathon?
           </h4>
         )}
