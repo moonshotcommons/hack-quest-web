@@ -56,9 +56,6 @@
     "openZoomMeeting": "Open Zoom meeting",
     "submitWarning": "You are not the team owner, please contact the administrator",
     "editSubmission": "edit submission",
-<<<<<<<<< Temporary merge branch 1
-
-
     "cover": "Cover",
     "judging": "Judging",
     "application": "Application",
@@ -92,38 +89,10 @@
     "sponsorsIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "scheduleIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "FAQsIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "mediaPartnersUploadText": "Please upload one icon image and enter the name for each partner."
-
-
-
-=========
-    "judgingCriteria": "Judging Criteria",
-    "judgingAccounts": "Judging Accounts",
-    "totalUserVotes": "Total User Votes",
-    "totalAdvocateVotes": "Total Advocate Votes",
-    "totalJudgeVotes": "Total Judge Votes",
-    "applicationType": "Application Type",
-    "minTeamSize": "Min. Team Size",
-    "maxTeamSize": "Max. Team Size",
-    "onlineProfiles": "Online profiles",
-    "contact": "Contact",
-    "projectDetail": "Project Detail",
-    "additions": "Additions",
+    "mediaPartnersUploadText": "Please upload one icon image and enter the name for each partner.",
     "videos": "Videos",
     "basicInfo": "Basic Info",
-    "yourContactEmail": "Your Contact Email",
-    "linkToCodeOfConduct": "Link to Code of Conduct",
-    "discord": "Discord",
-    "addNewsection": "Add a new section",
-    "pleaseChooseSectionType": "Please choose a section type",
-    "mediaPartnersIntro": "Sed",
-    "communityPartnersIntro": "Sed",
-    "partnersIntro": "Sed",
     "speakersIntro": "Sedmagna",
-    "sponsorsIntro": "Sedmagna",
-    "scheduleIntro": "Sedmagna",
-    "FAQsIntro": "Sedmagna",
-    "mediaPartnersUploadText": "Please upload one icon image and enter the name for each partner.",
     "speakersUploadText": "Please upload one profile image, name and one-line intro for each speaker or judge.",
     "onlineMeetingURL": "Online Meeting URL",
     "onsiteMeetingAddress": "Onsite Meeting Address",
