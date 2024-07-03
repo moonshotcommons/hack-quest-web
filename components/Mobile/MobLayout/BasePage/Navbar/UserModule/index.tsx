@@ -15,6 +15,7 @@ import Intl from '@/components/Mobile/Intl';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
+import { useRouter } from 'next/navigation';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -24,7 +25,7 @@ interface UserModuleProps {
 const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
-
+  const router = useRouter();
   const { setAuthType, userSignOut, userInfo } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -48,6 +49,8 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
     } else {
       redirectToUrl(V2_LANDING_PATH);
     }
+
+    router.refresh();
   };
 
   const arrowIcon = (
