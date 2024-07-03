@@ -6,6 +6,7 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { config } from '@/config/wagmi';
 import { LangContext } from '../Lang';
+import { useRouter } from 'next/navigation';
 
 interface WagmiConfigProviderProps {
   children: ReactNode;
@@ -26,9 +27,11 @@ export const ChainConfigContext = createContext({
 const WagmiConfigProvider: FC<WagmiConfigProviderProps> = ({ children }) => {
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
+  const router = useRouter();
   if (typeof window === 'object') {
     if (query.get('origin') === 'mantle' && query.get('token')) {
       setToken(query.get('token') as string);
+      router.refresh();
     }
   } else {
     // server

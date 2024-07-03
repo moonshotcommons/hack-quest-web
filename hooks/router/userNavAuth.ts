@@ -8,8 +8,8 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { LoginResponse } from '@/service/webApi/user/type';
 
-function useNavAuth(userInfo: Partial<LoginResponse> | null, waitingUserData: boolean) {
-  // const userInfo = useUserStore((state) => state.userInfo);
+function useNavAuth(propUserInfo: Partial<LoginResponse> | null, waitingUserData: boolean) {
+  const userInfo = useUserStore((state) => state.userInfo);
   const setAuthType = useUserStore((state) => state.setAuthType);
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
@@ -20,7 +20,7 @@ function useNavAuth(userInfo: Partial<LoginResponse> | null, waitingUserData: bo
     if (waitingUserData) return;
     const redirect_url = query.get('redirect_url');
     // 已经登录了
-    if (userInfo) {
+    if (propUserInfo || userInfo) {
       if (!isLandingPage) return;
       const token = getToken();
       if (redirect_url && token) {

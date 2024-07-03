@@ -287,6 +287,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
+          router.refresh();
           redirectToUrl('/dashboard');
         })
         .catch((err) => {
@@ -315,6 +316,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         setAuthModalOpen(false);
+        router.refresh();
         redirectToUrl('/dashboard');
       },
       onError(e: any) {
@@ -354,6 +356,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
+            router.refresh();
             redirectToUrl('/dashboard');
           }
         })
@@ -396,6 +399,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
+            router.refresh();
             redirectToUrl('/dashboard');
           }
         })

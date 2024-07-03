@@ -157,13 +157,14 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useRouter } from 'next/navigation';
 interface MetamaskLoginButtonProps {}
 
 const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
   const isPc = useIsPc();
   const { redirectToUrl } = useRedirect();
   const userInfo = useUserStore((state) => state.userInfo);
-
+  const router = useRouter();
   const { setAuthType, setUserInfo, setAuthModalOpen } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
@@ -185,6 +186,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         setAuthModalOpen(false);
+        router.refresh();
         redirectToUrl('/dashboard');
       },
       onError(e: any) {
@@ -277,6 +279,7 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         setUserInfo(omit(res, 'token'));
         setToken(res.token);
         setAuthModalOpen(false);
+        router.refresh();
         redirectToUrl('/dashboard');
       }
     });
