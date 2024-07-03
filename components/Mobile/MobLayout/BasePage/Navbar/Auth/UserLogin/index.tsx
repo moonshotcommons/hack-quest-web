@@ -92,6 +92,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             const toPageUrl = redirect_url ? `${redirect_url}?token=${res.token}` : '/dashboard';
             changeNavState();
+            router.refresh();
             if (!redirect_url && !isLandingPage) window.location.reload();
             else redirectToUrl(toPageUrl);
           } catch (e: any) {
