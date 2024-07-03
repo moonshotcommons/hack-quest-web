@@ -15,16 +15,16 @@ const Submission: React.FC<SubmissionProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const submission = useMemo(() => {
     const sub = hackathon.info?.submission || {};
-    const Additions = sub.Additions.filter((v) => v.selected)
+    const Additions = sub.Additions?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const BasicInfo = sub.BasicInfo.filter((v) => v.selected)
+    const BasicInfo = sub.BasicInfo?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const ProjectDetail = sub.ProjectDetail.filter((v) => v.selected)
+    const ProjectDetail = sub.ProjectDetail?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const Videos = sub.Videos.filter((v) => v.selected)
+    const Videos = sub.Videos?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
     return {
@@ -39,22 +39,30 @@ const Submission: React.FC<SubmissionProp> = ({ hackathon }) => {
     <EditBox title={'hackathonDetail.submission'} type={HackathonEditModalType.SUBMISSION}>
       <div className="body-m flex flex-col gap-[24px] text-neutral-medium-gray">
         <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">
-          <div>
-            <p>{t('hackathonDetail.projectDetail')}</p>
-            <p className="mt-[4px] text-neutral-off-black">{submission.ProjectDetail}</p>
-          </div>
-          <div>
-            <p>{t('hackathonDetail.additions')}</p>
-            <p className="mt-[4px] text-neutral-off-black">{submission.Additions}</p>
-          </div>
-          <div>
-            <p>{t('hackathonDetail.basicInfo')}</p>
-            <p className="mt-[4px] text-neutral-off-black">{submission.BasicInfo}</p>
-          </div>
-          <div>
-            <p>{t('hackathonDetail.videos')}</p>
-            <p className="mt-[4px] text-neutral-off-black">{submission.Videos}</p>
-          </div>
+          {submission.ProjectDetail && (
+            <div>
+              <p>{t('hackathonDetail.projectDetail')}</p>
+              <p className="mt-[4px] text-neutral-off-black">{submission.ProjectDetail}</p>
+            </div>
+          )}
+          {submission.Additions && (
+            <div>
+              <p>{t('hackathonDetail.additions')}</p>
+              <p className="mt-[4px] text-neutral-off-black">{submission.Additions}</p>
+            </div>
+          )}
+          {submission.BasicInfo && (
+            <div>
+              <p>{t('hackathonDetail.basicInfo')}</p>
+              <p className="mt-[4px] text-neutral-off-black">{submission.BasicInfo}</p>
+            </div>
+          )}
+          {submission.Videos && (
+            <div>
+              <p>{t('hackathonDetail.videos')}</p>
+              <p className="mt-[4px] text-neutral-off-black">{submission.Videos}</p>
+            </div>
+          )}
         </div>
       </div>
     </EditBox>

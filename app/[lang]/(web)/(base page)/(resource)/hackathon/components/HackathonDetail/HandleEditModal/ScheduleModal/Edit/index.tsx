@@ -222,7 +222,7 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
               add();
             }}
           >
-            {hackathon.info?.schedule?.list?.some((v) => v.id === schedule.id) ? t('change') : t('add')}
+            {hackathon.info?.sections?.schedule?.list?.some((v) => v.id === schedule.id) ? t('change') : t('add')}
           </Button>
         </div>
       </div>

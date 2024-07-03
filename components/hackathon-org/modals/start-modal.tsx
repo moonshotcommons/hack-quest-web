@@ -4,24 +4,25 @@ import * as React from 'react';
 import Link from 'next/link';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { debounce } from 'lodash-es';
 import { MoveRightIcon } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { TextField } from '@/components/ui/text-field';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/helper/utils';
 import { HACKQUEST_DISCORD } from '@/constants/links';
-import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { useRouter } from 'next/navigation';
-import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 const formSchema = z.object({
   name: z
     .string()
     .min(1, {
-      message: 'Hackathon name is a required input'
+      message: 'Hackathon name is required'
     })
     .max(80, {
       message: 'Hackathon name cannot exceed 80 characters'
@@ -35,26 +36,55 @@ interface StartModalProps {
 
 export function StartModal({ open, onClose }: StartModalProps) {
   const router = useRouter();
+  const [isValid, setIsValid] = React.useState(true);
+  const [isPending, startTransition] = React.useTransition();
+
   const form = useForm<z.infer<typeof formSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: ''
     }
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (data: { name: string }) => webApi.hackathonV2Api.createHackathon(data),
-    onSuccess: (data) => {
-      router.push(`/form/hackathon/organizer/${data.id}/create`);
-    },
-    onError: (error) => {
-      message.error(error.message);
+  const verifyMutation = useMutation({
+    mutationFn: (name: string) => webApi.hackathonV2Api.verifyHackathonName(name),
+    onSuccess: ({ allow }) => {
+      if (!allow) {
+        setIsValid(false);
+        form.setError('name', {
+          message: 'Hackathon name is already taken.'
+        });
+      } else {
+        setIsValid(true);
+      }
     }
   });
 
+  const mutation = useMutation({
+    mutationFn: (data: { name: string }) => webApi.hackathonV2Api.createHackathon(data),
+    onSuccess: (data) => {
+      startTransition(() => {
+        router.push(`/form/hackathon/organizer/${data.alias}/create`);
+      });
+    },
+    onError: (error) => {
+      errorMessage(error);
+    }
+  });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const checkName = React.useCallback(
+    debounce((name: string) => {
+      verifyMutation.mutate(name);
+    }, 1000),
+    []
+  );
+
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutate(data);
+    mutation.mutate(data);
   }
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-[808px] max-w-[808px] gap-8 px-10 py-16 [&_.close-icon]:right-7 [&_.close-icon]:top-7">
@@ -68,7 +98,7 @@ export function StartModal({ open, onClose }: StartModalProps) {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="w-full space-y-1">
+                <FormItem className="relative w-full space-y-1">
                   <div className="flex items-center justify-between">
                     <FormLabel>
                       <span className="sm:body-m body-s text-neutral-rich-gray">Hackathon Name*</span>
@@ -85,6 +115,9 @@ export function StartModal({ open, onClose }: StartModalProps) {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
+                        if (e.target.value) {
+                          checkName(e.target.value);
+                        }
                       }}
                       autoComplete="off"
                       placeholder="Enter your hackathon name"
@@ -97,8 +130,8 @@ export function StartModal({ open, onClose }: StartModalProps) {
             />
             <Button
               type="submit"
-              isLoading={isPending}
-              disabled={!form.formState.isValid || isPending}
+              isLoading={mutation.isPending || isPending}
+              disabled={!form.formState.isValid || !isValid}
               className="w-60"
             >
               start

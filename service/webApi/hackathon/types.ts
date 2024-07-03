@@ -6,5 +6,6 @@ export interface HackathonType {
   status: string;
   createdAt: string;
   updatedAt: string;
+  progress: string[];
   info: Record<string, any> | null;
 }

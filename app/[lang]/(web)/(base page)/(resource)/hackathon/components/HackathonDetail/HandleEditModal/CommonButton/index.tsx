@@ -19,7 +19,7 @@ const CommonButton: React.FC<CommonButtonProp> = ({ hackathon, handleSave, cantS
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
   const { modalType, setModalType, loading } = useContext(HackathonEditContext);
   const info = useMemo(() => {
-    return hackathon.info?.[modalType as HackathonInfoSPKeys | 'schedule' | 'faqs'] || {};
+    return hackathon.info?.sections?.[modalType as HackathonInfoSPKeys | 'schedule' | 'faqs'] || {};
   }, [hackathon, modalType]);
   return (
     <>

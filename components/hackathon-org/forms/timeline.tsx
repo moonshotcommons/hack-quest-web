@@ -233,7 +233,7 @@ export function TimelineForm({
   onSave?: () => void;
 }) {
   const queryClient = useQueryClient();
-  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const { updateStatus, onStepChange } = useHackathonOrgState();
 
   const { data: timezone } = useQuery({
     staleTime: Infinity,
@@ -254,7 +254,7 @@ export function TimelineForm({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'timeline'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
-      isEditMode ? onSave?.() : onNext();
+      isEditMode ? onSave?.() : onStepChange(Steps.APPLICATION);
     }
   });
 
@@ -296,7 +296,7 @@ export function TimelineForm({
   }
 
   function onCancelOrBack() {
-    isEditMode ? onCancel?.() : onPrevious();
+    isEditMode ? onCancel?.() : onStepChange(Steps.COVER);
   }
 
   React.useEffect(() => {

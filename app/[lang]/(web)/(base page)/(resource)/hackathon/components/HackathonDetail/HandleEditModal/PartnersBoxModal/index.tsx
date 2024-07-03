@@ -28,7 +28,7 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
   const { modalType, setModalType, updateHackathon, loading } = useContext(HackathonEditContext);
   const info = useMemo(() => {
-    return hackathon.info?.[modalType as HackathonInfoParterKeys] || {};
+    return hackathon.info?.sections?.[modalType as HackathonInfoParterKeys] || {};
   }, [hackathon]);
   const [partners, setPartners] = useState<MentorType[]>(info.list || []);
   const handleAdd = () => {

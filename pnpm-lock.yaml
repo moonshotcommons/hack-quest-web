@@ -82,7 +82,7 @@ importers:
         version: 3.7.8(react@18.2.0)
       antd:
         specifier: ^5.17.3
-        version: 5.17.3(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0)
+        version: 5.17.3(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0)
       async-validator:
         specifier: ^4.2.5
         version: 4.2.5
@@ -173,6 +173,9 @@ importers:
       react-countup:
         specifier: ^6.5.0
         version: 6.5.0(react@18.2.0)
+      react-day-picker:
+        specifier: ^8.10.1
+        version: 8.10.1(date-fns@2.30.0)(react@18.2.0)
       react-device-detect:
         specifier: ^2.2.3
         version: 2.2.3(react-dom@18.2.0)(react@18.2.0)
@@ -361,7 +364,7 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       postcss:
-        specifier: ^8.4.24
+        specifier: ^8.4.31
         version: 8.4.31
       prettier:
         specifier: 3.2.4
@@ -7432,6 +7435,12 @@ packages:
     peerDependencies:
       react: '>= 16.3.0'
 
+  react-day-picker@8.10.1:
+    resolution: {integrity: sha512-TMx7fNbhLk15eqcMt+7Z7S2KF7mfTId/XJDjKE8f+IUcFn0l08/kI4FiYTL/0yuOLmEcbR4Fwe3GJf/NiiMnPA==, tarball: https://registry.npmmirror.com/react-day-picker/-/react-day-picker-8.10.1.tgz}
+    peerDependencies:
+      date-fns: ^2.28.0 || ^3.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+
   react-device-detect@2.2.3:
     resolution: {integrity: sha512-buYY3qrCnQVlIFHrC5UcUoAj7iANs/+srdkwsnNjI7anr3Tt7UY6MqNxtMLlr0tMBied0O49UZVK8XKs3ZIiPw==}
     peerDependencies:
@@ -12995,7 +13004,7 @@ snapshots:
 
   ansi-styles@6.2.1: {}
 
-  antd@5.17.3(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0):
+  antd@5.17.3(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0):
     dependencies:
       '@ant-design/colors': 7.0.2
       '@ant-design/cssinjs': 1.20.0(react-dom@18.2.0)(react@18.2.0)
@@ -13026,7 +13035,7 @@ snapshots:
       rc-motion: 2.9.1(react-dom@18.2.0)(react@18.2.0)
       rc-notification: 5.4.0(react-dom@18.2.0)(react@18.2.0)
       rc-pagination: 4.0.4(react-dom@18.2.0)(react@18.2.0)
-      rc-picker: 4.5.0(dayjs@1.11.10)(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0)
+      rc-picker: 4.5.0(date-fns@2.30.0)(dayjs@1.11.10)(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0)
       rc-progress: 4.0.0(react-dom@18.2.0)(react@18.2.0)
       rc-rate: 2.12.0(react-dom@18.2.0)(react@18.2.0)
       rc-resize-observer: 1.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -17664,11 +17673,12 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  rc-picker@4.5.0(dayjs@1.11.10)(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0):
+  rc-picker@4.5.0(date-fns@2.30.0)(dayjs@1.11.10)(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.24.6
       '@rc-component/trigger': 2.1.1(react-dom@18.2.0)(react@18.2.0)
       classnames: 2.5.1
+      date-fns: 2.30.0
       dayjs: 1.11.10
       moment: 2.30.1
       rc-overflow: 1.3.2(react-dom@18.2.0)(react@18.2.0)
@@ -17842,6 +17852,11 @@ snapshots:
   react-countup@6.5.0(react@18.2.0):
     dependencies:
       countup.js: 2.8.0
+      react: 18.2.0
+
+  react-day-picker@8.10.1(date-fns@2.30.0)(react@18.2.0):
+    dependencies:
+      date-fns: 2.30.0
       react: 18.2.0
 
   react-device-detect@2.2.3(react-dom@18.2.0)(react@18.2.0):

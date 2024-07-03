@@ -5,10 +5,10 @@ import React, { useContext, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { hackathonSections } from '../../../../constants/data';
 import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { StartModal } from '@/components/hackathon-org/modals/start-modal';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface DraftHackahtonCardProp {
   hackathon: HackathonType;
@@ -19,12 +19,15 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [open, setOpen] = useState(false);
   const { redirectToUrl } = useRedirect();
-  const isEdited = false;
+  const { getSectionProgress } = useDealHackathonData();
+  const { requires, requireCompletedLen, optionals, optionalCompletedLen, requireCompleted } = getSectionProgress(
+    hackathon.progress || []
+  );
   const handleClickButton = () => {
-    if (isEdited) {
+    if (requireCompleted) {
       redirectToUrl(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`);
     } else {
-      setOpen(true);
+      redirectToUrl(`${MenuLink.FORM_HACKATHON_ORGANIZER}/${hackathon.alias}/create`);
     }
   };
   return (
@@ -32,23 +35,23 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
       <div className="flex items-center justify-between border-b border-neutral-medium-gray pb-[24px]">
         <h2 className="text-h3 text-neutral-off-black">{hackathon.name}</h2>
         <Button type="primary" className="h-[51px] w-[310px] uppercase" onClick={handleClickButton}>
-          {isEdited ? t('organizer.previewSubmit') : t('organizer.continueEditing')}
+          {requireCompleted ? t('organizer.previewSubmit') : t('organizer.continueEditing')}
         </Button>
       </div>
       <div className="flex flex-col gap-[24px] pt-[24px]">
         <div>
           <div className="body-s">
             <span>{t('organizer.requiredSections')}</span>
-            <span>{` (${1}/${8})`}</span>
+            <span>{` (${requireCompletedLen}/${requires?.length})`}</span>
           </div>
           <div className="mt-[4px] flex gap-[20px]">
-            {hackathonSections.require.map((v) => (
+            {requires.map((v) => (
               <div
-                key={v}
-                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${false ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
+                key={v.value}
+                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${v.isCompleted ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
               >
-                <span>{t(`hackathonDetail.${v}`)}</span>
-                {false ? (
+                <span>{t(`hackathonDetail.${v.value}`)}</span>
+                {v.isCompleted ? (
                   <CompletedIcon size={14} />
                 ) : (
                   <div className="h-[14px] w-[14px] rounded-[50%] bg-neutral-off-white"></div>
@@ -60,16 +63,16 @@ const DraftHackahtonCard: React.FC<DraftHackahtonCardProp> = ({ hackathon }) => 
         <div>
           <div className="body-s">
             <span>{t('organizer.optionalSections')}</span>
-            <span>{` (${1}/${8})`}</span>
+            <span>{` (${optionalCompletedLen}/${optionals?.length})`}</span>
           </div>
           <div className="mt-[4px] flex gap-[20px]">
-            {hackathonSections.optional.map((v) => (
+            {optionals.map((v) => (
               <div
-                key={v}
-                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${false ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
+                key={v.value}
+                className={`body-m flex items-center gap-[4px] rounded-[4px] border  px-[20px] py-[12px] ${v.isCompleted ? 'border-transparent bg-neutral-off-white' : 'border border-neutral-light-gray bg-transparent'}`}
               >
-                <span>{t(`hackathonDetail.${v}`)}</span>
-                {false ? (
+                <span>{t(`hackathonDetail.${v.value}`)}</span>
+                {v.isCompleted ? (
                   <CompletedIcon size={14} />
                 ) : (
                   <div className="h-[14px] w-[14px] rounded-[50%] bg-neutral-off-white"></div>

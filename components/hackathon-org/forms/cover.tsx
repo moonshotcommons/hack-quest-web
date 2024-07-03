@@ -47,7 +47,7 @@ export function CoverForm({
   const [removeLoading, toggleRemoveLoading] = useToggle(false);
   const [imageUrl, setImageUrl] = React.useState<string>('');
 
-  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const { updateStatus, onStepChange } = useHackathonOrgState();
 
   const queryClient = useQueryClient();
 
@@ -86,11 +86,11 @@ export function CoverForm({
   }
 
   function onSaveOrNext() {
-    isEditMode ? onSave?.() : onNext();
+    isEditMode ? onSave?.() : onStepChange(Steps.TIMELINE);
   }
 
   function onCancelOrBack() {
-    isEditMode ? onCancel?.() : onPrevious();
+    isEditMode ? onCancel?.() : onStepChange(Steps.LINKS);
   }
 
   React.useEffect(() => {

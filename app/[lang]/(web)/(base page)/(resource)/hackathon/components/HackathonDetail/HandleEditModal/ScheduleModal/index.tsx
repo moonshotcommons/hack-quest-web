@@ -29,7 +29,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
   const [open, setOpen] = useState(false);
   const [removeSchedule, setRemoveSchedule] = useState<HackathonScheduleType | null>(null);
   const handleRemoveEvent = (item: HackathonScheduleType, index?: number) => {
-    const isExist = hackathon.info?.schedule?.list?.some((v) => v.id === item.id);
+    const isExist = hackathon.info?.sections?.schedule?.list?.some((v) => v.id === item.id);
     if (isExist) {
       setOpen(true);
       setRemoveSchedule(item);
@@ -41,7 +41,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
   };
 
   const handleConfirmRemoveEvent = () => {
-    const newSchedules = hackathon.info?.schedule?.list.filter((v) => v.id !== removeSchedule?.id);
+    const newSchedules = hackathon.info?.sections?.schedule?.list.filter((v) => v.id !== removeSchedule?.id);
     updateHackathon({
       data: {
         schedule: {
@@ -73,7 +73,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
     });
   };
   useEffect(() => {
-    const newSchedules = hackathon.info?.schedule?.list || [];
+    const newSchedules = hackathon.info?.sections?.schedule?.list || [];
     setSchedules(newSchedules);
   }, [hackathon]);
   return (

@@ -36,7 +36,7 @@ const EditTitle: React.FC<EditTitleProp> = ({ hackathon, list }) => {
     });
   };
   useEffect(() => {
-    setTitle(hackathon.info?.[modalType as HackathonInfoSPKeys]?.title || t(`hackathonDetail.${modalType}`));
+    setTitle(hackathon.info?.sections?.[modalType as HackathonInfoSPKeys]?.title || t(`hackathonDetail.${modalType}`));
     setIsEdit(false);
   }, [hackathon]);
   return (

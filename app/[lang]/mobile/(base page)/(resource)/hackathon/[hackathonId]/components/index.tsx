@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import TimeLine from '../../components/HackathonDetail/TimeLine';
-import Rewards from '../../components/HackathonDetail/Rewards';
 import Judging from '../../components/HackathonDetail/Judging';
 import PartnersBox from '../../components/HackathonDetail/PartnersBox';
 import SpeakersSponsorsBox from '../../components/HackathonDetail/SpeakersSponsorsBox';
@@ -15,6 +14,7 @@ import RewardsProjects from '../../components/HackathonDetail/RewardsProjects';
 import { initMobileDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import EditNav from '../../components/HackathonDetail/EditNav';
+import Rewards from '../../components/HackathonDetail/Rewards';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;

@@ -77,13 +77,13 @@ export function ApplicationForm({
   const queryClient = useQueryClient();
   const { aboutState, onlineProfileState, contactState, setAboutState, setOnlineProfileState, setContactState } =
     useApplicationState();
-  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const { updateStatus, onStepChange } = useHackathonOrgState();
 
   const mutation = useMutation({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'application'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
-      isEditMode ? onSave?.() : onNext();
+      isEditMode ? onSave?.() : onStepChange(Steps.SUBMISSION);
     }
   });
 
@@ -114,7 +114,7 @@ export function ApplicationForm({
   }
 
   function onCancelOrBack() {
-    isEditMode ? onCancel?.() : onPrevious();
+    isEditMode ? onCancel?.() : onStepChange(Steps.TIMELINE);
   }
 
   React.useEffect(() => {

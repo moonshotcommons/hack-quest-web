@@ -35,7 +35,8 @@ enum MenuLink {
   FAUCETS = '/faucets',
   EXPLORE = '/ecosystem-explore',
   SYSTEM = '/system',
-  HACKATHON_EDIT = '/hackathon/edit'
+  HACKATHON_EDIT = '/hackathon/edit',
+  FORM_HACKATHON_ORGANIZER = '/form/hackathon/organizer'
 }
 
 export default MenuLink;

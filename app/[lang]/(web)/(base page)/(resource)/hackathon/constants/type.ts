@@ -61,7 +61,7 @@ export enum HackathonEditModalType {
   INFO = 'info',
   TIMELINE = 'timeline',
   REWARDS = 'rewards',
-  JUDGING = 'judging',
+  JUDGE = 'judge',
   APPLICATION = 'application',
   SUBMISSION = 'submission',
   LINKS = 'links',
@@ -76,6 +76,7 @@ export enum HackathonEditModalType {
 
 export interface UpdateHackathonParamType {
   data: Record<string, any>;
+  status?: string;
   closeModal?: boolean;
   cb?: VoidFunction;
 }

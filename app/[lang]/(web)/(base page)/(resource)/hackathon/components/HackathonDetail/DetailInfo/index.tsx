@@ -72,6 +72,20 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
+        if (!hackathon.allowSubmission) {
+          return (
+            <Button
+              type="primary"
+              disabled
+              className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+            >
+              <div>
+                <p className="button-text-l uppercase">Pending</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by 6:30p.m. on June 28th, 2024`}</p>
+              </div>
+            </Button>
+          );
+        }
         if (!hackathon.participation.isSubmit) {
           return !hackathon.participation.project?.id ? (
             <Button
@@ -91,7 +105,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         } else {
           return (
             <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
-              <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
+              <Button type="primary" className="button-text-l h-[60px] w-full  uppercase text-neutral-black">
                 {t('hackathonDetail.editSubmission')}
               </Button>
             </Link>
