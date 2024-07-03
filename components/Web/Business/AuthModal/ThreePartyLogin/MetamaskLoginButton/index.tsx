@@ -45,8 +45,8 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         setAuthModalOpen(false);
-        router.refresh();
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -138,8 +138,8 @@ const MetamaskLoginButton: React.FC<MetamaskLoginButtonProps> = (props) => {
         setUserInfo(omit(res, 'token'));
         setToken(res.token);
         setAuthModalOpen(false);
-        router.refresh();
         redirectToUrl('/dashboard');
+        router.refresh();
       }
     });
   };

@@ -87,9 +87,10 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             }
             const toPageUrl = redirect_url ? `${redirect_url}?token=${res.token}` : '/dashboard';
             changeNavState();
-            router.refresh();
+
             if (!redirect_url && !isLandingPage) window.location.reload();
             else redirectToUrl(toPageUrl);
+            router.refresh();
           } catch (e: any) {
             if (e.code === 400) {
               BurialPoint.track('login-登录失败', { message: e?.msg });
