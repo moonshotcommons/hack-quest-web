@@ -58,6 +58,7 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
 
   return (
     <Form {...form}>
+      {form.formState.isValid ? 'yes' : 'no'}
       <form className="flex h-full w-full flex-col gap-6">
         <div className="flex  flex-col gap-4 text-left">
           <FormField

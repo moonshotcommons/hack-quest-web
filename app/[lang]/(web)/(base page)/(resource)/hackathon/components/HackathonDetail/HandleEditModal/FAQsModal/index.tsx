@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { HacakthonFaqType, HackathonType } from '@/service/webApi/resourceStation/type';
 import Title from '../../Title';
 import { HackathonEditContext } from '../../../../constants/type';
@@ -25,7 +25,7 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { updateHackathon } = useContext(HackathonEditContext);
-
+  const [cantSubmit, setCantSubmit] = useState(true);
   const form = useForm<FormValueType>({
     resolver: zodResolver(faqsFormArraySchema),
     defaultValues: {
@@ -48,9 +48,14 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
       }
     });
   };
-  const cantSubmit = useMemo(() => {
+  // const cantSubmit = useMemo(() => {
+  //   const items = form?.getValues()?.items || [];
+  //   return items?.some((v) => !v.question || !v.answer) || !items?.length;
+  // }, [form.watch()]);
+
+  useEffect(() => {
     const items = form?.getValues()?.items || [];
-    return items?.some((v) => !v.question || !v.answer) || !items?.length;
+    setCantSubmit(items?.some((v) => !v.question || !v.answer) || !items?.length);
   }, [form.watch()]);
 
   return (
@@ -58,6 +63,7 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
       <div className="px-[40px]">
         <Title title="FAQs" />
       </div>
+      {form.formState.isValid ? '' : ''}
       <div className="scroll-wrap-y flex flex-1 flex-col gap-[24px] px-[40px]">
         <Form {...form}>
           <form className="flex h-full w-full flex-col gap-6">

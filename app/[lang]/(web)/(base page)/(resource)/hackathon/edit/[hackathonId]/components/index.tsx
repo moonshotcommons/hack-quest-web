@@ -91,7 +91,6 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
     setTimeout(() => {
       getOffsetTops();
     }, 300);
-    console.info(hackathon);
   }, [hackathon]);
   return (
     <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>

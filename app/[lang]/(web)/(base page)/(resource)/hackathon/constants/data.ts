@@ -153,7 +153,7 @@ export const scheduleFormSchema = z.object({
   description: z.string().max(360, {
     message: 'Description cannot exceed 360 characters.'
   }),
-  link: z.string().url().optional(),
+  link: z.string().url().optional().or(z.literal('')),
   address: z.string()
 });
 

@@ -37,6 +37,8 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
       const newSchedules = cloneDeep(schedules);
       newSchedules.splice(index as number, 1);
       setSchedules(newSchedules);
+      const newEditIds = editIds.filter((v) => v !== item.id);
+      setEditIds([...newEditIds]);
     }
   };
 
@@ -47,6 +49,11 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
         schedule: {
           list: newSchedules
         }
+      },
+      closeModal: false,
+      cb() {
+        const newEditIds = editIds.filter((v) => v !== removeSchedule?.id);
+        setEditIds([...newEditIds]);
       }
     });
   };
@@ -68,7 +75,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
       closeModal: false,
       cb() {
         const newEditIds = editIds.filter((v) => v !== item.id);
-        setEditIds(newEditIds);
+        setEditIds([...newEditIds]);
       }
     });
   };
@@ -126,7 +133,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
       <CommonButton
         hackathon={hackathon}
         handleSave={() => setModalType(HackathonEditModalType.NULL)}
-        cantSubmit={false}
+        cantSubmit={editIds.length > 0}
       />
       <RemoveSectionModal ref={removeSectionRef} type={modalType} />
       <ConfirmModal open={open} onClose={() => setOpen(false)} onConfirm={handleConfirmRemoveEvent} isLoading={loading}>
