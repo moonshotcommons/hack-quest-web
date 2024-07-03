@@ -6,7 +6,7 @@ export interface V2LayoutProps {
   children: ReactNode;
 }
 
-const V2Layout: React.FC<V2LayoutProps> = async ({ children }) => {
+const V2Layout: React.FC<V2LayoutProps> = ({ children }) => {
   return (
     <div className={`flex h-[100vh] w-full flex-col overflow-hidden`}>
       <div className="flex w-full items-center bg-neutral-black">

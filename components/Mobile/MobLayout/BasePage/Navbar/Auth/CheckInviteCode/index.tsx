@@ -15,6 +15,7 @@ import { AuthContext } from '..';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useRouter } from 'next/navigation';
 
 interface CheckInviteCodeProps {}
 
@@ -39,6 +40,8 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
       setUserInfo: state.setUserInfo
     }))
   );
+
+  const router = useRouter();
 
   const { changeNavState } = useContext(AuthContext);
 
@@ -99,6 +102,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -135,6 +139,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';

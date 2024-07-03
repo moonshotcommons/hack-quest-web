@@ -10,7 +10,7 @@ export function setToken(token: string) {
   if (typeof window === 'object') {
     localStorage.setItem(TOKEN_KEY, token);
     setCookie(TOKEN_KEY, token, {
-      expires: new Date(Date.now() + 3600 * 24 * 3)
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3)
     });
   }
 }
