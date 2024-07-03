@@ -12,7 +12,7 @@ interface FirstNameAndLastNameProps {
 const FirstNameAndLastName: FC<FirstNameAndLastNameProps> = ({ form, config }) => {
   const requiredTag = config.optional ? ' (Optional)' : '*';
   return (
-    <div className="flex justify-between gap-4">
+    <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
       <FormInput
         form={form}
         placeholder="Enter your first name"
@@ -36,8 +36,10 @@ export const FirstNameAndLastNameConfig: PresetComponentConfig<FirstNameAndLastN
   displayRender(info) {
     return (
       <div className="flex flex-1 items-center justify-between">
-        <span className="body-m flex items-center  text-neutral-off-black">Name</span>
-        <span className="body-m text-neutral-off-black">{(info.firstName ?? '') + '' + (info.lastName ?? '')}</span>
+        <span className="sm:body-m body-s flex items-center  text-neutral-off-black">Name</span>
+        <span className="sm:body-m body-s text-neutral-off-black">
+          {(info.firstName ?? '') + '' + (info.lastName ?? '')}
+        </span>
       </div>
     );
   },

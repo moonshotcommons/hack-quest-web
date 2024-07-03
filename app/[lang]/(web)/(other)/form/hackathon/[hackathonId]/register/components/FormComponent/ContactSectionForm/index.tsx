@@ -22,6 +22,8 @@ import {
   PresetComponentConfig
 } from '@/components/HackathonCreation/type';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
+import ConfirmModal from '@/components/Web/Business/ConfirmModal';
 
 interface ContactSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
@@ -49,15 +51,15 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
     } else return 1;
   });
 
-  const { run: submitRequest, loading } = useRequest(
-    async (values: Record<string, string>) => {
+  const { runAsync: submitRequest, loading } = useRequest(
+    async (values: Record<string, string>, isExit = false) => {
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.Contact);
       const state = {
         info: {
           ...omit(info, ApplicationSectionType.ApplicationType),
           [ApplicationSectionType.Contact]: values
         },
-        status: nextStep.type
+        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.Contact) : nextStep.type
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
       // await refreshRegisterInfo();
@@ -96,7 +98,7 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
     }
   }, [contact]);
 
-  console.log(form.getValues());
+  const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
     <div>
@@ -105,7 +107,7 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
           <div className="flex flex-wrap gap-6">
             {sectionConfig.map((config, index) => {
               return (
-                <div key={config.id} className="w-[calc(50%-12px)]">
+                <div key={config.id} className="sm:w-[calc(50%-12px)]">
                   <Fragment>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>
                 </div>
               );
@@ -140,6 +142,9 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the register process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

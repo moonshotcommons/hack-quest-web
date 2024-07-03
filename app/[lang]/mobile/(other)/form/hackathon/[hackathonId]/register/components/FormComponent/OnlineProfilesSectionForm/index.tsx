@@ -25,11 +25,11 @@ import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import ConfirmModal from '@/components/Web/Business/ConfirmModal';
 import { useFormExit } from '@/hooks/hackathon/useFormExit';
 
-interface AboutSectionFormProps {
+interface OnlineProfilesSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
 }
 
-const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = ({
+const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormComponentProps> = ({
   sectionConfig,
   info,
   isRegister,
@@ -40,7 +40,7 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
     resolver: zodResolver(formSchema)
   });
 
-  const about = info.About;
+  const onlineProfiles = info.OnlineProfiles;
 
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
@@ -53,14 +53,17 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
 
   const { runAsync: submitRequest, loading } = useRequest(
     async (values: Record<string, string>, isExit = false) => {
-      // form.trigger();
-      const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.About);
+      const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.OnlineProfiles);
       const state = {
         info: {
           ...omit(info, ApplicationSectionType.ApplicationType),
-          [ApplicationSectionType.About]: values
+          [ApplicationSectionType.OnlineProfiles]: values
         },
-        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.About) : nextStep.type
+        status: isExit
+          ? form.formState.isValid
+            ? nextStep.type
+            : ApplicationSectionType.OnlineProfiles
+          : nextStep.type
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
       // await refreshRegisterInfo();
@@ -68,6 +71,7 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
     },
     {
       manual: true,
+      debounceWait: 300,
       onSuccess(state) {
         onNext(state);
       },
@@ -78,7 +82,8 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   );
 
   function onSubmit(values: Record<string, string>) {
-    const isSame = isEqual(values, about);
+    form.trigger();
+    const isSame = isEqual(values, onlineProfiles);
     if (isSame) {
       onNext();
       return;
@@ -87,50 +92,49 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   }
 
   useEffect(() => {
-    for (let key in about) {
-      form.setValue(key, about[key] as string);
+    for (let key in onlineProfiles) {
+      form.setValue(key, onlineProfiles[key] as string);
     }
-    const propValues = Object.values(about);
+    const propValues = Object.values(onlineProfiles);
     const requiredCount = sectionConfig.filter((cfg) => !cfg.optional);
     if (propValues.length >= requiredCount.length) {
       form.trigger();
     }
-  }, [about]);
+  }, [onlineProfiles]);
 
   const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
-    <div>
+    <div className="pb-[7.5rem]">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <div className="flex flex-col gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-6">
+          <div
+            className="flex flex-wrap gap-6
+          "
+          >
+            {/* [&>div]:w-[calc(50%-12px)] */}
             {sectionConfig.map((config, index) => {
-              return <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
+              return <Fragment key={config.id}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
             })}
           </div>
-          <div className="flex justify-end gap-4">
+          <div className="fixed bottom-5 flex w-full gap-[.625rem]">
             <Button
-              htmlType="button"
-              ghost
-              className="button-text-m w-[165px] px-0 py-4 uppercase"
-              disabled={hackathonSteps[0].type === ApplicationSectionType.About}
+              className="button-text-m w-[calc((100%-10px-40px)/2)] bg-neutral-black px-0 py-4 uppercase text-white"
               onClick={onBack}
+              htmlType="button"
+              disabled={hackathonSteps[0].type === ApplicationSectionType.OnlineProfiles}
             >
               Back
             </Button>
             <Button
               type="primary"
-              loading={loading}
               htmlType="submit"
               className={cn(
-                'button-text-m min-w-[165px] px-0 py-4 uppercase',
-                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+                'button-text-m w-[calc((100%-16px-40px)/2)] px-0 py-4 uppercase',
+                !form.formState.isValid ? 'bg-neutral-light-gray text-neutral-medium-gray opacity-100' : ''
               )}
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   onSubmit(form.getValues());
-              // }}
               disabled={!form.formState.isValid}
+              loading={loading}
             >
               {isRegister ? 'update' : 'Save'} And Next
             </Button>
@@ -144,4 +148,4 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   );
 };
 
-export default AboutSectionForm;
+export default OnlineProfilesSectionForm;

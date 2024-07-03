@@ -100,7 +100,7 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
-    <div>
+    <div className="pb-[120px]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-6">
@@ -108,11 +108,10 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
               return <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>;
             })}
           </div>
-          <div className="flex justify-end gap-4">
+          <div className="max-w-screen fixed bottom-5 flex w-full gap-[.625rem]">
             <Button
               htmlType="button"
-              ghost
-              className="button-text-m w-[165px] px-0 py-4 uppercase"
+              className="button-text-m w-[calc((100%-16px-40px)/2)] bg-neutral-light-gray px-0 py-4 uppercase text-neutral-medium-gray opacity-100"
               disabled={hackathonSteps[0].type === ApplicationSectionType.About}
               onClick={onBack}
             >
@@ -123,13 +122,9 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
               loading={loading}
               htmlType="submit"
               className={cn(
-                'button-text-m min-w-[165px] px-0 py-4 uppercase',
-                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+                'button-text-m w-[calc((100%-10px-40px)/2)] px-0 py-4 uppercase opacity-100',
+                !form.formState.isValid ? 'bg-neutral-light-gray text-neutral-medium-gray' : ''
               )}
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   onSubmit(form.getValues());
-              // }}
               disabled={!form.formState.isValid}
             >
               {isRegister ? 'update' : 'Save'} And Next
