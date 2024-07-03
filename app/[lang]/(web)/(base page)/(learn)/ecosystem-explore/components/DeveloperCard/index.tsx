@@ -20,14 +20,14 @@ const DeveloperCard: React.FC<DeveloperCardProp> = ({ course }) => {
       className="card-hover flex h-[209px] w-full overflow-hidden rounded-[16px] bg-neutral-white"
     >
       <div className="relative h-full w-[30%] flex-shrink-0 overflow-hidden">
-        <Image src={course.image || CourseCover} fill alt={course.title} className="object-cover" />
+        <Image src={course.image || CourseCover} fill alt={course.title || course.name} className="object-cover" />
       </div>
       <div className="flex flex-1 flex-col justify-between p-[24px]">
         <div className="flex flex-col gap-[16px]">
           <div className="flex gap-[12px]">
             <TrackTag track={course.track} />
           </div>
-          <h2 className="body-m-bold line-clamp-2 text-neutral-off-black">{course.title}</h2>
+          <h2 className="body-m-bold line-clamp-2 text-neutral-off-black">{course.title || course.name}</h2>
           <p className="body-s line-clamp-2 text-neutral-medium-gray">{course.description}</p>
         </div>
         <div className="flex gap-[20px]">

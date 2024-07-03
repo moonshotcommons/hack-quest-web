@@ -14,6 +14,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useRouter } from 'next/navigation';
 
 interface CheckInviteCodeProps {}
 
@@ -23,6 +24,9 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   const authRouteType = useUserStore((state) => state.authRouteType);
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const { redirectToUrl } = useRedirect();
+
+  const router = useRouter();
+
   const [formData, setFormData] = useState<{
     email: string;
     inviteCode: string;
@@ -97,6 +101,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -133,6 +138,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';

@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 import LearnMoreButton from './LearnMoreButton';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 
 interface CertificationCardProps {
-  certification: CertificationType;
+  certification: UserCertificateInfo;
 }
 
 const CertificationCard: FC<CertificationCardProps> = async (props) => {

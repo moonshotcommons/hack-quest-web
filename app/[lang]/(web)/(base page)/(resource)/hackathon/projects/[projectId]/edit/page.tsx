@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import { getHackathonById, getHackathonProjectById } from '@/service/cach/resource/hackathon';
+import { getHackathonProjectById, getSimpleHackathonInfo } from '@/service/cach/resource/hackathon';
 import { Lang } from '@/i18n/config';
 import ProjectDetail from './components';
 
@@ -14,13 +14,11 @@ interface ProjectDetailPageProps {
 export async function generateMetadata({ params, searchParams }: ProjectDetailPageProps): Promise<Metadata> {
   let query = new URLSearchParams(searchParams).toString();
   query = query ? '?' + query : '';
-
   const { lang } = params;
-
   const project = await getHackathonProjectById(params.projectId);
   return {
     title: project.name,
-    description: project.description,
+    description: project.detail?.detailedIntro,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}${query}`,
       languages: {
@@ -36,9 +34,8 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
 
   const [project] = await Promise.all([getHackathonProjectById(projectId)]);
-  const hackathon = await getHackathonById(project.hackathonId);
-
-  return <ProjectDetail project={project} hackathon={hackathon} />;
+  const hackathonInfo = await getSimpleHackathonInfo(project.hackathonId);
+  return <ProjectDetail project={project} hackathon={hackathonInfo} />;
 };
 
 export default ProjectDetailPage;

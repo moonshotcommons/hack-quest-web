@@ -14,11 +14,13 @@ import { useCheckPathname } from '@/hooks/router/useCheckPathname';
 import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '../../constant';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface NavbarProps {
   navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
 const Navbar: FC<NavbarProps> = (props) => {

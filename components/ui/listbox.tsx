@@ -87,7 +87,9 @@ const SelectContent = React.forwardRef<
       position={position}
       {...props}
     >
-      <div className="mx-3 h-px bg-neutral-black" />
+      <div className="w-full px-3">
+        <div className="h-px flex-shrink-0 bg-neutral-black" />
+      </div>
       <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(
@@ -141,7 +143,7 @@ const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Separator ref={ref} className={cn('-mx-1 my-1 h-px bg-muted', className)} {...props} />
+  <SelectPrimitive.Separator ref={ref} className={cn('-mx-1 my-1 h-px bg-neutral-black', className)} {...props} />
 ));
 
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;

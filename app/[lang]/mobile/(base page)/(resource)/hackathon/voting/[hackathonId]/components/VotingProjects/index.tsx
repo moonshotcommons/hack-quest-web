@@ -11,8 +11,8 @@ import webApi from '@/service';
 import { cloneDeep } from 'lodash-es';
 import Loading from '@/components/Common/Loading';
 import SearchTxt from './SearchTxt';
-import Title from '../../../../[hackathonId]/components/components/Title';
 import { FilterRef } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/voting/[hackathonId]/components/VotingProjects/Filter';
+import Title from '../../../../components/HackathonDetail/Title';
 
 interface VotingProjectsProp {
   hackathon: HackathonType;
@@ -69,7 +69,7 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   }, [hackathon, isInit, voteData]);
   return (
     <div className="flex flex-col gap-[1.5rem]">
-      <div>
+      <div className="flex flex-col gap-[1rem]">
         <Title title={t('hackathonVoting.votingProjects')} />
         <Filter hackathon={hackathon} ref={filterRef} handleSearch={handleSearch} handleRandom={handleRandom} />
       </div>

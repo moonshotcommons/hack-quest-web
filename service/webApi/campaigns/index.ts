@@ -1,5 +1,5 @@
 import WebService from '@/service/webService/webService';
-import { CertificationType, GetSignatureParams, MantleType, SignatureData, TargetsType } from './type';
+import { GetSignatureParams, MantleType, SignatureData, TargetsType, UserCertificateInfo } from './type';
 import { cache } from 'react';
 
 export enum CampaignsApiType {
@@ -45,20 +45,20 @@ class CampaignsApi {
   }
 
   /** 获取certification 密钥 */
-  getSignature(params: GetSignatureParams) {
-    return this.service.post<SignatureData>(CampaignsApiType.GetSignature, {
+  getSignature(certificateId: string, params: GetSignatureParams) {
+    return this.service.post<SignatureData>(`${CampaignsApiType.Certifications}/${certificateId}/signature`, {
       data: params
     });
   }
 
   /** 获取证书的详情 */
   getCertificationDetail(certificationId: string) {
-    return this.service.get<CertificationType>(`${CampaignsApiType.Certifications}/${certificationId}`);
+    return this.service.get<UserCertificateInfo>(`${CampaignsApiType.Certifications}/${certificationId}`);
   }
 
   getCertificate(certificationId: string, token: string) {
     const cacheFn = cache(() => {
-      return this.service.get<CertificationType>(`${CampaignsApiType.Certifications}/${certificationId}`, {
+      return this.service.get<UserCertificateInfo>(`${CampaignsApiType.Certifications}/${certificationId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -69,7 +69,7 @@ class CampaignsApi {
   }
 
   /** 获取证书的详情 */
-  async fetchCertificationDetail(certificationId: string): Promise<CertificationType> {
+  async fetchCertificationDetail(certificationId: string): Promise<UserCertificateInfo> {
     // const url = `${this.service.baseURL.slice(0, -1)}${CampaignsApiType.Certifications}/${certificationId}`;
 
     // const certificationDetail = await fetch(url, {
@@ -93,8 +93,8 @@ class CampaignsApi {
     return this.service.get(`${CampaignsApiType.Certifications}/${certificationId}/claim`);
   }
 
-  claimCertificate(data: object, certificationId: string) {
-    return this.service.post(`${CampaignsApiType.Certifications}/${certificationId}/claim`, {
+  claimCertificate(certificationId: string, data: FormData) {
+    return this.service.post<UserCertificateInfo>(`${CampaignsApiType.Certifications}/${certificationId}/claim`, {
       data
     });
   }
@@ -105,6 +105,12 @@ class CampaignsApi {
       data: {
         txId: params.txId
       }
+    });
+  }
+
+  crateCertificate(certificationId: string, data: { username: string }) {
+    return this.service.post<UserCertificateInfo>(`${CampaignsApiType.Certifications}/${certificationId}/certificate`, {
+      data
     });
   }
 }

@@ -3,7 +3,7 @@ import Modal from '@/components/Common/Modal';
 import { cn } from '@/helper/utils';
 import iconCoin from '@/public/images/mission-center/icon_coin.png';
 import iconXp from '@/public/images/mission-center/icon_xp.png';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
 import { forwardRef, useContext, useImperativeHandle, useState } from 'react';
 import GettingCertificate from './GettingCertificate';
@@ -13,7 +13,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 
 interface CertificationModalProps {
-  certification: CertificationType;
+  certification: UserCertificateInfo;
   showCoin?: boolean;
   completed?: boolean;
   campaignId?: string;
@@ -27,7 +27,7 @@ export interface CertificationModalInstance {
 
 const CertificationModal = forwardRef<CertificationModalInstance, CertificationModalProps>((props, ref) => {
   const { lang } = useContext(LangContext);
-  const { t } = useTranslation(lang, TransNs.REWARD);
+  const { t } = useTranslation(lang, TransNs.BASIC);
   const { certification, completed, campaignId, showCoin = false, onClose, refreshCertification } = props;
   const [open, setOpen] = useState(false);
 
@@ -55,7 +55,7 @@ const CertificationModal = forwardRef<CertificationModalInstance, CertificationM
           <div className="flex flex-col">
             <div className="relative h-[240px] w-[434px]">
               <Image
-                src={certification.image || ''}
+                src={certification.certificateImage || ''}
                 fill
                 alt="certification"
                 className={cn(!certification.claimed ? 'blur-[2px]' : '')}

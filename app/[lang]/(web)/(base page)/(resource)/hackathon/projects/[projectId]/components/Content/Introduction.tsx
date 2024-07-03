@@ -14,10 +14,13 @@ const Introduction: React.FC<IntroductionProp> = ({ project }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { titleTxtData } = useContext(ProjectDetailContext);
+
+  if (!project.detail.oneLineIntro) return null;
+
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('projectsDetail.title.introduction')} />
-      <p className="body-l text-neutral-rich-gray">{project.introduction}</p>
+      <p className="body-l text-neutral-rich-gray">{project.detail.oneLineIntro}</p>
     </div>
   );
 };

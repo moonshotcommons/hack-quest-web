@@ -6,14 +6,16 @@ import NavBar, { NavbarProps } from '../Navbar';
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPathname';
 import AIFloatButton from '@/components/Mobile/MobAI/AIFloatButton';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface V2LayoutProps {
-  navbarData: NavbarProps;
+  navbarData: Omit<NavbarProps, 'userInfo'>;
   // footerData: IFooterProps;
   children: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
-const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
+const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) => {
   const pathname = useCustomPathname();
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
   // const renderBreadcrumb = useCallback(() => {
@@ -41,8 +43,8 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
     <div className={`relative w-full  `}>
       <AIFloatButton>
         <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-white">
-          <NavBar {...navbarData}>
-            <User></User>
+          <NavBar {...navbarData} userInfo={userInfo}>
+            <User userInfo={userInfo}></User>
           </NavBar>
         </div>
         <div

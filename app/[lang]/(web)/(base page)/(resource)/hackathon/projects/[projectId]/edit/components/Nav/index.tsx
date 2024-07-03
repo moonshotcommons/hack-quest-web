@@ -36,10 +36,17 @@ const Nav: React.FC<NavProp> = ({ handleClickAnchor, curAnchorIndex, onSava, onE
       </div>
       <div className="mx-auto w-[calc(100%-40px)]">
         <div className="my-6 h-px w-full scale-y-50 bg-neutral-medium-gray"></div>
-        <Button block type="primary" className="button-text-m uppercase" onClick={onSava} disabled={submitDisable}>
+        <Button
+          block
+          type="primary"
+          htmlType="submit"
+          className="button-text-m uppercase"
+          // onClick={onSava}
+          disabled={submitDisable}
+        >
           Save & resubmit
         </Button>
-        <Button block ghost className="button-text-m mt-4 uppercase" onClick={onExit}>
+        <Button block ghost htmlType="button" className="button-text-m mt-4 uppercase" onClick={onExit}>
           exit
         </Button>
       </div>

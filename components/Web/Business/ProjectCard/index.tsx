@@ -27,7 +27,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
       href={`${MenuLink.PROJECTS}/${project.alias}`}
     >
       <div className="relative h-0 w-full bg-[#d9d9d9]/30 pt-[56%]">
-        <Image src={project.thumbnail} alt={project.alias} fill className="object-cover" loading="lazy"></Image>
+        <Image src={project.logo} alt={project.alias} fill className="object-cover" loading="lazy"></Image>
       </div>
       <div className="flex h-[215px] flex-col justify-between p-[16px]">
         <div className="flex w-full flex-col gap-[16px]">
@@ -43,7 +43,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
             ))}
           </div>
           <h2 className="body-m-bold truncate text-neutral-off-black">{project.name}</h2>
-          <div className="body-s line-clamp-2 text-neutral-rich-gray">{project.introduction}</div>
+          <div className="body-s line-clamp-2 text-neutral-rich-gray">{project.detail?.detailedIntro}</div>
         </div>
         <div className="caption-12pt flex items-center gap-[10px]  text-neutral-rich-gray">
           {/* <span className="flex-shrink-0">2022 Summer</span>

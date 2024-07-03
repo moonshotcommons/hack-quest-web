@@ -1,34 +1,102 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
-import Videos from './Videos';
+import React, { Fragment, useEffect, useRef } from 'react';
+import { ProjectType, SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 
 import { OffsetTopsType } from '../../../../../constants/type';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Form } from '@/components/ui/form';
-import { useRequest } from 'ahooks';
-import { RcFile, UploadFile } from 'antd/es/upload';
-import webApi from '@/service';
-import { errorMessage } from '@/helper/ui';
-import Info from './Info';
-import Others from './Others';
-import Wallet from './Wallet';
-import Nav from '../Nav';
-
-import { isEqual } from 'lodash-es';
-import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
-import Project from './Project';
-import Links from './Links';
-import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
-import { getSectionData } from '../../constants';
+import { useRedirect } from '@/hooks/router/useRedirect';
+import Nav from '../Nav';
+import { getHackathonSubmissionSteps } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
+import {
+  HackathonRendererProvider,
+  useValidatorFormSchema
+} from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
+import Title from '@/components/Common/Title';
+import { CustomComponentConfig, SubmissionSectionType } from '@/components/HackathonCreation/type';
+import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
+import { useForm, useFormState } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { isEqual, omit } from 'lodash-es';
+import { Form } from '@/components/ui/form';
+import webApi from '@/service';
+import { useRequest } from 'ahooks';
+import { errorMessage } from '@/helper/ui';
+
+function getDefaultValues(project: ProjectType) {
+  const {
+    name,
+    prizeTrack,
+    tracks,
+    location,
+    wallet,
+    logo,
+    fields = {},
+    pitchVideo,
+    demoVideo,
+    detail = {},
+    addition = {}
+  } = project!;
+
+  const defaultBasicInfo = {
+    logo: logo || '',
+    name: name || '',
+    location: location || '',
+    prizeTrack: prizeTrack || '',
+    tracks: tracks.join(','),
+    wallet: wallet || '',
+    pitchVideo: pitchVideo || undefined,
+    demoVideo: demoVideo || undefined,
+    fields
+  };
+
+  const defaultProjectDetail = omit(detail, 'id');
+
+  const defaultAdditions = omit(addition, 'id');
+
+  const defaultValues: Record<string, any> = {
+    ...omit(defaultBasicInfo, 'fields'),
+    ...omit(defaultProjectDetail, 'fields'),
+    ...omit(defaultAdditions, 'fields')
+  };
+
+  for (let key in fields) {
+    defaultValues[key] = fields[key].value;
+  }
+
+  for (let key in detail.fields || {}) {
+    defaultValues[key] = detail.fields?.[key].value;
+  }
+
+  for (let key in addition.fields || {}) {
+    defaultValues[key] = addition.fields?.[key].value;
+  }
+
+  return { defaultValues, defaultBasicInfo, defaultProjectDetail, defaultAdditions };
+}
+
+const copyValues = (oldValues: Record<string, any>, values: Record<string, any>): Record<string, any> => {
+  const newValues: Record<string, any> = structuredClone(oldValues);
+  for (let key in newValues) {
+    if (key === 'fields') {
+      for (let id in newValues[key]) {
+        newValues[key][id].value = values[id];
+      }
+      continue;
+    }
+
+    if (key === 'tracks') {
+      newValues[key] = values[key].split(',');
+      continue;
+    }
+
+    newValues[key] = values[key];
+  }
+  return newValues;
+};
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
   project: ProjectType;
-  hackathon: HackathonType;
+  hackathon: SimpleHackathonInfo;
   handleClickAnchor: (index: number) => void;
   curAnchorIndex: number;
   offsetTops: OffsetTopsType[];
@@ -45,20 +113,33 @@ const Content: React.FC<ContentProp> = ({
   isClose
 }) => {
   const boxRef = useRef<HTMLFormElement>(null);
-  const sectionData = getSectionData(hackathon.id);
+  const fullSectionConfig = hackathon.info.submission;
+  const sectionData = getHackathonSubmissionSteps(fullSectionConfig, ['Review']);
+
+  const { defaultValues, defaultBasicInfo, defaultProjectDetail, defaultAdditions } = getDefaultValues(project);
+
+  const formSchema = useValidatorFormSchema(fullSectionConfig, true);
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues
+  });
+
+  const formState = useFormState(form);
+
   const getOffsetTops = () => {
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];
+    const navData = sectionData.map((s) => s.title as string);
     for (let i = 0; i < childNodes?.length; i++) {
       const offsetTop = (childNodes[i] as HTMLDivElement).offsetTop || 0;
       offsetTops.push({
-        title: `${sectionData[i]}`,
+        title: `${navData[i]}`,
         offsetTop: offsetTop
       });
     }
     setOffsetTop(offsetTops);
   };
-  const [logo, setLogo] = useState<UploadFile | null>(null);
 
   const { redirectToUrl } = useRedirect();
 
@@ -68,201 +149,13 @@ const Content: React.FC<ContentProp> = ({
     getOffsetTops();
   }, [project]);
 
-  const links = typeof project.links === 'string' ? JSON.parse(project.links as string) : project.links;
-
-  const formSchema = z.object({
-    projectLogo: z.string().url(),
-    projectName: z.string().min(1, {
-      message: 'Project Name must be at least 2 characters.'
-    }),
-    location: z.string().min(1),
-    prizeTrack: z.string().min(1),
-    track: z.string().min(1),
-    githubLink: z.string().min(0).optional(),
-    isPublic: z.boolean(),
-    submitType: z.string().min(0),
-    efrog: z.boolean(),
-    croak: z.boolean(),
-    demo: z.string().url(),
-    figma: z.string().min(0).optional(),
-    playstore: z.string().min(0).optional(),
-    googleDrive: z.string().min(0).optional(),
-    other: z.string().min(0).optional(),
-    contractLink: z.string().url(),
-    projectLink: z.string().url(),
-    socialLink: z.string().url(),
-    partnerTooling: z.string().min(1).max(360),
-    tagline: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-    technologies: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-    solvedProblem: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-    challenges: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-    teamID: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-    roomNumber: z.string().min(hackathon.id === HackathonPartner.Hack4Bengal ? 1 : 0),
-    intro: z
-      .string()
-      .min(1, {
-        message: 'Intro must be at least 2 characters.'
-      })
-      .max(120, {
-        message: 'The intro field cannot exceed 160 characters'
-      }),
-    detailedIntro: z
-      .string()
-      .min(1, {
-        message: 'detailedIntro must be at least 16 characters.'
-      })
-      .max(600, {
-        message: 'The detailed intro field cannot exceed 600 characters'
-      })
-  });
-
-  const defaultValues: z.infer<typeof formSchema> = {
-    projectLogo: project.thumbnail,
-    projectName: project.name,
-    intro: project.introduction,
-    location: project.location,
-    prizeTrack: project.prizeTrack,
-    detailedIntro: project.description,
-    track: project.tracks.join(','),
-    isPublic: project.isOpenSource,
-    githubLink: project.githubLink,
-    efrog: project.efrog,
-    demo: project.demo,
-    figma: links?.figma || '',
-    playstore: links?.playstore || '',
-    googleDrive: links?.googleDrive || '',
-    other: links?.other || '',
-    tagline: project.tagline,
-    technologies: project.technologies,
-    solvedProblem: project.solvedProblem,
-    challenges: project.challenges,
-    teamID: project.teamID,
-    roomNumber: project.roomNumber,
-    croak: project.croak,
-    submitType: project.submitType,
-    contractLink: links.contractLink || '',
-    projectLink: links.projectLink || '',
-    socialLink: links.socialLink || '',
-    partnerTooling: links.partnerTooling || ''
-  };
-
-  console.log(project);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: defaultValues
-    // disabled: isClose
-  });
-
-  const otherFormDisable =
-    typeof form.getValues('isPublic') !== 'boolean' ||
-    (form.getValues('isPublic') === true && !(form.getValues('githubLink') || '').trim());
-
-  const infoDisable =
-    !form.getValues('projectName') ||
-    !form.getValues('projectLogo') ||
-    !form.getValues('prizeTrack') ||
-    (!form.getValues('intro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-    (!form.getValues('detailedIntro') && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-    (form.getValues('track').split(',').length < 1 && hackathon.id !== HackathonPartner.Hack4Bengal) ||
-    (hackathon.id === HackathonPartner.Hack4Bengal &&
-      (!form.getValues('solvedProblem') ||
-        !form.getValues('tagline') ||
-        !form.getValues('technologies') ||
-        !form.getValues('challenges') ||
-        !form.getValues('teamID') ||
-        !form.getValues('roomNumber')));
-
-  const projectDisable =
-    (typeof form.getValues('efrog') !== 'boolean' ||
-      typeof form.getValues('croak') !== 'boolean' ||
-      !form.getValues('submitType')) &&
-    hackathon.id !== HackathonPartner.Hack4Bengal;
-
-  const linksDisable =
-    (!form.getValues('contractLink') ||
-      !form.getValues('projectLink') ||
-      !form.getValues('socialLink') ||
-      !form.getValues('partnerTooling')) &&
-    hackathon.id !== HackathonPartner.Hack4Bengal;
-
-  const demoVideoDisable = !form.getValues('demo') && hackathon.id === HackathonPartner.Hack4Bengal;
-
   const { runAsync: onSubmitRequest, loading } = useRequest(
-    async () => {
-      const values = form.getValues();
-      if (
-        form.getValues('isPublic') === true &&
-        !/^https?:\/\/(www\.)?github\.com\/[^/]+\/.*$/.test((form.getValues('githubLink') || '').trim())
-      ) {
-        form.setError('githubLink', {
-          message: 'Invalid GitHub URL'
-        });
-        return;
-      }
+    async (values: Record<string, any>) => {
+      const basicInfo: Record<string, any> = copyValues(defaultBasicInfo, values);
+      const projectDetail: Record<string, any> = copyValues(defaultProjectDetail, values);
+      const additions: Record<string, any> = copyValues(defaultAdditions, values);
 
-      const formData = new FormData();
-      const {
-        projectName,
-        track,
-        detailedIntro,
-        intro,
-        prizeTrack,
-        location,
-        isPublic,
-        githubLink,
-        tagline,
-        solvedProblem,
-        challenges,
-        technologies,
-        teamID,
-        roomNumber,
-        contractLink,
-        projectLink,
-        socialLink,
-        partnerTooling,
-        figma,
-        playstore,
-        demo,
-        googleDrive,
-        other
-      } = values;
-      formData.append('name', projectName);
-      formData.append('prizeTrack', prizeTrack);
-
-      track.split(',').forEach((t) => {
-        formData.append('tracks[]', t);
-      });
-
-      hackathon.id !== HackathonPartner.Hack4Bengal && formData.append('location', location);
-
-      formData.append('description', detailedIntro);
-      formData.append('introduction', intro);
-      formData.append('isOpenSource', String(isPublic));
-      formData.append('githubLink', githubLink || '');
-      formData.append('tagline', tagline || '');
-      formData.append('solvedProblem', solvedProblem || '');
-      formData.append('challenges', challenges || '');
-      formData.append('technologies', technologies || '');
-      formData.append('teamID', teamID || '');
-      formData.append('roomNumber', roomNumber || '');
-      // formData.append('demo', demo || '');
-
-      const links = {
-        contractLink: contractLink || '',
-        projectLink: projectLink || '',
-        socialLink: socialLink || '',
-        partnerTooling: partnerTooling || '',
-        figma: figma || '',
-        playstore: playstore || '',
-        googleDrive: googleDrive || '',
-        other: other || ''
-      };
-
-      formData.append('links', JSON.stringify(links));
-
-      logo && formData.append('thumbnail', logo?.originFileObj as RcFile);
-      const res = await webApi.resourceStationApi.submitProject(formData, project.id);
+      const res = await webApi.resourceStationApi.submitProject({ basicInfo, projectDetail, additions }, project.id);
       return {
         res,
         newInfo: {
@@ -272,6 +165,7 @@ const Content: React.FC<ContentProp> = ({
     },
     {
       manual: true,
+      debounceWait: 300,
       onSuccess() {
         redirectToUrl(`/hackathon/projects/${project.id}`);
       },
@@ -281,57 +175,77 @@ const Content: React.FC<ContentProp> = ({
     }
   );
 
-  const onSubmit = () => {
-    if (isEqual(defaultValues, form.getValues())) {
+  const onSubmit = (values: any) => {
+    if (isEqual(defaultValues, values)) {
       redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
-      onSubmitRequest();
+      onSubmitRequest(values);
     }
   };
 
   const onExit = () => {
-    if (isEqual(defaultValues, form.getValues()) || isClose) {
+    if (isEqual({}, form.getValues()) || isClose) {
       redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
       exitConfirmRef.current?.open({
-        onConfirm: onSubmitRequest
+        onConfirm: () => onSubmitRequest(form.getValues())
       });
     }
   };
 
+  const sortSectionKeys = (Object.keys(fullSectionConfig) as SubmissionSectionType[]).sort((a, b) => {
+    return sectionData.findIndex((step) => step.type === a) - sectionData.findIndex((step) => step.type === b);
+  });
+
   return (
-    <>
-      <div className="relative">
-        <Nav
-          sectionData={sectionData}
-          curAnchorIndex={curAnchorIndex}
-          offsetTops={offsetTops}
-          handleClickAnchor={handleClickAnchor}
-          onSava={onSubmit}
-          onExit={onExit}
-          submitDisable={
-            isClose || infoDisable || otherFormDisable || projectDisable || linksDisable || demoVideoDisable
-          }
-        />
-      </div>
-      <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-[60px]" ref={boxRef}>
-            <Info form={form as any} setLogo={setLogo} hackathon={hackathon} isClose={isClose} />
-            {hackathon.id === HackathonPartner.Linea && <Project form={form as any} isClose={isClose} />}
-            <Videos project={project} isClose={isClose} form={form as any} />
-            {hackathon.id === HackathonPartner.Linea && <Links form={form as any} isClose={isClose} />}
-            <Others form={form as any} isClose={isClose} project={project} />
-            {hackathon.id !== HackathonPartner.Hack4Bengal && <Wallet project={project} isClose={isClose} />}
-          </form>
-        </Form>
-        <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
-          <h4 className="text-h4 text-center text-neutral-black">
-            Do you want to save the submission process & leave?
-          </h4>
-        </ConfirmModal>
-      </div>
-    </>
+    <HackathonRendererProvider
+      simpleHackathonInfo={hackathon}
+      hackathonSteps={sectionData}
+      onNext={() => {}}
+      onBack={() => {}}
+      prizeTracks={hackathon.rewards.map((item) => item.name)}
+      handleType="edit"
+    >
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex">
+          <div className="relative">
+            <Nav
+              sectionData={sectionData.map((s) => s.title as string)}
+              curAnchorIndex={curAnchorIndex}
+              offsetTops={offsetTops}
+              handleClickAnchor={handleClickAnchor}
+              onSava={() => {
+                // onSubmit(form.getValues());
+              }}
+              onExit={onExit}
+              submitDisable={isClose || !formState.isValid || isEqual(defaultValues, form.getValues())}
+            />
+          </div>
+          <div className="flex flex-1 flex-shrink-0 flex-col gap-[60px] pb-[84px] text-neutral-off-black">
+            {sortSectionKeys.map((sectionKey) => {
+              const sectionConfig = fullSectionConfig[sectionKey];
+              return (
+                <div key={sectionKey} className="flex flex-col gap-8">
+                  <Title>
+                    <span className="text-h3">{sectionData.find((item) => item.type === sectionKey)?.title}</span>
+                  </Title>
+                  <div className="flex flex-col gap-8 text-neutral-rich-gray">
+                    {sectionConfig.map((config, index) => {
+                      return (
+                        <Fragment key={index}>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </form>
+      </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the submission process & leave?</h4>
+      </ConfirmModal>
+    </HackathonRendererProvider>
   );
 };
 

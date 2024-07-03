@@ -49,7 +49,6 @@ const Content: React.FC<ContentProp> = ({ loading, setOffsetTop }) => {
         ]
       });
     } catch (error) {
-      console.info(error);
       errorMessage(error);
     }
     setLoading(false);

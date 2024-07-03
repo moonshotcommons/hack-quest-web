@@ -1,6 +1,6 @@
 'use client';
 import { FC, ReactNode, createContext } from 'react';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 interface CertificationCardProviderProps {
@@ -9,9 +9,9 @@ interface CertificationCardProviderProps {
 }
 
 export const CertificationCardContext = createContext<{
-  certification?: CertificationType;
+  certification?: UserCertificateInfo;
   refreshCertification: VoidFunction;
-  refreshCertificationAsync: () => Promise<CertificationType | void>;
+  refreshCertificationAsync: () => Promise<UserCertificateInfo | void>;
 }>({
   refreshCertification: () => {},
   refreshCertificationAsync: async () => {}

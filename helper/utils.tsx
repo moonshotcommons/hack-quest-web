@@ -12,6 +12,7 @@ import PracticeImg3 from '@/public/images/home/practices_img3.png';
 import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
 import message from 'antd/es/message';
+import * as XLSX from 'xlsx';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -320,4 +321,40 @@ export const toDoubleArray = <T,>(baseArray: T[], count: number) => {
     res.push(copyArray.splice(0, count));
   }
   return res;
+};
+
+export const getYoutubeId = (url: string) => {
+  if (!url) return '';
+  const regex = /^(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=|embed\/|v\/)?([\w-]{11})(?:\S+)?$/;
+  const match = url.match(regex);
+
+  // 如果匹配成功，则返回视频 ID
+  if (match && match[1]) {
+    return match[1];
+  }
+  return '';
+};
+
+export const wait = (time: number): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+};
+
+export const exportToExcel = (data: Record<string, any>[], name = '未命名') => {
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const dataBlob = new Blob([excelBuffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  });
+  const downloadLink = window.URL.createObjectURL(dataBlob);
+  const link = document.createElement('a');
+  link.href = downloadLink;
+  link.download = `${name}.xlsx`;
+  link.click();
+  window.URL.revokeObjectURL(downloadLink);
 };

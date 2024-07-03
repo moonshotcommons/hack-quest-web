@@ -25,6 +25,9 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
 }: FormRadioItemProps<TFieldValues>) => {
   if (!form || !name) {
     console.error('FormRadioItem 组件必须包裹FormRadio组件');
+    if (process.env.NODE_ENV === 'development') {
+      throw new Error('FormRadioItem 组件必须包裹FormRadio组件');
+    }
     return null;
   }
   return (
@@ -43,8 +46,8 @@ const FormRadioItem = <TFieldValues extends FieldValues = FieldValues>({
           setSelect(newSelect);
         } else {
           form.setValue(name, value);
-          form.trigger(name);
         }
+        form.trigger(name);
       }}
       className={cn(
         `body-m flex h-[50px]  w-full items-center justify-center gap-3 rounded-[8px] border-[3px] border-neutral-off-white bg-neutral-white px-5 py-3`,

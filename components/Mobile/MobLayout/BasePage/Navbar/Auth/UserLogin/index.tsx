@@ -94,6 +94,7 @@ const UserLogin: FC<UserLoginProps> = (props) => {
             changeNavState();
             if (!redirect_url && !isLandingPage) window.location.reload();
             else redirectToUrl(toPageUrl);
+            router.refresh();
           } catch (e: any) {
             if (e.code === 400) {
               BurialPoint.track('login-登录失败', { message: e?.msg });

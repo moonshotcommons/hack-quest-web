@@ -1,6 +1,12 @@
 import moment from 'moment';
-import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
+import {
+  HackathonInfoSPKeys,
+  HackathonRewardType,
+  HackathonStatusType,
+  HackathonType
+} from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
+import { hackathonSections, modalList } from './data';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -38,18 +44,60 @@ const useDealHackathonData = () => {
   };
 
   const getTotalPrize = (rewards: HackathonRewardType[]) => {
-    const total = rewards.reduce((pre, next) => {
-      return pre + Number(next.totalPlace);
+    const total = rewards?.reduce((pre, next) => {
+      return pre + Number(next.totalRewards);
     }, 0);
-    return total;
+    return total || 0;
   };
 
   const getStepIndex = (hackathon: HackathonType) => {
-    if (dayjs().tz().isBefore(hackathon.openTime)) return -1;
-    if (dayjs().tz().isAfter(hackathon.openTime) && dayjs().tz().isBefore(hackathon.reviewTime)) return 0;
-    if (dayjs().tz().isAfter(hackathon.reviewTime) && dayjs().tz().isBefore(hackathon.rewardTime)) return 1;
-    if (dayjs().tz().isAfter(hackathon.rewardTime)) return 2;
+    if (dayjs().tz().isBefore(hackathon.timeline?.openTime)) return -1;
+    if (dayjs().tz().isAfter(hackathon.timeline?.openTime) && dayjs().tz().isBefore(hackathon.timeline?.reviewTime))
+      return 0;
+    if (dayjs().tz().isAfter(hackathon.timeline?.reviewTime) && dayjs().tz().isBefore(hackathon.timeline?.rewardTime))
+      return 1;
+    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) return 2;
     return -1;
+  };
+
+  const dealModalList = (hackathon: HackathonType) => {
+    const newList = modalList.map((v) => {
+      const added = hackathon.info?.sections?.[v.type as HackathonInfoSPKeys | 'schedule' | 'faqs']?.list?.length > 0;
+      return {
+        ...v,
+        added
+      };
+    });
+    return newList;
+  };
+
+  const getSectionProgress = (progress: string[]) => {
+    const { require, optional } = hackathonSections;
+    let requireCompletedLen = 0;
+    const requires = require.map((v) => {
+      const isCompleted = progress.includes(v);
+      isCompleted && (requireCompletedLen += 1);
+      return {
+        value: v,
+        isCompleted
+      };
+    });
+    let optionalCompletedLen = 0;
+    const optionals = optional.map((v) => {
+      const isCompleted = progress.includes(v);
+      isCompleted && (optionalCompletedLen += 1);
+      return {
+        value: v,
+        isCompleted
+      };
+    });
+    return {
+      requires,
+      requireCompletedLen,
+      optionals,
+      optionalCompletedLen,
+      requireCompleted: requireCompletedLen === requires.length
+    };
   };
 
   return {
@@ -57,7 +105,9 @@ const useDealHackathonData = () => {
     getCloseInTime,
     getParticipantsStr,
     getTotalPrize,
-    getStepIndex
+    getStepIndex,
+    dealModalList,
+    getSectionProgress
   };
 };
 

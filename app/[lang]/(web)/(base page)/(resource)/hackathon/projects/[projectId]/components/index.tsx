@@ -18,8 +18,8 @@ interface ProjectDetailProp {
 
 const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) => {
   const boxRef = useRef<HTMLDivElement>(null);
-  const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
+  const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
   const [hackathon, setHackathon] = useState<HackathonType>();
@@ -76,7 +76,7 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) =>
     }
   );
   const isShowVoting = useMemo(() => {
-    const isEnd = dayjs().tz().isAfter(hackathon?.rewardTime);
+    const isEnd = dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
     return !!(((isEnd && project.vote) || !isEnd) && project.isSubmit);
   }, [hackathon, project]);
 

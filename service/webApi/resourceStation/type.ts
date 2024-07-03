@@ -1,7 +1,14 @@
 import { CustomComponent } from '@/components/ComponentRenderer/type';
+import {
+  ApplicationSectionType,
+  CustomComponentConfig,
+  PresetComponentConfig,
+  SubmissionSectionType
+} from '@/components/HackathonCreation/type';
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
+  DRAFT = 'draft',
   PAST = 'past'
 }
 
@@ -9,24 +16,36 @@ export interface MentorType {
   name: string;
   title: string;
   picture: string;
+  id: string;
+}
+
+export interface HackathonPartners {
+  title: string;
+  list: MentorType[];
 }
 
 export interface HackathonRewardType {
-  desc: string;
+  id: string;
+  hackathoId: string;
+  mode: string;
+  rule: string;
   name: string;
-  totalPlace: number;
-  place: number[];
+  totalRewards: number;
+  rewards: {
+    id: string;
+    label: string;
+    value: number;
+  }[];
 }
 export interface HackathonScheduleType {
-  desc: string;
-  time: string;
-  isExpand?: boolean;
-  children: {
-    desc: string;
-    link?: string;
-    time: string;
-    address?: string;
-  }[];
+  id: string;
+  eventName: string;
+  startTime: string;
+  endTime: string;
+  speakerNames: string;
+  description: string;
+  link: string;
+  address: string;
 }
 
 export interface HackathonMemberType {
@@ -51,58 +70,168 @@ export interface HackathonTypeVotesType {
   ADVOCATE: number;
   JUDGE: number;
 }
+
+export interface HacakthonFaqType {
+  question: string;
+  answer: string;
+  id: string;
+}
+
+export enum HackathonSubmissionStatus {
+  INFO = 'INFO',
+  APPLICATION = 'APPLICATION',
+  SUBMISSION = 'SUBMISSION',
+  LINKS = 'LINKS',
+  COVER = 'COVER',
+  TIMELINE = 'TIMELINE',
+  REWARDS = 'REWARDS',
+  JUDGING = 'JUDGING'
+}
+
+export interface HackathonApplicationLabelType {
+  id: string;
+  property: {
+    label: string;
+    name: string;
+    placeholder: string;
+  };
+  required: boolean;
+  selected: boolean;
+  optional: boolean;
+  type: string;
+}
+
+export interface HackathonApplicationPropertyType {
+  id: string;
+  property: {
+    maxSize: number;
+    minSize: number;
+    type: string;
+  };
+  type: string;
+}
+export interface HackathonApplicationType {
+  About: HackathonApplicationLabelType[];
+  Contact: HackathonApplicationLabelType[];
+  OnlineProfiles: HackathonApplicationLabelType[];
+  ApplicationType: HackathonApplicationPropertyType;
+}
+
+export interface HackathonSubmissionType {
+  Additions: HackathonApplicationLabelType[];
+  BasicInfo: HackathonApplicationLabelType[];
+  ProjectDetail: HackathonApplicationLabelType[];
+  Videos: HackathonApplicationLabelType[];
+}
+
+export interface HackathonInfoSectionsType {
+  sponsors: HackathonPartners;
+  partners: HackathonPartners;
+  mediaPartners: HackathonPartners;
+  speakers: HackathonPartners;
+  communityPartners: HackathonPartners;
+  schedule: {
+    title: string;
+    list: HackathonScheduleType[];
+  };
+  faqs: {
+    title: string;
+    list: HacakthonFaqType[];
+  };
+}
+
+export interface HackathonInfoType {
+  address: string;
+  application: HackathonApplicationType;
+  submission: HackathonSubmissionType;
+  sections: HackathonInfoSectionsType;
+  conduct: string;
+  description: string;
+  host: string;
+  image: string;
+  intro: string;
+  mode: string;
+}
+
+export interface HackathonJudgeAccountType {
+  email: string;
+  nickname: string;
+  avatar: string;
+}
+
+export interface HackathonJudgeType {
+  id: string;
+  judgeAccounts: HackathonJudgeAccountType[];
+  resource: string;
+  votesProportion: number[];
+  judgeMode: string;
+  judgeProjectVote: number;
+  judgeTotalVote: number;
+  projectJudgeCount: number;
+  voteMode: string;
+  rewardName: string;
+  rewardId: string;
+  disableJudge: boolean;
+}
+
+export interface HackathonLinkType {
+  email: string;
+  id: string;
+  links: Record<string, any>;
+  website: string;
+}
+
+export interface HackathonTimeLineType {
+  id: string;
+  openReviewSame: boolean;
+  openTime: string;
+  openTimeEnd: string;
+  reviewTime: string;
+  reviewTimeEnd: string;
+  rewardTime: string;
+  timeZone: string;
+}
+
+export type HackathonTimeLineKeyType = 'openTime' | 'openTimeEnd' | 'reviewTime' | 'reviewTimeEnd' | 'rewardTime';
+
+export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners';
+export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
+export type HackathonInfoSPKeys = HackathonInfoParterKeys | HackathonInfoSponsorsKeys;
 export interface HackathonType {
   id: string;
   name: string;
-  image: string;
-  about: CustomComponent[];
-  theme: CustomComponent[];
-  resources: CustomComponent[];
-  participants: number;
+  info: HackathonInfoType;
+  judge: HackathonJudgeType[];
+  links: HackathonLinkType;
   memberCount: number;
-  hosts: Omit<MentorType, 'title'>[];
-  coHosts: Omit<MentorType, 'title'>[];
-  startTime: string;
-  endTime: string;
-  address: string;
-  applyLink: string;
-  guestsAndMentors: MentorType[];
-  sections: {
-    hosts: MentorType[];
-    venue: MentorType[];
-    coHosts: MentorType[];
-    goldSponsor: MentorType[];
-    titleSponsor: MentorType[];
-    trackPartner: MentorType[];
-    bronzeSponsor: MentorType[];
-    mediaPartners: MentorType[];
-    silverSponsor: MentorType[];
-    platinumSponsor: MentorType[];
-    guestsAndMentors: MentorType[];
-    communityPartners: MentorType[];
-  };
-  mediaPartners: MentorType[];
-  communityPartners: MentorType[];
-  partners: MentorType[];
-  status: HackathonStatusType;
-  alias: string;
-  rewardTime: string;
+  enable: boolean;
+  progress: string[];
+  // sections: {
+  //   hosts: MentorType[];
+  //   venue: MentorType[];
+  //   coHosts: MentorType[];
+  //   goldSponsor: MentorType[];
+  //   titleSponsor: MentorType[];
+  //   trackPartner: MentorType[];
+  //   bronzeSponsor: MentorType[];
+  //   mediaPartners: MentorType[];
+  //   silverSponsor: MentorType[];
+  //   platinumSponsor: MentorType[];
+  //   guestsAndMentors: MentorType[];
+  //   communityPartners: MentorType[];
+  // };
   allowSubmission: boolean;
-  rewards: HackathonRewardType[];
-  openTime: string;
-  reviewTime: string;
-  schedule: HackathonScheduleType[];
-  participation?: HackathonRegisterInfo;
+  alias: string;
+  status: HackathonSubmissionStatus;
   members: HackathonMemberType[];
-  version: string;
-  voteRules: CustomComponent[];
+  sectionSequences: string[];
+  participation?: HackathonRegisterInfo;
+  rewards: HackathonRewardType[];
+  timeline: HackathonTimeLineType;
   votes: HackathonTypeVotesType;
-  remainingVote: number;
+  totalPrize: number;
   projectCount: number;
-  totalPlace: number;
-
-  speakersAndJudges: HackathonMemberType[];
-  sponsors: HackathonMemberType[];
+  remainingVote: number;
 }
 
 export interface JoinedHackathonType {
@@ -137,50 +266,71 @@ export interface ProjectTeamType {
 }
 export interface ProjectMemberType {
   avatar: string;
-  bio: string;
-  firstName: string;
-  lastName: string;
-  telegram: string;
-  email: string;
-  userId: string;
-  weChat: string;
+  info: any;
   isAdmin: boolean;
+  userId: string;
+}
+
+export interface BasicInfo {
+  logo: string;
+  name: string;
+  alias?: string;
+  location: string;
+  prizeTrack: string;
+  tracks: string[];
+  wallet: string;
+  fields: Record<string, any>;
+}
+
+export interface ProjectDetail {
+  oneLineIntro: string;
+  detailedIntro: string;
+  teamBackground: string;
+  progress: string;
+  fields: Record<string, any>;
+}
+
+export interface Videos {
+  pitchVideo: string;
+  demoVideo: string;
+}
+
+export interface Additions {
+  isOpenSource: boolean;
+  contract: string;
+  fundraisingStatus: string;
+  githubLink: string;
+  fields: Record<string, any>;
 }
 
 export type ProjectType = {
   id: string;
   name: string;
-  description: string;
-  video: string;
-  introduction: string;
   team: ProjectTeamType;
   hackathonId: string;
-  location: string;
   hackathonName: string;
+  location: string;
+  addition: Partial<Additions>;
+  detail: Partial<ProjectDetail>;
   prizeTrack: string;
   tracks: string[];
-  status: ProjectSubmitStepType;
+  status: SubmissionSectionType | 'Review';
+  creatorId: string;
   featured: boolean;
-  apolloDay: boolean;
-  thumbnail: string;
+  logo: string;
   alias: string;
-  demo: string;
+  demoVideo: string;
+  pitchVideo: string;
+  fields: Record<string, { label: string; value: any }>;
   wallet: string;
-  isOpenSource: boolean;
-  githubLink: string;
   members: ProjectMemberType[];
   vote: number;
   isSubmit: boolean;
-  efrog: boolean;
-  croak: boolean;
   submitType: string;
-  links: string | Record<string, string>;
-  tagline: string;
-  technologies: string;
-  solvedProblem: string;
-  challenges: string;
-  teamID: string;
-  roomNumber: string;
+  teamId: string;
+  winner: false;
+  //! 没有这个字段了
+  apolloDay?: string;
 };
 
 export interface ProjectDataType {
@@ -277,7 +427,7 @@ export interface HackathonRegisterInfo {
   telegram: string | null;
   team: HackathonTeam | null;
   bio: string | null;
-  status: HackathonRegisterStep;
+  status: ApplicationSectionType | 'Review';
   createdAt: string;
   updatedAt: string;
   avatar: string;
@@ -289,6 +439,7 @@ export interface HackathonRegisterInfo {
   voteRole: HackathonTypeVotesRoleType;
   discord: string;
   collegeName: string;
+  info: Record<ApplicationSectionType, object>;
 }
 
 export interface RegisterInfoBody {
@@ -312,11 +463,7 @@ export interface HackathonTeam {
 
 export interface TeamMemberInfo {
   userId: string;
-  firstName: string;
-  lastName: string;
-  weChat: string;
-  telegram: string;
-  bio: string;
+  info: Record<string, any>;
   isAdmin: boolean;
   avatar: string;
 }
@@ -340,25 +487,6 @@ export enum ProjectSubmitStepType {
   OTHERS = 'OTHERS',
   WALLET = 'WALLET',
   REVIEW = 'REVIEW'
-}
-
-export interface ProjectSubmitBody {
-  name?: string;
-  hackathonId: string;
-  prizeTrack?: string;
-  description?: string;
-  thumbnail?: string;
-  video?: string;
-  demo?: string;
-  introduction?: string;
-  location?: ProjectLocation;
-  githubLink?: string;
-  isOpenSource?: boolean;
-  wallet?: string;
-  status?: ProjectSubmitStepType;
-  team?: string;
-  tracks?: string[];
-  creatorId?: string;
 }
 
 export enum ProjectLocation {
@@ -400,4 +528,55 @@ export interface FaucetRecordType {
 export interface ProjectRankType {
   total: number;
   rank: number;
+}
+
+export interface SimpleHackathonInfo {
+  id: string;
+  name: string;
+  alias: string;
+  creatorId: string;
+  status: string;
+  sectionSequences: [];
+  createdAt: Date;
+  updatedAt: Date;
+  info: {
+    application: {
+      [ApplicationSectionType.ApplicationType]: {
+        id: string;
+        type: string;
+        property: {
+          type?: 'Solo or Group' | 'Solo Only' | 'Group Only';
+          minSize?: number;
+          maxSize?: number;
+        };
+      };
+      [ApplicationSectionType.About]: (PresetComponentConfig | CustomComponentConfig)[];
+      [ApplicationSectionType.Contact]: (PresetComponentConfig | CustomComponentConfig)[];
+      [ApplicationSectionType.OnlineProfiles]: (PresetComponentConfig | CustomComponentConfig)[];
+    };
+    submission: {
+      [Key in SubmissionSectionType]: (PresetComponentConfig | CustomComponentConfig)[];
+    };
+  };
+  rewards: { name: string }[];
+  timeline: {
+    id: string;
+    timeZone: string;
+    openReviewSame: boolean;
+    openTime: string;
+    openTimeEnd: string;
+    reviewTime: string;
+    reviewTimeEnd: string;
+    rewardTime: string;
+  };
+}
+
+/** 项目提交时候接口需要的表单参数 */
+export interface ProjectSubmitBody {
+  status?: SubmissionSectionType | 'Review';
+  hackathonId?: string;
+  basicInfo?: Record<string, any>;
+  videos?: Record<string, any>;
+  projectDetail?: Record<string, any>;
+  additions?: Record<string, any>;
 }

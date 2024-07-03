@@ -8,7 +8,19 @@ export interface CertificationType {
   claimed: boolean;
   mint: boolean;
   signatureId: number;
+  template: string;
+  contract: `0x${string}` | null;
+  chainId: number;
 }
+
+export interface UserCertificateInfo extends CertificationType {
+  certificateId: number;
+  certificateTime: string;
+  username: string;
+  contract: `0x${string}`;
+  certificateImage: string;
+}
+
 export interface MantleType {
   id: string;
   name: string;
@@ -18,7 +30,7 @@ export interface MantleType {
   sequence: number;
   completed: boolean;
   claimed: boolean;
-  certification: CertificationType;
+  certification: UserCertificateInfo;
 }
 
 export enum TargetType {
@@ -45,16 +57,10 @@ export interface TargetsType {
 }
 
 export interface GetSignatureParams {
-  sourceType: 'Certification';
-  sourceId: string;
   address: string;
 }
 
 export interface SignatureData {
-  hashResult: string;
-  sig: {
-    v: number;
-    r: `0x${string}`;
-    s: `0x${string}`;
-  };
+  msg: string;
+  signature: `0x${string}`;
 }

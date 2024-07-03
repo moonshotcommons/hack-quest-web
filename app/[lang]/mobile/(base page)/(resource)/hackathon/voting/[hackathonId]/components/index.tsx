@@ -4,7 +4,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import HackathonInfo from './HackathonInfo';
 import VotesData from './VotesData';
-import VotingRules from './VotingRules';
+// import VotingRules from './VotingRules';
 import VotingProjects from './VotingProjects';
 import VoteProvider from './VoteProvider';
 import Footer from './Footer';
@@ -25,7 +25,7 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
               <HackathonImage hackathon={hackathon} />
               <HackathonInfo hackathon={hackathon} />
               <VotesData hackathon={hackathon} />
-              <VotingRules hackathon={hackathon} />
+              {/* <VotingRules hackathon={hackathon} /> */}
               <VotingProjects hackathon={hackathon} />
             </div>
             <Footer otherHackathons={otherHackathons} />

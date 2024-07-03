@@ -12,10 +12,12 @@ interface CountDownItemProps {
   format: string;
   className: string;
   formatClassName?: string;
+  isMobile?: boolean;
 }
 
-const CountItem: FC<CountDownItemProps> = ({ count, format, className, formatClassName }) => {
-  const isMobile = useGetDevice();
+const CountItem: FC<CountDownItemProps> = ({ count, format, className, formatClassName, isMobile: isM }) => {
+  const isMob = useGetDevice();
+  const isMobile = isM || isMob;
   const countNode = useMemo(() => {
     const countString = count.toString().split('');
     if (countString.length === 1) {
@@ -60,10 +62,18 @@ interface CountDownProps {
   className?: string;
   countItemClassName?: string;
   formatClassName?: string;
+  isMobile?: boolean;
 }
 
-const CountDown: FC<CountDownProps> = ({ time, countItemClassName = '', className = '', formatClassName = '' }) => {
-  const isMobile = useGetDevice();
+const CountDown: FC<CountDownProps> = ({
+  time,
+  countItemClassName = '',
+  className = '',
+  formatClassName = '',
+  isMobile: isM
+}) => {
+  const isMob = useGetDevice();
+  const isMobile = isM || isMob;
   const [mount, setMount] = useState(false);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
@@ -83,24 +93,28 @@ const CountDown: FC<CountDownProps> = ({ time, countItemClassName = '', classNam
         format={t('day')}
         className={cn('bg-neutral-off-white', countItemClassName)}
         formatClassName={formatClassName}
+        isMobile={isMobile}
       />
       <CountItem
         count={hours}
         format={t('hour')}
         className={cn('bg-neutral-off-white', countItemClassName)}
         formatClassName={formatClassName}
+        isMobile={isMobile}
       />
       <CountItem
         count={minutes}
         format={t('minutes')}
         className={cn('bg-neutral-off-white', countItemClassName)}
         formatClassName={formatClassName}
+        isMobile={isMobile}
       />
       <CountItem
         count={seconds}
         format={t('seconds')}
         className={cn('bg-neutral-off-white', countItemClassName)}
         formatClassName={formatClassName}
+        isMobile={isMobile}
       />
     </div>
   );

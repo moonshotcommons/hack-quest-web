@@ -13,14 +13,16 @@ import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface NavBarProps {
   navList: NavbarListType[];
   logo?: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
-  const { navList } = NavBarProps;
+  const { navList, userInfo } = NavBarProps;
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
   const { redirectToUrl } = useRedirect();
@@ -89,7 +91,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
               <Intl />
             </Suspense>
             <div className="mx-[16px] h-[34px] w-[1px] bg-neutral-light-gray"></div>
-            <User />
+            <User userInfo={userInfo} />
           </div>
         </div>
       </div>

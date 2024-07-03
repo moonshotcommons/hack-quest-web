@@ -1,14 +1,7 @@
-import type { NextPage } from 'next';
-import { useParams } from 'next/navigation';
-
-interface IProps {}
-
-const UserPage: NextPage<IProps> = (props) => {
-  const { userId } = useParams();
-
+const UserPage = () => {
   return (
     <>
-      <div className="flex h-full w-full flex-col ">{userId}</div>
+      <div className="flex h-full w-full flex-col"></div>
     </>
   );
 };

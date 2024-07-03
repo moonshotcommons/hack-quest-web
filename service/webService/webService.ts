@@ -42,7 +42,7 @@ class WebService {
   }
 
   requestInterceptor(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
-    const token = getToken();
+    let token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -56,7 +56,10 @@ class WebService {
   responseInterceptor<T>(res: AxiosResponse<T, T>): Promise<T> {
     // console.log('全局响应拦截器')
     const token = (res.headers['authorization'] || '')?.replace('Bearer ', '');
-    token && setCookie(TOKEN_KEY, token);
+    token &&
+      setCookie(TOKEN_KEY, token, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3)
+      });
     token && setToken(token);
     if (res.status === 200) {
       return Promise.resolve(res.data);

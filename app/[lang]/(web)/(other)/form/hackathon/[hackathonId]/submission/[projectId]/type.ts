@@ -1,4 +1,5 @@
-import { ProjectSubmitStepType } from '@/service/webApi/resourceStation/type';
+import { SubmissionSectionType } from '@/components/HackathonCreation/type';
+import { Additions, BasicInfo, ProjectDetail, Videos } from '@/service/webApi/resourceStation/type';
 
 export interface ContractInfo {
   wechat: string;
@@ -16,47 +17,12 @@ export interface SubmissionType {
   }[];
 }
 
-export interface HackathonSubmitStateType {
+export interface ProjectSubmitStateType {
   projectId: string;
+  [SubmissionSectionType.BasicInfo]: Partial<BasicInfo> & Record<string, any>;
+  [SubmissionSectionType.ProjectDetail]: Partial<ProjectDetail> & Record<string, any>;
+  [SubmissionSectionType.Videos]: Partial<Videos> & Record<string, any>;
+  [SubmissionSectionType.Additions]: Partial<Additions> & Record<string, any>;
+  status: SubmissionSectionType | 'Review';
   isSubmit: boolean;
-  info: {
-    projectLogo: string;
-    projectName: string;
-    track: string;
-    intro: string;
-    prizeTrack: string;
-    location: string;
-    detailedIntro: string;
-    tagline: string;
-    technologies: string;
-    solvedProblem: string;
-    challenges: string;
-    teamID: string;
-    roomNumber: string;
-  };
-  project: {
-    efrog?: boolean;
-    croak?: boolean;
-    submitType?: string;
-  };
-  links: {
-    contractLink: string;
-    projectLink: string;
-    socialLink: string;
-    partnerTooling: string;
-  };
-  status: ProjectSubmitStepType;
-  pitchVideo: string;
-  projectDemo: string;
-  others: {
-    githubLink: string;
-    isPublic?: boolean;
-    links?: {
-      figma?: string;
-      playstore?: string;
-      googleDrive?: string;
-      other?: string;
-    };
-  };
-  wallet: string;
 }

@@ -37,7 +37,7 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   return (
     <Link href={`${MenuLink.PRACTICES}/${course.id}`}>
-      <div className="sm:card-hover flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white">
+      <div className="flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white transition-all duration-300 sm:hover:-translate-y-1">
         <div className="relative h-40 w-full">
           {course.image ? (
             <Image src={course.image} alt={course.title} fill className="rounded-t-2xl object-cover" />
@@ -49,7 +49,7 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
           <div className="flex flex-wrap items-center gap-3">
             <Badge>{course.track}</Badge>
           </div>
-          <h1 className="text-base font-bold text-neutral-off-black">{course.title}</h1>
+          <h1 className="line-clamp-2 h-12 text-base font-bold text-neutral-off-black">{course.title}</h1>
           <Progress value={(course.progress || 0) * 100}>
             <ProgressLabel>{Math.floor((course.progress || 0) * 100)}%</ProgressLabel>
           </Progress>

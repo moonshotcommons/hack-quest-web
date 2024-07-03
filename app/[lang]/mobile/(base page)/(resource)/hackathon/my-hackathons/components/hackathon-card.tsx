@@ -16,7 +16,7 @@ import { ManageTeamModal } from '@/components/hackathon/manage-team-modal';
 export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon.rewardTime
+    targetDate: hackathon?.timeline?.rewardTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;

@@ -9,6 +9,7 @@ import { Nunito, Space_Mono, Poppins } from 'next/font/google';
 import { Lang } from '@/i18n/config';
 import 'github-markdown-css/github-markdown.css';
 import WebAppProvider from '@/components/Provider/WebAppProvider';
+import webApi from '@/service';
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',
@@ -61,7 +62,11 @@ interface RootLayoutProps {
   };
 }
 
-export default function RootLayout({ children, params: { lang } }: RootLayoutProps) {
+export default async function RootLayout({ children, params: { lang } }: RootLayoutProps) {
+  let userInfo = null;
+  try {
+    userInfo = await webApi.userApi.getUserInfo();
+  } catch (err) {}
   return (
     <html
       lang={lang}
@@ -70,7 +75,9 @@ export default function RootLayout({ children, params: { lang } }: RootLayoutPro
     >
       <body className={`${nunito.className}`}>
         <WebAppProvider lang={lang}>
-          <InitializeUserProvider lang={lang}>{children}</InitializeUserProvider>
+          <InitializeUserProvider lang={lang} userInfo={userInfo}>
+            {children}
+          </InitializeUserProvider>
         </WebAppProvider>
 
         <Script id="theme-script">

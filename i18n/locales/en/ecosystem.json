@@ -22,7 +22,7 @@
   "builder": "Builder",
   "modal": {
     "claim": {
-      "description":  "Complete tasks to earn official certificate from {{name}} ecosystem. After you earn 100 points from level 1, you will get a starter certificate and level up. Get 500 points to become an expert {{name}} developer."
+      "description": "Complete tasks to earn official certificate from {{name}} ecosystem. After you earn 100 points from level 1, you will get a starter certificate and level up. Get 500 points to become an expert {{name}} developer."
     },
     "mint": {
       "title": "Congratulations! You’re a {{title}}",
@@ -34,5 +34,7 @@
   "project": "project",
   "completed_empty": "You don’t have a completed {{name}}",
   "enrolled_empty": "You’re not enrolled in any {{name}}",
-  "continue": "Continue"
+  "continue": "Continue",
+  "submitted": "Submitted",
+  "learn_more": "Learn More"
 }

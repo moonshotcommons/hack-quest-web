@@ -288,6 +288,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
           redirectToUrl('/dashboard');
+          router.refresh();
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
@@ -316,6 +317,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         setToken(res.token);
         setAuthModalOpen(false);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -355,6 +357,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setToken(res.token);
             setAuthModalOpen(false);
             redirectToUrl('/dashboard');
+            router.refresh();
           }
         })
         .catch((err) => {
@@ -397,6 +400,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setToken(res.token);
             setAuthModalOpen(false);
             redirectToUrl('/dashboard');
+            router.refresh();
           }
         })
         .catch((err) => {
