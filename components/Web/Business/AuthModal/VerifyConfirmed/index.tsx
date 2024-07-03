@@ -287,8 +287,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
-          router.refresh();
           redirectToUrl('/dashboard');
+          router.refresh();
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
@@ -316,8 +316,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         setAuthModalOpen(false);
-        router.refresh();
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -356,8 +356,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            router.refresh();
             redirectToUrl('/dashboard');
+            router.refresh();
           }
         })
         .catch((err) => {
@@ -399,8 +399,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            router.refresh();
             redirectToUrl('/dashboard');
+            router.refresh();
           }
         })
         .catch((err) => {
