@@ -14,7 +14,7 @@ import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { separationNumber } from '@/helper/utils';
 
-function TrackPreview({ track }: { track: any }) {
+function TrackPreview({ track, refresh }: { track: any; refresh?: () => void }) {
   const [editModalOpen, toggleEditModalOpen] = useToggle(false);
   const [removeModalOpen, toggleRemoveModalOpen] = useToggle(false);
 
@@ -25,6 +25,7 @@ function TrackPreview({ track }: { track: any }) {
     mutationFn: () => webApi.hackathonV2Api.removeHackathonRewards(track?.hackathonId, track?.id),
     onSuccess: () => {
       querClient.invalidateQueries({ queryKey: ['hackathon'] });
+      refresh?.();
       message.success('Rewards removed successfully');
     }
   });
@@ -84,12 +85,14 @@ export function RewardsForm({
   isEditMode = false,
   initialValues,
   onCancel,
-  onSave
+  onSave,
+  refresh
 }: {
   isEditMode?: boolean;
   initialValues?: any;
   onCancel?: () => void;
   onSave?: () => void;
+  refresh?: () => void;
 }) {
   const { updateStatus, onStepChange } = useHackathonOrgState();
   const [open, toggle] = useToggle(false);
@@ -122,7 +125,8 @@ export function RewardsForm({
   return (
     <div className="flex flex-col gap-6">
       <label className="body-l text-neutral-off-black">Please add at least one prize track</label>
-      {isValid && initialValues?.rewards?.map((track: any) => <TrackPreview key={track?.id} track={track} />)}
+      {isValid &&
+        initialValues?.rewards?.map((track: any) => <TrackPreview key={track?.id} track={track} refresh={refresh} />)}
       <AddFieldButton size="large" onClick={toggle}>
         Add a new track
       </AddFieldButton>
@@ -132,7 +136,7 @@ export function RewardsForm({
         onCancelOrBack={onCancelOrBack}
         onSaveOrNext={onSaveOrNext}
       />
-      <EditTrackModal initialValues={initialValues} open={open} onClose={() => toggle(false)} />
+      <EditTrackModal initialValues={initialValues} open={open} onClose={() => toggle(false)} refresh={refresh} />
     </div>
   );
 }

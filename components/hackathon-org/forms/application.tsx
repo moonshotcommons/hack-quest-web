@@ -57,12 +57,14 @@ export function ApplicationForm({
   isEditMode = false,
   initialValues,
   onCancel,
-  onSave
+  onSave,
+  refresh
 }: {
   isEditMode?: boolean;
   initialValues?: any;
   onCancel?: () => void;
   onSave?: () => void;
+  refresh?: () => void;
 }) {
   const application = initialValues?.info?.application;
   const form = useForm<z.infer<typeof formSchema>>({
@@ -83,6 +85,7 @@ export function ApplicationForm({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'application'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      refresh?.();
       isEditMode ? onSave?.() : onStepChange(Steps.SUBMISSION);
     }
   });
