@@ -23,6 +23,7 @@ import { AddFieldButton } from '../common/add-field-button';
 import { numberToOrdinalWord } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/listbox';
 import { CURRENCIES } from '../constants/currency';
+import { useRouter } from 'next/navigation';
 
 const rewardSchema = z.object({
   id: z.string().uuid(),
@@ -196,12 +197,15 @@ function OthersForm({ form }: { form: UseFormReturn<FormValues> }) {
 export function EditTrackModal({
   open,
   initialValues,
-  onClose
+  onClose,
+  refresh
 }: {
   open?: boolean;
   initialValues?: any;
   onClose?: () => void;
+  refresh?: () => void;
 }) {
+  const router = useRouter();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('RANK');
 
@@ -218,6 +222,8 @@ export function EditTrackModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       message.success('Rewards created successfully');
+      router.refresh();
+      refresh?.();
       handleClose();
     }
   });
@@ -228,6 +234,8 @@ export function EditTrackModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       message.success('Rewards updated successfully');
+      refresh?.();
+      router.refresh();
       handleClose();
     }
   });

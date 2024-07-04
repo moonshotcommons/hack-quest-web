@@ -19,7 +19,7 @@ export function ActionButtons({
 }) {
   return (
     <div className="flex gap-4 self-end [&>button]:w-[165px]">
-      <Button type="button" variant="outline" disabled={isFirstStep} onClick={onCancelOrBack}>
+      <Button type="button" variant="outline" disabled={isFirstStep && !isEditMode} onClick={onCancelOrBack}>
         {isEditMode ? 'Cancel' : 'Back'}
       </Button>
       {(!isLastStep || isEditMode) && (
