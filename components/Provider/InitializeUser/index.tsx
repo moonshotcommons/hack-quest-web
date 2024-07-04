@@ -28,7 +28,6 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, childre
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
-  console.log(propUserInfo, userInfo);
   useEffect(() => {
     if (propUserInfo || userInfo) {
       updateMissionDataAll();
