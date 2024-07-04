@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
 import { FC, Fragment, useEffect } from 'react';
@@ -47,6 +47,10 @@ const BasicInfoSectionForm: FC<BasicInfoSectionFormProps & CommonFormComponentPr
 
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
+
+  const formState = useFormState({
+    control: form.control
+  });
 
   const { runAsync: submitRequest, loading } = useRequest(
     async (values: Record<string, string>, isExit = false) => {
@@ -177,13 +181,13 @@ const BasicInfoSectionForm: FC<BasicInfoSectionFormProps & CommonFormComponentPr
               htmlType="submit"
               className={cn(
                 'button-text-m min-w-[165px] px-0 py-4 uppercase',
-                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+                !formState.isValid ? 'bg-neutral-light-gray' : ''
               )}
               // onClick={(e) => {
               //   e.preventDefault();
               //   onSubmit(form.getValues());
               // }}
-              disabled={!form.formState.isValid}
+              disabled={!formState.isValid}
             >
               {isSubmit ? 'update' : 'Save'} And Next
             </Button>

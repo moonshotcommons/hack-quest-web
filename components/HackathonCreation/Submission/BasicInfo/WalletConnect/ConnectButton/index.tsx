@@ -61,6 +61,7 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ form }) => {
                   // bindWallet(account.address as `0x${string}`);
                   setWallet(account.address as `0x${string}`);
                   form.setValue('wallet', account.address as `0x${string}`);
+                  form.trigger('wallet');
                   setBindPending(false);
                 }
                 return connectButtonRender({
@@ -90,6 +91,7 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ form }) => {
           // onDisconnect();
           setWallet('');
           form.setValue('wallet', '');
+          form.trigger('wallet');
         }}
       >
         <div className="flex h-full w-full items-center justify-between">
@@ -134,6 +136,7 @@ export const ConnectButton: FC<ConnectButtonProps> = ({ form }) => {
           if (connected) {
             setWallet(account.address as `0x${string}`);
             form.setValue('wallet', account.address as `0x${string}`);
+            form.trigger('wallet');
           } else {
             setBindPending(true);
             openConnectModal();

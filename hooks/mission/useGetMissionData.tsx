@@ -51,10 +51,19 @@ export const useGetMissionData = () => {
     continuCount: number;
   } => {
     const len = missions.length;
+    if (!len) {
+      return {
+        missions: [],
+        isMissStreak: false,
+        isContinu: false,
+        continuCount: 0
+      };
+    }
     let isMissStreak = false;
     //是否有小火花逻辑为连续签到至少7天
     const curDayMission = missions[len - 1];
-    const count = curDayMission.progress?.progress?.[0] || 1;
+
+    const count = curDayMission?.progress?.progress?.[0] || 1;
     const continuCount = curDayMission.status === MissionStatus.CLAIMED ? count : count - 1;
     const isContinu = continuCount >= 7;
     // 是否需要补签看missions的倒数第二个的claimed是否为false 如果为false则把其状态设置为RESTORE 可以补签的状态
