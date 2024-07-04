@@ -1,6 +1,6 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { FiX } from 'react-icons/fi';
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';

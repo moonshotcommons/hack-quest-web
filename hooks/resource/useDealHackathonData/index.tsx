@@ -1,10 +1,5 @@
 import moment from 'moment';
-import {
-  HackathonInfoSPKeys,
-  HackathonRewardType,
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 
