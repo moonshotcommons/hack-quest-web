@@ -17,6 +17,7 @@ import Image from 'next/image';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -30,6 +31,9 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       setAuthType: state.setAuthType
     }))
   );
+
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
+
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex } = useDealHackathonData();
@@ -50,15 +54,21 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     return ls || [];
   }, [hackathon]);
 
+  const handleRegister = () => {
+    if (!userInfo) {
+      mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+      mobileNavModalToggleOpenHandle.toggleOpen();
+    } else {
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
+    }
+  };
+
   const renderButton = () => {
     if (stepIndex < 1) {
       if (!hackathon.participation?.isRegister) {
         const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
         return (
-          <Button
-            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-            onClick={() => setTipsModalOpenState(true)}
-          >
+          <Button className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
             {buttonText}
           </Button>
         );

@@ -2,14 +2,15 @@ import AdvocateImg from '@/public/images/resource/advocate_link.png';
 import HackathonImg from '@/public/images/resource/hackathon_link.png';
 import BlogImg from '@/public/images/resource/blog_link.png';
 import MenuLink from '@/constants/MenuLink';
+
 export const eventsBannerData = [
   {
-    number: 10,
+    number: 100,
     label: 'meetUpsOrganized',
     id: 1
   },
   {
-    number: 20,
+    number: 30,
     label: 'colearningCampsInitiated',
     id: 2
   },
@@ -19,7 +20,7 @@ export const eventsBannerData = [
     id: 3
   },
   {
-    number: 8000,
+    number: 12000,
     label: 'buildersAttended',
     id: 4
   }

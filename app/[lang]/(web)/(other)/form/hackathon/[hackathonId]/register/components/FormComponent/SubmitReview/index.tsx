@@ -23,6 +23,7 @@ import { PresetComponentMap } from '@/components/HackathonCreation';
 import { CustomComponentConfigTemplate } from '@/components/HackathonCreation/constants';
 import Image from 'next/image';
 import { getHackathonStepInfo } from '../../constants';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
 interface SubmitReviewProps {
   setCurrentStep: (step: number) => void;
   sectionConfig: SimpleHackathonInfo['info']['application'];
@@ -74,6 +75,8 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
       onConfirm: runAsync
     });
   };
+
+  const exitConfirmRef = useFormExit(async () => {});
 
   // const register = useCallback(
   //   async ({ resolve, reject }: any) => {
@@ -286,6 +289,10 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
             </div>
           </>
         )}
+      </ConfirmModal>
+
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the register process & leave?</h4>
       </ConfirmModal>
     </div>
   );

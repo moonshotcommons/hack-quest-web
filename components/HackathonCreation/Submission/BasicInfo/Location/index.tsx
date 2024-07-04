@@ -43,8 +43,9 @@ export const LocationConfig: PresetComponentConfig<LocationProps> = {
     );
   },
   getValidator(config) {
-    const arr = LOCATIONS.map((item) => item.value) as [string, ...string[]];
-    const validator = z.enum(arr);
+    // const arr = LOCATIONS.map((item) => item.value) as [string, ...string[]];
+    // const validator = z.enum(arr);
+    const validator = z.string().min(config.optional ? 0 : 1);
     return {
       location: config.optional ? validator.optional() : validator
     };

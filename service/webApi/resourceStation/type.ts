@@ -31,6 +31,7 @@ export interface HackathonRewardType {
   rule: string;
   name: string;
   totalRewards: number;
+  currency: string;
   rewards: {
     id: string;
     label: string;
@@ -264,9 +265,37 @@ export interface ProjectTeamType {
   id: string;
   name: string;
 }
+
+export type HackathonInfoAboutType = {
+  firstName: string;
+  gender: string;
+  lastName: string;
+  location: string;
+  resume: string;
+} & Record<string, any>;
+
+export type HackathonInfoContactType = {
+  discord: string;
+  email: string;
+  phoneNumber: string;
+  telegram: string;
+} & Record<string, any>;
+
+export type HackathonInfoOnlineProfilesType = {
+  facebook: string;
+  farcaster: string;
+  github: string;
+  linkedIn: string;
+  qq: string;
+  whatsApp: string;
+} & Record<string, any>;
 export interface ProjectMemberType {
   avatar: string;
-  info: any;
+  info: {
+    [ApplicationSectionType.About]?: HackathonInfoAboutType;
+    [ApplicationSectionType.Contact]?: HackathonInfoContactType;
+    [ApplicationSectionType.OnlineProfiles]?: HackathonInfoOnlineProfilesType;
+  };
   isAdmin: boolean;
   userId: string;
 }

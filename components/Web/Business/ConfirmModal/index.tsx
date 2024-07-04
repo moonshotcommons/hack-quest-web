@@ -73,12 +73,12 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
         </svg>
       }
     >
-      <div className={cn('w-[532px] rounded-[16px] bg-neutral-white px-5 py-10', className)}>
+      <div className={cn('w-[calc(100vw-40px)] rounded-[16px] bg-neutral-white px-5 py-10 sm:w-[532px]', className)}>
         {children}
         <div className="mt-9 flex justify-center gap-2">
           <Button
             ghost
-            className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black outline-none"
+            className="button-text-m h-[2.125rem] w-[calc((100%-16px-40px)/2)] px-0 py-0 uppercase text-neutral-black outline-none sm:h-fit sm:w-[165px] sm:py-4"
             onClick={() => {
               setOpen(false);
               cancel();
@@ -87,7 +87,7 @@ const ConfirmModal: ForwardRefRenderFunction<ConfirmModalRef, ConfirmModalProps>
             {cancelText || 'cancel'}
           </Button>
           <Button
-            className="button-text-m w-[165px] px-0 py-4 uppercase text-neutral-black"
+            className="button-text-m h-[2.125rem] w-[calc((100%-16px-40px)/2)] px-0 py-0 uppercase text-neutral-black sm:h-fit sm:w-[165px] sm:py-4"
             type="primary"
             loading={loading}
             disabled={disabled || loading}

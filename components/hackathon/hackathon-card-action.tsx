@@ -79,7 +79,13 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
   return (
     <div className="flex flex-col gap-2">
       {hasPermission(role, status, 'submit') && (
-        <PrimaryButton onClick={() => router.push(`/form/hackathon/${hackathon.id}/submission/${projectId || '-1'}`)}>
+        <PrimaryButton
+          onClick={() =>
+            isMobile
+              ? setTipsModalOpenState(true)
+              : router.push(`/form/hackathon/${hackathon.id}/submission/${projectId || '-1'}`)
+          }
+        >
           {isPartiallySubmitted ? 'continue submission' : 'start submission'}
         </PrimaryButton>
       )}
@@ -92,7 +98,11 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
       {hasPermission(role, status, 'edit') && (
         <PrimaryButton
-          onClick={() => router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`)}
+          onClick={() =>
+            isMobile
+              ? setTipsModalOpenState(true)
+              : router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`)
+          }
         >
           edit submission
         </PrimaryButton>
@@ -101,7 +111,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
       {hasPermission(role, status, 'manage') && (
         <SecondaryButton
           onClick={() => {
-            isMobile ? setTipsModalOpenState(true) : manageTeamModal.onOpen(code);
+            manageTeamModal.onOpen(code);
           }}
         >
           Manage Team

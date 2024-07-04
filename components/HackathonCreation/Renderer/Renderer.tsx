@@ -23,7 +23,7 @@ export const renderFormComponent = (config: CustomComponentConfig, form: any) =>
           label={label}
           name={name}
           className={cn('flex w-full flex-wrap justify-between gap-5', {
-            '[&>div]:w-[calc((100%-20px)/2)]': config.property.options.length > 1
+            'w-full sm:[&>div]:w-[calc((100%-20px)/2)]': config.property.options.length > 1
           })}
         >
           {config.property.options.map((option, index) => (

@@ -53,8 +53,7 @@ const VideoRenderer: FC<VideoRendererProps> = (props) => {
   const renderVideo = () => {
     if (isYoutubeUrl) {
       return <YouTube videoId={getYoutubeId(videoUrl)} loading="lazy" iframeClassName="w-full" />;
-    }
-    if (!videoUrl.includes('youtu')) {
+    } else {
       return (
         <video controls className={`w-full`}>
           <source src={videoUrl}></source>

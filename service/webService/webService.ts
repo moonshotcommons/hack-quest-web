@@ -58,7 +58,7 @@ class WebService {
     const token = (res.headers['authorization'] || '')?.replace('Bearer ', '');
     token &&
       setCookie(TOKEN_KEY, token, {
-        expires: new Date(Date.now() + 3600 * 24 * 3)
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3)
       });
     token && setToken(token);
     if (res.status === 200) {

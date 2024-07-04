@@ -27,6 +27,8 @@ import Link from 'next/link';
 import LinkArrow from '@/components/Common/LinkArrow';
 import GroupProjectForm from './GroupProjectForm';
 import { omit } from 'lodash-es';
+import ConfirmModal from '@/components/Web/Business/ConfirmModal';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
 
 interface ApplicationTypeSectionFormProps {
   sectionConfig: {
@@ -83,15 +85,15 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
   const confirmRef = useRef<GroupActionConfirmRef>(null);
   const { deleteGroup, removeMember, leaveGroup } = useGroupAction();
 
-  const { run: submitRequest, loading } = useRequest(
-    async (values: Record<string, string>) => {
+  const { runAsync: submitRequest, loading } = useRequest(
+    async (values: Record<string, string>, isExit = false) => {
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.ApplicationType);
       const state = {
         info: omit(info, ApplicationSectionType.ApplicationType),
-        status: nextStep.type
+        status: isExit ? ApplicationSectionType.ApplicationType : nextStep.type
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
-      // await refreshRegisterInfo();
+      await refreshRegisterInfo();
       return state;
     },
     {
@@ -179,6 +181,8 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
     }
   }, [applicationType]);
 
+  const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
+
   return (
     <div>
       <Form {...form}>
@@ -265,6 +269,9 @@ const ApplicationTypeSectionForm: FC<ApplicationTypeSectionFormProps & CommonFor
         </form>
       </Form>
       <GroupActionConfirm ref={confirmRef} />
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the register process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };
