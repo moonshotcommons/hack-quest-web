@@ -18,46 +18,40 @@ import { Steps } from '../constants/steps';
 
 const formSchema = z
   .object({
-    timeZone: z.string().min(1, {
-      message: 'Timezone is required'
+    timeZone: z.string({
+      required_error: 'Timezone is required'
     }),
     openReviewSame: z.enum(['true', 'false']),
-    openTime: z.string().min(1, {
-      message: 'Registration open time is required'
+    openTime: z.string({
+      required_error: 'Registration open time is required'
     }),
     openTimeEnd: z.string().optional(),
     reviewTime: z.string().optional(),
-    reviewTimeEnd: z.string().min(1, {
-      message: 'Submission close time is required'
+    reviewTimeEnd: z.string({
+      required_error: 'Submission close time is required'
     }),
-    rewardTime: z.string().min(1, {
-      message: 'Reward announcement is required'
+    rewardTime: z.string({
+      required_error: 'Reward announcement is required'
     })
   })
-  .refine(
-    (data) => {
-      if (data.openReviewSame === 'false') {
-        return !!data.openTimeEnd;
+  .superRefine((data, ctx) => {
+    if (data.openReviewSame === 'false') {
+      if (!data.openTimeEnd) {
+        ctx.addIssue({
+          path: ['openTimeEnd'],
+          code: z.ZodIssueCode.custom,
+          message: 'Registration close time is required'
+        });
       }
-      return true;
-    },
-    {
-      message: 'Registration close time is required',
-      path: ['openCloseTime']
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.openReviewSame === 'false') {
-        return !!data.reviewTime;
+      if (!data.reviewTime) {
+        ctx.addIssue({
+          path: ['reviewTime'],
+          code: z.ZodIssueCode.custom,
+          message: 'Submission open time is required'
+        });
       }
-      return true;
-    },
-    {
-      message: 'Submission start time is required',
-      path: ['reviewStartTime']
     }
-  );
+  });
 
 function SameCloseTime() {
   const { control } = useFormContext<z.infer<typeof formSchema>>();
@@ -246,7 +240,12 @@ export function TimelineForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       timeZone: timezone || '',
-      openReviewSame: 'false'
+      openReviewSame: 'false',
+      openTime: '',
+      openTimeEnd: '',
+      reviewTime: '',
+      reviewTimeEnd: '',
+      rewardTime: ''
     }
   });
 
@@ -292,7 +291,8 @@ export function TimelineForm({
       reviewTimeEnd: new Date(data.reviewTimeEnd).toJSON(),
       rewardTime: new Date(data.rewardTime).toJSON()
     };
-    mutation.mutate(values);
+    // mutation.mutate(values);
+    console.log(values);
   }
 
   function onCancelOrBack() {
@@ -345,6 +345,7 @@ export function TimelineForm({
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value as any);
+                    form.clearErrors();
                   }}
                   className="w-full grid-cols-2"
                 >

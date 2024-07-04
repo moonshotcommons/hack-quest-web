@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { UseFormRegister, FieldValues, Path } from 'react-hook-form';
 import { XIcon } from 'lucide-react';
+import { cn } from '@/helper/utils';
 
 export function CustomTextField<T extends FieldValues>({
   name,
   register,
   placeholder,
   type = 'text',
+  error = '',
   required = false,
   valueAsNumber = false,
   index = 1,
@@ -18,11 +20,19 @@ export function CustomTextField<T extends FieldValues>({
   type?: React.HTMLInputTypeAttribute;
   valueAsNumber?: boolean;
   required?: boolean;
+  error?: string;
   index?: number;
   remove?: (index: number) => void;
 }) {
   return (
-    <section className="group relative flex items-center gap-5 rounded-[10px] border border-neutral-light-gray px-6 py-5">
+    <section
+      className={cn(
+        'group relative flex items-center gap-5 rounded-[10px] border border-neutral-light-gray px-6 py-5',
+        {
+          'border-status-error-dark': error
+        }
+      )}
+    >
       <span className="body-m inline-flex h-8 w-8 items-center justify-center rounded-[4px] border-2 border-neutral-light-gray text-neutral-off-black">
         {index + 1}
       </span>

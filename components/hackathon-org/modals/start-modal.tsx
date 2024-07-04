@@ -6,7 +6,6 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { debounce } from 'lodash-es';
 import { MoveRightIcon } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -36,7 +35,6 @@ interface StartModalProps {
 
 export function StartModal({ open, onClose }: StartModalProps) {
   const router = useRouter();
-  const [isValid, setIsValid] = React.useState(true);
   const [isPending, startTransition] = React.useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,20 +42,6 @@ export function StartModal({ open, onClose }: StartModalProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: ''
-    }
-  });
-
-  const verifyMutation = useMutation({
-    mutationFn: (name: string) => webApi.hackathonV2Api.verifyHackathonName(name),
-    onSuccess: ({ allow }) => {
-      if (!allow) {
-        setIsValid(false);
-        form.setError('name', {
-          message: 'Hackathon name is already taken.'
-        });
-      } else {
-        setIsValid(true);
-      }
     }
   });
 
@@ -72,14 +56,6 @@ export function StartModal({ open, onClose }: StartModalProps) {
       errorMessage(error);
     }
   });
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const checkName = React.useCallback(
-    debounce((name: string) => {
-      verifyMutation.mutate(name);
-    }, 1000),
-    []
-  );
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     mutation.mutate(data);
@@ -115,9 +91,6 @@ export function StartModal({ open, onClose }: StartModalProps) {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
-                        if (e.target.value) {
-                          checkName(e.target.value);
-                        }
                       }}
                       autoComplete="off"
                       placeholder="Enter your hackathon name"
@@ -131,7 +104,7 @@ export function StartModal({ open, onClose }: StartModalProps) {
             <Button
               type="submit"
               isLoading={mutation.isPending || isPending}
-              disabled={!form.formState.isValid || !isValid}
+              disabled={!form.formState.isValid}
               className="w-60"
             >
               start

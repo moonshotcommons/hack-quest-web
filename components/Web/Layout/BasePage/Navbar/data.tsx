@@ -40,24 +40,24 @@ export const navbarList: NavbarListType[] = [
     label: 'navbar.learn.title',
     id: 'learn',
     menu: [
-      {
-        id: 'learning-track',
-        label: 'navbar.learn.learningTrack',
-        path: MenuLink.LEARNING_TRACK,
-        description: 'navbar.learn.learningTrackDesc'
-      },
-      {
-        id: 'electives',
-        label: 'navbar.learn.electives',
-        path: MenuLink.ELECTIVES,
-        description: 'navbar.learn.electivesDesc'
-      },
-      {
-        id: 'projects',
-        label: 'navbar.learn.projects',
-        path: MenuLink.PRACTICES,
-        description: 'navbar.learn.projectsDesc'
-      },
+      // {
+      //   id: 'learning-track',
+      //   label: 'navbar.learn.learningTrack',
+      //   path: MenuLink.LEARNING_TRACK,
+      //   description: 'navbar.learn.learningTrackDesc'
+      // },
+      // {
+      //   id: 'electives',
+      //   label: 'navbar.learn.electives',
+      //   path: MenuLink.ELECTIVES,
+      //   description: 'navbar.learn.electivesDesc'
+      // },
+      // {
+      //   id: 'projects',
+      //   label: 'navbar.learn.projects',
+      //   path: MenuLink.PRACTICES,
+      //   description: 'navbar.learn.projectsDesc'
+      // },
       // {
       //   id: 'my-course',
       //   label: 'navbar.learn.myCourse',

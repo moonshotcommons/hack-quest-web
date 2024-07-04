@@ -124,17 +124,18 @@ function SelectionForm({ form }: { form: UseFormReturn<z.infer<typeof formSchema
               register={form.register}
               index={index}
               remove={remove}
-              placeholder="Option 1 starts here..."
+              placeholder="Option one starts here..."
+              error={form.formState.errors.options?.[index]?.value?.message}
             />
           ))}
           <AddFieldButton variant="outline" onClick={() => append({ value: '' })}>
             Add one option
           </AddFieldButton>
         </div>
-        {form.formState.errors.options?.message && (
+        {form.formState.errors.options?.root?.message && (
           <p className="inline-flex items-center text-base text-status-error-dark">
             <InfoIcon className="mr-1.5 h-4 w-4" />
-            <span>{form.formState.errors.options?.message}</span>
+            <span>{form.formState.errors.options?.root?.message}</span>
           </p>
         )}
       </div>
@@ -385,7 +386,7 @@ export function EditCustomFieldModal({
           </Button>
           <Button
             className="w-[165px]"
-            disabled={!form.formState.isValid}
+            // disabled={!form.formState.isValid}
             onClick={() => {
               submitInputRef.current?.click();
             }}
