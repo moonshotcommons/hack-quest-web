@@ -18,7 +18,6 @@ const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, 
   const { dealModalList } = useDealHackathonData();
   const [loading, setLoading] = useState(false);
   const [modalType, setModalType] = useState<HackathonEditModalType>(HackathonEditModalType.NULL);
-
   const updateHackathon = ({ data, status = modalType, closeModal = true, cb }: UpdateHackathonParamType) => {
     setLoading(true);
     webApi.hackathonV2Api
