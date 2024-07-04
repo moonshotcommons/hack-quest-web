@@ -1,6 +1,6 @@
 'use client';
 import { HackathonStatusType, HackathonTimeLineType, HackathonType } from '@/service/webApi/resourceStation/type';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -19,6 +19,8 @@ import { StartModal } from '@/components/hackathon-org/modals/start-modal';
 import { cloneDeep } from 'lodash-es';
 import dayjs from 'dayjs';
 import { HackathonTabType } from '../../constants/type';
+import TipsModal from './TipsModal';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface DashboardProp {
   curTab: HackathonStatusType;
@@ -31,7 +33,8 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   const [open, setOpen] = useState(false);
   const [curTab, setCurTab] = useState<HackathonStatusType>(c);
   const [hackathonTab, setHackathonTab] = useState<HackathonTabType[]>([]);
-
+  const [tipsOpen, setTipsOpen] = useState(false);
+  const userInfo = useUserStore((state) => state.userInfo);
   const isPast = (timeline: HackathonTimeLineType) => {
     if (!timeline) return false;
     const currentTime = +new Date();
@@ -65,13 +68,29 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   //       return <Past page={0} hackathonList={list} total={0} limit={0} isDashboard={true} />;
   //   }
   // };
+  const startNewHackathon = () => {
+    if (userInfo?.role !== 'ORGANIZATION') {
+      setTipsOpen(true);
+    } else {
+      setOpen(true);
+    }
+  };
   const buttonNode = () => {
     return (
-      <Button type="primary" className="mt-[40px] h-[60px] w-[300px] uppercase" onClick={() => setOpen(true)}>
+      <Button type="primary" className="mt-[40px] h-[60px] w-[300px] uppercase" onClick={startNewHackathon}>
         {t('organizer.startNewHackathon')}
       </Button>
     );
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem('isFirstHackahtonOrganizer')) {
+      setTipsOpen(true);
+      localStorage.setItem('isFirstHackahtonOrganizer', '1');
+    } else {
+      setTipsOpen(false);
+    }
+  }, []);
 
   return (
     <div className="container  mx-auto pb-10 ">
@@ -104,6 +123,7 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
         </div>
       </div>
       <StartModal open={open} onClose={() => setOpen(false)} />
+      <TipsModal open={tipsOpen} onClose={() => setTipsOpen(false)} />
     </div>
   );
 };

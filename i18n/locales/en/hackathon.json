@@ -62,7 +62,7 @@
     "submission": "Submission",
     "links": "Links",
     "partners": "Partners",
-    "speakersAndJudges": "Speakers & Judges",
+    "speakers": "Speakers & Judges",
     "sponsors": "Sponsors",
     "info": "Info",
     "judgingCriteria": "Judging Criteria",
@@ -85,7 +85,6 @@
     "mediaPartnersIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "communityPartnersIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "partnersIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
-    "speakersJudgesIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "sponsorsIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "scheduleIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
     "FAQsIntro": "Sed a magna id libero faucibus fringilla. Nam cursus justo non blandit lacinia. Mauris metus augue, tempor vitae maximus ut, porta id eros.",
@@ -211,7 +210,9 @@
     "participate": "participate",
     "vote": "vote",
     "empty": "You didn’t {{type}} in any hackathon",
-    "back": "Back To Your Hackathon"
+    "back": "Back To Your Hackathon",
+    "tipsModalTitle":"Want to organize a hackathon?",
+    "tipsModalText":"Before accessing the Hackathon Organizer Dashboard, please apply to become an organizer. Once approved, you'll be able to create, edit, and review your events seamlessly."
   },
   "explore": {
     "title": "Explore Hackathons",

@@ -62,7 +62,7 @@ const useDealHackathonData = () => {
 
   const dealModalList = (hackathon: HackathonType) => {
     const newList = modalList.map((v) => {
-      const added = hackathon.info?.sections?.[v.type as HackathonInfoSPKeys | 'schedule' | 'faqs']?.list?.length > 0;
+      const added = hackathon.progress?.includes(v.type);
       return {
         ...v,
         added
