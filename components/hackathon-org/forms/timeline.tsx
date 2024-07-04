@@ -18,36 +18,36 @@ import { Steps } from '../constants/steps';
 
 const formSchema = z
   .object({
-    timeZone: z.string({
-      required_error: 'Timezone is required'
+    timeZone: z.string().min(1, {
+      message: 'Timezone is required'
     }),
     openReviewSame: z.enum(['true', 'false']),
-    openTime: z.string({
-      required_error: 'Registration open time is required'
+    openTime: z.string().min(1, {
+      message: 'Registration open time is required'
     }),
     openTimeEnd: z.string().optional(),
     reviewTime: z.string().optional(),
-    reviewTimeEnd: z.string({
-      required_error: 'Submission close time is required'
+    reviewTimeEnd: z.string().min(1, {
+      message: 'Submission close time is required'
     }),
-    rewardTime: z.string({
-      required_error: 'Reward announcement is required'
+    rewardTime: z.string().min(1, {
+      message: 'Reward announcement is required'
     })
   })
   .superRefine((data, ctx) => {
     if (data.openReviewSame === 'false') {
       if (!data.openTimeEnd) {
         ctx.addIssue({
-          path: ['openTimeEnd'],
           code: z.ZodIssueCode.custom,
-          message: 'Registration close time is required'
+          message: 'Registration close time is required',
+          path: ['openTimeEnd']
         });
       }
       if (!data.reviewTime) {
         ctx.addIssue({
-          path: ['reviewTime'],
           code: z.ZodIssueCode.custom,
-          message: 'Submission open time is required'
+          message: 'Submission open time is required',
+          path: ['reviewTime']
         });
       }
     }
@@ -291,8 +291,7 @@ export function TimelineForm({
       reviewTimeEnd: new Date(data.reviewTimeEnd).toJSON(),
       rewardTime: new Date(data.rewardTime).toJSON()
     };
-    // mutation.mutate(values);
-    console.log(values);
+    mutation.mutate(values);
   }
 
   function onCancelOrBack() {

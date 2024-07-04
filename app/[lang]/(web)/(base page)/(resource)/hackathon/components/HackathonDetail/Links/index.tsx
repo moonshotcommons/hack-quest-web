@@ -14,7 +14,7 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const links = useMemo(() => {
-    const keys = Object.keys(hackathon.links?.links) || [];
+    const keys = Object.keys(hackathon.links?.links || {}) || [];
     const ls = keys
       .map((v) => ({
         label: v,

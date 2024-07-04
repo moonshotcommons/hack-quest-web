@@ -116,11 +116,13 @@ export type JudgeAccount = {
 export function EditJudgingDetailModal({
   open,
   initialValues,
-  onClose
+  onClose,
+  refresh
 }: {
   open?: boolean;
   initialValues?: any;
   onClose?: () => void;
+  refresh?: () => void;
 }) {
   const queryClient = useQueryClient();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
@@ -142,6 +144,11 @@ export function EditJudgingDetailModal({
   const { mutate, isPending } = useMutation({
     mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
     onSuccess: (data) => {
+      // 判断是否为重复账号
+      if (judgeAccounts.some((judge) => judge.email === data.email)) {
+        message.error('Already exists');
+        return;
+      }
       setJudgeAccounts((prev) => [...prev, data]);
       form.resetField('judgeAccount', { defaultValue: '' });
     },
@@ -159,6 +166,7 @@ export function EditJudgingDetailModal({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathonJudge(initialValues?.id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      refresh?.();
       message.success('Success');
       handleClose();
     }
@@ -168,8 +176,6 @@ export function EditJudgingDetailModal({
   const judgeMode = form.watch('judgeMode');
   const voteMode = form.watch('voteMode');
   const judgeAccount = form.watch('judgeAccount');
-
-  const isValid = form.formState.isValid;
 
   function onVotesChange(value: string, isUserVotes: boolean) {
     if (value === '') {

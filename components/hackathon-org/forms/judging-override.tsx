@@ -116,12 +116,14 @@ export function JudgingOverrideForm({
   isEditMode = false,
   initialValues,
   onCancel,
-  onSave
+  onSave,
+  refresh
 }: {
   isEditMode?: boolean;
   initialValues?: any;
   onCancel?: () => void;
   onSave?: () => void;
+  refresh?: () => void;
 }) {
   const [value, setValue] = React.useState<any>({});
   const [open, toggle] = useToggle(false);
@@ -162,6 +164,7 @@ export function JudgingOverrideForm({
         key={Math.random()}
         initialValues={value}
         open={open}
+        refresh={refresh}
         onClose={() => {
           toggle(false);
           setValue({});

@@ -16,13 +16,13 @@ const Application: React.FC<ApplicationProp> = ({ hackathon }) => {
   const application = useMemo(() => {
     const app = hackathon.info?.application || {};
     const ApplicationType = app?.ApplicationType || {};
-    const About = app.About.filter((v) => v.selected)
+    const About = app.About?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const OnlineProfiles = app.OnlineProfiles.filter((v) => v.selected)
+    const OnlineProfiles = app.OnlineProfiles?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
-    const Contact = app.Contact.filter((v) => v.selected)
+    const Contact = app.Contact?.filter((v) => v.selected)
       .map((v) => (v.optional ? `${v.type}(Optional)` : v.type))
       .join(' / ');
     return {
