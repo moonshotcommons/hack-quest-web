@@ -31,6 +31,7 @@ export interface HackathonRewardType {
   rule: string;
   name: string;
   totalRewards: number;
+  currency: string;
   rewards: {
     id: string;
     label: string;
