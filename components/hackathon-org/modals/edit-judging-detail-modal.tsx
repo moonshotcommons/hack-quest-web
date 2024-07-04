@@ -658,7 +658,7 @@ export function EditJudgingDetailModal({
           </Button>
           <Button
             className="w-[165px]"
-            disabled={!isValid}
+            // disabled={!isValid}
             isLoading={mutation.isPending}
             onClick={() => {
               submitInputRef.current?.click();

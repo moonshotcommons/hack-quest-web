@@ -68,7 +68,7 @@ export default function Page() {
 
   function goToHackathonDetailPage() {
     startTransition(() => {
-      router.push(`${MenuLink.HACKATHON}/${alias}`);
+      router.push(`${MenuLink.HACKATHON_EDIT}/${alias}`);
     });
   }
 

@@ -19,14 +19,58 @@ import { Steps } from '../constants/steps';
 import { flattenObj } from '../constants/utils';
 
 const formSchema = z.object({
-  email: z.string().email(),
-  website: z.string().url().optional().or(z.literal('')),
-  instagram: z.string().url().optional().or(z.literal('')),
-  twitter: z.string().url().optional().or(z.literal('')),
-  discord: z.string().url().optional().or(z.literal('')),
-  slack: z.string().url().optional().or(z.literal('')),
-  farcaster: z.string().url().optional().or(z.literal('')),
-  telegram: z.string().url().optional().or(z.literal(''))
+  email: z.string().email({
+    message: 'Please enter a valid email address'
+  }),
+  website: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
+  instagram: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
+  twitter: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
+  discord: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
+  slack: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
+  farcaster: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal('')),
+  telegram: z
+    .string()
+    .url({
+      message: 'Please enter a valid URL'
+    })
+    .optional()
+    .or(z.literal(''))
 });
 
 export function LinksForm({

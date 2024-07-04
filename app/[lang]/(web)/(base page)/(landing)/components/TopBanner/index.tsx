@@ -31,7 +31,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
             <span className="text-yellow-dark">所有人</span>
             <span>的</span>
             <br />
-            <span className="inline-block pt-2"> Web3编程平台</span>
+            <span className="inline-block pt-2"> Web3 编程平台</span>
           </h1>
         );
       default:

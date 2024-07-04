@@ -14,13 +14,14 @@ import { Steps } from '../constants/steps';
 import { useHackathonOrgState } from '../constants/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 const formSchema = z
   .object({
     name: z
       .string()
       .min(1, {
-        message: 'Hackathon name is a required input'
+        message: 'Hackathon name is required'
       })
       .max(80, {
         message: 'Hackathon name cannot exceed 80 characters'
@@ -28,7 +29,7 @@ const formSchema = z
     host: z
       .string()
       .min(1, {
-        message: 'Organization name is a required input'
+        message: 'Organization name is required'
       })
       .max(80, {
         message: 'Organization name cannot exceed 80 characters'
@@ -36,7 +37,7 @@ const formSchema = z
     intro: z
       .string()
       .min(1, {
-        message: 'One line intro is a required input'
+        message: 'One line intro is required'
       })
       .max(120, {
         message: 'One line intro cannot exceed 120 characters'
@@ -44,7 +45,7 @@ const formSchema = z
     description: z
       .string()
       .min(1, {
-        message: 'Description is a required input'
+        message: 'Description is required'
       })
       .max(360, {
         message: 'Description cannot exceed 360 characters'
@@ -62,7 +63,7 @@ const formSchema = z
     address: z.string().optional()
   })
   .refine((data) => data.mode === 'ONLINE' || (data.mode === 'HYBRID' && data.address), {
-    message: 'Venue is a required input for hybrid mode',
+    message: 'Venue is required for hybrid mode',
     path: ['address']
   });
 
@@ -102,6 +103,9 @@ export function BasicInfoForm({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       isEditMode ? onSave?.() : onStepChange(Steps.LINKS);
+    },
+    onError: (error) => {
+      errorMessage(error);
     }
   });
 
@@ -339,6 +343,7 @@ export function BasicInfoForm({
           />
         )}
         <ActionButtons
+          isFirstStep
           isLoading={mutation.isPending}
           isEditMode={isEditMode}
           isValid={form.formState.isValid}

@@ -41,7 +41,9 @@ function TrackPreview({ track }: { track: any }) {
       <div className="flex w-full flex-col gap-3 rounded-2xl border border-neutral-light-gray bg-neutral-white px-8 pb-4 pt-8">
         <div className="grid h-full w-full grid-cols-[auto_1px_420px] gap-5">
           <div className="flex flex-col items-center justify-center px-2">
-            <h2 className="headline-h3 text-neutral-off-black">{separationNumber(track?.totalRewards || 0)} USD</h2>
+            <h2 className="headline-h3 text-neutral-off-black">
+              {separationNumber(track?.totalRewards || 0)} {track?.currency}
+            </h2>
             <span className="body-m text-neutral-medium-gray">{track?.name}</span>
           </div>
           <Separator orientation="vertical" />
@@ -51,7 +53,7 @@ function TrackPreview({ track }: { track: any }) {
                 <li className="flex items-center justify-between" key={reward?.id}>
                   <span className="body-m text-neutral-medium-gray">{reward?.label}</span>
                   <span className="body-l text-neutral-off-black">
-                    {separationNumber(Number(reward?.value || 0))} USD
+                    {separationNumber(Number(reward?.value || 0))} {track?.currency}
                   </span>
                 </li>
               ))}
@@ -110,6 +112,10 @@ export function RewardsForm({
   }
 
   function onSaveOrNext() {
+    if (!isValid) {
+      message.warning('Please add at least one track');
+      return;
+    }
     isEditMode ? onSave?.() : onStepChange(Steps.JUDGING);
   }
 

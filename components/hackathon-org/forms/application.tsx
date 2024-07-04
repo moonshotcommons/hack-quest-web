@@ -163,6 +163,7 @@ export function ApplicationForm({
                     value={field.value}
                     onValueChange={(value) => {
                       field.onChange(value as any);
+                      form.clearErrors(['minimumTeamSize', 'maximumTeamSize']);
                     }}
                     className="w-full grid-cols-3"
                   >
