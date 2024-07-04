@@ -18,6 +18,7 @@ import { TextField } from '@/components/ui/text-field';
 import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
 import { message } from 'antd';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z
   .object({
@@ -124,6 +125,7 @@ export function EditJudgingDetailModal({
   onClose?: () => void;
   refresh?: () => void;
 }) {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
@@ -167,6 +169,7 @@ export function EditJudgingDetailModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       refresh?.();
+      router.refresh();
       message.success('Success');
       handleClose();
     }
