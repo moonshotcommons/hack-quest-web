@@ -111,22 +111,13 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'Cross-Chain Future: Smart Contract and Interoperability',
-    time: '9-10:30 AM SGT, August 6th 2024 / 9-10:30 PM EST, August 5th 2024',
-    description:
-      'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
-    speaker: 'Sergey Gorbunov, Axelar',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
     name: `Blockchain Beyond the Basics: Reimagine What's Possible`,
     time: '9-10:30 AM SGT, July 2nd 2024 / 9-10:30 PM EST, July 1st 2024',
     description: `This session will dive deep into the various cool projects and functionalities that shatter Web2's limitations and go beyond what's possible today through the power of decentralized technology.`,
     speaker: 'Gloria Kimbwala, Morph',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1fntVO7P0AtGlQIKSkaqVYHdp6WArVMRy/view',
+    slide: 'https://drive.google.com/file/d/1N75aIyk4DaqUDdrZbIAua9fq9cqyPK4j/view',
+
     expand: false
   },
   {
@@ -177,6 +168,16 @@ export const syllabusData = [
   //   slide: '',
   //   expand: false
   // },
+  {
+    name: 'Cross-Chain Future: Smart Contract and Interoperability',
+    time: '9-10:30 AM SGT, August 6th 2024 / 9-10:30 PM EST, August 5th 2024',
+    description:
+      'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
+    speaker: 'Sergey Gorbunov, Axelar',
+    video: '',
+    slide: '',
+    expand: false
+  },
   {
     name: 'The Future of Decentralized Social',
     time: '9-10 AM SGT, August 13th 2024 / 9-10 PM EST, August 12th 2024',
