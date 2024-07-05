@@ -79,7 +79,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (!hackathon.allowSubmission) {
+        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
           return (
             <Button
               size="small"
