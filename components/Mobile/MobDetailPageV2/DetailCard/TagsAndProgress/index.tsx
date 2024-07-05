@@ -33,7 +33,7 @@ const TagAndProgress: FC<TagAndProgressProps> = ({ learningTrackDetail: propLear
             text={`${learningTrackDetail.courseCount} ${t('learningTrackDetail.card.courses')}`}
           ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
-          {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
+          {/* {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>} */}
         </>
       );
     case LearningStatus.IN_PROGRESS:

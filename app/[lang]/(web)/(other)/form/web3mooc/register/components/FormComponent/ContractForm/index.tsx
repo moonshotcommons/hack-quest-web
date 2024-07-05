@@ -110,7 +110,7 @@ const ContractForm: FC<
         form.setValue('telegram', contractInfo.telegram);
       }, 100);
     }
-    console.log(newTypes, contractInfo);
+
     setTypes(newTypes);
     if (contractInfo.weChat || contractInfo.telegram) form.trigger();
   }, [contractInfo]);

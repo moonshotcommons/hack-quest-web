@@ -59,15 +59,15 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ courseDetail: propCourseDet
         </div>
       );
     case LearningStatus.COMPLETED:
-      if (!certification?.claimed) {
-        return <p className="body-m text-neutral-rich-gray">{t('electivesDetail.card.completedCourse')}</p>;
-      } else {
-        return (
-          <p className="body-m text-neutral-rich-gray">
-            {t('electivesDetail.card.claimed', { chain: certification.name.replace(' Learning Track', '') })}
-          </p>
-        );
-      }
+      // if (!certification?.claimed) {
+      return <p className="body-m text-neutral-rich-gray">{t('electivesDetail.card.completedCourse')}</p>;
+    // } else {
+    //   return (
+    //     <p className="body-m text-neutral-rich-gray">
+    //       {t('electivesDetail.card.claimed', { chain: certification.name.replace(' Learning Track', '') })}
+    //     </p>
+    //   );
+    // }
   }
 };
 
