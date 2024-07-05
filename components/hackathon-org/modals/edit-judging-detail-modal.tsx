@@ -22,7 +22,7 @@ import { useRouter } from 'next/navigation';
 
 const formSchema = z
   .object({
-    resource: z
+    criteria: z
       .string()
       .min(1, {
         message: 'Field is required'
@@ -138,7 +138,7 @@ export function EditJudgingDetailModal({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      resource: '',
+      criteria: '',
       disableJudge: false
     }
   });
@@ -219,7 +219,7 @@ export function EditJudgingDetailModal({
     let values: any = {
       rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
-      resource: data.resource,
+      criteria: data.criteria,
       disableJudge: data.disableJudge,
       judgeMode: null,
       voteMode: null,
@@ -289,7 +289,7 @@ export function EditJudgingDetailModal({
         latestJudgeMode.current = initialValues?.judgeMode;
         if (initialValues?.judgeMode === 'all') {
           form.reset({
-            resource: initialValues?.resource || '',
+            criteria: initialValues?.criteria || '',
             disableJudge: initialValues?.disableJudge,
             judgeMode: initialValues?.judgeMode,
             voteMode: initialValues?.voteMode,
@@ -299,7 +299,7 @@ export function EditJudgingDetailModal({
         } else {
           if (initialValues?.voteMode === 'fixed') {
             form.reset({
-              resource: initialValues?.resource || '',
+              criteria: initialValues?.criteria || '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
@@ -307,7 +307,7 @@ export function EditJudgingDetailModal({
             });
           } else {
             form.reset({
-              resource: initialValues?.resource || '',
+              criteria: initialValues?.criteria || '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
@@ -318,7 +318,7 @@ export function EditJudgingDetailModal({
         }
       } else {
         form.reset({
-          resource: initialValues?.resource || '',
+          criteria: initialValues?.criteria || '',
           disableJudge: initialValues?.disableJudge
         });
       }
@@ -346,7 +346,7 @@ export function EditJudgingDetailModal({
           >
             <FormField
               control={form.control}
-              name="resource"
+              name="criteria"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <div className="flex items-center justify-between">
@@ -354,8 +354,8 @@ export function EditJudgingDetailModal({
                       <span className="body-m text-neutral-rich-gray">Judging Criteria*</span>
                     </FormLabel>
                     <span className="caption-14pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': form.watch('resource')?.length > 360 })}>
-                        {form.watch('resource')?.length}
+                      <span className={cn({ 'text-status-error': form.watch('criteria')?.length > 360 })}>
+                        {form.watch('criteria')?.length}
                       </span>
                       /360
                     </span>

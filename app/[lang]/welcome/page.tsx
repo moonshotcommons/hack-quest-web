@@ -11,8 +11,11 @@ import { CodeXmlIcon, MoveRightIcon, PlayIcon, XIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
+import { updateActiveEcosystem } from '@/components/ecosystem/actions';
+import { getToken } from '@/helper/user-token';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface Props {
   step: number;
@@ -44,7 +47,7 @@ function EcosystemCard({
       })}
       onClick={onClick}
     >
-      <div className="relative h-12 w-12 flex-shrink-0 sm:h-20 sm:w-20">
+      <div className="relative h-12 w-12 flex-shrink-0">
         <Image src={image} alt={name} fill />
       </div>
 
@@ -60,6 +63,7 @@ function EcosystemCard({
 }
 
 function ChooseEcosystem() {
+  const queryClient = useQueryClient();
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [selected, setSelected] = React.useState<string | null>(null);
@@ -77,6 +81,7 @@ function ChooseEcosystem() {
     mutationKey: ['switchEcosystem'],
     mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem({ ecosystemId }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['enrolledEcosystems'] });
       onNext();
     }
   });
@@ -157,7 +162,7 @@ function ChooseEcosystem() {
               className="sm:h-20 sm:w-[6.5rem]"
             />
           </div>
-          <div className="mt-6 flex flex-col-reverse items-center justify-between sm:mt-auto sm:flex-row">
+          <div className="mt-6 flex flex-col-reverse items-center justify-between sm:mt-8 sm:flex-row">
             <button
               className="mt-4 inline-flex items-center gap-1.5 text-neutral-black outline-none"
               onClick={() => setSkipModalVisible(true)}
@@ -173,6 +178,7 @@ function ChooseEcosystem() {
               onClick={() => {
                 if (selected) {
                   mutation.mutate(selected);
+                  updateActiveEcosystem(selected);
                 }
               }}
             >
@@ -201,7 +207,7 @@ function StartLearning() {
           className="sm:h-60 sm:w-[36.75rem]"
         />
       </div>
-      <Link href="/system">
+      <Link href="/dashboard">
         <Button type="primary" className="w-full self-start uppercase sm:w-[16.875rem] sm:self-end">
           Start learning
         </Button>
@@ -215,7 +221,7 @@ function SkipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 
   function handleSkip() {
     onClose();
-    router.push('/');
+    router.push('/dashboard');
   }
 
   return (
@@ -258,9 +264,18 @@ const steps: Record<number, React.FC> = {
 };
 
 export default function Page() {
+  const { redirectToUrl } = useRedirect();
   const step = useOnboard((state) => state.step);
 
   const Component = steps[step];
+
+  React.useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      redirectToUrl('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto bg-neutral-white sm:h-screen sm:bg-neutral-off-white">
