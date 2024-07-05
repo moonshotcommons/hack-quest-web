@@ -46,7 +46,7 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
             {data?.resource && (
               <div className="flex flex-col gap-1">
                 <span className="text-neutral-medium-gray">Judging Criteria</span>
-                <p className="body-m text-neutral-rich-gray">{data?.resource}</p>
+                <p className="body-m text-neutral-rich-gray">{data?.criteria}</p>
               </div>
             )}
             <div className="flex gap-20">
