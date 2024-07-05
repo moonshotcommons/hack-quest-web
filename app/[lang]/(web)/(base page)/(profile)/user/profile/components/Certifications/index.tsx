@@ -25,8 +25,6 @@ const MintButton = (props: {
   const { certification, updateSelectCertification } = props;
   const { safeMintAsync } = useMintCertification();
 
-  console.log(certification);
-
   const { run: safeMint, loading } = useRequest(
     async () => {
       const res = await safeMintAsync(certification);
