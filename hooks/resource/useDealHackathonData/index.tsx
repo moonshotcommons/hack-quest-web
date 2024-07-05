@@ -1,10 +1,5 @@
 import moment from 'moment';
-import {
-  HackathonInfoSPKeys,
-  HackathonRewardType,
-  HackathonStatusType,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 
@@ -62,7 +57,7 @@ const useDealHackathonData = () => {
 
   const dealModalList = (hackathon: HackathonType) => {
     const newList = modalList.map((v) => {
-      const added = hackathon.info?.sections?.[v.type as HackathonInfoSPKeys | 'schedule' | 'faqs']?.list?.length > 0;
+      const added = hackathon.progress?.includes(v.type);
       return {
         ...v,
         added

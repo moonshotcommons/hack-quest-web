@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, useContext } from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import TagsAndProgress from './TagsAndProgress';
-import { LearningStatus, useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
+import { useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
 import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import { LearningTrackStatusButton } from '@/components/Web/DetailPageV2/StatusButton';
 interface LearningTrackDetailCardProps {
@@ -28,7 +28,7 @@ const LearningTrackDetailCard: FC<LearningTrackDetailCardProps> = ({
       <div className="flex flex-col gap-6 p-6">
         <div className="body-xl-bold flex items-center justify-between gap-6">
           <span>{learningTrackDetail.name}</span>
-          {learningStatus === LearningStatus.COMPLETED && learningTrackDetail.certificationId && certificationIcon}
+          {/* {learningStatus === LearningStatus.COMPLETED && learningTrackDetail.certificationId && certificationIcon} */}
         </div>
         <div className="flex flex-col gap-4">
           <TagsAndProgress learningTrackDetail={learningTrackDetail} />

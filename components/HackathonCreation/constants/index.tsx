@@ -36,7 +36,7 @@ export const CustomComponentConfigTemplate: Record<FormCustomComponent, CustomCo
     },
     displayRender(info, config) {
       const value = typeof info[config.id] === 'object' ? info[config.id].value : info[config.id];
-      console.log(info, config, value);
+
       return (
         <>
           <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />

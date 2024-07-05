@@ -2,7 +2,6 @@ import { Dispatch, FC, SetStateAction, createContext, useCallback, useEffect, us
 
 import Button from '@/components/Common/Button';
 import { Menu, QueryIdType } from '@/components/Web/Business/Breadcrumb/type';
-import CertificationCard from '@/components/Web/Business/Certification/CertificationCardClient';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { useEnrollUnEnroll } from '@/hooks/courses/useEnrollUnEnroll';
@@ -151,11 +150,11 @@ const LearningTrackDetail: FC<LearningTrackDetailProps> = (props) => {
           });
         }}
       ></CourseDetailHeader>
-      {learningTrackDetail.certificationId && (
+      {/* {learningTrackDetail.certificationId && (
         <div className="mb-[20px] mt-[80px]">
           <CertificationCard certificationId={learningTrackDetail.certificationId}></CertificationCard>
         </div>
-      )}
+      )} */}
       <div className="mt-[60px] w-full">
         <div className="flex items-center justify-between">
           <h2 className="text-h3 mb-[30px] text-neutral-black">Syllabus</h2>

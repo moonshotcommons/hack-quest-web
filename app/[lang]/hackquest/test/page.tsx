@@ -14,8 +14,6 @@ interface TestPageProps {}
 const TestPage: FC<TestPageProps> = (props) => {
   const form = useForm();
   const onSubmit = (values: any) => {
-    console.log(values);
-
     // AboutSectionComponentList.forEach((config) => {
     //   const fullConfig = AboutSectionComponentMap[(config as any).type];
     //   if (fullConfig.validate) {

@@ -77,11 +77,9 @@ const CoverModal: React.FC<CoverModalProp> = ({ hackathon }) => {
           {!!image ? (
             <>
               <img src={image} alt={hackathon.name} className="w-full rounded-[10px]" />
-              <FiTrash2
-                size={32}
-                className="absolute right-[12px]  top-[12px] cursor-pointer text-neutral-white"
-                onClick={() => setImage('')}
-              />
+              <div className="absolute right-[12px]  top-[12px] cursor-pointer rounded-[8px] bg-neutral-light-gray  p-[12px]">
+                <FiTrash2 size={32} className="text-neutral-white" onClick={() => setImage('')} />
+              </div>
             </>
           ) : (
             <>
@@ -118,9 +116,9 @@ const CoverModal: React.FC<CoverModalProp> = ({ hackathon }) => {
           </Button>
           <Button
             type="primary"
-            disabled={!image}
+            disabled={!formData}
             loading={loading}
-            className={`h-[48px] w-[165px] uppercase ${!image && 'bg-neutral-light-gray text-neutral-medium-gray'}`}
+            className={`h-[48px] w-[165px] uppercase ${!formData && 'bg-neutral-light-gray text-neutral-medium-gray'}`}
             onClick={handleSave}
           >
             {t('save')}

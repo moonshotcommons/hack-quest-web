@@ -211,7 +211,9 @@
     "participate": "参与",
     "vote": "投票",
     "empty": "你没有{{type}}的黑客松",
-    "back": "返回你的黑客松"
+    "back": "返回你的黑客松",
+    "tipsModalTitle":"Want to organize a hackathon?",
+    "tipsModalText":"Before accessing the Hackathon Organizer Dashboard, please apply to become an organizer. Once approved, you'll be able to create, edit, and review your events seamlessly."
   },
   "explore": {
     "title": "黑客松探索",

@@ -219,3 +219,5 @@ export const voteModeLabel = {
   fixed: 'Fixed Number of Vote',
   score: 'Project Scoring'
 };
+
+export const ORGANIZATION_APPLY_LINK = 'https://www.baidu.com';
