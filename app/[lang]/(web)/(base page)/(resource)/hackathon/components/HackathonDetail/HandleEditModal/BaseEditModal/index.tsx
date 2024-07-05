@@ -31,6 +31,9 @@ const BaseEditModal: React.FC<BaseEditModalProp> = ({ hackathon }) => {
       },
       onCancel: () => {
         setModalType(HackathonEditModalType.NULL);
+      },
+      refresh: () => {
+        refreshHackathon();
       }
     };
   }, [hackathon]);

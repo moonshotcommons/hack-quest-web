@@ -17,6 +17,8 @@ import Image from 'next/image';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
+import { NavType } from '@/components/Mobile/MobLayout/constant';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -30,6 +32,9 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       setAuthType: state.setAuthType
     }))
   );
+
+  const mobileNavModalToggleOpenHandle = useGlobalStore((state) => state.mobileNavModalToggleOpenHandle);
+
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex } = useDealHackathonData();
@@ -50,20 +55,39 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     return ls || [];
   }, [hackathon]);
 
+  const handleRegister = () => {
+    if (!userInfo) {
+      mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
+      mobileNavModalToggleOpenHandle.toggleOpen();
+    } else {
+      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
+    }
+  };
+
   const renderButton = () => {
     if (stepIndex < 1) {
       if (!hackathon.participation?.isRegister) {
         const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
         return (
-          <Button
-            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-            onClick={() => setTipsModalOpenState(true)}
-          >
+          <Button className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
             {buttonText}
           </Button>
         );
       }
       if (hackathon.participation?.isRegister) {
+        if (!hackathon.info?.allowSubmission || !hackathon.allowSubmission) {
+          return (
+            <Button
+              type="primary"
+              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+            >
+              <div>
+                <p className="button-text-m uppercase">Pending</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.reviewTime).format('MMM D,YYYY H:mm')}`}</p>
+              </div>
+            </Button>
+          );
+        }
         if (!hackathon.participation.isSubmit) {
           return !hackathon.participation.project?.id ? (
             <Button

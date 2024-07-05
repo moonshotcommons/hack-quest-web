@@ -29,12 +29,12 @@ const InitializeUserProvider: FC<InitializeUserProviderProps> = ({ lang, childre
   }, [lang]);
 
   useEffect(() => {
-    if (userInfo) {
+    if (propUserInfo || userInfo) {
       updateMissionDataAll();
       updateNotification();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo]);
+  }, [propUserInfo, userInfo]);
 
   return <>{children}</>;
 };

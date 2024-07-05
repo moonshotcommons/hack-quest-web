@@ -16,12 +16,14 @@ export function SubmissionForm({
   isEditMode = false,
   initialValues,
   onCancel,
-  onSave
+  onSave,
+  refresh
 }: {
   isEditMode?: boolean;
   initialValues?: any;
   onCancel?: () => void;
   onSave?: () => void;
+  refresh?: () => void;
 }) {
   const submission = initialValues?.info?.submission;
   const queryClient = useQueryClient();
@@ -39,6 +41,7 @@ export function SubmissionForm({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'submission'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      refresh?.();
       isEditMode ? onSave?.() : onStepChange(Steps.REWARDS);
     }
   });

@@ -45,7 +45,6 @@ export const useJumpLeaningLesson = () => {
     {
       manual: true,
       onSuccess({ courseDetail, pageId, lParam }) {
-        console.log(query.get(QueryIdType.DOCUMENTATION_ID));
         queryClient.invalidateQueries({ queryKey: ['myCourses', 'ecosystemTasks'] });
         const linkParam = lParam || {
           menu: query.get('menu') as string,

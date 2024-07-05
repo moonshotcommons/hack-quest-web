@@ -36,15 +36,15 @@ const nextConfig = (phase) => {
       ],
       minimumCacheTTL: 60
     },
-    async redirects() {
-      return [
-        {
-          source: '/:lang(welcome|zh|en)/welcome',
-          destination: '/',
-          permanent: true
-        }
-      ];
-    },
+    // async redirects() {
+    //   return [
+    //     {
+    //       source: '/:lang(welcome|zh|en)/welcome',
+    //       destination: '/',
+    //       permanent: true
+    //     }
+    //   ];
+    // },
     output: 'standalone'
   });
 };

@@ -60,6 +60,7 @@
     "install": "^0.13.0",
     "js-confetti": "^0.11.0",
     "lodash-es": "^4.17.21",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.367.0",
     "lz-string": "^1.5.0",
     "mitt": "^3.0.1",

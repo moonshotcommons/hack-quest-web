@@ -14,7 +14,7 @@ import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { separationNumber } from '@/helper/utils';
 
-function TrackPreview({ track }: { track: any }) {
+function TrackPreview({ track, refresh }: { track: any; refresh?: () => void }) {
   const [editModalOpen, toggleEditModalOpen] = useToggle(false);
   const [removeModalOpen, toggleRemoveModalOpen] = useToggle(false);
 
@@ -25,6 +25,7 @@ function TrackPreview({ track }: { track: any }) {
     mutationFn: () => webApi.hackathonV2Api.removeHackathonRewards(track?.hackathonId, track?.id),
     onSuccess: () => {
       querClient.invalidateQueries({ queryKey: ['hackathon'] });
+      refresh?.();
       message.success('Rewards removed successfully');
     }
   });
@@ -41,7 +42,9 @@ function TrackPreview({ track }: { track: any }) {
       <div className="flex w-full flex-col gap-3 rounded-2xl border border-neutral-light-gray bg-neutral-white px-8 pb-4 pt-8">
         <div className="grid h-full w-full grid-cols-[auto_1px_420px] gap-5">
           <div className="flex flex-col items-center justify-center px-2">
-            <h2 className="headline-h3 text-neutral-off-black">{separationNumber(track?.totalRewards || 0)} USD</h2>
+            <h2 className="headline-h3 text-neutral-off-black">
+              {separationNumber(track?.totalRewards || 0)} {track?.currency}
+            </h2>
             <span className="body-m text-neutral-medium-gray">{track?.name}</span>
           </div>
           <Separator orientation="vertical" />
@@ -51,7 +54,7 @@ function TrackPreview({ track }: { track: any }) {
                 <li className="flex items-center justify-between" key={reward?.id}>
                   <span className="body-m text-neutral-medium-gray">{reward?.label}</span>
                   <span className="body-l text-neutral-off-black">
-                    {separationNumber(Number(reward?.value || 0))} USD
+                    {separationNumber(Number(reward?.value || 0))} {track?.currency}
                   </span>
                 </li>
               ))}
@@ -82,12 +85,14 @@ export function RewardsForm({
   isEditMode = false,
   initialValues,
   onCancel,
-  onSave
+  onSave,
+  refresh
 }: {
   isEditMode?: boolean;
   initialValues?: any;
   onCancel?: () => void;
   onSave?: () => void;
+  refresh?: () => void;
 }) {
   const { updateStatus, onStepChange } = useHackathonOrgState();
   const [open, toggle] = useToggle(false);
@@ -110,13 +115,18 @@ export function RewardsForm({
   }
 
   function onSaveOrNext() {
+    if (!isValid) {
+      message.warning('Please add at least one track');
+      return;
+    }
     isEditMode ? onSave?.() : onStepChange(Steps.JUDGING);
   }
 
   return (
     <div className="flex flex-col gap-6">
       <label className="body-l text-neutral-off-black">Please add at least one prize track</label>
-      {isValid && initialValues?.rewards?.map((track: any) => <TrackPreview key={track?.id} track={track} />)}
+      {isValid &&
+        initialValues?.rewards?.map((track: any) => <TrackPreview key={track?.id} track={track} refresh={refresh} />)}
       <AddFieldButton size="large" onClick={toggle}>
         Add a new track
       </AddFieldButton>
@@ -126,7 +136,7 @@ export function RewardsForm({
         onCancelOrBack={onCancelOrBack}
         onSaveOrNext={onSaveOrNext}
       />
-      <EditTrackModal initialValues={initialValues} open={open} onClose={() => toggle(false)} />
+      <EditTrackModal initialValues={initialValues} open={open} onClose={() => toggle(false)} refresh={refresh} />
     </div>
   );
 }

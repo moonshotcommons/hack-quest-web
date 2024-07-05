@@ -86,6 +86,10 @@ export function CoverForm({
   }
 
   function onSaveOrNext() {
+    if (!imageUrl) {
+      message.warning('Please upload cover image');
+      return;
+    }
     isEditMode ? onSave?.() : onStepChange(Steps.TIMELINE);
   }
 
@@ -149,7 +153,7 @@ export function CoverForm({
       <h3 className="body-m text-neutral-rich-gray">Hackathon Cover Image*</h3>
       {imageUrl ? imagePreview : uploadButton}
       <ActionButtons
-        isValid={!!imageUrl}
+        isValid={true}
         isEditMode={isEditMode}
         onCancelOrBack={onCancelOrBack}
         onSaveOrNext={onSaveOrNext}

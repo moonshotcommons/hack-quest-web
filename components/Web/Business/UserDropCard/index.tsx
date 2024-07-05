@@ -15,6 +15,7 @@ import MenuLink from '@/constants/MenuLink';
 import ConnectButton from '../ConnectButton';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
+import { updateActiveEcosystem } from '@/components/ecosystem/actions';
 
 interface UserDropCardProps {
   // children: ReactNode;
@@ -59,7 +60,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     } else {
       redirectToUrl(V2_LANDING_PATH);
     }
-
+    updateActiveEcosystem({});
     router.refresh();
   };
 

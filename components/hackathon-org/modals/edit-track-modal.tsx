@@ -21,6 +21,9 @@ import { RadioGroup, RadioGroupItem } from '../common/radio-group';
 import { CustomTextField } from '../common/custom-text-field';
 import { AddFieldButton } from '../common/add-field-button';
 import { numberToOrdinalWord } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/listbox';
+import { CURRENCIES } from '../constants/currency';
+import { useRouter } from 'next/navigation';
 
 const rewardSchema = z.object({
   id: z.string().uuid(),
@@ -33,6 +36,9 @@ const baseSchema = z.object({
     .min(1, { message: 'Track name is required' })
     .max(120, { message: 'Track name cannot exceed 120 characters' }),
   mode: z.enum(['RANK', 'OTHERS']),
+  currency: z.string({
+    required_error: 'Please select a currency'
+  }),
   rewards: z.array(rewardSchema).optional(),
   totalRewards: z.string().optional(),
   rule: z.string().optional()
@@ -89,6 +95,11 @@ function RankingForm({ totalRewards, form }: { form: UseFormReturn<FormValues>; 
     name: 'rewards'
   });
 
+  const currency = useWatch<z.infer<typeof formSchema>>({
+    control: form.control,
+    name: 'currency'
+  });
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex w-full flex-col gap-3">
@@ -102,23 +113,24 @@ function RankingForm({ totalRewards, form }: { form: UseFormReturn<FormValues>; 
               index={index}
               remove={remove}
               placeholder="e.g. 5000"
+              error={form.formState.errors.rewards?.[index]?.value?.message}
             />
           ))}
           <AddFieldButton variant="outline" onClick={() => append({ id: v4(), value: '' })}>
             Add a ranking
           </AddFieldButton>
         </div>
-        {form.formState.errors.rewards?.message && (
+        {form.formState.errors.rewards?.root?.message && (
           <p className="inline-flex items-center text-base text-status-error-dark">
             <InfoIcon className="mr-1.5 h-4 w-4" />
-            <span>{form.formState.errors.rewards?.message}</span>
+            <span>{form.formState.errors.rewards?.root?.message}</span>
           </p>
         )}
       </div>
       <div className="body-m flex flex-col gap-2.5">
         <label className="text-neutral-rich-gray">Total Rewards*</label>
         <p className="font-bold text-neutral-off-black">
-          {totalRewards ? `${separationNumber(totalRewards || 0)} USD` : '-'}
+          {totalRewards ? `${separationNumber(totalRewards || 0)} ${currency}` : '-'}
         </p>
       </div>
     </div>
@@ -185,12 +197,15 @@ function OthersForm({ form }: { form: UseFormReturn<FormValues> }) {
 export function EditTrackModal({
   open,
   initialValues,
-  onClose
+  onClose,
+  refresh
 }: {
   open?: boolean;
   initialValues?: any;
   onClose?: () => void;
+  refresh?: () => void;
 }) {
+  const router = useRouter();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('RANK');
 
@@ -207,6 +222,8 @@ export function EditTrackModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       message.success('Rewards created successfully');
+      router.refresh();
+      refresh?.();
       handleClose();
     }
   });
@@ -217,6 +234,8 @@ export function EditTrackModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       message.success('Rewards updated successfully');
+      refresh?.();
+      router.refresh();
       handleClose();
     }
   });
@@ -280,6 +299,7 @@ export function EditTrackModal({
         form.reset({
           name: initialValues?.name,
           mode: initialValues?.mode,
+          currency: initialValues?.currency,
           rewards: initialValues?.rewards.map((r: any) => ({
             id: r.id,
             value: String(r.value)
@@ -290,6 +310,7 @@ export function EditTrackModal({
         form.reset({
           name: initialValues?.name,
           mode: initialValues?.mode,
+          currency: initialValues?.currency,
           rewards: [
             { id: v4(), value: '' },
             { id: v4(), value: '' }
@@ -377,9 +398,42 @@ export function EditTrackModal({
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="currency"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-1">
+                  <div className="flex items-center justify-between">
+                    <FormLabel>
+                      <span className="body-m text-neutral-rich-gray">Reward Currency*</span>
+                    </FormLabel>
+                  </div>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                    }}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Please select" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {CURRENCIES.map((currency) => (
+                        <SelectItem key={currency} value={currency}>
+                          {currency}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <ResizablePanel.Root value={value} className="w-full overflow-visible px-2 pb-2">
               <ResizablePanel.Content value="RANK">
-                <RankingForm form={form} totalRewards={totalRewards} />
+                <RankingForm form={form} totalRewards={Number(totalRewards?.toFixed(2))} />
               </ResizablePanel.Content>
               <ResizablePanel.Content value="OTHERS">
                 <OthersForm form={form} />
@@ -394,9 +448,11 @@ export function EditTrackModal({
           </Button>
           <Button
             className="w-[165px]"
-            disabled={!form.formState.isValid}
+            // disabled={!form.formState.isValid}
             isLoading={createMutation.isPending || updateMutation.isPending}
-            onClick={() => submitInputRef.current?.click()}
+            onClick={() => {
+              submitInputRef.current?.click();
+            }}
           >
             {initialValues?.isEditing ? 'Save Changes' : 'Add'}
           </Button>

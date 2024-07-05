@@ -16,7 +16,6 @@ interface DetailJugingProp {
 const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  console.info(hackathon);
   return (
     <EditBox
       title={'hackathonDetail.judge'}
@@ -39,7 +38,7 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
               <div className="flex flex-col gap-[.75rem] [&>div]:flex [&>div]:items-center [&>div]:justify-between">
                 <div>
                   <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
-                  <div className="mt-[0.25rem] whitespace-pre-line text-neutral-rich-gray">{judge?.resource}</div>
+                  <div className="mt-[0.25rem] whitespace-pre-line text-neutral-rich-gray">{judge?.criteria}</div>
                 </div>
                 {judge?.judgeMode && (
                   <div>

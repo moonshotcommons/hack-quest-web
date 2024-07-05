@@ -30,7 +30,7 @@ const Verifying: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         // style="margin: auto; background: #f1f2f3; display: block; shape-rendering: auto;"
-        // className="m-auto block"
+        // className="block m-auto"
         // width="224px"
         // height="224px"
         className="h-[40px] w-[224px]"
@@ -104,6 +104,7 @@ const Verifying: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 };
 const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   const { redirectToUrl } = useRedirect();
+  const router = useRouter();
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(5);
@@ -118,8 +119,10 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       };
     } else {
       setAuthModalOpen(false);
-      redirectToUrl('/dashboard');
+      // redirectToUrl('/welcome');
+      router.push('/welcome');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countDown]);
 
   return (
@@ -188,12 +191,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
                 redirectToUrl('/');
               }}
               block
-              className="
-              button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4 uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
-          "
+              className="button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg py-4 uppercase text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
             >
               try login
             </Button>
@@ -205,10 +203,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
             <div className="flex flex-col gap-4">
               <Button
                 block
-                className=" button-text-l relative border-auth-primary-button-border-color
-              bg-auth-primary-button-bg py-4
-              uppercase text-auth-primary-button-text-color
-              hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
+                className="button-text-l relative border-auth-primary-button-border-color bg-auth-primary-button-bg py-4 uppercase text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
                 onClick={() => loginThreeParty(type)}
                 icon={
                   <Image
@@ -287,7 +282,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
-          redirectToUrl('/dashboard');
+          // redirectToUrl('/welcome');
+          router.push('/welcome');
           router.refresh();
         })
         .catch((err) => {
@@ -316,7 +312,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         setAuthModalOpen(false);
-        redirectToUrl('/dashboard');
+        // redirectToUrl('/welcome');
+        router.push('/welcome');
         router.refresh();
       },
       onError(e: any) {
@@ -356,7 +353,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            redirectToUrl('/dashboard');
+            // redirectToUrl('/welcome');
+            router.push('/welcome');
             router.refresh();
           }
         })
@@ -399,7 +397,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            redirectToUrl('/dashboard');
+            // redirectToUrl('/dashboard');
+            router.push('/welcome');
             router.refresh();
           }
         })

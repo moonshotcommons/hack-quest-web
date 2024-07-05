@@ -34,30 +34,24 @@ const formSchema = z
       message: 'Reward announcement is required'
     })
   })
-  .refine(
-    (data) => {
-      if (data.openReviewSame === 'false') {
-        return !!data.openTimeEnd;
+  .superRefine((data, ctx) => {
+    if (data.openReviewSame === 'false') {
+      if (!data.openTimeEnd) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Registration close time is required',
+          path: ['openTimeEnd']
+        });
       }
-      return true;
-    },
-    {
-      message: 'Registration close time is required',
-      path: ['openCloseTime']
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.openReviewSame === 'false') {
-        return !!data.reviewTime;
+      if (!data.reviewTime) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Submission open time is required',
+          path: ['reviewTime']
+        });
       }
-      return true;
-    },
-    {
-      message: 'Submission start time is required',
-      path: ['reviewStartTime']
     }
-  );
+  });
 
 function SameCloseTime() {
   const { control } = useFormContext<z.infer<typeof formSchema>>();
@@ -246,7 +240,12 @@ export function TimelineForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       timeZone: timezone || '',
-      openReviewSame: 'false'
+      openReviewSame: 'false',
+      openTime: '',
+      openTimeEnd: '',
+      reviewTime: '',
+      reviewTimeEnd: '',
+      rewardTime: ''
     }
   });
 
@@ -345,6 +344,7 @@ export function TimelineForm({
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value as any);
+                    form.clearErrors();
                   }}
                   className="w-full grid-cols-2"
                 >

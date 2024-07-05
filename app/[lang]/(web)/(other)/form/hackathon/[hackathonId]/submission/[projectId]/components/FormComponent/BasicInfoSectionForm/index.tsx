@@ -1,10 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import Button from '@/components/Common/Button';
-import { FC, Fragment, useEffect, useRef } from 'react';
+import { FC, Fragment, useEffect } from 'react';
 import { CommonFormComponentProps } from '..';
 import { cn, isUuid } from '@/helper/utils';
 import { useRequest } from 'ahooks';
@@ -23,9 +23,10 @@ import {
 } from '@/components/HackathonCreation/type';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { useLang } from '@/components/Provider/Lang';
-import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import ConfirmModal from '@/components/Web/Business/ConfirmModal';
 import { ProjectSubmitStateType } from '../../../type';
 import { omit } from 'lodash-es';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
 
 interface BasicInfoSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
@@ -47,7 +48,11 @@ const BasicInfoSectionForm: FC<BasicInfoSectionFormProps & CommonFormComponentPr
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
 
-  const { run: submitRequest, loading } = useRequest(
+  const formState = useFormState({
+    control: form.control
+  });
+
+  const { runAsync: submitRequest, loading } = useRequest(
     async (values: Record<string, string>, isExit = false) => {
       const { nextStep } = getHackathonStepInfo(
         hackathonSteps as ReturnType<typeof getHackathonSubmissionSteps>,
@@ -149,7 +154,7 @@ const BasicInfoSectionForm: FC<BasicInfoSectionFormProps & CommonFormComponentPr
     }
   }, [basicInfo]);
 
-  const exitConfirmRef = useRef<ConfirmModalRef>(null);
+  const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
     <div>
@@ -176,13 +181,13 @@ const BasicInfoSectionForm: FC<BasicInfoSectionFormProps & CommonFormComponentPr
               htmlType="submit"
               className={cn(
                 'button-text-m min-w-[165px] px-0 py-4 uppercase',
-                !form.formState.isValid ? 'bg-neutral-light-gray' : ''
+                !formState.isValid ? 'bg-neutral-light-gray' : ''
               )}
               // onClick={(e) => {
               //   e.preventDefault();
               //   onSubmit(form.getValues());
               // }}
-              disabled={!form.formState.isValid}
+              disabled={!formState.isValid}
             >
               {isSubmit ? 'update' : 'Save'} And Next
             </Button>

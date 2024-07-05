@@ -18,10 +18,11 @@ import { TextField } from '@/components/ui/text-field';
 import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
 import { message } from 'antd';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z
   .object({
-    resource: z
+    criteria: z
       .string()
       .min(1, {
         message: 'Field is required'
@@ -116,12 +117,15 @@ export type JudgeAccount = {
 export function EditJudgingDetailModal({
   open,
   initialValues,
-  onClose
+  onClose,
+  refresh
 }: {
   open?: boolean;
   initialValues?: any;
   onClose?: () => void;
+  refresh?: () => void;
 }) {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [userVotes, setUserVotes] = React.useState<string | number>(50);
@@ -134,7 +138,7 @@ export function EditJudgingDetailModal({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      resource: '',
+      criteria: '',
       disableJudge: false
     }
   });
@@ -142,6 +146,11 @@ export function EditJudgingDetailModal({
   const { mutate, isPending } = useMutation({
     mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
     onSuccess: (data) => {
+      // 判断是否为重复账号
+      if (judgeAccounts.some((judge) => judge.email === data.email)) {
+        message.error('Already exists');
+        return;
+      }
       setJudgeAccounts((prev) => [...prev, data]);
       form.resetField('judgeAccount', { defaultValue: '' });
     },
@@ -159,6 +168,8 @@ export function EditJudgingDetailModal({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathonJudge(initialValues?.id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+      refresh?.();
+      router.refresh();
       message.success('Success');
       handleClose();
     }
@@ -168,8 +179,6 @@ export function EditJudgingDetailModal({
   const judgeMode = form.watch('judgeMode');
   const voteMode = form.watch('voteMode');
   const judgeAccount = form.watch('judgeAccount');
-
-  const isValid = form.formState.isValid;
 
   function onVotesChange(value: string, isUserVotes: boolean) {
     if (value === '') {
@@ -210,7 +219,7 @@ export function EditJudgingDetailModal({
     let values: any = {
       rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
-      resource: data.resource,
+      criteria: data.criteria,
       disableJudge: data.disableJudge,
       judgeMode: null,
       voteMode: null,
@@ -280,7 +289,7 @@ export function EditJudgingDetailModal({
         latestJudgeMode.current = initialValues?.judgeMode;
         if (initialValues?.judgeMode === 'all') {
           form.reset({
-            resource: initialValues?.resource || '',
+            criteria: initialValues?.criteria || '',
             disableJudge: initialValues?.disableJudge,
             judgeMode: initialValues?.judgeMode,
             voteMode: initialValues?.voteMode,
@@ -290,7 +299,7 @@ export function EditJudgingDetailModal({
         } else {
           if (initialValues?.voteMode === 'fixed') {
             form.reset({
-              resource: initialValues?.resource || '',
+              criteria: initialValues?.criteria || '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
@@ -298,7 +307,7 @@ export function EditJudgingDetailModal({
             });
           } else {
             form.reset({
-              resource: initialValues?.resource || '',
+              criteria: initialValues?.criteria || '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
@@ -309,7 +318,7 @@ export function EditJudgingDetailModal({
         }
       } else {
         form.reset({
-          resource: initialValues?.resource || '',
+          criteria: initialValues?.criteria || '',
           disableJudge: initialValues?.disableJudge
         });
       }
@@ -337,7 +346,7 @@ export function EditJudgingDetailModal({
           >
             <FormField
               control={form.control}
-              name="resource"
+              name="criteria"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
                   <div className="flex items-center justify-between">
@@ -345,8 +354,8 @@ export function EditJudgingDetailModal({
                       <span className="body-m text-neutral-rich-gray">Judging Criteria*</span>
                     </FormLabel>
                     <span className="caption-14pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': form.watch('resource')?.length > 360 })}>
-                        {form.watch('resource')?.length}
+                      <span className={cn({ 'text-status-error': form.watch('criteria')?.length > 360 })}>
+                        {form.watch('criteria')?.length}
                       </span>
                       /360
                     </span>
@@ -658,7 +667,7 @@ export function EditJudgingDetailModal({
           </Button>
           <Button
             className="w-[165px]"
-            disabled={!isValid}
+            // disabled={!isValid}
             isLoading={mutation.isPending}
             onClick={() => {
               submitInputRef.current?.click();

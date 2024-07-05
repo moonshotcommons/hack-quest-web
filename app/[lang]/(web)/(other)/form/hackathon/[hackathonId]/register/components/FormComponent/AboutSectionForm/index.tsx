@@ -22,6 +22,8 @@ import {
   PresetComponentConfig
 } from '@/components/HackathonCreation/type';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
+import ConfirmModal from '@/components/Web/Business/ConfirmModal';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
 
 interface AboutSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
@@ -49,8 +51,8 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
     } else return 1;
   });
 
-  const { run: submitRequest, loading } = useRequest(
-    async (values: Record<string, string>) => {
+  const { runAsync: submitRequest, loading } = useRequest(
+    async (values: Record<string, string>, isExit = false) => {
       // form.trigger();
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.About);
       const state = {
@@ -58,7 +60,7 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
           ...omit(info, ApplicationSectionType.ApplicationType),
           [ApplicationSectionType.About]: values
         },
-        status: nextStep.type
+        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.About) : nextStep.type
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
       // await refreshRegisterInfo();
@@ -94,6 +96,8 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
       form.trigger();
     }
   }, [about]);
+
+  const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
     <div>
@@ -133,6 +137,9 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the register process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

@@ -22,6 +22,8 @@ import {
   PresetComponentConfig
 } from '@/components/HackathonCreation/type';
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
+import ConfirmModal from '@/components/Web/Business/ConfirmModal';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
 
 interface OnlineProfilesSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
@@ -49,17 +51,19 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
     } else return 1;
   });
 
-  const { run: submitRequest, loading } = useRequest(
-    async (values: Record<string, string>) => {
+  const { runAsync: submitRequest, loading } = useRequest(
+    async (values: Record<string, string>, isExit = false) => {
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.OnlineProfiles);
       const state = {
         info: {
-          info: {
-            ...omit(info, ApplicationSectionType.ApplicationType),
-            [ApplicationSectionType.OnlineProfiles]: values
-          }
+          ...omit(info, ApplicationSectionType.ApplicationType),
+          [ApplicationSectionType.OnlineProfiles]: values
         },
-        status: nextStep.type
+        status: isExit
+          ? form.formState.isValid
+            ? nextStep.type
+            : ApplicationSectionType.OnlineProfiles
+          : nextStep.type
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
       // await refreshRegisterInfo();
@@ -98,7 +102,7 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
     }
   }, [onlineProfiles]);
 
-  console.log(form.getValues());
+  const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
   return (
     <div>
@@ -142,6 +146,9 @@ const OnlineProfilesSectionForm: FC<OnlineProfilesSectionFormProps & CommonFormC
           </div>
         </form>
       </Form>
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the register process & leave?</h4>
+      </ConfirmModal>
     </div>
   );
 };

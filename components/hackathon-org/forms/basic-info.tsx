@@ -14,13 +14,14 @@ import { Steps } from '../constants/steps';
 import { useHackathonOrgState } from '../constants/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 const formSchema = z
   .object({
     name: z
       .string()
       .min(1, {
-        message: 'Hackathon name is a required input'
+        message: 'Hackathon name is required'
       })
       .max(80, {
         message: 'Hackathon name cannot exceed 80 characters'
@@ -28,7 +29,7 @@ const formSchema = z
     host: z
       .string()
       .min(1, {
-        message: 'Organization name is a required input'
+        message: 'Organization name is required'
       })
       .max(80, {
         message: 'Organization name cannot exceed 80 characters'
@@ -36,7 +37,7 @@ const formSchema = z
     intro: z
       .string()
       .min(1, {
-        message: 'One line intro is a required input'
+        message: 'One line intro is required'
       })
       .max(120, {
         message: 'One line intro cannot exceed 120 characters'
@@ -44,7 +45,7 @@ const formSchema = z
     description: z
       .string()
       .min(1, {
-        message: 'Description is a required input'
+        message: 'Description is required'
       })
       .max(360, {
         message: 'Description cannot exceed 360 characters'
@@ -59,11 +60,26 @@ const formSchema = z
     mode: z.enum(['HYBRID', 'ONLINE'], {
       required_error: 'You need to select a hackathon mode'
     }),
+    allowSubmission: z.enum(['true', 'false']),
     address: z.string().optional()
   })
-  .refine((data) => data.mode === 'ONLINE' || (data.mode === 'HYBRID' && data.address), {
-    message: 'Venue is a required input for hybrid mode',
-    path: ['address']
+  .superRefine((data, ctx) => {
+    if (data.mode === 'HYBRID') {
+      if (!data.allowSubmission) {
+        ctx.addIssue({
+          path: ['allowSubmission'],
+          code: z.ZodIssueCode.custom,
+          message: 'This field is required for hybrid/offline mode'
+        });
+      }
+      if (!data.address) {
+        ctx.addIssue({
+          path: ['address'],
+          code: z.ZodIssueCode.custom,
+          message: 'This field is required for hybrid/offline mode'
+        });
+      }
+    }
   });
 
 export function BasicInfoForm({
@@ -87,6 +103,7 @@ export function BasicInfoForm({
       description: '',
       conduct: '',
       mode: 'HYBRID',
+      allowSubmission: 'true',
       address: ''
     }
   });
@@ -102,6 +119,9 @@ export function BasicInfoForm({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['hackathon'] });
       isEditMode ? onSave?.() : onStepChange(Steps.LINKS);
+    },
+    onError: (error) => {
+      errorMessage(error);
     }
   });
 
@@ -125,6 +145,7 @@ export function BasicInfoForm({
         description: initialValues?.info?.description || '',
         conduct: initialValues?.info?.conduct || '',
         mode: initialValues?.info?.mode || 'HYBRID',
+        allowSubmission: initialValues?.info?.allowSubmission || 'true',
         address: initialValues?.info?.address || ''
       });
     }
@@ -132,11 +153,13 @@ export function BasicInfoForm({
   }, [initialValues]);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutation.mutate({
+    const values = {
       id: initialValues?.id,
       ...data,
-      address: data.mode === 'HYBRID' ? data.address : ''
-    });
+      address: data.mode === 'HYBRID' ? data.address : undefined,
+      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : undefined
+    };
+    mutation.mutate(values);
   }
 
   function onCancelOrBack() {
@@ -284,6 +307,7 @@ export function BasicInfoForm({
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="mode"
@@ -317,6 +341,40 @@ export function BasicInfoForm({
         {isHybridMode && (
           <FormField
             control={form.control}
+            name="allowSubmission"
+            render={({ field }) => (
+              <FormItem className="w-full space-y-1">
+                <div className="flex items-center justify-between">
+                  <FormLabel>
+                    <span className="body-m text-neutral-rich-gray">
+                      Do users need to get confirmation from the organizer after application? (Select one)*
+                    </span>
+                  </FormLabel>
+                </div>
+                <FormControl>
+                  <RadioGroup
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value as any);
+                    }}
+                    className="w-full grid-cols-2"
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="true">Yes, they need approval from organizer</RadioGroupItem>
+                    </FormControl>
+                    <FormControl>
+                      <RadioGroupItem value="false">No, they don’t need approval from organizer</RadioGroupItem>
+                    </FormControl>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+        {isHybridMode && (
+          <FormField
+            control={form.control}
             name="address"
             render={({ field }) => (
               <FormItem className="w-full space-y-1">
@@ -339,6 +397,7 @@ export function BasicInfoForm({
           />
         )}
         <ActionButtons
+          isFirstStep
           isLoading={mutation.isPending}
           isEditMode={isEditMode}
           isValid={form.formState.isValid}
