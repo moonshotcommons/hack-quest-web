@@ -24,8 +24,8 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
 
   const h = useMemo(() => {
     return {
-      h1: dayjs(hackathon.timeline?.openTime).isSame(hackathon.timeline?.openTimeEnd),
-      h2: dayjs(hackathon.timeline?.reviewTime).isSame(hackathon.timeline?.reviewTimeEnd)
+      h1: dayjs(hackathon.timeline?.registrationOpen).isSame(hackathon.timeline?.submissionOpen),
+      h2: dayjs(hackathon.timeline?.registrationClose).isSame(hackathon.timeline?.submissionClose)
     };
   }, [hackathon]);
 

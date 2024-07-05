@@ -18,6 +18,7 @@ import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -74,6 +75,19 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
+        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
+          return (
+            <Button
+              type="primary"
+              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+            >
+              <div>
+                <p className="button-text-m uppercase">Pending</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+              </div>
+            </Button>
+          );
+        }
         if (!hackathon.participation.isSubmit) {
           return !hackathon.participation.project?.id ? (
             <Button
@@ -168,7 +182,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         {stepIndex < 1 && (
           <div>
             <div className="body-s mb-[.25rem] text-neutral-medium-gray ">{t('submissionClosesIn')}</div>
-            <CountDown time={hackathon.timeline?.reviewTime} countItemClassName="bg-neutral-white" />
+            <CountDown time={hackathon.timeline?.submissionClose} countItemClassName="bg-neutral-white" />
           </div>
         )}
         <div>
@@ -179,7 +193,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hackathonMode')}</p>
           <p>{hackathon.info?.mode}</p>
         </div>
-        {hackathon.info?.address && (
+        {hackathon.info?.address && hackathon.info?.mode === 'HYBRID' && (
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.Venue')}</p>
             <p>{hackathon.info?.address}</p>
@@ -205,21 +219,23 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           </div>
         )}
 
-        <div>
-          <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
-          <div className="mt-[.25rem] flex items-center gap-[.75rem]">
-            {links?.map((v, i) => (
-              <Link
-                key={i}
-                href={v.link}
-                target="_blank"
-                className="flex-center h-[40px] w-[40px] rounded-[.5rem] border border-neutral-light-gray"
-              >
-                {v.icon}
-              </Link>
-            ))}
+        {links?.length > 0 && (
+          <div>
+            <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
+            <div className="mt-[.25rem] flex items-center gap-[.75rem]">
+              {links?.map((v, i) => (
+                <Link
+                  key={i}
+                  href={v.link}
+                  target="_blank"
+                  className="flex-center h-[40px] w-[40px] rounded-[.5rem] border border-neutral-light-gray"
+                >
+                  {v.icon}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         <div className="fixed bottom-0 left-0 z-[10] w-full px-[1.25rem] pb-[1.25rem]">{renderButton()}</div>
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>

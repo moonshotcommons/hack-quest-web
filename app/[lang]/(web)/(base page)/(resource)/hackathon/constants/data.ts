@@ -6,11 +6,11 @@ import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 export const projectSort = [
   {
     label: 'Latest to oldest',
-    value: '-openTime'
+    value: '-registrationOpen'
   },
   {
     label: 'Oldest to latest',
-    value: 'openTime'
+    value: 'registrationOpen'
   }
 ];
 
@@ -35,11 +35,11 @@ export const animateProps: MotionProps = {
 export const hackathonDetailTimeLine = [
   {
     key: 'registration',
-    time: ['openTime', 'openTimeEnd']
+    time: ['registrationOpen', 'registrationClose']
   },
   {
     key: 'submissions',
-    time: ['reviewTime', 'reviewTimeEnd']
+    time: ['submissionOpen', 'submissionClose']
   },
   {
     key: 'rewardAnnouncement',
@@ -220,4 +220,4 @@ export const voteModeLabel = {
   score: 'Project Scoring'
 };
 
-export const ORGANIZATION_APPLY_LINK = 'https://www.baidu.com';
+export const ORGANIZATION_APPLY_LINK = 'https://xsxo494365r.typeform.com/to/PxtaoxdQ';

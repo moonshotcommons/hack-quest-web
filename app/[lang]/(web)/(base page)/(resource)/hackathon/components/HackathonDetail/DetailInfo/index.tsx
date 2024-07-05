@@ -16,6 +16,7 @@ import { useShallow } from 'zustand/react/shallow';
 import WarningModal from './WarningModal';
 import Image from 'next/image';
 import CountDown from '@/components/Web/Business/CountDown';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -72,7 +73,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (!hackathon.allowSubmission) {
+        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
           return (
             <Button
               type="primary"
@@ -81,7 +82,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             >
               <div>
                 <p className="button-text-l uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by 6:30p.m. on June 28th, 2024`}</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
               </div>
             </Button>
           );
@@ -181,7 +182,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         {stepIndex < 1 && (
           <div>
             <div className="body-m mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</div>
-            <CountDown time={hackathon.timeline?.reviewTime} />
+            <CountDown time={hackathon.timeline?.submissionClose} />
           </div>
         )}
         <div className="flex gap-[40px]">
@@ -194,7 +195,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             <p>{hackathon.info?.mode}</p>
           </div>
         </div>
-        {hackathon.info?.address && (
+        {hackathon.info?.address && hackathon.info?.mode === 'HYBRID' && (
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.Venue')}</p>
             <p>{hackathon.info?.address}</p>
@@ -220,21 +221,24 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           </div>
         )}
 
-        <div>
-          <p className="text-neutral-medium-gray">{`Links`}</p>
-          <div className="mt-[4px] flex items-center gap-[12px]">
-            {links?.map((v, i) => (
-              <Link
-                key={i}
-                href={v.link}
-                target="_blank"
-                className="flex-center h-[40px] w-[40px] rounded-[8px] border border-neutral-light-gray"
-              >
-                {v.icon}
-              </Link>
-            ))}
+        {links?.length > 0 && (
+          <div>
+            <p className="text-neutral-medium-gray">{`Links`}</p>
+            <div className="mt-[4px] flex items-center gap-[12px]">
+              {links?.map((v, i) => (
+                <Link
+                  key={i}
+                  href={v.link}
+                  target="_blank"
+                  className="flex-center h-[40px] w-[40px] rounded-[8px] border border-neutral-light-gray"
+                >
+                  {v.icon}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
         {renderButton()}
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>
