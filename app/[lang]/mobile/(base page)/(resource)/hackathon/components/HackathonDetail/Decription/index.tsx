@@ -14,7 +14,7 @@ const Description: React.FC<DescriptionProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <EditBox title={'hackathonDetail.description'} className="border-none bg-transparent p-0">
+    <EditBox title={'hackathonDetail.description'} className="rounded-none border-none bg-transparent p-0">
       {typeof hackathon.info?.description === 'string' ? (
         <div className="body-s whitespace-pre-line text-neutral-rich-gray">{hackathon.info?.description}</div>
       ) : (
