@@ -3,24 +3,7 @@ import { getFeaturedProjects, getHackathonsList } from '@/service/cach/resource/
 import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { ExploreContent } from './components/explore-content';
 import { Lang, TransNs } from '@/i18n/config';
-import { Metadata } from 'next';
-import MenuLink from '@/constants/MenuLink';
 import { useTranslation } from '@/i18n/server';
-
-export async function generateMetadata(props: { params: { lang: string } }): Promise<Metadata> {
-  const { lang } = props.params;
-
-  return {
-    alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EXPLORE_HACKATHON}`,
-      languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.EXPLORE_HACKATHON}`,
-        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.EXPLORE_HACKATHON}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.EXPLORE_HACKATHON}`
-      }
-    }
-  };
-}
 
 export default async function Page({
   params: { slug = [], lang },
