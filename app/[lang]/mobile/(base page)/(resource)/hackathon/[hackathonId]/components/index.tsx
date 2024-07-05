@@ -15,6 +15,7 @@ import { initMobileDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/
 import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import EditNav from '../../components/HackathonDetail/EditNav';
 import Rewards from '../../components/HackathonDetail/Rewards';
+import ThemeResource from '../../components/HackathonDetail/ThemeResource';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -120,6 +121,8 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
           <Schedule hackathon={hackathon} />
           <FAQs hackathon={hackathon} />
+          <ThemeResource hackathon={hackathon} type="theme" />
+          <ThemeResource hackathon={hackathon} type="resource" />
         </div>
       )}
     </div>

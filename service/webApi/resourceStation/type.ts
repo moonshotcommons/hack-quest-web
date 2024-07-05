@@ -139,6 +139,8 @@ export interface HackathonInfoSectionsType {
     title: string;
     list: HacakthonFaqType[];
   };
+  resource: CustomComponent[];
+  theme: CustomComponent[];
 }
 
 export interface HackathonInfoType {
@@ -147,7 +149,7 @@ export interface HackathonInfoType {
   submission: HackathonSubmissionType;
   sections: HackathonInfoSectionsType;
   conduct: string;
-  description: string;
+  description: string | CustomComponent[];
   host: string;
   image: string;
   intro: string;
