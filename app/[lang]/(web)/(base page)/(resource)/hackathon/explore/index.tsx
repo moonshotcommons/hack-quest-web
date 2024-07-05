@@ -1,29 +1,32 @@
-import { FC } from 'react';
-import HackathonPage from './components';
+import { PageLayout } from '@/components/hackathon/page-layout';
 import { getFeaturedProjects, getHackathonsList } from '@/service/cach/resource/hackathon';
 import { HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
+import { ExploreContent } from './components/explore-content';
+import { Lang, TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/server';
 
-interface HackathonProps {
-  params: { slug: string[] };
+export default async function Page({
+  params: { slug = [], lang },
+  searchParams
+}: {
+  params: { slug: string[]; lang: Lang };
   searchParams: { curTab?: HackathonStatusType };
-}
-
-const Hackathon: FC<HackathonProps> = async ({ searchParams = {}, params: { slug = [] } }) => {
-  // load featured projects
-  const PROJECTS_LIMIT = 12;
+}) {
+  const { t } = await useTranslation(lang, TransNs.HACKATHON);
   const status = searchParams.curTab || HackathonStatusType.ON_GOING;
   const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
   const page = slug[0] === 'p' ? minPage : 1;
-  const hackListParam =
-    searchParams.curTab === HackathonStatusType.PAST
+  const params =
+    searchParams.curTab === 'past'
       ? {
           status,
           page,
-          limit: PROJECTS_LIMIT
+          limit: 12
         }
-      : { status };
-
-  const [featured, hackathon] = await Promise.all([getFeaturedProjects(), getHackathonsList(hackListParam)]);
+      : {
+          status
+        };
+  const [featured, hackathon] = await Promise.all([getFeaturedProjects(), getHackathonsList(params)]);
   let miniHackathonList: HackathonType[] = [];
   if (status === HackathonStatusType.ON_GOING) {
     miniHackathonList = hackathon.data;
@@ -32,18 +35,16 @@ const Hackathon: FC<HackathonProps> = async ({ searchParams = {}, params: { slug
     miniHackathonList = res.data;
   }
   return (
-    <>
-      <HackathonPage
+    <PageLayout lang={lang} slug="explore_hackathons" title={t('explore.title')} description={t('explore.description')}>
+      <ExploreContent
         featured={featured}
         hackathonList={hackathon.data}
         miniHackathonList={miniHackathonList}
         page={page}
         curTab={status}
         total={hackathon.total}
-        limit={PROJECTS_LIMIT}
+        limit={12}
       />
-    </>
+    </PageLayout>
   );
-};
-
-export default Hackathon;
+}
