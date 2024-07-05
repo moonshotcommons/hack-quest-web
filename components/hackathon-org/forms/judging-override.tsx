@@ -21,7 +21,7 @@ function NoTrack() {
 }
 
 function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void }) {
-  const isEdit = data?.disableJudge !== undefined && !!data?.resource;
+  const isEdit = data?.disableJudge !== undefined && !!data?.criteria;
   return (
     <div className="flex flex-col gap-5 rounded-2xl border border-neutral-light-gray p-5">
       <div className="flex items-center justify-between">
@@ -43,7 +43,7 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
       ) : (
         isEdit && (
           <>
-            {data?.resource && (
+            {data?.criteria && (
               <div className="flex flex-col gap-1">
                 <span className="text-neutral-medium-gray">Judging Criteria</span>
                 <p className="body-m text-neutral-rich-gray">{data?.criteria}</p>
