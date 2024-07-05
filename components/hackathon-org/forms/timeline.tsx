@@ -22,12 +22,12 @@ const formSchema = z
       message: 'Timezone is required'
     }),
     openReviewSame: z.enum(['true', 'false']),
-    openTime: z.string().min(1, {
+    registrationOpen: z.string().min(1, {
       message: 'Registration open time is required'
     }),
-    openTimeEnd: z.string().optional(),
-    reviewTime: z.string().optional(),
-    reviewTimeEnd: z.string().min(1, {
+    registrationClose: z.string().optional(),
+    submissionOpen: z.string().optional(),
+    submissionClose: z.string().min(1, {
       message: 'Submission close time is required'
     }),
     rewardTime: z.string().min(1, {
@@ -36,18 +36,18 @@ const formSchema = z
   })
   .superRefine((data, ctx) => {
     if (data.openReviewSame === 'false') {
-      if (!data.openTimeEnd) {
+      if (!data.registrationClose) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Registration close time is required',
-          path: ['openTimeEnd']
+          path: ['registrationClose']
         });
       }
-      if (!data.reviewTime) {
+      if (!data.submissionOpen) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Submission open time is required',
-          path: ['reviewTime']
+          path: ['submissionOpen']
         });
       }
     }
@@ -60,7 +60,7 @@ function SameCloseTime() {
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={control}
-          name="openTime"
+          name="registrationOpen"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -77,7 +77,7 @@ function SameCloseTime() {
         />
         <FormField
           control={control}
-          name="openTimeEnd"
+          name="registrationClose"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -97,7 +97,7 @@ function SameCloseTime() {
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={control}
-          name="reviewTime"
+          name="submissionOpen"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -114,7 +114,7 @@ function SameCloseTime() {
         />
         <FormField
           control={control}
-          name="reviewTimeEnd"
+          name="submissionClose"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
@@ -160,7 +160,7 @@ function DifferentCloseTime() {
     <div className="flex flex-col gap-6">
       <FormField
         control={control}
-        name="openTime"
+        name="registrationOpen"
         render={({ field }) => (
           <FormItem className="w-full space-y-1">
             <div className="flex items-center justify-between">
@@ -178,7 +178,7 @@ function DifferentCloseTime() {
       <Separator />
       <FormField
         control={control}
-        name="reviewTimeEnd"
+        name="submissionClose"
         render={({ field }) => (
           <FormItem className="space-y-1">
             <div className="flex items-center justify-between">
@@ -241,10 +241,10 @@ export function TimelineForm({
     defaultValues: {
       timeZone: timezone || '',
       openReviewSame: 'false',
-      openTime: '',
-      openTimeEnd: '',
-      reviewTime: '',
-      reviewTimeEnd: '',
+      registrationOpen: '',
+      registrationClose: '',
+      submissionOpen: '',
+      submissionClose: '',
       rewardTime: ''
     }
   });
@@ -285,10 +285,10 @@ export function TimelineForm({
       id: initialValues?.id,
       timeZone: data.timeZone,
       openReviewSame: isSame,
-      openTime: new Date(data.openTime).toJSON(),
-      openTimeEnd: isSame ? new Date(data.reviewTimeEnd).toJSON() : new Date(data.openTimeEnd!).toJSON(),
-      reviewTime: isSame ? new Date(data.openTime).toJSON() : new Date(data.reviewTime!).toJSON(),
-      reviewTimeEnd: new Date(data.reviewTimeEnd).toJSON(),
+      registrationOpen: new Date(data.registrationOpen).toJSON(),
+      registrationClose: isSame ? new Date(data.submissionClose).toJSON() : new Date(data.registrationClose!).toJSON(),
+      submissionOpen: isSame ? new Date(data.registrationOpen).toJSON() : new Date(data.submissionOpen!).toJSON(),
+      submissionClose: new Date(data.submissionClose).toJSON(),
       rewardTime: new Date(data.rewardTime).toJSON()
     };
     mutation.mutate(values);
@@ -303,10 +303,10 @@ export function TimelineForm({
       form.reset({
         openReviewSame: initialValues?.timeline?.openReviewSame?.toString(),
         timeZone: initialValues?.timeline?.timeZone,
-        openTime: new Date(initialValues?.timeline?.openTime).toISOString().slice(0, 16),
-        openTimeEnd: new Date(initialValues?.timeline?.openTimeEnd).toISOString().slice(0, 16),
-        reviewTime: new Date(initialValues?.timeline?.reviewTime).toISOString().slice(0, 16),
-        reviewTimeEnd: new Date(initialValues?.timeline?.reviewTimeEnd).toISOString().slice(0, 16),
+        registrationOpen: new Date(initialValues?.timeline?.registrationOpen).toISOString().slice(0, 16),
+        registrationClose: new Date(initialValues?.timeline?.registrationClose).toISOString().slice(0, 16),
+        submissionOpen: new Date(initialValues?.timeline?.submissionOpen).toISOString().slice(0, 16),
+        submissionClose: new Date(initialValues?.timeline?.submissionClose).toISOString().slice(0, 16),
         rewardTime: new Date(initialValues?.timeline?.rewardTime).toISOString().slice(0, 16)
       });
     }
