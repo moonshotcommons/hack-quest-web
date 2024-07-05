@@ -60,7 +60,7 @@ const formSchema = z
     mode: z.enum(['HYBRID', 'ONLINE'], {
       required_error: 'You need to select a hackathon mode'
     }),
-    allowSubmission: z.enum(['true', 'false']),
+    allowSubmission: z.enum(['true', 'false']).optional().default('true'),
     address: z.string().optional()
   })
   .superRefine((data, ctx) => {
@@ -145,7 +145,10 @@ export function BasicInfoForm({
         description: initialValues?.info?.description || '',
         conduct: initialValues?.info?.conduct || '',
         mode: initialValues?.info?.mode || 'HYBRID',
-        allowSubmission: initialValues?.info?.allowSubmission || 'true',
+        allowSubmission:
+          initialValues?.info?.allowSubmission !== undefined
+            ? initialValues?.info?.allowSubmission?.toString()
+            : undefined,
         address: initialValues?.info?.address || ''
       });
     }
@@ -323,6 +326,10 @@ export function BasicInfoForm({
                   value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value as any);
+                    if (value === 'HYBRID') {
+                      form.setValue('allowSubmission', 'true');
+                      form.setValue('address', '');
+                    }
                   }}
                   className="w-full grid-cols-2"
                 >
