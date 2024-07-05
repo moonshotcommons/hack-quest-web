@@ -216,7 +216,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
                 ))}
               </div>
 
-              <p className="body-m">{`${1} ${t('hackathonDetail.usersParticipated')}`}</p>
+              <p className="body-m">{`${hackathon.members.length} ${t('hackathonDetail.usersParticipated')}`}</p>
             </div>
           </div>
         )}

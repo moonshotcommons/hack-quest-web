@@ -131,6 +131,7 @@ export interface HackathonInfoSectionsType {
   mediaPartners: HackathonPartners;
   speakers: HackathonPartners;
   communityPartners: HackathonPartners;
+  cohost: HackathonPartners;
   schedule: {
     title: string;
     list: HackathonScheduleType[];
@@ -141,6 +142,7 @@ export interface HackathonInfoSectionsType {
   };
   resource: CustomComponent[];
   theme: CustomComponent[];
+  judge: CustomComponent[];
 }
 
 export interface HackathonInfoType {
@@ -205,7 +207,7 @@ export type HackathonTimeLineKeyType =
   | 'submissionClose'
   | 'rewardTime';
 
-export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners';
+export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners' | 'cohost';
 export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
 export type HackathonInfoSPKeys = HackathonInfoParterKeys | HackathonInfoSponsorsKeys;
 export interface HackathonType {

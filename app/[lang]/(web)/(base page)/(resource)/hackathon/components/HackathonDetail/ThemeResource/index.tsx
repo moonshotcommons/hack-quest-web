@@ -8,7 +8,7 @@ import HackathonRenderer from '../../HackathonRenderer';
 
 interface ThemeResourceProp {
   hackathon: HackathonType;
-  type: 'theme' | 'resource';
+  type: 'theme' | 'resource' | 'judge';
 }
 
 const ThemeResource: React.FC<ThemeResourceProp> = ({ hackathon, type }) => {

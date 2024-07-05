@@ -117,12 +117,14 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           <PartnersBox hackathon={hackathon} type="mediaPartners" />
           <PartnersBox hackathon={hackathon} type="communityPartners" />
           <PartnersBox hackathon={hackathon} type="partners" />
+          <PartnersBox hackathon={hackathon} type="cohost" />
           <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
           <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
           <Schedule hackathon={hackathon} />
           <FAQs hackathon={hackathon} />
           <ThemeResource hackathon={hackathon} type="theme" />
           <ThemeResource hackathon={hackathon} type="resource" />
+          <ThemeResource hackathon={hackathon} type="judge" />
         </div>
       )}
     </div>
