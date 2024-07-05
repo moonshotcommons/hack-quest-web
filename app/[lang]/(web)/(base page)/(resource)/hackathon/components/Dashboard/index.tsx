@@ -69,11 +69,12 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   //   }
   // };
   const startNewHackathon = () => {
-    if (userInfo?.role !== 'ORGANIZATION') {
-      setTipsOpen(true);
-    } else {
-      setOpen(true);
-    }
+    setOpen(true);
+    // if (userInfo?.role !== 'ORGANIZATION') {
+    //   setTipsOpen(true);
+    // } else {
+    //   setOpen(true);
+    // }
   };
   const buttonNode = () => {
     return (

@@ -220,4 +220,4 @@ export const voteModeLabel = {
   score: 'Project Scoring'
 };
 
-export const ORGANIZATION_APPLY_LINK = 'https://www.baidu.com';
+export const ORGANIZATION_APPLY_LINK = 'https://xsxo494365r.typeform.com/to/PxtaoxdQ';
