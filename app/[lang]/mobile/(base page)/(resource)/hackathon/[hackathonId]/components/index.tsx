@@ -71,7 +71,8 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   };
 
   const navList = useMemo(() => {
-    const index = getStepIndex(hackathon);
+    // const index = getStepIndex(hackathon);
+    const index = 1;
     const addList = dealModalList(hackathon)
       .filter((v) => v.added)
       .map((v) => ({
@@ -106,7 +107,6 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
           <Description hackathon={hackathon} />
           <TimeLine hackathon={hackathon} />
-
           {navList.some((v) => v.value === 'rewards') ? (
             <Rewards hackathon={hackathon} />
           ) : (
