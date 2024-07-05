@@ -1,6 +1,6 @@
 import Button from '@/components/Common/Button';
 import webApi from '@/service';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import { FC, useRef, useState } from 'react';
@@ -15,7 +15,7 @@ interface CertificationCardProps {
 const CertificationCard: FC<CertificationCardProps> = (props) => {
   const CertificationModalRef = useRef<CertificationModalInstance>(null);
   const { certificationId } = props;
-  const [certification, setCertification] = useState<CertificationType>();
+  const [certification, setCertification] = useState<UserCertificateInfo>();
 
   const { refresh } = useRequest(
     async () => {

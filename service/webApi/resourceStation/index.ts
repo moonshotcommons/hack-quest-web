@@ -8,6 +8,7 @@ import {
   FaucetRecordType,
   FaucetType,
   HackathonDataType,
+  HackathonMemberType,
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
@@ -16,10 +17,12 @@ import {
   PagedType,
   ProjectDataType,
   ProjectRankType,
+  ProjectSubmitBody,
   ProjectType,
-  RegisterInfoBody
+  SimpleHackathonInfo
 } from './type';
 import { isUuid } from '@/helper/utils';
+import { ApplicationSectionType } from '@/components/HackathonCreation/type';
 
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
@@ -38,31 +41,22 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon列表 */
-  getHackathonList(params: object, token?: string) {
+  getHackathonList(params: object) {
     return this.service.get<HackathonDataType>(ResourceStationApiType.Hackathon, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      params
     });
   }
 
   /** 获取已加入的 hackathon 列表  */
-  getJoinedHackathons(token?: string, params?: object) {
+  getJoinedHackathons(params?: object) {
     return this.service.get<JoinedHackathonType>(`${ResourceStationApiType.Hackathon}/joined`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      params
     });
   }
 
-  getHackathonVote(token?: string, params?: object) {
+  getHackathonVote(params?: object) {
     return this.service.get<HackathonVoteType[]>(`${ResourceStationApiType.Hackathon}/voting`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      params
     });
   }
 
@@ -71,12 +65,8 @@ class ResourceStationApi {
   }
 
   /** 获取hackathon详情数据 */
-  getHackathonDetail(id: string, token?: string) {
-    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  getHackathonDetail(id: string) {
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`);
   }
   /** 获取hackathon 可以投票的project */
   // getVoteProjectsByHackathonId(hackathonId: string, params: object) {
@@ -107,12 +97,8 @@ class ResourceStationApi {
   }
 
   /** 获取project详情数据 */
-  getProjectsDetail(id: string, token?: string) {
-    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  getProjectsDetail(id: string) {
+    return this.service.get<ProjectType>(`${ResourceStationApiType.Projects}/${id}`);
   }
 
   /**  */
@@ -176,9 +162,7 @@ class ResourceStationApi {
 
   /** 获取hackathon的简单信息 */
   getSimpleHackathonInfo(hackathonId: string) {
-    return this.service.get<{ id: string; name: string; alias: string }>(
-      `${ResourceStationApiType.Hackathon}/${hackathonId}/simple`
-    );
+    return this.service.get<SimpleHackathonInfo>(`${ResourceStationApiType.Hackathon}/${hackathonId}/simple`);
   }
 
   /** 获取用户注册的hackathon信息 */
@@ -187,7 +171,10 @@ class ResourceStationApi {
   }
 
   /** 更新注册信息 */
-  updateHackathonRegisterInfo(hackathonId: string, data: RegisterInfoBody) {
+  updateHackathonRegisterInfo<T extends { info: object; status: ApplicationSectionType | 'Review' }>(
+    hackathonId: string,
+    data: T
+  ) {
     return this.service.post<{}>(`${ResourceStationApiType.Hackathon}/${hackathonId}/members`, {
       data
     });
@@ -244,7 +231,7 @@ class ResourceStationApi {
   }
 
   /** 提交project */
-  submitProject(data: FormData, projectId?: string) {
+  submitProject(data: ProjectSubmitBody, projectId?: string) {
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
     return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
       data
@@ -252,7 +239,7 @@ class ResourceStationApi {
   }
 
   /** 更新project */
-  updateProject(projectId: string, data: FormData) {
+  updateProject(projectId: string, data: ProjectSubmitBody) {
     return this.service.patch<{ id: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
       data
     });
@@ -285,6 +272,20 @@ class ResourceStationApi {
     return this.service.post(`${ResourceStationApiType.Faucets}/claim`, {
       data
     });
+  }
+
+  getHackathonsByCreator(token?: string) {
+    return this.service.get<HackathonType[]>(`${ResourceStationApiType.Hackathon}/creator`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  getHackathonMember(hackathoId: string) {
+    return this.service.get<{ data: HackathonMemberType[] }>(
+      `${ResourceStationApiType.Hackathon}/${hackathoId}/members`
+    );
   }
 }
 

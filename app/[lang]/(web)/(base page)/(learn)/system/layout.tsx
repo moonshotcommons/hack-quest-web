@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { EcosystemSelect } from '@/components/ecosystem/ecosystem-select';
+import { EcosystemSelectNew } from '@/components/ecosystem/ecosystem-select-new';
 import { FollowDiscord } from '@/components/hackathon/follow-discord';
 import { MyCertificateCard } from '../../(home)/dashboard/components/my-certificate-card';
 import { ClaimCertificateModal } from '../../(home)/dashboard/components/claim-certificate-modal';
@@ -15,7 +15,7 @@ export default async function DashboardLayout({
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-[1fr_320px] gap-10">
         <div className="flex flex-col">
-          <EcosystemSelect />
+          <EcosystemSelectNew />
           <div className="py-8">{children}</div>
         </div>
         <div className="flex flex-col gap-8">

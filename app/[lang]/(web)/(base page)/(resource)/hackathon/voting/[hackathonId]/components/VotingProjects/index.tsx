@@ -11,7 +11,7 @@ import webApi from '@/service';
 import { cloneDeep } from 'lodash-es';
 import SearchTxt from './SearchTxt';
 import Loading from '@/components/Common/Loading';
-import Title from '../../../../[hackathonId]/components/components/Title';
+import Title from '../../../../components/HackathonDetail/Title';
 
 interface VotingProjectsProp {
   hackathon: HackathonType;

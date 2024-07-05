@@ -142,15 +142,18 @@ class UserApi {
 
   /** 获取用户信息 */
   getUserInfo() {
-    return this.service.get<LoginResponse>(UserApiType.UserInfo);
+    const cacheFn = cache(async () => {
+      return this.service.get<LoginResponse>(UserApiType.UserInfo);
+    });
+    return cacheFn();
   }
 
   /**
    * 三方登录
    */
-  getAuthUrl(type: ThirdPartyAuthType) {
+  getAuthUrl(type: ThirdPartyAuthType, params?: object) {
     const url = type === ThirdPartyAuthType.GOOGLE ? UserApiType.AuthGoogle : UserApiType.AuthGithub;
-    return this.service.get(url);
+    return this.service.get(url, { params });
   }
 
   /** 谷歌验证 */

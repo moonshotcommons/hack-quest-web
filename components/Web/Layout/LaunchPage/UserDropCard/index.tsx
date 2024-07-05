@@ -58,6 +58,8 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
     } else {
       redirectToUrl(V2_LANDING_PATH);
     }
+
+    router.refresh();
   };
 
   return (

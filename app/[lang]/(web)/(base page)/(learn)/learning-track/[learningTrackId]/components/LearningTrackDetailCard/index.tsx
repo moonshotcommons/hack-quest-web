@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, useContext } from 'react';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 import TagsAndProgress from './TagsAndProgress';
-import { LearningStatus, useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
+import { useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
 import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import { LearningTrackStatusButton } from '@/components/Web/DetailPageV2/StatusButton';
 interface LearningTrackDetailCardProps {
@@ -28,7 +28,7 @@ const LearningTrackDetailCard: FC<LearningTrackDetailCardProps> = ({
       <div className="flex flex-col gap-6 p-6">
         <div className="body-xl-bold flex items-center justify-between gap-6">
           <span>{learningTrackDetail.name}</span>
-          {learningStatus === LearningStatus.COMPLETED && learningTrackDetail.certificationId && certificationIcon}
+          {/* {learningStatus === LearningStatus.COMPLETED && learningTrackDetail.certificationId && certificationIcon} */}
         </div>
         <div className="flex flex-col gap-4">
           <TagsAndProgress learningTrackDetail={learningTrackDetail} />
@@ -43,7 +43,7 @@ export default LearningTrackDetailCard;
 
 const certificationIcon = (
   <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_3458_27936)">
+    <g clipPath="url(#clip0_3458_27936)">
       <rect width="24" height="24" transform="translate(0 0.299805)" fill="white" />
       <path
         d="M12 15.2998C15.866 15.2998 19 12.1658 19 8.2998C19 4.43381 15.866 1.2998 12 1.2998C8.13401 1.2998 5 4.43381 5 8.2998C5 12.1658 8.13401 15.2998 12 15.2998Z"

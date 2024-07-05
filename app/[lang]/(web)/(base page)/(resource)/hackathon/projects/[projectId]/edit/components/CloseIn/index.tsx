@@ -2,12 +2,12 @@
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import React, { FC, useContext } from 'react';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import { LangContext } from '@/components/Provider/Lang';
 import CountDown from '@/components/Web/Business/CountDown';
 
 interface CloseInProp {
-  hackathon: HackathonType;
+  hackathon: SimpleHackathonInfo;
   isClose: boolean;
 }
 
@@ -22,7 +22,7 @@ const CloseIn: FC<CloseInProp> = ({ hackathon, isClose }) => {
           <>
             <span className="body-s text-neutral-medium-gray">{t('hackathonVoting.submissionCloseIn')}</span>
             <CountDown
-              time={hackathon?.reviewTime}
+              time={hackathon?.timeline?.submissionClose}
               countItemClassName={'bg-neutral-white body-l-bold'}
               formatClassName="body-m"
             />

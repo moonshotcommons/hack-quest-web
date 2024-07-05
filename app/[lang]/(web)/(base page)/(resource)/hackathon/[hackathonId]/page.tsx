@@ -5,7 +5,7 @@ import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
-import HackDetail from './components';
+import HackathonDetail from './components';
 
 interface HackathonIdProps {
   params: {
@@ -37,7 +37,7 @@ const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonI
   }
   return (
     <>
-      <HackDetail hackathon={hackathon} />
+      <HackathonDetail hackathon={hackathon} />
     </>
   );
 };

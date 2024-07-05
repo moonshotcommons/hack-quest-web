@@ -6,14 +6,15 @@ import NavBar, { NavBarProps } from '../Navbar';
 // import Breadcrumb from '@/components/Web/Business/Breadcrumb';
 import { useCheckPathname } from '@/hooks/router/useCheckPathname';
 import AIFloatButton from '@/components/Web/AI/AIFloatButton';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface V2LayoutProps {
-  navbarData: NavBarProps;
-  // footerData: IFooterProps;
+  navbarData: Omit<NavBarProps, 'userInfo'>;
+  userInfo: Partial<LoginResponse> | null;
   children: ReactNode;
 }
 
-const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
+const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) => {
   const { isNavbarFullPage, isExcludeBreadcrumbLink } = useCheckPathname();
 
   useEffect(() => {
@@ -26,8 +27,8 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children }) => {
   return (
     <div className={`flex h-[100vh] w-full flex-col overflow-hidden   `}>
       <AIFloatButton>
-        <NavBar {...navbarData}>
-          <User></User>
+        <NavBar {...navbarData} userInfo={userInfo}>
+          <User userInfo={userInfo}></User>
         </NavBar>
         <div
           id="content-scroll-wrap"

@@ -1,30 +1,44 @@
 import { StepItem } from '@/components/Common/Steps';
-import { HackathonRegisterStep } from '@/service/webApi/resourceStation/type';
+import { ApplicationSectionType } from '@/components/HackathonCreation/type';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 
-export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: HackathonRegisterStep; stepNumber: number })[] = [
+export const HACKATHON_SUBMIT_STEPS: (StepItem & { type: ApplicationSectionType | 'Review'; stepNumber: number })[] = [
   {
-    title: 'Name',
-    type: HackathonRegisterStep.Name,
+    title: 'About',
+    type: ApplicationSectionType.About,
     stepNumber: 0
   },
   {
-    title: 'Contact',
-    type: HackathonRegisterStep.Contact,
+    title: 'Online Profiles',
+    type: ApplicationSectionType.OnlineProfiles,
     stepNumber: 1
   },
   {
-    title: 'Bio',
-    type: HackathonRegisterStep.Bio,
+    title: 'Contact',
+    type: ApplicationSectionType.Contact,
     stepNumber: 2
   },
   {
     title: 'Submission Type',
-    type: HackathonRegisterStep.SubmissionType,
+    type: ApplicationSectionType.ApplicationType,
     stepNumber: 3
   },
   {
     title: 'Review',
-    type: HackathonRegisterStep.Review,
+    type: 'Review',
     stepNumber: 4
   }
 ];
+
+export const getHackathonRegisterSteps = (application: SimpleHackathonInfo['info']['application']) => {
+  const sections = Object.keys(application) as ApplicationSectionType[];
+  return HACKATHON_SUBMIT_STEPS.filter(
+    (item) => sections.includes(item.type as ApplicationSectionType) || item.type === 'Review'
+  ).map((item, index) => ({ ...item, stepNumber: index }));
+};
+
+export const getHackathonStepInfo = (hackatgonSteps: typeof HACKATHON_SUBMIT_STEPS, type: ApplicationSectionType) => {
+  const currentStep = hackatgonSteps.find((step) => step.type === type)!;
+  const nextStep = currentStep && hackatgonSteps[currentStep.stepNumber + 1];
+  return { currentStep, nextStep };
+};

@@ -16,7 +16,7 @@ const Banner: React.FC<BannerProp> = ({ lang, ecosystem }) => {
       <div className="container mx-auto flex items-center justify-between gap-[32px] py-[80px]">
         <div className="flex items-center gap-[32px]">
           <div className="relative h-[120px] w-[120px] flex-shrink-0 overflow-auto">
-            <Image src={ecosystem?.info?.image} alt={ecosystem?.info?.name} fill className="object-cover" />
+            <Image src={ecosystem?.info?.image} alt={ecosystem?.info?.name} fill className="object-contain" />
           </div>
           <div>
             <h1 className="text-h2 text-neutral-black">{ecosystem?.info?.name}</h1>

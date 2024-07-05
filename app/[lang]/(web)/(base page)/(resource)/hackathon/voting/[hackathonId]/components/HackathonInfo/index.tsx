@@ -41,7 +41,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [loading, setLoading] = useState(false);
   const isCanSubmit = useMemo(() => {
-    const isReview = dayjs().tz().isBefore(hackathon.rewardTime);
+    const isReview = dayjs().tz().isBefore(hackathon.timeline?.rewardTime);
     return voteData.reduce((pre, cur) => pre + cur.vote, 0) && isReview;
   }, [voteData]);
   const votesPercent = useMemo(() => {
@@ -102,7 +102,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
       </div>
       <div>
         <div className="body-m mb-[4px] text-neutral-medium-gray">{t('hackathonVoting.votingCloseIn')}</div>
-        <CountDown time={hackathon.rewardTime} />
+        <CountDown time={hackathon.timeline?.rewardTime} />
       </div>
       {initProjects?.length > 0 && (
         <div>
@@ -114,7 +114,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
                   key={i}
                   className="relative ml-[-10px] h-[42px] w-[42px] overflow-hidden rounded-[50%] border border-neutral-white"
                 >
-                  <Image src={v.thumbnail} alt={v.name} fill className="object-contain"></Image>
+                  <Image src={v.logo} alt={v.name} fill className="object-contain"></Image>
                 </div>
               ))}
             </div>

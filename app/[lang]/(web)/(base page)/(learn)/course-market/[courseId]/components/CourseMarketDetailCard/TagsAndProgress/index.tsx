@@ -50,15 +50,11 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ courseDetail: propCourseDet
         </div>
       );
     case LearningStatus.COMPLETED:
-      if (!certification?.claimed) {
-        return (
-          <p className="body-m text-neutral-rich-gray">
-            Congratulation! You’ve completed all the courses. Claim your Web3 certification 🎉
-          </p>
-        );
-      } else {
-        return <p className="body-m text-neutral-rich-gray">You are a certified Mantle Builder 🎉</p>;
-      }
+      // if (!certification?.claimed) {
+      return <p className="body-m text-neutral-rich-gray">Congratulation! You’ve completed all the courses🎉.</p>;
+    // } else {
+    //   return <p className="body-m text-neutral-rich-gray">You are a certified Mantle Builder 🎉</p>;
+    // }
   }
 };
 

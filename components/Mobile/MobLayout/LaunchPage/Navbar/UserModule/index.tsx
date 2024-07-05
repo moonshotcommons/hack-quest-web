@@ -15,6 +15,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
 import Intl from '@/components/Mobile/Intl';
+import { useRouter } from 'next/navigation';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
@@ -32,7 +33,7 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
     }))
   );
   const pathname = useCustomPathname();
-
+  const router = useRouter();
   const setTipsModalOpenState = useGlobalStore((state) => state.setTipsModalOpenState);
 
   const { redirectToUrl } = useRedirect();
@@ -47,6 +48,8 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
     } else {
       redirectToUrl(V2_LANDING_PATH);
     }
+
+    router.refresh();
   };
 
   const arrowIcon = (

@@ -19,18 +19,20 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { useShallow } from 'zustand/react/shallow';
 import { cn } from '@/helper/utils';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface NavBarProps {
   navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
 const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
 
-  const { navList, children } = NavBarProps;
+  const { navList, children, userInfo } = NavBarProps;
   const { redirectToUrl } = useRedirect();
   const pathname = useCustomPathname();
   const [curNavId, setCurNavId] = useState('');
@@ -46,9 +48,8 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
   );
 
   const setPlaygroundSelectModalOpen = useGlobalStore((state) => state.setPlaygroundSelectModalOpen);
-  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
+  const { setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
-      userInfo: state.userInfo,
       setAuthModalOpen: state.setAuthModalOpen,
       setAuthType: state.setAuthType
     }))

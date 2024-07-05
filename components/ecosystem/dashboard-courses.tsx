@@ -14,7 +14,7 @@ import { ElectiveCourseType } from '@/service/webApi/elective/type';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
-import { getCoverImageByTrack } from '@/helper/utils';
+import { cn, getCoverImageByTrack } from '@/helper/utils';
 import { LineTabs } from './line-tabs';
 import MenuLink from '@/constants/MenuLink';
 import { useTranslation } from '@/i18n/client';
@@ -50,16 +50,16 @@ function CourseSkeleton() {
   );
 }
 
-function CourseEmpty({ label }: { label?: string }) {
+function CourseEmpty({ label }: { label: string }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">
-        <h2 className="text-base font-bold text-neutral-black sm:text-lg">
-          {label || 'You’re not enrolled in any course'}
-        </h2>
+        <h2 className="text-base font-bold text-neutral-black sm:text-lg">{label}</h2>
         <Link href="/electives">
           <Button size="small" ghost className="h-8 w-[8.75rem] uppercase">
-            Explore
+            {t('explore')}
           </Button>
         </Link>
       </div>
@@ -67,7 +67,18 @@ function CourseEmpty({ label }: { label?: string }) {
   );
 }
 
-export function CourseCard({ type, course }: { type: 'course' | 'learningTrack'; course: CourseDetailType }) {
+export function CourseCard({
+  type,
+  course,
+  showDescription = true
+}: {
+  type: 'course' | 'learningTrack';
+  course: CourseDetailType;
+  showDescription?: boolean;
+}) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
+
   const href =
     type === 'course'
       ? CourseType.UGC
@@ -77,9 +88,13 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
   return (
     <Link href={href}>
       <div className="flex flex-col overflow-hidden rounded-2xl border border-neutral-light-gray bg-neutral-white transition-all duration-300 sm:flex-row sm:hover:-translate-y-1">
-        <div className="relative h-40 w-full sm:h-[14.5625rem] sm:w-[18rem]">
+        <div
+          className={cn('relative h-40 w-full overflow-hidden sm:h-[14.5625rem] sm:w-[18rem]', {
+            'sm:h-[170px]': !showDescription
+          })}
+        >
           {course.image ? (
-            <Image src={course.image} alt={course.title} fill className="object-cover sm:rounded-l-2xl" />
+            <Image src={course.image} alt={course.title} fill className="object-cover" />
           ) : isMobile ? (
             getCoverImageByTrack(course.track as any)
           ) : (
@@ -92,10 +107,12 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
             />
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-4 px-4 py-5 sm:p-6">
+        <div className="flex flex-1 flex-col gap-4 px-4 py-5 sm:p-5">
           {course.track && <Badge className="self-start">{course.track}</Badge>}
           <h1 className="text-sm font-bold leading-[160%] text-neutral-off-black sm:text-base">{course.title}</h1>
-          <p className="hidden text-sm text-neutral-medium-gray sm:line-clamp-2">{course.description}</p>
+          {showDescription && (
+            <p className="hidden text-sm text-neutral-medium-gray sm:line-clamp-2">{course.description}</p>
+          )}
           <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex w-full flex-1 flex-col gap-2 sm:max-w-xs">
               {course.progress !== 1 && (
@@ -114,7 +131,7 @@ export function CourseCard({ type, course }: { type: 'course' | 'learningTrack';
               type="primary"
               className="h-[3.1875rem] w-full uppercase sm:h-12 sm:w-[10.25rem]"
             >
-              {course.progress === 1 ? 'Completed' : 'Continue'}
+              {course.progress === 1 ? t('completed') : t('continue')}
             </Button>
           </div>
         </div>
@@ -129,8 +146,8 @@ export function DashboardCourses() {
   const [value, setValue] = React.useState('inProcess');
 
   const { data, isLoading } = useQuery({
+    staleTime: 1000 * 5,
     queryKey: ['myCourses', value],
-    staleTime: Infinity,
     queryFn: () =>
       webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({ status: value }),
     select: ({ data }) => {
@@ -158,7 +175,11 @@ export function DashboardCourses() {
             data.map((item) => <CourseCard type="course" key={item.id} course={item} />)
           ) : (
             <CourseEmpty
-              label={value === 'inProcess' ? 'You’re not enrolled in any course' : 'You don’t have a completed course'}
+              label={
+                value === 'inProcess'
+                  ? t('enrolled_empty', { name: t('course') })
+                  : t('completed_empty', { name: t('course') })
+              }
             />
           ))}
       </div>

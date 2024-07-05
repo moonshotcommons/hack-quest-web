@@ -9,13 +9,18 @@ export const USER_KEY = 'user_info';
 export function setToken(token: string) {
   if (typeof window === 'object') {
     localStorage.setItem(TOKEN_KEY, token);
-    setCookie(TOKEN_KEY, token);
+    setCookie(TOKEN_KEY, token, {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3)
+    });
   }
 }
 
 export function getToken() {
   if (typeof window === 'object') {
     return localStorage.getItem(TOKEN_KEY) || '';
+  } else {
+    const { cookies } = require('next/headers');
+    return cookies().get('token')?.value || '';
   }
 }
 

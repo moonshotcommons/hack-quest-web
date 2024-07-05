@@ -85,11 +85,16 @@ module.exports = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        'caret-blink': {
+          '0%,70%,100%': { opacity: '1' },
+          '20%,50%': { opacity: '0' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.3s ease-out',
-        'accordion-up': 'accordion-up 0.3s ease-out'
+        'accordion-up': 'accordion-up 0.3s ease-out',
+        'caret-blink': 'caret-blink 1.25s ease-out infinite'
       },
       boxShadow: {
         modal: '0px 4px 8px 0px rgba(0, 0, 0, 0.12)',

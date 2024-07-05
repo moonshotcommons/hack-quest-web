@@ -39,9 +39,12 @@ class CourseApi {
     this.service = service;
   }
 
-  getMyCourses(params?: object) {
+  getMyCourses(params?: object, token?: string) {
     return this.service.get<PageResult<ProjectCourseType>>(CourseApiType.Course_List, {
-      params
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
 

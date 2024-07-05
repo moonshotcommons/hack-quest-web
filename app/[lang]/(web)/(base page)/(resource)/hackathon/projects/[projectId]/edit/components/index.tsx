@@ -1,5 +1,5 @@
 'use client';
-import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
+import { ProjectType, SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useRef, useState } from 'react';
 import dayjs from '@/components/Common/Dayjs';
 // import Content from './Content';
@@ -10,7 +10,7 @@ import Content from './Content';
 
 interface ProjectDetailProp {
   project: ProjectType;
-  hackathon: HackathonType;
+  hackathon: SimpleHackathonInfo;
 }
 
 const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, hackathon }) => {
@@ -21,8 +21,6 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, hackathon }) => {
   const timeOut = useRef<NodeJS.Timeout | null>(null);
 
   const handleClickAnchor = (index: number) => {
-    debugger;
-
     setCurAnchorIndex(index);
     isOnScoll.current = true;
     boxRef.current?.scrollTo({
@@ -51,19 +49,18 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, hackathon }) => {
   };
 
   const isClose = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.reviewTime);
+    return dayjs().tz().isAfter(hackathon?.timeline?.submissionClose);
   }, [hackathon]);
 
   return (
     <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
       <div className="container  relative mx-auto pt-[20px]">
         {hackathon && <CloseIn hackathon={hackathon} isClose={isClose} />}
-
         <div className="relative mt-[40px] flex">
           <Content
             setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)}
             project={project}
-            hackathon={hackathon as HackathonType}
+            hackathon={hackathon}
             curAnchorIndex={curAnchorIndex}
             offsetTops={offsetTops}
             isClose={isClose}

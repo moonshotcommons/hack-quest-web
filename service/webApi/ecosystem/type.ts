@@ -30,6 +30,23 @@ export interface EcosystemDetailType {
   level: EcosystemLevelType;
 }
 
+export interface EcosystemHackathonType {
+  alias: string;
+  id: string;
+  name: string;
+  image: string;
+  rewardTime: string;
+  submissionClose: string;
+  rewards: {
+    totalPlace: number;
+  }[];
+  memberCount: number;
+  hosts: {
+    name: string;
+    picture: string;
+  }[];
+}
+
 export interface EcosystemTask {
   taskId: string;
   name: string;
@@ -44,6 +61,7 @@ export interface EcosystemTask {
   subTitle: string;
   courses: CourseDetailType[];
   learningTracks: CourseDetailType[];
+  hackathons?: EcosystemHackathonType[];
   extra?: {
     link: string;
   };

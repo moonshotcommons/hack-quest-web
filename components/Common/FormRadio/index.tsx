@@ -1,5 +1,5 @@
 import { cn } from '@/helper/utils';
-import React, { ReactElement, createContext, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 interface FormRadioProps<TFieldValues extends FieldValues = FieldValues> {
@@ -13,11 +13,6 @@ interface FormRadioProps<TFieldValues extends FieldValues = FieldValues> {
 }
 
 export type SelectType = string[] | boolean[] | number[];
-
-const FormRadioContext = createContext<{ select: SelectType; setSelect: (s: SelectType) => void }>({
-  select: [],
-  setSelect() {}
-});
 
 const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
   form,
@@ -43,12 +38,6 @@ const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
   }
 
   return (
-    // <FormRadioContext.Provider
-    //   value={{
-    //     select,
-    //     setSelect
-    //   }}
-    // >
     <div className="flex w-full flex-col gap-3">
       <p className="body-m text-left text-neutral-rich-gray">{label}</p>
       <div className={cn('flex w-full justify-between gap-5', className)}>
@@ -58,7 +47,6 @@ const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
         })}
       </div>
     </div>
-    // </FormRadioContext.Provider>
   );
 };
 

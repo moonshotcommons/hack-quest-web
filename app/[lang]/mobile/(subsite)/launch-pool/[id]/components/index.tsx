@@ -108,12 +108,10 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
           }, 2000);
         })
         .catch((error) => {
-          console.info(error);
           errorMessage(error);
           setLoading(false);
         });
     } catch (error) {
-      console.info(error);
       errorMessage(error);
       setLoading(false);
     }
@@ -134,7 +132,6 @@ const LaunchDetailPage: React.FC<LaunchDetailPageProp> = ({ id }) => {
       getProjectInfo();
       setModalName(ModalName.EMPTY);
     } catch (error) {
-      console.info(error);
       errorMessage(error);
       setLoading(false);
     }

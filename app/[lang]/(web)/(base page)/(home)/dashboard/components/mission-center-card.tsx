@@ -14,7 +14,7 @@ const days = [
 
 export function MissionCenterCard() {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-yellow-extra-light p-4">
+    <div className="flex flex-col gap-4 rounded-2xl bg-neutral-white p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Image src="/images/ecosystem/fire.svg" width={36} height={36} alt="fire" />
@@ -47,7 +47,7 @@ export function MissionCenterCard() {
       </div>
       <Link href="/mission-center">
         <div className="inline-flex items-center gap-2">
-          <span className="text-xs font-medium uppercase text-neutral-off-black">Mission center</span>
+          <span className="text-xs font-medium uppercase text-neutral-off-black">Rewards</span>
           <MoveRightIcon size={16} />
         </div>
       </Link>

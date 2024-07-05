@@ -9,19 +9,23 @@ import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { separationNumber } from '@/helper/utils';
+import { exportToExcel, separationNumber } from '@/helper/utils';
 import CountDown from '@/components/Web/Business/CountDown';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import Link from 'next/link';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
-import WarningModal from '../../../../[hackathonId]/components/HackathonInfo/WarningModal';
+import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
+import { FiDownload } from 'react-icons/fi';
+import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
+  isDashboard?: boolean;
 }
 
-const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon }) => {
+const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isDashboard }) => {
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -33,13 +37,13 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { redirectToUrl } = useRedirect();
   const goHackathonDetail = () => {
-    BurialPoint.track(`hackathon onGoingCard 点击`);
     redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   };
   const { getTotalPrize, getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [warningOpen, setWarningOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleSubmit = (id: string) => {
     if (
       hackathon.participation?.team?.creatorId === hackathon.participation?.userId ||
@@ -75,7 +79,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (!hackathon.allowSubmission) {
+        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
           return (
             <Button
               size="small"
@@ -137,13 +141,36 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
       </Link>
     );
   };
+
+  const downloadMember = () => {
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .getHackathonMember(hackathon.id)
+      .then((res) => {
+        const data = res.data?.map((v) => {
+          return {
+            ...v,
+            team: JSON.stringify(v.team)
+          };
+        });
+        exportToExcel(data, 'members');
+      })
+      .catch((err) => {
+        errorMessage(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
       onClick={goHackathonDetail}
     >
       <div className="relative h-full w-[571px] flex-shrink-0 bg-[#d9d9d9]/30">
-        <Image src={hackathon.image} fill alt={hackathon.alias} className="object-cover"></Image>
+        <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
       <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
         <div className="flex">
@@ -152,32 +179,57 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
         <div className="body-l-bold w-fit rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
           {t('liveNow')}
         </div>
-        <div className="body-m flex items-center justify-between text-neutral-medium-gray">
-          <div>
-            <p className="mb-[8px]">{t('submissionClosesIn')}</p>
-            <CountDown time={hackathon.reviewTime} />
-          </div>
+        <div>
+          <p className="mb-[8px]">{t('submissionClosesIn')}</p>
+          <CountDown time={hackathon.timeline?.submissionClose} />
+        </div>
+        <div className="body-m flex items-center gap-[80px] text-neutral-medium-gray">
           <div>
             <p className="mb-[8px]">{t('participants')}</p>
             <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
           </div>
-          <div>
-            <p className="mb-[8px]">{t('totalPrize')}</p>
-            <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
-          </div>
-          <div className="w-[25%]">
-            <p className="mb-[8px]">{t('host')}</p>
-            <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
-              <p className="absolute left-0 top-0 w-full truncate">{hackathon.hosts?.[0]?.name}</p>
-            </div>
-          </div>
+
+          {isDashboard ? (
+            <>
+              <div>
+                <p className="mb-[8px]">{t('submittedProjects')}</p>
+                <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.projectCount || 0)}</p>
+              </div>
+              <div
+                className="w-[40%]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  downloadMember();
+                }}
+              >
+                <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>
+                <div className="relative flex h-[36px] items-center gap-[8px] text-[24px] text-neutral-off-black underline underline">
+                  <FiDownload />
+                  <span>Download</span>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <p className="mb-[8px]">{t('totalPrize')}</p>
+                <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
+              </div>
+              <div className="w-[40%]">
+                <p className="mb-[8px]">{t('host')}</p>
+                <div className="body-xl-bold  relative h-[36px] text-neutral-off-black underline">
+                  <p className="absolute left-0 top-0 w-full truncate">{hackathon.info?.host || '-'}</p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        <div className="flex gap-[16px]">
+        {/* <div className="flex gap-[16px]">
           {renderButton()}
           <Button className="button-text-l h-[60px] flex-1 flex-shrink-0 border  border-neutral-black  p-0 uppercase">
             {t('learnMore')}
           </Button>
-        </div>
+        </div> */}
       </div>
       <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
     </div>

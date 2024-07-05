@@ -4,7 +4,7 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import PageRetentionTime from '@/components/Common/PageRetentionTime';
 import HackathonImage from './HackathonImage';
 import HackathonInfo from './HackathonInfo';
-import VotingRules from './VotingRules';
+// import VotingRules from './VotingRules';
 import VotingProjects from './VotingProjects';
 import VoteProvider from './VoteProvider';
 import { useTranslation } from '@/i18n/client';
@@ -31,7 +31,7 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
               <div className="flex justify-between">
                 <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
                   <HackathonImage hackathon={hackathon} />
-                  <VotingRules hackathon={hackathon} />
+                  {/* <VotingRules hackathon={hackathon} /> */}
                   <VotingProjects hackathon={hackathon} />
                 </div>
                 <div className="relative w-[39%]">

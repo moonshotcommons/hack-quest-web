@@ -17,5 +17,24 @@
   "build": "Build",
   "community": "Community",
   "all_ecosystems": "All Ecosystem",
-  "explore_more": "Explore More"
+  "explore_more": "Explore More",
+  "learner": "Learner",
+  "builder": "Builder",
+  "modal": {
+    "claim": {
+      "description": "Complete tasks to earn official certificate from {{name}} ecosystem. After you earn 100 points from level 1, you will get a starter certificate and level up. Get 500 points to become an expert {{name}} developer."
+    },
+    "mint": {
+      "title": "Congratulations! You’re a {{title}}",
+      "description": "You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your expertise.",
+      "view_profile": "View Profile"
+    }
+  },
+  "course": "course",
+  "project": "project",
+  "completed_empty": "You don’t have a completed {{name}}",
+  "enrolled_empty": "You’re not enrolled in any {{name}}",
+  "continue": "Continue",
+  "submitted": "Submitted",
+  "learn_more": "Learn More"
 }

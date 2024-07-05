@@ -10,6 +10,9 @@ import { useMutation } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import { useMintCertification } from '@/hooks/useMintCertification';
+import { TransNs } from '@/i18n/config';
+import { useTranslation } from '@/i18n/client';
+import { useLang } from '@/components/Provider/Lang';
 
 function ClaimCertificateForm() {
   const [name, setName] = React.useState('');
@@ -51,20 +54,19 @@ export function MintCertificateModal() {
   const { safeMintAsync } = useMintCertification();
   const { open, type, data, onClose } = useCertificateModal();
 
+  const { lang } = useLang();
+
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
+
   const isOpen = open && type === 'mint';
 
-  const canMint = data?.label?.toLowerCase()?.includes('mantle') && !data?.certification?.mint;
+  const certification = data?.certification;
 
-  const ecosystemName = data?.label?.split(' ')?.[1];
+  const canMint = !certification?.mint;
 
   const mutation = useMutation({
     mutationKey: ['mintCertificate'],
-    mutationFn: () =>
-      safeMintAsync({
-        sourceType: 'Certification',
-        sourceId: data?.certificationId,
-        signatureId: data?.certification?.signatureId
-      }),
+    mutationFn: () => safeMintAsync(data.certification),
     onSuccess: () => {
       onClose();
       router.refresh();
@@ -89,15 +91,12 @@ export function MintCertificateModal() {
             <div className="mt-11 flex flex-col gap-2">
               <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
               <h1 className="text-lg font-bold text-neutral-off-black sm:text-2xl">
-                Congratulations! You’re a {data?.label}
+                {t('modal.mint.title', { title: data.label })}
               </h1>
             </div>
-            <p className="mt-2 text-sm text-neutral-medium-gray">
-              You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your
-              expertise.
-            </p>
+            <p className="mt-2 text-sm text-neutral-medium-gray">{t('modal.mint.description', { name: data.label })}</p>
             <div className="relative mt-5 h-[12.125rem] w-full overflow-hidden rounded-[0.5rem]">
-              <Image src={data?.certification?.image} alt={data?.label} fill />
+              <Image src={data?.certificateImage} alt={data?.certificateId} fill />
             </div>
             {canMint ? (
               <div className="mt-5 flex flex-col gap-4 rounded-2xl bg-neutral-off-white p-4">
@@ -119,8 +118,8 @@ export function MintCertificateModal() {
               </div>
             ) : (
               <p className="mt-5 text-sm text-neutral-medium-gray">
-                Minting {ecosystemName} Certificate is unavailable at this time. Please stay tuned for our latest
-                updates, and we will notify you if minting becomes available.
+                Minting {data.label} Certificate is unavailable at this time. Please stay tuned for our latest updates,
+                and we will notify you if minting becomes available.
               </p>
             )}
             <div className="mt-auto flex flex-col gap-4">

@@ -1,4 +1,5 @@
-import { HackathonRegisterStep, HackathonTeam, HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
+import { ApplicationSectionType } from '@/components/HackathonCreation/type';
+import { HackathonTeam, HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
 
 export interface ContractInfo {
   email?: string;
@@ -18,14 +19,13 @@ export interface SubmissionType {
 }
 
 export interface HackathonRegisterStateType {
-  name: {
-    firstName: string;
-    lastName: string;
+  status: ApplicationSectionType | 'Review';
+  info: {
+    [ApplicationSectionType.About]: Record<string, any>;
+    [ApplicationSectionType.OnlineProfiles]: Record<string, any>;
+    [ApplicationSectionType.Contact]: Record<string, any>;
+    [ApplicationSectionType.ApplicationType]: SubmissionType;
   };
-  contractInfo: ContractInfo;
-  bio: string;
-  submissionType: SubmissionType;
-  status: HackathonRegisterStep;
   isRegister: boolean;
   // setName: (name: string) => void;
   // setContractInfo: (contractInfo: ContractInfo) => void;

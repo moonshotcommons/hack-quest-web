@@ -3,6 +3,8 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { useRequest } from 'ahooks';
 import { useShallow } from 'zustand/react/shallow';
 import { useEffect, useState } from 'react';
+import { LoginResponse } from '@/service/webApi/user/type';
+import { useRouter } from 'next/navigation';
 
 // export const useGetUserInfo = () => {
 //   const userInfo = useSelector((state: AppRootState) => {
@@ -18,7 +20,7 @@ import { useEffect, useState } from 'react';
 //   return loginRouteType;
 // };
 
-export const useLoadUserInfo = () => {
+export const useLoadUserInfo = (propUserInfo: Partial<LoginResponse> | null) => {
   const [waitingLoadUserInfo, setWaitingLoadUserInfo] = useState(true);
   const { setUserInfo, userInfo } = useUserStore(
     useShallow((state) => ({
@@ -26,6 +28,7 @@ export const useLoadUserInfo = () => {
       userInfo: state.userInfo
     }))
   );
+  const router = useRouter();
   const { run } = useRequest(
     async () => {
       const user = webApi.userApi.getUserInfo();
@@ -36,6 +39,7 @@ export const useLoadUserInfo = () => {
       manual: true,
       onSuccess(user) {
         setUserInfo(user);
+        router.refresh();
       },
       onError(error: any) {
         // errorMessage(error);
@@ -47,12 +51,14 @@ export const useLoadUserInfo = () => {
   );
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo || propUserInfo) {
       setWaitingLoadUserInfo(false);
+      propUserInfo && setUserInfo(propUserInfo);
       return;
     }
+
     run();
-  }, [userInfo, run]);
+  }, [userInfo, run, propUserInfo]);
 
   return { waitingLoadUserInfo: waitingLoadUserInfo };
 };

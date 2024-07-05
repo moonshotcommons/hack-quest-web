@@ -14,10 +14,12 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { AuthContext } from '..';
+import { useRouter } from 'next/navigation';
 interface CheckInviteCodeProps {}
 
 const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   const authRouteType = useUserStore((state) => state.authRouteType);
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const { redirectToUrl } = useRedirect();
   const [formData, setFormData] = useState<{
     email: string;
@@ -25,7 +27,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
     token: string;
   }>({
     email: '',
-    inviteCode: '',
+    inviteCode: query.get('inviteCode') || '',
     token: ''
   });
   const { setAuthType, setUserInfo } = useUserStore(
@@ -36,7 +38,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
   );
 
   const { changeNavState } = useContext(AuthContext);
-
+  const router = useRouter();
   const [formState, setFormState] = useState({
     inviteCode: {
       status: 'default',
@@ -94,6 +96,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -130,6 +133,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         redirectToUrl('/dashboard');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -222,6 +226,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
           errorMessage={formState.inviteCode.errorMessage}
           delay={500}
           theme={'light'}
+          value={formData.inviteCode}
           onChange={(e) => {
             setFormData({
               ...formData,

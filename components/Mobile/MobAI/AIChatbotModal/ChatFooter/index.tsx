@@ -56,7 +56,7 @@ const ChatFooter: ForwardRefRenderFunction<ChatFooterInstance, ChatFooterProps> 
 
   const submit = () => {
     if (typeof window !== 'object') return;
-    debugger;
+
     const showCostCoinModal = window.localStorage.getItem(LocalStorageKey.ShowAICostCoinModal);
     const show = !showCostCoinModal || showCostCoinModal === 'show';
     if (!freeCount && show) {

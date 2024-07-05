@@ -11,9 +11,10 @@ interface PastProps {
   hackathonList: HackathonType[];
   total: number;
   limit: number;
+  isDashboard?: boolean;
 }
 
-const Past: FC<PastProps> = ({ page, hackathonList, total, limit }) => {
+const Past: FC<PastProps> = ({ page, hackathonList, total, limit, isDashboard }) => {
   return (
     <div className="min-h-[80px] w-full">
       {hackathonList?.length > 0 && (
@@ -22,7 +23,7 @@ const Past: FC<PastProps> = ({ page, hackathonList, total, limit }) => {
             {hackathonList.map((hackathon) => {
               return (
                 <div key={hackathon.id} className="w-[calc((100%-60px)/4)]">
-                  <PastHackathonCard hackathon={hackathon}></PastHackathonCard>
+                  <PastHackathonCard hackathon={hackathon} isDashboard={isDashboard}></PastHackathonCard>
                 </div>
               );
             })}

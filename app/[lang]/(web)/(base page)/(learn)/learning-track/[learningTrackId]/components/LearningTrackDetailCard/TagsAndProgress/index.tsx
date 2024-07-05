@@ -3,7 +3,6 @@ import { FC, useContext } from 'react';
 
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
 
-import { CertificationCardContext } from '@/components/Web/Business/Certification/CertificationCard/CertificationCardProvider';
 import { LearningTrackDetailContext } from '@/components/Web/DetailPageV2/Provider/LearningTrackDetailProvider';
 import { LearningStatus, useGetLearningTrackLearnStatus } from '@/components/Web/DetailPageV2/hooks/useGetLearnStatus';
 import IconTextTag from '@/components/Web/DetailPageV2/CourseTag/IconTextTag';
@@ -30,7 +29,7 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
     learningStatus = LearningStatus.UN_START;
   }
 
-  const { certification } = useContext(CertificationCardContext);
+  // const { certification } = useContext(CertificationCardContext);
 
   switch (learningStatus) {
     case LearningStatus.UN_START:
@@ -41,7 +40,7 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
             text={`${learningTrackDetail.courseCount} ${t('learningTrackDetail.card.courses')}`}
           ></IconTextTag>
           <IconTextTag type={IconTextTagType.DEVICE_ACCESS}></IconTextTag>
-          {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>}
+          {/* {learningTrackDetail.certificationId && <IconTextTag type={IconTextTagType.CERTIFICATION}></IconTextTag>} */}
         </>
       );
     case LearningStatus.IN_PROGRESS:
@@ -59,15 +58,15 @@ const TagsAndProgress: FC<TagsAndProgressProps> = ({ learningTrackDetail: propLe
         </div>
       );
     case LearningStatus.COMPLETED:
-      if (!certification?.claimed) {
-        return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.completedCourse')}</p>;
-      } else {
-        return (
-          <p className="body-m text-neutral-rich-gray">
-            {t('learningTrackDetail.card.claimed', { chain: certification.name.replace(' Learning Track', '') })}
-          </p>
-        );
-      }
+      // if (!certification?.claimed) {
+      return <p className="body-m text-neutral-rich-gray">{t('learningTrackDetail.card.completedCourse')}</p>;
+    // } else {
+    //   return (
+    //     <p className="body-m text-neutral-rich-gray">
+    //       {t('learningTrackDetail.card.claimed', { chain: certification.name.replace(' Learning Track', '') })}
+    //     </p>
+    //   );
+    // }
   }
 };
 

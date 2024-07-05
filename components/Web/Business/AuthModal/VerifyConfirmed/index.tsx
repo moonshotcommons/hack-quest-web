@@ -2,7 +2,6 @@ import Button from '@/components/Common/Button';
 import { BurialPoint } from '@/helper/burialPoint';
 import { setToken } from '@/helper/user-token';
 import webApi from '@/service';
-
 import { omit } from 'lodash-es';
 import { useRouter } from 'next-nprogress-bar';
 import { FC, useEffect, useState } from 'react';
@@ -30,7 +29,7 @@ const Verifying: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         // style="margin: auto; background: #f1f2f3; display: block; shape-rendering: auto;"
-        // className="m-auto block"
+        // className="block m-auto"
         // width="224px"
         // height="224px"
         className="h-[40px] w-[224px]"
@@ -104,6 +103,7 @@ const Verifying: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 };
 const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
   const { redirectToUrl } = useRedirect();
+  const router = useRouter();
   const setAuthModalOpen = useUserStore((state) => state.setAuthModalOpen);
   const [jump, setJump] = useState(false);
   const [countDown, setCountDown] = useState(5);
@@ -119,7 +119,9 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
     } else {
       setAuthModalOpen(false);
       redirectToUrl('/dashboard');
+      // router.push('/welcome');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countDown]);
 
   return (
@@ -159,8 +161,15 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
 };
 
 const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
+  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const loginThreeParty = async (type: ThirdPartyAuthType) => {
-    const res = (await webApi.userApi.getAuthUrl(type)) as any;
+    const inviteCode = query.get('inviteCode');
+    const params = inviteCode
+      ? {
+          inviteCode
+        }
+      : {};
+    const res = (await webApi.userApi.getAuthUrl(type, params)) as any;
     window.location.href = res?.url;
   };
 
@@ -181,12 +190,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
                 redirectToUrl('/');
               }}
               block
-              className="
-              button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg
-          py-4 uppercase
-          text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color
-          hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color
-          "
+              className="button-text-l border-auth-primary-button-border-color bg-auth-primary-button-bg py-4 uppercase text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
             >
               try login
             </Button>
@@ -198,10 +202,7 @@ const Fail: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
             <div className="flex flex-col gap-4">
               <Button
                 block
-                className=" button-text-l relative border-auth-primary-button-border-color
-              bg-auth-primary-button-bg py-4
-              uppercase text-auth-primary-button-text-color
-              hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
+                className="button-text-l relative border-auth-primary-button-border-color bg-auth-primary-button-bg py-4 uppercase text-auth-primary-button-text-color hover:border-auth-primary-button-border-hover-color hover:bg-auth-primary-button-hover-bg hover:text-auth-primary-button-text-hover-color"
                 onClick={() => loginThreeParty(type)}
                 icon={
                   <Image
@@ -281,6 +282,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
           redirectToUrl('/dashboard');
+          // router.push('/welcome');
+          router.refresh();
         })
         .catch((err) => {
           BurialPoint.track('signup-注册邮箱token验证失败', {
@@ -309,6 +312,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         setToken(res.token);
         setAuthModalOpen(false);
         redirectToUrl('/dashboard');
+        // router.push('/welcome');
+        router.refresh();
       },
       onError(e: any) {
         let msg = '';
@@ -326,7 +331,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   );
 
-  const verifyGoogle = (code: string) => {
+  const verifyGoogle = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Google三方登录code验证');
     if (code) {
       webApi.userApi
@@ -342,12 +347,14 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
                 }
               });
             }, 1000);
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}&inviteCode=${inviteCode}`, true);
           } else {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
             redirectToUrl('/dashboard');
+            // router.push('/welcome');
+            router.refresh();
           }
         })
         .catch((err) => {
@@ -365,7 +372,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   };
 
-  const verifyGithub = (code: string) => {
+  const verifyGithub = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Github三方登录code验证');
 
     if (code) {
@@ -382,7 +389,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
                 }
               });
             }, 1000);
-            redirectToUrl(`/?type=${AuthType.INVITE_CODE}`, true);
+            redirectToUrl(`/?type=${AuthType.INVITE_CODE}&inviteCode=${inviteCode}`, true);
             // skipInviteCode(res.token);
           } else {
             BurialPoint.track('signup-Github三方登录code验证成功');
@@ -390,6 +397,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setToken(res.token);
             setAuthModalOpen(false);
             redirectToUrl('/dashboard');
+            // router.push('/welcome');
+            router.refresh();
           }
         })
         .catch((err) => {
@@ -413,8 +422,9 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     const state = query.get('state');
     let code = query.get('code');
     let querySource = query.get('source') || ThirdPartyAuthType.EMAIL;
+    let verifyData;
     if (state) {
-      const verifyData = JSON.parse(atob(state as string));
+      verifyData = JSON.parse(atob(state as string));
       verifyData?.source && (querySource = verifyData?.source);
     }
     //第一个字母大写 其余小写
@@ -422,14 +432,15 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     setSource(querySource as ThirdPartyAuthType);
     switch (querySource) {
       case ThirdPartyAuthType.GOOGLE:
-        verifyGoogle(code as string);
+        verifyGoogle(code as string, verifyData?.inviteCode || '');
         break;
       case ThirdPartyAuthType.GITHUB:
-        verifyGithub(code as string);
+        verifyGithub(code as string, verifyData?.inviteCode || '');
         break;
       default:
         verifyEmail(token as string);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

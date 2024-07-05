@@ -1,1 +1,1 @@
-export { default } from '@/components/ecosystem/dashboard-page';
+export { default } from '@/components/ecosystem/dashboard-page-new';

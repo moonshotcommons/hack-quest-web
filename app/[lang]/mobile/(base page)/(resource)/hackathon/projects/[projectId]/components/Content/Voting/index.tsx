@@ -29,7 +29,7 @@ const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const isEnd = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.rewardTime);
+    return dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
   }, [hackathon]);
   if (!hackathon) return null;
   return (

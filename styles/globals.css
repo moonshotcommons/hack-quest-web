@@ -537,3 +537,43 @@ input[data-type='changePassword']:-internal-autofill-selected {
   -ms-transform: translate(0px, 0px) !important;
   transform: translate(0px, 0px) !important;
 }
+
+/* Hide arrows in input[type="number"] for Chrome, Safari, Edge, and Opera */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide arrows in input[type="number"] for Firefox */
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dasharray {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px;
+  }
+}

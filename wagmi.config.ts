@@ -1,7 +1,7 @@
 import { defineConfig } from '@wagmi/cli';
 import { react } from '@wagmi/cli/plugins';
 
-import { LaunchapToken, Launchpad, StakingToken, SBTManager, Airdrop } from '@/config/abi';
+import { LaunchapToken, Launchpad, StakingToken, SBTManager, Airdrop, CertificateNFT } from '@/config/abi';
 
 /**
  * Generate contract code
@@ -31,6 +31,11 @@ export default defineConfig({
     {
       name: 'Airdrop',
       abi: Airdrop as any
+    },
+
+    {
+      name: CertificateNFT.contractName,
+      abi: CertificateNFT.abi
     }
   ],
   plugins: [react()]

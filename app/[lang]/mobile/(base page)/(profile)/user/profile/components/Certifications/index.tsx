@@ -9,7 +9,7 @@ import Link from 'next/link';
 import CertificationModal, {
   CertificationModalInstance
 } from '@/components/Web/Business/Certification/CertificationModal';
-import { CertificationType } from '@/service/webApi/campaigns/type';
+import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
 import { useMintCertification } from '@/hooks/useMintCertification';
@@ -18,21 +18,17 @@ import webApi from '@/service';
 interface PersonalLinksProps {}
 
 const MintButton = (props: {
-  certification: CertificationType;
-  updateSelectCertification: (certification: CertificationType) => void;
+  certification: UserCertificateInfo;
+  updateSelectCertification: (certification: UserCertificateInfo) => void;
 }) => {
   const { certification, updateSelectCertification } = props;
   const { safeMintAsync } = useMintCertification();
 
   const { run: safeMint, loading } = useRequest(
-    async (params: { sourceType: 'Certification'; sourceId: string; signatureId: number }) => {
-      const res = await safeMintAsync({
-        sourceType: params.sourceType,
-        sourceId: params.sourceId,
-        signatureId: params.signatureId
-      });
+    async () => {
+      const res = await safeMintAsync(certification);
 
-      return await webApi.campaignsApi.getCertificationDetail(params.sourceId);
+      return await webApi.campaignsApi.getCertificationDetail(certification.id);
     },
     {
       manual: true,
@@ -58,11 +54,7 @@ const MintButton = (props: {
         if (certification.mint) {
           return;
         }
-        safeMint({
-          sourceType: 'Certification',
-          sourceId: certification.id,
-          signatureId: certification.signatureId
-        });
+        safeMint();
       }}
     >
       {certification.mint ? 'Minted' : 'Mint'}
@@ -73,7 +65,7 @@ const MintButton = (props: {
 const Certifications: FC<PersonalLinksProps> = (props) => {
   const { profile, refresh } = useContext(ProfileContext);
   const certificationModalInstance = useRef<CertificationModalInstance>(null);
-  const [selectCertification, setSelectCertification] = useState<CertificationType | null>(null);
+  const [selectCertification, setSelectCertification] = useState<UserCertificateInfo | null>(null);
 
   useEffect(() => {
     if (selectCertification) {
@@ -106,7 +98,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                 </div>
                 <MintButton
                   certification={item}
-                  updateSelectCertification={(certification: CertificationType) => {
+                  updateSelectCertification={(certification: UserCertificateInfo) => {
                     setSelectCertification(certification);
                     refresh();
                   }}

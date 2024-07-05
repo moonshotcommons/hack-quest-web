@@ -22,7 +22,6 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
   return [
     MenuLink.LEARNING_TRACK,
     MenuLink.ELECTIVES,
-    MenuLink.HACKATHON,
     MenuLink.PROJECTS,
     MenuLink.PRACTICES,
     MenuLink.BLOG,

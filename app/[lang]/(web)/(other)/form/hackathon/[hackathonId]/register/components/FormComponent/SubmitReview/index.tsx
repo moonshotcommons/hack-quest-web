@@ -1,7 +1,6 @@
 import { FC, useRef, useState } from 'react';
-import { FormComponentProps } from '..';
-import Image from 'next/image';
-import { HackathonTeamDetail } from '@/service/webApi/resourceStation/type';
+import { CommonFormComponentProps } from '..';
+import { HackathonTeamDetail, SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import Button from '@/components/Common/Button';
 import { cn } from '@/helper/utils';
 import webApi from '@/service';
@@ -10,38 +9,52 @@ import { errorMessage } from '@/helper/ui';
 import message from 'antd/es/message';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
-import { isEmpty } from 'lodash-es';
 import MenuLink from '@/constants/MenuLink';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { HackathonPartner } from '../../../../submission/[projectId]/components/constants';
-interface SubmitReviewProps {}
+import { useHackathonConfig } from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
+import {
+  ApplicationSectionType,
+  CustomComponentConfig,
+  PresetComponentConfig
+} from '@/components/HackathonCreation/type';
+import { PresetComponentMap } from '@/components/HackathonCreation';
+import { CustomComponentConfigTemplate } from '@/components/HackathonCreation/constants';
+import Image from 'next/image';
+import { getHackathonStepInfo } from '../../constants';
+import { useFormExit } from '@/hooks/hackathon/useFormExit';
+interface SubmitReviewProps {
+  setCurrentStep: (step: number) => void;
+  sectionConfig: SimpleHackathonInfo['info']['application'];
+}
 
-const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
-  formState,
+const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
   setCurrentStep,
-  onBack,
-  simpleHackathonInfo
+  info,
+  sectionConfig,
+  isRegister
 }) => {
   const gotoStep = (step: number) => {
     setCurrentStep(step);
   };
 
-  const router = useRouter();
-  const { redirectToUrl } = useRedirect();
-  const { name, contractInfo, bio, submissionType, isRegister } = formState;
+  const { simpleHackathonInfo, onBack, hackathonSteps } = useHackathonConfig();
+  const hackathonInfo = simpleHackathonInfo!;
+  const { ApplicationType, About, OnlineProfiles, Contact } = info;
+
   const confirmModalRef = useRef<ConfirmModalRef>(null);
   const [allowContract, setAllowContract] = useState(true);
   const { runAsync, loading } = useRequest(
     () => {
-      return webApi.resourceStationApi.registerHackathon(simpleHackathonInfo.id, {
+      return webApi.resourceStationApi.registerHackathon(hackathonInfo.id, {
         allowContract: allowContract
       });
     },
     {
       manual: true,
       onSuccess() {
-        !isRegister && message.success(`Register ${simpleHackathonInfo.name} success!`);
+        !isRegister && message.success(`Register ${hackathonInfo.name} success!`);
         isRegister && message.success(`Update register info success!`);
         router.refresh();
         setTimeout(() => {
@@ -54,11 +67,16 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
     }
   );
 
+  const router = useRouter();
+  const { redirectToUrl } = useRedirect();
+
   const register = () => {
     confirmModalRef.current?.open({
       onConfirm: runAsync
     });
   };
+
+  const exitConfirmRef = useFormExit(async () => {});
 
   // const register = useCallback(
   //   async ({ resolve, reject }: any) => {
@@ -75,76 +93,6 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
   //   },
   //   [simpleHackathonInfo, formState.status]
   // );
-
-  const NameBlock = (
-    <div
-      className="body-s flex cursor-pointer items-center rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3 text-neutral-off-black"
-      onClick={() => gotoStep(0)}
-    >
-      <span className="body-l-bold flex-1 text-left">{isEmpty(submissionType.team) ? 'Name' : 'Team Name'}</span>
-      <span className="body-m flex-1 text-left">
-        {isEmpty(submissionType.team) ? name.firstName + ' ' + name.lastName : submissionType.team?.name}
-      </span>
-      {arrowIcon}
-    </div>
-  );
-
-  const ContractInfoBlock = (
-    <div className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
-      <div
-        className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
-        onClick={() => gotoStep(1)}
-      >
-        <span>Contact Info</span>
-        {arrowIcon}
-      </div>
-      <div className="body-m flex items-center justify-between text-neutral-off-black">
-        <span>Email</span>
-        {!!contractInfo.email && <span>{contractInfo.email}</span>}
-        {!contractInfo.email && <span className="text-neutral-medium-gray">{'No Set'}</span>}
-      </div>
-      {simpleHackathonInfo.id !== HackathonPartner.Hack4Bengal && (
-        <div className="body-m flex items-center justify-between text-neutral-off-black">
-          <span>WeChat</span>
-          {!!contractInfo.weChat && <span>{contractInfo.weChat}</span>}
-          {!contractInfo.weChat && <span className="text-neutral-medium-gray">{'No Set'}</span>}
-        </div>
-      )}
-      {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
-        <div className="body-m flex items-center justify-between text-neutral-off-black">
-          <span>Discord</span>
-          {!!contractInfo.discord && <span>{contractInfo.discord}</span>}
-          {!contractInfo.discord && <span className="text-neutral-medium-gray">{'No Set'}</span>}
-        </div>
-      )}
-      {simpleHackathonInfo.id === HackathonPartner.Hack4Bengal && (
-        <div className="body-m flex items-center justify-between text-neutral-off-black">
-          <span>CollegeName</span>
-          {!!contractInfo.collegeName && <span>{contractInfo.collegeName}</span>}
-          {!contractInfo.collegeName && <span className="text-neutral-medium-gray">{'No Set'}</span>}
-        </div>
-      )}
-      <div className="body-m flex items-center justify-between text-neutral-off-black">
-        <span>Telegram</span>
-        {!!contractInfo.telegram && <span>{contractInfo.telegram}</span>}
-        {!contractInfo.telegram && <span className="text-neutral-medium-gray">{'No Set'}</span>}
-      </div>
-    </div>
-  );
-
-  const BioBlock = (
-    <div className="flex min-h-[150px] flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
-      <div
-        className="body-l-bold flex cursor-pointer items-center justify-between text-neutral-rich-gray"
-        onClick={() => gotoStep(2)}
-      >
-        <span>Bio</span>
-        {arrowIcon}
-      </div>
-      <p className="body-m text-left text-neutral-off-black">{bio}</p>
-    </div>
-  );
-
   const TeamBlock = (
     <div className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
       <div
@@ -170,40 +118,43 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
               </clipPath>
             </defs>
           </svg>
-          <span className="ml-1">{formState.submissionType.type}</span>
+          <span className="ml-1">{ApplicationType.type}</span>
         </span>
         <span className="body-m text-neutral-medium-gray">
-          {submissionType.type === 'Solo Project'
+          {ApplicationType.type === 'Solo Project'
             ? '1'
-            : !!Object.keys(submissionType.teamDetail || {}).length
-              ? (submissionType.teamDetail as HackathonTeamDetail).members.length
+            : !!Object.keys(ApplicationType.teamDetail || {}).length
+              ? (ApplicationType.teamDetail as HackathonTeamDetail).members.length
               : 0}{' '}
           member
         </span>
       </div>
       <hr className="my-1" />
       <div className="body-m flex flex-col gap-4 py-1">
-        {submissionType.type === 'Solo Project' && (
-          <div key={name.firstName + ' ' + name.lastName} className="flex items-center justify-between">
+        {ApplicationType.type === 'Solo Project' && (
+          <div key={About.firstName + ' ' + About.lastName} className="flex items-center justify-between">
             <div className="flex items-center gap-1">
-              <Image src={submissionType.avatar || ''} alt="avatar" width={24} height={24} className="rounded-full" />
+              <Image src={ApplicationType.avatar || ''} alt="avatar" width={24} height={24} className="rounded-full" />
               <span className="text-neutral-off-black">
-                {name.firstName + ' ' + name.lastName}
+                {About.firstName + ' ' + About.lastName}
                 {' (You)'}
               </span>
             </div>
             <span className="text-neutral-medium-gray">Admin</span>
           </div>
         )}
-        {Object.keys(submissionType.teamDetail || {}) &&
-          ((submissionType.teamDetail as HackathonTeamDetail).members || []).map((member) => {
+        {Object.keys(ApplicationType.teamDetail || {}) &&
+          ((ApplicationType.teamDetail as HackathonTeamDetail).members || []).map((member) => {
             return (
-              <div key={member.firstName + ' ' + member.lastName} className="flex items-center justify-between">
+              <div
+                key={member.info?.About?.firstName + ' ' + member.info?.About?.lastName}
+                className="flex items-center justify-between"
+              >
                 <div className="flex items-center gap-1">
                   <Image src={member.avatar || ''} alt="测试" width={24} height={24} className="rounded-full" />
                   <span className="text-neutral-off-black">
-                    {member.firstName + ' ' + member.lastName}
-                    {member.userId === submissionType.userId && ' (You)'}
+                    {member.info?.About?.firstName + ' ' + member.info?.About?.lastName}
+                    {member.userId === ApplicationType.userId && ' (You)'}
                   </span>
                 </div>
                 <span className="text-neutral-medium-gray">{member.isAdmin ? 'Admin' : 'Teammate'}</span>
@@ -213,18 +164,48 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
       </div>
     </div>
   );
-
   return (
     <div>
       <div className="">
         <p className="body-l text-left text-neutral-off-black">
           Please check all information before you submit the registration
         </p>
-        <div className="mt-4 flex flex-col gap-6">
-          {NameBlock}
-          {ContractInfoBlock}
-          {BioBlock}
-          {TeamBlock}
+        <div className="mt-4 flex flex-col gap-4">
+          {(Object.keys(sectionConfig) as ApplicationSectionType[]).map((key: ApplicationSectionType) => {
+            if (key === ApplicationSectionType.ApplicationType) return TeamBlock;
+            let section = sectionConfig[key as ApplicationSectionType] as (
+              | PresetComponentConfig
+              | CustomComponentConfig
+            )[];
+
+            return (
+              <div key={key} className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray px-6 py-3">
+                <div
+                  className="flex cursor-pointer justify-between"
+                  onClick={() => {
+                    const { currentStep } = getHackathonStepInfo(hackathonSteps as any, key);
+                    if (currentStep) {
+                      gotoStep(currentStep.stepNumber);
+                    }
+                  }}
+                >
+                  <span className="body-l-bold pb-2">{key}</span>
+                  <span>{arrowIcon}</span>
+                </div>
+                {
+                  <div className="flex flex-col gap-2 text-left">
+                    {section.map((cfg) => {
+                      const fullConfig = PresetComponentMap[cfg.type];
+                      if (fullConfig) return <div key={cfg.id}>{fullConfig.displayRender(info[key])}</div>;
+                      const configTemplates = Object.values(CustomComponentConfigTemplate);
+                      const configTemplate = configTemplates.find((cfgTemplate) => cfgTemplate.type === cfg.type)!;
+                      return configTemplate.displayRender(info[key], cfg as any);
+                    })}
+                  </div>
+                }
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
@@ -246,12 +227,12 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
         </Button>
       </div>
       <ConfirmModal ref={confirmModalRef}>
-        {(isRegister || simpleHackathonInfo.id !== HackathonPartner.Linea) && (
+        {(isRegister || hackathonInfo.id !== HackathonPartner.Linea) && (
           <h4 className="text-h4 mb-9 text-center text-neutral-black">
             Do you want to {isRegister ? 'update' : 'register'} this hackathon?
           </h4>
         )}
-        {!isRegister && simpleHackathonInfo.id === HackathonPartner.Linea && (
+        {!isRegister && hackathonInfo.id === HackathonPartner.Linea && (
           <>
             <p className="body-s text-center">
               Consensys may use the contact information you provide to us to contact you about our products and
@@ -308,6 +289,10 @@ const SubmitReview: FC<Omit<FormComponentProps, 'type' | 'onNext'>> = ({
             </div>
           </>
         )}
+      </ConfirmModal>
+
+      <ConfirmModal ref={exitConfirmRef} confirmText={'Save & leave'}>
+        <h4 className="text-h4 text-center text-neutral-black">Do you want to save the register process & leave?</h4>
       </ConfirmModal>
     </div>
   );

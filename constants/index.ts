@@ -20,3 +20,21 @@ export const BLOCKS_PREFIX = 'blocks';
 export const IS_NEXTJS = false;
 export const IS_CODE_HIGHLIGHTER = false;
 export const SYNTAX_HIGHLIGHTER_CSS = tomorrowNightBright;
+
+export const IMAGE_SUFFIX = [
+  'jpg',
+  'jpeg',
+  'png',
+  'gif',
+  'bmp',
+  'tiff',
+  'tif',
+  'svg',
+  'webp',
+  'heif',
+  'heic',
+  'avif',
+  'jfif',
+  'pjpeg',
+  'pjp'
+];
