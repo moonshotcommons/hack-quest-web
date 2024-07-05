@@ -36,10 +36,12 @@ const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
             <p>{hackathon.info?.address}</p>
           </div>
         )}
-        <div>
-          <p className="text-neutral-medium-gray">{t('description')}</p>
-          <p className="text-neutral-rich-gray">{hackathon.info?.description}</p>
-        </div>
+        {typeof hackathon.info?.description === 'string' && (
+          <div>
+            <p className="text-neutral-medium-gray">{t('description')}</p>
+            <p className="text-neutral-rich-gray">{hackathon.info?.description}</p>
+          </div>
+        )}
       </div>
     </EditBox>
   );
