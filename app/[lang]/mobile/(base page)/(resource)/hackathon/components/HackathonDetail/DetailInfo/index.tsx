@@ -75,7 +75,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (!hackathon.info?.allowSubmission || !hackathon.allowSubmission) {
+        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
           return (
             <Button
               type="primary"
