@@ -181,7 +181,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
         </div>
         <div>
           <p className="mb-[8px]">{t('submissionClosesIn')}</p>
-          <CountDown time={hackathon.timeline?.reviewTime} />
+          <CountDown time={hackathon.timeline?.submissionClose} />
         </div>
         <div className="body-m flex items-center gap-[80px] text-neutral-medium-gray">
           <div>

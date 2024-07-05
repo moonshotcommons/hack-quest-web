@@ -46,10 +46,16 @@ const useDealHackathonData = () => {
   };
 
   const getStepIndex = (hackathon: HackathonType) => {
-    if (dayjs().tz().isBefore(hackathon.timeline?.openTime)) return -1;
-    if (dayjs().tz().isAfter(hackathon.timeline?.openTime) && dayjs().tz().isBefore(hackathon.timeline?.reviewTime))
+    if (dayjs().tz().isBefore(hackathon.timeline?.registrationOpen)) return -1;
+    if (
+      dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
+      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+    )
       return 0;
-    if (dayjs().tz().isAfter(hackathon.timeline?.reviewTime) && dayjs().tz().isBefore(hackathon.timeline?.rewardTime))
+    if (
+      dayjs().tz().isAfter(hackathon.timeline?.submissionClose) &&
+      dayjs().tz().isBefore(hackathon.timeline?.rewardTime)
+    )
       return 1;
     if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) return 2;
     return -1;

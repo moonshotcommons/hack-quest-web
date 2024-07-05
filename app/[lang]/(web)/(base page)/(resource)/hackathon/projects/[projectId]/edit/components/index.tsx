@@ -49,7 +49,7 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, hackathon }) => {
   };
 
   const isClose = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.timeline?.reviewTime);
+    return dayjs().tz().isAfter(hackathon?.timeline?.submissionClose);
   }, [hackathon]);
 
   return (
