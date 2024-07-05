@@ -188,15 +188,20 @@ export interface HackathonLinkType {
 export interface HackathonTimeLineType {
   id: string;
   openReviewSame: boolean;
-  openTime: string;
-  openTimeEnd: string;
-  reviewTime: string;
-  reviewTimeEnd: string;
+  registrationOpen: string;
+  registrationClose: string;
+  submissionOpen: string;
+  submissionClose: string;
   rewardTime: string;
   timeZone: string;
 }
 
-export type HackathonTimeLineKeyType = 'openTime' | 'openTimeEnd' | 'reviewTime' | 'reviewTimeEnd' | 'rewardTime';
+export type HackathonTimeLineKeyType =
+  | 'registrationOpen'
+  | 'registrationClose'
+  | 'submissionOpen'
+  | 'submissionClose'
+  | 'rewardTime';
 
 export type HackathonInfoParterKeys = 'partners' | 'mediaPartners' | 'communityPartners';
 export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
@@ -595,9 +600,9 @@ export interface SimpleHackathonInfo {
     id: string;
     timeZone: string;
     openReviewSame: boolean;
-    openTime: string;
-    openTimeEnd: string;
-    reviewTime: string;
+    registrationOpen: string;
+    registrationClose: string;
+    submissionClose: string;
     reviewTimeEnd: string;
     rewardTime: string;
   };

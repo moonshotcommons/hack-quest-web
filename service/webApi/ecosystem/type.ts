@@ -36,7 +36,7 @@ export interface EcosystemHackathonType {
   name: string;
   image: string;
   rewardTime: string;
-  reviewTime: string;
+  submissionClose: string;
   rewards: {
     totalPlace: number;
   }[];

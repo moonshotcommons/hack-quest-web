@@ -82,7 +82,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             >
               <div>
                 <p className="button-text-l uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.reviewTime).format('MMM D,YYYY H:mm')}`}</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
               </div>
             </Button>
           );
@@ -182,7 +182,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         {stepIndex < 1 && (
           <div>
             <div className="body-m mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</div>
-            <CountDown time={hackathon.timeline?.reviewTime} />
+            <CountDown time={hackathon.timeline?.submissionClose} />
           </div>
         )}
         <div className="flex gap-[40px]">

@@ -22,7 +22,7 @@ const CloseIn: FC<CloseInProp> = ({ hackathon, isClose }) => {
           <>
             <span className="body-s text-neutral-medium-gray">{t('hackathonVoting.submissionCloseIn')}</span>
             <CountDown
-              time={hackathon?.timeline?.reviewTime}
+              time={hackathon?.timeline?.submissionClose}
               countItemClassName={'bg-neutral-white body-l-bold'}
               formatClassName="body-m"
             />
