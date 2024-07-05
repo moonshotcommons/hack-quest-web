@@ -8,7 +8,7 @@ import HackathonRenderer from '../../HackathonRenderer';
 
 interface ThemeResourceProp {
   hackathon: HackathonType;
-  type: 'theme' | 'resource' | 'judge';
+  type: 'theme' | 'resource' | 'criteria';
 }
 
 const ThemeResource: React.FC<ThemeResourceProp> = ({ hackathon, type }) => {
@@ -16,7 +16,7 @@ const ThemeResource: React.FC<ThemeResourceProp> = ({ hackathon, type }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   if (!hackathon.info?.sections?.[type]) return null;
   return (
-    <EditBox title={`hackathonDetail.${type}`} className="border-none bg-transparent p-0">
+    <EditBox title={`hackathonDetail.${type}`} className="rounded-none border-none bg-transparent p-0">
       <HackathonRenderer content={hackathon.info?.sections?.[type]} />
     </EditBox>
   );

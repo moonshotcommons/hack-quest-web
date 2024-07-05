@@ -24,7 +24,6 @@ interface HackathonDetailProp {
 }
 
 const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
-  console.info(hackathon);
   const boxRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
@@ -94,7 +93,6 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     list.splice(3, 0, rewards);
     return list;
   }, [hackathon]);
-
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
@@ -114,18 +112,22 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
             ) : (
               <RewardsProjects hackathon={hackathon} />
             )}
-            <Judging hackathon={hackathon} />
+            {hackathon.judge?.length > 0 ? (
+              <Judging hackathon={hackathon} />
+            ) : (
+              <ThemeResource hackathon={hackathon} type="criteria" />
+            )}
             <PartnersBox hackathon={hackathon} type="mediaPartners" />
             <PartnersBox hackathon={hackathon} type="communityPartners" />
             <PartnersBox hackathon={hackathon} type="partners" />
-            <PartnersBox hackathon={hackathon} type="cohost" />
+            <PartnersBox hackathon={hackathon} type="coHosts" />
             <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
             <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
             <Schedule hackathon={hackathon} />
             <FAQs hackathon={hackathon} />
             <ThemeResource hackathon={hackathon} type="theme" />
             <ThemeResource hackathon={hackathon} type="resource" />
-            <ThemeResource hackathon={hackathon} type="judge" />
+            <ThemeResource hackathon={hackathon} type="criteria" />
           </div>
           <div className="relative w-[39%]">
             <div className="sticky left-0 top-[106px]">
