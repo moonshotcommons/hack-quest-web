@@ -130,7 +130,7 @@ function RankingForm({ totalRewards, form }: { form: UseFormReturn<FormValues>; 
       <div className="body-m flex flex-col gap-2.5">
         <label className="text-neutral-rich-gray">Total Rewards*</label>
         <p className="font-bold text-neutral-off-black">
-          {totalRewards ? `${separationNumber(totalRewards || 0)} ${currency}` : '-'}
+          {totalRewards ? `${separationNumber(totalRewards || 0)} ${currency ?? ''}` : '-'}
         </p>
       </div>
     </div>
