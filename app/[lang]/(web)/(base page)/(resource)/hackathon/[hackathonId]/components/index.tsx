@@ -24,6 +24,7 @@ interface HackathonDetailProp {
 }
 
 const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
+  console.info(hackathon);
   const boxRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
@@ -117,12 +118,14 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
             <PartnersBox hackathon={hackathon} type="mediaPartners" />
             <PartnersBox hackathon={hackathon} type="communityPartners" />
             <PartnersBox hackathon={hackathon} type="partners" />
+            <PartnersBox hackathon={hackathon} type="cohost" />
             <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
             <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
             <Schedule hackathon={hackathon} />
             <FAQs hackathon={hackathon} />
             <ThemeResource hackathon={hackathon} type="theme" />
             <ThemeResource hackathon={hackathon} type="resource" />
+            <ThemeResource hackathon={hackathon} type="judge" />
           </div>
           <div className="relative w-[39%]">
             <div className="sticky left-0 top-[106px]">
