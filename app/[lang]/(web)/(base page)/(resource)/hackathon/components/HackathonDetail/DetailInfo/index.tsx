@@ -16,6 +16,7 @@ import { useShallow } from 'zustand/react/shallow';
 import WarningModal from './WarningModal';
 import Image from 'next/image';
 import CountDown from '@/components/Web/Business/CountDown';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -72,7 +73,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (!hackathon.allowSubmission) {
+        if (!hackathon.info?.allowSubmission || !hackathon.allowSubmission) {
           return (
             <Button
               type="primary"
@@ -81,7 +82,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             >
               <div>
                 <p className="button-text-l uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by 6:30p.m. on June 28th, 2024`}</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.reviewTime).format('MMM D,YYYY H:mm')}`}</p>
               </div>
             </Button>
           );

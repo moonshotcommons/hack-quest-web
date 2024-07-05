@@ -18,6 +18,7 @@ import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -74,6 +75,19 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
+        if (!hackathon.info?.allowSubmission || !hackathon.allowSubmission) {
+          return (
+            <Button
+              type="primary"
+              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+            >
+              <div>
+                <p className="button-text-m uppercase">Pending</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.reviewTime).format('MMM D,YYYY H:mm')}`}</p>
+              </div>
+            </Button>
+          );
+        }
         if (!hackathon.participation.isSubmit) {
           return !hackathon.participation.project?.id ? (
             <Button
