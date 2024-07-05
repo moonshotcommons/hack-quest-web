@@ -75,7 +75,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (!hackathon.info?.allowSubmission || !hackathon.allowSubmission) {
+        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
           return (
             <Button
               type="primary"
@@ -193,7 +193,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hackathonMode')}</p>
           <p>{hackathon.info?.mode}</p>
         </div>
-        {hackathon.info?.address && (
+        {hackathon.info?.address && hackathon.info?.mode === 'HYBRID' && (
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.Venue')}</p>
             <p>{hackathon.info?.address}</p>
@@ -219,21 +219,23 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           </div>
         )}
 
-        <div>
-          <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
-          <div className="mt-[.25rem] flex items-center gap-[.75rem]">
-            {links?.map((v, i) => (
-              <Link
-                key={i}
-                href={v.link}
-                target="_blank"
-                className="flex-center h-[40px] w-[40px] rounded-[.5rem] border border-neutral-light-gray"
-              >
-                {v.icon}
-              </Link>
-            ))}
+        {links?.length > 0 && (
+          <div>
+            <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
+            <div className="mt-[.25rem] flex items-center gap-[.75rem]">
+              {links?.map((v, i) => (
+                <Link
+                  key={i}
+                  href={v.link}
+                  target="_blank"
+                  className="flex-center h-[40px] w-[40px] rounded-[.5rem] border border-neutral-light-gray"
+                >
+                  {v.icon}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         <div className="fixed bottom-0 left-0 z-[10] w-full px-[1.25rem] pb-[1.25rem]">{renderButton()}</div>
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>
