@@ -76,7 +76,12 @@ function TrackPreview({ track, refresh }: { track: any; refresh?: () => void }) 
       >
         Are you sure you want to remove this track?
       </ConfirmModal>
-      <EditTrackModal initialValues={initialValues} open={editModalOpen} onClose={() => toggleEditModalOpen(false)} />
+      <EditTrackModal
+        initialValues={initialValues}
+        open={editModalOpen}
+        onClose={() => toggleEditModalOpen(false)}
+        refresh={refresh}
+      />
     </React.Fragment>
   );
 }
