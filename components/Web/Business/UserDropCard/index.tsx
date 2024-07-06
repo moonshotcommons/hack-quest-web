@@ -50,6 +50,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
   const { t } = useTranslation(lang);
 
   const { redirectToUrl } = useRedirect();
+
   const signOut = () => {
     setAuthType(AuthType.LOGIN);
     userSignOut();

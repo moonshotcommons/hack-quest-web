@@ -16,17 +16,19 @@ import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { useRouter } from 'next/navigation';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 interface UserModuleProps {
   changeNavType: (type: NavType) => void;
   toggleOpen: VoidFunction;
+  userInfo: Partial<LoginResponse> | null;
 }
 
-const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen }) => {
+const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen, userInfo }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
   const router = useRouter();
-  const { setAuthType, userSignOut, userInfo } = useUserStore(
+  const { setAuthType, userSignOut } = useUserStore(
     useShallow((state) => ({
       setAuthType: state.setAuthType,
       userSignOut: state.userSignOut,
