@@ -17,10 +17,10 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
   const totalPrize = getTotalPrize(vote.rewards);
   const { redirectToUrl } = useRedirect();
   const [_, formattedRes] = useCountDown({
-    targetDate: vote?.timeline?.rewardTime
+    targetDate: vote?.timeline?.rewardTime || 0
   });
 
-  const status = currentTime.isAfter(moment(vote?.timeline?.rewardTime)) ? 'ended' : 'ongoing';
+  const status = currentTime.isAfter(moment(vote?.timeline?.rewardTime || 0)) ? 'ended' : 'ongoing';
 
   const { days, hours, minutes, seconds } = formattedRes;
 
@@ -60,7 +60,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
               <div className="flex flex-col gap-1">
                 <h4 className="body-s text-neutral-medium-gray">Closed on</h4>
                 <span className="body-s leading-8 text-neutral-off-black">
-                  {moment(vote?.timeline?.rewardTime).format('ll')}
+                  {moment(vote?.timeline?.rewardTime || 0)?.format('ll')}
                 </span>
               </div>
               <div className="flex flex-col gap-1">
