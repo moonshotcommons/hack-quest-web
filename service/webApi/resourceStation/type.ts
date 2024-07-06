@@ -476,7 +476,7 @@ export interface HackathonRegisterInfo {
   voteRole: HackathonTypeVotesRoleType;
   discord: string;
   collegeName: string;
-  info: Record<ApplicationSectionType, object>;
+  info: Record<ApplicationSectionType, any>;
 }
 
 export interface RegisterInfoBody {
