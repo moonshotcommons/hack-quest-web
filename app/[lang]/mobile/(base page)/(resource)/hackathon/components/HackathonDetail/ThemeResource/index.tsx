@@ -6,22 +6,20 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import HackathonRenderer from '../../HackathonRenderer';
 
-interface DescriptionProp {
+interface ThemeResourceProp {
   hackathon: HackathonType;
+  type: 'theme' | 'resource' | 'criteria';
 }
 
-const Description: React.FC<DescriptionProp> = ({ hackathon }) => {
+const ThemeResource: React.FC<ThemeResourceProp> = ({ hackathon, type }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  if (!hackathon.info?.sections?.[type]) return null;
   return (
-    <EditBox title={'hackathonDetail.description'} className="rounded-none border-none bg-transparent p-0">
-      {typeof hackathon.info?.description === 'string' ? (
-        <div className="body-m whitespace-pre-line text-neutral-rich-gray">{hackathon.info?.description}</div>
-      ) : (
-        <HackathonRenderer content={hackathon.info?.description} />
-      )}
+    <EditBox title={`hackathonDetail.${type}`} className="rounded-none border-none bg-transparent p-0">
+      <HackathonRenderer content={hackathon.info?.sections?.[type]} />
     </EditBox>
   );
 };
 
-export default Description;
+export default ThemeResource;

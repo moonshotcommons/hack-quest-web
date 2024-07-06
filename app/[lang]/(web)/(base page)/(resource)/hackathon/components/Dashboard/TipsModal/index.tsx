@@ -27,7 +27,11 @@ const TipsModal: React.FC<TipsModalProp> = ({ open, onClose }) => {
             {t('cancel')}
           </Button>
           <Link href={ORGANIZATION_APPLY_LINK} target="_blank">
-            <Button type="primary" className="button-text-m h-[48px] w-[165px] flex-shrink-0 uppercase ">
+            <Button
+              type="primary"
+              className="button-text-m h-[48px] w-[165px] flex-shrink-0 uppercase "
+              onClick={onClose}
+            >
               {t('apply')}
             </Button>
           </Link>

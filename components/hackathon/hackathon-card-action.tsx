@@ -62,7 +62,10 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
   const role = isGroupProject ? (isTeamLeader ? ROLES.TEAM_LEADER : ROLES.TEAM_MEMBER) : ROLES.SOLO;
 
-  if (!hackathon.allowSubmission && hackathon.participation?.isRegister) {
+  if (
+    hackathon.participation?.isRegister &&
+    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false)
+  ) {
     return (
       <Button
         size="small"

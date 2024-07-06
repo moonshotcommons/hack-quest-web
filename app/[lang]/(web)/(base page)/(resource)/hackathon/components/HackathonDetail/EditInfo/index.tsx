@@ -11,6 +11,7 @@ interface EditInfoProp {
 }
 
 const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
+  console.info('');
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
@@ -36,10 +37,12 @@ const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
             <p>{hackathon.info?.address}</p>
           </div>
         )}
-        <div>
-          <p className="text-neutral-medium-gray">{'Description'}</p>
-          <p className="text-neutral-rich-gray">{hackathon.info?.description}</p>
-        </div>
+        {typeof hackathon.info?.description === 'string' && (
+          <div>
+            <p className="text-neutral-medium-gray">{'Description'}</p>
+            <p className="text-neutral-rich-gray">{hackathon.info?.description}</p>
+          </div>
+        )}
       </div>
     </EditBox>
   );
