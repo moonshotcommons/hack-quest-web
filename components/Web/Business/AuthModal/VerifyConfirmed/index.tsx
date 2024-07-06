@@ -118,8 +118,8 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       };
     } else {
       setAuthModalOpen(false);
-      redirectToUrl('/dashboard');
-      // router.push('/welcome');
+      // redirectToUrl('/dashboard');
+      router.push('/welcome');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countDown]);
@@ -281,8 +281,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setToken(res.token || token);
           setAuthModalOpen(false);
           setVerifyState(VerifyStateType.SUCCESS);
-          redirectToUrl('/dashboard');
-          // router.push('/welcome');
+          // redirectToUrl('/dashboard');
+          router.push('/welcome');
           router.refresh();
         })
         .catch((err) => {
@@ -311,8 +311,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
         setAuthModalOpen(false);
-        redirectToUrl('/dashboard');
-        // router.push('/welcome');
+        // redirectToUrl('/dashboard');
+        router.push('/welcome');
         router.refresh();
       },
       onError(e: any) {
@@ -352,8 +352,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            redirectToUrl('/dashboard');
-            // router.push('/welcome');
+            // redirectToUrl('/dashboard');
+            router.push('/welcome');
             router.refresh();
           }
         })
@@ -396,8 +396,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            redirectToUrl('/dashboard');
-            // router.push('/welcome');
+            // redirectToUrl('/dashboard');
+            router.push('/welcome');
             router.refresh();
           }
         })

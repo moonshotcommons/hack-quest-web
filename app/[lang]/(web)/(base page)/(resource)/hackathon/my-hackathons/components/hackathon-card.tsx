@@ -41,6 +41,8 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
     redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   }
 
+  console.log(hackathon);
+
   return (
     <div className="card-hover w-full rounded-2xl bg-neutral-white p-6 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
       <div className="flex cursor-pointer items-center justify-between" onClick={goHackathonDetail}>
@@ -105,7 +107,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
             </h4>
             <span className="body-s max-w-[120px] truncate whitespace-nowrap leading-8 text-neutral-off-black ">
               {hackathon.participation?.team?.name ||
-                `${hackathon.participation?.firstName} ${hackathon.participation?.lastName}`}
+                `${hackathon.participation?.info?.About?.firstName} ${hackathon.participation?.info?.About?.lastName}`}
             </span>
           </div>
           {!isEnded && isTeamLeader && (
@@ -122,7 +124,9 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
           {isEnded && isGroupProject && (
             <div className="flex flex-col gap-1">
               <h4 className="body-s text-neutral-medium-gray">Your Vote Tally</h4>
-              <span className="body-s leading-8 text-neutral-off-black">{hackathon.participation?.project?.vote}</span>
+              <span className="body-s leading-8 text-neutral-off-black">
+                {hackathon.participation?.project?.vote ?? 0}
+              </span>
             </div>
           )}
         </div>

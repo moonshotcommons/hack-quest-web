@@ -13,17 +13,6 @@ import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 
-const tabs = [
-  {
-    value: 'participated',
-    label: 'Participated Hackathon'
-  },
-  {
-    value: 'voting',
-    label: 'Voting Hackathon'
-  }
-];
-
 export function HackathonContent({ hackathons, votes }: { hackathons: HackathonType[]; votes: HackathonVoteType[] }) {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.HACKATHON);
