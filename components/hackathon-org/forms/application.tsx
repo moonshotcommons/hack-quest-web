@@ -28,30 +28,41 @@ const formSchema = z
     minimumTeamSize: z.string().optional(),
     maximumTeamSize: z.string().optional()
   })
-  .refine(
-    (data) => {
-      if (data.applicationType !== 'Solo Only') {
-        return data.minimumTeamSize && data.minimumTeamSize.length > 0;
+  .superRefine((data, ctx) => {
+    if (data.applicationType !== 'Solo Only') {
+      if (!data.minimumTeamSize) {
+        ctx.addIssue({
+          path: ['minimumTeamSize'],
+          code: z.ZodIssueCode.custom,
+          message: 'MIN Team Size is required'
+        });
       }
-      return true;
-    },
-    {
-      message: 'Minimum team size is required',
-      path: ['minimumTeamSize']
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.applicationType !== 'Solo Only') {
-        return data.maximumTeamSize && data.maximumTeamSize.length > 0;
+
+      if (!data.maximumTeamSize) {
+        ctx.addIssue({
+          path: ['maximumTeamSize'],
+          code: z.ZodIssueCode.custom,
+          message: 'MAX Team Size is required'
+        });
       }
-      return true;
-    },
-    {
-      message: 'Maximum team size is required',
-      path: ['maximumTeamSize']
+
+      if (Number(data.maximumTeamSize) < 2) {
+        ctx.addIssue({
+          path: ['maximumTeamSize'],
+          code: z.ZodIssueCode.custom,
+          message: 'MAX Team Size must greater than 1'
+        });
+      }
+
+      if (Number(data.minimumTeamSize) > Number(data.maximumTeamSize)) {
+        ctx.addIssue({
+          path: ['maximumTeamSize'],
+          code: z.ZodIssueCode.custom,
+          message: 'MAX Team Size must greater than MIN Team Size'
+        });
+      }
     }
-  );
+  });
 
 export function ApplicationForm({
   isEditMode = false,
@@ -71,7 +82,7 @@ export function ApplicationForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       applicationType: 'Solo or Group',
-      minimumTeamSize: '',
+      minimumTeamSize: '1',
       maximumTeamSize: ''
     }
   });
@@ -79,7 +90,7 @@ export function ApplicationForm({
   const queryClient = useQueryClient();
   const { aboutState, onlineProfileState, contactState, setAboutState, setOnlineProfileState, setContactState } =
     useApplicationState();
-  const { updateStatus, onStepChange } = useHackathonOrgState();
+  const { onStepChange } = useHackathonOrgState();
 
   const mutation = useMutation({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'application'),
@@ -119,17 +130,6 @@ export function ApplicationForm({
   function onCancelOrBack() {
     isEditMode ? onCancel?.() : onStepChange(Steps.TIMELINE);
   }
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     if (isValid) {
-  //       updateStatus(Steps.APPLICATION, true);
-  //     } else {
-  //       updateStatus(Steps.APPLICATION, false);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (Object.keys(application || {}).length > 0) {
@@ -204,6 +204,7 @@ export function ApplicationForm({
                         field.onChange(e);
                       }}
                       autoComplete="off"
+                      type="number"
                       placeholder="e.g. 2"
                       className="aria-[invalid=true]:border-status-error-dark"
                     />

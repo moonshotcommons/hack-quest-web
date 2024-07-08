@@ -140,11 +140,11 @@ function ChooseEcosystem() {
               />
             ))}
           </div>
-          <div
-            className="flex cursor-pointer flex-col-reverse justify-between rounded-2xl bg-neutral-off-white p-4 sm:flex-row"
+          {/* <div
+            className="flex flex-col-reverse justify-between p-4 cursor-pointer rounded-2xl bg-neutral-off-white sm:flex-row"
             onClick={() => setIsShowVideo(true)}
           >
-            <div className="mt-4 flex flex-col gap-2 sm:mt-0">
+            <div className="flex flex-col gap-2 mt-4 sm:mt-0">
               <h3 className="text-base font-bold text-neutral-off-black">New to Web 3 Development?</h3>
               <p className="text-sm text-neutral-medium-gray">
                 If you don&#39;t know which to choose, check out a quick introduction of different ecosystems.
@@ -161,7 +161,7 @@ function ChooseEcosystem() {
               height={48}
               className="sm:h-20 sm:w-[6.5rem]"
             />
-          </div>
+          </div> */}
           <div className="mt-6 flex flex-col-reverse items-center justify-between sm:mt-8 sm:flex-row">
             <button
               className="mt-4 inline-flex items-center gap-1.5 text-neutral-black outline-none"
