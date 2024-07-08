@@ -40,6 +40,10 @@ export default function Page() {
     queryFn: () => webApi.hackathonV2Api.getHackathon(alias)
   });
 
+  const enabled = React.useMemo(() => {
+    return STEP_ITEMS.every((item) => data?.progress?.includes(item.value));
+  }, [data?.progress]);
+
   React.useEffect(() => {
     data?.progress.forEach((item) => {
       updateStatus(item, true);
@@ -91,11 +95,11 @@ export default function Page() {
         </div>
         <Button
           isLoading={isPending}
-          disabled={currentStep(step) !== STEP_ITEMS.length}
+          disabled={currentStep(step) !== STEP_ITEMS.length && !enabled}
           className="w-60"
           onClick={goToHackathonDetailPage}
         >
-          finish setup {currentStep(step)}/8
+          finish setup {(data?.progress.length || 0) > 8 ? 8 : data?.progress.length}/8
         </Button>
       </div>
       <Stepper.Root value={step}>

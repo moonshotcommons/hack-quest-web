@@ -46,12 +46,12 @@ export function SubmissionForm({
     }
   });
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      updateStatus(Steps.SUBMISSION, true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     updateStatus(Steps.SUBMISSION, true);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isEditMode]);
 
   function onCancelOrBack() {
     isEditMode ? onCancel?.() : onStepChange(Steps.APPLICATION);
