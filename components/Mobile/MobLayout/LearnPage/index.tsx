@@ -1,4 +1,3 @@
-'use client';
 import { FC, ReactNode } from 'react';
 import BaseLayout from './BaseLayout';
 export interface LayoutProps {

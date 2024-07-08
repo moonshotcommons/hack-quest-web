@@ -1,21 +1,26 @@
-'use client';
 import { FC, ReactNode } from 'react';
 
 import { NavbarProps } from './Navbar';
 import BaseLayout from './BaseLayout';
 
 import { deepClone } from '@/helper/utils';
-import { useUserStore } from '@/store/zustand/userStore';
 import { NavbarListType } from '@/components/Web/Layout/BasePage/Navbar/type';
 import { navbarList } from '@/components/Web/Layout/BasePage/Navbar/data';
+import webApi from '@/service';
 export interface LayoutProps {
-  navbarData: NavbarProps;
+  navbarData: Omit<NavbarProps, 'userInfo'>;
   children: ReactNode;
 }
 
-const V2Layout: FC<LayoutProps> = (props) => {
+const V2Layout: FC<LayoutProps> = async (props) => {
   let { children, navbarData } = props;
-  const userInfo = useUserStore((state) => state.userInfo);
+
+  let userInfo = null;
+
+  try {
+    userInfo = await webApi.userApi.getUserInfo();
+  } catch (err) {}
+
   let navList = deepClone(navbarList);
   if (!userInfo) {
     navList.map((v: NavbarListType) => {

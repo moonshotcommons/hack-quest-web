@@ -1,5 +1,4 @@
 'use client';
-import User from '@/components/Web/User';
 import React, { ReactNode } from 'react';
 import NavBar, { NavbarProps } from '../Navbar';
 
@@ -43,9 +42,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) =
     <div className={`relative w-full  `}>
       <AIFloatButton>
         <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-white">
-          <NavBar {...navbarData} userInfo={userInfo}>
-            <User userInfo={userInfo}></User>
-          </NavBar>
+          <NavBar {...navbarData} userInfo={userInfo} />
         </div>
         <div
           id="content-scroll-wrap"

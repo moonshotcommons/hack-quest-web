@@ -2,9 +2,6 @@ import Image from 'next/image';
 import React, { ReactNode, useEffect, useState, FC, useContext, useMemo } from 'react';
 import { useCycle } from 'framer-motion';
 
-import { useRedirect } from '@/hooks/router/useRedirect';
-
-import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import NavContainer from './NavContainer';
 import NavList from './NavList';
 import Auth from './Auth';
@@ -20,22 +17,21 @@ import WaitListModalContent from '@/components/Mobile/MobGlobalNavModal/WaitList
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '../../constant';
 import ConnectModalContent from '@/components/Mobile/MobGlobalNavModal/ConnectModalContent';
+import { LoginResponse } from '@/service/webApi/user/type';
 export interface NavbarProps {
   navList: NavbarListType[];
-  children?: ReactNode;
   logo?: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
 const Navbar: FC<NavbarProps> = (props) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.BASIC);
   const [openNavKeys, setOpenNavKeys] = useState<string[]>([]);
-  const userInfo = useUserStore((state) => state.userInfo);
+
   const setMobileNavModalToggleOpenHandle = useGlobalStore((state) => state.setMobileNavModalToggleOpenHandle);
-  const { navList, children } = props;
-  const { redirectToUrl } = useRedirect();
+  const { navList, userInfo } = props;
   const { isLandingPage } = useCheckPathname();
-  const missionData = useMissionCenterStore((state) => state.missionData);
   const [isOpen, toggleOpen] = useCycle(false, true);
 
   const setAuthType = useUserStore((state) => state.setAuthType);
@@ -76,6 +72,7 @@ const Navbar: FC<NavbarProps> = (props) => {
             {...moduleProps}
           >
             <UserModule
+              userInfo={userInfo}
               changeNavType={(type) => {
                 setNavType(type);
               }}

@@ -17,16 +17,18 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import emitter from '@/store/emitter';
+import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface NavbarProps {
   navList: NavbarListType[];
   children?: ReactNode;
   logo?: ReactNode;
+  userInfo: Partial<LoginResponse> | null;
 }
 
 const Navbar: FC<NavbarProps> = (props) => {
   const setMobileNavModalToggleOpenHandle = useGlobalStore((state) => state.setMobileNavModalToggleOpenHandle);
-  const { navList, children } = props;
+  const { navList, userInfo } = props;
   const { isLandingPage } = useCheckPathname();
   const [isOpen, toggleOpen] = useCycle(false, true);
   const { lang } = useContext(LangContext);
@@ -79,6 +81,7 @@ const Navbar: FC<NavbarProps> = (props) => {
             }}
           >
             <UserModule
+              userInfo={userInfo}
               changeNavType={(type) => {
                 setNavType(type);
               }}

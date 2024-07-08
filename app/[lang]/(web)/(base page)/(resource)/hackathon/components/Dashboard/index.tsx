@@ -21,6 +21,7 @@ import dayjs from 'dayjs';
 import { HackathonTabType } from '../../constants/type';
 import TipsModal from './TipsModal';
 import { useUserStore } from '@/store/zustand/userStore';
+import { UserRole } from '@/service/webApi/user/type';
 
 interface DashboardProp {
   curTab: HackathonStatusType;
@@ -69,7 +70,7 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   //   }
   // };
   const startNewHackathon = () => {
-    if (userInfo?.role !== 'ORGANIZATION') {
+    if (![UserRole.ADMIN, UserRole.ORGANIZATION].includes(userInfo?.role!)) {
       setTipsOpen(true);
     } else {
       setOpen(true);
