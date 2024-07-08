@@ -24,9 +24,8 @@ export interface NavbarProps {
 }
 
 const Navbar: FC<NavbarProps> = (props) => {
-  const userInfo = useUserStore((state) => state.userInfo);
   const setMobileNavModalToggleOpenHandle = useGlobalStore((state) => state.setMobileNavModalToggleOpenHandle);
-  const { navList, children } = props;
+  const { navList, userInfo } = props;
   const { redirectToUrl } = useRedirect();
   const { isLandingPage } = useCheckPathname();
   const missionData = useMissionCenterStore((state) => state.missionData);
@@ -76,6 +75,7 @@ const Navbar: FC<NavbarProps> = (props) => {
             }}
           >
             <UserModule
+              userInfo={userInfo}
               changeNavType={(type) => {
                 setNavType(type);
               }}

@@ -259,16 +259,16 @@ export function TimelineForm({
 
   const isValid = form.formState.isValid;
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      if (isValid) {
-        updateStatus(Steps.TIMELINE, true);
-      } else {
-        updateStatus(Steps.TIMELINE, false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid, isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     if (isValid) {
+  //       updateStatus(Steps.TIMELINE, true);
+  //     } else {
+  //       updateStatus(Steps.TIMELINE, false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (timezone && !initialValues?.timeline) {

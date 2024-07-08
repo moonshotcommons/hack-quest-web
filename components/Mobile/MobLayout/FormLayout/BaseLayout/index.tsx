@@ -1,5 +1,4 @@
 'use client';
-import User from '@/components/Web/User';
 import React, { ReactNode } from 'react';
 import NavBar, { NavbarProps } from '../Navbar';
 
@@ -8,7 +7,7 @@ import { useCheckPathname, useCustomPathname } from '@/hooks/router/useCheckPath
 import { LoginResponse } from '@/service/webApi/user/type';
 
 export interface V2LayoutProps {
-  navbarData: NavbarProps;
+  navbarData: Omit<NavbarProps, 'userInfo'>;
   // footerData: IFooterProps;
   children: ReactNode;
   userInfo: Partial<LoginResponse> | null;
@@ -41,9 +40,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) =
   return (
     <div className={`relative w-full  `}>
       <div className="fixed top-0 z-50 flex w-full items-center bg-neutral-black">
-        <NavBar {...navbarData}>
-          <User userInfo={userInfo}></User>
-        </NavBar>
+        <NavBar {...navbarData} userInfo={userInfo} />
       </div>
       <div
         id="content-scroll-wrap"

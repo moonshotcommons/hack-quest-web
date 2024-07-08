@@ -2,11 +2,10 @@
 
 import * as React from 'react';
 import { CheckIcon } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
 import { Combobox, ComboboxInput, ComboboxButton, ComboboxOptions, ComboboxOption } from '@/components/ui/combobox';
 import { useControllableState } from '@/hooks/state/use-controllable-state';
 import { noop } from '@/lib/utils';
-import { getTimezones } from '../actions';
+import timezoneMap from '../constants/timezones.json';
 
 interface TimezoneProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultValue?: string;
@@ -17,12 +16,9 @@ interface TimezoneProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Timezone(props: TimezoneProps) {
   const { onValueChange = noop, value, defaultValue, ...rest } = props;
 
-  const { data: timezones } = useQuery({
-    staleTime: Infinity,
-    queryKey: ['timezones'],
-    queryFn: () => getTimezones(),
-    select: (data) => data.map((item) => ({ id: item, name: item }))
-  });
+  const timezones = React.useMemo(() => {
+    return timezoneMap.map((item) => ({ id: item, name: item }));
+  }, []);
 
   const [state, setState] = useControllableState(props, 'value', onValueChange);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -36,20 +32,15 @@ export function Timezone(props: TimezoneProps) {
         );
   }, [query, timezones]);
 
-  function onSelect(timezone: string) {
-    const input = inputRef.current;
-    const length = timezone?.length;
-    if (input) {
-      input.setSelectionRange(length, length);
-    }
-    return timezone;
-  }
-
   return (
     <Combobox defaultValue={state} value={state} onChange={setState}>
       <div className="group relative" {...rest}>
         <div className="relative h-[50px] w-full overflow-hidden rounded-[8px] border border-neutral-light-gray p-3 text-neutral-black outline-none transition-colors focus-within:border-neutral-medium-gray group-aria-[invalid=true]:border-status-error-dark">
-          <ComboboxInput ref={inputRef} displayValue={onSelect} onChange={(event) => setQuery(event.target.value)} />
+          <ComboboxInput
+            ref={inputRef}
+            displayValue={(item: string) => item}
+            onChange={(event) => setQuery(event.target.value)}
+          />
           <ComboboxButton />
         </div>
         <ComboboxOptions afterLeave={() => setQuery('')}>

@@ -120,16 +120,16 @@ export function ApplicationForm({
     isEditMode ? onCancel?.() : onStepChange(Steps.TIMELINE);
   }
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      if (isValid) {
-        updateStatus(Steps.APPLICATION, true);
-      } else {
-        updateStatus(Steps.APPLICATION, false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid, isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     if (isValid) {
+  //       updateStatus(Steps.APPLICATION, true);
+  //     } else {
+  //       updateStatus(Steps.APPLICATION, false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (Object.keys(application || {}).length > 0) {

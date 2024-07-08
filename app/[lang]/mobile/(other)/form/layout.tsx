@@ -4,7 +4,7 @@ interface WebLayoutProps {
   children: ReactNode;
 }
 
-const WebLayout: FC<WebLayoutProps> = ({ children }) => {
+const WebLayout: FC<WebLayoutProps> = async ({ children }) => {
   return <Layout navbarData={{ navList: [] }}>{children}</Layout>;
 };
 
