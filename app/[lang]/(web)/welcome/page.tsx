@@ -221,7 +221,7 @@ function SkipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 
   function handleSkip() {
     onClose();
-    router.push('/dashboard');
+    router.push('/ecosystem-explore');
   }
 
   return (
