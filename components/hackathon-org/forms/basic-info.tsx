@@ -125,16 +125,16 @@ export function BasicInfoForm({
     }
   });
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      if (isValid) {
-        updateStatus(Steps.BASIC_INFO, true);
-      } else {
-        updateStatus(Steps.BASIC_INFO, false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid, isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     if (isValid) {
+  //       updateStatus(Steps.BASIC_INFO, true);
+  //     } else {
+  //       updateStatus(Steps.BASIC_INFO, false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (initialValues) {
