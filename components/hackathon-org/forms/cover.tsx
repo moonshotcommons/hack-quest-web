@@ -103,16 +103,16 @@ export function CoverForm({
     }
   }, [initialValues?.info?.image]);
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      if (imageUrl) {
-        updateStatus(Steps.COVER, true);
-      } else {
-        updateStatus(Steps.COVER, false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageUrl, isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     if (imageUrl) {
+  //       updateStatus(Steps.COVER, true);
+  //     } else {
+  //       updateStatus(Steps.COVER, false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [imageUrl, isEditMode]);
 
   const imagePreview = (
     <div className="relative mb-10 mt-1 h-[409px] w-full overflow-hidden rounded-[10px]">

@@ -121,16 +121,16 @@ export function LinksForm({
   const email = form.watch('email');
   const isValid = form.formState.isValid;
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      if (isValid) {
-        updateStatus(Steps.LINKS, true);
-      } else {
-        updateStatus(Steps.LINKS, false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid, isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     if (isValid) {
+  //       updateStatus(Steps.LINKS, true);
+  //     } else {
+  //       updateStatus(Steps.LINKS, false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (initialValues?.links) {
