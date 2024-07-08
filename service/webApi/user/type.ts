@@ -33,7 +33,7 @@ export interface LoginResponse {
   email: string;
   name: string;
   avatar: string;
-  role: string;
+  role: UserRole;
   status: string;
   nickname: string;
   // registerType: string;
@@ -151,6 +151,12 @@ export enum NotificateType {
   MESSAGE = 'MESSAGE',
   UPDATE = 'UPDATE',
   REACTION = 'REACTION'
+}
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  ORGANIZATION = 'ORGANIZATION',
+  USER = 'USER'
 }
 
 export interface NotificationContentDescType {

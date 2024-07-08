@@ -26,6 +26,7 @@
     },
     "mint": {
       "title": "Congratulations! You’re a {{title}}",
+      "mintSuccessTitle": "Congratulations! You have obtained the {{title}} certificate",
       "description": "You’ve reached a significant milestone in your Web3 learning! Mint your certificate as a testament to your expertise.",
       "view_profile": "View Profile"
     }
