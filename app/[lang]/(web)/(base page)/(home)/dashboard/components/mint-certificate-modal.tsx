@@ -22,10 +22,10 @@ export function MintCertificateModal() {
   const { open, type, data, onClose } = useCertificateModal();
 
   const certification = data?.certification;
-
   const isOpen = open && type === 'mint';
+  const canMint = !certification?.mint || certification.chainId > 0;
 
-  const canMint = !certification?.mint;
+  const [modalStatus, setModalStatus] = React.useState('mint');
 
   // const ecosystemName = lang === 'en' ? data?.name?.split(' ')?.[1] : data?.name?.split(' ')?.[0];
 
@@ -36,10 +36,12 @@ export function MintCertificateModal() {
   const mutation = useMutation({
     mutationFn: () => safeMintAsync(data.certification),
     onSuccess: () => {
-      onClose();
       router.refresh();
+      setModalStatus('success');
     }
   });
+
+  const mintSuccess = certification?.mint && modalStatus === 'success';
 
   return (
     <Modal open={isOpen} onClose={() => {}}>
@@ -50,24 +52,36 @@ export function MintCertificateModal() {
           </button>
           <div className="mx-auto flex items-center gap-2">
             <Image src="/images/ecosystem/silver_medal.svg" width={24} height={33} alt="silver medal" />
-            <h1 className="text-2xl font-bold text-neutral-off-black">
-              {t('modal.mint.title', { title: data.label })}
-            </h1>
+            {!mintSuccess && (
+              <h1 className="text-2xl font-bold text-neutral-off-black">
+                {t('modal.mint.title', { title: data.label })}
+              </h1>
+            )}
+            {mintSuccess && (
+              <h1 className="text-2xl font-bold text-neutral-off-black">
+                {t('modal.mint.mintSuccessTitle', { title: data.label })}
+              </h1>
+            )}
           </div>
           <p className="mt-3 text-center text-sm text-neutral-medium-gray">
-            {t('modal.mint.description', { name: data.label })}
+            {!mintSuccess && t('modal.mint.description', { name: data.label })}
           </p>
+          {/* {mintSuccess && (
+            <p className="mt-3 text-center text-sm text-neutral-medium-gray">
+              {!mintSuccess && t('modal.mint.mintSuccessDesc', { name: data.label })}
+            </p>
+          )} */}
           <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem] shadow-idea-card">
             <Image src={certification?.certificateImage} alt={certification?.certificateId} fill />
           </div>
-          {!canMint && (
+          {!canMint && !mintSuccess && (
             <p className="mb-6 text-center text-sm text-neutral-medium-gray">
               Minting {data.label} Certificate is unavailable at this time. <br />
               Please stay tuned for our latest updates, and we will notify you if minting becomes available.
             </p>
           )}
           <div className="mx-auto flex items-center gap-4">
-            {canMint && (
+            {canMint && !mintSuccess && (
               <Button
                 type="primary"
                 size="small"
@@ -78,6 +92,17 @@ export function MintCertificateModal() {
                 Mint
               </Button>
             )}
+            {mintSuccess && (
+              <Button
+                type="primary"
+                size="small"
+                loading={mutation.isPending}
+                className="h-12 w-64 text-sm font-medium uppercase"
+                onClick={() => onClose()}
+              >
+                confirm
+              </Button>
+            )}
             <Link href="/user/profile">
               <Button ghost size="small" className="h-12 w-64 text-sm font-medium uppercase">
                 {t('modal.mint.view_profile')}
@@ -85,21 +110,25 @@ export function MintCertificateModal() {
             </Link>
           </div>
         </div>
-        <div className="flex justify-between rounded-3xl bg-neutral-white p-4">
-          <div className="flex flex-col gap-2">
-            <h2 className="font-bold text-neutral-off-black">Don’t know how to mint certificate?</h2>
-            <p className="text-sm text-neutral-medium-gray">Follow steps in the video to get your web 3 certificate.</p>
-            <Link href="/hackathon/explore" className="self-start">
-              <div className="inline-flex items-center gap-1.5">
-                <span className="text-sm font-medium capitalize text-neutral-black">Learn more</span>
-                <MoveRightIcon size={16} />
-              </div>
-            </Link>
+        {canMint && !mintSuccess && (
+          <div className="flex justify-between rounded-3xl bg-neutral-white p-4">
+            <div className="flex flex-col gap-2">
+              <h2 className="font-bold text-neutral-off-black">Don’t know how to mint certificate?</h2>
+              <p className="text-sm text-neutral-medium-gray">
+                Follow steps in the video to get your web 3 certificate.
+              </p>
+              <Link href="" className="self-start">
+                <div className="inline-flex items-center gap-1.5">
+                  <span className="text-sm font-medium capitalize text-neutral-black">Learn more</span>
+                  <MoveRightIcon size={16} />
+                </div>
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <Image src="/images/ecosystem/certificate.png" width={85} height={56} alt="certificate" />
+            </div>
           </div>
-          <div className="flex items-center">
-            <Image src="/images/ecosystem/certificate.png" width={85} height={56} alt="certificate" />
-          </div>
-        </div>
+        )}
       </div>
     </Modal>
   );

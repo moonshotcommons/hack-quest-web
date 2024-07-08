@@ -14,7 +14,6 @@ import { cn } from '@/helper/utils';
 import webApi from '@/service';
 import { ActionButtons } from './action-buttons';
 import { useHackathonOrgState } from '../constants/state';
-import { Steps } from '../constants/steps';
 
 type JudgeAccount = {
   id: string;
@@ -80,16 +79,16 @@ export function JudgingForm({
 
   const judgeAccount = form.watch('judgeAccount');
 
-  React.useEffect(() => {
-    if (!isEditMode) {
-      if (isValid) {
-        updateStatus(Steps.JUDGING, true);
-      } else {
-        updateStatus(Steps.JUDGING, false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid, isEditMode]);
+  // React.useEffect(() => {
+  //   if (!isEditMode) {
+  //     if (isValid) {
+  //       updateStatus(Steps.JUDGING, true);
+  //     } else {
+  //       updateStatus(Steps.JUDGING, false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (initialValues?.judge) {

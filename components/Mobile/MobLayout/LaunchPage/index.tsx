@@ -5,7 +5,7 @@ import BaseLayout from './BaseLayout';
 import { navbarList } from '@/components/Web/Layout/LaunchPage/Navbar/data';
 import webApi from '@/service';
 export interface LayoutProps {
-  navbarData: NavbarProps;
+  navbarData: Omit<NavbarProps, 'userInfo'>;
   children: ReactNode;
 }
 
