@@ -99,7 +99,7 @@ export default function Page() {
           className="w-60"
           onClick={goToHackathonDetailPage}
         >
-          finish setup {currentStep(step)}/8
+          finish setup {(data?.progress.length || 0) > 8 ? 8 : data?.progress.length}/8
         </Button>
       </div>
       <Stepper.Root value={step}>
