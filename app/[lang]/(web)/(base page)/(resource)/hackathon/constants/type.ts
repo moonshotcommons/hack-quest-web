@@ -74,6 +74,16 @@ export enum HackathonEditModalType {
   FAQS = 'faqs'
 }
 
+export enum AddSectionType {
+  MEDIA_PARTNERS = 'mediaPartners',
+  COMMUNITY_PARTNERS = 'communityPartners',
+  PARTNERS = 'partners',
+  SPEAKERS = 'speakers',
+  SPONSORS = 'sponsors',
+  SCHEDULE = 'schedule',
+  FAQS = 'faqs'
+}
+
 export interface UpdateHackathonParamType {
   data: Record<string, any>;
   status?: string;

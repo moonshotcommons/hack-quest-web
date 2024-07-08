@@ -11,7 +11,6 @@ interface EditInfoProp {
 }
 
 const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
-  console.info('');
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
