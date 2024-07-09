@@ -17,7 +17,12 @@ export function HackathonCard({ hackathon }: { hackathon: any }) {
     <Link href={href}>
       <div className="flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white transition-all duration-300 sm:hover:-translate-y-1">
         <div className="relative h-40 w-full">
-          <Image src={hackathon?.image || ''} alt={hackathon?.name} fill className="rounded-t-2xl object-cover" />
+          <Image
+            src={hackathon?.info?.image || hackathon?.image}
+            alt={hackathon?.name}
+            fill
+            className="rounded-t-2xl object-cover"
+          />
         </div>
         <div className="flex flex-col gap-3 p-4">
           <div className="flex flex-wrap items-center gap-3">
