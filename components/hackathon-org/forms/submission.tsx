@@ -35,7 +35,7 @@ export function SubmissionForm({
     setProjectDetailState,
     setAdditionState
   } = useSubmissionState();
-  const { updateStatus, onStepChange } = useHackathonOrgState();
+  const { onStepChange } = useHackathonOrgState();
 
   const mutation = useMutation({
     mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathon(data, 'submission'),
@@ -45,13 +45,6 @@ export function SubmissionForm({
       isEditMode ? onSave?.() : onStepChange(Steps.REWARDS);
     }
   });
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     updateStatus(Steps.SUBMISSION, true);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isEditMode]);
 
   function onCancelOrBack() {
     isEditMode ? onCancel?.() : onStepChange(Steps.APPLICATION);

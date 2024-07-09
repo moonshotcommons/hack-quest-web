@@ -93,7 +93,7 @@ export function BasicInfoForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
-  const { updateStatus, onStepChange } = useHackathonOrgState();
+  const { onStepChange } = useHackathonOrgState();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -124,17 +124,6 @@ export function BasicInfoForm({
       errorMessage(error);
     }
   });
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     if (isValid) {
-  //       updateStatus(Steps.BASIC_INFO, true);
-  //     } else {
-  //       updateStatus(Steps.BASIC_INFO, false);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (initialValues) {
