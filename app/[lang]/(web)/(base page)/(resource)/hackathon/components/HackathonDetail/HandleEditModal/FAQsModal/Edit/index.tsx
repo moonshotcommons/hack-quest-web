@@ -52,15 +52,15 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
                 {'Answer*'}
               </FormLabel>
               <span className="caption-14pt text-neutral-rich-gray">
-                <span className={form.watch('items')[index]['answer'].length > 360 ? 'text-status-error' : ''}>
+                <span className={form.watch('items')[index]['answer'].length > 6000 ? 'text-status-error' : ''}>
                   {form.watch('items')[index]['answer'].length}
                 </span>
-                /360
+                /6000
               </span>
             </div>
             <FormControl>
               <Textarea
-                maxLength={370}
+                maxLength={6000}
                 authHeight={false}
                 placeholder={'Write the answer'}
                 {...field}
