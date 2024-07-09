@@ -65,6 +65,9 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   };
 
   const renderButton = () => {
+    if (hackathon.enable === false) {
+      return null;
+    }
     if (stepIndex < 1) {
       if (!hackathon.participation?.isRegister) {
         const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');

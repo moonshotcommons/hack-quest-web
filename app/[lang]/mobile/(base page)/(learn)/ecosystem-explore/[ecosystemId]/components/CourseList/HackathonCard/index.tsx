@@ -50,7 +50,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           </div>
           <div>
             <span className="">{t('totalPrize')}</span>
-            <span className="body-m-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</span>
+            <span className="body-m-bold text-neutral-off-black">{`${separationNumber(totalPrize || 0)} ${hackathon.rewards?.[0]?.currency || 'USD'}`}</span>
           </div>
           <div>
             <span className="">{t('host')}</span>
