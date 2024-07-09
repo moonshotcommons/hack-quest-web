@@ -31,7 +31,9 @@
   "hackathonDetail": {
     "timeline": "时间线",
     "submissions": "Submissions",
+    "submissionsTime":"Submissions Close",
     "rewardAnnouncement": "Reward Announcement",
+    "rewardAnnouncementTime": "Reward Announcement",
     "about": "关于",
     "theme": "主题",
     "rewards": "奖励",
@@ -41,6 +43,7 @@
     "communityPartners": "合作社区",
     "schedule": "日程安排",
     "registration": "Registration",
+    "registrationTime": "Registration Open",
     "hostBy": "Host by",
     "coHosts": "Cohost",
     "submissionReview": "SUBMISSIONS REVIEW",

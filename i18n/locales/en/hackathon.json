@@ -31,7 +31,9 @@
   "hackathonDetail": {
     "timeline": "Timeline",
     "submissions": "Submissions",
+    "submissionsTime":"Submissions Close",
     "rewardAnnouncement": "Reward Announcement",
+    "rewardAnnouncementTime": "Reward Announcement",
     "about": "About",
     "theme": "Theme",
     "rewards": "Rewards",
@@ -41,6 +43,7 @@
     "communityPartners": "Community Partners",
     "schedule": "Schedule",
     "registration": "Registration",
+    "registrationTime": "Registration Open",
     "hostBy": "Host by",
     "coHosts": "Cohost",
     "submissionReview": "SUBMISSIONS REVIEW",
