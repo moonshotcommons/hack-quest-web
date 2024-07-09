@@ -12,7 +12,7 @@ export const useSubmitNotionUrl = () => {
       setLogs({ status: 'pending', message: '' });
 
       const eventSource = new EventSource(
-        `${process.env.BACKEND_BASE_URL}admin/parse-notion?token=${token}&notionUrl=${notionUrl}`
+        `${process.env.BACKEND_BASE_URL}/admin/parse-notion?token=${token}&notionUrl=${notionUrl}`
       );
 
       eventSource.addEventListener('message', (event) => {
