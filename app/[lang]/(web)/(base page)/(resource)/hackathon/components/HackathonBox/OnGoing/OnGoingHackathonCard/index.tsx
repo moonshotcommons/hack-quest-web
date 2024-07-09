@@ -39,7 +39,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
   const goHackathonDetail = () => {
     redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   };
-  const { getTotalPrize, getStepIndex } = useDealHackathonData();
+  const { getTotalPrize, getStepIndex, hackathonDownload } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -142,27 +142,27 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
     );
   };
 
-  const downloadMember = () => {
-    if (loading) return;
-    setLoading(true);
-    webApi.resourceStationApi
-      .getHackathonMember(hackathon.id)
-      .then((res) => {
-        const data = res.data?.map((v) => {
-          return {
-            ...v,
-            team: JSON.stringify(v.team)
-          };
-        });
-        exportToExcel(data, 'members');
-      })
-      .catch((err) => {
-        errorMessage(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  // const hackathonDownload = () => {
+  //   if (loading) return;
+  //   setLoading(true);
+  //   webApi.resourceStationApi
+  //     .getHackathonMember(hackathon.id)
+  //     .then((res) => {
+  //       const data = res.data?.map((v) => {
+  //         return {
+  //           ...v,
+  //           team: JSON.stringify(v.team)
+  //         };
+  //       });
+  //       exportToExcel(data, 'members');
+  //     })
+  //     .catch((err) => {
+  //       errorMessage(err);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -198,7 +198,11 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
                 className="w-[40%]"
                 onClick={(e) => {
                   e.stopPropagation();
-                  downloadMember();
+                  if (loading) return;
+                  setLoading(true);
+                  hackathonDownload(hackathon.id, () => {
+                    setLoading(false);
+                  });
                 }}
               >
                 <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>

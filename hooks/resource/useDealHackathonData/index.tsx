@@ -2,6 +2,7 @@ import moment from 'moment';
 import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
+import webApi from '@/service';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -166,6 +167,12 @@ const useDealHackathonData = () => {
     return list;
   };
 
+  const hackathonDownload = async (id: string, cb: VoidFunction) => {
+    const hackathon = await webApi.resourceStationApi.getHackathonDetail(id);
+    console.info(hackathon);
+    cb();
+  };
+
   return {
     getRunFromTime,
     getCloseInTime,
@@ -174,7 +181,8 @@ const useDealHackathonData = () => {
     getStepIndex,
     dealModalList,
     getSectionProgress,
-    getHackathonNavList
+    getHackathonNavList,
+    hackathonDownload
   };
 };
 
