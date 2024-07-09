@@ -2,6 +2,8 @@
 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { Separator } from '@/components/ui/separator';
+import { CircularProgress } from '@/components/shared/circular-progress';
 
 const chartConfig = {
   score: {
@@ -12,10 +14,10 @@ const chartConfig = {
 
 const chartData = [
   { latitude: 'Technical Ability', score: 25 },
-  { latitude: 'On-chain Activity', score: 75 },
   { latitude: 'Reputation', score: 100 },
-  { latitude: 'Influence', score: 75 },
-  { latitude: 'Contribution', score: 100 }
+  { latitude: 'Contribution', score: 100 },
+  { latitude: 'On-chain Activity', score: 75 },
+  { latitude: 'Influence', score: 75 }
 ];
 
 export function BuilderScore() {
@@ -27,10 +29,10 @@ export function BuilderScore() {
       </p>
       <div className="mt-8 flex flex-col gap-8">
         <div className="grid grid-cols-2 gap-8">
-          <ChartContainer config={chartConfig} className="aspect-square max-h-[460px]">
+          <ChartContainer config={chartConfig} className="aspect-square">
             <RadarChart data={chartData}>
               <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <PolarAngleAxis dataKey="latitude" orientation="inner" />
+              <PolarAngleAxis dataKey="latitude" />
               <PolarGrid radialLines={false} />
               <Radar
                 dataKey="score"
@@ -45,7 +47,18 @@ export function BuilderScore() {
               />
             </RadarChart>
           </ChartContainer>
-          <div>2</div>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-4">
+              <CircularProgress value={88}>
+                <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">A+</span>
+              </CircularProgress>
+              <div className="flex flex-col gap-1">
+                <h3 className="body-s">Current Score</h3>
+                <p className="body-s-bold">88/100</p>
+              </div>
+            </div>
+            <Separator variant="dashed" />
+          </div>
         </div>
         <div>3</div>
       </div>
