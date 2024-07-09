@@ -3,6 +3,7 @@ import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/servi
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
+import { exportToExcel } from '@/helper/utils';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -167,10 +168,29 @@ const useDealHackathonData = () => {
     return list;
   };
 
-  const hackathonDownload = async (id: string, cb: VoidFunction) => {
-    const hackathon = await webApi.resourceStationApi.getHackathonDetail(id);
-    console.info(hackathon);
-    cb();
+  const hackathonDownload = (id: string, cb: VoidFunction) => {
+    webApi.resourceStationApi
+      .getHackathonDetail(id)
+      .then((hackathon) => {
+        const memberDatas: Record<string, any>[] = [];
+        hackathon.members?.map((v) => {
+          v.info = v.info || {};
+          const info: Record<string, any> = {};
+          for (let infoKey in v.info) {
+            const iKey = infoKey as keyof typeof v.info;
+            const vInfo = v.info[iKey];
+            for (let dataKey in vInfo) {
+              const dKey = dataKey as keyof typeof vInfo;
+              info[dataKey] = vInfo[dKey];
+            }
+          }
+          memberDatas.push(info);
+        });
+        exportToExcel(memberDatas, `${hackathon.name} members`);
+      })
+      .finally(() => {
+        cb();
+      });
   };
 
   return {

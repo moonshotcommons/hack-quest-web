@@ -22,7 +22,6 @@ import { HackathonTabType } from '../../constants/type';
 import TipsModal from './TipsModal';
 import { useUserStore } from '@/store/zustand/userStore';
 import { UserRole } from '@/service/webApi/user/type';
-import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface DashboardProp {
   curTab: HackathonStatusType;
@@ -119,8 +118,7 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
           <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isDashboard={true} />
         </div>
         <div className={`${curTab !== HackathonStatusType.DRAFT && 'hidden'}`}>
-          {/* <Draft hackathonList={hackathons[HackathonStatusType.DRAFT]} /> */}
-          <OnGoing hackathonList={hackathons[HackathonStatusType.DRAFT]} isDashboard={true} />
+          <Draft hackathonList={hackathons[HackathonStatusType.DRAFT]} />
         </div>
         <div className={`${curTab !== HackathonStatusType.PAST && 'hidden'}`}>
           <Past hackathonList={hackathons[HackathonStatusType.PAST]} isDashboard={true} page={0} total={0} limit={0} />
