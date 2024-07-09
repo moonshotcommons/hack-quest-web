@@ -60,7 +60,7 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
             </div>
             <FormControl>
               <Textarea
-                maxLength={370}
+                maxLength={6000}
                 authHeight={false}
                 placeholder={'Write the answer'}
                 {...field}
