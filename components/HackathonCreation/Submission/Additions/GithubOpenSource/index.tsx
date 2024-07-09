@@ -41,7 +41,7 @@ export const GithubOpenSourceConfig: PresetComponentConfig<GithubOpenSourceProps
           <span className="body-m text-neutral-off-black">{info.githubLink ?? ''}</span>
         </div>
         <div className="flex flex-1 items-center justify-between">
-          <span className="body-m flex items-center  text-neutral-off-black">Contract Address</span>
+          <span className="body-m flex items-center  text-neutral-off-black">Open Source</span>
           <span className="body-m text-neutral-off-black">{info.openSource ? 'Yes' : 'No'}</span>
         </div>
       </div>
