@@ -36,6 +36,7 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   const [hackathonTab, setHackathonTab] = useState<HackathonTabType[]>([]);
   const [tipsOpen, setTipsOpen] = useState(false);
   const userInfo = useUserStore((state) => state.userInfo);
+
   const isPast = (timeline: HackathonTimeLineType) => {
     if (!timeline) return false;
     const currentTime = +new Date();
