@@ -14,7 +14,7 @@ interface ThemeResourceProp {
 const ThemeResource: React.FC<ThemeResourceProp> = ({ hackathon, type }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  if (!hackathon.info?.sections?.[type]) return null;
+  if (!hackathon.info?.sections?.[type]?.length) return null;
   return (
     <EditBox title={`hackathonDetail.${type}`} className="rounded-none border-none bg-transparent p-0">
       <HackathonRenderer content={hackathon.info?.sections?.[type]} />

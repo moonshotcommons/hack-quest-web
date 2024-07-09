@@ -1,35 +1,35 @@
-import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { AddSectionType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 export const week = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
 export const modalList = [
   {
     label: 'hackathonDetail.mediaPartners',
-    type: HackathonEditModalType.MEDIA_PARTNERS
+    type: AddSectionType.MEDIA_PARTNERS
   },
   {
     label: 'hackathonDetail.communityPartners',
-    type: HackathonEditModalType.COMMUNITY_PARTNERS
+    type: AddSectionType.COMMUNITY_PARTNERS
   },
   {
     label: 'hackathonDetail.partners',
-    type: HackathonEditModalType.PARTNERS
+    type: AddSectionType.PARTNERS
   },
   {
     label: 'hackathonDetail.speakers',
-    type: HackathonEditModalType.SPEAKERS
+    type: AddSectionType.SPEAKERS
   },
   {
     label: 'hackathonDetail.sponsors',
-    type: HackathonEditModalType.SPONSORS
+    type: AddSectionType.SPONSORS
   },
   {
     label: 'hackathonDetail.schedule',
-    type: HackathonEditModalType.SCHEDULE
+    type: AddSectionType.SCHEDULE
   },
   {
     label: 'FAQs',
-    type: HackathonEditModalType.FAQS
+    type: AddSectionType.FAQS
   }
 ];
 

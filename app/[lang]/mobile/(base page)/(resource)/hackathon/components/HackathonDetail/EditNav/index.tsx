@@ -1,29 +1,22 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import {
-  HackathonEditContext,
-  HackathonEditNavType
-} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { HackathonEditNavType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 interface EditNavProp {
   curAnchorIndex: number;
   handleClickAnchor: (index: number) => void;
-  navList?: HackathonEditNavType[];
+  navList: HackathonEditNavType[];
 }
 
 const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, navList }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { navs: n } = useContext(HackathonEditContext);
-  const navs = useMemo(() => {
-    return navList?.length ? navList : n;
-  }, [navList, n]);
   useEffect(() => {
     handleClickAnchor(0);
-  }, [navs]);
+  }, [navList]);
   return (
     <div className="no-scrollbar sticky left-0  top-0 z-[2] overflow-auto border-y border-neutral-light-gray bg-neutral-white">
       <SlideHighlight
@@ -31,7 +24,7 @@ const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, nav
         type="LEARNING_TRACK"
         currentIndex={curAnchorIndex}
       >
-        {navs.map((v, i) => (
+        {navList.map((v, i) => (
           <div
             key={v.value}
             className={`flex h-full cursor-pointer items-center whitespace-nowrap  ${curAnchorIndex === i ? 'body-xs-bold text-neutral-off-black' : 'body-xs text-neutral-medium-gray'}`}
