@@ -160,7 +160,7 @@ const useDealHackathonData = () => {
     const addList = dealModalList(hackathon)
       .filter((v) => v.added)
       .map((v) => ({
-        label: hackathon.info?.sections?.[v.type]?.title || ` hackathonDetail.${v.type}`,
+        label: hackathon.info?.sections?.[v.type]?.title || `hackathonDetail.${v.type}`,
         value: v.type
       }));
 

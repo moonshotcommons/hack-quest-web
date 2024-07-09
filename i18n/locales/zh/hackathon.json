@@ -119,7 +119,9 @@
     "venue": "场地及教育合作伙伴",
     "trackPartner": "跟踪合作伙伴",
     "viewTeamProject": "查看团队项目",
-    "registrationData":"Registration Data"
+    "registrationData":"Registration Data",
+    "backToEdit":"Back to Edit",
+    "proceedToPreview":"Proceed to Preview"
   },
   "projectsDetail": {
     "title": {
