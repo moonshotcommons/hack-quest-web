@@ -156,7 +156,8 @@ export enum NotificateType {
 export enum UserRole {
   ADMIN = 'ADMIN',
   ORGANIZATION = 'ORGANIZATION',
-  USER = 'USER'
+  USER = 'USER',
+  CONTENT = 'CONTENT'
 }
 
 export interface NotificationContentDescType {
