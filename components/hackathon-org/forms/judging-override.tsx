@@ -145,18 +145,16 @@ export function JudgingOverrideForm({
   return (
     <div className="flex flex-col gap-6">
       {judges?.length === 0 && <NoTrack />}
-      {judges
-        ?.sort((a: any, b: any) => a?.id - b?.id)
-        ?.map((data: any) => (
-          <UpdateJudgeDetail
-            key={data?.id}
-            data={data}
-            onClick={() => {
-              setValue(data);
-              toggle(true);
-            }}
-          />
-        ))}
+      {judges?.map((data: any) => (
+        <UpdateJudgeDetail
+          key={data?.id}
+          data={data}
+          onClick={() => {
+            setValue(data);
+            toggle(true);
+          }}
+        />
+      ))}
       <div className="flex justify-end">
         <ActionButtons isLastStep isEditMode={isEditMode} onCancelOrBack={onCancelOrBack} onSaveOrNext={onSave} />
       </div>

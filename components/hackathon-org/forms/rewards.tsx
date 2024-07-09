@@ -99,21 +99,10 @@ export function RewardsForm({
   onSave?: () => void;
   refresh?: () => void;
 }) {
-  const { updateStatus, onStepChange } = useHackathonOrgState();
+  const { onStepChange } = useHackathonOrgState();
   const [open, toggle] = useToggle(false);
 
   const isValid = initialValues?.rewards?.length > 0;
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     if (isValid) {
-  //       updateStatus(Steps.REWARDS, true);
-  //     } else {
-  //       updateStatus(Steps.REWARDS, false);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isValid, isEditMode]);
 
   function onCancelOrBack() {
     isEditMode ? onCancel?.() : onStepChange(Steps.SUBMISSION);
