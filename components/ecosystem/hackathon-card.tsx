@@ -12,7 +12,6 @@ import { useTranslation } from '@/i18n/client';
 export function HackathonCard({ hackathon }: { hackathon: any }) {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
-  console.log(hackathon);
   const href = hackathon?.isSubmit ? `${MenuLink.HACKATHON}/${hackathon.alias}` : MenuLink.HACKATHON_DASHBOARD;
   return (
     <Link href={href}>
