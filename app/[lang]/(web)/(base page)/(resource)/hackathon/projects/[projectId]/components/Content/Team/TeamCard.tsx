@@ -7,11 +7,11 @@ import React, { useContext, useMemo } from 'react';
 import { IoIosMail } from 'react-icons/io';
 import { IoLogoWechat } from 'react-icons/io5';
 import { FaTelegramPlane } from 'react-icons/fa';
-import { ProjectMemberType } from '@/service/webApi/resourceStation/type';
+import { HackathonMemberType } from '@/service/webApi/resourceStation/type';
 import { copyText } from '@/helper/utils';
 
 interface TeamCardProp {
-  member: ProjectMemberType;
+  member: HackathonMemberType;
 }
 
 const TeamCard: React.FC<TeamCardProp> = ({ member }) => {

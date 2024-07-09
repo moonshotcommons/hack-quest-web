@@ -9,12 +9,10 @@ import { useContext } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { exportToExcel, separationNumber } from '@/helper/utils';
+import { separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
 import { FiDownload } from 'react-icons/fi';
-import webApi from '@/service';
-import { errorMessage } from '@/helper/ui';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;
@@ -25,30 +23,9 @@ interface PastHackathonCardProps {
 const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, isDashboard }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getTotalPrize } = useDealHackathonData();
+  const { getTotalPrize, hackathonDownload } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [loading, setLoading] = useState(false);
-  const downloadMember = () => {
-    if (loading) return;
-    setLoading(true);
-    webApi.resourceStationApi
-      .getHackathonMember(hackathon.id)
-      .then((res) => {
-        const data = res.data?.map((v) => {
-          return {
-            ...v,
-            team: JSON.stringify(v.team)
-          };
-        });
-        exportToExcel(data, 'members');
-      })
-      .catch((err) => {
-        errorMessage(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
   return (
     <Link
       href={isVoting ? `${MenuLink.HACKATHON_VOTING}/${hackathon.alias}` : `${MenuLink.HACKATHON}/${hackathon.alias}`}
@@ -96,7 +73,11 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
-                      downloadMember();
+                      if (loading) return;
+                      setLoading(true);
+                      hackathonDownload(hackathon.id, () => {
+                        setLoading(false);
+                      });
                     }}
                   >
                     <span className="">{t('hackathonDetail.registrationData')}</span>

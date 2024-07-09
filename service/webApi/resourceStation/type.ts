@@ -52,12 +52,15 @@ export interface HackathonScheduleType {
 export interface HackathonMemberType {
   userId: string;
   avatar: string;
-  bio: string;
   firstName: string;
   lastName: string;
   team: Record<string, any>;
-  telegram: string;
-  weChat: string;
+  info: {
+    [ApplicationSectionType.About]?: HackathonInfoAboutType;
+    [ApplicationSectionType.Contact]?: HackathonInfoContactType;
+    [ApplicationSectionType.OnlineProfiles]?: HackathonInfoOnlineProfilesType;
+  };
+  isAdmin: boolean;
 }
 
 export enum HackathonTypeVotesRoleType {
@@ -100,6 +103,7 @@ export interface HackathonApplicationLabelType {
   selected: boolean;
   optional: boolean;
   type: string;
+  title: string;
 }
 
 export interface HackathonApplicationPropertyType {
@@ -301,16 +305,6 @@ export type HackathonInfoOnlineProfilesType = {
   qq: string;
   whatsApp: string;
 } & Record<string, any>;
-export interface ProjectMemberType {
-  avatar: string;
-  info: {
-    [ApplicationSectionType.About]?: HackathonInfoAboutType;
-    [ApplicationSectionType.Contact]?: HackathonInfoContactType;
-    [ApplicationSectionType.OnlineProfiles]?: HackathonInfoOnlineProfilesType;
-  };
-  isAdmin: boolean;
-  userId: string;
-}
 
 export interface BasicInfo {
   logo: string;
@@ -364,7 +358,7 @@ export type ProjectType = {
   pitchVideo: string;
   fields: Record<string, { label: string; value: any }>;
   wallet: string;
-  members: ProjectMemberType[];
+  members: HackathonMemberType[];
   vote: number;
   isSubmit: boolean;
   submitType: string;
