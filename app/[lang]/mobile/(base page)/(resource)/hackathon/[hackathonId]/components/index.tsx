@@ -10,7 +10,6 @@ import FAQs from '../../components/HackathonDetail/FAQs';
 import DetailInfo from '../../components/HackathonDetail/DetailInfo';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import Description from '../../components/HackathonDetail/Decription';
-import RewardsProjects from '../../components/HackathonDetail/RewardsProjects';
 import { initMobileDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import EditNav from '../../components/HackathonDetail/EditNav';

@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
-import {
-  HackathonEditContext,
-  HackathonEditNavType
-} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { HackathonEditNavType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 interface EditNavProp {
   curAnchorIndex: number;

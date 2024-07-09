@@ -18,7 +18,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
       {hackathon.rewards?.map((v, i) => (
         <div className="rounded-[1rem] border border-neutral-light-gray bg-neutral-white p-[1.5rem]" key={i}>
           <div className="flex flex-col items-center justify-center gap-[.25rem] pb-[.5rem]">
-            <div className="text-h2-mob text-neutral-off-black">{`${separationNumber(v.totalRewards)} ${v.currency}`}</div>
+            <div className="text-h2-mob text-neutral-off-black">{`${separationNumber(v.totalRewards)} ${v.currency || 'USD'}`}</div>
             <p className="text-neutral-medium-gray">{v.name}</p>
           </div>
           <div className="flex-1 border-t border-neutral-light-gray pt-[.5rem]">
@@ -27,7 +27,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
                 {v.rewards.map((p, j) => (
                   <div key={j} className="flex items-center justify-between">
                     <span>{`${p.label}`}</span>
-                    <span className="body-m text-neutral-off-black">{`${p.value} ${v.currency}`}</span>
+                    <span className="body-m text-neutral-off-black">{`${p.value} ${v.currency || 'USD'}`}</span>
                   </div>
                 ))}
               </div>

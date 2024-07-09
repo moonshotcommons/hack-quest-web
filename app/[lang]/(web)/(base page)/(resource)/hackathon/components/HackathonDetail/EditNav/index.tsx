@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useMemo } from 'react';
-import { HackathonEditContext, HackathonEditNavType } from '../../../constants/type';
+import React, { useContext, useEffect } from 'react';
+import { HackathonEditNavType } from '../../../constants/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
