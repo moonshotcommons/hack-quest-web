@@ -18,8 +18,8 @@ export function AddJudgeAccounts({
         <React.Fragment>
           {judgeAccounts.map((account) => (
             <div className="flex items-center" key={account.email}>
-              <div className="relative h-[50px] w-[50px] rounded-full bg-yellow-dark">
-                <Image src={account.avatar} alt="avatar" fill />
+              <div className="relative h-[50px] w-[50px] overflow-hidden rounded-full bg-yellow-dark">
+                <Image src={account.avatar} alt="avatar" fill className="rounded-full" />
               </div>
               <span className="body-m ml-3 text-neutral-off-black">{account.nickname}</span>
               <span className="body-m ml-auto text-neutral-medium-gray">{account.email}</span>
