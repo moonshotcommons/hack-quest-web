@@ -56,7 +56,7 @@ export function JudgingForm({
   const [sliderValue, setSliderValue] = React.useState(50);
   const [judgeAccounts, setJudgeAccounts] = React.useState<JudgeAccount[]>([]);
 
-  const { updateStatus, onPrevious, onNext } = useHackathonOrgState();
+  const { onPrevious, onNext } = useHackathonOrgState();
 
   const queryClient = useQueryClient();
 
@@ -75,20 +75,7 @@ export function JudgingForm({
     }
   });
 
-  const isValid = form.formState.isValid;
-
   const judgeAccount = form.watch('judgeAccount');
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     if (isValid) {
-  //       updateStatus(Steps.JUDGING, true);
-  //     } else {
-  //       updateStatus(Steps.JUDGING, false);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (initialValues?.judge) {

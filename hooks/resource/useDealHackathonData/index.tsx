@@ -160,7 +160,7 @@ const useDealHackathonData = () => {
     const addList = dealModalList(hackathon)
       .filter((v) => v.added)
       .map((v) => ({
-        label: hackathon.info?.sections?.[v.type]?.title || ` hackathonDetail.${v.type}`,
+        label: hackathon.info?.sections?.[v.type]?.title || `hackathonDetail.${v.type}`,
         value: v.type
       }));
 
@@ -193,6 +193,13 @@ const useDealHackathonData = () => {
       });
   };
 
+  const getHackathonTimeSame = (hackathon: HackathonType) => {
+    const timeline = hackathon.timeline;
+    if (!timeline) return false;
+    const { registrationOpen, registrationClose, submissionOpen, submissionClose } = timeline;
+    return registrationOpen === submissionOpen && registrationClose === submissionClose;
+  };
+
   return {
     getRunFromTime,
     getCloseInTime,
@@ -202,7 +209,8 @@ const useDealHackathonData = () => {
     dealModalList,
     getSectionProgress,
     getHackathonNavList,
-    hackathonDownload
+    hackathonDownload,
+    getHackathonTimeSame
   };
 };
 

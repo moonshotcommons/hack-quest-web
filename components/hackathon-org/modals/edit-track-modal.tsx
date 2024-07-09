@@ -172,10 +172,10 @@ function OthersForm({ form }: { form: UseFormReturn<FormValues> }) {
                 <span className="body-m text-neutral-rich-gray">Distribution Rule*</span>
               </FormLabel>
               <span className="caption-14pt text-neutral-rich-gray">
-                <span className={cn({ 'text-status-error': (form.watch('rule')?.length ?? 0) > 600 })}>
+                <span className={cn({ 'text-status-error': (form.watch('rule')?.length ?? 0) > 6000 })}>
                   {form.watch('rule')?.length}
                 </span>
-                /600
+                /6000
               </span>
             </div>
             <FormControl>
