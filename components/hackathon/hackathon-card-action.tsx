@@ -52,7 +52,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
   const projectId = participation?.project?.id;
   const status = participation?.status as string;
   const code = participation?.team?.code || '';
-  const username = participation?.firstName + ' ' + participation?.lastName;
+  const username = participation?.info?.About?.firstName + ' ' + participation?.info?.About?.lastName;
 
   const isGroupProject = hackathon.participation?.team !== null;
 

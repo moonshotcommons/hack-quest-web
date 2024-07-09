@@ -3,7 +3,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext, useMemo } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import { HackathonEditContext } from '../../../../constants/type';
+import { AddSectionType, HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface ListModalProp {
@@ -31,7 +31,7 @@ const ListModal: React.FC<ListModalProp> = ({ hackathon }) => {
             className={` w-[calc((100%-24px)/2)] rounded-[16px]  border-[3px] p-[24px]  ${!v.added ? 'cursor-pointer border-neutral-off-white bg-neutral-white text-neutral-black  hover:border-yellow-dark hover:bg-yellow-extra-light' : 'cursor-not-allowed border-neutral-light-gray bg-neutral-off-white text-neutral-medium-gray'}`}
             onClick={() => {
               if (v.added) return;
-              setModalType(v.type);
+              setModalType(v.type as HackathonEditModalType & AddSectionType);
             }}
           >
             <p className="text-h5">{t(v.label)}</p>
