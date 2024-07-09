@@ -93,7 +93,7 @@ export function BasicInfoForm({
   onCancel?: () => void;
   onSave?: () => void;
 }) {
-  const { updateStatus, onStepChange } = useHackathonOrgState();
+  const { onStepChange } = useHackathonOrgState();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -103,12 +103,10 @@ export function BasicInfoForm({
       description: '',
       conduct: '',
       mode: 'HYBRID',
-      allowSubmission: 'true',
+      allowSubmission: 'false',
       address: ''
     }
   });
-
-  const isValid = form.formState.isValid;
 
   const isHybridMode = form.watch('mode') === 'HYBRID';
 
@@ -124,17 +122,6 @@ export function BasicInfoForm({
       errorMessage(error);
     }
   });
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     if (isValid) {
-  //       updateStatus(Steps.BASIC_INFO, true);
-  //     } else {
-  //       updateStatus(Steps.BASIC_INFO, false);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isValid, isEditMode]);
 
   React.useEffect(() => {
     if (initialValues) {
@@ -327,7 +314,7 @@ export function BasicInfoForm({
                   onValueChange={(value) => {
                     field.onChange(value as any);
                     if (value === 'HYBRID') {
-                      form.setValue('allowSubmission', 'true');
+                      form.setValue('allowSubmission', 'false');
                       form.setValue('address', '');
                     }
                   }}
@@ -367,10 +354,10 @@ export function BasicInfoForm({
                     className="w-full grid-cols-2"
                   >
                     <FormControl>
-                      <RadioGroupItem value="true">Yes, they need approval from organizer</RadioGroupItem>
+                      <RadioGroupItem value="false">Yes, they need approval from organizer</RadioGroupItem>
                     </FormControl>
                     <FormControl>
-                      <RadioGroupItem value="false">No, they don’t need approval from organizer</RadioGroupItem>
+                      <RadioGroupItem value="true">No, they don’t need approval from organizer</RadioGroupItem>
                     </FormControl>
                   </RadioGroup>
                 </FormControl>
