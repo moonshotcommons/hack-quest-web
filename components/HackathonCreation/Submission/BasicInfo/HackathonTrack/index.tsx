@@ -17,7 +17,7 @@ const HackathonTrack: FC<HackathonTrackProps> = ({ form, config }) => {
     <FormRadio
       name="tracks"
       form={form}
-      label={'Which Prize Track Do You Belong To' + requiredTag}
+      label={'Which Sector Do You Belong To' + requiredTag}
       multiple
       className="flex-wrap justify-start"
     >
