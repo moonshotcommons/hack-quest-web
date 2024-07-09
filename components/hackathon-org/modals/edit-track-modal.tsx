@@ -77,7 +77,7 @@ const formSchema = baseSchema.superRefine((data, ctx) => {
         code: z.ZodIssueCode.custom,
         message: 'Distribution rule is required'
       });
-    } else if (data.rule.length > 600) {
+    } else if (data.rule.length > 6000) {
       ctx.addIssue({
         path: ['rule'],
         code: z.ZodIssueCode.custom,
