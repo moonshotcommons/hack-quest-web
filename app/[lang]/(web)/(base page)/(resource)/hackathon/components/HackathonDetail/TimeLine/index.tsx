@@ -17,10 +17,12 @@ interface TimeLineProp {
 const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getStepIndex } = useDealHackathonData();
+  const { getStepIndex, getHackathonTimeSame } = useDealHackathonData();
+  const isSame = getHackathonTimeSame(hackathon);
   const stepIndex = useMemo(() => {
     return isEdit ? 0 : getStepIndex(hackathon);
   }, [isEdit]);
+
   return (
     <EditBox title={'hackathonDetail.timeline'} type={HackathonEditModalType.TIMELINE}>
       <div className="relative flex items-center justify-between ">
@@ -32,28 +34,43 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
         ></div>
         {hackathonDetailTimeLine.map((v, i) => (
           <div className="flex w-[200px] flex-col items-center" key={v.key}>
-            <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
-              {t(`hackathonDetail.${v.key}`)}
-            </p>
-            <div className="mt-[4px] flex h-[44px] flex-col justify-center">
-              <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
-                {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
-                  .tz()
-                  .format('MMM D,YYYY H:mm')}
-                (GMT+8)
-              </p>
-              {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] &&
-                !dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType]).isSame(
-                  hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType]
-                ) && (
+            {isSame ? (
+              <>
+                <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
+                  {t(`hackathonDetail.${v.key}Time`)}
+                </p>
+                <div className="mt-[4px] flex h-[44px] flex-col justify-center">
                   <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
-                    {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
+                    {dayjs(hackathon?.timeline?.[v.time[i === 1 ? 1 : 0] as HackathonTimeLineKeyType])
                       .tz()
                       .format('MMM D,YYYY H:mm')}
                     (GMT+8)
                   </p>
-                )}
-            </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
+                  {t(`hackathonDetail.${v.key}`)}
+                </p>
+                <div className="mt-[4px] flex h-[44px] flex-col justify-center">
+                  <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                    {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
+                      .tz()
+                      .format('MMM D,YYYY H:mm')}
+                    (GMT+8)
+                  </p>
+                  {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] && (
+                    <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                      {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
+                        .tz()
+                        .format('MMM D,YYYY H:mm')}
+                      (GMT+8)
+                    </p>
+                  )}
+                </div>
+              </>
+            )}
 
             <div
               className={`flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed  ${i === stepIndex ? 'border-neutral-rich-gray' : 'border-transparent'}`}
