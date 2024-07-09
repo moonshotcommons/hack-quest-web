@@ -2,11 +2,6 @@ import moment from 'moment';
 import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
-import { initDetailNavs, initEditNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
-import {
-  AddSectionType,
-  HackathonEditModalType
-} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
