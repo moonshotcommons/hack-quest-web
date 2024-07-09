@@ -10,7 +10,6 @@ import FAQs from '../../components/HackathonDetail/FAQs';
 import DetailInfo from '../../components/HackathonDetail/DetailInfo';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import Description from '../../components/HackathonDetail/Decription';
-import RewardsProjects from '../../components/HackathonDetail/RewardsProjects';
 import { initMobileDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import EditNav from '../../components/HackathonDetail/EditNav';
@@ -29,7 +28,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const { dealModalList, getStepIndex } = useDealHackathonData();
+  const { getHackathonNavList } = useDealHackathonData();
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
     isOnScoll.current = true;
@@ -70,31 +69,14 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
       }
     }, 150);
   };
-
+  const index = 1;
   const navList = useMemo(() => {
-    // const index = getStepIndex(hackathon);
-    const index = 1;
-    const addList = dealModalList(hackathon)
-      .filter((v) => v.added)
-      .map((v) => ({
-        label: `hackathonDetail.${v.type}`,
-        value: v.type
-      }));
-    const list = [...initMobileDetailNavs, ...addList];
-    const rewards =
-      index < 2
-        ? {
-            label: 'hackathonDetail.rewards',
-            value: 'rewards'
-          }
-        : {
-            label: 'hackathonDetail.rewardsAndProjects',
-            value: 'rewardsAndProjects'
-          };
-    list.splice(3, 0, rewards);
-    return list;
+    return getHackathonNavList({
+      hackathon,
+      isDetail: true,
+      initNavs: initMobileDetailNavs
+    });
   }, [hackathon]);
-
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
@@ -106,28 +88,25 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
         <div className="relative flex flex-col gap-[3.75rem]  pt-[1.25rem]" ref={contentRef}>
           <DetailInfo hackathon={hackathon} />
           <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
-          <Description hackathon={hackathon} />
           <TimeLine hackathon={hackathon} />
-          {navList.some((v) => v.value === 'rewards') ? (
-            <Rewards hackathon={hackathon} />
-          ) : (
-            <RewardsProjects hackathon={hackathon} />
-          )}
-          {hackathon.judge?.length > 0 ? (
-            <Judging hackathon={hackathon} />
-          ) : (
-            <ThemeResource hackathon={hackathon} type="criteria" />
-          )}
+          {navList.some((v) => v.value === 'description') && <Description hackathon={hackathon} />}
+          {navList.some((v) => v.value === 'rewards') && <Rewards hackathon={hackathon} />}
+          {navList.some((v) => v.value === 'judge') &&
+            (hackathon.judge?.length > 0 ? (
+              <Judging hackathon={hackathon} />
+            ) : (
+              <ThemeResource hackathon={hackathon} type="criteria" />
+            ))}
+          {navList.some((v) => v.value === 'coHosts') && <PartnersBox hackathon={hackathon} type="coHosts" />}
+          {navList.some((v) => v.value === 'theme') && <ThemeResource hackathon={hackathon} type="theme" />}
+          {navList.some((v) => v.value === 'resource') && <ThemeResource hackathon={hackathon} type="resource" />}
           <PartnersBox hackathon={hackathon} type="mediaPartners" />
           <PartnersBox hackathon={hackathon} type="communityPartners" />
           <PartnersBox hackathon={hackathon} type="partners" />
-          <PartnersBox hackathon={hackathon} type="coHosts" />
           <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
           <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
           <Schedule hackathon={hackathon} />
           <FAQs hackathon={hackathon} />
-          <ThemeResource hackathon={hackathon} type="theme" />
-          <ThemeResource hackathon={hackathon} type="resource" />
         </div>
       )}
     </div>

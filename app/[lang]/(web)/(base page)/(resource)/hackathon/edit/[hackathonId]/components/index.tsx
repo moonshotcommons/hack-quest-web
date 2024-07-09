@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
@@ -22,6 +22,8 @@ import HandleEditModal from '../../../components/HackathonDetail/HandleEditModal
 import { OffsetTopsType } from '../../../constants/type';
 import EditInfo from '../../../components/HackathonDetail/EditInfo';
 import ViewButton from '../../../components/HackathonDetail/ViewButton';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import { initEditNavs } from '../../../constants/data';
 
 interface HackathonEditDetailProp {
   hackathon: HackathonType;
@@ -36,6 +38,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const { getHackathonNavList } = useDealHackathonData();
   const { run: refreshHackathon, loading } = useRequest(
     async () => {
       const res = await webApi.resourceStationApi.getHackathonDetail(hackathon.id);
@@ -87,6 +90,14 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
     }, 150);
   };
 
+  const navList = useMemo(() => {
+    return getHackathonNavList({
+      hackathon,
+      isDetail: false,
+      initNavs: initEditNavs
+    });
+  }, [hackathon]);
+
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
@@ -97,7 +108,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
       <Loading loading={loading}>
         <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScoll}>
           <div className="container relative mx-auto pb-[80px] pt-[40px]">
-            <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} />
+            <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
             <div className="relative flex justify-between pt-[60px]">
               <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full" ref={contentRef}>
                 <Cover hackathon={hackathon} />

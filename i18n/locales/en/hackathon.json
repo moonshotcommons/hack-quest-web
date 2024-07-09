@@ -119,7 +119,11 @@
     "venue": "Venue Education & Partner",
     "trackPartner": "Track Partner",
     "viewTeamProject": "View team project",
-    "registrationData": "Registration Data"
+    "registrationData": "Registration Data",
+
+
+    "backToEdit":"Back to Edit",
+    "proceedToPreview":"Proceed to Preview"
   },
   "projectsDetail": {
     "title": {

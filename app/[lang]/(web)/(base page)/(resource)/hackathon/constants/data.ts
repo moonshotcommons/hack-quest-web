@@ -96,19 +96,11 @@ export const initEditNavs = [
 export const initDetailNavs = [
   {
     label: 'hackathonDetail.cover',
-    value: 'cover'
+    value: ''
   },
   {
     label: 'hackathonDetail.timeline',
     value: 'timeline'
-  },
-  {
-    label: 'hackathonDetail.description',
-    value: 'description'
-  },
-  {
-    label: 'hackathonDetail.judge',
-    value: 'judging'
   }
 ];
 
@@ -118,16 +110,8 @@ export const initMobileDetailNavs = [
     value: 'overview'
   },
   {
-    label: 'hackathonDetail.description',
-    value: 'description'
-  },
-  {
     label: 'hackathonDetail.timeline',
     value: 'timeline'
-  },
-  {
-    label: 'hackathonDetail.judge',
-    value: 'judging'
   }
 ];
 
