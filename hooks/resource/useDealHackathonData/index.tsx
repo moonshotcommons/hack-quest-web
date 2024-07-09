@@ -2,6 +2,11 @@ import moment from 'moment';
 import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
+import { initDetailNavs, initEditNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
+import {
+  AddSectionType,
+  HackathonEditModalType
+} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -101,6 +106,71 @@ const useDealHackathonData = () => {
     };
   };
 
+  const getHackathonNavList = ({
+    hackathon,
+    isDetail = false,
+    initNavs
+  }: {
+    hackathon: HackathonType;
+    isDetail?: boolean;
+    initNavs: {
+      label: string;
+      value: string;
+    }[];
+  }) => {
+    let list = [...initNavs];
+    if (isDetail) {
+      if (
+        (typeof hackathon.info?.description === 'string' && hackathon.info?.description) ||
+        hackathon.info?.description?.length
+      ) {
+        list.push({
+          label: 'hackathonDetail.description',
+          value: 'description'
+        });
+      }
+      if (hackathon.rewards?.length) {
+        list.push({
+          label: 'hackathonDetail.rewards',
+          value: 'rewards'
+        });
+      }
+      if (hackathon.judge?.length || hackathon.info?.sections?.criteria?.length) {
+        list.push({
+          label: 'hackathonDetail.judge',
+          value: 'judge'
+        });
+      }
+      if (hackathon.info?.sections?.coHosts?.list?.length) {
+        list.push({
+          label: 'hackathonDetail.coHosts',
+          value: 'coHosts'
+        });
+      }
+      if (hackathon.info?.sections?.theme?.length) {
+        list.push({
+          label: 'hackathonDetail.theme',
+          value: 'theme'
+        });
+      }
+      if (hackathon.info?.sections?.resource?.length) {
+        list.push({
+          label: 'hackathonDetail.resource',
+          value: 'resource'
+        });
+      }
+    }
+    const addList = dealModalList(hackathon)
+      .filter((v) => v.added)
+      .map((v) => ({
+        label: hackathon.info?.sections?.[v.type]?.title || ` hackathonDetail.${v.type}`,
+        value: v.type
+      }));
+
+    list = [...list, ...addList];
+    return list;
+  };
+
   return {
     getRunFromTime,
     getCloseInTime,
@@ -108,7 +178,8 @@ const useDealHackathonData = () => {
     getTotalPrize,
     getStepIndex,
     dealModalList,
-    getSectionProgress
+    getSectionProgress,
+    getHackathonNavList
   };
 };
 

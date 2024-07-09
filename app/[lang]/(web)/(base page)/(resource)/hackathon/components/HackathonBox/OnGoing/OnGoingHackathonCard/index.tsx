@@ -163,7 +163,6 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
         setLoading(false);
       });
   };
-
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -203,7 +202,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
                 }}
               >
                 <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>
-                <div className="relative flex h-[36px] items-center gap-[8px] text-[24px] text-neutral-off-black underline underline">
+                <div className="relative flex h-[36px] items-center gap-[8px] text-[24px] text-neutral-off-black underline">
                   <FiDownload />
                   <span>Download</span>
                 </div>
@@ -213,7 +212,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
             <>
               <div>
                 <p className="mb-[8px]">{t('totalPrize')}</p>
-                <p className="body-xl-bold text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
+                <p className="body-xl-bold text-neutral-off-black">{`${separationNumber(totalPrize || 0)} ${hackathon.rewards?.[0]?.currency || 'USD'}`}</p>
               </div>
               <div className="w-[40%]">
                 <p className="mb-[8px]">{t('host')}</p>

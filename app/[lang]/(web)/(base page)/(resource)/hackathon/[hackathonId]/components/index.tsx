@@ -30,7 +30,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const { dealModalList, getStepIndex } = useDealHackathonData();
+  const { getHackathonNavList } = useDealHackathonData();
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
     isOnScoll.current = true;
@@ -69,35 +69,22 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
       }
     }, 150);
   };
+  // const index = getStepIndex(hackathon);
+  const index = 1;
 
   const navList = useMemo(() => {
-    // const index = getStepIndex(hackathon);
-    const index = 1;
-    const addList = dealModalList(hackathon)
-      .filter((v) => v.added)
-      .map((v) => ({
-        label: `hackathonDetail.${v.type}`,
-        value: v.type
-      }));
-    const list = [...initDetailNavs, ...addList];
-    const rewards =
-      index < 2
-        ? {
-            label: 'hackathonDetail.rewards',
-            value: 'rewards'
-          }
-        : {
-            label: 'hackathonDetail.rewardsAndProjects',
-            value: 'rewardsAndProjects'
-          };
-    list.splice(3, 0, rewards);
-    return list;
+    return getHackathonNavList({
+      hackathon,
+      isDetail: true,
+      initNavs: initDetailNavs
+    });
   }, [hackathon]);
+
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
     }, 300);
-  }, []);
+  }, [hackathon]);
   return (
     <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScoll}>
       <div className="container relative mx-auto pb-[80px] pt-[40px]">
@@ -106,27 +93,24 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full" ref={contentRef}>
             <Cover hackathon={hackathon} />
             <TimeLine hackathon={hackathon} />
-            <Description hackathon={hackathon} />
-            {navList.some((v) => v.value === 'rewards') ? (
-              <Rewards hackathon={hackathon} />
-            ) : (
-              <RewardsProjects hackathon={hackathon} />
-            )}
-            {hackathon.judge?.length > 0 ? (
-              <Judging hackathon={hackathon} />
-            ) : (
-              <ThemeResource hackathon={hackathon} type="criteria" />
-            )}
+            {navList.some((v) => v.value === 'description') && <Description hackathon={hackathon} />}
+            {navList.some((v) => v.value === 'rewards') && <Rewards hackathon={hackathon} />}
+            {navList.some((v) => v.value === 'judge') &&
+              (hackathon.judge?.length > 0 ? (
+                <Judging hackathon={hackathon} />
+              ) : (
+                <ThemeResource hackathon={hackathon} type="criteria" />
+              ))}
+            {navList.some((v) => v.value === 'coHosts') && <PartnersBox hackathon={hackathon} type="coHosts" />}
+            {navList.some((v) => v.value === 'theme') && <ThemeResource hackathon={hackathon} type="theme" />}
+            {navList.some((v) => v.value === 'resource') && <ThemeResource hackathon={hackathon} type="resource" />}
             <PartnersBox hackathon={hackathon} type="mediaPartners" />
             <PartnersBox hackathon={hackathon} type="communityPartners" />
             <PartnersBox hackathon={hackathon} type="partners" />
-            <PartnersBox hackathon={hackathon} type="coHosts" />
             <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
             <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
             <Schedule hackathon={hackathon} />
             <FAQs hackathon={hackathon} />
-            <ThemeResource hackathon={hackathon} type="theme" />
-            <ThemeResource hackathon={hackathon} type="resource" />
           </div>
           <div className="relative w-[39%]">
             <div className="sticky left-0 top-[106px]">

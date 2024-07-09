@@ -70,7 +70,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
                 </div>
                 <div>
                   <p className="mb-[.25rem]">{t('totalPrize')}</p>
-                  <p className=" text-neutral-off-black">${separationNumber(totalPrize || 0)}</p>
+                  <p className=" text-neutral-off-black">{`${separationNumber(totalPrize || 0)} ${hackathon.rewards?.[0]?.currency || 'USD'}`}</p>
                 </div>
                 <div className="w-[33%]">
                   <p className="mb-[.25rem]">{t('host')}</p>

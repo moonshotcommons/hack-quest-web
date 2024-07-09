@@ -8,19 +8,15 @@ import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 interface EditNavProp {
   curAnchorIndex: number;
   handleClickAnchor: (index: number) => void;
-  navList?: HackathonEditNavType[];
+  navList: HackathonEditNavType[];
 }
 
 const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, navList }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { navs: n } = useContext(HackathonEditContext);
-  const navs = useMemo(() => {
-    return navList?.length ? navList : n;
-  }, [navList, n]);
   useEffect(() => {
     handleClickAnchor(0);
-  }, [navs]);
+  }, [navList]);
   return (
     <div className="sticky left-0 top-[20px] z-[2]">
       <SlideHighlight
@@ -28,10 +24,10 @@ const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, nav
         type="LEARNING_TRACK"
         currentIndex={curAnchorIndex}
       >
-        {navs.map((v, i) => (
+        {navList.map((v, i) => (
           <div
             key={v.value}
-            className={`flex h-full cursor-pointer items-center  ${curAnchorIndex === i ? 'body-m-bold text-neutral-off-black' : 'body-m text-neutral-medium-gray'}`}
+            className={`h-full cursor-pointer items-center  ${curAnchorIndex === i ? 'body-m-bold text-neutral-off-black' : 'body-m text-neutral-medium-gray'} ${v.value ? 'flex' : 'hidden'}`}
             onClick={() => handleClickAnchor(i)}
           >
             {t(v.label)}
