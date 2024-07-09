@@ -135,7 +135,7 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
                 e.preventDefault();
                 onSubmit(form.getValues());
               }}
-              // disabled={!form.formState.isValid}
+              disabled={!form.formState.isValid}
             >
               {isRegister ? 'update' : 'Save'} And Next
             </Button>

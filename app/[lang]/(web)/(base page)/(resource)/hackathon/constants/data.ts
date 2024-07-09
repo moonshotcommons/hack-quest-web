@@ -166,8 +166,8 @@ export const faqsFormSchema = z.object({
     .min(1, {
       message: 'Answer is a required input.'
     })
-    .max(360, {
-      message: 'Answer cannot exceed 360 characters.'
+    .max(6000, {
+      message: 'Answer cannot exceed 6000 characters.'
     })
 });
 
