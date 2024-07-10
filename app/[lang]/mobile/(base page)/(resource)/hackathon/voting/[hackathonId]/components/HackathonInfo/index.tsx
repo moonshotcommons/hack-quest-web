@@ -81,7 +81,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   return (
     <div className="mt-[-2rem]  flex flex-col  gap-[1.25rem] text-neutral-off-black">
       <Link
-        href={`${MenuLink.HACKATHON}/${hackathon.id}`}
+        href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`}
         className="flex items-center justify-between gap-[1.25rem] rounded-[8px] bg-neutral-white p-[1rem] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
       >
         <h1 className="text-h3-mob ">{hackathon.name}</h1>

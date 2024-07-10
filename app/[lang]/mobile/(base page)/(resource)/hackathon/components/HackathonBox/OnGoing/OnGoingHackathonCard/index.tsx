@@ -34,7 +34,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
   const { redirectToUrl } = useRedirect();
   const goHackathonDetail = () => {
     BurialPoint.track(`hackathon onGoingCard 点击`);
-    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+    redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   };
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);

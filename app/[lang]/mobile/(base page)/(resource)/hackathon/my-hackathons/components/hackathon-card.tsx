@@ -30,7 +30,7 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const isEnded = status === 'ended' || status === 'missed';
 
   function goHackathonDetail() {
-    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+    redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   }
 
   return (

@@ -16,7 +16,7 @@ const NoData: React.FC<NoDataType> = () => {
   return (
     <div className="flex flex-col items-center pb-[100px] ">
       <p className="text-h3 text-neutral-off-black">{t('noGoingHackahton')}</p>
-      <Link href={getSearchParamsUrl({ curTab: HackathonStatusType.PAST }, MenuLink.HACKATHON)}>
+      <Link href={getSearchParamsUrl({ curTab: HackathonStatusType.PAST }, MenuLink.EXPLORE_HACKATHON)}>
         <Button
           type="primary"
           className="body-l mb-[20px] mt-[30px] h-[55px] w-[360px] uppercase text-neutral-off-black"

@@ -29,7 +29,7 @@ export const moreRoursesData: MoreReourceType[] = [
   },
   {
     type: 'hackathon',
-    link: MenuLink.HACKATHON,
+    link: MenuLink.EXPLORE_HACKATHON,
     icon: HackathonIcon
   },
   {

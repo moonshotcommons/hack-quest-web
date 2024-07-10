@@ -9,29 +9,29 @@ import HackathonEditDetail from './components';
 
 interface HackathonIdProps {
   params: {
-    hackathonId: string;
+    alias: string;
     lang: string;
   };
 }
 
 export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
-  const { lang, hackathonId } = params;
+  const { lang, alias } = params;
   return {
-    title: hackathonId,
+    title: alias,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON_ORGANIZER}/${params.hackathonId}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON_ORGANIZER}/${params.alias}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_ORGANIZER}/${params.hackathonId}`,
-        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_ORGANIZER}/${params.hackathonId}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.HACKATHON_ORGANIZER}/${params.hackathonId}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_ORGANIZER}/${params.alias}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_ORGANIZER}/${params.alias}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.HACKATHON_ORGANIZER}/${params.alias}`
       }
     }
   };
 }
 
 const HackahtonEditPage: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
-  const hackathon = await getHackathonById(params.hackathonId);
-  if (isUuid(params.hackathonId)) {
+  const hackathon = await getHackathonById(params.alias);
+  if (isUuid(params.alias)) {
     permanentRedirect(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
   }
   return (

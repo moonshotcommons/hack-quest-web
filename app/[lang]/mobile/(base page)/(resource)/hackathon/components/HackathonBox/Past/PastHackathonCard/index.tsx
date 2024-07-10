@@ -25,7 +25,11 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting }) 
   const totalPrize = getTotalPrize(hackathon.rewards);
   return (
     <Link
-      href={isVoting ? `${MenuLink.HACKATHON_VOTING}/${hackathon.alias}` : `${MenuLink.HACKATHON}/${hackathon.alias}`}
+      href={
+        isVoting
+          ? `${MenuLink.HACKATHON_VOTING}/${hackathon.alias}`
+          : `${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`
+      }
       className="block w-full"
     >
       <div className="card-hover flex h-[7.5rem] overflow-hidden rounded-[.75rem] bg-neutral-white ">
