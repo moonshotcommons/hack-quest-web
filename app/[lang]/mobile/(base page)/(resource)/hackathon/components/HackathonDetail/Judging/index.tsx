@@ -38,7 +38,9 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
               <div className="flex flex-col gap-[.75rem] [&>div]:flex [&>div]:items-center [&>div]:justify-between">
                 <div>
                   <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
-                  <div className="mt-[0.25rem] whitespace-pre-line text-neutral-rich-gray">{judge?.criteria}</div>
+                  <div className="mt-[0.25rem] whitespace-pre-line text-neutral-rich-gray">
+                    {judge?.criteria?.replaceAll('\\n', '\n')}
+                  </div>
                 </div>
                 {judge?.judgeMode && (
                   <div>
