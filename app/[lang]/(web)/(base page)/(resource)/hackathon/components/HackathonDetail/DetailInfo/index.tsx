@@ -4,7 +4,6 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
-import { HackathonEditModalType } from '../../../constants/type';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import Link from 'next/link';
@@ -38,10 +37,14 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const stepIndex = getStepIndex(hackathon);
   const links = useMemo(() => {
     const keys = Object.keys(hackathon.links?.links || {}) || [];
-    const ls = keys.map((k) => ({
-      icon: thirdPartyMedia[k as 'x'].icon,
-      link: hackathon.links?.links?.[k]
-    }));
+    const ls: Record<string, any>[] = [];
+    keys.map((k) => {
+      hackathon.links?.links?.[k] &&
+        ls.push({
+          icon: thirdPartyMedia[k as 'x'].icon,
+          link: hackathon.links?.links?.[k]
+        });
+    });
     return ls || [];
   }, [hackathon]);
   const handleSubmit = (id: string) => {
@@ -175,7 +178,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     }
   };
   return (
-    <EditBox title={'hackathonDetail.info'} type={HackathonEditModalType.INFO} className="relative overflow-hidden">
+    <EditBox className="relative overflow-hidden">
       <div className={`body-m flex flex-col gap-[16px]  text-neutral-off-black ${tipsRender() ? 'pt-[32px]' : ''}`}>
         {tipsRender()}
         <div>
