@@ -14,7 +14,6 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from './WarningModal';
 import Image from 'next/image';
-import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
@@ -48,10 +47,14 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   );
   const links = useMemo(() => {
     const keys = Object.keys(hackathon.links?.links || {}) || [];
-    const ls = keys.map((k) => ({
-      icon: thirdPartyMedia[k as 'x'].icon,
-      link: hackathon.links?.links?.[k]
-    }));
+    const ls: Record<string, any>[] = [];
+    keys.map((k) => {
+      hackathon.links?.links?.[k] &&
+        ls.push({
+          icon: thirdPartyMedia[k as 'x'].icon,
+          link: hackathon.links?.links?.[k]
+        });
+    });
     return ls || [];
   }, [hackathon]);
 
@@ -173,7 +176,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     }
   };
   return (
-    <EditBox type={HackathonEditModalType.INFO} className="relative rounded-[0] border-none bg-transparent p-0">
+    <EditBox className="relative rounded-[0] border-none bg-transparent p-0">
       <div className={`body-s flex flex-col gap-[1.25rem]  text-neutral-off-black`}>
         <img src={hackathon?.info?.image} alt={hackathon.name} className="w-full" />
         {tipsRender()}
