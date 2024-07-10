@@ -52,14 +52,14 @@ function CourseSkeleton() {
   );
 }
 
-function CourseEmpty({ label }: { label: string }) {
+function CourseEmpty({ label, href = '/electives' }: { label: string; href?: string }) {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col items-center gap-4 py-8">
         <h2 className="text-base font-bold text-neutral-black sm:text-lg">{label}</h2>
-        <Link href="/electives">
+        <Link href={href}>
           <Button size="small" ghost className="h-8 w-[8.75rem] uppercase">
             {t('explore')}
           </Button>
@@ -246,6 +246,7 @@ export function DashboardCourses() {
             data.map((item) => <LearningTrack key={item.id} item={item} />)
           ) : (
             <CourseEmpty
+              href="/learning-track"
               label={
                 value === 'inProcess'
                   ? t('enrolled_empty', { name: t('learning_track') })
