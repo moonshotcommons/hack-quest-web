@@ -38,7 +38,7 @@ export const hackathonDetailTimeLine = [
     time: ['registrationOpen', 'registrationClose']
   },
   {
-    key: 'submissions',
+    key: 'submission',
     time: ['submissionOpen', 'submissionClose']
   },
   {
