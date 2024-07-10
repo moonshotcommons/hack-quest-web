@@ -165,8 +165,6 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       return null;
     }
   };
-  console.info(hackathon);
-  console.info(userInfo);
   return (
     <EditBox className="relative overflow-hidden">
       <div className={`body-m flex flex-col gap-[16px]  text-neutral-off-black ${tipsRender() ? 'pt-[32px]' : ''}`}>
