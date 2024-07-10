@@ -2,6 +2,8 @@ import moment from 'moment';
 import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
+import webApi from '@/service';
+import { exportToExcel } from '@/helper/utils';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -158,12 +160,44 @@ const useDealHackathonData = () => {
     const addList = dealModalList(hackathon)
       .filter((v) => v.added)
       .map((v) => ({
-        label: hackathon.info?.sections?.[v.type]?.title || ` hackathonDetail.${v.type}`,
+        label: hackathon.info?.sections?.[v.type]?.title || `hackathonDetail.${v.type}`,
         value: v.type
       }));
 
     list = [...list, ...addList];
     return list;
+  };
+
+  const hackathonDownload = (id: string, cb: VoidFunction) => {
+    webApi.resourceStationApi
+      .getHackathonDetail(id)
+      .then((hackathon) => {
+        const memberDatas: Record<string, any>[] = [];
+        hackathon.members?.map((v) => {
+          v.info = v.info || {};
+          const info: Record<string, any> = {};
+          for (let infoKey in v.info) {
+            const iKey = infoKey as keyof typeof v.info;
+            const vInfo = v.info[iKey];
+            for (let dataKey in vInfo) {
+              const dKey = dataKey as keyof typeof vInfo;
+              info[dataKey] = vInfo[dKey];
+            }
+          }
+          memberDatas.push(info);
+        });
+        exportToExcel(memberDatas, `${hackathon.name} members`);
+      })
+      .finally(() => {
+        cb();
+      });
+  };
+
+  const getHackathonTimeSame = (hackathon: HackathonType) => {
+    const timeline = hackathon.timeline;
+    if (!timeline) return false;
+    const { registrationOpen, registrationClose, submissionOpen, submissionClose } = timeline;
+    return registrationOpen === submissionOpen && registrationClose === submissionClose;
   };
 
   return {
@@ -174,7 +208,9 @@ const useDealHackathonData = () => {
     getStepIndex,
     dealModalList,
     getSectionProgress,
-    getHackathonNavList
+    getHackathonNavList,
+    hackathonDownload,
+    getHackathonTimeSame
   };
 };
 

@@ -47,7 +47,7 @@ export function CoverForm({
   const [removeLoading, toggleRemoveLoading] = useToggle(false);
   const [imageUrl, setImageUrl] = React.useState<string>('');
 
-  const { updateStatus, onStepChange } = useHackathonOrgState();
+  const { onStepChange } = useHackathonOrgState();
 
   const queryClient = useQueryClient();
 
@@ -102,17 +102,6 @@ export function CoverForm({
       setImageUrl(initialValues?.info?.image || '');
     }
   }, [initialValues?.info?.image]);
-
-  // React.useEffect(() => {
-  //   if (!isEditMode) {
-  //     if (imageUrl) {
-  //       updateStatus(Steps.COVER, true);
-  //     } else {
-  //       updateStatus(Steps.COVER, false);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [imageUrl, isEditMode]);
 
   const imagePreview = (
     <div className="relative mb-10 mt-1 h-[409px] w-full overflow-hidden rounded-[10px]">

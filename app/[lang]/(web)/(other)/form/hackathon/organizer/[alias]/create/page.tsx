@@ -49,7 +49,7 @@ export default function Page() {
       updateStatus(item, true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data?.progress]);
 
   React.useEffect(() => {
     return () => {
@@ -93,12 +93,7 @@ export default function Page() {
             </Link>
           </p>
         </div>
-        <Button
-          isLoading={isPending}
-          disabled={currentStep(step) !== STEP_ITEMS.length && !enabled}
-          className="w-60"
-          onClick={goToHackathonDetailPage}
-        >
+        <Button isLoading={isPending} disabled={!enabled} className="w-60" onClick={goToHackathonDetailPage}>
           finish setup {(data?.progress.length || 0) > 8 ? 8 : data?.progress.length}/8
         </Button>
       </div>
