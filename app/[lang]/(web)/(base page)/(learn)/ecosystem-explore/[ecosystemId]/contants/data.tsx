@@ -4,7 +4,7 @@ import GlossaryIcon from '@/public/images/learn/icon_bounty.png';
 export const resourceData = [
   {
     title: 'explore.hackathon',
-    link: MenuLink.HACKATHON,
+    link: MenuLink.EXPLORE_HACKATHON,
     image: HackathonIcon
   },
   {

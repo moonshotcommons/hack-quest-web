@@ -1,20 +1,20 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import TimeLine from '../../components/HackathonDetail/TimeLine';
-import Judging from '../../components/HackathonDetail/Judging';
-import PartnersBox from '../../components/HackathonDetail/PartnersBox';
-import SpeakersSponsorsBox from '../../components/HackathonDetail/SpeakersSponsorsBox';
-import Schedule from '../../components/HackathonDetail/Schedule';
-import FAQs from '../../components/HackathonDetail/FAQs';
-import DetailInfo from '../../components/HackathonDetail/DetailInfo';
+import TimeLine from '../../../components/HackathonDetail/TimeLine';
+import Judging from '../../../components/HackathonDetail/Judging';
+import PartnersBox from '../../../components/HackathonDetail/PartnersBox';
+import SpeakersSponsorsBox from '../../../components/HackathonDetail/SpeakersSponsorsBox';
+import Schedule from '../../../components/HackathonDetail/Schedule';
+import FAQs from '../../../components/HackathonDetail/FAQs';
+import DetailInfo from '../../../components/HackathonDetail/DetailInfo';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import Description from '../../components/HackathonDetail/Decription';
+import Description from '../../../components/HackathonDetail/Decription';
 import { initMobileDetailNavs } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
-import EditNav from '../../components/HackathonDetail/EditNav';
-import Rewards from '../../components/HackathonDetail/Rewards';
-import ThemeResource from '../../components/HackathonDetail/ThemeResource';
+import EditNav from '../../../components/HackathonDetail/EditNav';
+import Rewards from '../../../components/HackathonDetail/Rewards';
+import ThemeResource from '../../../components/HackathonDetail/ThemeResource';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;

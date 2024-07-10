@@ -16,7 +16,6 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getLinks } = useDealHackathonData();
   const links = getLinks(hackathon);
-  console.info(links);
   const { navs } = useContext(HackathonEditContext);
   if (!navs.some((v) => v.value !== 'links')) return null;
   return (
