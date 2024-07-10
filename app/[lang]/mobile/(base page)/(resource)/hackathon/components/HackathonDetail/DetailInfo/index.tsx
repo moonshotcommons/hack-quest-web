@@ -1,11 +1,10 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import EditBox from '../EditBox';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import Link from 'next/link';
 import Button from '@/components/Common/Button';
 import MenuLink from '@/constants/MenuLink';
@@ -36,7 +35,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getStepIndex } = useDealHackathonData();
+  const { getStepIndex, getLinks } = useDealHackathonData();
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
@@ -45,18 +44,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       setTipsModalOpenState: state.setTipsModalOpenState
     }))
   );
-  const links = useMemo(() => {
-    const keys = Object.keys(hackathon.links?.links || {}) || [];
-    const ls: Record<string, any>[] = [];
-    keys.map((k) => {
-      hackathon.links?.links?.[k] &&
-        ls.push({
-          icon: thirdPartyMedia[k as 'x'].icon,
-          link: hackathon.links?.links?.[k]
-        });
-    });
-    return ls || [];
-  }, [hackathon]);
+  const links = getLinks(hackathon);
 
   const handleRegister = () => {
     if (!userInfo) {
