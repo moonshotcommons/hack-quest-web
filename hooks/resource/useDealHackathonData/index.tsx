@@ -4,6 +4,7 @@ import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
 import { exportToExcel } from '@/helper/utils';
+import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -200,6 +201,20 @@ const useDealHackathonData = () => {
     return registrationOpen === submissionOpen && registrationClose === submissionClose;
   };
 
+  const getLinks = (hackathon: HackathonType) => {
+    const keys = Object.keys(hackathon.links?.links || {}) || [];
+    const ls: Record<string, any>[] = [];
+    keys.map((k) => {
+      hackathon.links?.links?.[k] &&
+        ls.push({
+          icon: thirdPartyMedia[k as 'x'].icon,
+          link: hackathon.links?.links?.[k],
+          label: k
+        });
+    });
+    return ls || [];
+  };
+
   return {
     getRunFromTime,
     getCloseInTime,
@@ -210,7 +225,8 @@ const useDealHackathonData = () => {
     getSectionProgress,
     getHackathonNavList,
     hackathonDownload,
-    getHackathonTimeSame
+    getHackathonTimeSame,
+    getLinks
   };
 };
 
