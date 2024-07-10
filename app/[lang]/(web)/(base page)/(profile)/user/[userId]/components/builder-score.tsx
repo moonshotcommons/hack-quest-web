@@ -4,6 +4,10 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Separator } from '@/components/ui/separator';
 import { CircularProgress } from '@/components/shared/circular-progress';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import Link from 'next/link';
+import { INDICATORS } from '../_constants/index';
+import { MoveRightIcon } from 'lucide-react';
 
 const chartConfig = {
   score: {
@@ -29,7 +33,7 @@ export function BuilderScore() {
       </p>
       <div className="mt-8 flex flex-col gap-8">
         <div className="grid grid-cols-2 gap-8">
-          <ChartContainer config={chartConfig} className="aspect-square">
+          <ChartContainer config={chartConfig} className="aspect-square max-h-[460px]">
             <RadarChart data={chartData}>
               <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
               <PolarAngleAxis dataKey="latitude" />
@@ -58,9 +62,40 @@ export function BuilderScore() {
               </div>
             </div>
             <Separator variant="dashed" />
+            <Accordion type="multiple" className="flex w-full flex-col gap-4">
+              {INDICATORS.map((indicator, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="rounded-2xl px-3 data-[state=open]:bg-neutral-off-white"
+                >
+                  <AccordionTrigger className="py-3">
+                    {indicator.icon}
+                    <span className="ml-3 font-bold text-neutral-off-black">{indicator.title}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="flex flex-col gap-2 px-9">
+                    {indicator.content.map((item, itemIndex) => (
+                      <Link href={item.link} key={itemIndex} className="self-start">
+                        <p className="underline">{item.title}</p>
+                      </Link>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
-        <div>3</div>
+        <div className="w-full rounded-2xl bg-neutral-off-white p-4">
+          <div className="flex flex-col gap-2">
+            <h3 className="font-bold">
+              Want to increase score? Connect with verified web3 platforms to let us know more about you!
+            </h3>
+            <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-neutral-black">
+              Connect Apps
+              <MoveRightIcon size={16} />
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export default function Page() {
     <div className="h-full w-full bg-white">
       <div className="h-60 w-full bg-[url('/images/profile/profile-bg.png')] bg-cover bg-no-repeat grayscale-[50%]" />
       <div className="bg-white">
-        <div className="mx-auto w-full max-w-6xl">
+        <div className="mx-auto w-full max-w-6xl pb-20">
           <div className="relative">
             <div className="absolute -top-8 left-0 h-40 w-40 rounded-full border-4 border-neutral-white bg-neutral-white">
               <div className="relative h-full w-full">
