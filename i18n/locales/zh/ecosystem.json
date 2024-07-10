@@ -37,5 +37,7 @@
   "enrolled_empty": "您还没有加入任何{{name}}",
   "continue": "继续",
   "submitted": "已提交",
-  "learn_more": "了解更多"
+  "learn_more": "了解更多",
+  "learning_tracks": "学习路径",
+  "learning_track": "学习路径"
 }

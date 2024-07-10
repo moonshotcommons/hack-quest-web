@@ -3,14 +3,12 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BookOpenIcon } from 'lucide-react';
+import { BookOpenIcon, CheckIcon } from 'lucide-react';
 import { isMobile } from 'react-device-detect';
 import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
 import webApi from '@/service';
-import { PageResult } from '@/service/webApi/type';
-import { CourseTrackType, CourseType, ProjectCourseType } from '@/service/webApi/course/type';
-import { ElectiveCourseType } from '@/service/webApi/elective/type';
+import { CourseTrackType, CourseType } from '@/service/webApi/course/type';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { CourseDetailType } from '@/service/webApi/course/type';
@@ -20,6 +18,10 @@ import MenuLink from '@/constants/MenuLink';
 import { useTranslation } from '@/i18n/client';
 import { useLang } from '../Provider/Lang';
 import { TransNs } from '@/i18n/config';
+import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
+import CourseTags from '../Web/Business/CourseTags';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { Menu, QueryIdType } from '../Web/Business/Breadcrumb/type';
 
 const coverImageMap: Record<string, { src: string; width: number; height: number }> = {
   [CourseTrackType.DeFi]: {
@@ -140,6 +142,80 @@ export function CourseCard({
   );
 }
 
+function LearningTrack({ item }: { item: LearningTrackDetailType }) {
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
+
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
+
+  const isCompleted = item?.progress === 1;
+
+  const onClick = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const section = item?.sections?.find((v) => (v?.progress || 0) < 1);
+      if (section) {
+        const course = section?.courses?.find((v) => (v?.progress || 0) < 1);
+        if (course)
+          jumpLearningLesson(course, {
+            menu: Menu.LEARNING_TRACK,
+            idTypes: [QueryIdType.LEARNING_TRACK_ID, QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+            ids: [item.id, course.id, course.documentationId!]
+          });
+      }
+    },
+    [item.id, item?.sections, jumpLearningLesson]
+  );
+
+  return (
+    <Link href={`${MenuLink.LEARNING_TRACK}/${item.id}`}>
+      <div className="sm:card-hover relative flex flex-col gap-2 rounded-2xl border border-neutral-light-gray bg-neutral-white sm:h-[203px] sm:flex-row">
+        <div className="relative h-40 w-full overflow-hidden sm:h-full sm:w-[288px]">
+          <Image
+            src={item?.image}
+            alt={item?.name}
+            fill
+            className="rounded-t-2xl object-cover sm:rounded-l-2xl sm:rounded-tr-none"
+          />
+        </div>
+        {isCompleted && (
+          <span className="absolute right-4 top-4 inline-flex h-6 w-6 items-center justify-center rounded-full bg-status-success">
+            <CheckIcon size={18} className="text-neutral-white" />
+          </span>
+        )}
+        <div className="flex flex-1 flex-col gap-4 px-4 py-5">
+          {item?.track && <Badge className="self-start">{item.track}</Badge>}
+          <h1 className="body-m-bold line-clamp-1 text-neutral-off-black">{item?.name}</h1>
+          {isCompleted && <p className="body-s line-clamp-2 text-neutral-medium-gray">{item?.description}</p>}
+          <CourseTags
+            language={item.language}
+            level={item?.level as string}
+            unitCount={item?.courseCount}
+            type="learning-track"
+          />
+          {!isCompleted && (
+            <div className="flex w-full flex-col justify-between gap-4 sm:flex-row sm:gap-0">
+              <Progress value={(item?.progress || 0) * 100} className="sm:max-w-xs">
+                <ProgressLabel>{Math.floor((item?.progress || 0) * 100)}%</ProgressLabel>
+              </Progress>
+              <Button
+                type="primary"
+                loading={loading}
+                onClick={onClick}
+                data-prevent-nprogress={true}
+                className="h-[3.1875rem] w-full uppercase sm:h-12 sm:w-[10.25rem]"
+              >
+                {t('continue')}
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export function DashboardCourses() {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
@@ -147,18 +223,13 @@ export function DashboardCourses() {
 
   const { data, isLoading } = useQuery({
     staleTime: 1000 * 5,
-    queryKey: ['myCourses', value],
-    queryFn: () =>
-      webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({ status: value }),
-    select: ({ data }) => {
-      return data.filter((item) => {
-        return item.type !== CourseType.GUIDED_PROJECT;
-      });
-    }
+    queryKey: ['learningTracks', value],
+    queryFn: () => webApi.learningTrackApi.getLearningTracks({ status: value })
   });
+
   return (
     <div className="rounded-3xl p-6 sm:bg-neutral-white">
-      <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">{t('my_courses')}</h1>
+      <h1 className="font-next-book-bold text-[1.375rem] font-bold text-neutral-off-black">{t('learning_tracks')}</h1>
       <LineTabs
         tabs={[
           { value: 'inProcess', label: t('in_progress') },
@@ -172,13 +243,13 @@ export function DashboardCourses() {
         {isLoading && <CourseSkeleton />}
         {data &&
           (data.length > 0 ? (
-            data.map((item) => <CourseCard type="course" key={item.id} course={item} />)
+            data.map((item) => <LearningTrack key={item.id} item={item} />)
           ) : (
             <CourseEmpty
               label={
                 value === 'inProcess'
-                  ? t('enrolled_empty', { name: t('course') })
-                  : t('completed_empty', { name: t('course') })
+                  ? t('enrolled_empty', { name: t('learning_track') })
+                  : t('completed_empty', { name: t('learning_track') })
               }
             />
           ))}
