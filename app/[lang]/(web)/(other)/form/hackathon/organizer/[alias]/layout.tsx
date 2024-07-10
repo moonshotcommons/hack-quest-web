@@ -13,7 +13,7 @@ export default function Layout({
       <header className="sticky top-0 z-50 h-16  bg-neutral-white">
         <div className="relative flex h-full w-full items-center justify-center">
           <Image src="/images/logo/black-icon-text-logo.svg" width={134} height={16} alt="hackquest" />
-          <Link href={MenuLink.EXPLORE_HACKATHON}>
+          <Link href={MenuLink.HACKATHON_ORGANIZER}>
             <button className="absolute right-10 top-1/2 inline-flex -translate-y-1/2 items-center gap-1.5 text-neutral-off-black outline-none">
               <ExitIcon />
               <span className="body-l">Exit</span>

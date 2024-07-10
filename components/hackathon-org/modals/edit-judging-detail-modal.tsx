@@ -78,6 +78,13 @@ const formSchema = z
           });
         } else {
           if (data.voteMode === 'fixed') {
+            if (!data.judgeTotalVote) {
+              ctx.addIssue({
+                path: ['judgeTotalVote'],
+                code: z.ZodIssueCode.custom,
+                message: 'Field is required'
+              });
+            }
             if (!data.judgeProjectVote) {
               ctx.addIssue({
                 path: ['judgeProjectVote'],
@@ -246,13 +253,14 @@ export function EditJudgingDetailModal({
       } else {
         if (judgeAccounts.length === 0) {
           form.setError('judgeAccount', {
-            message: 'Please enter at least one judge account'
+            message: 'Please add at least one judge account'
           });
           return;
         }
         if (data.voteMode === 'fixed') {
           values = {
             ...values,
+            judgeTotalVote: z.coerce.number().parse(data.judgeTotalVote),
             judgeProjectVote: z.coerce.number().parse(data.judgeProjectVote),
             judgeAccounts: judgeAccounts.map((account) => account.id)
           };
@@ -303,6 +311,7 @@ export function EditJudgingDetailModal({
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
+              judgeTotalVote: z.coerce.string().parse(initialValues?.judgeTotalVote || ''),
               judgeProjectVote: z.coerce.string().parse(initialValues?.judgeProjectVote || '')
             });
           } else {
@@ -500,7 +509,7 @@ export function EditJudgingDetailModal({
                     </FormItem>
                   )}
                 />
-                {judgeMode === 'all' && voteMode === 'fixed' && (
+                {voteMode === 'fixed' && (
                   <FormField
                     control={form.control}
                     name="judgeTotalVote"
