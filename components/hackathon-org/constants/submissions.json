@@ -49,8 +49,8 @@
       "type": "ConnectWallet",
       "title": "Wallet Connect",
       "optional": false,
-      "required": true,
-      "selected": true,
+      "required": false,
+      "selected": false,
       "property": {}
     }
   ],
