@@ -216,6 +216,7 @@ export type HackathonInfoSponsorsKeys = 'speakers' | 'sponsors';
 export type HackathonInfoSPKeys = HackathonInfoParterKeys | HackathonInfoSponsorsKeys;
 export interface HackathonType {
   id: string;
+  creatorId: string;
   name: string;
   info: HackathonInfoType;
   judge: HackathonJudgeType[];
