@@ -37,5 +37,7 @@
   "enrolled_empty": "You’re not enrolled in any {{name}}",
   "continue": "Continue",
   "submitted": "Submitted",
-  "learn_more": "Learn More"
+  "learn_more": "Learn More",
+  "learning_tracks": "Learning Tracks",
+  "learning_track": "learning track"
 }

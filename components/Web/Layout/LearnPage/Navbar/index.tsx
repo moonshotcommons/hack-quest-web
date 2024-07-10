@@ -60,7 +60,7 @@ const NavBar: React.FC<NavBarProps> = () => {
       default:
         return (
           <div className="flex items-center gap-6">
-            {documentationId && documentationId !== 'null' && (
+            {documentationId && documentationId !== 'null' && documentationId !== 'undefined' && (
               <button
                 className="flex items-center gap-2 outline-none"
                 onClick={() => {

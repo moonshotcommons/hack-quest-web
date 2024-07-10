@@ -17,13 +17,14 @@ import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
 import { FiDownload } from 'react-icons/fi';
+import { CiEdit } from 'react-icons/ci';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
-  isDashboard?: boolean;
+  isOrganizer?: boolean;
 }
 
-const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isDashboard }) => {
+const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isOrganizer }) => {
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -35,7 +36,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { redirectToUrl } = useRedirect();
   const goHackathonDetail = () => {
-    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+    redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   };
   const { getTotalPrize, getStepIndex, hackathonDownload } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
@@ -148,9 +149,21 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
       <div className="relative h-full w-[571px] flex-shrink-0 bg-[#d9d9d9]/30">
         <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
-      <div className="flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
-        <div className="flex">
-          <h2 className="text-h3 line-clamp-1 ">{hackathon.name}</h2>
+      <div className="relative flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
+        {isOrganizer && (
+          <div
+            className="absolute right-[20px] top-[20px] rounded-[4px] p-[6px] text-neutral-black transition-all hover:scale-[1.2]"
+            onClick={(e) => {
+              e.stopPropagation();
+              redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
+            }}
+          >
+            <CiEdit size={26} className="" />
+          </div>
+        )}
+
+        <div className="w-[90%]">
+          <h2 className="text-h3 line-clamp-1">{hackathon.name}</h2>
         </div>
         <div className="body-l-bold w-fit rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
           {t('liveNow')}
@@ -165,7 +178,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
             <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
           </div>
 
-          {isDashboard ? (
+          {isOrganizer ? (
             <>
               <div>
                 <p className="mb-[8px]">{t('submittedProjects')}</p>

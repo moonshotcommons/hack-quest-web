@@ -12,12 +12,13 @@ import Button from '@/components/Common/Button';
 import { Badge } from '@/components/ui/badge';
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { CourseDetailType } from '@/service/webApi/course/type';
-import { getCoverImageByTrack } from '@/helper/utils';
-import MenuLink from '@/constants/MenuLink';
+import { cn, getCoverImageByTrack } from '@/helper/utils';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LineTabs } from './line-tabs';
 import { useLang } from '../Provider/Lang';
+import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
+import { QueryIdType } from '../Web/Business/Breadcrumb/type';
 
 function ProjectSkeleton() {
   return (
@@ -32,12 +33,62 @@ function ProjectSkeleton() {
   );
 }
 
-export function ProjectCard({ course }: { course: CourseDetailType }) {
+export function ProjectCard({
+  course,
+  from = 'ecosystem'
+}: {
+  course: CourseDetailType;
+  from?: 'dashboard' | 'ecosystem';
+}) {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
+
+  const getCoursePrefix = React.useCallback(() => {
+    switch (course.type) {
+      case CourseType.SYNTAX:
+      case CourseType.GUIDED_PROJECT:
+      case CourseType.UGC:
+        return 'practices';
+      case CourseType.MINI:
+        return `electives`;
+      default:
+        return '404';
+    }
+  }, [course.type]);
+
+  const { jumpLearningLesson, loading } = useJumpLeaningLesson();
+
+  const onClick = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if ((course?.progress || 0) >= 1) return;
+      console.log('course', course);
+      jumpLearningLesson(course, {
+        menu: getCoursePrefix(),
+        idTypes: [QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
+        ids: [course.id, course.documentationId!]
+      });
+    },
+    [course, getCoursePrefix, jumpLearningLesson]
+  );
+
+  const link = React.useMemo(() => {
+    const prefix = getCoursePrefix();
+    if (prefix === '404') {
+      return '/404';
+    }
+    return `/${prefix}/${course.id}`;
+  }, [course, getCoursePrefix]);
+
   return (
-    <Link href={`${MenuLink.PRACTICES}/${course.id}`}>
-      <div className="flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white transition-all duration-300 sm:hover:-translate-y-1">
+    <Link href={link}>
+      <div
+        className={cn('flex flex-col rounded-2xl border border-neutral-light-gray bg-neutral-white ', {
+          'card-hover': from === 'dashboard',
+          'transition-all duration-300 sm:hover:-translate-y-1': from === 'ecosystem'
+        })}
+      >
         <div className="relative h-40 w-full">
           {course.image ? (
             <Image src={course.image} alt={course.title} fill className="rounded-t-2xl object-cover" />
@@ -53,7 +104,14 @@ export function ProjectCard({ course }: { course: CourseDetailType }) {
           <Progress value={(course.progress || 0) * 100}>
             <ProgressLabel>{Math.floor((course.progress || 0) * 100)}%</ProgressLabel>
           </Progress>
-          <Button ghost={course.progress === 1} type="primary" className="h-12 w-full uppercase">
+          <Button
+            ghost={course.progress === 1}
+            type="primary"
+            loading={loading}
+            onClick={onClick}
+            data-prevent-nprogress={true}
+            className="h-12 w-full uppercase"
+          >
             {course.progress === 1 ? t('completed') : t('continue')}
           </Button>
         </div>
@@ -90,12 +148,10 @@ export function DashboardProjects() {
     refetchOnWindowFocus: false,
     queryFn: () =>
       webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({ status: value }),
-    select: ({ data }) => {
-      return data.filter((item) => {
-        return item.type === CourseType.GUIDED_PROJECT;
-      });
-    }
+    select: ({ data }) => data
   });
+
+  console.log('data', data);
 
   return (
     <div className="rounded-3xl p-6 sm:bg-neutral-white">
@@ -115,7 +171,7 @@ export function DashboardProjects() {
           (data.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {data.map((item) => (
-                <ProjectCard key={item.id} course={item} />
+                <ProjectCard key={item.id} course={item} from="dashboard" />
               ))}
             </div>
           ) : (

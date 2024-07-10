@@ -117,7 +117,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
             size="small"
             ghost
             className="ml-auto w-[11.25rem] uppercase"
-            onClick={() => redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`)}
+            onClick={() => redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${vote.alias}`)}
           >
             learn more
           </Button>

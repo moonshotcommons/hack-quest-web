@@ -1,11 +1,10 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import EditBox from '../EditBox';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import Link from 'next/link';
 import Button from '@/components/Common/Button';
 import MenuLink from '@/constants/MenuLink';
@@ -14,7 +13,6 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from './WarningModal';
 import Image from 'next/image';
-import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
@@ -37,7 +35,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getStepIndex } = useDealHackathonData();
+  const { getStepIndex, getLinks } = useDealHackathonData();
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
@@ -46,14 +44,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       setTipsModalOpenState: state.setTipsModalOpenState
     }))
   );
-  const links = useMemo(() => {
-    const keys = Object.keys(hackathon.links?.links || {}) || [];
-    const ls = keys.map((k) => ({
-      icon: thirdPartyMedia[k as 'x'].icon,
-      link: hackathon.links?.links?.[k]
-    }));
-    return ls || [];
-  }, [hackathon]);
+  const links = getLinks(hackathon);
 
   const handleRegister = () => {
     if (!userInfo) {
@@ -173,7 +164,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     }
   };
   return (
-    <EditBox type={HackathonEditModalType.INFO} className="relative rounded-[0] border-none bg-transparent p-0">
+    <EditBox className="relative rounded-[0] border-none bg-transparent p-0">
       <div className={`body-s flex flex-col gap-[1.25rem]  text-neutral-off-black`}>
         <img src={hackathon?.info?.image} alt={hackathon.name} className="w-full" />
         {tipsRender()}

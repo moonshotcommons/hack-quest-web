@@ -1,10 +1,11 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface LinksProp {
   hackathon: HackathonType;
@@ -13,16 +14,8 @@ interface LinksProp {
 const Links: React.FC<LinksProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const links = useMemo(() => {
-    const keys = Object.keys(hackathon.links?.links || {}) || [];
-    const ls = keys
-      .map((v) => ({
-        label: v,
-        value: hackathon.links?.links?.[v]
-      }))
-      .filter((v) => v.value);
-    return ls || [];
-  }, [hackathon]);
+  const { getLinks } = useDealHackathonData();
+  const links = getLinks(hackathon);
   const { navs } = useContext(HackathonEditContext);
   if (!navs.some((v) => v.value !== 'links')) return null;
   return (
@@ -38,14 +31,16 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
             <p className="mt-[4px] text-neutral-off-black">{hackathon.links?.website}</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">
-          {links.map((v, i) => (
-            <div key={i}>
-              <p className="capitalize">{v.label}</p>
-              <p className="mt-[4px] text-neutral-off-black">{v.value}</p>
-            </div>
-          ))}
-        </div>
+        {links.length > 0 && (
+          <div className="flex flex-wrap gap-x-[80px] gap-y-[24px]">
+            {links.map((v, i) => (
+              <div key={i}>
+                <p className="capitalize">{v.label}</p>
+                <p className="mt-[4px] text-neutral-off-black">{v.link}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </EditBox>
   );
