@@ -35,7 +35,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
                 ))}
               </div>
             ) : (
-              <div className="body-m whitespace-pre-line text-neutral-rich-gray">{v.rule}</div>
+              <div className="body-m whitespace-pre-line text-neutral-rich-gray">{v.rule?.replaceAll('\\n', '\n')}</div>
             )}
           </div>
         </div>
