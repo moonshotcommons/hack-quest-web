@@ -30,6 +30,16 @@
     scroll-behavior: auto !important;
   }
 
+  /* @see https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color */
+  button,
+  textarea,
+  input,
+  select,
+  a {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
   .text-h1 {
     @apply font-next-book-bold text-[3.375rem] font-bold leading-[54px] tracking-normal;
   }
