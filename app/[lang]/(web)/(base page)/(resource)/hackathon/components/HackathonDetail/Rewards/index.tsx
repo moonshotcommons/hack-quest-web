@@ -3,6 +3,8 @@ import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
 import { separationNumber } from '@/helper/utils';
 import { HackathonEditModalType } from '../../../constants/type';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import { createEditor } from '@wangeditor/editor';
 
 interface RewardsProp {
   hackathon: HackathonType;
@@ -34,6 +36,13 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
                   </div>
                 ))}
               </div>
+            ) : v?.rule?.type === TEXT_EDITOR_TYPE ? (
+              <div
+                className="body-m reset-editor-style whitespace-pre-line text-neutral-rich-gray"
+                dangerouslySetInnerHTML={{
+                  __html: createEditor({ content: v?.rule?.content || [] }).getHtml()
+                }}
+              ></div>
             ) : (
               <div className="body-m whitespace-pre-line text-neutral-rich-gray">{v.rule?.replaceAll('\\n', '\n')}</div>
             )}

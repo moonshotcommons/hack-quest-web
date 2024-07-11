@@ -13,6 +13,8 @@ import { ConfirmModal } from '../modals/confirm-modal';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { separationNumber } from '@/helper/utils';
+import { createEditor } from '@wangeditor/editor';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 
 function TrackPreview({ track, refresh }: { track: any; refresh?: () => void }) {
   const [editModalOpen, toggleEditModalOpen] = useToggle(false);
@@ -59,6 +61,13 @@ function TrackPreview({ track, refresh }: { track: any; refresh?: () => void }) 
                 </li>
               ))}
             </ul>
+          ) : track?.rule?.type === TEXT_EDITOR_TYPE ? (
+            <p
+              className="body-m reset-editor-style text-neutral-off-black"
+              dangerouslySetInnerHTML={{
+                __html: createEditor({ content: track?.rule?.content || [] }).getHtml()
+              }}
+            ></p>
           ) : (
             <p className="body-m text-neutral-off-black">{track?.rule}</p>
           )}

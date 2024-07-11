@@ -10,6 +10,7 @@ import { Lang } from '@/i18n/config';
 import 'github-markdown-css/github-markdown.css';
 import WebAppProvider from '@/components/Provider/WebAppProvider';
 import webApi from '@/service';
+
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',

@@ -28,7 +28,12 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
   const form = useForm<FormValueType>({
     resolver: zodResolver(faqsFormArraySchema),
     defaultValues: {
-      items: hackathon.info?.sections?.faqs?.list || []
+      items: (hackathon.info?.sections?.faqs?.list || []).map((v) => {
+        return {
+          ...v,
+          answer: ''
+        };
+      })
     }
   });
 
@@ -55,6 +60,8 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
       }
     });
   };
+
+  // const [temp]
 
   // useEffect(() => {
   //   form.reset({

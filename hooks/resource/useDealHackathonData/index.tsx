@@ -5,6 +5,7 @@ import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
 import { exportToExcel } from '@/helper/utils';
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 
 const useDealHackathonData = () => {
   const getRunFromTime = (startTime: string, endTime: string) => {
@@ -120,7 +121,8 @@ const useDealHackathonData = () => {
     if (isDetail) {
       if (
         (typeof hackathon.info?.description === 'string' && hackathon.info?.description) ||
-        hackathon.info?.description?.length
+        hackathon.info?.description?.length ||
+        hackathon.info?.description?.type === TEXT_EDITOR_TYPE
       ) {
         list.push({
           label: 'hackathonDetail.description',
