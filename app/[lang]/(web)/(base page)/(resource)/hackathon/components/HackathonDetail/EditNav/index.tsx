@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { HackathonEditNavType } from '../../../constants/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
@@ -14,9 +14,6 @@ interface EditNavProp {
 const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, navList }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  useEffect(() => {
-    handleClickAnchor(0);
-  }, [navList]);
   return (
     <div className="sticky left-0 top-[20px] z-[2]">
       <SlideHighlight

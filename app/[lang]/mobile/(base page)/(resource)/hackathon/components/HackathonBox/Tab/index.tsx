@@ -18,8 +18,8 @@ const Tab: React.FC<TabProp> = ({ curTab }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const getUrl = (tab: HackathonStatusType) => {
     return tab === HackathonStatusType.ON_GOING
-      ? `${MenuLink.HACKATHON}/explore`
-      : `${MenuLink.HACKATHON}/explore?curTab=${tab}`;
+      ? `${MenuLink.EXPLORE_HACKATHON}`
+      : `${MenuLink.EXPLORE_HACKATHON}?curTab=${tab}`;
   };
   return (
     <SlideHighlight

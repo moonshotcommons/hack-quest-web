@@ -9,31 +9,31 @@ import HackathonDetail from './components';
 
 interface HackathonIdProps {
   params: {
-    hackathonId: string;
+    alias: string;
     lang: string;
   };
 }
 
 export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
-  const hackathon = await getHackathonById(params.hackathonId);
+  const hackathon = await getHackathonById(params.alias);
   const { lang } = params;
   return {
     title: hackathon.name,
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON}/${params.hackathonId}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.EXPLORE_HACKATHON}/${params.alias}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON}/${params.hackathonId}`,
-        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON}/${params.hackathonId}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.HACKATHON}/${params.hackathonId}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.EXPLORE_HACKATHON}/${params.alias}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.EXPLORE_HACKATHON}/${params.alias}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.EXPLORE_HACKATHON}/${params.alias}`
       }
     }
   };
 }
 
 const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
-  const hackathon = await getHackathonById(params.hackathonId);
-  if (isUuid(params.hackathonId)) {
-    permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+  const hackathon = await getHackathonById(params.alias);
+  if (isUuid(params.alias)) {
+    permanentRedirect(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   }
   return (
     <>

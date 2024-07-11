@@ -21,7 +21,7 @@ const Footer: FC<FooterProps> = ({ otherHackathons }) => {
     <div className={`${view === ViewValue.AGENDA && 'pb-[2rem]'}`}>
       <SliderCard
         title={t('hackathonVoting.otherHackathons')}
-        viewLink={`${MenuLink.HACKATHON}`}
+        viewLink={`${MenuLink.EXPLORE_HACKATHON}`}
         isMobile={true}
         renderItem={(contarinerWidth) => {
           return otherHackathons.map((item) => (

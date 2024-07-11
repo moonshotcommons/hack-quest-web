@@ -6,15 +6,11 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import CourseListPageHeader from '@/components/Web/Business/CourseListPageHeader';
-import Tab from '../Tab';
 import { hackathonDashboardTab } from '../../constants/data';
 import TitleIcon from '@/public/images/hackathon/hackahton_organizer_icon.png';
 import BaseImage from '@/components/Common/BaseImage';
 import Button from '@/components/Common/Button';
-import OnGoing from '../HackathonBox/OnGoing';
-import Past from '../HackathonBox/Past';
 import NoData from './NoData';
-import Draft from '../HackathonBox/Draft';
 import { StartModal } from '@/components/hackathon-org/modals/start-modal';
 import { cloneDeep } from 'lodash-es';
 import dayjs from 'dayjs';
@@ -22,13 +18,17 @@ import { HackathonTabType } from '../../constants/type';
 import TipsModal from './TipsModal';
 import { useUserStore } from '@/store/zustand/userStore';
 import { UserRole } from '@/service/webApi/user/type';
+import Past from '../../components/HackathonBox/Past';
+import Draft from '../../components/HackathonBox/Draft';
+import OnGoing from '../../components/HackathonBox/OnGoing';
+import Tab from '../../components/Tab';
 
-interface DashboardProp {
+interface HackathonOrganizerProp {
   curTab: HackathonStatusType;
   hackathons: HackathonType[];
 }
 
-const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
+const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hackathons: h }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [open, setOpen] = useState(false);
@@ -56,20 +56,6 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
     return hackathon;
   }, [h]);
 
-  // const renderHackathon = () => {
-  //   const list = hackathons[curTab];
-  //   if (!list.length) {
-  //     return <NoData curTab={curTab} />;
-  //   }
-  //   switch (curTab) {
-  //     case HackathonStatusType.ON_GOING:
-  //       return <OnGoing hackathonList={list} isDashboard={true} />;
-  //     case HackathonStatusType.DRAFT:
-  //       return <Draft hackathonList={list} />;
-  //     case HackathonStatusType.PAST:
-  //       return <Past page={0} hackathonList={list} total={0} limit={0} isDashboard={true} />;
-  //   }
-  // };
   const startNewHackathon = () => {
     if (![UserRole.ADMIN, UserRole.ORGANIZATION].includes(userInfo?.role!)) {
       setTipsOpen(true);
@@ -86,7 +72,10 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('isFirstHackahtonOrganizer')) {
+    if (
+      !localStorage.getItem('isFirstHackahtonOrganizer') &&
+      ![UserRole.ADMIN, UserRole.ORGANIZATION].includes(userInfo?.role!)
+    ) {
       setTipsOpen(true);
       localStorage.setItem('isFirstHackahtonOrganizer', '1');
     } else {
@@ -110,18 +99,18 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
         buttonNode={buttonNode()}
         className="pb-[80px]"
       />
-      <Tab curTab={curTab} hackathonTab={hackathonTab} path={MenuLink.HACKATHON} changeTab={setCurTab} />
+      <Tab curTab={curTab} hackathonTab={hackathonTab} path={MenuLink.EXPLORE_HACKATHON} changeTab={setCurTab} />
       <div className="mb-[40px]">
         {!hackathons[curTab].length && <NoData curTab={curTab} />}
 
         <div className={`${curTab !== HackathonStatusType.ON_GOING && 'hidden'}`}>
-          <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isDashboard={true} />
+          <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isOrganizer={true} />
         </div>
         <div className={`${curTab !== HackathonStatusType.DRAFT && 'hidden'}`}>
           <Draft hackathonList={hackathons[HackathonStatusType.DRAFT]} />
         </div>
         <div className={`${curTab !== HackathonStatusType.PAST && 'hidden'}`}>
-          <Past hackathonList={hackathons[HackathonStatusType.PAST]} isDashboard={true} page={0} total={0} limit={0} />
+          <Past hackathonList={hackathons[HackathonStatusType.PAST]} isOrganizer={true} page={0} total={0} limit={0} />
         </div>
       </div>
       <StartModal open={open} onClose={() => setOpen(false)} />
@@ -130,4 +119,4 @@ const Dashboard: React.FC<DashboardProp> = ({ curTab: c, hackathons: h }) => {
   );
 };
 
-export default Dashboard;
+export default HackathonOrganizer;
