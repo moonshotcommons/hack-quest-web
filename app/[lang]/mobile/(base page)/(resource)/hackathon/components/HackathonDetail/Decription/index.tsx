@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import HackathonRenderer from '../../HackathonRenderer';
+import { createEditor } from '@wangeditor/editor';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 
 interface DescriptionProp {
   hackathon: HackathonType;
@@ -13,13 +15,40 @@ interface DescriptionProp {
 const Description: React.FC<DescriptionProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+
+  const description = hackathon.info?.description;
+
+  // 会频繁更新，图片会闪，所以放到useMemo
+  const domNode = useMemo(() => {
+    return (
+      <div
+        className="body-s reset-editor-style whitespace-pre-line text-neutral-rich-gray"
+        dangerouslySetInnerHTML={{
+          __html: createEditor({ content: description?.content || [] }).getHtml()
+        }}
+      ></div>
+    );
+  }, []);
+
+  const renderDescription = () => {
+    if (typeof description === 'string') {
+      return <div className="body-s whitespace-pre-line text-neutral-rich-gray">{hackathon.info?.description}</div>;
+    }
+
+    if (description?.type === TEXT_EDITOR_TYPE) {
+      return domNode;
+    }
+
+    if (description?.length) {
+      return <HackathonRenderer content={description} />;
+    }
+
+    return null;
+  };
+
   return (
     <EditBox title={'hackathonDetail.description'} className="rounded-none border-none bg-transparent p-0">
-      {typeof hackathon.info?.description === 'string' ? (
-        <div className="body-s whitespace-pre-line text-neutral-rich-gray">{hackathon.info?.description}</div>
-      ) : (
-        <HackathonRenderer content={hackathon.info?.description} />
-      )}
+      {renderDescription()}
     </EditBox>
   );
 };

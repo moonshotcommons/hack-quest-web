@@ -84,6 +84,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
       getOffsetTops();
     }, 300);
   }, [hackathon]);
+
   return (
     <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScoll}>
       <div className="container relative mx-auto pb-[80px] pt-[40px]">

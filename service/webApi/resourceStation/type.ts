@@ -28,7 +28,7 @@ export interface HackathonRewardType {
   id: string;
   hackathoId: string;
   mode: string;
-  rule: string;
+  rule: any;
   name: string;
   totalRewards: number;
   currency: string;
@@ -155,7 +155,8 @@ export interface HackathonInfoType {
   submission: HackathonSubmissionType;
   sections: HackathonInfoSectionsType;
   conduct: string;
-  description: string | CustomComponent[];
+  description: any;
+  // description: string | CustomComponent[] | { type: string; content: object };
   host: string;
   image: string;
   intro: string;
@@ -174,7 +175,7 @@ export interface HackathonJudgeAccountType {
 export interface HackathonJudgeType {
   id: string;
   judgeAccounts: HackathonJudgeAccountType[];
-  criteria: string;
+  criteria: any;
   votesProportion: number[];
   judgeMode: string;
   judgeProjectVote: number;

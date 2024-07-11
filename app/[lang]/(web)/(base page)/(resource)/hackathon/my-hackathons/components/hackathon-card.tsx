@@ -41,8 +41,6 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
     redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
   }
 
-  console.log(hackathon);
-
   return (
     <div className="card-hover w-full rounded-2xl bg-neutral-white p-6 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.12)]">
       <div className="flex cursor-pointer items-center justify-between" onClick={goHackathonDetail}>

@@ -24,6 +24,7 @@ import { numberToOrdinalWord } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/listbox';
 import { CURRENCIES } from '../constants/currency';
 import { useRouter } from 'next/navigation';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 const rewardSchema = z.object({
   id: z.string().uuid(),
@@ -77,13 +78,14 @@ const formSchema = baseSchema.superRefine((data, ctx) => {
         code: z.ZodIssueCode.custom,
         message: 'Distribution rule is required'
       });
-    } else if (data.rule.length > 6000) {
-      ctx.addIssue({
-        path: ['rule'],
-        code: z.ZodIssueCode.custom,
-        message: 'Distribution rule cannot exceed 600 characters'
-      });
     }
+    // else if (data.rule.length > 6000 ) {
+    //   ctx.addIssue({
+    //     path: ['rule'],
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Distribution rule cannot exceed 600 characters'
+    //   });
+    // }
   }
 });
 
@@ -137,7 +139,15 @@ function RankingForm({ totalRewards, form }: { form: UseFormReturn<FormValues>; 
   );
 }
 
-function OthersForm({ form }: { form: UseFormReturn<FormValues> }) {
+function OthersForm({
+  form,
+  initialValues,
+  setRule
+}: {
+  form: UseFormReturn<FormValues>;
+  initialValues: any;
+  setRule: (rule: { type: string; content: object }) => void;
+}) {
   return (
     <div className="flex flex-col gap-6">
       <FormField
@@ -171,21 +181,39 @@ function OthersForm({ form }: { form: UseFormReturn<FormValues> }) {
               <FormLabel>
                 <span className="body-m text-neutral-rich-gray">Distribution Rule*</span>
               </FormLabel>
-              <span className="caption-14pt text-neutral-rich-gray">
+              {/* <span className="caption-14pt text-neutral-rich-gray">
                 <span className={cn({ 'text-status-error': (form.watch('rule')?.length ?? 0) > 6000 })}>
                   {form.watch('rule')?.length}
                 </span>
                 /6000
-              </span>
+              </span> */}
             </div>
             <FormControl>
               <Textarea
                 {...field}
                 authHeight={false}
-                className="h-20 border-neutral-light-gray p-3 text-base text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
+                className={cn(
+                  'hidden h-20 border-neutral-light-gray p-3 text-base text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark'
+                )}
                 placeholder="Please describe how the rewards will be distributed"
               />
             </FormControl>
+
+            <TextEditor
+              onCreated={(editor) => {
+                const text = editor.getText().replace(/\n|\r/gm, '');
+                setRule({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                form.setValue('rule', text);
+              }}
+              simpleModel
+              defaultContent={transformTextToEditorValue(initialValues.rule)}
+              onChange={(editor) => {
+                const text = editor.getText().replace(/\n|\r/gm, '');
+                form.setValue('rule', text);
+                setRule({ type: TEXT_EDITOR_TYPE, content: editor.children });
+              }}
+            />
+
             <FormMessage />
           </FormItem>
         )}
@@ -263,6 +291,8 @@ export function EditTrackModal({
     return acc + Number(curr.value);
   }, 0);
 
+  const [rule, setRule] = React.useState<{ type: string; content: object }>();
+
   function onSubmit(values: FormValues) {
     const id = initialValues?.isEditing ? initialValues?.hackathonId : initialValues?.id;
     let data = {};
@@ -270,7 +300,8 @@ export function EditTrackModal({
       data = {
         id,
         ...omit(values, 'rewards', 'totalRewards'),
-        totalRewards: z.coerce.number().parse(values.totalRewards)
+        totalRewards: z.coerce.number().parse(values.totalRewards),
+        rule
       };
     } else {
       data = {
@@ -316,7 +347,8 @@ export function EditTrackModal({
             { id: v4(), value: '' }
           ],
           totalRewards: String(initialValues?.totalRewards),
-          rule: initialValues?.rule
+          // rule: initialValues?.rule
+          rule: ''
         });
       }
     }
@@ -436,7 +468,7 @@ export function EditTrackModal({
                 <RankingForm form={form} totalRewards={Number(totalRewards?.toFixed(2))} />
               </ResizablePanel.Content>
               <ResizablePanel.Content value="OTHERS">
-                <OthersForm form={form} />
+                <OthersForm form={form} initialValues={initialValues} setRule={setRule} />
               </ResizablePanel.Content>
             </ResizablePanel.Root>
             <input ref={submitInputRef} type="submit" className="hidden" />

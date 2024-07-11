@@ -8,6 +8,8 @@ import BaseImage from '@/components/Common/BaseImage';
 import { InfoIcon } from 'lucide-react';
 import { judgeModeLabel, voteModeLabel } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { createEditor } from '@wangeditor/editor';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 
 interface DetailJugingProp {
   hackathon: HackathonType;
@@ -38,9 +40,19 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
               <div className="flex flex-col gap-[.75rem] [&>div]:flex [&>div]:items-center [&>div]:justify-between">
                 <div>
                   <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
-                  <div className="mt-[0.25rem] whitespace-pre-line text-neutral-rich-gray">
-                    {judge?.criteria?.replaceAll('\\n', '\n')}
-                  </div>
+
+                  {judge?.criteria.type === TEXT_EDITOR_TYPE ? (
+                    <div
+                      className="reset-editor-style-mob mt-[0.25rem] whitespace-pre-line text-neutral-rich-gray"
+                      dangerouslySetInnerHTML={{
+                        __html: createEditor({ content: judge?.criteria?.content || [] }).getHtml()
+                      }}
+                    ></div>
+                  ) : (
+                    <div className="reset-editor-style-mob mt-[4px] whitespace-pre-line text-neutral-rich-gray">
+                      {judge?.criteria?.replaceAll('\\n', '\n')}
+                    </div>
+                  )}
                 </div>
                 {judge?.judgeMode && (
                   <div>
