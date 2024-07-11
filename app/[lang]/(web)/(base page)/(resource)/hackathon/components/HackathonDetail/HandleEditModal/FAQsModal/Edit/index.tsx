@@ -17,6 +17,9 @@ interface EditProp {
 const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+
+  const [answer, setAnswer] = React.useState<{ type: string; content: object }>();
+
   return (
     <div className="flex flex-col gap-6 border-b border-neutral-medium-gray pb-6">
       <FormField
@@ -64,9 +67,22 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
                 authHeight={false}
                 placeholder={'Write the answer'}
                 {...field}
-                className="body-m h-[128px] "
+                className="body-m h-[128px]"
               />
             </FormControl>
+            {/* <TextEditor
+              onCreated={(editor) => {
+                setAnswer({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                form.setValue(`items.${index}.answer`, editor.getText().replace(/\n|\r/gm, ''));
+              }}
+              defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
+              onChange={(editor) => {
+                const text = editor.getText().replace(/\n|\r/gm, '');
+                form.setValue(`items.${index}.answer`, text);
+                setAnswer({ type: TEXT_EDITOR_TYPE, content: editor.children });
+              }}
+            /> */}
+
             <FormMessage />
           </FormItem>
         )}

@@ -8,6 +8,8 @@ import { useToggle } from '@/hooks/utils/use-toggle';
 import { InfoIcon } from 'lucide-react';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
+import { createEditor } from '@wangeditor/editor';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 
 function NoTrack() {
   return (
@@ -46,7 +48,16 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
             {data?.criteria && (
               <div className="flex flex-col gap-1">
                 <span className="text-neutral-medium-gray">Judging Criteria</span>
-                <p className="body-m text-neutral-rich-gray">{data?.criteria}</p>
+                {data.criteria?.type === TEXT_EDITOR_TYPE ? (
+                  <p
+                    className="body-m reset-editor-style text-neutral-rich-gray"
+                    dangerouslySetInnerHTML={{
+                      __html: createEditor({ content: data.criteria?.content || [] }).getHtml()
+                    }}
+                  ></p>
+                ) : (
+                  <p className="body-m text-neutral-rich-gray">{data?.criteria}</p>
+                )}
               </div>
             )}
             <div className="flex gap-20">

@@ -16,6 +16,7 @@ import { HackathonEditContext } from '../../../../../constants/type';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
 import dayjs from 'dayjs';
 import { InfoIcon } from 'lucide-react';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 interface EditProp {
   hackathon: HackathonType;
@@ -27,9 +28,16 @@ interface EditProp {
 const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, handleAdd }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const defaultValues: z.infer<typeof scheduleFormSchema> = cloneDeep(schedule);
+
+  const defaultValues: z.infer<typeof scheduleFormSchema> = cloneDeep({
+    ...schedule,
+    description: ''
+  });
   const { loading } = useContext(HackathonEditContext);
   const [timeError, setTimeError] = useState('');
+
+  const [description, setDescription] = useState<{ type: string; content: object }>();
+
   const form = useForm<z.infer<typeof scheduleFormSchema>>({
     resolver: zodResolver(scheduleFormSchema),
     defaultValues: defaultValues
@@ -44,6 +52,7 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
     form.trigger();
     if (cantSubmit || !formState.isValid) return;
     const value = form?.getValues();
+    (value as any).description = description;
     const { startTime, endTime } = value;
     if (dayjs(startTime).isAfter(endTime)) {
       // form.setError('endTime', {
@@ -156,21 +165,35 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
                   <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
                     {'Description'}
                   </FormLabel>
-                  <span className="caption-14pt text-neutral-rich-gray">
+                  {/* <span className="caption-14pt text-neutral-rich-gray">
                     <span className={form.watch('description').length > 360 ? 'text-status-error' : ''}>
                       {form.watch('description').length}
                     </span>
                     /360
-                  </span>
+                  </span> */}
                 </div>
                 <FormControl>
                   <Textarea
                     authHeight={false}
                     placeholder={'Write a brief description for your hackathon'}
                     {...field}
-                    className="body-m body-m h-[128px] border-neutral-light-gray py-3"
+                    className="body-m body-m hidden h-[128px] border-neutral-light-gray py-3"
                   />
                 </FormControl>
+                <TextEditor
+                  simpleModel
+                  onCreated={(editor) => {
+                    const text = editor.getText().replace(/\n|\r/gm, '');
+                    setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                    form.setValue('description', text);
+                  }}
+                  defaultContent={transformTextToEditorValue(schedule?.description)}
+                  onChange={(editor) => {
+                    const text = editor.getText().replace(/\n|\r/gm, '');
+                    form.setValue('description', text);
+                    setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                  }}
+                />
                 <FormMessage />
               </FormItem>
             )}

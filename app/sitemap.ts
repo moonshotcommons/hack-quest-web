@@ -31,41 +31,75 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const glossaries = await getAllProjects('glossaries');
   const learningTracks = await getAllProjects('learning-tracks');
   const courses = await getAllProjects('courses');
+  const ecosystems = await getAllProjects('ecosystems');
+  const faucets = await getAllProjects('faucets');
+  const ideas = await getAllProjects('ideas');
+  const lastModified = new Date();
 
   const base: Link[] = [
     {
       url: 'https://www.hackquest.io/',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 1
     },
     {
+      url: 'https://www.hackquest.io/idea-bank',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    ...ideas.map((idea: BlogType) => ({
+      url: `https://www.hackquest.io/idea-bank/${idea.id}`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.6
+    })),
+    {
+      url: 'https://www.hackquest.io/web3mooc',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.9
+    },
+    {
+      url: 'https://www.hackquest.io/ecosystem-explore',
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.9
+    },
+    ...ecosystems.map((track: BlogType) => ({
+      url: `https://www.hackquest.io/ecosystem-explore/${track.id}`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8
+    })),
+    {
       url: 'https://www.hackquest.io/learning-track',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.9
     },
     {
       url: 'https://www.hackquest.io/learning-track?track=Specialization',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.9
     },
     ...learningTracks.map((track: BlogType) => ({
       url: `https://www.hackquest.io/learning-track/${track.id}`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.8
     })),
     {
       url: 'https://www.hackquest.io/electives',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.9
     },
     {
       url: 'https://www.hackquest.io/practices',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.9
     },
@@ -76,7 +110,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     {
       url: 'https://www.hackquest.io/blog',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.9
     },
@@ -88,7 +122,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     {
       url: 'https://www.hackquest.io/hackathon',
-      lastModified: new Date(),
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.8
+    },
+    {
+      url: 'https://www.hackquest.io/hackathon/explore',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.8
+    },
+    {
+      url: 'https://www.hackquest.io/hackathon/projects',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.8
+    },
+    {
+      url: 'https://www.hackquest.io/hackathon/voting',
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.8
     },
@@ -106,7 +158,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     {
       url: 'https://www.hackquest.io/glossary',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.7
     },
@@ -118,13 +170,55 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     {
       url: 'https://www.hackquest.io/advocate',
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.6
     },
     {
       url: 'https://www.hackquest.io/events',
-      lastModified: new Date(),
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    {
+      url: 'https://www.hackquest.io/faucets',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    ...faucets.map((faucet: BlogType) => ({
+      url: `https://www.hackquest.io/faucets/${faucet.id}`,
+      lastModified: new Date(faucet.updatedAt),
+      changeFrequency: 'monthly',
+      priority: 0.6
+    })),
+    {
+      url: 'https://www.hackquest.io/press-kit/about',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    {
+      url: 'https://www.hackquest.io/press-kit/articles',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    {
+      url: 'https://www.hackquest.io/press-kit/logos',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    {
+      url: 'https://www.hackquest.io/press-kit/links',
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7
+    },
+    {
+      url: 'https://www.hackquest.io/press-kit/contact',
+      lastModified,
       changeFrequency: 'weekly',
       priority: 0.7
     }
