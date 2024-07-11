@@ -1,8 +1,13 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useState, FocusEvent, useMemo, useRef } from 'react';
-import { HackathonInfoParterKeys, HackathonType, MentorType } from '@/service/webApi/resourceStation/type';
+import React, { useContext, useState, FocusEvent, useMemo, useRef, useEffect } from 'react';
+import {
+  HackathonInfoParterKeys,
+  HackathonInfoSPKeys,
+  HackathonType,
+  MentorType
+} from '@/service/webApi/resourceStation/type';
 import { IoIosAddCircle, IoIosCloseCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import { errorMessage } from '@/helper/ui';
@@ -30,6 +35,7 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
   const info = useMemo(() => {
     return hackathon.info?.sections?.[modalType as HackathonInfoParterKeys] || {};
   }, [hackathon]);
+  const [title, setTitle] = useState('');
   const [partners, setPartners] = useState<MentorType[]>(info.list || []);
   const handleAdd = () => {
     const p = {
@@ -93,17 +99,25 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
     updateHackathon({
       data: {
         [modalType]: {
-          title: info.title || t(`hackathonDetail.${modalType}`),
+          title: title,
           list: partners
         }
       }
     });
   };
-
+  useEffect(() => {
+    setTitle(info.title || t(`hackathonDetail.${modalType}`));
+  }, [info, hackathon]);
   return (
     <div className="">
       <div className="px-[40px]">
-        <EditTitle hackathon={hackathon} list={partners} />
+        <EditTitle
+          hackathon={hackathon}
+          title={
+            hackathon.info?.sections?.[modalType as HackathonInfoSPKeys]?.title || t(`hackathonDetail.${modalType}`)
+          }
+          changeTitle={setTitle}
+        />
       </div>
       <div className="scroll-wrap-y flex flex-1 flex-col gap-[24px] px-[40px]">
         <p className="body-l text-neutral-off-black">{t('hackathonDetail.mediaPartnersUploadText')}</p>
