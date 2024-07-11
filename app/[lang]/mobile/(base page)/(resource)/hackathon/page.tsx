@@ -1,16 +1,7 @@
-'use client';
-import { FC } from 'react';
-import { useNeedPCRedirect } from '@/hooks/router/useNeedPCRedirect';
+import MenuLink from '@/constants/MenuLink';
+import { permanentRedirect } from 'next/navigation';
 
-interface HackathonProps {}
-
-const Hackathon: FC<HackathonProps> = (props) => {
-  useNeedPCRedirect();
-  return (
-    <>
-      <div></div>
-    </>
-  );
+const Hackathon = () => {
+  permanentRedirect(MenuLink.EXPLORE_HACKATHON);
 };
-
 export default Hackathon;

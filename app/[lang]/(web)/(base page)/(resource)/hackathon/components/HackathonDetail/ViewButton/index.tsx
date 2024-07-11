@@ -15,7 +15,7 @@ const ViewButton: React.FC<ViewButtonProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   return (
-    <Link href={`${MenuLink.HACKATHON}/${hackathon.alias}`} className="block">
+    <Link href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`} className="block">
       <Button type="primary" className="button-text-l h-[60px] w-full uppercase">
         {t('hackathonDetail.proceedToPreview')}
       </Button>

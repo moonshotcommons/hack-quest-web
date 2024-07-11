@@ -235,10 +235,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         )}
 
         {renderButton()}
-        {userInfo?.id === hackathon.creatorId && (
+        {userInfo && hackathon.creatorId && userInfo?.id === hackathon.creatorId && (
           <Button
             className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-            onClick={() => redirectToUrl(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`)}
+            onClick={() => redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`)}
           >
             {t('hackathonDetail.backToEdit')}
           </Button>

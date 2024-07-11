@@ -38,7 +38,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
   const showAwardBadge = hackathon.participation?.project?.winner && isEnded;
 
   function goHackathonDetail() {
-    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+    redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   }
 
   return (

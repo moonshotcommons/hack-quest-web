@@ -1,21 +1,21 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
-import EditNav from '../../components/HackathonDetail/EditNav';
-import Cover from '../../components/HackathonDetail/Cover';
-import TimeLine from '../../components/HackathonDetail/TimeLine';
-import PartnersBox from '../../components/HackathonDetail/PartnersBox';
-import SpeakersSponsorsBox from '../../components/HackathonDetail/SpeakersSponsorsBox';
-import Schedule from '../../components/HackathonDetail/Schedule';
-import FAQs from '../../components/HackathonDetail/FAQs';
-import DetailInfo from '../../components/HackathonDetail/DetailInfo';
-import { OffsetTopsType } from '../../constants/type';
+import EditNav from '../../../components/HackathonDetail/EditNav';
+import Cover from '../../../components/HackathonDetail/Cover';
+import TimeLine from '../../../components/HackathonDetail/TimeLine';
+import PartnersBox from '../../../components/HackathonDetail/PartnersBox';
+import SpeakersSponsorsBox from '../../../components/HackathonDetail/SpeakersSponsorsBox';
+import Schedule from '../../../components/HackathonDetail/Schedule';
+import FAQs from '../../../components/HackathonDetail/FAQs';
+import DetailInfo from '../../../components/HackathonDetail/DetailInfo';
+import { OffsetTopsType } from '../../../constants/type';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import { initDetailNavs } from '../../constants/data';
-import Description from '../../components/HackathonDetail/Decription';
-import Rewards from '../../components/HackathonDetail/Rewards';
-import Judging from '../../components/HackathonDetail/Judging';
-import ThemeResource from '../../components/HackathonDetail/ThemeResource';
+import { initDetailNavs } from '../../../constants/data';
+import Description from '../../../components/HackathonDetail/Decription';
+import Rewards from '../../../components/HackathonDetail/Rewards';
+import Judging from '../../../components/HackathonDetail/Judging';
+import ThemeResource from '../../../components/HackathonDetail/ThemeResource';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;

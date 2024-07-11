@@ -48,7 +48,7 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
           <div className="flex flex-1 flex-col truncate">
             <p className="body-xs text-neutral-medium-gray">{t('navbar.resources.hackathon')}</p>
             <Link
-              href={`${MenuLink.HACKATHON}/${hackathon?.alias}`}
+              href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon?.alias}`}
               title={project.hackathonName}
               className="underline-m w-full whitespace-nowrap"
             >

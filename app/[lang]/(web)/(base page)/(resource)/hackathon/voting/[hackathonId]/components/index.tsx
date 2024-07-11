@@ -44,7 +44,7 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
       </div>
       <SliderCard
         title={t('hackathonVoting.otherHackathons')}
-        viewLink={`${MenuLink.HACKATHON}`}
+        viewLink={`${MenuLink.EXPLORE_HACKATHON}`}
         renderItem={(contarinerWidth) => {
           return otherHackathons.map((item) => (
             <div

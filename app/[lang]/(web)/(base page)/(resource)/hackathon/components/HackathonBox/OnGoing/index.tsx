@@ -5,11 +5,11 @@ import NoData from './NoData';
 
 interface OnGoingProp {
   hackathonList: HackathonType[];
-  isDashboard?: boolean;
+  isOrganizer?: boolean;
 }
 
-const OnGoing: React.FC<OnGoingProp> = ({ hackathonList, isDashboard }) => {
-  if (isDashboard && !hackathonList.length) return null;
+const OnGoing: React.FC<OnGoingProp> = ({ hackathonList, isOrganizer }) => {
+  if (isOrganizer && !hackathonList.length) return null;
   return (
     <>
       {!hackathonList.length ? (
@@ -18,7 +18,7 @@ const OnGoing: React.FC<OnGoingProp> = ({ hackathonList, isDashboard }) => {
         <div className="">
           {hackathonList.map((hackathon) => (
             <div key={hackathon.id} className="mt-[40px]">
-              <OnGoingHackathonCard hackathon={hackathon} isDashboard={isDashboard} />
+              <OnGoingHackathonCard hackathon={hackathon} isOrganizer={isOrganizer} />
             </div>
           ))}
         </div>

@@ -1,5 +1,5 @@
 import { errorMessage } from '@/helper/ui';
-import { HackathonInfoSPKeys, HackathonType, MentorType } from '@/service/webApi/resourceStation/type';
+import { HackathonType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useEffect, useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import { HackathonEditContext } from '../../../../constants/type';
@@ -10,10 +10,11 @@ import { TransNs } from '@/i18n/config';
 
 interface EditTitleProp {
   hackathon: HackathonType;
-  list: MentorType[];
+  title: string;
+  changeTitle: (title: string) => void;
 }
 
-const EditTitle: React.FC<EditTitleProp> = ({ hackathon, list }) => {
+const EditTitle: React.FC<EditTitleProp> = ({ hackathon, title: tle, changeTitle }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [title, setTitle] = useState('');
@@ -22,21 +23,12 @@ const EditTitle: React.FC<EditTitleProp> = ({ hackathon, list }) => {
   const handleEditTile = () => {
     if (!title) {
       setTitle(t(`hackathonDetail.${modalType}`));
-      setIsEdit(false);
-      return;
     }
-    updateHackathon({
-      data: {
-        [modalType]: {
-          title,
-          list
-        }
-      },
-      closeModal: false
-    });
+    setIsEdit(false);
+    changeTitle(title);
   };
   useEffect(() => {
-    setTitle(hackathon.info?.sections?.[modalType as HackathonInfoSPKeys]?.title || t(`hackathonDetail.${modalType}`));
+    setTitle(tle);
     setIsEdit(false);
   }, [hackathon]);
   return (

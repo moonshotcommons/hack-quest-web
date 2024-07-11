@@ -43,7 +43,7 @@ const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
           <div className="flex-1">
             <p className="body-xs text-neutral-medium-gray">{t('navbar.resources.hackathon')}</p>
             <Link
-              href={`${MenuLink.HACKATHON}/${hackathon?.alias}`}
+              href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon?.alias}`}
               title={project.hackathonName}
               className="underline-s w-full"
             >
