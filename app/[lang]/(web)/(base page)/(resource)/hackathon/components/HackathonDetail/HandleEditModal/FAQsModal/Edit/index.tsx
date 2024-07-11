@@ -7,18 +7,31 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { FormValueType } from '../../../../../constants/data';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+// import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 interface EditProp {
   form: UseFormReturn<FormValueType>;
   index: number;
   remove: UseFieldArrayRemove;
+  // fields: FieldArrayWithId<
+  //   {
+  //     items: {
+  //       id: string;
+  //       question: string;
+  //       answer: string;
+  //     }[];
+  //   },
+  //   'items',
+  //   'id'
+  // >[];
+  answer: any;
+  setFaqs: (answer: { type: string; content: object }, index: number) => void;
 }
 
-const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
+const Edit: React.FC<EditProp> = ({ form, index, remove, setFaqs, answer }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-
-  const [answer, setAnswer] = React.useState<{ type: string; content: object }>();
 
   return (
     <div className="flex flex-col gap-6 border-b border-neutral-medium-gray pb-6">
@@ -54,12 +67,12 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
               <FormLabel className="body-m text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
                 {'Answer*'}
               </FormLabel>
-              <span className="caption-14pt text-neutral-rich-gray">
+              {/* <span className="caption-14pt text-neutral-rich-gray">
                 <span className={form.watch('items')[index]['answer'].length > 6000 ? 'text-status-error' : ''}>
                   {form.watch('items')[index]['answer'].length}
                 </span>
                 /6000
-              </span>
+              </span> */}
             </div>
             <FormControl>
               <Textarea
@@ -67,21 +80,22 @@ const Edit: React.FC<EditProp> = ({ form, index, remove }) => {
                 authHeight={false}
                 placeholder={'Write the answer'}
                 {...field}
-                className="body-m h-[128px]"
+                className="body-m hidden h-[128px]"
               />
             </FormControl>
-            {/* <TextEditor
+            <TextEditor
+              simpleModel
               onCreated={(editor) => {
-                setAnswer({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                setFaqs({ type: TEXT_EDITOR_TYPE, content: editor.children }, index);
                 form.setValue(`items.${index}.answer`, editor.getText().replace(/\n|\r/gm, ''));
               }}
-              defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
+              defaultContent={transformTextToEditorValue(answer)}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
                 form.setValue(`items.${index}.answer`, text);
-                setAnswer({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                setFaqs({ type: TEXT_EDITOR_TYPE, content: editor.children }, index);
               }}
-            /> */}
+            />
 
             <FormMessage />
           </FormItem>

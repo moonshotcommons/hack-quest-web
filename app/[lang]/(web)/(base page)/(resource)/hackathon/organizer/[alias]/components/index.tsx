@@ -27,7 +27,6 @@ import { initEditNavs } from '../../../constants/data';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useRedirect } from '@/hooks/router/useRedirect';
-import MenuLink from '@/constants/MenuLink';
 
 interface HackathonEditDetailProp {
   hackathon: HackathonType;
@@ -114,11 +113,6 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
     }, 300);
   }, [hackathon]);
 
-  useEffect(() => {
-    if (!userInfo || !hackathon?.creatorId || userInfo?.id !== hackathon?.creatorId) {
-      redirectToUrl(MenuLink.EXPLORE_HACKATHON, true);
-    }
-  }, [userInfo, hackathon]);
   return (
     <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>
       <Loading loading={loading}>

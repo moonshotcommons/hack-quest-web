@@ -40,7 +40,7 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
             <>
               <div>
                 <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
-                {judge?.criteria.type === TEXT_EDITOR_TYPE ? (
+                {judge?.criteria?.type === TEXT_EDITOR_TYPE ? (
                   <div
                     className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-rich-gray"
                     dangerouslySetInnerHTML={{
