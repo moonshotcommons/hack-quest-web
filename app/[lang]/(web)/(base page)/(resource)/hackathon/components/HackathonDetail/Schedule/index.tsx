@@ -9,6 +9,8 @@ import EditBox from '../EditBox';
 import { HackathonEditModalType } from '../../../constants/type';
 import dayjs from 'dayjs';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import { createEditor } from '@wangeditor/editor';
 
 interface ScheduleProp {
   hackathon: HackathonType;
@@ -68,7 +70,16 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
             {v.isExpand && (
               <div>
                 <div className="text-neutral-medium-gray">{t('description')}</div>
-                <div className="mt-[4px] whitespace-pre-line text-neutral-off-black">{v.description}</div>
+                {(v.description as any)?.type === TEXT_EDITOR_TYPE ? (
+                  <div
+                    className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-off-black"
+                    dangerouslySetInnerHTML={{
+                      __html: createEditor({ content: (v.description as any)?.content || [] }).getHtml()
+                    }}
+                  ></div>
+                ) : (
+                  <div className="mt-[4px] whitespace-pre-line text-neutral-off-black">{v.description}</div>
+                )}
                 <div className="mt-[8px] flex flex-col gap-[8px]">
                   {v.link && (
                     <div>

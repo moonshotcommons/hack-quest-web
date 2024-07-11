@@ -15,6 +15,7 @@ import { useHackathonOrgState } from '../constants/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 const formSchema = z
   .object({
@@ -42,14 +43,9 @@ const formSchema = z
       .max(120, {
         message: 'One line intro cannot exceed 120 characters'
       }),
-    description: z
-      .string()
-      .min(1, {
-        message: 'Description is required'
-      })
-      .max(360, {
-        message: 'Description cannot exceed 360 characters'
-      }),
+    description: z.string().min(1, {
+      message: 'Description is required'
+    }),
     conduct: z
       .string()
       .url({
@@ -108,6 +104,8 @@ export function BasicInfoForm({
     }
   });
 
+  const [description, setDescription] = React.useState<{ type: string; content: object }>();
+
   const isHybridMode = form.watch('mode') === 'HYBRID';
 
   const queryClient = useQueryClient();
@@ -129,7 +127,7 @@ export function BasicInfoForm({
         name: initialValues?.name,
         host: initialValues?.info?.host || '',
         intro: initialValues?.info?.intro || '',
-        description: initialValues?.info?.description || '',
+        description: '',
         conduct: initialValues?.info?.conduct || '',
         mode: initialValues?.info?.mode || 'HYBRID',
         allowSubmission:
@@ -147,7 +145,8 @@ export function BasicInfoForm({
       id: initialValues?.id,
       ...data,
       address: data.mode === 'HYBRID' ? data.address : undefined,
-      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : undefined
+      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : undefined,
+      description
     };
     mutation.mutate(values);
   }
@@ -255,12 +254,12 @@ export function BasicInfoForm({
                 <FormLabel>
                   <span className="body-m text-neutral-rich-gray">Description*</span>
                 </FormLabel>
-                <span className="caption-14pt text-neutral-rich-gray">
+                {/* <span className="caption-14pt text-neutral-rich-gray">
                   <span className={cn({ 'text-status-error': form.watch('description')?.length > 360 })}>
                     {form.watch('description')?.length}
                   </span>
                   /360
-                </span>
+                </span> */}
               </div>
               <FormControl>
                 <Textarea
@@ -268,9 +267,22 @@ export function BasicInfoForm({
                   authHeight={false}
                   autoComplete="off"
                   placeholder="Write a brief description for your hackathon"
-                  className="h-[76px] border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
+                  className="hidden h-[76px] border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
                 />
               </FormControl>
+              <TextEditor
+                onCreated={(editor) => {
+                  setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                  form.setValue('description', editor.getText().replace(/\n|\r/gm, ''));
+                }}
+                defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
+                onChange={(editor) => {
+                  const text = editor.getText().replace(/\n|\r/gm, '');
+                  form.setValue('description', text);
+                  setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                }}
+              />
+
               <FormMessage />
             </FormItem>
           )}

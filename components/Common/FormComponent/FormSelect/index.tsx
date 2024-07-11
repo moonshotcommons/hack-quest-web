@@ -2,7 +2,6 @@ import { SelectContent, SelectItem, SelectTrigger, SelectValue, Select } from '@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { LOCATIONS } from '@/components/HackathonCreation/Submission/BasicInfo/Location/constant';
 
 interface FormSelectProps<TFieldValues extends FieldValues = FieldValues> {
   form: UseFormReturn<TFieldValues, any, undefined>;
@@ -44,7 +43,7 @@ export const FormSelect = <TFieldValues extends FieldValues = FieldValues>({
             <FormLabel className="body-m inline-block w-full text-left text-[16px] font-normal leading-[160%] text-neutral-rich-gray">
               {label}
             </FormLabel>
-            <Select onValueChange={field.onChange as any} defaultValue={LOCATIONS[0].value}>
+            <Select onValueChange={field.onChange as any} defaultValue={defaultValue}>
               <FormControl>
                 <SelectTrigger className="!body-m h-[50px] bg-neutral-off-white px-3 text-[16px] leading-[160%] focus:bg-neutral-white">
                   <SelectValue placeholder={placeholder} />
