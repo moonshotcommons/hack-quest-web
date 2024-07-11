@@ -134,9 +134,10 @@ export const scheduleFormSchema = z.object({
     message: 'End Time is a required input.'
   }),
   speakerNames: z.string(),
-  description: z.string().max(360, {
-    message: 'Description cannot exceed 360 characters.'
-  }),
+  description: z.string(),
+  // .max(360, {
+  //   message: 'Description cannot exceed 360 characters.'
+  // }),
   link: z.string().url().optional().or(z.literal('')),
   address: z.string()
 });
@@ -161,14 +162,12 @@ export const faqsFormSchema = z.object({
     .max(120, {
       message: 'Question cannot exceed 120 characters.'
     }),
-  answer: z
-    .string()
-    .min(1, {
-      message: 'Answer is a required input.'
-    })
-    .max(6000, {
-      message: 'Answer cannot exceed 6000 characters.'
-    })
+  answer: z.string().min(1, {
+    message: 'Answer is a required input.'
+  })
+  // .max(6000, {
+  //   message: 'Answer cannot exceed 6000 characters.'
+  // })
 });
 
 export const faqsFormArraySchema = z.object({
