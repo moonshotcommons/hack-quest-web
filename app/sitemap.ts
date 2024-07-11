@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const courses = await getAllProjects('courses');
   const ecosystems = await getAllProjects('ecosystems');
   const faucets = await getAllProjects('faucets');
+  const ideas = await getAllProjects('ideas');
   const lastModified = new Date();
 
   const base: Link[] = [
@@ -45,9 +46,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: 'https://www.hackquest.io/idea-bank',
       lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.9
+      changeFrequency: 'weekly',
+      priority: 0.7
     },
+    ...ideas.map((idea: BlogType) => ({
+      url: `https://www.hackquest.io/idea-bank/${idea.id}`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.6
+    })),
     {
       url: 'https://www.hackquest.io/web3mooc',
       lastModified,
@@ -180,7 +187,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7
     },
     ...faucets.map((faucet: BlogType) => ({
-      url: `https://www.hackquest.io/glossary/${faucet.id}`,
+      url: `https://www.hackquest.io/faucets/${faucet.id}`,
       lastModified: new Date(faucet.updatedAt),
       changeFrequency: 'monthly',
       priority: 0.6
