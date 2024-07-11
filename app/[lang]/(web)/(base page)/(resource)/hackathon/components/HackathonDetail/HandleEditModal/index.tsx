@@ -10,6 +10,10 @@ import ScheduleModal from './ScheduleModal';
 import FAQsModal from './FAQsModal';
 import CoverModal from './CoverModal';
 import BaseEditModal from './BaseEditModal';
+import CustomModal from './CustomModal';
+import CustomTextModal from './CustomTextModal';
+import CustomImageNameModal from './CustomImageNameModal';
+import CustomImageTitleModal from './CustomImageTitleModal';
 
 interface HandleEditModalProp {
   hackathon: HackathonType;
@@ -42,6 +46,14 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
       case HackathonEditModalType.LINKS:
       case HackathonEditModalType.INFO:
         return <BaseEditModal hackathon={hackathon} />;
+      case HackathonEditModalType.CUSTOM:
+        return <CustomModal />;
+      case HackathonEditModalType.CUSTOM_TEXT:
+        return <CustomTextModal hackathon={hackathon} />;
+      case HackathonEditModalType.CUSTOM_IMAGE_NAME:
+        return <CustomImageNameModal hackathon={hackathon} />;
+      case HackathonEditModalType.CUSTOM_IMAGE_TITLE:
+        return <CustomImageTitleModal hackathon={hackathon} />;
       default:
         return null;
     }

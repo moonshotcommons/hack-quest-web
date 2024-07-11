@@ -1,6 +1,6 @@
 import { MotionProps } from 'framer-motion';
 import { z } from 'zod';
-import { HackathonTabType } from './type';
+import { HackathonEditModalType, HackathonTabType } from './type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 export const projectSort = [
@@ -205,3 +205,24 @@ export const voteModeLabel = {
 };
 
 export const ORGANIZATION_APPLY_LINK = 'https://xsxo494365r.typeform.com/to/PxtaoxdQ';
+
+export const customModalList = [
+  {
+    label: 'Text',
+    value: HackathonEditModalType.CUSTOM_TEXT,
+    image: '',
+    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus ipsum id velit accumsan tristique.'
+  },
+  {
+    label: 'Image & Name',
+    value: HackathonEditModalType.CUSTOM_IMAGE_NAME,
+    image: '/images/hackathon/image_name.png',
+    intro: ''
+  },
+  {
+    label: 'Image, Name & Intro',
+    value: HackathonEditModalType.CUSTOM_IMAGE_TITLE,
+    image: '/images/hackathon/image_title.png',
+    intro: ''
+  }
+];

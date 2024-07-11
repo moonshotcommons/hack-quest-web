@@ -11,9 +11,10 @@ interface CommonButtonProp {
   hackathon: HackathonType;
   handleSave: VoidFunction;
   cantSubmit: boolean;
+  title?: string;
 }
 
-const CommonButton: React.FC<CommonButtonProp> = ({ hackathon, handleSave, cantSubmit }) => {
+const CommonButton: React.FC<CommonButtonProp> = ({ hackathon, handleSave, cantSubmit, title }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
@@ -56,7 +57,7 @@ const CommonButton: React.FC<CommonButtonProp> = ({ hackathon, handleSave, cantS
           </Button>
         </div>
       </div>
-      <RemoveSectionModal ref={removeSectionRef} type={modalType} />
+      <RemoveSectionModal title={title} ref={removeSectionRef} type={modalType} />
     </>
   );
 };

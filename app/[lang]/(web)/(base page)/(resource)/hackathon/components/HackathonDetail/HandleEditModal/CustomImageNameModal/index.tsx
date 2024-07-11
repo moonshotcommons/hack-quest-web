@@ -2,38 +2,31 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext, useState, FocusEvent, useMemo, useRef, useEffect } from 'react';
-import {
-  HackathonInfoParterKeys,
-  HackathonInfoSPKeys,
-  HackathonType,
-  MentorType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonType, MentorType } from '@/service/webApi/resourceStation/type';
 import { IoIosAddCircle, IoIosCloseCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import { errorMessage } from '@/helper/ui';
 
 import BaseImage from '@/components/Common/BaseImage';
 import { cloneDeep } from 'lodash-es';
-import { HackathonEditContext } from '../../../../constants/type';
+import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
 import EditTitle from '../EditTitle';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
-import RemoveSectionModal, { RemoveSectionModalRef } from '../../RemoveSectionModal';
 import CommonButton from '../CommonButton';
 
-interface PartnersBoxModalProp {
+interface CustomImageNameModalProp {
   hackathon: HackathonType;
 }
 
-const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
+const CustomImageNameModal: React.FC<CustomImageNameModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { modalType, updateHackathon } = useContext(HackathonEditContext);
-  const info = hackathon.info?.sections?.[modalType as HackathonInfoParterKeys] || {};
-  const [title, setTitle] = useState(info.title || t(`hackathonDetail.${modalType}`));
-  const [partners, setPartners] = useState<MentorType[]>(info.list || []);
+  const { updateHackathon, editCustomInfo, modalEditType } = useContext(HackathonEditContext);
+  const [title, setTitle] = useState('');
+  const [partners, setPartners] = useState<MentorType[]>([]);
   const handleAdd = () => {
     const p = {
       name: '',
@@ -45,10 +38,6 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
   };
 
   const handleChangeName = (e: FocusEvent<HTMLInputElement>, index: number) => {
-    // if(timer.current) clearTimeout(timer.current);
-    // timer.current = setTimeout(()=> {
-
-    // },300)
     const name = e.target.value;
     const newPartners = cloneDeep(partners);
     newPartners[index].name = name;
@@ -95,13 +84,20 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
     if (cantSubmit) return;
     updateHackathon({
       data: {
-        [modalType]: {
-          title: title,
-          list: partners
-        }
-      }
+        id: modalEditType === 'add' ? v4() : (editCustomInfo?.id as string),
+        title: title,
+        type: HackathonEditModalType.CUSTOM_IMAGE_NAME,
+        list: partners
+      },
+      status: 'customize'
     });
   };
+  useEffect(() => {
+    setTitle(
+      modalEditType === 'add' ? 'Unnamed Customized Section' : editCustomInfo?.title || 'Unnamed Customized Section'
+    );
+    setPartners(editCustomInfo?.list || []);
+  }, [editCustomInfo, modalEditType]);
   return (
     <div className="">
       <div className="px-[40px]">
@@ -189,4 +185,4 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
   );
 };
 
-export default PartnersBoxModal;
+export default CustomImageNameModal;

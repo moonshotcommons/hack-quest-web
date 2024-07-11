@@ -9,7 +9,7 @@ import { errorMessage } from '@/helper/ui';
 
 import BaseImage from '@/components/Common/BaseImage';
 import { cloneDeep } from 'lodash-es';
-import { HackathonEditContext } from '../../../../constants/type';
+import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
 import EditTitle from '../EditTitle';
 import webApi from '@/service';
 import { useRequest } from 'ahooks';
@@ -18,14 +18,14 @@ import Loading from '@/public/images/other/loading.png';
 import { RemoveSectionModalRef } from '../../RemoveSectionModal';
 import CommonButton from '../CommonButton';
 
-interface SpeakersSponsorsBoxModalProp {
+interface CustomImageTitleModalProp {
   hackathon: HackathonType;
 }
 
-const SpeakersSponsorsBoxModal: React.FC<SpeakersSponsorsBoxModalProp> = ({ hackathon }) => {
+const CustomImageTitleModal: React.FC<CustomImageTitleModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { modalType, updateHackathon } = useContext(HackathonEditContext);
+  const { modalType, updateHackathon, modalEditType, editCustomInfo } = useContext(HackathonEditContext);
   const info = hackathon.info?.sections?.[modalType as HackathonInfoSponsorsKeys] || {};
   const [title, setTitle] = useState(info.title || t(`hackathonDetail.${modalType}`));
   const [partners, setPartners] = useState<MentorType[]>(info.list || []);
@@ -86,13 +86,20 @@ const SpeakersSponsorsBoxModal: React.FC<SpeakersSponsorsBoxModalProp> = ({ hack
     if (cantSubmit) return;
     updateHackathon({
       data: {
-        [modalType]: {
-          title: title,
-          list: partners
-        }
-      }
+        id: modalEditType === 'add' ? v4() : (editCustomInfo?.id as string),
+        title: title,
+        type: HackathonEditModalType.CUSTOM_IMAGE_TITLE,
+        list: partners
+      },
+      status: 'customize'
     });
   };
+  useEffect(() => {
+    setTitle(
+      modalEditType === 'add' ? 'Unnamed Customized Section' : editCustomInfo?.title || 'Unnamed Customized Section'
+    );
+    setPartners(editCustomInfo?.list || []);
+  }, [editCustomInfo, modalEditType]);
   return (
     <div className="">
       <div className="px-[40px]">
@@ -201,4 +208,4 @@ const SpeakersSponsorsBoxModal: React.FC<SpeakersSponsorsBoxModalProp> = ({ hack
   );
 };
 
-export default SpeakersSponsorsBoxModal;
+export default CustomImageTitleModal;

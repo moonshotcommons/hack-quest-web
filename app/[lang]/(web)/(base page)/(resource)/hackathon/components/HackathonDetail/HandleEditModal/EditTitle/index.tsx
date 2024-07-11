@@ -17,20 +17,22 @@ interface EditTitleProp {
 const EditTitle: React.FC<EditTitleProp> = ({ hackathon, title: tle, changeTitle }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(tle);
   const [isEdit, setIsEdit] = useState(false);
-  const { modalType, updateHackathon, loading } = useContext(HackathonEditContext);
-  const handleEditTile = () => {
+  const { loading } = useContext(HackathonEditContext);
+  const handleEditTitle = () => {
     if (!title) {
-      setTitle(t(`hackathonDetail.${modalType}`));
+      setTitle(tle);
     }
     setIsEdit(false);
     changeTitle(title);
   };
   useEffect(() => {
-    setTitle(tle);
     setIsEdit(false);
   }, [hackathon]);
+  useEffect(() => {
+    setTitle(tle);
+  }, [tle]);
   return (
     <div className={'text-h3 group relative  pl-[21px] leading-[34px] text-neutral-black'}>
       <Loading loading={loading}>
@@ -50,7 +52,7 @@ const EditTitle: React.FC<EditTitleProp> = ({ hackathon, title: tle, changeTitle
                   errorMessage('Title is a required input.');
                   return;
                 }
-                handleEditTile();
+                handleEditTitle();
               }
             }}
             onBlur={(e) => {
@@ -58,7 +60,7 @@ const EditTitle: React.FC<EditTitleProp> = ({ hackathon, title: tle, changeTitle
                 errorMessage('Title is a required input.');
                 return;
               }
-              handleEditTile();
+              handleEditTitle();
             }}
           />
         ) : (

@@ -5,6 +5,7 @@ import React, { useContext, useMemo } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { AddSectionType, HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import { IoIosAddCircle } from 'react-icons/io';
 
 interface ListModalProp {
   hackathon: HackathonType;
@@ -38,9 +39,11 @@ const ListModal: React.FC<ListModalProp> = ({ hackathon }) => {
             <p className="body-s mt-[24px]">{t(`${v.label}Intro`)}</p>
           </div>
         ))}
-        {/* <div
+        <div
           className={`w-[calc((100%-24px)/2)] cursor-pointer  rounded-[8px] border-[3px]  border-neutral-off-white bg-neutral-off-white p-[8px] text-neutral-black  hover:border-yellow-dark hover:bg-yellow-extra-light`}
-          onClick={() => {}}
+          onClick={() => {
+            setModalType(HackathonEditModalType.CUSTOM);
+          }}
         >
           <div className="rounded-[7px] border border-dotted border-neutral-light-gray p-[16px]">
             <p className="text-h5 flex items-center justify-center gap-[8px]">
@@ -49,7 +52,7 @@ const ListModal: React.FC<ListModalProp> = ({ hackathon }) => {
             </p>
             <p className="body-s mt-[24px]">{'Lorem ipsum dolor sit amet'}</p>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
