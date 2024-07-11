@@ -36,7 +36,7 @@ export const eventsExploreLinkData = [
   {
     img: HackathonImg,
     label: 'hackathon',
-    path: MenuLink.HACKATHON,
+    path: MenuLink.EXPLORE_HACKATHON,
     id: 2
   },
   {

@@ -21,7 +21,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
 
   const status = currentTime.isAfter(moment(vote.timeline?.rewardTime)) ? 'ended' : 'ongoing';
   function goHackathonDetail() {
-    redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`);
+    redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${vote.alias}`);
   }
 
   function renderStatusTag() {
@@ -98,7 +98,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
           size="medium-x"
           ghost
           className="w-full uppercase"
-          onClick={() => redirectToUrl(`${MenuLink.HACKATHON}/${vote.alias}`)}
+          onClick={() => redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${vote.alias}`)}
         >
           learn more
         </Button>

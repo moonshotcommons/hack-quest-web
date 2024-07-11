@@ -93,7 +93,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
 
   return (
     <Box className="sticky right-0 top-[40px] flex flex-col  gap-[24px] p-[24px] pb-[20px] text-neutral-off-black">
-      <Link href={`${MenuLink.HACKATHON}/${hackathon.id}`} className="flex items-center justify-between">
+      <Link href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`} className="flex items-center justify-between">
         <h1 className="text-h3 ">{hackathon.name}</h1>
         <LuChevronRight size={40} />
       </Link>

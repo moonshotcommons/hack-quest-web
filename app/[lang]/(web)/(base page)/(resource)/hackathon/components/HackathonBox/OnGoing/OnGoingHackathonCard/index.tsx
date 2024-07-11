@@ -21,10 +21,10 @@ import { CiEdit } from 'react-icons/ci';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
-  isDashboard?: boolean;
+  isOrganizer?: boolean;
 }
 
-const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isDashboard }) => {
+const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isOrganizer }) => {
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -36,7 +36,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { redirectToUrl } = useRedirect();
   const goHackathonDetail = () => {
-    redirectToUrl(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+    redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   };
   const { getTotalPrize, getStepIndex, hackathonDownload } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
@@ -150,12 +150,12 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
         <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
       <div className="relative flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
-        {isDashboard && (
+        {isOrganizer && (
           <div
             className="absolute right-[20px] top-[20px] rounded-[4px] p-[6px] text-neutral-black transition-all hover:scale-[1.2]"
             onClick={(e) => {
               e.stopPropagation();
-              redirectToUrl(`${MenuLink.HACKATHON_EDIT}/${hackathon.alias}`);
+              redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
             }}
           >
             <CiEdit size={26} className="" />
@@ -178,7 +178,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
             <p className="body-xl-bold text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
           </div>
 
-          {isDashboard ? (
+          {isOrganizer ? (
             <>
               <div>
                 <p className="mb-[8px]">{t('submittedProjects')}</p>
