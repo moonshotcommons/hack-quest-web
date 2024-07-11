@@ -7,7 +7,6 @@ import { TransNs } from '@/i18n/config';
 import BaseImage from '@/components/Common/BaseImage';
 import { HackathonEditModalType } from '../../../constants/type';
 import { judgeModeLabel, voteModeLabel } from '../../../constants/data';
-import { InfoIcon } from 'lucide-react';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';
 
@@ -32,15 +31,30 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
         >
           <div className="body-l-bold text-neutral-rich-gray">{judge?.rewardName}</div>
           {judge?.disableJudge ? (
-            <div className="flex items-center justify-center gap-1 rounded-2xl bg-neutral-off-white p-4 text-sm text-neutral-medium-gray">
-              <InfoIcon size={16} />
-              <span>HackQuest voting and judging system will not be applied to this track.</span>
-            </div>
+            // <div className="flex items-center justify-center gap-1 rounded-2xl bg-neutral-off-white p-4 text-sm text-neutral-medium-gray">
+            //   <InfoIcon size={16} />
+            //   <span>HackQuest voting and judging system will not be applied to this track.</span>
+            // </div>
+            <>
+              <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
+              {judge?.criteria?.type === TEXT_EDITOR_TYPE ? (
+                <div
+                  className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-rich-gray"
+                  dangerouslySetInnerHTML={{
+                    __html: createEditor({ content: judge?.criteria?.content || [] }).getHtml()
+                  }}
+                ></div>
+              ) : (
+                <div className="mt-[4px] whitespace-pre-line text-neutral-rich-gray">
+                  {judge?.criteria?.replaceAll('\\n', '\n')}
+                </div>
+              )}
+            </>
           ) : (
             <>
               <div>
                 <p className="text-neutral-medium-gray">{t('hackathonDetail.judgingCriteria')}</p>
-                {judge?.criteria.type === TEXT_EDITOR_TYPE ? (
+                {judge?.criteria?.type === TEXT_EDITOR_TYPE ? (
                   <div
                     className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-rich-gray"
                     dangerouslySetInnerHTML={{

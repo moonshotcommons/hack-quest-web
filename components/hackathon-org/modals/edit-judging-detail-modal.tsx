@@ -22,14 +22,12 @@ import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/comp
 
 const formSchema = z
   .object({
-    criteria: z
-      .string()
-      .min(1, {
-        message: 'Field is required'
-      })
-      .max(360, {
-        message: 'Field cannot exceed 360 characters'
-      }),
+    criteria: z.string().min(1, {
+      message: 'Field is required'
+    }),
+    // .max(360, {
+    //   message: 'Field cannot exceed 360 characters'
+    // }),
     judgeMode: z.enum(['all', 'judges']).nullable().default(null).optional(),
     disableJudge: z.boolean().default(false).optional(),
     voteMode: z.enum(['fixed', 'score']).optional(),
