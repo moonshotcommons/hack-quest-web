@@ -46,7 +46,6 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
     animationData: treasureJson,
     loop: true
   });
-  console.info(View);
   const openTreasures = async (params: openParamType) => {
     const { treasureId, treasureData, digCallback } = params;
     let res = treasureData;

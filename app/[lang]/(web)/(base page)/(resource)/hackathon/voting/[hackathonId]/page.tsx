@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: HackathonVotingPageProps): Pr
 const HackathonVotingPage: FC<HackathonVotingPageProps> = async ({ params }) => {
   const hackathon = await getHackathonById(params.hackathonId);
   if (isUuid(params.hackathonId)) {
-    permanentRedirect(`${MenuLink.HACKATHON}/${hackathon.alias}`);
+    permanentRedirect(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   }
   const otherHackathons = await webApi.resourceStationApi.getVoteOtherHackathons(hackathon.id);
   return (
