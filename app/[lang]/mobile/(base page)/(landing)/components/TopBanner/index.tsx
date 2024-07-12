@@ -49,8 +49,8 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
         <div className="mt-[3rem] flex w-fit gap-4 rounded-[1rem] border border-neutral-off-white p-4">
           <div className="h-fit w-fit">
             <Image
-              src="/images/landing/mooc.jpg"
-              alt={t('TopBanner.universityMOOC')}
+              src="/images/landing/edu_hackathon.png"
+              alt={t('TopBanner.eduChainHackathon')}
               width={48}
               height={48}
               className="rounded-full"
@@ -58,11 +58,11 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
           </div>
           <div className="flex-1 text-neutral-off-white">
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 text-yellow-primary">
-              {t('TopBanner.universityMOOC')}
+              {t('TopBanner.hackathon')}
             </div>
             <Link href={MenuLink.NTU_COURSE} className="body-m-bold mt-2 flex items-center gap-2 text-[.75rem]">
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                {t('TopBanner.universityMOOCDesc')}
+                {t('TopBanner.eduChainHackathon')}
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
