@@ -17,7 +17,6 @@ interface DetailJugingProp {
 const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  console.log(hackathon.judge);
   return (
     <EditBox
       title={'hackathonDetail.judge'}

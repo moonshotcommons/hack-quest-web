@@ -1,34 +1,40 @@
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import EditBox from '../EditBox';
-import { HackathonInfoParterKeys, HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonInfoSectionCustomType } from '@/service/webApi/resourceStation/type';
 import BaseImage from '@/components/Common/BaseImage';
 import { VscChevronDown } from 'react-icons/vsc';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
-import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import {
+  HackathonEditContext,
+  HackathonEditModalType
+} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
-interface PartnersBoxProp {
-  type: HackathonInfoParterKeys;
-  hackathon: HackathonType;
+interface CustomImageNameProp {
+  custom: HackathonInfoSectionCustomType;
 }
 
-const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
+const CustomImageName: React.FC<CustomImageNameProp> = ({ custom }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
+  const { setEditCustomInfo } = useContext(HackathonEditContext);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
   const list = useMemo(() => {
-    return hackathon.info?.sections?.[type]?.list || [];
-  }, [hackathon, type]);
-  if (!list.length) return null;
+    return custom?.list || [];
+  }, [custom]);
   return (
     <EditBox
-      title={hackathon.info?.sections?.[type]?.title || `hackathonDetail.${type}`}
-      className="border-none bg-transparent p-0"
-      type={type as HackathonEditModalType}
-      handleDelete={() => removeSectionRef.current?.open()}
+      title={custom.title}
+      className="rounded-none border-none bg-transparent p-0"
+      type={HackathonEditModalType.CUSTOM_IMAGE_NAME}
+      custom={custom}
+      handleDelete={() => {
+        setEditCustomInfo(custom as HackathonInfoSectionCustomType);
+        removeSectionRef.current?.open();
+      }}
     >
       <div
         className={`body-s-bold flex flex-wrap gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[11.5rem]'}`}
@@ -53,9 +59,9 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
           </div>
         </div>
       )}
-      <RemoveSectionModal ref={removeSectionRef} type={type} />
+      <RemoveSectionModal ref={removeSectionRef} title={custom.title} type={HackathonEditModalType.CUSTOM_IMAGE_NAME} />
     </EditBox>
   );
 };
 
-export default PartnersBox;
+export default CustomImageName;

@@ -1,5 +1,10 @@
 'use client';
-import { HackathonStatusType, HackathonTimeLineType, HackathonType } from '@/service/webApi/resourceStation/type';
+import {
+  HackathonStatus,
+  HackathonStatusType,
+  HackathonTimeLineType,
+  HackathonType
+} from '@/service/webApi/resourceStation/type';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
@@ -44,10 +49,19 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
   };
   const hackathons = useMemo(() => {
     const hackathon = {
-      [HackathonStatusType.ON_GOING]: h.filter((v) => v.enable && v.timeline && !isPast(v.timeline)),
-      [HackathonStatusType.DRAFT]: h.filter((v) => !v.enable || !v.timeline),
-      [HackathonStatusType.PAST]: h.filter((v) => v.enable && v.timeline && isPast(v.timeline))
+      [HackathonStatusType.ON_GOING]: h.filter(
+        (v) => v.status === HackathonStatus.PUBLISH && v.timeline && !isPast(v.timeline)
+      ),
+      [HackathonStatusType.DRAFT]: h.filter((v) => v.status === HackathonStatus.DRAFT),
+      [HackathonStatusType.PAST]: h.filter(
+        (v) => v.status === HackathonStatus.PUBLISH && v.timeline && isPast(v.timeline)
+      )
     };
+    // const hackathon = {
+    //   [HackathonStatusType.ON_GOING]: h,
+    //   [HackathonStatusType.DRAFT]: h,
+    //   [HackathonStatusType.PAST]: h
+    // };
     const newHackathonTab = cloneDeep(hackathonDashboardTab).map((v) => {
       v.count = hackathon[v.value].length || 0;
       return v;
