@@ -114,11 +114,6 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
     }, 1000);
   }, [hackathon]);
 
-  // useEffect(() => {
-  //   if (!userInfo || !hackathon?.creatorId || userInfo?.id !== hackathon?.creatorId) {
-  //     redirectToUrl(MenuLink.EXPLORE_HACKATHON, true);
-  //   }
-  // }, [userInfo, hackathon]);
   return (
     <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>
       <Loading loading={loading}>

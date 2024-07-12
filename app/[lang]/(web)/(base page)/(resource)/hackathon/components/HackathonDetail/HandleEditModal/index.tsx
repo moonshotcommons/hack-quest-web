@@ -49,7 +49,7 @@ const HandleEditModal: React.FC<HandleEditModalProp> = ({ hackathon }) => {
       case HackathonEditModalType.CUSTOM:
         return <CustomModal />;
       case HackathonEditModalType.CUSTOM_TEXT:
-        return <CustomTextModal hackathon={hackathon} />;
+        return <CustomTextModal />;
       case HackathonEditModalType.CUSTOM_IMAGE_NAME:
         return <CustomImageNameModal hackathon={hackathon} />;
       case HackathonEditModalType.CUSTOM_IMAGE_TITLE:

@@ -14,7 +14,7 @@ interface ListModalProp {
 const ListModal: React.FC<ListModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { setModalType } = useContext(HackathonEditContext);
+  const { setModalType, setModalEditType } = useContext(HackathonEditContext);
   const { dealModalList } = useDealHackathonData();
   const modalList = useMemo(() => {
     return dealModalList(hackathon);
@@ -33,6 +33,7 @@ const ListModal: React.FC<ListModalProp> = ({ hackathon }) => {
             onClick={() => {
               if (v.added) return;
               setModalType(v.type as HackathonEditModalType & AddSectionType);
+              setModalEditType('add');
             }}
           >
             <p className="text-h5 text-center">{t(v.label)}</p>

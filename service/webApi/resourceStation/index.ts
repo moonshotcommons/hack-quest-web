@@ -291,6 +291,10 @@ class ResourceStationApi {
   hackathonCustomizeDeleteById(hackathonId: string, customId: string) {
     return this.service.delete(`${ResourceStationApiType.Hackathon}/${hackathonId}/customize/${customId}`);
   }
+
+  submitPublish(hackathonId: string) {
+    return this.service.patch<void>(`${ResourceStationApiType.Hackathon}/${hackathonId}/submit`);
+  }
 }
 
 export default ResourceStationApi;

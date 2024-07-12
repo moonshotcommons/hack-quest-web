@@ -46,8 +46,8 @@ const EditBox: React.FC<EditBoxProp> = ({
                     onClick={() => {
                       if (customModalList.some((v) => v.value === type)) {
                         setEditCustomInfo(custom as HackathonInfoSectionCustomType);
-                        setModalEditType('edit');
                       }
+                      setModalEditType('edit');
                       setModalType(type);
                     }}
                   >

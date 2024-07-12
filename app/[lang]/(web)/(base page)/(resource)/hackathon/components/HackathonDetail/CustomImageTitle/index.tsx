@@ -1,10 +1,6 @@
 import React, { useContext, useMemo, useRef, useState } from 'react';
 import EditBox from '../EditBox';
-import {
-  HackathonInfoSectionCustomType,
-  HackathonInfoSponsorsKeys,
-  HackathonType
-} from '@/service/webApi/resourceStation/type';
+import { HackathonInfoSectionCustomType } from '@/service/webApi/resourceStation/type';
 import BaseImage from '@/components/Common/BaseImage';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
@@ -29,7 +25,7 @@ const CustomImageTitle: React.FC<CustomImageTitleProp> = ({ custom }) => {
   return (
     <EditBox
       title={custom.title}
-      className="border-none bg-transparent p-0"
+      className="rounded-none border-none bg-transparent p-0"
       type={HackathonEditModalType.CUSTOM_IMAGE_TITLE}
       custom={custom}
       handleDelete={() => {

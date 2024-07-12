@@ -6,6 +6,7 @@ import { getHackathonById } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
 import HackathonEditDetail from './components';
+import webApi from '@/service';
 
 interface HackathonIdProps {
   params: {
@@ -31,10 +32,22 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
 
 const HackahtonEditPage: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
   const hackathon = await getHackathonById(params.alias);
-  console.info(hackathon);
   if (isUuid(params.alias)) {
     permanentRedirect(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
   }
+
+  let userInfo = null;
+
+  try {
+    userInfo = await webApi.userApi.getUserInfo();
+  } catch (e) {
+    permanentRedirect(`/404`);
+  }
+
+  if (!userInfo || userInfo.id !== hackathon.creatorId) {
+    permanentRedirect(`/404`);
+  }
+
   return (
     <>
       <HackathonEditDetail hackathon={hackathon} isEdit={true} />

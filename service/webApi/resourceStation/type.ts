@@ -82,15 +82,10 @@ export interface HacakthonFaqType {
   id: string;
 }
 
-export enum HackathonSubmissionStatus {
-  INFO = 'INFO',
-  APPLICATION = 'APPLICATION',
-  SUBMISSION = 'SUBMISSION',
-  LINKS = 'LINKS',
-  COVER = 'COVER',
-  TIMELINE = 'TIMELINE',
-  REWARDS = 'REWARDS',
-  JUDGING = 'JUDGING'
+export enum HackathonStatus {
+  DRAFT = 'draft',
+  REVIEW = 'review',
+  PUBLISH = 'publish'
 }
 
 export interface HackathonApplicationLabelType {
@@ -138,6 +133,7 @@ export interface HackathonInfoSectionCustomType {
   id: string;
   type: HackathonInfoSectionCustom;
   title: string;
+  text: any;
   list: MentorType[];
 }
 
@@ -240,7 +236,7 @@ export interface HackathonType {
   progress: string[];
   allowSubmission: boolean;
   alias: string;
-  status: HackathonSubmissionStatus;
+  status: HackathonStatus;
   members: HackathonMemberType[];
   sectionSequences: string[];
   participation?: HackathonRegisterInfo;

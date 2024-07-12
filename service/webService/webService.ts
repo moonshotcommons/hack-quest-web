@@ -56,7 +56,8 @@ class WebService {
   responseInterceptor<T>(res: AxiosResponse<T, T>): Promise<T> {
     // console.log('全局响应拦截器')
     const token = (res.headers['authorization'] || '')?.replace('Bearer ', '');
-    token &&
+    typeof window !== 'undefined' &&
+      token &&
       setCookie(TOKEN_KEY, token, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3)
       });

@@ -31,7 +31,7 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
       handleDelete={() => removeSectionRef.current?.open()}
     >
       <div
-        className={`body-s-bold flex flex-wrap gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[208px]'}`}
+        className={`body-s-bold flex flex-wrap gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[11.5rem]'}`}
       >
         {list.map((v, i) => (
           <div
@@ -45,7 +45,7 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
           </div>
         ))}
       </div>
-      {list.length > 12 && (
+      {list.length > 6 && (
         <div className="body-s mt-[1rem] flex justify-end">
           <div className="flex cursor-pointer items-center gap-[.5rem]" onClick={() => setShowAll(!showAll)}>
             <span>{showAll ? t('showLess') : t('showAll')}</span>

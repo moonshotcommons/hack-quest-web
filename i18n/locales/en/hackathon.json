@@ -123,7 +123,8 @@
     "viewTeamProject": "View team project",
     "registrationData": "Registration Data",
     "backToEdit":"Back to Edit",
-    "proceedToPreview":"Proceed to Preview"
+    "proceedToPreview":"Proceed to Preview",
+    "submitToPreview":"Submit to Preview"
   },
   "projectsDetail": {
     "title": {

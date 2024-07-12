@@ -16,6 +16,7 @@ import Description from '../../../components/HackathonDetail/Decription';
 import Rewards from '../../../components/HackathonDetail/Rewards';
 import Judging from '../../../components/HackathonDetail/Judging';
 import ThemeResource from '../../../components/HackathonDetail/ThemeResource';
+import Customs from '../../../components/HackathonDetail/Customs';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -111,6 +112,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
             <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
             <Schedule hackathon={hackathon} />
             <FAQs hackathon={hackathon} />
+            <Customs hackathon={hackathon} />
           </div>
           <div className="relative w-[39%]">
             <div className="sticky left-0 top-[106px]">

@@ -7,7 +7,7 @@ import BaseImage from '@/components/Common/BaseImage';
 interface CustomModalProp {}
 
 const CustomModal: React.FC<CustomModalProp> = () => {
-  const { setModalType, setModalEditType } = useContext(HackathonEditContext);
+  const { setModalType, setModalEditType, setEditCustomInfo } = useContext(HackathonEditContext);
   return (
     <div className="flex flex-col gap-[24px] px-[40px]">
       <div
@@ -25,6 +25,7 @@ const CustomModal: React.FC<CustomModalProp> = () => {
             className="flex flex-1 cursor-pointer flex-col items-center gap-[16px]  rounded-[16px] border-[3px]  border-neutral-off-white bg-neutral-white p-[16px] text-neutral-black  hover:border-yellow-dark hover:bg-yellow-extra-light"
             onClick={() => {
               setModalEditType('add');
+              setEditCustomInfo(null);
               setModalType(v.value);
             }}
           >

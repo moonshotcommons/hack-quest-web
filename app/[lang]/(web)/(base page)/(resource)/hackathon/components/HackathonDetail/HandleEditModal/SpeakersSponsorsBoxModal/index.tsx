@@ -1,7 +1,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useState, FocusEvent, useMemo, useRef, useEffect } from 'react';
+import React, { useContext, useState, FocusEvent, useMemo } from 'react';
 import { HackathonInfoSponsorsKeys, HackathonType, MentorType } from '@/service/webApi/resourceStation/type';
 import { IoIosAddCircle, IoIosCloseCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
@@ -15,7 +15,6 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
-import { RemoveSectionModalRef } from '../../RemoveSectionModal';
 import CommonButton from '../CommonButton';
 
 interface SpeakersSponsorsBoxModalProp {
@@ -96,7 +95,7 @@ const SpeakersSponsorsBoxModal: React.FC<SpeakersSponsorsBoxModalProp> = ({ hack
   return (
     <div className="">
       <div className="px-[40px]">
-        <EditTitle hackathon={hackathon} title={title} changeTitle={setTitle} />
+        <EditTitle title={title} changeTitle={setTitle} />
       </div>
       <div className="scroll-wrap-y flex flex-1 flex-col gap-[24px] px-[40px] ">
         <p className="body-l text-neutral-off-black">{t('hackathonDetail.speakersUploadText')}</p>
@@ -196,7 +195,7 @@ const SpeakersSponsorsBoxModal: React.FC<SpeakersSponsorsBoxModalProp> = ({ hack
         </div>
       </div>
 
-      <CommonButton hackathon={hackathon} title={title} handleSave={handleSave} cantSubmit={cantSubmit} />
+      <CommonButton title={title} handleSave={handleSave} cantSubmit={cantSubmit} />
     </div>
   );
 };

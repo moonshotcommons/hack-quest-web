@@ -45,9 +45,6 @@ const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
           treasureData: {
             coin: res[0]?.coin,
             exp: res[0]?.exp
-          },
-          digCallback: () => {
-            setLoading(false);
           }
         });
       })

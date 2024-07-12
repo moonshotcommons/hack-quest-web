@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import EditBox from '../EditBox';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
@@ -17,6 +17,9 @@ import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
 import dayjs from '@/components/Common/Dayjs';
+import webApi from '@/service';
+import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -36,6 +39,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex, getLinks } = useDealHackathonData();
+  const [loading, setLoading] = useState(false);
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
@@ -55,8 +59,23 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     }
   };
 
+  const handleSubmitPublish = () => {
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .submitPublish(hackathon.id)
+      .then(() => {
+        message.success('Submit Success');
+        window.location.reload();
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
+  };
+
   const renderButton = () => {
-    if (hackathon.enable === false) {
+    if (hackathon.status !== HackathonStatus.PUBLISH) {
       return null;
     }
     if (stepIndex < 1) {
@@ -230,7 +249,22 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             </div>
           </div>
         )}
-        <div className="fixed bottom-0 left-0 z-[10] w-full px-[1.25rem] pb-[1.25rem]">{renderButton()}</div>
+        <div className="fixed bottom-0 left-0 z-[10] flex w-full flex-col gap-[.625rem] px-[1.25rem] pb-[1.25rem]">
+          {renderButton()}
+          {userInfo && hackathon.creatorId && userInfo?.id === hackathon.creatorId && (
+            <>
+              {hackathon.status === HackathonStatus.DRAFT && (
+                <Button
+                  className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+                  loading={loading}
+                  onClick={handleSubmitPublish}
+                >
+                  {t('hackathonDetail.submitToPreview')}
+                </Button>
+              )}
+            </>
+          )}
+        </div>
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>
     </EditBox>

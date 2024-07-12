@@ -29,7 +29,7 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
   return (
     <EditBox
       title={hackathon.info?.sections?.[type]?.title || t(`hackathonDetail.${type}`)}
-      className="border-none bg-transparent p-0"
+      className="rounded-none border-none bg-transparent p-0"
       type={type as HackathonEditModalType}
       handleDelete={() => removeSectionRef.current?.open()}
     >

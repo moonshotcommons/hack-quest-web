@@ -1,5 +1,4 @@
 import { errorMessage } from '@/helper/ui';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useEffect, useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import { HackathonEditContext } from '../../../../constants/type';
@@ -9,12 +8,11 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 
 interface EditTitleProp {
-  hackathon: HackathonType;
   title: string;
   changeTitle: (title: string) => void;
 }
 
-const EditTitle: React.FC<EditTitleProp> = ({ hackathon, title: tle, changeTitle }) => {
+const EditTitle: React.FC<EditTitleProp> = ({ title: tle, changeTitle }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [title, setTitle] = useState(tle);
@@ -28,20 +26,17 @@ const EditTitle: React.FC<EditTitleProp> = ({ hackathon, title: tle, changeTitle
     changeTitle(title);
   };
   useEffect(() => {
-    setIsEdit(false);
-  }, [hackathon]);
-  useEffect(() => {
     setTitle(tle);
   }, [tle]);
   return (
-    <div className={'text-h3 group relative  pl-[21px] leading-[34px] text-neutral-black'}>
+    <div className={'text-h3 group relative w-full  pl-[21px] leading-[34px] text-neutral-black'}>
       <Loading loading={loading}>
         {isEdit ? (
           <input
             type="text"
             value={title}
             maxLength={30}
-            className="text-h3 w-[80vh] border-none bg-transparent outline-none"
+            className="text-h3 w-[80%] border-none bg-transparent outline-none"
             onChange={(e) => {
               const val = e.target.value;
               setTitle(val);

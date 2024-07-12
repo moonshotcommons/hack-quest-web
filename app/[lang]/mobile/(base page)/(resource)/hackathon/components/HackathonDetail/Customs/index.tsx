@@ -1,9 +1,9 @@
 import { HackathonType, HackathonInfoSectionCustomType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 import CustomImageName from '../CustomImageName';
-import { HackathonEditModalType } from '../../../constants/type';
 import CustomImageTitle from '../CustomImageTitle';
 import CustomText from '../CustomText';
+import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 interface CustomsProp {
   hackathon: HackathonType;

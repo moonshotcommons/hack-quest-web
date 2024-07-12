@@ -8,6 +8,8 @@ import { TransNs } from '@/i18n/config';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
 import { cloneDeep } from 'lodash-es';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import { createEditor } from '@wangeditor/editor';
 
 interface FAQsProp {
   hackathon: HackathonType;
@@ -67,7 +69,16 @@ const FAQs: React.FC<FAQsProp> = ({ hackathon }) => {
               <p className="flex-1 ">{v.question}</p>
               <div className="flex-shrink-0">{v.isExpand ? <IoRemoveOutline size={28} /> : <IoAdd size={28} />}</div>
             </div>
-            <div className={`whitespace-pre-line pt-[1.25rem] ${v.isExpand ? 'block' : 'hidden'}`}>{v.answer}</div>
+            {(v?.answer as any)?.type === TEXT_EDITOR_TYPE ? (
+              <div
+                className={`reset-editor-style-mob whitespace-pre-line pt-[1.25rem] ${v.isExpand ? 'block' : 'hidden'}`}
+                dangerouslySetInnerHTML={{
+                  __html: createEditor({ content: (v?.answer as any)?.content || [] }).getHtml()
+                }}
+              ></div>
+            ) : (
+              <div className={`whitespace-pre-line pt-[1.25rem] ${v.isExpand ? 'block' : 'hidden'}`}>{v.answer}</div>
+            )}
           </div>
         ))}
       </div>

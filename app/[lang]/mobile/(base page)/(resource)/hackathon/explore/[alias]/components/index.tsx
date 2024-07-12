@@ -15,6 +15,7 @@ import { OffsetTopsType } from '@/app/[lang]/(web)/(base page)/(resource)/hackat
 import EditNav from '../../../components/HackathonDetail/EditNav';
 import Rewards from '../../../components/HackathonDetail/Rewards';
 import ThemeResource from '../../../components/HackathonDetail/ThemeResource';
+import Customs from '../../../components/HackathonDetail/Customs';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -83,7 +84,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     }, 300);
   }, []);
   return (
-    <div className="scroll-wrap-y h-[calc(100vh-4rem)] pb-[6.25rem]" ref={boxRef} onScroll={handleScoll}>
+    <div className="scroll-wrap-y h-[calc(100vh-4rem)] pb-[10rem]" ref={boxRef} onScroll={handleScoll}>
       {hackathon.id && (
         <div className="relative flex flex-col gap-[3.75rem]  pt-[1.25rem]" ref={contentRef}>
           <DetailInfo hackathon={hackathon} />
@@ -107,6 +108,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
           <Schedule hackathon={hackathon} />
           <FAQs hackathon={hackathon} />
+          <Customs hackathon={hackathon} />
         </div>
       )}
     </div>

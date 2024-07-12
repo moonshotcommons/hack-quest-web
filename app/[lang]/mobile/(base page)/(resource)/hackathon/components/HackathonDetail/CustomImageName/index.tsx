@@ -6,8 +6,11 @@ import { VscChevronDown } from 'react-icons/vsc';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
+import {
+  HackathonEditContext,
+  HackathonEditModalType
+} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 interface CustomImageNameProp {
   custom: HackathonInfoSectionCustomType;
@@ -34,25 +37,25 @@ const CustomImageName: React.FC<CustomImageNameProp> = ({ custom }) => {
       }}
     >
       <div
-        className={`body-s-bold flex flex-wrap gap-[20px] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[208px]'}`}
+        className={`body-s-bold flex flex-wrap gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[11.5rem]'}`}
       >
         {list.map((v, i) => (
           <div
-            className="flex h-[56px] w-[calc((100%-60px)/4)] flex-shrink-0 items-center gap-[5px] overflow-hidden rounded-[80px] border border-neutral-medium-gray bg-neutral-white p-[5px]"
+            className="flex h-[3.5rem] w-[calc((100%-0.5rem)/2)] flex-shrink-0 items-center gap-[.3125rem] overflow-hidden rounded-[5rem] border border-neutral-medium-gray bg-neutral-white p-[.3125rem]"
             key={i}
           >
-            <BaseImage src={v.picture} alt={v.name} className="h-[46px] w-[46px] flex-shrink-0 rounded-[50%]" />
+            <BaseImage src={v.picture} alt={v.name} className="h-[2.875rem] w-[2.875rem] flex-shrink-0 rounded-[50%]" />
             <span className="w-0 flex-1 truncate pr-[5px]" title={v.name}>
               {v.name}
             </span>
           </div>
         ))}
       </div>
-      {list.length > 12 && (
-        <div className="body-l mt-[20px] flex justify-end">
-          <div className="flex cursor-pointer items-center gap-[8px]" onClick={() => setShowAll(!showAll)}>
+      {list.length > 6 && (
+        <div className="body-s mt-[1rem] flex justify-end">
+          <div className="flex cursor-pointer items-center gap-[.5rem]" onClick={() => setShowAll(!showAll)}>
             <span>{showAll ? t('showLess') : t('showAll')}</span>
-            <VscChevronDown className={`body-xl transition ${showAll ? 'rotate-180' : ''}`} />
+            <VscChevronDown className={`body-m transition ${showAll ? 'rotate-180' : ''}`} />
           </div>
         </div>
       )}

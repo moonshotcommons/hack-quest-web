@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import webApi from '@/service';
 import { HackathonInfoSectionCustomType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
@@ -18,12 +18,12 @@ const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, 
   const { dealModalList } = useDealHackathonData();
   const [loading, setLoading] = useState(false);
   const [modalType, setModalType] = useState<HackathonEditModalType>(HackathonEditModalType.NULL);
-  const [modalEditType, setModalEditType] = useState<'add' | 'edit'>('add');
+  const [modalEditType, setModalEditType] = useState<'add' | 'edit' | ''>('');
   const [editCustomInfo, setEditCustomInfo] = useState<HackathonInfoSectionCustomType | null>(null);
   const updateHackathon = ({ data, status = modalType, closeModal = true, cb }: UpdateHackathonParamType) => {
     setLoading(true);
     webApi.hackathonV2Api
-      .updateHackathon(
+      .updateHackathonEdit(
         hackathon.id,
         {
           ...data
@@ -70,6 +70,12 @@ const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, 
     return [...initEditNavs, ...addList];
   }, [hackathon]);
 
+  useEffect(() => {
+    if (modalType === HackathonEditModalType.NULL) {
+      setEditCustomInfo(null);
+      setModalEditType('');
+    }
+  }, [modalType]);
   return (
     <HackathonEditContext.Provider
       value={{

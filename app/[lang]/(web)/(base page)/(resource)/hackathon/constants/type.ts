@@ -107,10 +107,10 @@ export interface HackathonEditContextType {
   loading: boolean;
   setLoading: (loading: boolean) => void;
   isEdit: boolean;
-  modalEditType: 'add' | 'edit';
-  setModalEditType: (type: 'add' | 'edit') => void;
+  modalEditType: 'add' | 'edit' | '';
+  setModalEditType: (type: 'add' | 'edit' | '') => void;
   editCustomInfo: HackathonInfoSectionCustomType | null;
-  setEditCustomInfo: (info: HackathonInfoSectionCustomType) => void;
+  setEditCustomInfo: (info: HackathonInfoSectionCustomType | null) => void;
   hackathonCustomDelete: VoidFunction;
 }
 
@@ -123,7 +123,7 @@ export const HackathonEditContext = createContext<HackathonEditContextType>({
   loading: true,
   setLoading: () => {},
   isEdit: false,
-  modalEditType: 'add',
+  modalEditType: '',
   setModalEditType: () => {},
   editCustomInfo: null,
   setEditCustomInfo: () => {},
