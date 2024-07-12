@@ -20,7 +20,7 @@ const Skeleton = React.forwardRef<SkeletonElement, SkeletonProps>((props, forwar
       aria-hidden={true}
       tabIndex={-1}
       data-inline-skeleton={React.isValidElement(children) ? undefined : true}
-      className={cn('animate-pulse bg-neutral-off-white text-[#0000]', className)}
+      className={cn('animate-pulse bg-neutral-off-white !text-[#0000]', className)}
       {...rest}
     >
       {children}

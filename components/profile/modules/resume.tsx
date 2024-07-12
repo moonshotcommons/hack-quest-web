@@ -1,4 +1,5 @@
 import { UploadIcon } from 'lucide-react';
+import { RemoveFile } from '../modals/remove-file-modal';
 
 export function Resume() {
   return (
@@ -11,6 +12,7 @@ export function Resume() {
             <UploadIcon size={20} className="text-neutral-rich-gray" />
             <span className="body-s text-neutral-rich-gray">Upload file</span>
           </button>
+          <RemoveFile />
         </div>
       </div>
     </div>

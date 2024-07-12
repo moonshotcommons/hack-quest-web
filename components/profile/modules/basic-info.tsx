@@ -1,17 +1,20 @@
 import Image from 'next/image';
-import { EditIcon } from '@/components/ui/icons/edit';
 import { GithubIcon } from '@/components/ui/icons/github';
 import { LinkedInIcon } from '@/components/ui/icons/linkedin';
 import { LocationIcon } from '@/components/ui/icons/location';
-import { ShareIcon } from '@/components/ui/icons/share';
 import { TelegramIcon } from '@/components/ui/icons/telegram';
 import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { WeChatIcon } from '@/components/ui/icons/wechat';
 import { Skeleton } from '@/components/shared/skeleton';
 import { useProfile } from '../utils';
+import { ShareProfile } from '../modals/share-profile-modal';
+import { EditProfile } from '../modals/edit-profile-modal';
+import { CropImageModal, useCropImage } from '../modals/crop-image-modal';
+import { FileInput } from '../common/file-input';
 
 export function BasicInfo() {
   const { loading, data: profile } = useProfile();
+  const { onOpen } = useCropImage();
 
   return (
     <div className="h-full w-full bg-neutral-white">
@@ -21,8 +24,12 @@ export function BasicInfo() {
       <div className="relative mx-auto max-w-5xl bg-neutral-white px-6 pb-4 sm:px-0 sm:pb-0">
         <div className="absolute -top-6 left-5 h-20 w-20 rounded-full border-4 border-neutral-white bg-neutral-white sm:-top-8 sm:left-0 sm:h-40 sm:w-40">
           <Skeleton loading={loading} className="rounded-full">
-            <div className="relative h-full w-full">
+            <div className="group relative h-full w-full">
               <Image src={profile?.user?.avatar || ''} alt="avatar" fill className="rounded-full" />
+              <FileInput
+                className="absolute inset-0 rounded-full bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                onFileChange={onOpen}
+              />
             </div>
           </Skeleton>
         </div>
@@ -57,14 +64,11 @@ export function BasicInfo() {
           </div>
         </div>
         <div className="absolute right-5 top-6 flex items-center gap-4 sm:right-0 sm:top-10">
-          <button>
-            <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-          </button>
-          <button>
-            <ShareIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-          </button>
+          <EditProfile />
+          <ShareProfile />
         </div>
       </div>
+      <CropImageModal />
     </div>
   );
 }

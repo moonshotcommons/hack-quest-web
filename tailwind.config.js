@@ -99,7 +99,9 @@ module.exports = {
       boxShadow: {
         modal: '0px 4px 8px 0px rgba(0, 0, 0, 0.12)',
         'idea-card': '0px 0px 8px 0px rgba(0, 0, 0, 0.12)',
-        popper: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'
+        popper: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)',
+        'field-valid': '0px 0px 0px 2px rgba(140, 140, 140, 0.25)',
+        'field-invalid': '0px 0px 0px 2px rgba(199, 51, 51, 0.25)'
       },
       colors: {
         ...themeColors,

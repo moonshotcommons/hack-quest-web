@@ -88,3 +88,22 @@ export const INDICATORS = [
     ]
   }
 ];
+
+export const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+const CURRENT_YEAR = new Date().getFullYear();
+const START_YEAR = 1949;
+
+export const YEARS = Array.from({ length: CURRENT_YEAR - START_YEAR + 1 }).map((_, i) => (START_YEAR + i).toString());
