@@ -5,7 +5,6 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { HackathonEditContext } from '../../../constants/type';
 import { customModalList } from '../../../constants/data';
-import webApi from '@/service';
 
 interface RemoveSectionModalProp {
   type: string;
