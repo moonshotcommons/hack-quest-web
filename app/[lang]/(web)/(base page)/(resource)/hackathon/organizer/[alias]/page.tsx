@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
 
 const HackahtonEditPage: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
   const hackathon = await getHackathonById(params.alias);
+  console.info(hackathon);
   if (isUuid(params.alias)) {
     permanentRedirect(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
   }
