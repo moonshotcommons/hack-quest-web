@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
@@ -11,9 +11,13 @@ import { Input } from '../common/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../common/select';
 import { experienceSchema, type ExperienceSchema } from '../validations/experience';
 import { MONTHS, YEARS } from '../constants';
+import { EditIcon } from '@/components/ui/icons/edit';
+import { UserExperienceType } from '@/service/webApi/user/type';
+import { PlusIcon } from 'lucide-react';
 
-export function EditExperienceModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?: UserExperienceType | null }) {
   const inputRef = React.useRef<HTMLInputElement>(null);
+
   const form = useForm<ExperienceSchema>({
     resolver: zodResolver(experienceSchema),
     defaultValues: {
@@ -32,16 +36,33 @@ export function EditExperienceModal({ open, onClose }: { open: boolean; onClose:
     console.log(data);
   }
 
-  function handleClose() {
-    onClose();
-    form.reset();
-  }
+  React.useEffect(() => {
+    if (preset) {
+      form.reset({
+        ...preset,
+        startMonth: preset.startDate?.split(' ')[0],
+        startYear: preset.startDate?.split(' ')[1],
+        endMonth: preset.endDate?.split(' ')[0],
+        endYear: preset.endDate?.split(' ')[1]
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preset]);
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog>
+      <DialogTrigger asChild>
+        <button type="button" className="outline-none">
+          {type === 'edit' ? (
+            <EditIcon className="h-5 w-5 text-neutral-medium-gray" />
+          ) : (
+            <PlusIcon className="h-6 w-6" />
+          )}
+        </button>
+      </DialogTrigger>
       <DialogContent className="flex w-[900px] max-w-[900px] flex-col gap-6 px-8 py-16 pb-8">
         <DialogHeader className="shrink-0 text-left">
-          <DialogTitle className="text-[22px]">Edit Experience</DialogTitle>
+          <DialogTitle className="text-[22px]">{type === 'edit' ? 'Edit' : 'Add'} Experience</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="no-scrollbar flex-1 space-y-6 overflow-y-auto px-0.5">

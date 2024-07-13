@@ -11,10 +11,28 @@ import { ShareProfile } from '../modals/share-profile-modal';
 import { EditProfile } from '../modals/edit-profile-modal';
 import { CropImageModal, useCropImage } from '../modals/crop-image-modal';
 import { FileInput } from '../common/file-input';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
+import { message } from 'antd';
 
 export function BasicInfo() {
-  const { loading, data: profile } = useProfile();
-  const { onOpen } = useCropImage();
+  const { loading, data: profile, invalidate } = useProfile();
+  const { onOpen, onClose } = useCropImage();
+
+  const uploadAvatarMutation = useMutation({
+    mutationFn: (data: FormData) => webApi.userApi.uploadAvatar(data),
+    onSuccess: async () => {
+      await invalidate();
+      onClose();
+      message.success('Upload avatar successfully');
+    }
+  });
+
+  function onConfirm(blob: Blob) {
+    const formData = new FormData();
+    formData.append('file', blob, 'avatar.png');
+    uploadAvatarMutation.mutate(formData);
+  }
 
   return (
     <div className="h-full w-full bg-neutral-white">
@@ -68,7 +86,7 @@ export function BasicInfo() {
           <ShareProfile />
         </div>
       </div>
-      <CropImageModal />
+      <CropImageModal loading={uploadAvatarMutation.isPending} onConfirm={onConfirm} />
     </div>
   );
 }

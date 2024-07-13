@@ -4,7 +4,7 @@ export const experienceSchema = zod.object({
   title: zod.string().min(1, {
     message: 'Title is required'
   }),
-  company: zod.string().min(1, {
+  companyName: zod.string().min(1, {
     message: 'Company is required'
   }),
   employmentType: zod.string().optional(),

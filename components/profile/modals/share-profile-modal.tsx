@@ -41,7 +41,7 @@ export function ShareProfile() {
         <div className="">
           <label className="text-neutral-rich-gray">Custom Profile URL</label>
           <div className="flex items-center">
-            <p className="h-12 leading-[48px] text-neutral-off-black">{window.location.origin}/</p>
+            <p className="h-12 leading-[48px] text-neutral-off-black">www.hackquest.io/user/</p>
             {isEditing ? (
               <Input className="ml-1" value={username} onChange={(e) => setUsername(e.target.value)} />
             ) : (

@@ -106,4 +106,4 @@ export const MONTHS = [
 const CURRENT_YEAR = new Date().getFullYear();
 const START_YEAR = 1949;
 
-export const YEARS = Array.from({ length: CURRENT_YEAR - START_YEAR + 1 }).map((_, i) => (START_YEAR + i).toString());
+export const YEARS = Array.from({ length: CURRENT_YEAR - START_YEAR + 1 }).map((_, i) => (CURRENT_YEAR - i).toString());
