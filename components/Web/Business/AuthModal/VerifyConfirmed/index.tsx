@@ -8,12 +8,10 @@ import { FC, useEffect, useState } from 'react';
 import Google from '@/public/images/login/google.svg';
 import Github from '@/public/images/login/github.svg';
 import Image from 'next/image';
-import { LoginResponse, ThirdPartyAuthType } from '@/service/webApi/user/type';
+import { ThirdPartyAuthType } from '@/service/webApi/user/type';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
-import { useRequest } from 'ahooks';
-import message from 'antd/es/message';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 enum VerifyStateType {
   VERIFYING = 'verifying',
@@ -118,8 +116,8 @@ const Success: React.FC<{ type: ThirdPartyAuthType }> = ({ type }) => {
       };
     } else {
       setAuthModalOpen(false);
-      // redirectToUrl('/dashboard');
-      router.push('/welcome');
+      redirectToUrl('/dashboard');
+      // router.push('/welcome');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countDown]);
@@ -300,36 +298,36 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
     }
   };
 
-  const { run: skipInviteCode, loading: skipInviteCodeLoading } = useRequest(
-    async (token: string) => {
-      const res = await webApi.userApi.activateUser(token);
-      return res;
-    },
-    {
-      onSuccess(res: any) {
-        setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
-        BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
-        setToken(res.token);
-        setAuthModalOpen(false);
-        // redirectToUrl('/dashboard');
-        router.push('/welcome');
-        router.refresh();
-      },
-      onError(e: any) {
-        let msg = '';
-        if (e.msg) {
-          message.error(e.msg);
-          msg = e.msg;
-        } else {
-          message.error(e.message);
-          msg = e.message;
-        }
-      },
+  // const { run: skipInviteCode, loading: skipInviteCodeLoading } = useRequest(
+  //   async (token: string) => {
+  //     const res = await webApi.userApi.activateUser(token);
+  //     return res;
+  //   },
+  //   {
+  //     onSuccess(res: any) {
+  //       setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
+  //       BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
+  //       setToken(res.token);
+  //       setAuthModalOpen(false);
+  //       // redirectToUrl('/dashboard');
+  //       router.push('/welcome');
+  //       router.refresh();
+  //     },
+  //     onError(e: any) {
+  //       let msg = '';
+  //       if (e.msg) {
+  //         message.error(e.msg);
+  //         msg = e.msg;
+  //       } else {
+  //         message.error(e.message);
+  //         msg = e.message;
+  //       }
+  //     },
 
-      manual: true,
-      debounceWait: 500
-    }
-  );
+  //     manual: true,
+  //     debounceWait: 500
+  //   }
+  // );
 
   const verifyGoogle = (code: string, inviteCode: string) => {
     BurialPoint.track('signup-Google三方登录code验证');
@@ -352,8 +350,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            // redirectToUrl('/dashboard');
-            router.push('/welcome');
+            redirectToUrl('/dashboard');
+            // router.push('/welcome');
             router.refresh();
           }
         })
@@ -396,8 +394,8 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
             setUserInfo(omit(res, 'token'));
             setToken(res.token);
             setAuthModalOpen(false);
-            // redirectToUrl('/dashboard');
-            router.push('/welcome');
+            redirectToUrl('/dashboard');
+            // router.push('/welcome');
             router.refresh();
           }
         })
