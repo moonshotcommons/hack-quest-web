@@ -67,12 +67,14 @@ export function UsernameModal() {
     const certificateInfo = await mutation.mutateAsync(data?.certificationId);
     setUserCertificateInfo(certificateInfo);
     data.certification = certificateInfo;
+    console.log(data);
     setUsername('');
     onClose();
     setLoading(false);
     router.refresh();
-    // await wait(300);
-    onOpen('mint', data);
+    setTimeout(() => {
+      onOpen('mint', data);
+    }, 1000);
     // createCertificate();
   }
 

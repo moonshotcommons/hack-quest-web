@@ -28,6 +28,8 @@ export function MintCertificateModal() {
 
   const canMint = !certification?.mint;
 
+  console.log(certification);
+
   // const ecosystemName = lang === 'en' ? data?.name?.split(' ')?.[1] : data?.name?.split(' ')?.[0];
 
   // const stringArray = data?.lab?.split(' ') || [];
