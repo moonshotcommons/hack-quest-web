@@ -56,6 +56,7 @@ export interface HackathonMemberType {
   firstName: string;
   lastName: string;
   team: Record<string, any>;
+  createdAt: string;
   info: {
     [ApplicationSectionType.About]?: HackathonInfoAboutType;
     [ApplicationSectionType.Contact]?: HackathonInfoContactType;

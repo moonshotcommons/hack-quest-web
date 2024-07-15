@@ -8,6 +8,7 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface PartnersBoxProp {
   type: HackathonInfoParterKeys;
@@ -19,10 +20,11 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
+  const { getHasHackathonSection } = useDealHackathonData();
   const list = useMemo(() => {
     return hackathon.info?.sections?.[type]?.list || [];
   }, [hackathon, type]);
-  if (!list.length) return null;
+  if (!getHasHackathonSection(type)) return null;
   return (
     <EditBox
       title={hackathon.info?.sections?.[type]?.title || `hackathonDetail.${type}`}

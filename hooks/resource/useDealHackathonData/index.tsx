@@ -6,8 +6,18 @@ import webApi from '@/service';
 import { exportToExcel } from '@/helper/utils';
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import { useContext, useMemo } from 'react';
+import {
+  HackathonDetailContext,
+  HackathonEditContext
+} from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
 const useDealHackathonData = () => {
+  const { navs: editNavs } = useContext(HackathonEditContext);
+  const { navs: detailNavs } = useContext(HackathonDetailContext);
+  const navs = useMemo(() => {
+    return editNavs.length ? editNavs : detailNavs;
+  }, [editNavs, detailNavs]);
   const getRunFromTime = (startTime: string, endTime: string) => {
     startTime = moment(startTime).format('ll');
     endTime = moment(endTime).format('ll');
@@ -178,7 +188,9 @@ const useDealHackathonData = () => {
         const memberDatas: Record<string, any>[] = [];
         hackathon.members?.map((v) => {
           v.info = v.info || {};
-          const info: Record<string, any> = {};
+          const info: Record<string, any> = {
+            createdAt: dayjs(v.createdAt).format('YYYY-M-D HH:mm')
+          };
           for (let infoKey in v.info) {
             const iKey = infoKey as keyof typeof v.info;
             const vInfo = v.info[iKey];
@@ -217,6 +229,10 @@ const useDealHackathonData = () => {
     return ls || [];
   };
 
+  const getHasHackathonSection = (type: string) => {
+    return navs?.some((v) => v.value === type);
+  };
+
   return {
     getRunFromTime,
     getCloseInTime,
@@ -228,7 +244,8 @@ const useDealHackathonData = () => {
     getHackathonNavList,
     hackathonDownload,
     getHackathonTimeSame,
-    getLinks
+    getLinks,
+    getHasHackathonSection
   };
 };
 
