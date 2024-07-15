@@ -36,6 +36,8 @@ function getDefaultValues(project: ProjectType) {
     addition = {}
   } = project!;
 
+  console.log(pitchVideo, demoVideo);
+
   const defaultBasicInfo = {
     logo: logo || '',
     name: name || '',
@@ -43,10 +45,12 @@ function getDefaultValues(project: ProjectType) {
     prizeTrack: prizeTrack || '',
     tracks: tracks.join(','),
     wallet: wallet || '',
-    pitchVideo: pitchVideo || undefined,
-    demoVideo: demoVideo || undefined,
+    pitchVideo: pitchVideo ?? undefined,
+    demoVideo: demoVideo ?? undefined,
     fields
   };
+
+  console.log(project);
 
   const defaultProjectDetail = omit(detail, 'id');
 
@@ -68,6 +72,10 @@ function getDefaultValues(project: ProjectType) {
 
   for (let key in addition.fields || {}) {
     defaultValues[key] = addition.fields?.[key].value;
+  }
+
+  for (let key in defaultValues) {
+    defaultValues[key] = defaultValues[key] ?? '';
   }
 
   return { defaultValues, defaultBasicInfo, defaultProjectDetail, defaultAdditions };
@@ -125,7 +133,9 @@ const Content: React.FC<ContentProp> = ({
     defaultValues
   });
 
-  const formState = useFormState(form);
+  const formState = useFormState({
+    control: form.control
+  });
 
   const getOffsetTops = () => {
     const offsetTops = [];
