@@ -9,11 +9,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import Button from '@/components/Common/Button';
-import CertificateRenderer from '@/components/Web/Business/CertificateRenderer';
 import html2canvas from 'html2canvas';
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
-import { wait } from '@/helper/utils';
 
 export function UsernameModal() {
   const router = useRouter();
@@ -40,37 +38,58 @@ export function UsernameModal() {
       webApi.ecosystemApi.claimCertificateOverride(id, formData)
   });
 
+  const createCertificate = async () => {
+    let error = true;
+    let count = 0;
+    while (error) {
+      try {
+        const canvas = await html2canvas(container.current!, {
+          useCORS: true
+        });
+
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const file = new File([blob], 'certificate.png', { type: blob.type });
+          const formData = new FormData();
+          formData.append('file', file);
+          mutateAsync({ id: ecosystemId, formData }).then((res) => {
+            error = false;
+            queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+          });
+        });
+      } catch (err) {}
+    }
+  };
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     setLoading(true);
     e.preventDefault();
     const certificateInfo = await mutation.mutateAsync(data?.certificationId);
     setUserCertificateInfo(certificateInfo);
-
-    await wait(300);
-
-    const canvas = await html2canvas(container.current!, {
-      useCORS: true
-    });
-
-    canvas.toBlob((blob) => {
-      if (!blob) return;
-      const file = new File([blob], 'certificate.png', { type: blob.type });
-
-      const formData = new FormData();
-      formData.append('file', file);
-      mutateAsync({ id: ecosystemId, formData }).then((res) => {
-        setUsername('');
-        onClose();
-        setLoading(false);
-        router.refresh();
-        queryClient.invalidateQueries({ queryKey: ['userProfile'] });
-        setTimeout(() => {
-          data.certification = res;
-          onOpen('mint', data);
-        }, 500);
-      });
-    });
+    data.certification = certificateInfo;
+    console.log(data);
+    setUsername('');
+    onClose();
+    setLoading(false);
+    router.refresh();
+    setTimeout(() => {
+      onOpen('mint', data);
+    }, 1000);
+    // createCertificate();
   }
+
+  React.useEffect(() => {
+    const beforeUnload = (event: BeforeUnloadEvent) => {
+      // Cancel the event as stated by the standard.
+      event.preventDefault();
+      // Chrome requires returnValue to be set.
+      event.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', beforeUnload);
+
+    return window.removeEventListener('beforeunload', beforeUnload);
+  }, []);
 
   return (
     <>
@@ -112,11 +131,11 @@ export function UsernameModal() {
           </div>
         </div>
       </Modal>
-      <div ref={container} className="fixed -left-[999999px] top-0 z-[99999]">
+      {/* <div ref={container} className="fixed -left-[999999px] top-0 z-[99999]">
         {data?.certification?.template && (
           <CertificateRenderer template={data.certification.template as string} certificateInfo={userCertificateInfo} />
         )}
-      </div>
+      </div> */}
     </>
   );
 }
