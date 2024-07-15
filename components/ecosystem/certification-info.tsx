@@ -17,8 +17,10 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { UserRole } from '@/service/webApi/user/type';
 import Input from '../Common/Input';
 import { useWriteCertificateNftUpdateBaseUri } from '@/lib/generated';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { getDomain } from '@/constants/links';
+import { ChainConfigContext } from '../Provider/WagmiConfigProvider';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 const label = ['learner', 'builder'];
 
@@ -55,7 +57,10 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
   }
 
   const [baseUrl, setBaseUrl] = React.useState('');
-
+  const { openConnectModal } = useConnectModal();
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
+  const { updateInitialChainId } = React.useContext(ChainConfigContext);
   const account = useAccount();
   const { writeContractAsync } = useWriteCertificateNftUpdateBaseUri();
 
@@ -79,7 +84,20 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
             </div>
             <Button
               type="primary"
-              onClick={() => {
+              onClick={async () => {
+                let certificate = levels[0].certification;
+
+                if (!account?.isConnected && openConnectModal) {
+                  updateInitialChainId(certificate.chainId);
+                  openConnectModal();
+                  throw new Error('Please connect your wallet first!');
+                }
+
+                if (chainId !== certificate.chainId) {
+                  await switchChainAsync({ chainId: certificate.chainId });
+                }
+
+                console.log(`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/`);
                 for (let c of levels) {
                   const certification = c.certification;
                   writeContractAsync({
