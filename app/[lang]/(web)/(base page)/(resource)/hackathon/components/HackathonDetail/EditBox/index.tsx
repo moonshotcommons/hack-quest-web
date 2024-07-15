@@ -5,6 +5,8 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import Title from '../Title';
 import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
+import { customModalList } from '../../../constants/data';
+import { HackathonInfoSectionCustomType } from '@/service/webApi/resourceStation/type';
 
 interface EditBoxProp {
   className?: string;
@@ -14,6 +16,7 @@ interface EditBoxProp {
   handleDelete?: VoidFunction;
   isExpandAll?: boolean;
   handleExpandAll?: VoidFunction;
+  custom?: HackathonInfoSectionCustomType;
 }
 
 const EditBox: React.FC<EditBoxProp> = ({
@@ -23,11 +26,12 @@ const EditBox: React.FC<EditBoxProp> = ({
   type,
   handleDelete,
   handleExpandAll,
-  isExpandAll
+  isExpandAll,
+  custom
 }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { setModalType, isEdit } = useContext(HackathonEditContext);
+  const { setModalType, isEdit, setEditCustomInfo, setModalEditType } = useContext(HackathonEditContext);
   return (
     <div className="flex flex-col gap-[32px]">
       {title && (
@@ -37,7 +41,19 @@ const EditBox: React.FC<EditBoxProp> = ({
             {isEdit && (
               <div className="underline-l flex cursor-pointer gap-[12px] text-neutral-off-black">
                 {handleDelete && <div onClick={handleDelete}>{t('remove')}</div>}
-                {type && <div onClick={() => setModalType(type)}>{t('edit')}</div>}
+                {type && (
+                  <div
+                    onClick={() => {
+                      if (customModalList.some((v) => v.value === type)) {
+                        setEditCustomInfo(custom as HackathonInfoSectionCustomType);
+                      }
+                      setModalEditType('edit');
+                      setModalType(type);
+                    }}
+                  >
+                    {t('edit')}
+                  </div>
+                )}
               </div>
             )}
             {!isEdit && handleExpandAll && (

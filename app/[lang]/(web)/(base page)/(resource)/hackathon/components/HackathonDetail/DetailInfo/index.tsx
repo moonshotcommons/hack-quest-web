@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import EditBox from '../EditBox';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
@@ -15,6 +15,9 @@ import WarningModal from './WarningModal';
 import Image from 'next/image';
 import CountDown from '@/components/Web/Business/CountDown';
 import dayjs from '@/components/Common/Dayjs';
+import webApi from '@/service';
+import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -31,6 +34,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex, getLinks } = useDealHackathonData();
+  const [loading, setLoading] = useState(false);
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
@@ -53,10 +57,25 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
     }
   };
+  const handleSubmitPublish = () => {
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .submitPublish(hackathon.id)
+      .then(() => {
+        message.success('Submit Success');
+        window.location.reload();
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
+  };
   const renderButton = () => {
-    if (hackathon.enable === false) {
+    if (hackathon.status !== HackathonStatus.PUBLISH) {
       return null;
     }
+
     if (stepIndex < 1) {
       if (!hackathon.participation?.isRegister) {
         const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
@@ -235,12 +254,23 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
 
         {renderButton()}
         {userInfo && hackathon.creatorId && userInfo?.id === hackathon.creatorId && (
-          <Button
-            className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-            onClick={() => redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`)}
-          >
-            {t('hackathonDetail.backToEdit')}
-          </Button>
+          <>
+            {hackathon.status === HackathonStatus.DRAFT && (
+              <Button
+                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+                loading={loading}
+                onClick={handleSubmitPublish}
+              >
+                {t('hackathonDetail.submitToPreview')}
+              </Button>
+            )}
+            <Button
+              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+              onClick={() => redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`)}
+            >
+              {t('hackathonDetail.backToEdit')}
+            </Button>
+          </>
         )}
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>

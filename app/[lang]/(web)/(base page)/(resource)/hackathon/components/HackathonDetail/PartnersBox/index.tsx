@@ -20,14 +20,16 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
   const [showAll, setShowAll] = useState(false);
   const { navs } = useContext(HackathonEditContext);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
+  const info = hackathon.info?.sections?.[type as HackathonInfoParterKeys] || {};
+  const title = info.title || t(`hackathonDetail.${type}`);
   const list = useMemo(() => {
     return hackathon.info?.sections?.[type]?.list || [];
   }, [hackathon, type]);
   if (!navs?.some((v) => v.value === type)) return null;
   return (
     <EditBox
-      title={hackathon.info?.sections?.[type]?.title || `hackathonDetail.${type}`}
-      className="border-none bg-transparent p-0"
+      title={hackathon.info?.sections?.[type]?.title || t(`hackathonDetail.${type}`)}
+      className="rounded-none border-none bg-transparent p-0"
       type={type as HackathonEditModalType}
       handleDelete={() => removeSectionRef.current?.open()}
     >
@@ -54,7 +56,7 @@ const PartnersBox: React.FC<PartnersBoxProp> = ({ type, hackathon }) => {
           </div>
         </div>
       )}
-      <RemoveSectionModal ref={removeSectionRef} type={type} />
+      <RemoveSectionModal ref={removeSectionRef} title={title} type={type} />
     </EditBox>
   );
 };

@@ -6,7 +6,6 @@ import Modal from '@/components/Common/Modal';
 import { FiX } from 'react-icons/fi';
 import Button from '@/components/Common/Button';
 import Image from 'next/image';
-import FireIconActive from '@/public/images/mission-center/fire_icon_active.png';
 import CoinIcon from '@/public/images/mission-center/coin_icon.png';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -63,7 +62,7 @@ const RestoreModal: React.FC<RestoreModalProp> = ({ open, onClose }) => {
   return (
     <Modal open={open} onClose={onClose} showCloseIcon={true} icon={<FiX size={26} />}>
       <div className="flex w-[640px] flex-col items-center gap-[48px]  rounded-[16px] bg-neutral-white p-[48px]">
-        <Image src={FireIconActive} alt={'fire-cover'} width={64} height={64} />
+        <Image src={'/images/mission-center/fire_icon_active_.png'} alt={'fire-cover'} width={64} height={64} />
         <div>
           <h2 className="body-xl-bold text-neutral-rich-gray">{t('modalTitle')}</h2>
           <div className="body-m mt-[16px] flex flex-col items-center text-neutral-medium-gray">

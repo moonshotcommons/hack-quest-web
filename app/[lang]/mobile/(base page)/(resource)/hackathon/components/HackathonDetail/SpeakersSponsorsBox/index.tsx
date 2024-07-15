@@ -31,7 +31,7 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
       handleDelete={() => removeSectionRef.current?.open()}
     >
       <div
-        className={`body-xs flex flex-col gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[280px]'}`}
+        className={`body-xs flex flex-col gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[11.5rem]'}`}
       >
         {list.map((v, i) => (
           <div
@@ -50,7 +50,7 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
           </div>
         ))}
       </div>
-      {list.length > 6 && (
+      {list.length > 3 && (
         <div className="body-s mt-[1rem] flex justify-end">
           <div className="flex cursor-pointer items-center gap-[.5rem]" onClick={() => setShowAll(!showAll)}>
             <span>{showAll ? t('showLess') : t('showAll')}</span>

@@ -9,7 +9,6 @@ import { useMissionCenterStore } from '@/store/zustand/missionCenterStore';
 import DailyQuests from './DailyQuests';
 import BeginnerRewards from './BeginnerRewards';
 import Achievements from './Achievements';
-import MissionBg from '@/public/images/mission-center/mission_bg.png';
 import DayStreak from './DayStreak';
 import Leaderboard from './Leaderboard';
 import ReferEarn from './ReferEarn';
@@ -48,15 +47,7 @@ function MissionCenter() {
       <ContentSkeleton />
     </Loading>
   ) : (
-    <div
-      className="container mx-auto flex min-h-screen gap-[40px] pb-[100px] pt-[40px]"
-      style={{
-        backgroundImage: `url(${MissionBg.src})`,
-        backgroundPosition: 'right bottom',
-        backgroundSize: '80% auto',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
+    <div className="container mx-auto flex min-h-screen gap-[40px] pb-[100px] pt-[40px]">
       <div className="flex flex-1 flex-col gap-[40px]">
         <UserInfo />
         <DailyQuests missionDatas={missionData.dailyQuests} missionClaim={missionClaim} />

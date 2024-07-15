@@ -1,6 +1,6 @@
 import { MotionProps } from 'framer-motion';
 import { z } from 'zod';
-import { HackathonTabType } from './type';
+import { HackathonEditModalType, HackathonTabType } from './type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 export const projectSort = [
@@ -134,9 +134,10 @@ export const scheduleFormSchema = z.object({
     message: 'End Time is a required input.'
   }),
   speakerNames: z.string(),
-  description: z.string().max(360, {
-    message: 'Description cannot exceed 360 characters.'
-  }),
+  description: z.string(),
+  // .max(360, {
+  //   message: 'Description cannot exceed 360 characters.'
+  // }),
   link: z.string().url().optional().or(z.literal('')),
   address: z.string()
 });
@@ -161,18 +162,22 @@ export const faqsFormSchema = z.object({
     .max(120, {
       message: 'Question cannot exceed 120 characters.'
     }),
-  answer: z
-    .string()
-    .min(1, {
-      message: 'Answer is a required input.'
-    })
-    .max(6000, {
-      message: 'Answer cannot exceed 6000 characters.'
-    })
+  answer: z.string().min(1, {
+    message: 'Answer is a required input.'
+  })
+  // .max(6000, {
+  //   message: 'Answer cannot exceed 6000 characters.'
+  // })
 });
 
 export const faqsFormArraySchema = z.object({
   items: z.array(faqsFormSchema)
+});
+
+export const customTextFormSchema = z.object({
+  text: z.string().min(1, {
+    message: 'Answer is a required input.'
+  })
 });
 
 export type FormValueType = z.infer<typeof faqsFormArraySchema>;
@@ -205,3 +210,24 @@ export const voteModeLabel = {
 };
 
 export const ORGANIZATION_APPLY_LINK = 'https://xsxo494365r.typeform.com/to/PxtaoxdQ';
+
+export const customModalList = [
+  {
+    label: 'Text',
+    value: HackathonEditModalType.CUSTOM_TEXT,
+    image: '',
+    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus ipsum id velit accumsan tristique.'
+  },
+  {
+    label: 'Image & Name',
+    value: HackathonEditModalType.CUSTOM_IMAGE_NAME,
+    image: '/images/hackathon/image_name.png',
+    intro: ''
+  },
+  {
+    label: 'Image, Name & Intro',
+    value: HackathonEditModalType.CUSTOM_IMAGE_TITLE,
+    image: '/images/hackathon/image_title.png',
+    intro: ''
+  }
+];
