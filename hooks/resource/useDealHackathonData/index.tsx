@@ -178,7 +178,9 @@ const useDealHackathonData = () => {
         const memberDatas: Record<string, any>[] = [];
         hackathon.members?.map((v) => {
           v.info = v.info || {};
-          const info: Record<string, any> = {};
+          const info: Record<string, any> = {
+            createdAt: dayjs(v.createdAt).format('YYYY-M-D HH:mm')
+          };
           for (let infoKey in v.info) {
             const iKey = infoKey as keyof typeof v.info;
             const vInfo = v.info[iKey];
