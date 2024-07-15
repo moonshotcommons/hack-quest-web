@@ -13,6 +13,12 @@ import { FillArrowIcon } from '../Common/Icon/Arrow';
 import { useLang } from '../Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useUserStore } from '@/store/zustand/userStore';
+import { UserRole } from '@/service/webApi/user/type';
+import Input from '../Common/Input';
+import { useWriteCertificateNftUpdateBaseUri } from '@/lib/generated';
+import { useAccount } from 'wagmi';
+import { getDomain } from '@/constants/links';
 
 const label = ['learner', 'builder'];
 
@@ -24,6 +30,8 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
   const hasNextLevel = levels?.length > 1;
 
   const currentCertificate = levels?.find((c) => c.certificationId === ecosystem?.level?.certificationId);
+
+  const userInfo = useUserStore((state) => state.userInfo);
 
   function onClickCertificate(level?: LevelType) {
     if (level) {
@@ -46,12 +54,47 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
     }
   }
 
+  const [baseUrl, setBaseUrl] = React.useState('');
+
+  const account = useAccount();
+  const { writeContractAsync } = useWriteCertificateNftUpdateBaseUri();
+
   return (
     <div className="flex flex-col px-5 py-6 sm:flex-row sm:items-center sm:gap-12 sm:px-0 sm:py-0">
       <h1 className="font-next-book-bold text-[1.375rem] font-bold capitalize text-neutral-off-black sm:hidden">
         Lvl {ecosystem?.level.level}. {ecosystem?.level.label}
       </h1>
       <div className="order-2 mt-5 flex flex-1 flex-col sm:order-1 sm:mt-0 sm:gap-4">
+        {userInfo?.role === UserRole.ADMIN && (
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <Input
+                name="baseUrl"
+                className="h-10"
+                value={baseUrl}
+                onChange={(e) => {
+                  setBaseUrl(e.target.value);
+                }}
+              ></Input>
+            </div>
+            <Button
+              type="primary"
+              onClick={() => {
+                for (let c of levels) {
+                  const certification = c.certification;
+                  writeContractAsync({
+                    address: certification.contract as any,
+                    account: account.address,
+                    args: [`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/`]
+                  });
+                }
+              }}
+              className="h-10"
+            >
+              更新
+            </Button>
+          </div>
+        )}
         <h1 className="hidden font-next-book-bold text-[1.75rem] font-bold capitalize text-neutral-off-black sm:block">
           Lvl {ecosystem?.level.level}. {ecosystem?.level.label}
         </h1>

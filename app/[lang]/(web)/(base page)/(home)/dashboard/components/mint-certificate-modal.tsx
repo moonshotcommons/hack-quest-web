@@ -13,6 +13,7 @@ import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { getDomain } from '@/constants/links';
 
 export function MintCertificateModal() {
   const { lang } = useLang();
@@ -57,9 +58,32 @@ export function MintCertificateModal() {
           <p className="mt-3 text-center text-sm text-neutral-medium-gray">
             {t('modal.mint.description', { name: data.label })}
           </p>
+          {/* {!certification?.certificateImage && data?.certification && (data.certification?.template as string) && (
+            <div className="relative mx-auto my-6  overflow-hidden rounded-[0.5rem] shadow-idea-card">
+              <CertificateRenderer
+                template={data.certification?.template as string}
+                certificateInfo={data?.certification}
+                isSmall
+              />
+            </div>
+          )} */}
+
+          {/* {certification?.certificateImage && (
+            <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem] shadow-idea-card">
+              <Image src={certification?.certificateImage} alt={certification?.certificateId} fill />
+            </div>
+          )} */}
+
           <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem] shadow-idea-card">
-            <Image src={certification?.certificateImage} alt={certification?.certificateId} fill />
+            {certification && (
+              <Image
+                src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${certification?.username}-${certification?.certificateId}.png`}
+                alt={certification?.certificateId}
+                fill
+              />
+            )}
           </div>
+
           {!canMint && (
             <p className="mb-6 text-center text-sm text-neutral-medium-gray">
               Minting {data.label} Certificate is unavailable at this time. <br />
