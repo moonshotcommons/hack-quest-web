@@ -11,13 +11,13 @@ export async function GET(request: NextRequest, context: { params: { name: strin
   const [id, ext] = splitArr.pop()?.split('.') || [];
 
   try {
-    const { username, certificateId, certificateTime, template } =
-      (await webApi.campaignsApi.getCertificateInfoById(id)) || {};
-    console.log(username);
+    const info = (await webApi.campaignsApi.getCertificateInfoById(id)) || {};
+    const { username, certificateId, certificateTime, template } = info;
+    console.log(info, id);
     if (ext === 'json') {
       return NextResponse.json({
         description: `Certified Mantle Learner - ${username}-${certificateId}`,
-        image: `${getDomain(process.env.RUNTIME_ENV || 'prod')}/certificate/${username}-${certificateId}.png`,
+        image: `${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${username}-${certificateId}.png`,
         name: `${username}-${certificateId}`
       });
     } else {
