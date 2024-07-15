@@ -22,7 +22,7 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
       onClick={goProjectDetail}
     >
       <div className="relative h-full w-[7.5rem] flex-shrink-0 bg-[#d9d9d9]/30">
-        <Image src={project.logo} alt={project.alias} fill className="object-cover" loading="lazy"></Image>
+        <Image src={project.logo || ''} alt={project.alias} fill className="object-cover" loading="lazy"></Image>
       </div>
       <div className="flex h-[full] flex-1 flex-shrink-0 flex-col justify-between p-[1rem]">
         <div className="flex w-full flex-col gap-[.5rem]">
