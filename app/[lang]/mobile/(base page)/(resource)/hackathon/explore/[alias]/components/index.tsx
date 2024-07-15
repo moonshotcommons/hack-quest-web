@@ -16,6 +16,7 @@ import EditNav from '../../../components/HackathonDetail/EditNav';
 import Rewards from '../../../components/HackathonDetail/Rewards';
 import ThemeResource from '../../../components/HackathonDetail/ThemeResource';
 import Customs from '../../../components/HackathonDetail/Customs';
+import DetailProvider from './DetailProvider';
 
 interface HackathonDetailProp {
   hackathon: HackathonType;
@@ -84,34 +85,36 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     }, 300);
   }, []);
   return (
-    <div className="scroll-wrap-y h-[calc(100vh-4rem)] pb-[10rem]" ref={boxRef} onScroll={handleScoll}>
-      {hackathon.id && (
-        <div className="relative flex flex-col gap-[3.75rem]  pt-[1.25rem]" ref={contentRef}>
-          <DetailInfo hackathon={hackathon} />
-          <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
-          <TimeLine hackathon={hackathon} />
-          {navList.some((v) => v.value === 'description') && <Description hackathon={hackathon} />}
-          {navList.some((v) => v.value === 'rewards') && <Rewards hackathon={hackathon} />}
-          {navList.some((v) => v.value === 'judge') &&
-            (hackathon.judge?.length > 0 ? (
-              <Judging hackathon={hackathon} />
-            ) : (
-              <ThemeResource hackathon={hackathon} type="criteria" />
-            ))}
-          {navList.some((v) => v.value === 'coHosts') && <PartnersBox hackathon={hackathon} type="coHosts" />}
-          {navList.some((v) => v.value === 'theme') && <ThemeResource hackathon={hackathon} type="theme" />}
-          {navList.some((v) => v.value === 'resource') && <ThemeResource hackathon={hackathon} type="resource" />}
-          <PartnersBox hackathon={hackathon} type="mediaPartners" />
-          <PartnersBox hackathon={hackathon} type="communityPartners" />
-          <PartnersBox hackathon={hackathon} type="partners" />
-          <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
-          <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
-          <Schedule hackathon={hackathon} />
-          <FAQs hackathon={hackathon} />
-          <Customs hackathon={hackathon} />
-        </div>
-      )}
-    </div>
+    <DetailProvider navs={navList}>
+      <div className="scroll-wrap-y h-[calc(100vh-4rem)] pb-[10rem]" ref={boxRef} onScroll={handleScoll}>
+        {hackathon.id && (
+          <div className="relative flex flex-col gap-[3.75rem]  pt-[1.25rem]" ref={contentRef}>
+            <DetailInfo hackathon={hackathon} />
+            <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
+            <TimeLine hackathon={hackathon} />
+            {navList.some((v) => v.value === 'description') && <Description hackathon={hackathon} />}
+            {navList.some((v) => v.value === 'rewards') && <Rewards hackathon={hackathon} />}
+            {navList.some((v) => v.value === 'judge') &&
+              (hackathon.judge?.length > 0 ? (
+                <Judging hackathon={hackathon} />
+              ) : (
+                <ThemeResource hackathon={hackathon} type="criteria" />
+              ))}
+            {navList.some((v) => v.value === 'coHosts') && <PartnersBox hackathon={hackathon} type="coHosts" />}
+            {navList.some((v) => v.value === 'theme') && <ThemeResource hackathon={hackathon} type="theme" />}
+            {navList.some((v) => v.value === 'resource') && <ThemeResource hackathon={hackathon} type="resource" />}
+            <PartnersBox hackathon={hackathon} type="mediaPartners" />
+            <PartnersBox hackathon={hackathon} type="communityPartners" />
+            <PartnersBox hackathon={hackathon} type="partners" />
+            <SpeakersSponsorsBox hackathon={hackathon} type="speakers" />
+            <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
+            <Schedule hackathon={hackathon} />
+            <FAQs hackathon={hackathon} />
+            <Customs hackathon={hackathon} />
+          </div>
+        )}
+      </div>
+    </DetailProvider>
   );
 };
 
