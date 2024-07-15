@@ -13,7 +13,6 @@ import Modal from '@/components/Common/Modal';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
-import { updateActiveEcosystem } from '@/components/ecosystem/actions';
 import { getToken } from '@/helper/user-token';
 import { useRedirect } from '@/hooks/router/useRedirect';
 
@@ -178,7 +177,6 @@ function ChooseEcosystem() {
               onClick={() => {
                 if (selected) {
                   mutation.mutate(selected);
-                  updateActiveEcosystem(selected);
                 }
               }}
             >
