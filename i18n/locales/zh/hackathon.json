@@ -245,5 +245,13 @@
     "previewSubmit": "preview / submit",
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
+  },
+  "hackathonAudit":{
+    "overview":"Overview",
+    "application":"Application",
+    "submission":"Submission",
+    "sdmin":"Admin",
+    "view hackathon details":"view hackathon details",
+    "Hackathon Stats Today":"Hackathon Stats Today"
   }
 }
