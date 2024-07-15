@@ -11,10 +11,10 @@ import { CodeXmlIcon, MoveRightIcon, PlayIcon, XIcon } from 'lucide-react';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { ecosystemStore } from '@/store/zustand/ecosystemStore';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import webApi from '@/service';
+import { useQueryClient } from '@tanstack/react-query';
 import { getToken } from '@/helper/user-token';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { updateActiveEcosystem } from '@/components/ecosystem/actions';
 
 interface Props {
   step: number;
@@ -64,6 +64,7 @@ function EcosystemCard({
 function ChooseEcosystem() {
   const queryClient = useQueryClient();
   const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [loading, setLoading] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [selected, setSelected] = React.useState<string | null>(null);
   const [isShowVideo, setIsShowVideo] = React.useState(false);
@@ -76,14 +77,18 @@ function ChooseEcosystem() {
     }))
   );
 
-  const mutation = useMutation({
-    mutationKey: ['switchEcosystem'],
-    mutationFn: (ecosystemId: string) => webApi.ecosystemApi.switchEcosystem({ ecosystemId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['enrolledEcosystems'] });
-      onNext();
-    }
-  });
+  function update(ecosystemId: string) {
+    setLoading(true);
+    updateActiveEcosystem(ecosystemId)
+      .then(() => {
+        setLoading(false);
+        queryClient.invalidateQueries({ queryKey: ['enrolledEcosystems'] });
+        onNext();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   function handlePlayPause() {
     if (videoRef.current?.paused) {
@@ -172,11 +177,11 @@ function ChooseEcosystem() {
             <Button
               disabled={!selected}
               type="primary"
-              loading={mutation.isPending}
+              loading={loading}
               className="w-full uppercase sm:w-[16.875rem]"
               onClick={() => {
                 if (selected) {
-                  mutation.mutate(selected);
+                  update(selected);
                 }
               }}
             >
