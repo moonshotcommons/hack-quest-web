@@ -6,8 +6,6 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { MissionStatus } from '@/service/webApi/missionCenter/type';
 import Image from 'next/image';
-import FireIcon from '@/public/images/mission-center/fire_icon.png';
-import FireIconActive from '@/public/images/mission-center/fire_icon_active.png';
 import ChestCover from '@/public/images/mission-center/chest_cover.png';
 import CompletedIcon from '@/components/Common/Icon/Completed';
 import RestoreModal from './RestoreModal';
@@ -55,13 +53,23 @@ const DayStreak: React.FC<DayStreakProp> = ({ link, className }) => {
       });
   };
   const dayStreakData = useMemo(() => {
-    return dealDayStreak(missionData?.dailyBonus || []);
+    const dayInfo = dealDayStreak(missionData?.dailyBonus || []);
+    const { continuCount } = dayInfo;
+    return {
+      ...dayInfo,
+      fireIcon:
+        continuCount === 0
+          ? '/images/mission-center/fire_icon.png'
+          : continuCount < 7
+            ? '/images/mission-center/fire_icon_active.png'
+            : '/images/mission-center/fire_icon_active_.png'
+    };
   }, [missionData]);
   return (
     <div className={cn('flex flex-col gap-[16px] rounded-[24px] bg-yellow-extra-light p-[24px]', className)}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[16px]">
-          <Image src={dayStreakData.isContinu ? FireIconActive : FireIcon} alt={'fire-icon'} width={36} height={36} />
+          <Image src={dayStreakData.fireIcon} alt={'fire-icon'} width={36} height={36} />
           <div>
             <p className="body-xl-bold text-neutral-off-black">{dayStreakData?.continuCount ?? 1}</p>
             <p className="body-s text-neutral-medium-gray">{t('dayStreak')}</p>

@@ -47,7 +47,6 @@ export const useGetMissionData = () => {
   ): {
     missions: MissionDataType[];
     isMissStreak: boolean;
-    isContinu: boolean;
     continuCount: number;
   } => {
     const len = missions.length;
@@ -55,7 +54,6 @@ export const useGetMissionData = () => {
       return {
         missions: [],
         isMissStreak: false,
-        isContinu: false,
         continuCount: 0
       };
     }
@@ -65,7 +63,6 @@ export const useGetMissionData = () => {
 
     const count = curDayMission?.progress?.progress?.[0] || 1;
     const continuCount = curDayMission.status === MissionStatus.CLAIMED ? count : count - 1;
-    const isContinu = continuCount >= 7;
     // 是否需要补签看missions的倒数第二个的claimed是否为false 如果为false则把其状态设置为RESTORE 可以补签的状态
     if (missions.length > 1) {
       isMissStreak = !missions[len - 2]?.progress?.claimed;
@@ -92,7 +89,6 @@ export const useGetMissionData = () => {
     }
     return {
       isMissStreak,
-      isContinu,
       missions: newMissions,
       continuCount
     };
