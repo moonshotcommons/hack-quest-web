@@ -5,6 +5,8 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import Button from '@/components/Common/Button';
 import dayjs from 'dayjs';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import { createEditor } from '@wangeditor/editor';
 
 interface PreviewProp {
   schedule: HackathonScheduleType;
@@ -26,7 +28,16 @@ const Preview: React.FC<PreviewProp> = ({ schedule, handleEdit, handleRemoveEven
       <div className="flex flex-col gap-[8px]">
         <div>
           <div className="text-neutral-medium-gray">{'Description'}</div>
-          <div className="mt-[4px] whitespace-pre-line  text-neutral-off-black">{schedule.description}</div>
+          {(schedule?.description as any).type === TEXT_EDITOR_TYPE ? (
+            <div
+              className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-off-black"
+              dangerouslySetInnerHTML={{
+                __html: createEditor({ content: (schedule?.description as any)?.content || [] }).getHtml()
+              }}
+            ></div>
+          ) : (
+            <div className="mt-[4px] whitespace-pre-line  text-neutral-off-black">{schedule.description}</div>
+          )}
         </div>
         {schedule.link && (
           <div>

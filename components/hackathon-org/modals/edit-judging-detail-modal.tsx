@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/helper/utils';
 import { RadioGroup, RadioGroupItem } from '../common/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
@@ -19,17 +18,16 @@ import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
 import { message } from 'antd';
 import { useRouter } from 'next/navigation';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 const formSchema = z
   .object({
-    criteria: z
-      .string()
-      .min(1, {
-        message: 'Field is required'
-      })
-      .max(360, {
-        message: 'Field cannot exceed 360 characters'
-      }),
+    criteria: z.string().min(1, {
+      message: 'Field is required'
+    }),
+    // .max(360, {
+    //   message: 'Field cannot exceed 360 characters'
+    // }),
     judgeMode: z.enum(['all', 'judges']).nullable().default(null).optional(),
     disableJudge: z.boolean().default(false).optional(),
     voteMode: z.enum(['fixed', 'score']).optional(),
@@ -187,6 +185,8 @@ export function EditJudgingDetailModal({
   const voteMode = form.watch('voteMode');
   const judgeAccount = form.watch('judgeAccount');
 
+  const [criteria, setCriteria] = React.useState<{ type: string; content: object }>();
+
   function onVotesChange(value: string, isUserVotes: boolean) {
     if (value === '') {
       setUserVotes('');
@@ -226,7 +226,7 @@ export function EditJudgingDetailModal({
     let values: any = {
       rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
-      criteria: data.criteria,
+      criteria: criteria,
       disableJudge: data.disableJudge,
       judgeMode: null,
       voteMode: null,
@@ -297,7 +297,8 @@ export function EditJudgingDetailModal({
         latestJudgeMode.current = initialValues?.judgeMode;
         if (initialValues?.judgeMode === 'all') {
           form.reset({
-            criteria: initialValues?.criteria || '',
+            // criteria: initialValues?.criteria || '',
+            criteria: '',
             disableJudge: initialValues?.disableJudge,
             judgeMode: initialValues?.judgeMode,
             voteMode: initialValues?.voteMode,
@@ -307,7 +308,8 @@ export function EditJudgingDetailModal({
         } else {
           if (initialValues?.voteMode === 'fixed') {
             form.reset({
-              criteria: initialValues?.criteria || '',
+              // criteria: initialValues?.criteria || '',
+              criteria: '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
@@ -316,7 +318,8 @@ export function EditJudgingDetailModal({
             });
           } else {
             form.reset({
-              criteria: initialValues?.criteria || '',
+              // criteria: initialValues?.criteria || '',
+              criteria: '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
               voteMode: initialValues?.voteMode,
@@ -362,12 +365,12 @@ export function EditJudgingDetailModal({
                     <FormLabel>
                       <span className="body-m text-neutral-rich-gray">Judging Criteria*</span>
                     </FormLabel>
-                    <span className="caption-14pt text-neutral-rich-gray">
+                    {/* <span className="caption-14pt text-neutral-rich-gray">
                       <span className={cn({ 'text-status-error': form.watch('criteria')?.length > 360 })}>
                         {form.watch('criteria')?.length}
                       </span>
                       /360
-                    </span>
+                    </span> */}
                   </div>
                   <FormControl>
                     <Textarea
@@ -375,9 +378,23 @@ export function EditJudgingDetailModal({
                       authHeight={false}
                       autoComplete="off"
                       placeholder="Write a judging criteria for the hackathon"
-                      className="h-28 border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
+                      className="hidden h-28 border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
                     />
                   </FormControl>
+                  <TextEditor
+                    simpleModel
+                    onCreated={(editor) => {
+                      const text = editor.getText().replace(/\n|\r/gm, '');
+                      setCriteria({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                      form.setValue('criteria', text);
+                    }}
+                    defaultContent={transformTextToEditorValue(initialValues?.criteria)}
+                    onChange={(editor) => {
+                      const text = editor.getText().replace(/\n|\r/gm, '');
+                      form.setValue('criteria', text);
+                      setCriteria({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                    }}
+                  />
                   <FormMessage />
                 </FormItem>
               )}

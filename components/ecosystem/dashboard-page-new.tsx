@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { getMyCoursesCached } from '@/service/cach/learn/courses';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardCourses } from './dashboard-courses';
 import { DashboardProjects } from './dashboard-projects';
 import { DashboardEcosystem } from './dashboard-ecosystem';
+import { getActiveEcosystem } from './actions';
 
 export function PageSkeleton() {
   return (
@@ -19,12 +19,11 @@ export function PageSkeleton() {
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-  const cookieStore = cookies();
-  const ecosystemId = cookieStore.get('ecosystemId')?.value;
+  const active = await getActiveEcosystem();
   const courses = await getMyCoursesCached({ status: 'inProcess' });
 
-  if (ecosystemId) {
-    redirect(`/dashboard/${ecosystemId}`);
+  if (active?.level) {
+    redirect(`/dashboard/${active.level?.ecosystemId}`);
   } else {
     return (
       <React.Suspense fallback={<PageSkeleton />}>

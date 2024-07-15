@@ -9,7 +9,7 @@ const nextConfig = (phase) => {
     reactStrictMode: false,
     // 配置环境变量
     env: {
-      BACKEND_BASE_URL: process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1/',
+      BACKEND_BASE_URL: process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1',
       IDE_URL: process.env.IDE_URL || 'http://localhost:8080',
       RUNTIME_ENV: process.env.RUNTIME_ENV || 'dev'
     },

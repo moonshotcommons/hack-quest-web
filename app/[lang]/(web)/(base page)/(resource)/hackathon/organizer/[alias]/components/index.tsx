@@ -24,6 +24,9 @@ import EditInfo from '../../../components/HackathonDetail/EditInfo';
 import ViewButton from '../../../components/HackathonDetail/ViewButton';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { initEditNavs } from '../../../constants/data';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface HackathonEditDetailProp {
   hackathon: HackathonType;
@@ -32,12 +35,18 @@ interface HackathonEditDetailProp {
 
 const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, isEdit = false }) => {
   const [hackathon, setHackathon] = useState(h);
+  const { userInfo } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo
+    }))
+  );
   const boxRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const { redirectToUrl } = useRedirect();
   const { getHackathonNavList } = useDealHackathonData();
   const { run: refreshHackathon, loading } = useRequest(
     async () => {
@@ -103,6 +112,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
       getOffsetTops();
     }, 300);
   }, [hackathon]);
+
   return (
     <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>
       <Loading loading={loading}>

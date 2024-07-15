@@ -100,7 +100,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        redirectToUrl('/dashboard');
+        redirectToUrl('/welcome');
         router.refresh();
       },
       onError(e: any) {
@@ -137,7 +137,7 @@ const CheckInviteCode: FC<CheckInviteCodeProps> = (props) => {
         setUserInfo(omit(res, 'token') as Omit<LoginResponse, 'token'>);
         BurialPoint.track('signup-Google三方登录输入邀请码登录成功');
         setToken(res.token);
-        redirectToUrl('/dashboard');
+        redirectToUrl('/welcome');
         router.refresh();
       },
       onError(e: any) {
