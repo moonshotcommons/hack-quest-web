@@ -8,6 +8,7 @@ import {
   HackathonEditContext,
   HackathonEditModalType
 } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { HackathonInfoSectionCustomType } from '@/service/webApi/resourceStation/type';
 
 interface EditBoxProp {
   className?: string;
@@ -17,6 +18,7 @@ interface EditBoxProp {
   handleDelete?: VoidFunction;
   isExpandAll?: boolean;
   handleExpandAll?: VoidFunction;
+  custom?: HackathonInfoSectionCustomType;
 }
 
 const EditBox: React.FC<EditBoxProp> = ({
@@ -26,7 +28,8 @@ const EditBox: React.FC<EditBoxProp> = ({
   type,
   handleDelete,
   handleExpandAll,
-  isExpandAll
+  isExpandAll,
+  custom
 }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);

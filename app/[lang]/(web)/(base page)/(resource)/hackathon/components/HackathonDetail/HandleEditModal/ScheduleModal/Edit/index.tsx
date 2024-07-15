@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from 'react';
-import { useForm, useFormState } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -42,15 +42,14 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
     resolver: zodResolver(scheduleFormSchema),
     defaultValues: defaultValues
   });
-  const formState = useFormState(form);
   const cantSubmit = useMemo(() => {
     const { eventName, startTime, endTime } = form?.getValues() || {};
     return !eventName || !startTime || !endTime;
   }, [form.watch()]);
 
-  const add = () => {
-    form.trigger();
-    if (cantSubmit || !formState.isValid) return;
+  const add = async () => {
+    const isValid = await form.trigger();
+    if (cantSubmit || !isValid) return;
     const value = form?.getValues();
     (value as any).description = description;
     const { startTime, endTime } = value;
@@ -68,8 +67,6 @@ const Edit: React.FC<EditProp> = ({ hackathon, schedule, handleRemoveEvent, hand
 
   return (
     <Form {...form}>
-      {/* 解决初始化和input输入时formState.isValid false的bug问题 暂时这么写 */}
-      <div className="hidden">{formState.isValid ? '' : ''}</div>
       <form className="flex h-full w-full flex-col gap-6">
         <div className="flex  flex-col gap-4 text-left">
           <FormField

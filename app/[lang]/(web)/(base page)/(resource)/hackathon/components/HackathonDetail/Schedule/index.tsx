@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface ScheduleProp {
   hackathon: HackathonType;
@@ -26,6 +27,7 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
   const [isExpandAll, setIsExpandAll] = useState(false);
   const [schedule, setSchedule] = useState<ScheduleType[]>([]);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
+  const { getHasHackathonSection } = useDealHackathonData();
   const handleExpand = (i: number) => {
     const newList = cloneDeep(schedule);
     newList[i].isExpand = !newList[i].isExpand;
@@ -49,7 +51,7 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
       })) || [];
     setSchedule(newList);
   }, [hackathon]);
-  if (!schedule?.length) return null;
+  if (!getHasHackathonSection('schedule')) return null;
   return (
     <EditBox
       title={'hackathonDetail.schedule'}
