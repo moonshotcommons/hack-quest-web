@@ -5,7 +5,6 @@ import Button from '@/components/Common/Button';
 import Link from 'next/link';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
-import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
 
 interface TopBannerProps {
@@ -57,19 +56,22 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
 
         <BubbleCard direction="right" className="-mt-[13px] translate-x-[calc(50%+134px+84px)]">
           <Image
-            src="/images/landing/mooc.jpg"
-            alt={t('TopBanner.universityMOOC')}
+            src="/images/landing/edu_hackathon.png"
+            alt={t('TopBanner.eduChainHackathon')}
             width={60}
             height={60}
             className="rounded-full"
           />
           <div className="text-neutral-off-white">
             <div className="body-m body-xs-bold w-fit rounded-[.5rem] border border-yellow-primary px-2 py-1 capitalize text-yellow-primary">
-              {t('TopBanner.universityMOOC')}
+              {t('TopBanner.hackathon')}
             </div>
-            <Link href={MenuLink.NTU_COURSE} className="body-m-bold mt-2 flex items-center gap-2">
+            <Link
+              href={'https://dorahacks.io/hackathon/educhain/detail?utm_source=HQ&utm_medium=Referral&utm_campaign=HQ'}
+              className="body-m-bold mt-2 flex items-center gap-2"
+            >
               <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                {t('TopBanner.universityMOOCDesc')}
+                {t('TopBanner.eduChainHackathon')}
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
