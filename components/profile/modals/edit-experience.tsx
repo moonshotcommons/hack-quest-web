@@ -14,9 +14,18 @@ import { MONTHS, YEARS } from '../constants';
 import { EditIcon } from '@/components/ui/icons/edit';
 import { UserExperienceType } from '@/service/webApi/user/type';
 import { PlusIcon } from 'lucide-react';
+import { omit } from 'lodash-es';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
+import { useProfile } from '../utils';
+import { useToggle } from '@/hooks/utils/use-toggle';
+import { message } from 'antd';
+import { RemoveAlert } from '../common/remove-alert';
 
 export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?: UserExperienceType | null }) {
+  const [open, toggle] = useToggle(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const { invalidate } = useProfile();
 
   const form = useForm<ExperienceSchema>({
     resolver: zodResolver(experienceSchema),
@@ -24,16 +33,55 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
       title: '',
       companyName: '',
       location: '',
-      description: '',
-      startMonth: '',
-      startYear: '',
-      endMonth: '',
-      endYear: ''
+      description: ''
+    }
+  });
+
+  const createMutation = useMutation({
+    mutationFn: (data: any) => webApi.userApi.addExperience(data),
+    onSuccess: () => {
+      toggle(false);
+      message.success('Create experience successfully');
+      invalidate();
+    }
+  });
+
+  const updateMutation = useMutation({
+    mutationKey: ['edit-experience', preset?.id],
+    mutationFn: (data: any) => webApi.userApi.editExperience(preset?.id as string, data),
+    onSuccess: () => {
+      toggle(false);
+      message.success('Update experience successfully');
+      invalidate();
+    }
+  });
+
+  const removeMutation = useMutation({
+    mutationKey: ['remove-experience', preset?.id],
+    mutationFn: () => webApi.userApi.deleteExperience(preset?.id as string),
+    onSuccess: () => {
+      toggle(false);
+      message.success('Remove experience successfully');
+      invalidate();
     }
   });
 
   function onSubmit(data: ExperienceSchema) {
-    console.log(data);
+    const values = {
+      ...omit(data, 'startMonth', 'startYear', 'endMonth', 'endYear'),
+      isCurrentWork: false,
+      startDate: `${data.startMonth} ${data.startYear}`,
+      ...(data.endYear &&
+        data.endMonth && {
+          endDate: `${data.endMonth} ${data.endYear}`
+        })
+    };
+
+    if (type === 'add') {
+      createMutation.mutate(values);
+    } else {
+      updateMutation.mutate(values);
+    }
   }
 
   React.useEffect(() => {
@@ -50,9 +98,9 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
   }, [preset]);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={toggle}>
       <DialogTrigger asChild>
-        <button type="button" className="outline-none">
+        <button type="button" className="outline-none" onClick={toggle}>
           {type === 'edit' ? (
             <EditIcon className="h-5 w-5 text-neutral-medium-gray" />
           ) : (
@@ -65,7 +113,7 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
           <DialogTitle className="text-[22px]">{type === 'edit' ? 'Edit' : 'Add'} Experience</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="no-scrollbar flex-1 space-y-6 overflow-y-auto px-0.5">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="no-scrollbar flex-1 space-y-6 overflow-y-auto p-0.5">
             <FormField
               control={form.control}
               name="title"
@@ -111,8 +159,8 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
                 name="employmentType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Employment Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormLabel>Employment Type*</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Please select" />
@@ -149,8 +197,8 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
                 name="startMonth"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Start Date</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormLabel>Start Date*</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Month" />
@@ -172,8 +220,9 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
                 control={form.control}
                 name="startYear"
                 render={({ field }) => (
-                  <FormItem className="self-end">
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormItem>
+                    <FormLabel className="opacity-0">Start Date</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Year" />
@@ -199,7 +248,7 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>End Date</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Month" />
@@ -221,8 +270,9 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
                 control={form.control}
                 name="endYear"
                 render={({ field }) => (
-                  <FormItem className="self-end">
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormItem>
+                    <FormLabel className="opacity-0">Start Date</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Year" />
@@ -243,9 +293,25 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
             </div>
             <input ref={inputRef} type="submit" className="hidden" />
           </form>
-          <Button className="w-[165px] shrink-0 self-end" onClick={() => inputRef.current?.click()}>
-            Save Changes
-          </Button>
+          <div className="flex w-full shrink-0 justify-end gap-3">
+            {type === 'edit' && (
+              <RemoveAlert
+                loading={removeMutation.isPending}
+                title="Are you sure you want to remove this experience?"
+                description="This action cannot be undone."
+                onConfirm={() => {
+                  removeMutation.mutate();
+                }}
+              />
+            )}
+            <Button
+              className="w-[165px]"
+              isLoading={createMutation.isPending || updateMutation.isPending}
+              onClick={() => inputRef.current?.click()}
+            >
+              Save Changes
+            </Button>
+          </div>
         </Form>
       </DialogContent>
     </Dialog>

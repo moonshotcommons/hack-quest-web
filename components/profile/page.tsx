@@ -12,6 +12,7 @@ import { Resume } from './modules/resume';
 import { useQuery } from '@tanstack/react-query';
 import webApi from '@/service';
 import { PROFILE_QUERY_KEY } from './utils';
+import { CompleteProfile } from './modules/complete-profile';
 
 export default function Page() {
   useQuery({
@@ -21,9 +22,10 @@ export default function Page() {
   });
 
   return (
-    <React.Suspense>
+    <div className="h-full w-full bg-neutral-white">
       <BasicInfo />
-      <div className="sm:mx-auto sm:max-w-5xl">
+      <div className="mt-2 sm:mx-auto sm:mt-[88px] sm:max-w-5xl">
+        <CompleteProfile />
         <BuilderScore />
         <div className="mt-2 grid grid-cols-1 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-8">
           <DeveloperProfile />
@@ -34,6 +36,6 @@ export default function Page() {
         <Experience />
         <Hackathon />
       </div>
-    </React.Suspense>
+    </div>
   );
 }

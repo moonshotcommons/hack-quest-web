@@ -26,7 +26,7 @@ const chartData = [
 
 export function BuilderScore() {
   return (
-    <div className="mt-2 bg-neutral-white px-5 py-4 sm:mt-[88px] sm:p-0">
+    <div className="bg-neutral-white px-5 py-4 sm:p-0">
       <h2 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Web 3 Builder Score</h2>
       <p className="body-s mt-2 text-neutral-medium-gray">
         A score generated through analyzing how Web3 native you are and how your Web3 dev ability is.
