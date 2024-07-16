@@ -9,10 +9,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import webApi from '@/service';
 
-import html2canvas from 'html2canvas';
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
-import { wait } from '@/helper/utils';
 
 function ClaimCertificateForm() {
   const [name, setName] = React.useState('');
@@ -71,41 +69,61 @@ export function UsernameModal() {
 
   const { mutateAsync, isPending: claimLoading } = useMutation({
     mutationKey: ['claimCertificate'],
-    mutationFn: ({ id, formData }: { id: string; formData: FormData }) =>
-      webApi.ecosystemApi.claimCertificateOverride(id, formData)
+    mutationFn: ({ id }: { id: string }) => webApi.ecosystemApi.claimCertificateOverride(id)
   });
+
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   setLoading(true);
+  //   e.preventDefault();
+  //   const certificateInfo = await mutation.mutateAsync(data?.certificationId);
+  //   setUserCertificateInfo(certificateInfo);
+
+  //   await wait(300);
+
+  //   const canvas = await html2canvas(container.current!, {
+  //     useCORS: true
+  //   });
+
+  //   canvas.toBlob((blob) => {
+  //     if (!blob) return;
+  //     const file = new File([blob], 'certificate.png', { type: blob.type });
+
+  //     const formData = new FormData();
+  //     formData.append('file', file);
+  //     mutateAsync({ id: ecosystemId, formData }).then((res) => {
+  //       setUsername('');
+  //       onClose();
+  //       setLoading(false);
+  //       router.refresh();
+  //       queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+  //       setTimeout(() => {
+  //         data.certification = res;
+  //         onOpen('mint', data);
+  //       }, 500);
+  //     });
+  //   });
+  // }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     setLoading(true);
     e.preventDefault();
     const certificateInfo = await mutation.mutateAsync(data?.certificationId);
     setUserCertificateInfo(certificateInfo);
-
-    await wait(300);
-
-    const canvas = await html2canvas(container.current!, {
-      useCORS: true
+    data.certification = certificateInfo;
+    console.log(data);
+    setUsername('');
+    onClose();
+    setLoading(false);
+    mutateAsync({ id: ecosystemId }).then((res) => {
+      queryClient.invalidateQueries({ queryKey: ['userProfile'] });
     });
-
-    canvas.toBlob((blob) => {
-      if (!blob) return;
-      const file = new File([blob], 'certificate.png', { type: blob.type });
-
-      const formData = new FormData();
-      formData.append('file', file);
-      mutateAsync({ id: ecosystemId, formData }).then((res) => {
-        setUsername('');
-        onClose();
-        setLoading(false);
-        router.refresh();
-        queryClient.invalidateQueries({ queryKey: ['userProfile'] });
-        setTimeout(() => {
-          data.certification = res;
-          onOpen('mint', data);
-        }, 500);
-      });
-    });
+    router.refresh();
+    setTimeout(() => {
+      onOpen('mint', data);
+    }, 1000);
+    // createCertificate();
   }
+
   React.useEffect(() => {
     if (isOpen) {
       document.body.classList.add('overflow-hidden');
