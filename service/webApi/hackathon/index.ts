@@ -29,7 +29,15 @@ class HackathonApi {
   updateHackathon(data: Record<string, any>, status: string) {
     const { id, ...rest } = data;
     return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${id}/${status}`, {
-      data: rest
+      data: {
+        ...rest
+      }
+    });
+  }
+
+  updateHackathonEdit(hackathonId: string, data: Record<string, any>, status: string) {
+    return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/${status}`, {
+      data
     });
   }
 

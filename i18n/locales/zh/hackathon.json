@@ -123,7 +123,8 @@
     "viewTeamProject": "查看团队项目",
     "registrationData":"Registration Data",
     "backToEdit":"Back to Edit",
-    "proceedToPreview":"Proceed to Preview"
+    "proceedToPreview":"Proceed to Preview",
+    "submitToPreview":"Submit to Preview"
   },
   "projectsDetail": {
     "title": {
@@ -244,5 +245,13 @@
     "previewSubmit": "preview / submit",
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
+  },
+  "hackathonAudit":{
+    "overview":"Overview",
+    "application":"Application",
+    "submission":"Submission",
+    "sdmin":"Admin",
+    "view hackathon details":"view hackathon details",
+    "Hackathon Stats Today":"Hackathon Stats Today"
   }
 }

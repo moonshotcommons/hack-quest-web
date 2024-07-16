@@ -1,13 +1,8 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useState, FocusEvent, useMemo, useRef, useEffect } from 'react';
-import {
-  HackathonInfoParterKeys,
-  HackathonInfoSPKeys,
-  HackathonType,
-  MentorType
-} from '@/service/webApi/resourceStation/type';
+import React, { useContext, useState, FocusEvent, useMemo } from 'react';
+import { HackathonInfoParterKeys, HackathonType, MentorType } from '@/service/webApi/resourceStation/type';
 import { IoIosAddCircle, IoIosCloseCircle } from 'react-icons/io';
 import { v4 } from 'uuid';
 import { errorMessage } from '@/helper/ui';
@@ -20,7 +15,6 @@ import webApi from '@/service';
 import { useRequest } from 'ahooks';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
-import RemoveSectionModal, { RemoveSectionModalRef } from '../../RemoveSectionModal';
 import CommonButton from '../CommonButton';
 
 interface PartnersBoxModalProp {
@@ -30,12 +24,9 @@ interface PartnersBoxModalProp {
 const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const removeSectionRef = useRef<RemoveSectionModalRef>(null);
-  const { modalType, setModalType, updateHackathon, loading } = useContext(HackathonEditContext);
-  const info = useMemo(() => {
-    return hackathon.info?.sections?.[modalType as HackathonInfoParterKeys] || {};
-  }, [hackathon]);
-  const [title, setTitle] = useState('');
+  const { modalType, updateHackathon } = useContext(HackathonEditContext);
+  const info = hackathon.info?.sections?.[modalType as HackathonInfoParterKeys] || {};
+  const [title, setTitle] = useState(info.title || t(`hackathonDetail.${modalType}`));
   const [partners, setPartners] = useState<MentorType[]>(info.list || []);
   const handleAdd = () => {
     const p = {
@@ -105,19 +96,10 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
       }
     });
   };
-  useEffect(() => {
-    setTitle(info.title || t(`hackathonDetail.${modalType}`));
-  }, [info, hackathon]);
   return (
     <div className="">
       <div className="px-[40px]">
-        <EditTitle
-          hackathon={hackathon}
-          title={
-            hackathon.info?.sections?.[modalType as HackathonInfoSPKeys]?.title || t(`hackathonDetail.${modalType}`)
-          }
-          changeTitle={setTitle}
-        />
+        <EditTitle title={title} changeTitle={setTitle} />
       </div>
       <div className="scroll-wrap-y flex flex-1 flex-col gap-[24px] px-[40px]">
         <p className="body-l text-neutral-off-black">{t('hackathonDetail.mediaPartnersUploadText')}</p>
@@ -196,8 +178,7 @@ const PartnersBoxModal: React.FC<PartnersBoxModalProp> = ({ hackathon }) => {
           </div>
         </div>
       </div>
-      <CommonButton hackathon={hackathon} handleSave={handleSave} cantSubmit={cantSubmit} />
-      <RemoveSectionModal ref={removeSectionRef} type={modalType} />
+      <CommonButton title={title} handleSave={handleSave} cantSubmit={cantSubmit} />
     </div>
   );
 };

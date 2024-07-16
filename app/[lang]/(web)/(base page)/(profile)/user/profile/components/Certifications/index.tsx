@@ -16,6 +16,7 @@ import { useMintCertification } from '@/hooks/useMintCertification';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import message from 'antd/es/message';
+import { getDomain } from '@/constants/links';
 interface PersonalLinksProps {}
 
 const MintButton = (props: {
@@ -101,7 +102,14 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
             return (
               <li key={item.id} className="flex w-[195px] flex-col justify-center">
                 <div className=" relative h-[108px] rounded-[10px]">
-                  <Image src={item.certificateImage} fill alt="Solidity Learning Track"></Image>
+                  {/* <Image src={item.certificateImage} fill alt="Solidity Learning Track"></Image> */}
+                  {item && (
+                    <Image
+                      src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${item?.username}-${item?.certificateId}.png`}
+                      alt={item?.certificateId + ''}
+                      fill
+                    />
+                  )}
                 </div>
                 <MintButton
                   certification={item}
@@ -112,7 +120,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                 ></MintButton>
                 <Typography.Paragraph
                   ellipsis={{ rows: 2 }}
-                  className="body-m text-center"
+                  className="body-m whitespace-nowrap text-center"
                   style={{ marginBottom: '0px' }}
                 >
                   {item.name}

@@ -8,6 +8,7 @@ import { TransNs } from '@/i18n/config';
 import { VscChevronDown } from 'react-icons/vsc';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface SpeakersSponsorsBoxProp {
   type: HackathonInfoSponsorsKeys;
@@ -19,10 +20,11 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
+  const { getHasHackathonSection } = useDealHackathonData();
   const list = useMemo(() => {
     return hackathon.info?.sections?.[type]?.list || [];
   }, [hackathon, type]);
-  if (!list.length) return null;
+  if (!getHasHackathonSection(type)) return null;
   return (
     <EditBox
       title={hackathon.info?.sections?.[type]?.title || `hackathonDetail.${type}`}
@@ -31,7 +33,7 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
       handleDelete={() => removeSectionRef.current?.open()}
     >
       <div
-        className={`body-xs flex flex-col gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[280px]'}`}
+        className={`body-xs flex flex-col gap-[.5rem] overflow-hidden text-neutral-off-black ${!showAll && 'max-h-[11.5rem]'}`}
       >
         {list.map((v, i) => (
           <div
@@ -50,7 +52,7 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
           </div>
         ))}
       </div>
-      {list.length > 6 && (
+      {list.length > 3 && (
         <div className="body-s mt-[1rem] flex justify-end">
           <div className="flex cursor-pointer items-center gap-[.5rem]" onClick={() => setShowAll(!showAll)}>
             <span>{showAll ? t('showLess') : t('showAll')}</span>

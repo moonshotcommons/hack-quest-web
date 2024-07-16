@@ -113,6 +113,10 @@ class CampaignsApi {
       data
     });
   }
+
+  getCertificateInfoById(id: string) {
+    return this.service.get<UserCertificateInfo>(`/certifications/certificate/${id}`);
+  }
 }
 
 export default CampaignsApi;

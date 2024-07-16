@@ -7,11 +7,12 @@ import { HackathonEditContext } from '@/app/[lang]/(web)/(base page)/(resource)/
 
 interface RemoveSectionModalProp {
   type: string;
+  title?: string;
 }
 export interface RemoveSectionModalRef {
   open: () => void;
 }
-const RemoveSectionModal = forwardRef<RemoveSectionModalRef, RemoveSectionModalProp>(({ type }, ref) => {
+const RemoveSectionModal = forwardRef<RemoveSectionModalRef, RemoveSectionModalProp>(({ title, type }, ref) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { updateHackathon } = useContext(HackathonEditContext);
@@ -36,7 +37,7 @@ const RemoveSectionModal = forwardRef<RemoveSectionModalRef, RemoveSectionModalP
       }}
     >
       {`${t('hackathonDetail.confirmRemove', {
-        block: t(`hackathonDetail.${type}`)
+        block: title || t(`hackathonDetail.${type}`)
       })}`}
     </ConfirmModal>
   );

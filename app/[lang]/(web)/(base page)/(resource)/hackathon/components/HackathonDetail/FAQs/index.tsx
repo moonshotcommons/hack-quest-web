@@ -10,6 +10,7 @@ import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal
 import { cloneDeep } from 'lodash-es';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface FAQsProp {
   hackathon: HackathonType;
@@ -22,7 +23,7 @@ type FaqType = HacakthonFaqType & {
 const FAQs: React.FC<FAQsProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const [expandIndexs, setExpandIndexs] = useState<number[]>([]);
+  const { getHasHackathonSection } = useDealHackathonData();
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
   const [isExpandAll, setIsExpandAll] = useState(false);
   const [faqs, setFaqs] = useState<FaqType[]>([]);
@@ -49,7 +50,7 @@ const FAQs: React.FC<FAQsProp> = ({ hackathon }) => {
       })) || [];
     setFaqs(newList);
   }, [hackathon]);
-  if (!hackathon.info?.sections?.faqs?.list?.length) return;
+  if (!getHasHackathonSection('faqs')) return null;
 
   return (
     <EditBox
