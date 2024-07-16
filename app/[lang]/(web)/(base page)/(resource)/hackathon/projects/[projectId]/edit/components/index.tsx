@@ -7,6 +7,7 @@ import dayjs from '@/components/Common/Dayjs';
 import CloseIn from './CloseIn';
 import { OffsetTopsType } from '../../../../constants/type';
 import Content from './Content';
+import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 
 interface ProjectDetailProp {
   project: ProjectType;
@@ -49,7 +50,10 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, hackathon }) => {
   };
 
   const isClose = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.timeline?.submissionClose);
+    return (
+      dayjs().tz().isAfter(hackathon?.timeline?.submissionClose) &&
+      ![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner)
+    );
   }, [hackathon]);
 
   return (

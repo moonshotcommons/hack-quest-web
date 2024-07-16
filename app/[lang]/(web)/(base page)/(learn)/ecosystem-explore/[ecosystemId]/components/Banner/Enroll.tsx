@@ -7,12 +7,12 @@ import SwichModal from './SwichModal';
 import { EcosystemDetailType } from '@/service/webApi/ecosystem/type';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
-import webApi from '@/service';
 import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
 import { useQueryClient } from '@tanstack/react-query';
+import { updateActiveEcosystem } from '@/components/ecosystem/actions';
 
 interface EnrollProp {
   lang: Lang;
@@ -35,10 +35,7 @@ const Enroll: React.FC<EnrollProp> = ({ lang, ecosystem }) => {
 
   const handleAddEcosystem = () => {
     setLoading(true);
-    webApi.ecosystemApi
-      .switchEcosystem({
-        ecosystemId: ecosystem.info?.id
-      })
+    updateActiveEcosystem(ecosystem.info?.id)
       .then(() => {
         message.success('success');
         queryClient.invalidateQueries({ queryKey: ['enrolledEcosystems'] });
