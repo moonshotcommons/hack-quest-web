@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MoveRightIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import webApi from '@/service';
@@ -22,17 +22,11 @@ export function EcosystemSelectNew() {
     queryFn: () => webApi.ecosystemApi.getMyEcosystems({ lang })
   });
 
-  const mutation = useMutation({
-    mutationFn: (ecosystemId: string | {}) =>
-      webApi.ecosystemApi.switchEcosystem(typeof ecosystemId === 'string' ? { ecosystemId } : {})
-  });
-
   const selected = data?.find((e) => e.id === ecosystemId);
 
   async function onClick(id: string | {}) {
     toggle(false);
     await updateActiveEcosystem(id);
-    mutation.mutate(id);
     router.refresh();
   }
 

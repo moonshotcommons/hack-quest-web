@@ -183,7 +183,8 @@ export const PitchVideoConfig: PresetComponentConfig<PitchVideoProps> = {
     );
   },
   getValidator(config) {
-    const validator = z.string().url();
+    const validator = z.string().min(config.optional ? 0 : 1);
+
     return {
       pitchVideo: config.optional ? validator.optional() : validator
     };

@@ -9,6 +9,7 @@ import { useLeaveTeamModal } from './leave-team-modal';
 import { useManageTeamModal } from './manage-team-modal';
 import { useWithdrawModal } from './withdraw-modal';
 import { hasPermission, ROLES } from './constants';
+import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 
 function PrimaryButton({
   outline,
@@ -93,13 +94,15 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         </PrimaryButton>
       )}
 
-      {hasPermission(role, status, 'learn_more') && (
-        <PrimaryButton outline onClick={() => router.push(`/hackathon/${hackathon.alias}`)}>
-          learn more
-        </PrimaryButton>
-      )}
+      {![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) &&
+        hasPermission(role, status, 'learn_more') && (
+          <PrimaryButton outline onClick={() => router.push(`/hackathon/${hackathon.alias}`)}>
+            learn more
+          </PrimaryButton>
+        )}
 
-      {hasPermission(role, status, 'edit') && (
+      {(hasPermission(role, status, 'edit') ||
+        [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner)) && (
         <PrimaryButton
           onClick={() =>
             isMobile
