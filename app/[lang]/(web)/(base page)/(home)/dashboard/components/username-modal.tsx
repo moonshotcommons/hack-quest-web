@@ -34,8 +34,7 @@ export function UsernameModal() {
 
   const { mutateAsync, isPending: claimLoading } = useMutation({
     mutationKey: ['claimCertificate'],
-    mutationFn: ({ id, formData }: { id: string; formData: FormData }) =>
-      webApi.ecosystemApi.claimCertificateOverride(id, formData)
+    mutationFn: ({ id }: { id: string }) => webApi.ecosystemApi.claimCertificateOverride(id)
   });
 
   const createCertificate = async () => {
@@ -47,16 +46,16 @@ export function UsernameModal() {
           useCORS: true
         });
 
-        canvas.toBlob((blob) => {
-          if (!blob) return;
-          const file = new File([blob], 'certificate.png', { type: blob.type });
-          const formData = new FormData();
-          formData.append('file', file);
-          mutateAsync({ id: ecosystemId, formData }).then((res) => {
-            error = false;
-            queryClient.invalidateQueries({ queryKey: ['userProfile'] });
-          });
-        });
+        // canvas.toBlob((blob) => {
+        //   if (!blob) return;
+        //   const file = new File([blob], 'certificate.png', { type: blob.type });
+        //   const formData = new FormData();
+        //   formData.append('file', file);
+        //   mutateAsync({ id: ecosystemId, formData }).then((res) => {
+        //     error = false;
+        //     queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+        //   });
+        // });
       } catch (err) {}
     }
   };
@@ -71,6 +70,9 @@ export function UsernameModal() {
     setUsername('');
     onClose();
     setLoading(false);
+    mutateAsync({ id: ecosystemId }).then((res) => {
+      queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+    });
     router.refresh();
     setTimeout(() => {
       onOpen('mint', data);

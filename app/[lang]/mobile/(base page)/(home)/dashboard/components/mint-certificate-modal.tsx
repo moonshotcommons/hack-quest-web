@@ -13,6 +13,7 @@ import { useMintCertification } from '@/hooks/useMintCertification';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { useLang } from '@/components/Provider/Lang';
+import { getDomain } from '@/constants/links';
 
 function ClaimCertificateForm() {
   const [name, setName] = React.useState('');
@@ -96,7 +97,14 @@ export function MintCertificateModal() {
             </div>
             <p className="mt-2 text-sm text-neutral-medium-gray">{t('modal.mint.description', { name: data.label })}</p>
             <div className="relative mt-5 h-[12.125rem] w-full overflow-hidden rounded-[0.5rem]">
-              <Image src={data?.certificateImage} alt={data?.certificateId} fill />
+              {/* <Image src={data?.certificateImage} alt={data?.certificateId} fill /> */}
+              {certification && (
+                <Image
+                  src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${certification?.username}-${certification?.certificateId}.png`}
+                  alt={certification?.certificateId}
+                  fill
+                />
+              )}
             </div>
             {canMint ? (
               <div className="mt-5 flex flex-col gap-4 rounded-2xl bg-neutral-off-white p-4">

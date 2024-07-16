@@ -11,7 +11,7 @@ export const getDomain = (domain: string) => {
       return Domain.DEV;
     case 'staging':
       return Domain.STAGING;
-    case 'prod':
+    case 'production':
       return Domain.PROD;
     default:
       return Domain.LOCAL;
