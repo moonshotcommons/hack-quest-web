@@ -44,10 +44,6 @@ export async function GET(request: NextRequest, context: { params: { name: strin
               }}
             />
             <span
-              // className={cn('absolute font-next-book-Thin  italic leading-[120%]', {
-              //   'left-[111px] top-[400px] text-[64px]': !isSmall,
-              //   'left-[28px] top-[108px] text-[24px]': isSmall
-              // })}
               style={{
                 position: 'absolute',
                 fontStyle: 'italic',
@@ -60,10 +56,6 @@ export async function GET(request: NextRequest, context: { params: { name: strin
               {username}
             </span>
             <span
-              // className={cn('absolute ', {
-              //   'right-[91px] top-[172px] text-[16px]': !isSmall,
-              //   'right-[8px] top-[44px] scale-75 text-[12px]': isSmall
-              // })}
               style={{
                 position: 'absolute',
                 fontStyle: 'italic',
@@ -76,11 +68,6 @@ export async function GET(request: NextRequest, context: { params: { name: strin
               No.{certificateId}
             </span>
             <span
-              // className={cn('absolute  font-medium italic', {
-              //   'bottom-[73px] left-[534px] text-[16px]': !isSmall,
-              //   'bottom-[16px] left-[120px] scale-75 text-[12px]': isSmall
-              // })}
-
               style={{
                 position: 'absolute',
                 fontStyle: 'italic',
