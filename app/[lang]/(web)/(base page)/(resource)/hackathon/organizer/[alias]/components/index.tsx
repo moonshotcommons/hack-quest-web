@@ -27,6 +27,7 @@ import { initEditNavs } from '../../../constants/data';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import Customs from '../../../components/HackathonDetail/Customs';
 
 interface HackathonEditDetailProp {
   hackathon: HackathonType;
@@ -110,7 +111,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
-    }, 300);
+    }, 1000);
   }, [hackathon]);
 
   return (
@@ -135,6 +136,7 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
                 <SpeakersSponsorsBox hackathon={hackathon} type="sponsors" />
                 <Schedule hackathon={hackathon} />
                 <FAQs hackathon={hackathon} />
+                <Customs hackathon={hackathon} />
                 <AddSection hackathon={hackathon} />
               </div>
               <div className="relative w-[39%]">

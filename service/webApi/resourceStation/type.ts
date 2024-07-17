@@ -1,3 +1,4 @@
+import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 import {
   ApplicationSectionType,
@@ -82,15 +83,10 @@ export interface HacakthonFaqType {
   id: string;
 }
 
-export enum HackathonSubmissionStatus {
-  INFO = 'INFO',
-  APPLICATION = 'APPLICATION',
-  SUBMISSION = 'SUBMISSION',
-  LINKS = 'LINKS',
-  COVER = 'COVER',
-  TIMELINE = 'TIMELINE',
-  REWARDS = 'REWARDS',
-  JUDGING = 'JUDGING'
+export enum HackathonStatus {
+  DRAFT = 'draft',
+  REVIEW = 'review',
+  PUBLISH = 'publish'
 }
 
 export interface HackathonApplicationLabelType {
@@ -130,6 +126,18 @@ export interface HackathonSubmissionType {
   Videos: HackathonApplicationLabelType[];
 }
 
+export type HackathonInfoSectionCustom = HackathonEditModalType.CUSTOM_TEXT &
+  HackathonEditModalType.CUSTOM_IMAGE_NAME &
+  HackathonEditModalType.CUSTOM_IMAGE_TITLE;
+
+export interface HackathonInfoSectionCustomType {
+  id: string;
+  type: HackathonInfoSectionCustom;
+  title: string;
+  text: any;
+  list: MentorType[];
+}
+
 export interface HackathonInfoSectionsType {
   sponsors: HackathonPartners;
   partners: HackathonPartners;
@@ -148,6 +156,7 @@ export interface HackathonInfoSectionsType {
   resource: CustomComponent[];
   theme: CustomComponent[];
   criteria: CustomComponent[];
+  customs: HackathonInfoSectionCustomType[];
 }
 
 export interface HackathonInfoType {
@@ -226,23 +235,9 @@ export interface HackathonType {
   memberCount: number;
   enable: boolean;
   progress: string[];
-  // sections: {
-  //   hosts: MentorType[];
-  //   venue: MentorType[];
-  //   coHosts: MentorType[];
-  //   goldSponsor: MentorType[];
-  //   titleSponsor: MentorType[];
-  //   trackPartner: MentorType[];
-  //   bronzeSponsor: MentorType[];
-  //   mediaPartners: MentorType[];
-  //   silverSponsor: MentorType[];
-  //   platinumSponsor: MentorType[];
-  //   guestsAndMentors: MentorType[];
-  //   communityPartners: MentorType[];
-  // };
   allowSubmission: boolean;
   alias: string;
-  status: HackathonSubmissionStatus;
+  status: HackathonStatus;
   members: HackathonMemberType[];
   sectionSequences: string[];
   participation?: HackathonRegisterInfo;

@@ -6,8 +6,9 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { VscChevronDown } from 'react-icons/vsc';
-import { HackathonEditContext, HackathonEditModalType } from '../../../constants/type';
+import { HackathonEditModalType } from '../../../constants/type';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface SpeakersSponsorsBoxProp {
   type: HackathonInfoSponsorsKeys;
@@ -18,16 +19,18 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [showAll, setShowAll] = useState(false);
-  const { navs } = useContext(HackathonEditContext);
+  const { getHasHackathonSection } = useDealHackathonData();
   const removeSectionRef = useRef<RemoveSectionModalRef>(null);
+  const info = hackathon.info?.sections?.[type as HackathonInfoSponsorsKeys] || {};
+  const title = info.title || t(`hackathonDetail.${type}`);
   const list = useMemo(() => {
     return hackathon.info?.sections?.[type]?.list || [];
   }, [hackathon, type]);
-  if (!navs?.some((v) => v.value === type)) return null;
+  if (!getHasHackathonSection(type)) return null;
   return (
     <EditBox
       title={hackathon.info?.sections?.[type]?.title || `hackathonDetail.${type}`}
-      className="border-none bg-transparent p-0"
+      className="rounded-none border-none bg-transparent p-0"
       type={type as HackathonEditModalType}
       handleDelete={() => removeSectionRef.current?.open()}
     >
@@ -59,7 +62,7 @@ const SpeakersSponsorsBox: React.FC<SpeakersSponsorsBoxProp> = ({ type, hackatho
           </div>
         </div>
       )}
-      <RemoveSectionModal ref={removeSectionRef} type={type} />
+      <RemoveSectionModal ref={removeSectionRef} title={title as string} type={type} />
     </EditBox>
   );
 };

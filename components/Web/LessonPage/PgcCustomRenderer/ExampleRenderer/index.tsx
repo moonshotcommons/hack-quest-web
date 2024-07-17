@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { FC, createContext, useContext, useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { PlaygroundContext } from '../../Playground/type';
+import { useSearchParams } from 'next/navigation';
+import { useUserStore } from '@/store/zustand/userStore';
 interface ExampleRendererProps {
   // children: ReactNode
   component: ExampleComponent;
@@ -24,10 +26,12 @@ export const ExampleContext = createContext({
 
 const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { component, parent } = props;
-  const { exampleExpand: expand, setExampleExpand: setExpand } = useContext(PlaygroundContext);
+  const { exampleExpand: expand, setExampleExpand: setExpand, lesson } = useContext(PlaygroundContext);
   const [exampleContent, setExampleContent] = useState('');
   const [activeFileIndex, setActiveFileIndex] = useState(0);
   const { updateExampleNum } = useUpdateHelperParams();
+  const query = useSearchParams();
+  const userInfo = useUserStore((state) => state.userInfo);
 
   useEffect(() => {
     if (component) {
@@ -41,6 +45,20 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   useEffect(() => {
     updateExampleNum(activeFileIndex);
   }, [activeFileIndex]);
+
+  const getIdeLink = () => {
+    // id = '1d9db0f7-7d29-417d-a630-3258b7d52567'
+    let isSuiLearningTrack = !!query.get('learningTrackId');
+    if (isSuiLearningTrack) {
+      return `https://develop-2egludalf0.chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=filename&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
+        LzString.compressToBase64(exampleContent)
+      )}`;
+    }
+
+    return `${component.ideUrl || process.env.IDE_URL || 'https://ide.dev.hackquest.io'}?code=${encodeURIComponent(
+      LzString.compressToBase64(exampleContent)
+    )}`;
+  };
 
   return (
     <div

@@ -130,11 +130,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
         </div>
       </div>
 
-      <CommonButton
-        hackathon={hackathon}
-        handleSave={() => setModalType(HackathonEditModalType.NULL)}
-        cantSubmit={editIds.length > 0}
-      />
+      <CommonButton handleSave={() => setModalType(HackathonEditModalType.NULL)} cantSubmit={editIds.length > 0} />
       <RemoveSectionModal ref={removeSectionRef} type={modalType} />
       <ConfirmModal open={open} onClose={() => setOpen(false)} onConfirm={handleConfirmRemoveEvent} isLoading={loading}>
         {`${t('hackathonDetail.confirmRemove', {

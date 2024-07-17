@@ -113,10 +113,12 @@ export interface UserProfileType {
   hackathonExperiences: UserHackathonType[];
   certifications: UserCertificateInfo[];
   user: {
+    id: string;
     avatar: string;
     email: string;
     name: string | null;
     nickname: string;
+    username: string;
     inviteCode: string;
     registerType: RegisterType;
   };

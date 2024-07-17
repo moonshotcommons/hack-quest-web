@@ -22,7 +22,7 @@ export function FileInput({ className, onFileChange }: { className?: string; onF
   return (
     <label className={cn('inline-flex cursor-pointer items-center justify-center text-neutral-white', className)}>
       <input type="file" accept="image/*" className="hidden" onChange={onChange} />
-      <EditIcon className="h-6 w-6" />
+      <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
     </label>
   );
 }

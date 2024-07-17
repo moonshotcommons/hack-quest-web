@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Link from 'next/link';
 import { MoveRightIcon } from 'lucide-react';
 import { INDICATORS } from '../constants';
+import { useProfile } from './profile-provider';
 
 const chartConfig = {
   score: {
@@ -25,6 +26,7 @@ const chartData = [
 ];
 
 export function BuilderScore() {
+  const { profile } = useProfile();
   return (
     <div className="bg-neutral-white px-5 py-4 sm:p-0">
       <h2 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Web 3 Builder Score</h2>
@@ -87,17 +89,19 @@ export function BuilderScore() {
             </Accordion>
           </div>
         </div>
-        <div className="hidden w-full rounded-2xl bg-neutral-off-white p-4 sm:block">
-          <div className="flex flex-col gap-2">
-            <h3 className="font-bold">
-              Want to increase score? Connect with verified web3 platforms to let us know more about you!
-            </h3>
-            <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-neutral-black">
-              Connect Apps
-              <MoveRightIcon size={16} />
-            </Link>
+        {profile?.isMe && (
+          <div className="hidden w-full rounded-2xl bg-neutral-off-white p-4 sm:block">
+            <div className="flex flex-col gap-2">
+              <h3 className="font-bold">
+                Want to increase score? Connect with verified web3 platforms to let us know more about you!
+              </h3>
+              <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-neutral-black">
+                Connect Apps
+                <MoveRightIcon size={16} />
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

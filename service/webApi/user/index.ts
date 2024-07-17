@@ -181,6 +181,16 @@ class UserApi {
     return this.service.get<UserProfileType>(UserApiType.UserProfile);
   }
 
+  getUserProfileByUsername(username: string) {
+    return this.service.get<UserProfileType>(`${UserApiType.UserProfile}/${username}`);
+  }
+
+  updateUsername(username: string) {
+    return this.service.patch<void>(UserApiType.UserRegister, {
+      data: { username }
+    });
+  }
+
   /** 编辑用户信息 */
   editUserProfile(data: UserPersonalType) {
     return this.service.put<UserPersonalType>(UserApiType.UserProfile, {

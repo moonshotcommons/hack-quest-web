@@ -11,7 +11,7 @@ import { TransNs } from '@/i18n/config';
 import CoinIcon from '@/public/images/mission-center/coin_icon.png';
 import XpIcon from '@/public/images/mission-center/xp_icon.png';
 import Loading from '@/components/Common/Loading';
-import Lottie, { useLottie } from 'lottie-react';
+import Lottie from 'lottie-react';
 import treasureJson from './constants/treasure.json';
 
 export enum TreasureType {
@@ -42,10 +42,6 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { View } = useLottie({
-    animationData: treasureJson,
-    loop: true
-  });
   const openTreasures = async (params: openParamType) => {
     const { treasureId, treasureData, digCallback } = params;
     let res = treasureData;
@@ -57,7 +53,7 @@ const TreasureModal = forwardRef<TreasureModalRef, TreasureModalProp>((props, re
       treasureCoin: res?.coin ?? 0,
       treasureExp: res?.exp ?? 0
     });
-    updateMissionDataAll();
+    await updateMissionDataAll();
     digCallback?.();
     setLoading(false);
     return res;

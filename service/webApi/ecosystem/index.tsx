@@ -99,10 +99,8 @@ class EcosystemApi {
     });
   }
 
-  claimCertificateOverride(ecosystemId: string, data: FormData) {
-    return this.service.post<UserCertificateInfo>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels/claim`, {
-      data
-    });
+  claimCertificateOverride(ecosystemId: string) {
+    return this.service.post<UserCertificateInfo>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels/claim`);
   }
 }
 

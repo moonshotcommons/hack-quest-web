@@ -69,11 +69,26 @@ export const useCropImage = create<Store>((set) => ({
   onClose: () => set({ open: false, imageUrl: '' })
 }));
 
-export function CropImageModal({ loading = false, onConfirm }: { loading?: boolean; onConfirm: (blob: Blob) => void }) {
+export function CropImageModal({
+  open,
+  imageUrl,
+  cropShape = 'rect',
+  aspect = 16 / 9,
+  loading = false,
+  onClose,
+  onConfirm
+}: {
+  open: boolean;
+  imageUrl: string;
+  cropShape?: 'rect' | 'round';
+  aspect?: number;
+  loading?: boolean;
+  onClose?: () => void;
+  onConfirm: (blob: Blob) => void;
+}) {
   const [crop, setCrop] = React.useState({ x: 0, y: 0 });
   const [zoom, setZoom] = React.useState(1);
   const [croppedArea, setCroppedArea] = React.useState<any>(null);
-  const { open, imageUrl, onClose } = useCropImage();
 
   function onCropComplete(_: Area, croppedAreaPixels: Area) {
     setCroppedArea(croppedAreaPixels);
@@ -92,7 +107,7 @@ export function CropImageModal({ loading = false, onConfirm }: { loading?: boole
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="flex max-w-xl flex-col gap-8 p-12">
+      <DialogContent className="flex max-w-[92.5%] flex-col gap-8 rounded-xl sm:max-w-xl sm:p-12">
         <DialogHeader className="shrink-0 text-left">
           <DialogTitle className="text-[22px]">Crop Image</DialogTitle>
         </DialogHeader>
@@ -101,8 +116,8 @@ export function CropImageModal({ loading = false, onConfirm }: { loading?: boole
             image={imageUrl}
             crop={crop}
             zoom={zoom}
-            aspect={1}
-            cropShape="round"
+            aspect={aspect}
+            cropShape={cropShape}
             restrictPosition={true}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
@@ -117,7 +132,7 @@ export function CropImageModal({ loading = false, onConfirm }: { loading?: boole
             }}
           />
         </div>
-        <section className="flex gap-4 px-14">
+        <section className="flex gap-4 sm:px-14">
           <button
             className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-neutral-black outline-none disabled:opacity-50"
             disabled={zoom <= 1}
@@ -134,11 +149,11 @@ export function CropImageModal({ loading = false, onConfirm }: { loading?: boole
             <PlusIcon size={16} />
           </button>
         </section>
-        <div className="flex gap-4 self-end">
-          <Button variant="outline" className="w-[165px]" onClick={onClose}>
+        <div className="flex flex-col gap-4 sm:flex-row sm:self-end">
+          <Button variant="outline" className="w-full sm:w-[165px]" onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-[165px]" isLoading={loading} onClick={onCropDone}>
+          <Button className="w-full sm:w-[165px]" isLoading={loading} onClick={onCropDone}>
             Save Changes
           </Button>
         </div>

@@ -53,6 +53,8 @@ const BaseEditModal: React.FC<BaseEditModalProp> = ({ hackathon }) => {
         return <SubmissionForm {...formProp} />;
       case HackathonEditModalType.LINKS:
         return <LinksForm {...formProp} />;
+      default:
+        return null;
     }
   };
   return (

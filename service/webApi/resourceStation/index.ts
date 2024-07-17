@@ -282,10 +282,18 @@ class ResourceStationApi {
     });
   }
 
-  getHackathonMember(hackathoId: string) {
+  getHackathonMember(hackathonId: string) {
     return this.service.get<{ data: HackathonMemberType[] }>(
-      `${ResourceStationApiType.Hackathon}/${hackathoId}/members`
+      `${ResourceStationApiType.Hackathon}/${hackathonId}/members`
     );
+  }
+
+  hackathonCustomizeDeleteById(hackathonId: string, customId: string) {
+    return this.service.delete(`${ResourceStationApiType.Hackathon}/${hackathonId}/customize/${customId}`);
+  }
+
+  submitPublish(hackathonId: string) {
+    return this.service.patch<void>(`${ResourceStationApiType.Hackathon}/${hackathonId}/submit`);
   }
 }
 

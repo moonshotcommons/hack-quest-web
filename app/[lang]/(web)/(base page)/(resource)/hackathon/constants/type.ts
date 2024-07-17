@@ -1,4 +1,9 @@
-import { HackathonStatusType, ProjectType } from '@/service/webApi/resourceStation/type';
+'use client';
+import {
+  HackathonInfoSectionCustomType,
+  HackathonStatusType,
+  ProjectType
+} from '@/service/webApi/resourceStation/type';
 import { createContext } from 'react';
 
 export interface OffsetTopsType {
@@ -71,7 +76,11 @@ export enum HackathonEditModalType {
   SPEAKERS = 'speakers',
   SPONSORS = 'sponsors',
   SCHEDULE = 'schedule',
-  FAQS = 'faqs'
+  FAQS = 'faqs',
+  CUSTOM = 'custom',
+  CUSTOM_TEXT = 'customText',
+  CUSTOM_IMAGE_NAME = 'customTextImageName',
+  CUSTOM_IMAGE_TITLE = 'customTextImageTitle'
 }
 
 export enum AddSectionType {
@@ -99,6 +108,11 @@ export interface HackathonEditContextType {
   loading: boolean;
   setLoading: (loading: boolean) => void;
   isEdit: boolean;
+  modalEditType: 'add' | 'edit' | '';
+  setModalEditType: (type: 'add' | 'edit' | '') => void;
+  editCustomInfo: HackathonInfoSectionCustomType | null;
+  setEditCustomInfo: (info: HackathonInfoSectionCustomType | null) => void;
+  hackathonCustomDelete: VoidFunction;
 }
 
 export const HackathonEditContext = createContext<HackathonEditContextType>({
@@ -109,7 +123,12 @@ export const HackathonEditContext = createContext<HackathonEditContextType>({
   refreshHackathon: () => {},
   loading: true,
   setLoading: () => {},
-  isEdit: false
+  isEdit: false,
+  modalEditType: '',
+  setModalEditType: () => {},
+  editCustomInfo: null,
+  setEditCustomInfo: () => {},
+  hackathonCustomDelete: () => {}
 });
 
 export interface HackathonDetailContextType {

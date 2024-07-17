@@ -2,7 +2,7 @@ import { cn } from '@/helper/utils';
 
 export function Steps({ currentStep }: { currentStep: number }) {
   return (
-    <div className="flex items-center gap-2.5">
+    <div className="flex shrink-0 items-center gap-2.5">
       {[...Array(3)].map((_, index) => (
         <span
           key={index}

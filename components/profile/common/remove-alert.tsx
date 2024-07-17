@@ -28,11 +28,11 @@ export function RemoveAlert({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="w-[165px]">
+        <Button variant="outline" className="w-full sm:w-[165px]">
           Delete
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="gap-12">
+      <AlertDialogContent className="w-[92.5%] rounded-xl pt-12 sm:gap-12">
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
