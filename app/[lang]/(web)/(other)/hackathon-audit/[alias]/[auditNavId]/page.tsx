@@ -2,30 +2,38 @@ import React from 'react';
 import { Lang } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import { Metadata } from 'next';
+import { HackathonAuditType } from '../../constants/type';
+import Overview from './components/Overview';
+import Application from './components/Application';
 
-export async function generateMetadata(props: { params: { lang: string; pressKitId: string } }): Promise<Metadata> {
-  const { lang, pressKitId } = props.params;
-  console.info(props);
+interface HackathonAuditProp {
+  params: { alias: string; auditNavId: string; lang: Lang };
+}
+export async function generateMetadata(props: HackathonAuditProp): Promise<Metadata> {
+  const { lang, alias, auditNavId } = props.params;
   return {
     title: 'HackQuest HackathonAudit',
     alternates: {
-      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.PRESS_KIT}/${pressKitId}`,
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.HACKATHON_AUDIT}/${alias}/${auditNavId}`,
       languages: {
-        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.PRESS_KIT}/${pressKitId}`,
-        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.PRESS_KIT}/${pressKitId}`,
-        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.PRESS_KIT}/${pressKitId}`
+        'x-default': `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_AUDIT}/${alias}/${auditNavId}`,
+        en: `https://www.hackquest.io/${Lang.EN}${MenuLink.HACKATHON_AUDIT}/${alias}/${auditNavId}`,
+        zh: `https://www.hackquest.io/${Lang.ZH}${MenuLink.HACKATHON_AUDIT}/${alias}/${auditNavId}`
       }
     }
   };
 }
-interface HackathonAuditProp {
-  params: { pressKitId: string; lang: Lang };
-}
 
 const HackathonAudit: React.FC<HackathonAuditProp> = ({ params }) => {
-  const { pressKitId, lang } = params;
-
-  return <>1111111</>;
+  const { auditNavId, lang } = params;
+  switch (auditNavId) {
+    case HackathonAuditType.OVERVIEW:
+      return <Overview />;
+    case HackathonAuditType.APPLICATION:
+      return <Application />;
+    default:
+      return <Overview />;
+  }
 };
 
 export default HackathonAudit;

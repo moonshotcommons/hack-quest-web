@@ -12,15 +12,15 @@ import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
 import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 
-interface PressKitSidebarProp {}
+interface AuditsSidebarProp {}
 
-const PressKitSidebar: React.FC<PressKitSidebarProp> = () => {
+const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { alias, auditNavId } = useParams();
-  const { setHackathonAuditName } = useHackathonAuditStore(
+  const { setHackathon } = useHackathonAuditStore(
     useShallow((state) => ({
-      setHackathonAuditName: state.setHackathonAuditName
+      setHackathon: state.setHackathon
     }))
   );
   const pId = useMemo(() => {
@@ -33,7 +33,8 @@ const PressKitSidebar: React.FC<PressKitSidebarProp> = () => {
     },
     {
       onSuccess(hackathon) {
-        setHackathonAuditName(hackathon.name);
+        console.info(hackathon);
+        setHackathon(hackathon);
       }
     }
   );
@@ -53,4 +54,4 @@ const PressKitSidebar: React.FC<PressKitSidebarProp> = () => {
   );
 };
 
-export default PressKitSidebar;
+export default AuditsSidebar;
