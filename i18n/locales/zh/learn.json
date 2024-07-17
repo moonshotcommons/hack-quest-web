@@ -119,9 +119,9 @@
     }
   },
   "explore": {
-    "title": "Become a Web 3 Developer",
-    "web3": "Intro to Web 3",
-    "web3Intro": "Web3 Fundamentals",
+    "title": "从 0 到 1，成为Web3开发者",
+    "web3": "Web3基础课",
+    "web3Intro": "学习Web3和区块链基础概念",
     "learningTrack": "Certified Learning Track",
     "learningTrackIntro": "Deep Dive into leading Ecosystems",
     "buildWeb3": "Build on Web 3",
