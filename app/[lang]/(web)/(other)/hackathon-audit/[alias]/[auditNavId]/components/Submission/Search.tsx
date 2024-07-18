@@ -1,20 +1,29 @@
 import SortBy from '@/components/Web/Business/SortBy';
 import React, { useRef, useState } from 'react';
-import { applicationInformationData, applicationSortData } from '../../../../constants/data';
+import { submissionInformationData, applicationSortData } from '../../../../constants/data';
 import { BiSearch } from 'react-icons/bi';
-import { MultiSelect } from '../../../../components/MultiSelect';
-import { InformationType } from '../../../../constants/type';
+import { MultiSelect, MultiSelectOption } from '../../../../components/MultiSelect';
+import { useRequest } from 'ahooks';
+import webApi from '@/service';
+import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface SearchProp {
   sort: string;
-  handleSearch: (key: 'sort' | 'keyword', value: string) => void;
+  sectors: string[];
+  handleSearch: (key: 'sort' | 'keyword' | 'sectors', value: any) => void;
   tableInformation: string[];
   setTableInformation: (values: string[]) => void;
 }
 
-const Search: React.FC<SearchProp> = ({ sort, handleSearch, tableInformation, setTableInformation }) => {
+const Search: React.FC<SearchProp> = ({ sort, handleSearch, tableInformation, setTableInformation, sectors }) => {
+  const { hackathon } = useHackathonAuditStore(
+    useShallow((state) => ({
+      hackathon: state.hackathon
+    }))
+  );
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-
+  const [sectorOptions, setSectorOptions] = useState<MultiSelectOption[]>([]);
   const changeInput = (e: any) => {
     const newKeyword = e.target.value;
     if (timeOut.current) clearTimeout(timeOut.current);
@@ -22,6 +31,24 @@ const Search: React.FC<SearchProp> = ({ sort, handleSearch, tableInformation, se
       handleSearch('keyword', newKeyword);
     }, 1000);
   };
+
+  const {} = useRequest(
+    async () => {
+      const res = await webApi.resourceStationApi.getProjectTracksDict({
+        hackathonId: hackathon?.id as string
+      });
+      return res;
+    },
+    {
+      onSuccess(res) {
+        const newSectorOptions = res.map((v) => ({
+          label: v,
+          value: v
+        }));
+        setSectorOptions(newSectorOptions);
+      }
+    }
+  );
 
   return (
     <div className="flex w-full items-center justify-between">
@@ -36,9 +63,17 @@ const Search: React.FC<SearchProp> = ({ sort, handleSearch, tableInformation, se
         <MultiSelect
           type="checkbox"
           value={tableInformation}
-          options={applicationInformationData}
+          options={submissionInformationData}
           name="Information"
           onSelect={setTableInformation}
+        />
+        <MultiSelect
+          value={sectors}
+          options={sectorOptions}
+          name="Sector"
+          onSelect={(sec) => {
+            handleSearch('sectors', sec);
+          }}
         />
       </div>
       <div className="body-s flex h-[46px] w-[400px] items-center rounded-[56px] border border-neutral-light-gray bg-neutral-white px-[20px] text-neutral-off-black">

@@ -1,5 +1,5 @@
 import { FaBalanceScale } from 'react-icons/fa';
-import { ApplicationStatus, HackathonAuditType } from './type';
+import { ApplicationStatus, HackathonAuditType, SubmissionStatus } from './type';
 import { GrLineChart } from 'react-icons/gr';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { MdAppRegistration, MdOutlineEngineering } from 'react-icons/md';
@@ -22,7 +22,7 @@ export const hackathonAuditNavData = [
   },
   {
     id: HackathonAuditType.JUDGE,
-    label: 'hackathonDetail.judge',
+    label: 'hackathonAudit.judging',
     icon: <FaBalanceScale size={20} />
   }
 ];
@@ -46,6 +46,19 @@ export const applicationTabData = [
   {
     value: ApplicationStatus.WAIT,
     label: 'Waitlist',
+    count: 0
+  }
+];
+
+export const submissionTabData = [
+  {
+    value: SubmissionStatus.WEB3,
+    label: 'AI + Web3 Applications',
+    count: 0
+  },
+  {
+    value: SubmissionStatus.HACKQUEST,
+    label: 'HackQuest Track',
     count: 0
   }
 ];
@@ -91,6 +104,41 @@ export const applicationInformationData = [
   {
     value: 'bio',
     label: 'Bio'
+  }
+];
+
+export const submissionInformationData = [
+  {
+    value: 'ptName',
+    label: 'Project Name',
+    disable: true
+  },
+  {
+    value: 'name',
+    label: 'Applicant Name',
+    disable: true
+  },
+  {
+    value: 'sName',
+    label: 'Submitter Name',
+    disable: true
+  },
+  {
+    value: 'createdAt',
+    label: 'Submit Date',
+    disable: true
+  },
+  {
+    value: 'sector',
+    label: 'Sector'
+  },
+  {
+    value: 'video',
+    label: 'Pitch Video'
+  },
+  {
+    value: 'status',
+    label: 'Fundraising Status'
   }
 ];
 
@@ -245,6 +293,201 @@ export const mockData = [
   },
   {
     id: '18',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  }
+];
+
+export const mockData1 = [
+  {
+    id: '1',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111university111university111university111university111university111',
+    bio: 'biio111'
+  },
+  {
+    id: '2',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111biio111biio111biio111biio111biio111biio111biio111biio111biio111biio111',
+    team: [
+      {
+        id: '222',
+        ptName: 'ptName1',
+        sName: 'sName1',
+        name: 'nam222222',
+        createdAt: new Date(),
+        location: 'asasas',
+        university: 'university111',
+        bio: 'biio111'
+      },
+      {
+        id: '333',
+        ptName: 'ptName1',
+        sName: 'sName1',
+        name: 'nam222222',
+        createdAt: new Date(),
+        location: 'asasas',
+        university: 'university111',
+        bio: 'biio111'
+      },
+      {
+        id: '444',
+        ptName: 'ptName1',
+        sName: 'sName1',
+        name: 'nam222222',
+        createdAt: new Date(),
+        location: 'asasas',
+        university: 'university111',
+        bio: 'biio111'
+      }
+    ]
+  },
+  {
+    id: '3',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1name1name1name1name1name1name1name1name1name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '4',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '5',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '6',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111',
+    team: [
+      {
+        id: '222',
+        ptName: 'ptName1',
+        sName: 'sName1',
+        name: 'nam222222',
+        createdAt: new Date(),
+        location: 'asasas',
+        university: 'university111',
+        bio: 'biio111'
+      },
+      {
+        id: '333',
+        ptName: 'ptName1',
+        sName: 'sName1',
+        name: 'nam222222',
+        createdAt: new Date(),
+        location: 'asasas',
+        university: 'university111',
+        bio: 'biio111'
+      },
+      {
+        id: '444',
+        ptName: 'ptName1',
+        sName: 'sName1',
+        name: 'nam222222',
+        createdAt: new Date(),
+        location: 'asasas',
+        university: 'university111',
+        bio: 'biio111'
+      }
+    ]
+  },
+  {
+    id: '11',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '12',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '13',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '14',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '16',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '517',
+    ptName: 'ptName1',
+    sName: 'sName1',
+    name: 'name1',
+    createdAt: new Date(),
+    location: 'asasas',
+    university: 'university111',
+    bio: 'biio111'
+  },
+  {
+    id: '18',
+    ptName: 'ptName1',
+    sName: 'sName1',
     name: 'name1',
     createdAt: new Date(),
     location: 'asasas',

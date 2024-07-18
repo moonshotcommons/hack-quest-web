@@ -62,7 +62,7 @@ const Overview: React.FC<OverviewProp> = () => {
     return null;
   };
   return (
-    <div className="">
+    <div className="flex flex-col gap-[60px]">
       <div className="flex items-stretch justify-between gap-[40px]">
         <BaseImage
           src={hackathon?.info?.image as string}

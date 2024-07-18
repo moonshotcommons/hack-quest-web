@@ -1,11 +1,10 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ApplicationStatus, InformationType } from '../../../../constants/type';
-import { applicationTabData } from '../../../../constants/data';
-import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
+import { InformationType } from '../../../../../constants/type';
 import { cloneDeep } from 'lodash-es';
 import Operation from './Operation';
 import AuditTable from './AuditTable';
+import Info from '../Info';
 
 interface CommonTableProp {
   list: any[];
@@ -16,10 +15,8 @@ interface CommonTableProp {
 const CommonTable: React.FC<CommonTableProp> = ({ list, information, refresh }) => {
   const [checkAll, setCheckAll] = useState(false);
   const [checkIds, setCheckIds] = useState<string[]>([]);
-  const [status, setStatus] = useState('');
-  const [confirmTxt, setConfirmTxt] = useState('');
-  const [curId, setCurId] = useState('');
   const [teamIds, setTeamIds] = useState<string[]>([]);
+  const [curInfo, setCurInfo] = useState<any>(null);
   const handleCheck = (id: string) => {
     const newCheckIds = checkIds.includes(id) ? checkIds.filter((v) => v !== id) : [...checkIds, id];
     setCheckIds(newCheckIds);
@@ -31,32 +28,18 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, refresh }) 
 
   const handleDown = () => {};
 
-  const handleStatus = (sta: ApplicationStatus) => {
-    setStatus(sta);
-    setConfirmTxt(
-      `Do you want to ${applicationTabData?.find((v) => v.value === sta)?.label?.toLocaleLowerCase()} selected applications?`
-    );
-  };
-
-  const handleStautusSingle = (item: any, sta: ApplicationStatus) => {
-    setStatus(sta);
-    setCurId(item.id);
-    setConfirmTxt(
-      `Do you want to ${applicationTabData?.find((v) => v.value === sta)?.label?.toLocaleLowerCase()} this ${item.name}?`
-    );
-  };
-
   const changeTeamIds = (id: string) => {
     const newTeamIds = teamIds.includes(id) ? teamIds.filter((v) => v !== id) : [...teamIds, id];
     setTeamIds(newTeamIds);
   };
 
+  const showInfo = (item: any) => {
+    setCurInfo(item);
+  };
+
   useEffect(() => {
     setCheckAll(checkIds.length === list.length);
   }, [checkIds, list]);
-  useEffect(() => {
-    !status && setCurId('');
-  }, [status]);
 
   const tableList = useMemo(() => {
     const l = list.map((v, i) => ({
@@ -76,7 +59,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, refresh }) 
   }, [list, teamIds]);
   return (
     <div className="flex w-full flex-1 flex-col">
-      <Operation checkIds={checkIds} handleDown={handleDown} handleStatus={handleStatus} />
+      <Operation checkIds={checkIds} handleDown={handleDown} />
       <AuditTable
         checkIds={checkIds}
         handleCheckAll={handleCheckAll}
@@ -84,13 +67,11 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, refresh }) 
         tableList={tableList}
         information={information}
         changeTeamIds={changeTeamIds}
-        handleStautusSingle={handleStautusSingle}
         handleCheck={handleCheck}
         teamIds={teamIds}
+        showInfo={showInfo}
       />
-      <ConfirmModal open={!!status} onClose={() => setStatus('')} onConfirm={() => {}}>
-        {confirmTxt}
-      </ConfirmModal>
+      <Info open={!!curInfo?.id} onClose={() => setCurInfo(null)} curInfo={curInfo} list={tableList} />
     </div>
   );
 };

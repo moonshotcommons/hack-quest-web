@@ -3,15 +3,17 @@ import { FiDownload } from 'react-icons/fi';
 import { IoMdTime } from 'react-icons/io';
 import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
-import { ApplicationStatus } from '../../../../constants/type';
+import { ApplicationStatus } from '../../../../../constants/type';
+import { MdOutlineRefresh } from 'react-icons/md';
+import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface OperationProp {
   checkIds: string[];
-  handleStatus: (status: ApplicationStatus) => void;
   handleDown: VoidFunction;
 }
 
-const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown }) => {
+const Operation: React.FC<OperationProp> = ({ checkIds, handleDown }) => {
   return (
     <div
       className={`body-m flex h-[44px] items-center justify-between rounded-t-[8px]  px-[20px]  ${checkIds.length ? 'bg-yellow-primary text-neutral-off-black' : 'bg-neutral-light-gray text-neutral-medium-gray'}`}
@@ -22,19 +24,7 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
       >
         <div onClick={handleDown}>
           <FiDownload />
-          Download Application
-        </div>
-        <div onClick={() => handleStatus(ApplicationStatus.APPROVED)}>
-          <IoCheckmarkCircleOutline />
-          Approve
-        </div>
-        <div onClick={() => handleStatus(ApplicationStatus.REJECTED)}>
-          <VscError />
-          Decline
-        </div>
-        <div onClick={() => handleStatus(ApplicationStatus.WAIT)}>
-          <IoMdTime />
-          Waitlist
+          Download Submission
         </div>
       </div>
     </div>

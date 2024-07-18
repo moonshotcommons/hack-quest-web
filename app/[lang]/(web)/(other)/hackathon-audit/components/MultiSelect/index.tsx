@@ -21,7 +21,7 @@ export function MultiSelect({
   name: string;
   options: MultiSelectOption[];
   value: string[];
-  type: 'select' | 'checkbox';
+  type?: 'select' | 'checkbox';
   onSelect: (value: string[]) => void;
 }) {
   const [selected, setSelected] = useState<string[]>([]);

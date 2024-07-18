@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { HackathonAuditType } from '../../constants/type';
 import Overview from './components/Overview';
 import Application from './components/Application';
+import Submission from './components/Submission';
 
 interface HackathonAuditProp {
   params: { alias: string; auditNavId: string; lang: Lang };
@@ -31,6 +32,8 @@ const HackathonAudit: React.FC<HackathonAuditProp> = ({ params }) => {
       return <Overview />;
     case HackathonAuditType.APPLICATION:
       return <Application />;
+    case HackathonAuditType.SUBMISSION:
+      return <Submission />;
     default:
       return <Overview />;
   }

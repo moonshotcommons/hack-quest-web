@@ -12,7 +12,18 @@ export enum ApplicationStatus {
   WAIT = 'wait'
 }
 
+export enum SubmissionStatus {
+  WEB3 = 'web3',
+  HACKQUEST = 'hackquest'
+}
+
 export interface InformationType {
   value: string;
   label: string;
+}
+
+export interface AuditTabType {
+  value: string;
+  label: string;
+  count: number;
 }
