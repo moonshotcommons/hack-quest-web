@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/Common/Button';
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
@@ -166,7 +166,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
           <h2 className="text-h3 line-clamp-1">{hackathon.name}</h2>
         </div>
         <div className="body-l-bold w-fit rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
-          {t('liveNow')}
+          {t(hackathon.status === HackathonStatus.PUBLISH ? 'liveNow' : 'reivew')}
         </div>
         <div>
           <p className="mb-[8px]">{t('submissionClosesIn')}</p>
