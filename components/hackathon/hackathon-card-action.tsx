@@ -108,9 +108,6 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
           [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner))) && (
         <PrimaryButton
           onClick={() => {
-            console.log(hackathon.participation);
-            return;
-
             isMobile
               ? setTipsModalOpenState(true)
               : router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`);
