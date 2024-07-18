@@ -9,6 +9,7 @@ import {
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
+  REVIEW = 'review',
   DRAFT = 'draft',
   PAST = 'past'
 }
