@@ -16,32 +16,45 @@ import { UserAvatar } from './user-avatar';
 import { Background } from './background';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
+import { message } from 'antd';
 
-export const EditProfile = () => {
-  const { isLoading, profile } = useProfile();
+export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?: boolean) => void }) => {
+  const { profile, invalidate } = useProfile();
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema)
   });
 
+  const { isPending, mutate } = useMutation({
+    mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
+    onSuccess: () => {
+      message.success('Update profile successfully');
+      invalidate();
+    }
+  });
+
   React.useEffect(() => {
     form.reset({
-      name: profile?.user.nickname,
+      nickname: profile?.user.nickname,
       email: profile?.user.email,
-      location: profile?.location
+      location: profile?.location,
+      techStack: profile?.techStack,
+      personalLinks: profile?.personalLinks
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
   function onSubmit(data: ProfileSchema) {
-    console.log(data);
+    mutate(data);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={toggle}>
       <DialogTrigger asChild>
-        <button>
+        <button className="outline-none" onClick={() => toggle?.()}>
           <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
       </DialogTrigger>
@@ -58,12 +71,12 @@ export const EditProfile = () => {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4">
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="nickname"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" {...field} />
+                        <Input placeholder="Your nickname" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -109,13 +122,18 @@ export const EditProfile = () => {
                   </FormItem>
                 )}
               />
-              <Skills />
-              <SocialMedia />
+              <Skills form={form} />
+              <SocialMedia form={form} />
             </div>
             <input ref={inputRef} type="submit" className="hidden" />
           </form>
           <div className="flex shrink-0 px-5 pb-5 sm:self-end sm:px-8 sm:pb-8">
-            <Button type="submit" className="w-full sm:w-[165px]" onClick={() => inputRef.current?.click()}>
+            <Button
+              isLoading={isPending}
+              type="submit"
+              className="w-full sm:w-[165px]"
+              onClick={() => inputRef.current?.click()}
+            >
               Save Changes
             </Button>
           </div>

@@ -13,12 +13,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
-export const RemoveFile = () => {
+export const RemoveFile = ({ loading, name, onConfirm }: { loading: boolean; name: string; onConfirm: () => void }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <button>
+        <button className="outline-none" onClick={(e) => e.stopPropagation()}>
           <XIcon size={20} />
         </button>
       </AlertDialogTrigger>
@@ -28,11 +29,21 @@ export const RemoveFile = () => {
         </div>
         <AlertDialogHeader>
           <AlertDialogTitle>Do you want to remove the file?</AlertDialogTitle>
-          <AlertDialogDescription>cameron_wang.pdf</AlertDialogDescription>
+          <AlertDialogDescription>{name}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction>Delete</AlertDialogAction>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                onConfirm();
+              }}
+              isLoading={loading}
+            >
+              Delete
+            </Button>
+          </AlertDialogAction>
+          <AlertDialogCancel onClick={(e) => e.stopPropagation()}>Cancel</AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

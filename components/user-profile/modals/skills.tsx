@@ -3,8 +3,9 @@ import { Label } from '@/components/ui/label';
 import { PlusIcon, XIcon } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipArrow, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useProfile } from '../modules/profile-provider';
+import { UseFormReturn } from 'react-hook-form';
 
-export function Skills() {
+export function Skills({ form }: { form: UseFormReturn<any> }) {
   const { profile } = useProfile();
   const [skills, setSkills] = React.useState(profile?.techStack || []);
   const [inputVisible, setInputVisible] = React.useState(false);
@@ -27,6 +28,7 @@ export function Skills() {
   function handleRemoveSkill(removedSkill: string) {
     const newSkills = skills.filter((skill) => skill !== removedSkill);
     setSkills(newSkills);
+    form.setValue('techStack', newSkills);
   }
 
   function showInput() {
@@ -40,6 +42,7 @@ export function Skills() {
   function handleInputConfirm() {
     if (inputValue && !skills.includes(inputValue)) {
       setSkills([...skills, inputValue]);
+      form.setValue('techStack', [...skills, inputValue]);
     }
     setInputVisible(false);
     setInputValue('');
@@ -53,6 +56,7 @@ export function Skills() {
     const newSkills = [...skills];
     newSkills[editInputIndex] = editInputValue;
     setSkills(newSkills);
+    form.setValue('techStack', newSkills);
     setEditInputIndex(-1);
     setEditInputValue('');
   }

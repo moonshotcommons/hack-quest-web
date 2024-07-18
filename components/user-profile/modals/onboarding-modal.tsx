@@ -10,23 +10,29 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '../common/textarea';
 import { Input } from '../common/input';
 import { type ProfileSchema, profileSchema } from '../validations/profile';
-import { Label } from '@/components/ui/label';
-import { MoveRightIcon, PlusIcon, XIcon } from 'lucide-react';
+import { MoveRightIcon, PlusIcon } from 'lucide-react';
 import { Steps } from '../common/steps';
 import { GithubIcon } from '@/components/ui/icons/github';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
 import { UserAvatar } from './user-avatar';
+import { DiscordIcon } from '@/components/ui/icons/discord';
+import { TwitterIcon } from '@/components/ui/icons/twitter';
+import { LinkedInIcon } from '@/components/ui/icons/linkedin';
+import { TelegramIcon } from '@/components/ui/icons/telegram';
+import { WeChatIcon } from '@/components/ui/icons/wechat';
+import { Skills } from './skills';
 
 function Step1() {
   const { isLoading, profile } = useProfile();
   const form = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: '',
+      nickname: '',
       email: '',
       bio: '',
-      location: ''
+      location: '',
+      techStack: []
     }
   });
   return (
@@ -34,17 +40,17 @@ function Step1() {
       <h2 className="text-[22px] font-bold">We would like to know more about you!</h2>
       <div className="flex flex-1 flex-col gap-8 sm:flex-row">
         <UserAvatar />
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col gap-8">
           <Form {...form}>
             <form className="no-scrollbar flex flex-1 flex-col space-y-5 overflow-y-auto sm:space-y-6">
               <FormField
                 control={form.control}
-                name="name"
+                name="nickname"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your name" {...field} />
+                      <Input placeholder="Your nickname" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -76,23 +82,7 @@ function Step1() {
                   </FormItem>
                 )}
               />
-              <div>
-                <Label className="text-base text-neutral-rich-gray">Skills</Label>
-                <div className="mt-1 flex flex-wrap items-center gap-3">
-                  <button className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-neutral-off-white px-3 py-1">
-                    <XIcon size={20} />
-                    <span>TypeScript</span>
-                  </button>
-                  <button className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-neutral-off-white px-3 py-1">
-                    <XIcon size={20} />
-                    <span>React</span>
-                  </button>
-                  <button className="inline-flex items-center justify-center gap-2 rounded-[8px] border border-neutral-light-gray px-3 py-1 transition-colors duration-300 hover:border-neutral-medium-gray">
-                    <PlusIcon size={20} />
-                    <span>Add</span>
-                  </button>
-                </div>
-              </div>
+              <Skills form={form} />
             </form>
             <Button type="submit" className="mt-auto w-full sm:w-[270px] sm:self-end">
               Continue
@@ -139,51 +129,10 @@ function Step2() {
             </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <h3 className="font-bold">Other Web3 IDs</h3>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div className="flex items-center rounded-2xl border border-neutral-medium-gray p-4">
-              <Image src="/images/profile/metamask.svg" width={32} height={32} alt="metamask" />
-              <div className="ml-4 flex flex-col">
-                <h4 className="font-bold">Metamask</h4>
-                <p className="text-xs text-neutral-rich-gray">evan976</p>
-              </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
-            </div>
-            <div className="flex items-center rounded-2xl border border-neutral-medium-gray p-4">
-              <Image src="/images/profile/metamask.svg" width={32} height={32} alt="metamask" />
-              <div className="ml-4 flex flex-col">
-                <h4 className="font-bold">Metamask</h4>
-                <p className="text-xs text-neutral-rich-gray">evan976</p>
-              </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
-            </div>
-            <div className="flex items-center rounded-2xl border border-neutral-medium-gray p-4">
-              <Image src="/images/profile/metamask.svg" width={32} height={32} alt="metamask" />
-              <div className="ml-4 flex flex-col">
-                <h4 className="font-bold">Metamask</h4>
-                <p className="text-xs text-neutral-rich-gray">evan976</p>
-              </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
-            </div>
-            <div className="flex items-center rounded-2xl border border-neutral-medium-gray p-4">
-              <Image src="/images/profile/metamask.svg" width={32} height={32} alt="metamask" />
-              <div className="ml-4 flex flex-col">
-                <h4 className="font-bold">Metamask</h4>
-                <p className="text-xs text-neutral-rich-gray">evan976</p>
-              </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
-            </div>
-          </div>
-        </div>
+          <ConnectApp />
+        </div> */}
       </div>
       <div className="flex shrink-0 flex-col-reverse items-center justify-between gap-4 sm:flex-row">
         <button className="flex items-center gap-2 outline-none">
@@ -198,21 +147,76 @@ function Step2() {
 
 function Step3() {
   return (
-    <div className="flex flex-col gap-8">
+    <React.Fragment>
       <h2 className="shrink-0 text-[22px] font-bold">Connect accounts to grow your network</h2>
-    </div>
+      <div className="no-scrollbar flex flex-1 flex-col gap-5 overflow-y-auto sm:gap-8">
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold">Link Accounts</h3>
+          <div className="grid sm:grid-cols-2">
+            <div className="flex items-center rounded-2xl border border-neutral-medium-gray p-4">
+              <DiscordIcon className="h-8 w-8" />
+              <div className="ml-4 flex flex-col">
+                <h4 className="font-bold">Discord</h4>
+                <p className="text-xs text-neutral-rich-gray">wujihua</p>
+              </div>
+              <button className="ml-auto outline-none">
+                <PlusIcon size={20} className="text-neutral-medium-gray" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold">Display on Profile</h3>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <TwitterIcon className="h-6 w-6" />
+              <span className="hidden min-w-24 text-sm sm:block">Twitter</span>
+            </div>
+            <Input />
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <LinkedInIcon className="h-6 w-6" />
+              <span className="hidden min-w-24 text-sm sm:block">LinkedIn</span>
+            </div>
+            <Input />
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <TelegramIcon className="h-6 w-6" />
+              <span className="hidden min-w-24 text-sm sm:block">Telegram</span>
+            </div>
+            <Input />
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <WeChatIcon className="h-6 w-6" />
+              <span className="hidden min-w-24 text-sm sm:block">WeChat</span>
+            </div>
+            <Input />
+          </div>
+        </div>
+      </div>
+      <div className="flex shrink-0 flex-col-reverse items-center justify-between gap-4 sm:flex-row">
+        <button className="flex items-center gap-2 outline-none">
+          <span>Skip for Now</span>
+          <MoveRightIcon className="h-4 w-4" />
+        </button>
+        <Button className="w-full sm:w-[270px]">Continue</Button>
+      </div>
+    </React.Fragment>
   );
 }
 
 const steps = [Step1, Step2, Step3];
 
-export function OnboardingModal() {
+export function OnboardingModal({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
   const [step, setStep] = React.useState(1);
 
   const Component = steps[step - 1] || null;
 
   return (
-    <Dialog open={false}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="flex h-screen flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
         <MobileModalHeader />
         <Steps currentStep={step} />

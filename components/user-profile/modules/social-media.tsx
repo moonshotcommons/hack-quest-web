@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Input } from '../common/input';
 import { DiscordIcon } from '@/components/ui/icons/discord';
+import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { CheckIcon, PlusIcon } from 'lucide-react';
 import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { LinkedInIcon } from '@/components/ui/icons/linkedin';
@@ -11,8 +12,11 @@ import { WeChatIcon } from '@/components/ui/icons/wechat';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useProfile } from './profile-provider';
+import { UseFormReturn } from 'react-hook-form';
+import { ProfileSchema } from '../validations/profile';
+import { GithubIcon } from '@/components/ui/icons/github';
 
-export function SocialMedia() {
+export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
   const { profile, invalidate } = useProfile();
 
   const connectMutation = useMutation({
@@ -71,28 +75,90 @@ export function SocialMedia() {
             <TwitterIcon className="h-6 w-6" />
             <span className="hidden min-w-28 text-sm sm:block">Twitter</span>
           </div>
-          <Input className="h-[38px]" />
+          <FormField
+            control={form.control}
+            name="personalLinks.twitter"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input className="h-[38px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <GithubIcon className="h-6 w-6" />
+            <span className="hidden min-w-28 text-sm sm:block">Github</span>
+          </div>
+          <FormField
+            control={form.control}
+            name="personalLinks.github"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input className="h-[38px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <LinkedInIcon className="h-6 w-6" />
             <span className="hidden min-w-28 text-sm sm:block">LinkedIn</span>
           </div>
-          <Input className="h-[38px]" />
+          <FormField
+            control={form.control}
+            name="personalLinks.linkedIn"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input className="h-[38px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <TelegramIcon className="h-6 w-6" />
             <span className="hidden min-w-28 text-sm sm:block">Telegram</span>
           </div>
-          <Input className="h-[38px]" />
+          <FormField
+            control={form.control}
+            name="personalLinks.telegram"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input className="h-[38px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <WeChatIcon className="h-6 w-6" />
             <span className="hidden min-w-28 text-sm sm:block">WeChat</span>
           </div>
-          <Input className="h-[38px]" />
+          <FormField
+            control={form.control}
+            name="personalLinks.wechat"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input className="h-[38px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
       </div>
     </div>

@@ -2,8 +2,8 @@
 
 import { calculateWorkExperience, convertMonthYear } from '../utils';
 import { EditExperience } from '../modals/edit-experience';
-import { AttestButton } from '../common/attest-button';
 import { useProfile } from './profile-provider';
+import { AddAttestation } from '../modals/add-attestation';
 
 export function Experience() {
   const { isLoading, profile } = useProfile();
@@ -25,7 +25,7 @@ export function Experience() {
               <span>{experience.companyName}</span>
               <span>·</span>
               <span>{experience.employmentType}</span>
-              {!profile?.isMe && <AttestButton />}
+              {profile?.isMe && <AddAttestation />}
             </div>
             <div className="flex items-center gap-2 text-neutral-medium-gray">
               <span>

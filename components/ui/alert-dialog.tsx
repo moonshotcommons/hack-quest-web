@@ -42,9 +42,11 @@ const AlertDialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <AlertDialogPrimitive.Cancel className="absolute right-5 top-5 outline-none">
-        <XIcon className="h-6 w-6" />
-        <span className="sr-only">Close</span>
+      <AlertDialogPrimitive.Cancel asChild className="absolute right-5 top-5">
+        <button className="outline-none" onClick={(e) => e.stopPropagation()}>
+          <XIcon className="h-6 w-6" />
+          <span className="sr-only">Close</span>
+        </button>
       </AlertDialogPrimitive.Cancel>
     </AlertDialogPrimitive.Content>
   </AlertDialogPortal>

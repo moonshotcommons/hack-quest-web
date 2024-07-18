@@ -122,6 +122,12 @@ export interface UserProfileType {
     inviteCode: string;
     registerType: RegisterType;
   };
+  resumes: {
+    id: string;
+    userId: string;
+    name: string;
+    file: string;
+  }[];
 }
 
 export interface UserPersonalType {

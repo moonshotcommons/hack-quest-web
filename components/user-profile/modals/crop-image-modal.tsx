@@ -3,8 +3,6 @@
 import * as React from 'react';
 import Cropper, { Area } from 'react-easy-crop';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { create } from 'zustand';
-import { wait } from '@/helper/utils';
 import { Slider } from '@/components/ui/slider';
 import { MinusIcon, PlusIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -51,24 +49,6 @@ async function getCroppedImage(src: string, pixelCrop: Area) {
   });
 }
 
-type Store = {
-  open: boolean;
-  imageUrl: string;
-  onOpen: (imageUrl: string) => void;
-  onClose: () => void;
-};
-
-export const useCropImage = create<Store>((set) => ({
-  open: false,
-  imageUrl: '',
-  onOpen: async (imageUrl: string) => {
-    // Delay for animation
-    await wait(500);
-    set({ open: true, imageUrl });
-  },
-  onClose: () => set({ open: false, imageUrl: '' })
-}));
-
 export function CropImageModal({
   open,
   imageUrl,
@@ -107,11 +87,11 @@ export function CropImageModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="flex max-w-[92.5%] flex-col gap-8 rounded-xl sm:max-w-xl sm:p-12">
+      <DialogContent className="flex max-w-[92.5%] flex-col gap-8 rounded-xl sm:max-w-xl sm:p-8">
         <DialogHeader className="shrink-0 text-left">
           <DialogTitle className="text-[22px]">Crop Image</DialogTitle>
         </DialogHeader>
-        <div className="relative h-60 w-full rounded-[8px] bg-neutral-off-white">
+        <div className="relative h-[40vh] w-full rounded-[8px] bg-neutral-off-white">
           <Cropper
             image={imageUrl}
             crop={crop}
