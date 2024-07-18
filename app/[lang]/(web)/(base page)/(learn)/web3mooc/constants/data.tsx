@@ -120,21 +120,21 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'How to Find a Good Idea',
-    time: '9-10:30 AM SGT, July 9th 2024 / 9-10:30 PM EST, July 8th 2024',
-    description:
-      'Want to build a Web3 project but don’t have an idea in mind yet? This session will equip aspiring founders with the knowledge, frameworks, tools, and techniques to identify the most groundbreaking ideas in Web3 and ideate on what’s most interesting and relevant to them.',
-    speaker: 'Scott Moore, Gitcoin',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
     name: 'Pitching and Venture Funding in Web3',
-    time: '4-5 PM SGT, July 15th, 2024 / 9-10 AM BST, July 15th, 2024',
+    time: '4-5:30 PM SGT, July 15th, 2024 / 9-10:30 AM BST, July 15th, 2024',
     description: `
     Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
     speaker: 'Jaime Burke, Outlier Ventures',
+    video: 'https://drive.google.com/file/d/1Zwf4H-KlvIr3ty8ezmsi6_MxtuQU32bY/view',
+    slide: 'https://drive.google.com/file/d/1xGDxgmiR8fwwJ5aUUnwsRnLyKl5r9SRV/view',
+    expand: false
+  },
+  {
+    name: 'How to Find a Good Idea',
+    time: '7-8:30 PM SGT, July 18th 2024 / 7-8:30 AM EST, July 18th 2024',
+    description:
+      'Want to build a Web3 project but don’t have an idea in mind yet? This session will equip aspiring founders with the knowledge, frameworks, tools, and techniques to identify the most groundbreaking ideas in Web3 and ideate on what’s most interesting and relevant to them.',
+    speaker: 'Scott Moore, Gitcoin',
     video: '',
     slide: '',
     expand: false
