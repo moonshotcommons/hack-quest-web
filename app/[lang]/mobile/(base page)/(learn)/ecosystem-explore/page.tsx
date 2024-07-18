@@ -3,7 +3,10 @@ import Explore from './components';
 import { Lang } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
-import { introWeb3MockCourseId } from '@/app/[lang]/(web)/(base page)/(learn)/ecosystem-explore/constants/data';
+import {
+  introWeb3MockCourseIdEN,
+  introWeb3MockCourseIdZH
+} from '@/app/[lang]/(web)/(base page)/(learn)/ecosystem-explore/constants/data';
 
 interface SearchParamsType {
   searchParams: {
@@ -39,7 +42,9 @@ const ExplorePage: React.FC<SearchParamsType> = async ({ params, searchParams })
       lang,
       keyword: searchParams.keyword || ''
     }),
-    webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(introWeb3MockCourseId)
+    webApi.learningTrackApi.fetchLearningTrackDetailAndCourses(
+      lang === Lang.EN ? introWeb3MockCourseIdEN : introWeb3MockCourseIdZH
+    )
   ]);
   return <Explore lang={lang} ecosystems={ecosystems} keyword={searchParams.keyword} course={course as any} />;
 };

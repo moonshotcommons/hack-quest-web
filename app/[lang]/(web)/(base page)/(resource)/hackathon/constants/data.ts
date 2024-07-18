@@ -189,6 +189,11 @@ export const hackathonDashboardTab: HackathonTabType[] = [
     count: 0
   },
   {
+    label: 'review',
+    value: HackathonStatusType.REVIEW,
+    count: 0
+  },
+  {
     label: 'draft',
     value: HackathonStatusType.DRAFT,
     count: 0

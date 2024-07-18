@@ -26,3 +26,10 @@ export enum LocalStorageKey {
   ShowAICostCoinModal = 'showCostCoinModal',
   ShowAnswerCostCoinModal = 'showAnswerCostCoinModal'
 }
+
+export enum Domain {
+  DEV = 'https://dev.hackquest.io/',
+  STAGING = 'https://test.hackquest.io/',
+  PROD = 'https://www.hackquest.io/',
+  LOCAL = 'http://localhost:3000/'
+}

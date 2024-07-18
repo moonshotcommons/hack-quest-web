@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { LoaderIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { cn } from '@/helper/utils';
@@ -13,11 +12,12 @@ import { CardTabs } from './card-tabs';
 import { useLang } from '../Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { Spinner } from '@/components/ui/spinner';
 
 function Loading() {
   return (
     <div className="flex h-full w-full items-center justify-center py-10 sm:py-20">
-      <LoaderIcon className="h-6 w-6 animate-spin text-yellow-dark" />
+      <Spinner size={32} />
     </div>
   );
 }

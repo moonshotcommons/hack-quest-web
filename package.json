@@ -39,6 +39,7 @@
     "@rainbow-me/rainbowkit": "^2.0.2",
     "@tanstack/react-query": "^5.28.6",
     "@vercel/analytics": "^1.0.2",
+    "@vercel/og": "^0.6.2",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-react": "^1.0.6",
     "accept-language": "^3.0.18",
