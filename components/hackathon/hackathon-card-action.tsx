@@ -78,11 +78,10 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
     }
   });
 
-  console.log(hackathon);
-
   if (
     hackathon.participation?.isRegister &&
-    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false)
+    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+    hackathon.participation?.joinState !== 'approved'
   ) {
     return (
       <Button

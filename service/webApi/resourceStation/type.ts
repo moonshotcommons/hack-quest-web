@@ -474,6 +474,7 @@ export interface HackathonRegisterInfo {
   discord: string;
   collegeName: string;
   info: Record<ApplicationSectionType, any>;
+  joinState: string;
 }
 
 export interface RegisterInfoBody {
