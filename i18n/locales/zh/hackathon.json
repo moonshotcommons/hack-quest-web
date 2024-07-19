@@ -125,7 +125,8 @@
     "registrationData":"Registration Data",
     "backToEdit":"Back to Edit",
     "proceedToPreview":"Proceed to Preview",
-    "submitToPreview":"Submit to Preview"
+    "submitToPreview":"Submit to Preview",
+    "confirmAttendance":"confirm attendance"
   },
   "projectsDetail": {
     "title": {

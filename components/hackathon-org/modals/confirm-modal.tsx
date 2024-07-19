@@ -9,13 +9,15 @@ export function ConfirmModal({
   onConfirm,
   onClose,
   isLoading = false,
-  children
+  children,
+  autoClose = true
 }: {
   open: boolean;
   onConfirm: () => void;
   onClose: () => void;
   isLoading?: boolean;
   children: React.ReactNode;
+  autoClose?: boolean;
 }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -30,7 +32,7 @@ export function ConfirmModal({
             isLoading={isLoading}
             onClick={() => {
               onConfirm();
-              onClose();
+              autoClose && onClose();
             }}
           >
             Yes
