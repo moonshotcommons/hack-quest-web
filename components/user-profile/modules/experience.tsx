@@ -4,14 +4,15 @@ import { calculateWorkExperience, convertMonthYear } from '../utils';
 import { EditExperience } from '../modals/edit-experience';
 import { useProfile } from './profile-provider';
 import { AddAttestation } from '../modals/add-attestation';
+import { EMPLOYMENT_TYPE } from '../constants';
 
 export function Experience() {
-  const { isLoading, profile } = useProfile();
+  const { profile } = useProfile();
   return (
     <div className="mt-2 flex flex-col bg-neutral-white px-5 py-4 sm:mt-12 sm:p-0">
       <div className="flex items-center justify-between">
         <h2 className="font-next-book-bold text-lg font-bold text-neutral-off-black sm:text-[22px]">Experience</h2>
-        {profile?.isMe && <EditExperience type="add" />}
+        {profile?.isMe && <EditExperience type="create" />}
       </div>
       {profile?.workExperiences?.map((experience) => (
         <div
@@ -24,7 +25,7 @@ export function Experience() {
               <span>·</span>
               <span>{experience.companyName}</span>
               <span>·</span>
-              <span>{experience.employmentType}</span>
+              <span>{EMPLOYMENT_TYPE.find((type) => type.value === experience.employmentType)?.label || ''}</span>
               {profile?.isMe && <AddAttestation />}
             </div>
             <div className="flex items-center gap-2 text-neutral-medium-gray">
@@ -38,7 +39,7 @@ export function Experience() {
             <p className="text-neutral-medium-gray">{experience.location}</p>
             <p className="line-clamp-5 text-neutral-off-black">{experience.description}</p>
           </div>
-          {profile?.isMe && <EditExperience type="edit" preset={experience} />}
+          {profile?.isMe && <EditExperience type="edit" initialValues={experience} />}
         </div>
       ))}
     </div>

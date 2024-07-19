@@ -107,3 +107,22 @@ const CURRENT_YEAR = new Date().getFullYear();
 const START_YEAR = 1949;
 
 export const YEARS = Array.from({ length: CURRENT_YEAR - START_YEAR + 1 }).map((_, i) => (CURRENT_YEAR - i).toString());
+
+export const EMPLOYMENT_TYPE = [
+  {
+    label: 'Full-time',
+    value: 'FULL_TIME'
+  },
+  {
+    label: 'Part-time',
+    value: 'PART_TIME'
+  },
+  {
+    label: 'Contractor',
+    value: 'CONTRACTOR'
+  },
+  {
+    label: 'Internship',
+    value: 'INTERNSHIP'
+  }
+];

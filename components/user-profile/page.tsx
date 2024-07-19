@@ -25,7 +25,11 @@ export default function Page() {
   const { userInfo } = useUserStore();
   const [open, toggle] = useToggle(false);
 
-  const { isLoading, data: profile } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data: profile
+  } = useQuery({
     queryKey: ['profile', username],
     staleTime: Infinity,
     queryFn: () => webApi.userApi.getUserProfileByUsername(username),
@@ -36,6 +40,12 @@ export default function Page() {
       };
     }
   });
+
+  React.useEffect(() => {
+    if (isError) {
+      router.push('/404');
+    }
+  }, [isError, router]);
 
   const invalidate = React.useCallback(() => {
     queryClient.invalidateQueries({

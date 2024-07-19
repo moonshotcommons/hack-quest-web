@@ -1,14 +1,14 @@
-import * as zod from 'zod';
+import * as z from 'zod';
 
-export const hackathonSchema = zod.object({
-  title: zod.string().min(1, {
+export const hackathonSchema = z.object({
+  projectTitle: z.string().min(1, {
     message: 'Project title is required'
   }),
-  name: zod.string().min(1, {
+  hackathonName: z.string().min(1, {
     message: 'Hackathon name is required'
   }),
-  description: zod.string().optional(),
-  winner: zod.boolean().optional()
+  description: z.string().optional(),
+  winner: z.boolean().optional()
 });
 
-export type HackathonSchema = zod.infer<typeof hackathonSchema>;
+export type HackathonSchema = z.infer<typeof hackathonSchema>;

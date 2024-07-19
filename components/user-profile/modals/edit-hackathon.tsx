@@ -13,33 +13,85 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { UserHackathonType } from '@/service/webApi/user/type';
 import { EditIcon } from '@/components/ui/icons/edit';
 import { PlusIcon } from 'lucide-react';
+import { RemoveAlert } from '../common/remove-alert';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
+import { useToggle } from '@/hooks/utils/use-toggle';
+import { message } from 'antd';
+import { useProfile } from '../modules/profile-provider';
 
 export function EditHackathon({
   type,
-  initialValues
+  initialValues = null
 }: {
   type: 'create' | 'edit';
   initialValues?: UserHackathonType | null;
 }) {
+  const [open, toggle] = useToggle(false);
+  const { invalidate } = useProfile();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const form = useForm<HackathonSchema>({
     resolver: zodResolver(hackathonSchema),
     defaultValues: {
-      title: '',
-      name: '',
+      projectTitle: '',
+      hackathonName: '',
       description: '',
       winner: false
     }
   });
 
+  const create = useMutation({
+    mutationFn: (data: any) => webApi.userApi.addHackathon(data),
+    onSuccess: () => {
+      toggle(false);
+      message.success('Hackathon added successfully');
+      invalidate();
+    }
+  });
+
+  const update = useMutation({
+    mutationKey: ['update-hackathon', initialValues?.id],
+    mutationFn: (data: any) => webApi.userApi.editHackathon(initialValues?.id as string, data),
+    onSuccess: () => {
+      toggle(false);
+      message.success('Hackathon updated successfully');
+      invalidate();
+    }
+  });
+
+  const remove = useMutation({
+    mutationFn: () => webApi.userApi.deleteHackathon(initialValues?.id as string),
+    onSuccess: () => {
+      toggle(false);
+      message.success('Hackathon removed successfully');
+      invalidate();
+    }
+  });
+
   function onSubmit(values: HackathonSchema) {
-    console.log(values);
+    if (type === 'create') {
+      create.mutate(values);
+    } else {
+      update.mutate(values);
+    }
   }
 
+  React.useEffect(() => {
+    if (initialValues) {
+      form.reset({
+        projectTitle: initialValues?.projectTitle,
+        hackathonName: initialValues?.hackathonName,
+        description: initialValues?.description,
+        winner: initialValues?.winner
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={toggle}>
       <DialogTrigger asChild>
-        <button type="button" className="outline-none">
+        <button type="button" className="outline-none" onClick={toggle}>
           {type === 'edit' ? (
             <EditIcon className="h-5 w-5 text-neutral-medium-gray" />
           ) : (
@@ -47,15 +99,18 @@ export function EditHackathon({
           )}
         </button>
       </DialogTrigger>
-      <DialogContent className="flex w-[900px] max-w-[900px] flex-col gap-6 px-8 py-16 pb-8">
+      <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
         <DialogHeader className="shrink-0 text-left">
           <DialogTitle className="text-[22px]">{type === 'create' ? 'Add' : 'Edit'} Hackathon</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="no-scrollbar flex-1 space-y-6 overflow-y-auto px-0.5">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="no-scrollbar mt-5 flex-1 space-y-5 overflow-y-auto p-0.5 sm:mt-0 sm:space-y-6"
+          >
             <FormField
               control={form.control}
-              name="title"
+              name="projectTitle"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Project Title*</FormLabel>
@@ -68,7 +123,7 @@ export function EditHackathon({
             />
             <FormField
               control={form.control}
-              name="name"
+              name="hackathonName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Hackathon Name*</FormLabel>
@@ -112,9 +167,23 @@ export function EditHackathon({
             />
             <input ref={inputRef} type="submit" className="hidden" />
           </form>
-          <Button className="w-[165px] shrink-0 self-end" onClick={() => inputRef.current?.click()}>
-            Save Changes
-          </Button>
+          <div className="flex w-full shrink-0 flex-col justify-end gap-3 pb-5 sm:flex-row sm:pb-0">
+            {type === 'edit' && (
+              <RemoveAlert
+                loading={remove.isPending}
+                title="Are you sure you want to remove this hackathon?"
+                description="This action cannot be undone."
+                onConfirm={() => remove.mutate()}
+              />
+            )}
+            <Button
+              className="w-[165px] shrink-0 self-end"
+              isLoading={create.isPending || update.isPending}
+              onClick={() => inputRef.current?.click()}
+            >
+              Save Changes
+            </Button>
+          </div>
         </Form>
       </DialogContent>
     </Dialog>

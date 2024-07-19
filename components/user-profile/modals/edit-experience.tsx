@@ -10,7 +10,7 @@ import { Textarea } from '../common/textarea';
 import { Input } from '../common/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../common/select';
 import { experienceSchema, type ExperienceSchema } from '../validations/experience';
-import { MONTHS, YEARS } from '../constants';
+import { EMPLOYMENT_TYPE, MONTHS, YEARS } from '../constants';
 import { EditIcon } from '@/components/ui/icons/edit';
 import { UserExperienceType } from '@/service/webApi/user/type';
 import { PlusIcon } from 'lucide-react';
@@ -23,7 +23,13 @@ import { RemoveAlert } from '../common/remove-alert';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
 
-export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?: UserExperienceType | null }) {
+export function EditExperience({
+  type,
+  initialValues = null
+}: {
+  type: 'create' | 'edit';
+  initialValues?: UserExperienceType | null;
+}) {
   const [open, toggle] = useToggle(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const { invalidate } = useProfile();
@@ -48,8 +54,8 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
   });
 
   const updateMutation = useMutation({
-    mutationKey: ['edit-experience', preset?.id],
-    mutationFn: (data: any) => webApi.userApi.editExperience(preset?.id as string, data),
+    mutationKey: ['update-experience', initialValues?.id],
+    mutationFn: (data: any) => webApi.userApi.editExperience(initialValues?.id as string, data),
     onSuccess: () => {
       toggle(false);
       message.success('Update experience successfully');
@@ -58,8 +64,8 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
   });
 
   const removeMutation = useMutation({
-    mutationKey: ['remove-experience', preset?.id],
-    mutationFn: () => webApi.userApi.deleteExperience(preset?.id as string),
+    mutationKey: ['remove-experience', initialValues?.id],
+    mutationFn: () => webApi.userApi.deleteExperience(initialValues?.id as string),
     onSuccess: () => {
       toggle(false);
       message.success('Remove experience successfully');
@@ -78,7 +84,7 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
         })
     };
 
-    if (type === 'add') {
+    if (type === 'create') {
       createMutation.mutate(values);
     } else {
       updateMutation.mutate(values);
@@ -86,17 +92,17 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
   }
 
   React.useEffect(() => {
-    if (preset) {
+    if (initialValues) {
       form.reset({
-        ...preset,
-        startMonth: preset.startDate?.split(' ')[0],
-        startYear: preset.startDate?.split(' ')[1],
-        endMonth: preset.endDate?.split(' ')[0],
-        endYear: preset.endDate?.split(' ')[1]
+        ...initialValues,
+        startMonth: initialValues.startDate?.split(' ')[0],
+        startYear: initialValues.startDate?.split(' ')[1],
+        endMonth: initialValues.endDate?.split(' ')[0],
+        endYear: initialValues.endDate?.split(' ')[1]
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [preset]);
+  }, [initialValues]);
 
   return (
     <Dialog open={open} onOpenChange={toggle}>
@@ -172,10 +178,11 @@ export function EditExperience({ type, preset }: { type: 'add' | 'edit'; preset?
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="FULL_TIME">Full Time</SelectItem>
-                        <SelectItem value="PART_TIME">Part Time</SelectItem>
-                        <SelectItem value="CONTRACTOR">Contractor</SelectItem>
-                        <SelectItem value="INTERNSHIP">Internship</SelectItem>
+                        {EMPLOYMENT_TYPE.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />

@@ -87,11 +87,13 @@ export interface UserHackathonType {
   id: string;
   role: string;
   hackathonName: string;
+  projectTitle: string;
   location: string;
   isCurrentWork: boolean;
   startDate: string;
   endDate?: string;
   description: string;
+  winner?: boolean;
 }
 
 export interface GithubActivityType {
