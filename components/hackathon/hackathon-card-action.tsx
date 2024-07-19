@@ -10,15 +10,19 @@ import { useManageTeamModal } from './manage-team-modal';
 import { useWithdrawModal } from './withdraw-modal';
 import { hasPermission, ROLES } from './constants';
 import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
 
 function PrimaryButton({
   outline,
   children,
   dsisabled,
+  isLoading,
   onClick
 }: {
   outline?: boolean;
   dsisabled?: boolean;
+  isLoading?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
 }) {
@@ -28,6 +32,7 @@ function PrimaryButton({
       type="primary"
       disabled={dsisabled}
       ghost={outline}
+      loading={isLoading}
       className="h-[3.25rem] w-full text-sm font-medium uppercase disabled:bg-neutral-light-gray sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
       onClick={onClick}
     >
@@ -66,9 +71,17 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
   const role = isGroupProject ? (isTeamLeader ? ROLES.TEAM_LEADER : ROLES.TEAM_MEMBER) : ROLES.SOLO;
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (hackathonId: string) => webApi.resourceStationApi.memberConfirmRegister(hackathonId),
+    onSuccess: () => {
+      router.refresh();
+    }
+  });
+
   if (
     hackathon.participation?.isRegister &&
-    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false)
+    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+    hackathon.participation?.joinState !== 'approved'
   ) {
     return (
       <Button
@@ -122,7 +135,11 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
           <PrimaryButton dsisabled>Pending</PrimaryButton>
         )}
 
-      {hasPermission(role, status, 'confirm') && <PrimaryButton>confirm attendance</PrimaryButton>}
+      {hasPermission(role, status, 'confirm') && (
+        <PrimaryButton isLoading={isPending} onClick={() => mutate(hackathon.id)}>
+          confirm attendance
+        </PrimaryButton>
+      )}
 
       {hasPermission(role, status, 'manage') && (
         <SecondaryButton
