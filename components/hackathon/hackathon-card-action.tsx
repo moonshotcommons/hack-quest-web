@@ -72,7 +72,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
   const role = isGroupProject ? (isTeamLeader ? ROLES.TEAM_LEADER : ROLES.TEAM_MEMBER) : ROLES.SOLO;
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (hackathonId: string) => webApi.hackathonV2Api.registerConfirm(hackathonId),
+    mutationFn: (hackathonId: string) => webApi.resourceStationApi.memberConfirmRegister(hackathonId),
     onSuccess: () => {
       router.refresh();
     }
