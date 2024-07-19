@@ -18,13 +18,16 @@ import { useShallow } from 'zustand/react/shallow';
 import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
 import { FiDownload } from 'react-icons/fi';
 import { CiEdit } from 'react-icons/ci';
+import { HackathonManageType } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
+import { MdOutlineManageAccounts } from 'react-icons/md';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
   isOrganizer?: boolean;
+  showManage?: boolean;
 }
 
-const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isOrganizer }) => {
+const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, isOrganizer, showManage }) => {
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -141,6 +144,38 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
     );
   };
 
+  const renderIcon = () => {
+    if (showManage || isOrganizer) {
+      return (
+        <div className="absolute right-[20px] top-[20px] flex gap-[10px] text-neutral-black">
+          {showManage && (
+            <div
+              className="p-[6px]  transition-all hover:scale-[1.2]"
+              onClick={(e) => {
+                e.stopPropagation();
+                redirectToUrl(`${MenuLink.HACKATHON_MANAGER}/${hackathon.alias}/${HackathonManageType.OVERVIEW}`);
+              }}
+            >
+              <MdOutlineManageAccounts size={26} />
+            </div>
+          )}
+          {isOrganizer && (
+            <div
+              className="p-[6px]  transition-all hover:scale-[1.2]"
+              onClick={(e) => {
+                e.stopPropagation();
+                redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
+              }}
+            >
+              <CiEdit size={26} className="" />
+            </div>
+          )}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -150,18 +185,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
         <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
       </div>
       <div className="relative flex h-full flex-1 flex-col justify-between px-[24px] py-[20px] text-neutral-off-black">
-        {isOrganizer && (
-          <div
-            className="absolute right-[20px] top-[20px] rounded-[4px] p-[6px] text-neutral-black transition-all hover:scale-[1.2]"
-            onClick={(e) => {
-              e.stopPropagation();
-              redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`);
-            }}
-          >
-            <CiEdit size={26} className="" />
-          </div>
-        )}
-
+        {renderIcon()}
         <div className="w-[90%]">
           <h2 className="text-h3 line-clamp-1">{hackathon.name}</h2>
         </div>

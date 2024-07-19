@@ -27,6 +27,7 @@ class HackathonApi {
   }
 
   updateHackathon(data: Record<string, any>, status: string) {
+    console.info(data);
     const { id, ...rest } = data;
     return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${id}/${status}`, {
       data: {
