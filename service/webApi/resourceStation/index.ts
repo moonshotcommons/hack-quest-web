@@ -1,5 +1,6 @@
 import WebService from '@/service/webService/webService';
 import {
+  ApplicationStatus,
   BlogDetailType,
   BlogSearchType,
   BlogType,
@@ -8,10 +9,12 @@ import {
   FaucetRecordType,
   FaucetType,
   HackathonDataType,
+  HackathonManageApplicationType,
   HackathonMemberType,
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
+  HackathonVariousType,
   HackathonVoteType,
   JoinedHackathonType,
   PagedType,
@@ -68,6 +71,10 @@ class ResourceStationApi {
   getHackathonDetail(id: string) {
     return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`);
   }
+  getHackathonDetailById(id: string) {
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}/detail`);
+  }
+
   /** 获取hackathon 可以投票的project */
   // getVoteProjectsByHackathonId(hackathonId: string, params: object) {
   //   return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/projects`, {
@@ -294,6 +301,32 @@ class ResourceStationApi {
 
   submitPublish(hackathonId: string) {
     return this.service.patch<void>(`${ResourceStationApiType.Hackathon}/${hackathonId}/submit`);
+  }
+
+  getHackathonVariousData(hackathonId: string) {
+    return this.service.get<HackathonVariousType>(`${ResourceStationApiType.Hackathon}/${hackathonId}/stats`);
+  }
+
+  getHackathonApplications(hackathonId: string) {
+    return this.service.get<HackathonManageApplicationType[]>(
+      `${ResourceStationApiType.Hackathon}/admin/${hackathonId}/applications`
+    );
+  }
+
+  changeHackathonApplicationStatus(
+    data: {
+      id: string;
+      type: 'team' | 'member';
+      joinState: ApplicationStatus;
+    }[]
+  ) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/review`, {
+      data
+    });
+  }
+
+  memberConfirmRegister(hackathonId: string) {
+    return this.service.patch(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register-confirm`);
   }
 }
 

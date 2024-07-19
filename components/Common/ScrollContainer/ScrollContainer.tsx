@@ -1,11 +1,11 @@
 import type { ReactElement } from 'react';
-import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useRef, useState, useImperativeHandle } from 'react';
 
 import useResizeObserver from '@/hooks/dom/useResizeObserver';
 import { cn } from '@/helper/utils';
 
 export interface ScrollContainerProps {
-  width?: number | string;
+  width?: number;
   children: ReactElement;
   onChange: (state: any) => void;
   /** 运算时候的间隙 */
@@ -26,10 +26,11 @@ export interface ChangeState {
 }
 
 export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(function (props, ref) {
-  const { width = 'inherit', children, onChange, className, gap = 0 } = props;
+  const { width = 0, children, onChange, className, gap = 0 } = props;
   const listRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const containerWidth = useResizeObserver(containerRef);
+  const observerWidth = useResizeObserver(containerRef);
+  const containerWidth = width || observerWidth;
   const [listWidth, setListWidth] = useState(0);
   const [translateX, setTranslateX] = useState(0);
 
@@ -82,6 +83,14 @@ export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(functio
       }
     }
   };
+
+  useImperativeHandle(ref, () => {
+    return {
+      changeTranslateX(x: number) {
+        setTranslateX(x);
+      }
+    };
+  });
 
   useEffect(() => {
     const state: ChangeState = {

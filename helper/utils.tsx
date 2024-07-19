@@ -13,6 +13,7 @@ import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
 import message from 'antd/es/message';
 import * as XLSX from 'xlsx';
+import { cloneDeep } from 'lodash-es';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -357,4 +358,27 @@ export const exportToExcel = (data: Record<string, any>[], name = '未命名') =
   link.download = `${name}.xlsx`;
   link.click();
   window.URL.revokeObjectURL(downloadLink);
+};
+
+export const arraySortByKey = (data: any[], key: string): any[] => {
+  if (!data?.length || !key) return [];
+  const isDesc = key.startsWith('-');
+  let newKey = isDesc ? key.slice(1) : key;
+  const newData = cloneDeep(data);
+  switch (newKey) {
+    case 'createdAt':
+      return newData.sort((a, b) => {
+        const at = new Date(a[newKey]) as unknown as number;
+        const bt = new Date(b[newKey]) as unknown as number;
+        return isDesc ? bt - at : at - bt;
+      });
+    case 'name':
+      return newData.sort((a, b) => {
+        return isDesc ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name);
+      });
+    default:
+      return newData.sort((a, b) => {
+        return isDesc ? b[newKey] - a[newKey] : a[newKey] - b[newKey];
+      });
+  }
 };

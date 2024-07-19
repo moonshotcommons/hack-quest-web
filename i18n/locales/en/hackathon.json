@@ -125,7 +125,8 @@
     "registrationData": "Registration Data",
     "backToEdit":"Back to Edit",
     "proceedToPreview":"Proceed to Preview",
-    "submitToPreview":"Submit to Preview"
+    "submitToPreview":"Submit to Preview",
+    "confirmAttendance":"confirm attendance"
   },
   "projectsDetail": {
     "title": {
@@ -252,8 +253,8 @@
     "overview":"Overview",
     "application":"Application",
     "submission":"Submission",
-    "sdmin":"Admin",
-    "view hackathon details":"view hackathon details",
-    "Hackathon Stats Today":"Hackathon Stats Today"
+    "judging":"Judging",
+    "viewHackathonDetails":"view hackathon details",
+    "hackathonStatsToday":"Hackathon Stats Today"
   }
 }
