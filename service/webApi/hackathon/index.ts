@@ -103,6 +103,10 @@ class HackathonApi {
       params: { code }
     });
   }
+
+  registerConfirm(hackathonId: string) {
+    return this.service.patch<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/members/register-confirm`);
+  }
 }
 
 export default HackathonApi;
