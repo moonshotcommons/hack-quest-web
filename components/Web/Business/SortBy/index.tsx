@@ -8,7 +8,6 @@ import { motion } from 'framer-motion';
 import { useTranslation } from '@/i18n/client';
 import { animateProps } from './data';
 import { GoCheck } from 'react-icons/go';
-import { cloneDeep } from 'lodash-es';
 import { SortOptionType } from './type';
 
 interface SortByProp {
