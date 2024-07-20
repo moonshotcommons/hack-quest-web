@@ -37,7 +37,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     }))
   );
   const { lang } = useContext(LangContext);
-  const { initProjects, voteData, setVoteData } = useContext(HackathonVoteContext);
+  const { initProjects, voteData, setVoteData, isFixedVote, totalLeftVotes } = useContext(HackathonVoteContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [loading, setLoading] = useState(false);
   const isCanSubmit = useMemo(() => {
@@ -83,10 +83,8 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     isCanSubmit && event.preventDefault();
   }
   useEffect(() => {
-    // 监听离开页面的事件
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => {
-      // 组件卸载时移除事件监听
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [isCanSubmit]);
@@ -188,10 +186,12 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
               <div className="body-xs text-neutral-medium-gray">{t('hackathonVoting.refreshEveryday')}</div>
             </div>
             <div className="my-[4px] flex rounded-[8px] bg-yellow-extra-light px-[24px] py-[16px]">
-              <div className="flex-1 border-r border-neutral-light-gray text-center">
-                <p className="body-xl-bold text-neutral-off-black">{hackathon.participation.remainingVote}</p>
-                <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
-              </div>
+              {isFixedVote && (
+                <div className="flex-1 border-r border-neutral-light-gray text-center">
+                  <p className="body-xl-bold text-neutral-off-black">{totalLeftVotes}</p>
+                  <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
+                </div>
+              )}
               <div className="flex-1 text-center">
                 <p className="body-xl-bold text-neutral-off-black">{hackathon.participation.totalVote}</p>
                 <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.totalVotes')}</p>

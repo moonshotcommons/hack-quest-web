@@ -249,6 +249,7 @@ export interface HackathonType {
   totalPrize: number;
   projectCount: number;
   remainingVote: number;
+  totalLeftVotes?: number;
 }
 
 export interface JoinedHackathonType {
@@ -364,6 +365,7 @@ export type ProjectType = {
   submitType: string;
   teamId: string;
   winner: false;
+  projectLeftVote: number;
   //! 没有这个字段了
   apolloDay?: string;
 };
@@ -665,4 +667,10 @@ export interface HackathonManageApplicationType {
   isRegister: boolean;
   isSubmited: boolean;
   pId: string;
+}
+
+export interface HackathonVoteProjectType {
+  totalLeftVotes: number;
+  jsJudge: boolean;
+  projects: ProjectType[];
 }

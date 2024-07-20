@@ -15,6 +15,7 @@ import {
   HackathonTeamDetail,
   HackathonType,
   HackathonVariousType,
+  HackathonVoteProjectType,
   HackathonVoteType,
   JoinedHackathonType,
   PagedType,
@@ -97,6 +98,15 @@ class ResourceStationApi {
     return this.service.get<ProjectDataType>(ResourceStationApiType.Projects, {
       params
     });
+  }
+
+  getHackathonVoteProjects({ hackathonId, params }: { hackathonId: string; params: Record<string, any> }) {
+    return this.service.get<HackathonVoteProjectType>(
+      `${ResourceStationApiType.Hackathon}/${hackathonId}/voting-projects`,
+      {
+        params
+      }
+    );
   }
   /** 获取project列表 */
   getProjectsRankInfo(id: string) {

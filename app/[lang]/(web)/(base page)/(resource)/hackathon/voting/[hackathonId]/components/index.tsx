@@ -27,7 +27,7 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
       <div className="mb-[80px] pt-[40px]">
         <div className="min-h-[50vh] w-full">
           {hackathon.id && (
-            <VoteProvider>
+            <VoteProvider hackathon={hackathon}>
               <div className="flex justify-between">
                 <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
                   <HackathonImage hackathon={hackathon} />

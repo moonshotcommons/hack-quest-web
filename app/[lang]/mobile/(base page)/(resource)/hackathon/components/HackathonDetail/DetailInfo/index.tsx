@@ -282,7 +282,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             </>
           )}
           {hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
-            !hackathon.participation?.isRegister && (
+            !hackathon.participation?.isRegister &&
+            dayjs().tz().isBefore(hackathon.timeline?.registrationClose) && (
               <Button
                 className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
                 onClick={handleConfirmAttendance}
