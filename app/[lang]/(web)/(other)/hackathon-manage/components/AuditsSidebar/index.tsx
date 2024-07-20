@@ -33,7 +33,6 @@ const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
     },
     {
       onSuccess(hackathon) {
-        console.info(hackathon);
         setHackathon(hackathon);
       }
     }

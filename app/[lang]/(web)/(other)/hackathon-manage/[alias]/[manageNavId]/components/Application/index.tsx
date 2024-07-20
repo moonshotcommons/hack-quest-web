@@ -26,9 +26,9 @@ const Application: React.FC<ApplicationProp> = () => {
   );
   const [searchInfo, setSearchInfo] = useState({
     status: applicationTabData[0].value,
-    sort: hackathonSortData[0].value
+    sort: hackathonSortData[0].value,
+    keyword: ''
   });
-  const [keyword, setKeyword] = useState('');
   const [list, setList] = useState<HackathonManageApplicationType[]>([]);
   const [tableList, setTableList] = useState<HackathonManageApplicationType[]>([]);
 
@@ -43,10 +43,6 @@ const Application: React.FC<ApplicationProp> = () => {
   const [open, setOpen] = useState(false);
 
   const handleSearch = (key: 'sort' | 'keyword', value: string) => {
-    if (key === 'keyword') {
-      setKeyword(value);
-      return;
-    }
     setSearchInfo({
       ...searchInfo,
       [key]: value
@@ -81,7 +77,7 @@ const Application: React.FC<ApplicationProp> = () => {
     if (hackathon?.id) {
       refresh();
     }
-  }, [keyword, hackathon]);
+  }, [hackathon]);
 
   const tabs = useMemo(() => {
     const pendings = list.filter((v) => v.joinState === ApplicationStatus.REVIEW)?.length;
@@ -95,11 +91,18 @@ const Application: React.FC<ApplicationProp> = () => {
     }));
   }, [list]);
 
+  const refreshTableList = () => {
+    const { keyword, sort, status } = searchInfo;
+    const newList = list.filter(
+      (v) => v.joinState === status && v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
+    );
+    const sortList = arraySortByKey(newList, sort);
+    setTableList(sortList);
+  };
+
   useEffect(() => {
     if (hackathon?.id) {
-      const newList = list.filter((v) => v.joinState === searchInfo.status);
-      const sortList = arraySortByKey(newList, searchInfo.sort);
-      setTableList(sortList);
+      refreshTableList();
     }
   }, [searchInfo, hackathon, list]);
 
