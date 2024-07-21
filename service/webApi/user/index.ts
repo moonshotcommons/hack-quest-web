@@ -47,7 +47,8 @@ export enum UserApiType {
   TwitterVerify = '/auth/twitter/callback',
   CheckDiscordJoin = '/auth/discord/check-join',
   CheckTwitterFollow = '/auth/twitter/check-follow',
-  Notifications = '/notifications'
+  Notifications = '/notifications',
+  UploadResume = '/users/profile/resume'
 }
 
 class UserApi {
@@ -179,6 +180,16 @@ class UserApi {
   /** 获取用户信息 */
   getUserProfile() {
     return this.service.get<UserProfileType>(UserApiType.UserProfile);
+  }
+
+  getUserProfileByUsername(username: string) {
+    return this.service.get<UserProfileType>(`${UserApiType.UserProfile}/${username}`);
+  }
+
+  updateUsername(username: string) {
+    return this.service.patch<void>(UserApiType.UserRegister, {
+      data: { username }
+    });
   }
 
   /** 编辑用户信息 */
@@ -360,6 +371,19 @@ class UserApi {
       return this.getUserCount();
     });
     return cacheFn();
+  }
+
+  uploadResume(formData: FormData) {
+    return this.service.post<void>(UserApiType.UploadResume, {
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
+
+  removeResume(resumeId: string) {
+    return this.service.delete(`${UserApiType.UploadResume}/${resumeId}`);
   }
 }
 

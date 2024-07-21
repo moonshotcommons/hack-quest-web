@@ -4,16 +4,19 @@ import { useRequest } from 'ahooks';
 import React from 'react';
 import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ConnectGithubProp {}
 
 const ConnectGithub: React.FC<ConnectGithubProp> = () => {
+  const queryClient = useQueryClient();
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const {} = useRequest(async () => {
     const code = query.get('code');
     if (code) {
       await webApi.userApi.linkGithub(code as string);
       localStorage.setItem('linkGitHub', `${+new Date()}`);
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
       window.close();
     }
   });
