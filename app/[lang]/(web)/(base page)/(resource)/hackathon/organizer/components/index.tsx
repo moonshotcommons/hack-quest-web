@@ -52,16 +52,12 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
       [HackathonStatusType.ON_GOING]: h.filter(
         (v) => v.status === HackathonStatus.PUBLISH && v.timeline && !isPast(v.timeline)
       ),
+      [HackathonStatusType.REVIEW]: h.filter((v) => v.status === HackathonStatus.REVIEW),
       [HackathonStatusType.DRAFT]: h.filter((v) => v.status === HackathonStatus.DRAFT),
       [HackathonStatusType.PAST]: h.filter(
         (v) => v.status === HackathonStatus.PUBLISH && v.timeline && isPast(v.timeline)
       )
     };
-    // const hackathon = {
-    //   [HackathonStatusType.ON_GOING]: h,
-    //   [HackathonStatusType.DRAFT]: h,
-    //   [HackathonStatusType.PAST]: h
-    // };
     const newHackathonTab = cloneDeep(hackathonDashboardTab).map((v) => {
       v.count = hackathon[v.value].length || 0;
       return v;
@@ -118,7 +114,10 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
         {!hackathons[curTab].length && <NoData curTab={curTab} />}
 
         <div className={`${curTab !== HackathonStatusType.ON_GOING && 'hidden'}`}>
-          <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isOrganizer={true} />
+          <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isOrganizer={true} showManage={true} />
+        </div>
+        <div className={`${curTab !== HackathonStatusType.REVIEW && 'hidden'}`}>
+          <OnGoing hackathonList={hackathons[HackathonStatusType.REVIEW]} isOrganizer={true} />
         </div>
         <div className={`${curTab !== HackathonStatusType.DRAFT && 'hidden'}`}>
           <Draft hackathonList={hackathons[HackathonStatusType.DRAFT]} />

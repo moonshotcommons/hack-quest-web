@@ -22,9 +22,11 @@ import { useProfile } from '../modules/profile-provider';
 
 export function EditHackathon({
   type,
+  iconOnly = true,
   initialValues = null
 }: {
   type: 'create' | 'edit';
+  iconOnly?: boolean;
   initialValues?: UserHackathonType | null;
 }) {
   const [open, toggle] = useToggle(false);
@@ -91,13 +93,19 @@ export function EditHackathon({
   return (
     <Dialog open={open} onOpenChange={toggle}>
       <DialogTrigger asChild>
-        <button type="button" className="outline-none" onClick={toggle}>
-          {type === 'edit' ? (
-            <EditIcon className="h-5 w-5 text-neutral-medium-gray" />
-          ) : (
-            <PlusIcon className="h-6 w-6" />
-          )}
-        </button>
+        {!iconOnly ? (
+          <Button className="w-[165px]" size="small" onClick={toggle}>
+            Add Hackathon
+          </Button>
+        ) : (
+          <button type="button" className="outline-none" onClick={toggle}>
+            {type === 'edit' ? (
+              <EditIcon className="h-5 w-5 text-neutral-medium-gray" />
+            ) : (
+              <PlusIcon className="h-6 w-6" />
+            )}
+          </button>
+        )}
       </DialogTrigger>
       <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
         <DialogHeader className="shrink-0 text-left">

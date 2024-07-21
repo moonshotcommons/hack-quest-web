@@ -36,6 +36,7 @@ export interface LoginResponse {
   role: UserRole;
   status: string;
   nickname: string;
+  username: string;
   // registerType: string;
   inviteCode: string;
   token: string;

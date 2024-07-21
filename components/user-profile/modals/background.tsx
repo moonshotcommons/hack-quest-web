@@ -19,7 +19,7 @@ export function Background() {
   const { isPending, mutate } = useMutation({
     mutationFn: (data: FormData) => webApi.userApi.uploadBackgroundImage(data),
     onSuccess: async () => {
-      await invalidate();
+      invalidate();
       toggle(false);
       message.success('Upload background successfully');
     }

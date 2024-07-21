@@ -22,12 +22,12 @@ const AgendaCard: React.FC<AgendaCardProp> = ({ project }) => {
         <div>
           <Link
             href={`${MenuLink.PROJECTS}/${project.alias}`}
-            className="text-h3 flex w-full items-center justify-between text-neutral-off-black"
+            className="text-h3 flex w-full items-center justify-between "
           >
             <h2 className="w-[80%] truncate text-neutral-off-black">{project.name}</h2>
-            <LuChevronRight size={40} />
+            <LuChevronRight size={40} className="text-neutral-off-black" />
           </Link>
-          <div className="flex max-h-[27px] w-full flex-wrap gap-[12px] overflow-hidden">
+          <div className="flex max-h-[29px] w-full flex-wrap gap-[12px] overflow-hidden">
             {project.tracks?.map((v, i) => <TrackTag track={v} key={i} />)}
           </div>
         </div>

@@ -23,7 +23,12 @@ export function BasicInfo() {
       <Skeleton loading={isLoading}>
         <div className="relative h-20 w-full sm:h-[210px]">
           {!isLoading && (
-            <Image src={profile?.backgroundImage || '/images/user/default-bg.png'} alt="background image" fill />
+            <Image
+              src={profile?.backgroundImage || '/images/user/default-bg.png'}
+              alt="background image"
+              fill
+              className="object-cover"
+            />
           )}
         </div>
       </Skeleton>

@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronRightIcon } from 'lucide-react';
 import { BasicInfo } from './modules/basic-info';
 import { BuilderScore } from './modules/builder-score';
 import { Certification } from './modules/certification';
@@ -60,18 +59,18 @@ export default function Page() {
         <BasicInfo />
         <div className="container mx-auto mt-2 flex h-full justify-center sm:mt-[88px]">
           <div className="flex-1 sm:max-w-5xl">
-            <CompleteProfile />
+            {profile?.isMe && <CompleteProfile />}
             <BuilderScore />
             <div className="mt-2 grid grid-cols-1 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-8">
               {(profile?.isMe || Object.keys(profile?.githubActivity || {}).length > 0) && <DeveloperProfile />}
               {(profile?.isMe || Object.keys(profile?.onChainActivity || {}).length > 0) && <OnChainActivity />}
             </div>
-            <Certification />
-            <Resume />
+            {(profile?.isMe || (profile?.certifications?.length || 0) > 0) && <Certification />}
+            {(profile?.isMe || (profile?.resumes?.length || 0) > 0) && <Resume />}
             {(profile?.isMe || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
             {(profile?.isMe || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
           </div>
-          <div
+          {/* <div
             data-state={open ? 'open' : 'closed'}
             className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-2.5 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:block"
           >
@@ -82,7 +81,7 @@ export default function Page() {
               <ChevronRightIcon className="duration-300 group-data-[state=closed]:rotate-180" size={20} />
             </button>
             <div className="hidden">hello world</div>
-          </div>
+          </div> */}
         </div>
       </div>
     </ProfileProvider>

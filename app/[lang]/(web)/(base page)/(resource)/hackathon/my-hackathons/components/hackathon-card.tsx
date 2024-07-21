@@ -49,8 +49,9 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
             className={cn(
               'rounded-[0.5rem] border-2 border-status-success-dark px-3 py-1 text-lg font-bold uppercase text-status-success-dark',
               {
-                'border-neutral-medium-gray text-neutral-medium-gray': status === 'ended',
-                'border-neutral-medium-gray bg-neutral-medium-gray text-neutral-white': status === 'missed'
+                'border-neutral-medium-gray text-neutral-medium-gray': status === 'ended' || status === 'pending',
+                'border-neutral-medium-gray bg-neutral-medium-gray text-neutral-white': status === 'missed',
+                'border-status-error text-status-error': status === 'action required'
               }
             )}
           >
