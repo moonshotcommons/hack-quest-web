@@ -1,4 +1,4 @@
-import { cn } from '@/helper/utils';
+import { cn, isUuid } from '@/helper/utils';
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInput } from '..';
@@ -12,6 +12,7 @@ interface FormRadioProps {
   disable?: boolean;
   className?: string;
   description?: string;
+  placeholder?: string;
 }
 
 export type SelectType = string[] | boolean[] | number[];
@@ -24,7 +25,8 @@ export const FormRadio: FC<FormRadioProps> = ({
   multiple,
   disable,
   className,
-  description
+  description,
+  placeholder
 }) => {
   const [select, setSelect] = useState<SelectType>([]);
 
@@ -51,6 +53,9 @@ export const FormRadio: FC<FormRadioProps> = ({
       <div className="">
         <p className="body-m text-left leading-[160%] text-neutral-rich-gray">{label}</p>
         {description && <p className="body-m leading-[160%] text-neutral-medium-gray">{description}</p>}
+        {isUuid(name) && placeholder && (
+          <p className="body-s text-left text-[14px] text-neutral-medium-gray">{placeholder}</p>
+        )}
       </div>
       <div className={cn('flex w-full justify-between gap-5', className)}>
         {React.Children.map(children, (child) => {

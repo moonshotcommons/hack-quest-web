@@ -4,7 +4,7 @@ import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/helper/utils';
+import { cn, isUuid } from '@/helper/utils';
 import { isMobile } from 'react-device-detect';
 import { ReactNode } from 'react';
 
@@ -39,9 +39,12 @@ export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
           >
             {label}
           </FormLabel>
+          {isUuid(name) && placeholder && (
+            <p className="body-s !-mt-[2px] !mb-2.5 text-left text-[14px] text-neutral-medium-gray">{placeholder}</p>
+          )}
           <FormControl>
             <Input
-              placeholder={placeholder}
+              placeholder={!isUuid(name) ? placeholder : ''}
               {...field}
               className={cn(
                 '!mt-1 h-[50px] border-neutral-light-gray px-6 py-3 font-normal leading-[160%] text-neutral-medium-gray',
