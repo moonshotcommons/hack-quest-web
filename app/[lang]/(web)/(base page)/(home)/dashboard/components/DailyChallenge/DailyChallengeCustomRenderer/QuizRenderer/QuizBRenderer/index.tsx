@@ -1,18 +1,11 @@
 'use client';
 
-import { BurialPoint } from '@/helper/burialPoint';
-import webApi from '@/service';
 import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { QuizContext } from '..';
 
-import QuizFooter from '../QuizFooter';
 import DragAnswer from './DragAnswer';
 
-import {
-  FooterButtonStatus,
-  FooterButtonText,
-  UgcContext
-} from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
+import { FooterButtonStatus } from '@/app/[lang]/(web)/(learn page)/ugc/[courseId]/learn/constants/type';
 
 import emitter from '@/store/emitter';
 import { useGetQuizsCompleted } from '@/hooks/courses/useGetQuizsCompleted';
@@ -20,6 +13,7 @@ import { ComponentRenderer, OverrideRendererConfig, childRenderCallback } from '
 import DropAnswer from './DropAnswer';
 import { NotionComponent, NotionComponentType, QuizBType } from '@/components/ComponentRenderer/type';
 import { AnswerType, QuizOptionType } from '@/components/ComponentRenderer/context';
+import { useDailyChallengeContext } from '../../../DailyChallengeProvider';
 
 interface QuizBRendererProps {
   parent: any;
@@ -33,7 +27,7 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     quiz.options.map((option) => ({ ...option, isRender: true }))
   );
   const [showAnswer, setShowAnswer] = useState(false);
-  const { lesson, setFooterBtn } = useContext(UgcContext);
+  const { updateButtonState, end } = useDailyChallengeContext();
   const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
   const mountAnswers = useRef(0);
   const initFooterBtn = useRef(true);
@@ -61,7 +55,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
   };
 
   const onSubmit = () => {
-    BurialPoint.track('lesson-单个quiz提交', { lessonId: lesson.id });
     const newAnswers = { ...answers };
     let wrongAnswers = [];
     for (const key in newAnswers) {
@@ -79,9 +72,8 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
 
     if (!wrongAnswers.length) {
       onPass();
-      return;
+      return true;
     }
-    BurialPoint.track('lesson-单个quiz提交未通过', { lessonId: lesson.id });
     const wrongOptionIds = wrongAnswers.map((item) => item.option!.id);
     setOptions((prevOptions) => {
       const newOptions = prevOptions.map((option) => {
@@ -99,15 +91,14 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     });
 
     setAnswers(newAnswers);
-
-    webApi.courseApi.markQuestState(lesson.id, false);
+    return false;
   };
 
-  if (emitter.all.get(FooterButtonStatus.SUBMIT)) {
-    emitter.all.delete(FooterButtonStatus.SUBMIT);
-    emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+  if (emitter.all.get('submit')) {
+    emitter.all.delete('submit');
+    emitter.on('submit', onSubmit);
   } else {
-    emitter.on(FooterButtonStatus.SUBMIT, onSubmit);
+    emitter.on('submit', onSubmit);
   }
 
   useEffect(() => {
@@ -122,27 +113,25 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return { ...option, isRender: true };
       })
     );
-    let { footerBtnText, footerBtnStatus, footerBtnDisable } = getFooterBtnInfo(parent);
-    initFooterBtn.current = true;
-    if (!quiz?.isCompleted) {
-      initFooterBtn.current = false;
-      footerBtnText = FooterButtonText.SUBMIT;
-      footerBtnStatus = FooterButtonStatus.SUBMIT;
-      footerBtnDisable = true;
-    }
-    setTimeout(() => {
-      initFooterBtn.current = false;
-      setFooterBtn({
-        footerBtnText,
-        footerBtnStatus,
-        footerBtnDisable
-      });
-    }, 10);
+    let { footerBtnStatus: type, footerBtnDisable: disable } = getFooterBtnInfo(parent);
+    initFooterBtn.current = false;
+    // if (!quiz?.isCompleted) {
+    //   initFooterBtn.current = false;
+    //   type = FooterButtonStatus.SUBMIT;
+    //   disable = true;
+    // }
+    // setTimeout(() => {
+    //   initFooterBtn.current = false;
+    //   updateButtonState({ type, disable });
+    // }, 10);
     setMountOptionIds([]);
+    return () => {
+      emitter.off(FooterButtonStatus.SUBMIT, onSubmit);
+    };
   }, [quiz]);
 
   useEffect(() => {
-    if (quiz?.isCompleted && mountOptionIds.length !== Object.keys(answers).length) {
+    if (end && mountOptionIds.length !== Object.keys(answers).length) {
       const newAnswers = { ...answers };
       const mountOptionIds: string[] = [];
       for (const key in newAnswers) {
@@ -168,19 +157,19 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
         return newOptions;
       });
       mountAnswers.current += 1;
-    }
-    if (!initFooterBtn.current) {
-      const footerBtnDisable = !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
-      setFooterBtn({
-        footerBtnDisable,
-        footerBtnStatus: FooterButtonStatus.SUBMIT
+      updateButtonState({
+        disable: false,
+        type: FooterButtonStatus.NEXT
       });
     }
-
-    return () => {
-      emitter.off(FooterButtonStatus.SUBMIT, onSubmit);
-    };
-  }, [answers]);
+    if (!initFooterBtn.current && !end) {
+      const disable = !Object.keys(answers).find((key) => answers[key].option) || showAnswer;
+      updateButtonState({
+        disable,
+        type: FooterButtonStatus.SUBMIT
+      });
+    }
+  }, [answers, end]);
 
   const { quizChildren, parseComponent } = useMemo(() => {
     let parseComponent: NotionComponent | null = null;
@@ -275,19 +264,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
           </div>
         )}
       </div>
-      <QuizFooter
-        showAnswer={showAnswer}
-        submitDisable={!Object.keys(answers).find((key) => answers[key].option) || showAnswer}
-        setShowAnswer={(isShow) => {
-          if (isShow) BurialPoint.track('lesson-show answer次数');
-          setShowAnswer(isShow);
-        }}
-        lessonId={lesson.id}
-        includeHint={!!quiz.hint}
-        showHint={showHint}
-        setShowHint={setShowHint}
-        isCompleted={!!quiz.isCompleted}
-      ></QuizFooter>
     </div>
   );
 };

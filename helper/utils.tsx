@@ -13,6 +13,7 @@ import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
 import message from 'antd/es/message';
 import * as XLSX from 'xlsx';
+import dayjs from 'dayjs';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -358,3 +359,16 @@ export const exportToExcel = (data: Record<string, any>[], name = '未命名') =
   link.click();
   window.URL.revokeObjectURL(downloadLink);
 };
+
+/**
+ *
+ * @returns 获取当日的24:00
+ */
+export function getEndOfDay() {
+  // 使用dayjs获取当日的日期
+  const today = dayjs();
+  // 如果需要获取当日的24:00，实际上是次日的00:00
+  const nextDay = today.add(1, 'day');
+  // 返回次日的00:00
+  return nextDay.startOf('day');
+}
