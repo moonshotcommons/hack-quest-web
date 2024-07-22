@@ -37,11 +37,7 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
         </Button>
       </div>
       {data?.disableJudge
-        ? // <div className="flex items-center justify-center gap-1 rounded-2xl bg-neutral-off-white p-4 text-sm text-neutral-medium-gray">
-          //   <InfoIcon size={16} />
-          //   <p>HackQuest voting and judging system will not be applied to this track.</p>
-          // </div>
-          data?.criteria && (
+        ? data?.criteria && (
             <div className="flex flex-col gap-1">
               <span className="text-neutral-medium-gray">Judging Criteria</span>
               {data.criteria?.type === TEXT_EDITOR_TYPE ? (
@@ -82,6 +78,12 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
                   <span className="text-neutral-medium-gray">Voting Mode</span>
                   <span>{data?.voteMode === 'fixed' ? 'Fixed Number of Vote' : 'Project Scoring'}</span>
                 </div>
+                {data?.totalVote && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-neutral-medium-gray">Total Votes</span>
+                    <span>{data?.totalVote}</span>
+                  </div>
+                )}
                 {data?.judgeTotalVote && (
                   <div className="flex flex-col gap-1">
                     <span className="text-neutral-medium-gray">Each Judge’s Votes</span>
@@ -100,14 +102,14 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
                 )}
                 {data?.votesProportion?.length > 0 && (
                   <div className="flex flex-col gap-1">
-                    <span className="text-neutral-medium-gray">User Votes Ratio</span>
-                    <span>{data?.votesProportion[0]}%</span>
+                    <span className="text-neutral-medium-gray">Total User Votes</span>
+                    <span>{(data?.votesProportion[0] / 100) * (data?.totalVote || data?.judgeTotalVote || 0)}</span>
                   </div>
                 )}
                 {data?.votesProportion?.length > 0 && (
                   <div className="flex flex-col gap-1">
-                    <span className="text-neutral-medium-gray">Judge Votes Ratio</span>
-                    <span>{data?.votesProportion[1]}%</span>
+                    <span className="text-neutral-medium-gray">Total Judge Votes</span>
+                    <span>{(data?.votesProportion[1] / 100) * (data?.totalVote || data?.judgeTotalVote || 0)}</span>
                   </div>
                 )}
                 {data?.projectJudgeCount && (
@@ -119,7 +121,9 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
               </div>
               {data?.judgeAccounts?.length > 0 && (
                 <div className="flex flex-col gap-1">
-                  <span className="text-neutral-medium-gray">Judging Accounts</span>
+                  <span className="text-neutral-medium-gray">
+                    Judging Accounts {data?.judgeMode === 'all' && `(${data?.judgeAccounts?.length})`}
+                  </span>
                   <div className="flex flex-wrap gap-x-10 gap-y-1">
                     {data?.judgeAccounts?.map((account: any) => (
                       <span key={account.id} className="text-neutral-off-black">
@@ -127,6 +131,12 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
                       </span>
                     ))}
                   </div>
+                </div>
+              )}
+              {data?.judgeMode === 'all' && (
+                <div className="flex flex-col gap-1">
+                  <span className="text-neutral-medium-gray">Votes for Each Judge</span>
+                  <span>{(data?.totalVote || data?.judgeTotalVote || 0) / (data?.judgeAccounts?.length || 1)}</span>
                 </div>
               )}
             </>
