@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import EditBox from '../EditBox';
-import { HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
+import { ApplicationStatus, HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
@@ -88,7 +88,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
+        if (
+          (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+          hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+        ) {
           return (
             <Button
               type="primary"
@@ -182,6 +185,20 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       return null;
     }
   };
+  const handleConfirmAttendance = () => {
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .memberConfirmRegister(hackathon.id)
+      .then(() => {
+        message.success('Confirm Success');
+        window.location.reload();
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
+  };
   return (
     <EditBox className="relative rounded-[0] border-none bg-transparent p-0">
       <div className={`body-s flex flex-col gap-[1.25rem]  text-neutral-off-black`}>
@@ -264,6 +281,17 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
               )}
             </>
           )}
+          {hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
+            !hackathon.participation?.isRegister &&
+            dayjs().tz().isBefore(hackathon.timeline?.registrationClose) && (
+              <Button
+                className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+                onClick={handleConfirmAttendance}
+                loading={loading}
+              >
+                {t('hackathonDetail.confirmAttendance')}
+              </Button>
+            )}
         </div>
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>

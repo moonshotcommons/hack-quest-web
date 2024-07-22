@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import { getHackathonById } from '@/service/cach/resource/hackathon';
+import { getHackathonById, getHackathonDetailById } from '@/service/cach/resource/hackathon';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import { isUuid } from '@/helper/utils';
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
 }
 
 const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
-  const hackathon = await getHackathonById(params.alias);
+  const hackathon = await getHackathonDetailById(params.alias);
   if (isUuid(params.alias)) {
     permanentRedirect(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   }

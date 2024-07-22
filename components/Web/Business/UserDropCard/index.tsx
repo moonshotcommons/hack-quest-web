@@ -11,7 +11,6 @@ import { BiUser, BiLockAlt, BiLogInCircle } from 'react-icons/bi';
 import { V2_LANDING_PATH, isNoNeedUserInfo } from '@/constants/nav';
 import { useCustomPathname } from '@/hooks/router/useCheckPathname';
 import { useRouter } from 'next-nprogress-bar';
-import MenuLink from '@/constants/MenuLink';
 import ConnectButton from '../ConnectButton';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
@@ -68,7 +67,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
       <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
         <ConnectButton t={t} />
-        <Link href={MenuLink.USER_PROFILE} className="w-full">
+        <Link href={`/user/${userInfo.username}`} className="w-full">
           <div
             className="mt-[8px] flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
             onClick={() => {

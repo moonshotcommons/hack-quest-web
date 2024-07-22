@@ -2,6 +2,7 @@
 import {
   HackathonInfoSectionCustomType,
   HackathonStatusType,
+  HackathonType,
   ProjectType
 } from '@/service/webApi/resourceStation/type';
 import { createContext } from 'react';
@@ -31,6 +32,11 @@ export interface HackathonVoteContextType {
   setInitProjects: (list: ProjectType[]) => void;
   remainingVotes: number;
   setRemainingVotes: (count: number) => void;
+  hackathon: HackathonType | null;
+  isFixedVote: boolean;
+  setIsFixedVote: (isFixed: boolean) => void;
+  totalLeftVotes: number;
+  setTotalLeftVotes: (count: number) => void;
 }
 
 export const HackathonVoteContext = createContext<HackathonVoteContextType>({
@@ -41,7 +47,12 @@ export const HackathonVoteContext = createContext<HackathonVoteContextType>({
   initProjects: [],
   setInitProjects: () => {},
   remainingVotes: 0,
-  setRemainingVotes: () => {}
+  setRemainingVotes: () => {},
+  hackathon: null,
+  isFixedVote: false,
+  setIsFixedVote: () => {},
+  totalLeftVotes: 0,
+  setTotalLeftVotes: () => {}
 });
 
 export interface ProjectDetailContextType {

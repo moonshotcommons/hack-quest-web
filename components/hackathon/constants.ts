@@ -2,6 +2,8 @@ export const STATUS = {
   REGISTERED: 'registered',
   SUBMITTED: 'submitted',
   UNDER_REVIEW: 'under review',
+  PENDING: 'pending',
+  ACTION_REQUIRED: 'action required',
   ENDED: 'ended',
   MISSED: 'missed'
 };
@@ -18,21 +20,27 @@ export const PERMISSIONS = {
     [STATUS.SUBMITTED]: ['edit', 'manage'],
     [STATUS.UNDER_REVIEW]: ['view'],
     [STATUS.ENDED]: ['learn_more'],
-    [STATUS.MISSED]: ['learn_more']
+    [STATUS.MISSED]: ['learn_more'],
+    [STATUS.ACTION_REQUIRED]: ['confirm', 'manage'],
+    [STATUS.PENDING]: ['pending', 'manage']
   },
   [ROLES.TEAM_MEMBER]: {
     [STATUS.REGISTERED]: ['leave'],
     [STATUS.SUBMITTED]: ['leave'],
     [STATUS.UNDER_REVIEW]: ['leave'],
     [STATUS.ENDED]: ['learn_more'],
-    [STATUS.MISSED]: ['learn_more']
+    [STATUS.MISSED]: ['learn_more'],
+    [STATUS.ACTION_REQUIRED]: ['leave'],
+    [STATUS.PENDING]: ['leave']
   },
   [ROLES.SOLO]: {
     [STATUS.REGISTERED]: ['submit', 'withdraw'],
     [STATUS.SUBMITTED]: ['edit', 'withdraw'],
     [STATUS.UNDER_REVIEW]: ['view'],
     [STATUS.ENDED]: ['learn_more'],
-    [STATUS.MISSED]: ['learn_more']
+    [STATUS.MISSED]: ['learn_more'],
+    [STATUS.ACTION_REQUIRED]: ['confirm', 'withdraw'],
+    [STATUS.PENDING]: ['pending', 'withdraw']
   }
 };
 

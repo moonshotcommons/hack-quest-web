@@ -9,18 +9,20 @@ export function ConfirmModal({
   onConfirm,
   onClose,
   isLoading = false,
-  children
+  children,
+  autoClose = true
 }: {
   open: boolean;
   onConfirm: () => void;
   onClose: () => void;
   isLoading?: boolean;
   children: React.ReactNode;
+  autoClose?: boolean;
 }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="w-[532px] max-w-[532px] gap-9 px-5 py-10 shadow-modal">
-        <h2 className="headline-h4 text-center text-neutral-black">{children}</h2>
+        <h2 className="headline-h4 break-all text-center text-neutral-black">{children}</h2>
         <div className="flex items-center justify-center gap-2">
           <Button variant="outline" className="w-[165px]" onClick={onClose}>
             Cancel
@@ -30,7 +32,7 @@ export function ConfirmModal({
             isLoading={isLoading}
             onClick={() => {
               onConfirm();
-              onClose();
+              autoClose && onClose();
             }}
           >
             Yes

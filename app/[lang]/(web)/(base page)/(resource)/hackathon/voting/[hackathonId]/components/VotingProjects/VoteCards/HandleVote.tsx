@@ -27,10 +27,15 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
   );
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { setVoteData, voteData, remainingVotes } = useContext(HackathonVoteContext);
+  const { setVoteData, voteData, remainingVotes, isFixedVote } = useContext(HackathonVoteContext);
+
   const voteCount = useMemo(() => {
     return voteData.find((v) => v.projectId === project.id)?.vote || 0;
-  }, [voteData]);
+  }, [voteData, project]);
+  const remainingCount = useMemo(() => {
+    const projectLeftVote = project?.projectLeftVote || 0;
+    return isFixedVote ? Math.min(remainingVotes, projectLeftVote) : projectLeftVote;
+  }, [remainingVotes, project, isFixedVote]);
   const handleCount = (count: number, set?: boolean) => {
     if (!userInfo) {
       setAuthType(AuthType.LOGIN);
@@ -70,7 +75,7 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
         <div className="flex w-full items-center gap-[24px]">
           <div className={`flex justify-center ${view === ViewValue.AGENDA ? 'w-[32px]' : 'w-[23px]'}`}>
             <div
-              className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'}`}
+              className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'} ${!voteCount ? 'cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => {
                 if (!voteCount) return;
                 handleCount(-1);
@@ -96,7 +101,7 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
                 // 使用正则表达式匹配输入的值，判断是否为非负整数
                 if (!/^\d*$/.test(value)) return;
                 let v = value === '' ? '' : Number(value);
-                if ((v as number) > remainingVotes + voteCount) v = remainingVotes + voteCount;
+                if ((v as number) > remainingCount + voteCount) v = remainingCount + voteCount;
                 changeVote(v as number);
               }}
               onBlur={(e) => {
@@ -110,11 +115,11 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
             <div
               className={`relative flex-shrink-0 cursor-pointer overflow-hidden rounded-[2px] ${view === ViewValue.AGENDA ? 'h-[20px] w-[20px]' : 'h-[14px] w-[14px]'}`}
               onClick={() => {
-                if (!remainingVotes) return;
+                if (!remainingCount) return;
                 handleCount(1);
               }}
             >
-              <Image src={!remainingVotes ? ArrowUp : ArrowUpActive} fill alt={'handle-up'} className="object-cover" />
+              <Image src={!remainingCount ? ArrowUp : ArrowUpActive} fill alt={'handle-up'} className="object-cover" />
             </div>
           </div>
         </div>
@@ -122,7 +127,7 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
           <span
             className={`cursor-pointer text-center uppercase ${view === ViewValue.AGENDA ? 'underline-s w-[32px]' : 'caption-10pt w-[23px] underline'}`}
             onClick={() => {
-              if (!remainingVotes && !voteCount) return;
+              if (!remainingCount && !voteCount) return;
               handleCount(1, true);
             }}
           >
@@ -136,7 +141,8 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
           <span
             className={`cursor-pointer text-center uppercase ${view === ViewValue.AGENDA ? 'underline-s w-[32px]' : 'caption-10pt w-[23px] underline'}`}
             onClick={() => {
-              handleCount(remainingVotes + voteCount, true);
+              if (!remainingCount) return;
+              handleCount(remainingCount + voteCount, true);
             }}
           >
             {t('max')}
