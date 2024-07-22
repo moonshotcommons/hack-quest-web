@@ -1,3 +1,4 @@
+import { CustomComponent } from '@/components/ComponentRenderer/type';
 import { UserCertificateInfo } from '../campaigns/type';
 
 export interface Response {
@@ -189,4 +190,20 @@ export interface NotificationType {
   avatar: string;
   createdAt: string;
   type: NotificateType;
+}
+
+export interface DailyChallengeType {
+  challenges: {
+    links: { link: string; title: string; description: string }[];
+    id: string;
+    type: string;
+    content: CustomComponent;
+    track?: string;
+    category?: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  progress: number;
+  completed: boolean;
+  correct: number;
 }

@@ -13,6 +13,7 @@ import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
 import message from 'antd/es/message';
 import * as XLSX from 'xlsx';
+import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash-es';
 
 export function cn(...inputs: ClassValue[]) {
@@ -382,3 +383,16 @@ export const arraySortByKey = (data: any[], key: string): any[] => {
       });
   }
 };
+
+/**
+ *
+ * @returns 获取当日的24:00
+ */
+export function getEndOfDay() {
+  // 使用dayjs获取当日的日期
+  const today = dayjs();
+  // 如果需要获取当日的24:00，实际上是次日的00:00
+  const nextDay = today.add(1, 'day');
+  // 返回次日的00:00
+  return nextDay.startOf('day');
+}

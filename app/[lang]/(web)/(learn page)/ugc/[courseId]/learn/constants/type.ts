@@ -39,9 +39,9 @@ export const UgcContext = createContext<UgcContextType>({
     footerBtnText: FooterButtonText.SUBMIT,
     footerBtnLoading: false
   },
+  setFooterBtn: () => {},
   expandData: {},
   updateExpandData: (data: Record<string, number[]>) => {},
-  setFooterBtn: () => {},
   mounted: false,
   setMounted: () => {}
 });

@@ -13,7 +13,8 @@ import {
   UserHackathonType,
   UserLearnedCountType,
   ConnectType,
-  NotificationType
+  NotificationType,
+  DailyChallengeType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
@@ -371,6 +372,23 @@ class UserApi {
       return this.getUserCount();
     });
     return cacheFn();
+  }
+
+  getDailyChallenge() {
+    return this.service.get<DailyChallengeType>('/daily-challenge');
+  }
+
+  async fetchDailyChallenge(): ReturnType<typeof this.getDailyChallenge> {
+    const cacheFn = cache(async () => {
+      return this.getDailyChallenge();
+    });
+    return cacheFn();
+  }
+
+  updateDailyChallenge(correct: boolean) {
+    return this.service.patch('/daily-challenge', {
+      data: { correct }
+    });
   }
 
   uploadResume(formData: FormData) {

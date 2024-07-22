@@ -92,7 +92,8 @@ export enum PageType {
   MINI = 'mini',
   DOCUMENTATION = 'documentation',
   DOCUMENTATION_FULL = 'documentation_full',
-  HACKATHON = 'hackathon'
+  HACKATHON = 'hackathon',
+  DAILY_CHALLENGE = 'daily_challenge'
 }
 
 export const QUIZ_ITEM_TYPES = [CustomType.QuizA, CustomType.QuizB, CustomType.QuizC];
