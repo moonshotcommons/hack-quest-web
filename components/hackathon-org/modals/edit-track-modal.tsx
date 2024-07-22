@@ -358,7 +358,7 @@ export function EditTrackModal({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="flex w-[888px] max-w-[888px] flex-col gap-6 px-8 pb-10 pt-[60px] shadow-modal"
+        className="flex flex-col gap-6 px-8 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px]"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <div className="shrink-0 px-2">

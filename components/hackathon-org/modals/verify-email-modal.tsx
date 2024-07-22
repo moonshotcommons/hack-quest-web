@@ -104,7 +104,7 @@ export function VerifyEmailModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-[532px] max-w-[532px] gap-5 px-5 py-10 shadow-modal">
+      <DialogContent className="gap-5 px-5 py-10 shadow-modal sm:w-[532px] sm:max-w-[532px]">
         <ResizablePanel.Root value={state} className="pb-2">
           <ResizablePanel.Content value="form">
             <Form email={email} hackathonId={hackathonId} onNext={() => setState('success')} />
