@@ -25,9 +25,6 @@ const formSchema = z
     criteria: z.string().min(1, {
       message: 'Field is required'
     }),
-    // .max(360, {
-    //   message: 'Field cannot exceed 360 characters'
-    // }),
     judgeMode: z.enum(['all', 'judges']).nullable().default(null).optional(),
     disableJudge: z.boolean().default(false).optional(),
     voteMode: z.enum(['fixed', 'score']).optional(),
@@ -228,6 +225,7 @@ export function EditJudgingDetailModal({
         values = {
           ...values,
           totalVote: z.coerce.number().parse(data.totalVote),
+          judgeProjectVote: z.coerce.number().parse(data.judgeProjectVote),
           votesProportion: [sliderValue, 100 - sliderValue],
           judgeAccounts: judgeAccounts.map((account) => account.id)
         };
@@ -312,8 +310,8 @@ export function EditJudgingDetailModal({
           disableJudge: initialValues?.disableJudge
         });
       }
-      setUserVotes(initialValues?.votesProportion?.[0] || 0);
-      setJudgeVotes(initialValues?.votesProportion?.[1] || 0);
+      setUserVotes((initialValues?.votesProportion?.[0] / 100) * initialValues?.totalVote || 0);
+      setJudgeVotes((initialValues?.votesProportion?.[1] / 100) * initialValues?.totalVote || 0);
       setSliderValue(initialValues?.votesProportion?.[0] || 50);
       setJudgeAccounts(initialValues?.judgeAccounts);
     }

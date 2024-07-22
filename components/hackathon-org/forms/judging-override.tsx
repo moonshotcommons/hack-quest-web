@@ -136,7 +136,10 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
               {data?.judgeMode === 'all' && (
                 <div className="flex flex-col gap-1">
                   <span className="text-neutral-medium-gray">Votes for Each Judge</span>
-                  <span>{(data?.totalVote || data?.judgeTotalVote || 0) / (data?.judgeAccounts?.length || 1)}</span>
+                  <span>
+                    {((data?.votesProportion[1] / 100) * (data?.totalVote || data?.judgeTotalVote || 0)) /
+                      (data?.judgeAccounts?.length || 1)}
+                  </span>
                 </div>
               )}
             </>
