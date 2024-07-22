@@ -345,7 +345,7 @@ export function EditJudgingDetailModal({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="flex w-[888px] max-w-[888px] flex-col gap-6 px-10 pb-10 pt-[60px] shadow-modal"
+        className="flex flex-col gap-6 px-10 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px]"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <h1 className="headline-h3 relative shrink-0 pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
