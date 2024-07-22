@@ -25,7 +25,10 @@
   }
   body {
     @apply bg-neutral-black;
+    padding-bottom: constant(safe-area-inset-bottom); /* iOS < 11.2 */
+    padding-bottom: env(safe-area-inset-bottom); /* iOS >= 11.2 */
   }
+
   a:hover {
     scroll-behavior: auto !important;
   }

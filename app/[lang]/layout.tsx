@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import '@/styles/globals.css';
 import InitializeUserProvider from '@/components/Provider/InitializeUser';
@@ -52,9 +52,11 @@ export const metadata: Metadata = {
   }
 };
 
-// export async function generateStaticParams() {
-//   return locales.map((lng) => ({ lng }));
-// }
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  viewportFit: 'cover'
+};
 
 interface RootLayoutProps {
   children: React.ReactNode;

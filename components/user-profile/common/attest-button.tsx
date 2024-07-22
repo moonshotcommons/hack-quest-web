@@ -7,7 +7,7 @@ const AttestButton = React.forwardRef<React.ElementRef<'button'>, React.Componen
     <button
       ref={forwardedRef}
       className={cn(
-        'inline-flex items-center justify-center gap-1 rounded-full bg-yellow-extra-light px-2 py-0.5 text-xs font-bold text-neutral-rich-gray',
+        'inline-flex items-center justify-center gap-1 self-start rounded-full bg-yellow-extra-light px-2 py-0.5 text-xs font-bold text-neutral-rich-gray',
         className
       )}
       {...props}
