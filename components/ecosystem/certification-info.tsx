@@ -14,11 +14,8 @@ import { useLang } from '../Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { useUserStore } from '@/store/zustand/userStore';
-import { UserRole } from '@/service/webApi/user/type';
-import Input from '../Common/Input';
 import { useWriteCertificateNftUpdateBaseUri } from '@/lib/generated';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
-import { getDomain } from '@/constants/links';
 import { ChainConfigContext } from '../Provider/WagmiConfigProvider';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 
@@ -70,7 +67,8 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
         Lvl {ecosystem?.level.level}. {ecosystem?.level.label}
       </h1>
       <div className="order-2 mt-5 flex flex-1 flex-col sm:order-1 sm:mt-0 sm:gap-4">
-        {userInfo?.role === UserRole.ADMIN && (
+        {/* 不要删除下面代码，更新合约图片地址用的，之后可能还会用 */}
+        {/* {userInfo?.role === UserRole.ADMIN && (
           <div className="flex gap-4">
             <div className="flex-1">
               <Input
@@ -112,7 +110,7 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
               更新
             </Button>
           </div>
-        )}
+        )} */}
         <h1 className="hidden font-next-book-bold text-[1.75rem] font-bold capitalize text-neutral-off-black sm:block">
           Lvl {ecosystem?.level.level}. {ecosystem?.level.label}
         </h1>
