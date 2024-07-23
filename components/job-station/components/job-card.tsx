@@ -13,7 +13,7 @@ export function JobCard() {
           <Tooltip>
             <TooltipTrigger asChild>
               <button className="absolute right-6 top-6 hidden outline-none sm:block" aria-hidden>
-                <BookmarkIcon size={24} className="text-neutral-rich-gray" />
+                <BookmarkIcon size={24} className="fill-neutral-rich-gray text-neutral-rich-gray" />
               </button>
             </TooltipTrigger>
             <TooltipContent>

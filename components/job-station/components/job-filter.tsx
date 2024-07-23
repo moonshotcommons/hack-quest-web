@@ -65,7 +65,7 @@ function JobLocation() {
 
 export function JobFilter() {
   return (
-    <div className="w-full self-start rounded-2xl bg-neutral-white sm:p-6">
+    <div className="hidden w-full self-start rounded-2xl bg-neutral-white sm:block sm:p-6">
       <h2 className="mb-4 font-next-book-bold text-lg font-bold">Job Type</h2>
       <JobType />
       <h2 className="mb-4 mt-12 font-next-book-bold text-lg font-bold">Job Location</h2>

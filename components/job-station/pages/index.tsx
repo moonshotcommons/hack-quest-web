@@ -1,7 +1,7 @@
 import { MegaphoneIcon, SearchIcon } from 'lucide-react';
-import { JobCard } from './components/job-card';
-import { JobFilter } from './components/job-filter';
-import { Bookmark } from './components/bookmark';
+import { JobCard } from '../components/job-card';
+import { JobFilter } from '../components/job-filter';
+import { Bookmark } from '../components/bookmark';
 
 export default function Page() {
   return (
