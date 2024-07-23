@@ -33,8 +33,8 @@ export function WithdrawModal() {
     mutationKey: ['withdraw', modal?.hackathonId],
     mutationFn: () => webApi.resourceStationApi.leaveTeam(modal?.hackathonId),
     onSuccess: () => {
-      modal?.onClose();
       router.refresh();
+      modal?.onClose();
     }
   });
 
