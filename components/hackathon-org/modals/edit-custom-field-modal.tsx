@@ -17,6 +17,7 @@ import { AddFieldButton } from '../common/add-field-button';
 import { v4 } from 'uuid';
 import { CustomTextField } from '../common/custom-text-field';
 import { InfoIcon } from 'lucide-react';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 const optionSchema = z.object({
   value: z.string().optional()
@@ -34,9 +35,9 @@ const baseSchema = z.object({
     }),
   placeholder: z
     .string()
-    .max(300, {
-      message: 'Description cannot exceed 300 characters'
-    })
+    // .max(300, {
+    //   message: 'Description cannot exceed 300 characters'
+    // })
     .optional()
     .or(z.literal('')),
   multiple: z.enum(['false', 'true']).optional(),
@@ -186,6 +187,9 @@ export function EditCustomFieldModal({
 }) {
   const submitInputRef = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('radio');
+
+  const [placeholder, setPlaceholder] = React.useState<{ type: string; content: object }>();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -206,7 +210,7 @@ export function EditCustomFieldModal({
       selected: true,
       property: {
         label: data.label,
-        placeholder: data.placeholder,
+        placeholder: placeholder,
         ...(data.type === 'radio' && {
           multiple: data.multiple === 'true',
           options: data.options?.map((option) => option.value)
@@ -226,7 +230,7 @@ export function EditCustomFieldModal({
         setValue('radio');
         form.reset({
           label: initialValues?.property?.label,
-          placeholder: initialValues?.property?.placeholder,
+          placeholder: '',
           type: initialValues?.type,
           multiple: initialValues?.property?.multiple?.toString(),
           options: initialValues?.property?.options?.map((option: string) => ({ value: option }))
@@ -235,7 +239,7 @@ export function EditCustomFieldModal({
         setValue('input');
         form.reset({
           label: initialValues?.property?.label,
-          placeholder: initialValues?.property?.placeholder,
+          placeholder: '',
           type: initialValues?.type,
           multiple: 'false',
           options: [{ value: '' }, { value: '' }],
@@ -347,12 +351,12 @@ export function EditCustomFieldModal({
                     <FormLabel>
                       <span className="sm:body-m body-s text-neutral-rich-gray">Description</span>
                     </FormLabel>
-                    <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
+                    {/* <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
                       <span className={cn({ 'text-status-error': (form.watch('placeholder')?.length ?? 0) > 300 })}>
                         {form.watch('placeholder')?.length}
                       </span>
                       /300
-                    </span>
+                    </span> */}
                   </div>
                   <FormControl>
                     <Textarea
@@ -361,10 +365,23 @@ export function EditCustomFieldModal({
                         field.onChange(e);
                       }}
                       authHeight={false}
-                      className="h-16 border-neutral-light-gray p-3 text-base text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
+                      className="hidden h-16 border-neutral-light-gray p-3 text-base text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
                       placeholder="You can use one or two sentences to describe or explain the question"
                     />
                   </FormControl>
+                  <TextEditor
+                    simpleModel
+                    onCreated={(editor) => {
+                      setPlaceholder({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                      form.setValue('placeholder', editor.getText().replace(/\n|\r/gm, ''));
+                    }}
+                    defaultContent={transformTextToEditorValue(initialValues?.property?.placeholder)}
+                    onChange={(editor) => {
+                      const text = editor.getText().replace(/\n|\r/gm, '');
+                      form.setValue('placeholder', text);
+                      setPlaceholder({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                    }}
+                  />
                   <FormMessage />
                 </FormItem>
               )}

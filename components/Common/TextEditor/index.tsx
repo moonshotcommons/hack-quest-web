@@ -87,7 +87,7 @@ const TextEditor: FC<TextEditorProps> = ({
         }}
         defaultContent={defaultContent}
         mode="default"
-        style={{ height: '500px' }}
+        style={{ height: '420px' }}
         onChange={onChange}
       />
     </div>
