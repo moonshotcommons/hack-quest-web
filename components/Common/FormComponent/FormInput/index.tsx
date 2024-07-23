@@ -7,11 +7,12 @@ import { Input } from '@/components/ui/input';
 import { cn, isUuid } from '@/helper/utils';
 import { isMobile } from 'react-device-detect';
 import { ReactNode } from 'react';
+import { createEditor } from '@wangeditor/editor';
 
 interface FormInputProps<TFieldValues extends FieldValues = FieldValues> {
   form: UseFormReturn<TFieldValues, any, undefined>;
   label: ReactNode;
-  placeholder: string;
+  placeholder: any;
   name: Path<TFieldValues>;
   className?: string;
   onBlur?: () => void;
@@ -25,6 +26,23 @@ export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
   className,
   onBlur
 }: FormInputProps<TFieldValues>) => {
+  const renderPlaceholder = () => {
+    if (!isUuid(name) || !placeholder) return null;
+
+    if (typeof placeholder === 'string') {
+      return <p className="body-s !-mt-[2px] !mb-2.5 text-left text-[14px] text-neutral-medium-gray">{placeholder}</p>;
+    }
+
+    return (
+      <div
+        className="body-s reset-editor-style whitespace-pre-line text-left text-[14px] text-neutral-medium-gray"
+        dangerouslySetInnerHTML={{
+          __html: createEditor({ content: placeholder?.content || [] }).getHtml()
+        }}
+      ></div>
+    );
+  };
+
   return (
     <FormField
       control={form.control}
@@ -39,9 +57,7 @@ export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
           >
             {label}
           </FormLabel>
-          {isUuid(name) && placeholder && (
-            <p className="body-s !-mt-[2px] !mb-2.5 text-left text-[14px] text-neutral-medium-gray">{placeholder}</p>
-          )}
+          {renderPlaceholder()}
           <FormControl>
             <Input
               placeholder={!isUuid(name) ? placeholder : ''}
