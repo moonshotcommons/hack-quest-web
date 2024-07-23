@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export function JobCard() {
   return (
-    <Link href="/">
+    <Link href="/jobs/developer">
       <div className="sm:card-hover relative flex w-full flex-col gap-4 rounded-2xl bg-neutral-white p-4 sm:gap-6 sm:p-6">
         <TooltipProvider>
           <Tooltip>
