@@ -82,6 +82,20 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         {hasPermission(role, status, 'withdraw') && (
           <SecondaryButton onClick={() => withdrawModal.onOpen(username, hackathon.id)}>Withdraw</SecondaryButton>
         )}
+
+        {hasPermission(role, status, 'manage') && (
+          <SecondaryButton
+            onClick={() => {
+              manageTeamModal.onOpen(code);
+            }}
+          >
+            Manage Team
+          </SecondaryButton>
+        )}
+
+        {hasPermission(role, status, 'leave') && (
+          <SecondaryButton onClick={() => leaveTeamModal.onOpen(hackathon.id)}>Leave Team</SecondaryButton>
+        )}
       </div>
     );
   }
