@@ -49,7 +49,7 @@ const SortBy: React.FC<SortByProp> = ({ sorts, updateSort, curSort: cur }) => {
       {hoverSort && (
         <motion.ul
           {...animateProps}
-          className="absolute -bottom-[4px]  right-0 z-[99] w-fit min-w-[160px] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
+          className="absolute -bottom-[4px]  left-[-10px] z-[99] w-fit min-w-[160px] rounded-[10px] border border-neutral-light-gray bg-neutral-white py-4 shadow-sm"
         >
           {sorts.map((option) => {
             return (

@@ -25,6 +25,8 @@ export const getHackathonVote = cache(function (params?: object): Promise<Hackat
 export const getHackathonById = cache(function (id: string): Promise<HackathonType> {
   return webApi.resourceStationApi.getHackathonDetail(id as string);
 });
+
+/** page view */
 export const getHackathonDetailById = cache(function (id: string): Promise<HackathonType> {
   return webApi.resourceStationApi.getHackathonDetailById(id as string);
 });
@@ -35,6 +37,9 @@ export const getSimpleHackathonInfo = cache(function (id: string): Promise<Simpl
 
 export const getHackathonProjectById = cache(function (projectId: string): Promise<ProjectType> {
   return webApi.resourceStationApi.getProjectsDetail(projectId);
+});
+export const getProjectVoteById = cache(function (projectId: string): Promise<unknown> {
+  return webApi.resourceStationApi.getProjectVoteById(projectId);
 });
 
 export const getFeaturedProjects = async function (): Promise<ProjectType[]> {

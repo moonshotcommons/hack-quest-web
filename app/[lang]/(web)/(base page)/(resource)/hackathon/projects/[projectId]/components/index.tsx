@@ -14,16 +14,17 @@ import dayjs from '@/components/Common/Dayjs';
 interface ProjectDetailProp {
   project: ProjectType;
   projectList: ProjectType[];
+  hackathon: HackathonType;
+  voteInfo: any;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) => {
-  console.info(project);
+const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList, hackathon, voteInfo }) => {
+  console.info(voteInfo);
   const boxRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [hackathon, setHackathon] = useState<HackathonType>();
   const [rankInfo, setRankInfo] = useState<ProjectRankType>();
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
@@ -53,29 +54,6 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) =>
     }, 150);
   };
 
-  const { run: getRankInfo } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectsRankInfo(project.id);
-      return res;
-    },
-    {
-      onSuccess(res) {
-        setRankInfo(res);
-      }
-    }
-  );
-
-  const { run: getHackathonInfo } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getHackathonDetail(project.hackathonId);
-      return res;
-    },
-    {
-      onSuccess(res) {
-        setHackathon(res);
-      }
-    }
-  );
   const isShowVoting = useMemo(() => {
     const isEnd = dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
     return !!(((isEnd && project.vote) || !isEnd) && project.isSubmit);

@@ -338,6 +338,10 @@ class ResourceStationApi {
   memberConfirmRegister(hackathonId: string) {
     return this.service.patch(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register-confirm`);
   }
+
+  getProjectVoteById(projectId: string) {
+    return this.service.get(`${ResourceStationApiType.Projects}/${projectId}/voting`);
+  }
 }
 
 export default ResourceStationApi;
