@@ -1,9 +1,9 @@
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import { create } from 'zustand';
 
 export interface HackathonManageStateType {
-  hackathon: HackathonType | null;
-  setHackathon: (payload: HackathonType) => void;
+  hackathon: SimpleHackathonInfo | null;
+  setHackathon: (payload: SimpleHackathonInfo) => void;
 }
 
 export const useHackathonManageStore = create<HackathonManageStateType>()((set) => ({

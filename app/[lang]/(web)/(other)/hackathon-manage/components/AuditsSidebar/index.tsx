@@ -11,8 +11,8 @@ import { useRequest } from 'ahooks';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
-import { useRedirect } from '@/hooks/router/useRedirect';
 import { useUserStore } from '@/store/zustand/userStore';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface AuditsSidebarProp {}
 
@@ -36,15 +36,19 @@ const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
   }, [manageNavId]);
   const {} = useRequest(
     async () => {
-      const hackathon = await webApi.resourceStationApi.getHackathonDetail(alias as string);
+      const hackathon = await webApi.resourceStationApi.getSimpleHackathonInfo(alias as string);
       return hackathon;
     },
     {
       onSuccess(hackathon) {
+        if (userInfo?.id !== hackathon.creatorId) {
+          redirectToUrl(MenuLink.HACKATHON_ORGANIZER);
+          return;
+        }
         setHackathon(hackathon);
       },
       onError() {
-        redirectToUrl(MenuLink.HACKATHON_DASHBOARD);
+        redirectToUrl(MenuLink.HACKATHON_ORGANIZER);
       }
     }
   );

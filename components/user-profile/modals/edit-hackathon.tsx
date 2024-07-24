@@ -19,6 +19,7 @@ import webApi from '@/service';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { message } from 'antd';
 import { useProfile } from '../modules/profile-provider';
+import { MobileModalHeader } from './mobile-modal-header';
 
 export function EditHackathon({
   type,
@@ -108,8 +109,9 @@ export function EditHackathon({
         )}
       </DialogTrigger>
       <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
+        <MobileModalHeader />
         <DialogHeader className="shrink-0 text-left">
-          <DialogTitle className="text-[22px]">{type === 'create' ? 'Add' : 'Edit'} Hackathon</DialogTitle>
+          <DialogTitle className="text-lg sm:text-[22px]">{type === 'create' ? 'Add' : 'Edit'} Hackathon</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -185,7 +187,7 @@ export function EditHackathon({
               />
             )}
             <Button
-              className="w-[165px] shrink-0 self-end"
+              className="w-full sm:w-[165px]"
               isLoading={create.isPending || update.isPending}
               onClick={() => inputRef.current?.click()}
             >

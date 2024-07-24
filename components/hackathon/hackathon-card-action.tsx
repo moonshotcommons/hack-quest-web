@@ -80,19 +80,39 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
   if (
     hackathon.participation?.isRegister &&
+    ![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) &&
     (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
     hackathon.participation?.joinState !== 'approved'
   ) {
     return (
-      <Button
-        size="small"
-        type="primary"
-        disabled
-        className="h-[3.25rem] w-full bg-neutral-light-gray text-sm font-medium uppercase text-neutral-medium-gray opacity-100 sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
-      >
-        {/* {children} */}
-        Pending
-      </Button>
+      <div className="flex flex-col gap-2">
+        <Button
+          size="small"
+          type="primary"
+          disabled
+          className="h-[3.25rem] w-full bg-neutral-light-gray text-sm font-medium uppercase text-neutral-medium-gray opacity-100 sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
+        >
+          {/* {children} */}
+          Pending
+        </Button>
+        {hasPermission(role, status, 'withdraw') && (
+          <SecondaryButton onClick={() => withdrawModal.onOpen(username, hackathon.id)}>Withdraw</SecondaryButton>
+        )}
+
+        {hasPermission(role, status, 'manage') && (
+          <SecondaryButton
+            onClick={() => {
+              manageTeamModal.onOpen(code);
+            }}
+          >
+            Manage Team
+          </SecondaryButton>
+        )}
+
+        {hasPermission(role, status, 'leave') && (
+          <SecondaryButton onClick={() => leaveTeamModal.onOpen(hackathon.id)}>Leave Team</SecondaryButton>
+        )}
+      </div>
     );
   }
 
@@ -110,7 +130,8 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         </PrimaryButton>
       )}
 
-      {![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) &&
+      {(![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) ||
+        !hackathon.participation?.project) &&
         hasPermission(role, status, 'learn_more') && (
           <PrimaryButton outline onClick={() => router.push(`/hackathon/${hackathon.alias}`)}>
             learn more
@@ -118,13 +139,14 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         )}
 
       {(hasPermission(role, status, 'edit') ||
-        [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner)) && (
+        (hackathon.participation?.project &&
+          [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner))) && (
         <PrimaryButton
-          onClick={() =>
+          onClick={() => {
             isMobile
               ? setTipsModalOpenState(true)
-              : router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`)
-          }
+              : router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`);
+          }}
         >
           edit submission
         </PrimaryButton>

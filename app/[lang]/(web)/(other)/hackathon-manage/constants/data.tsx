@@ -171,3 +171,4 @@ export const judgingInformationData = [
     disable: true
   }
 ];
+export const applicationAboutBasicKeys = ['resume', 'name', 'gender', 'location', 'university'];

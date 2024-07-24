@@ -6,7 +6,6 @@ import BaseImage from '@/components/Common/BaseImage';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import ProjectVideo from '../ProjectVideo';
-import TeamCard from '../TeamCard';
 
 interface InfoContentProp {
   info: any;
@@ -83,11 +82,11 @@ const InfoContent: React.FC<InfoContentProp> = ({ info, onClose }) => {
               <div className="w-full overflow-hidden">
                 <p className="text-neutral-medium-gray">kkk</p>
                 <div className="flex w-full flex-wrap gap-[20px]">
-                  {hackathon?.members.map((v, i) => (
+                  {/* {hackathon?.members.map((v, i) => (
                     <div key={i} className="w-[calc((100%-60px)/4)]">
                       <TeamCard member={v} />
                     </div>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </div>
