@@ -15,6 +15,7 @@ import BaseImage from '@/components/Common/BaseImage';
 import { applicationAboutBasicKeys } from '../../../../../constants/data';
 import Link from 'next/link';
 import { isUuid } from '@/helper/utils';
+import { cloneDeep } from 'lodash-es';
 
 interface InfoContentProp {
   info: HackathonManageApplicationType;
@@ -165,7 +166,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
 
   const mInfo = useMemo(() => {
     const memberInfo = curMemberInfo.info;
-    let About = (memberInfo?.About || {}) as Record<string, any>;
+    let About = (cloneDeep(memberInfo?.About) || {}) as Record<string, any>;
     const Contact = memberInfo?.Contact;
     const OnlineProfiles = memberInfo?.OnlineProfiles;
     About.name = `${About?.firstName} ${About?.lastName}`;
@@ -309,10 +310,13 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
                     </div>
                   ))}
                 </div>
-                <div>
-                  <p className="capitalize text-neutral-medium-gray">{'Bio'}</p>
-                  <p className={`whitespace-pre-line text-neutral-rich-gray`}>{curMemberInfo?.info?.About?.bio}</p>
-                </div>
+                {curMemberInfo?.info?.About?.bio && (
+                  <div>
+                    <p className="capitalize text-neutral-medium-gray">{'Bio'}</p>
+                    <p className={`whitespace-pre-line text-neutral-rich-gray`}>{curMemberInfo?.info?.About?.bio}</p>
+                  </div>
+                )}
+
                 {mInfo?.aboutsCustom?.length > 0 && (
                   <div className="flex gap-[8px_40px]">
                     {mInfo?.aboutsCustom.map((v) => (
