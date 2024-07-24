@@ -180,17 +180,19 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         open={!!curInfo?.id && !!curId}
         curInfo={curInfo}
         renderItem={() =>
-          tableList?.map((info) => (
-            <InfoContent
-              key={info.id}
-              info={info}
-              onClose={() => {
-                setCurInfo(null);
-                setCurId('');
-              }}
-              handleStautusSingle={handleStautusSingle}
-            />
-          ))
+          tableList
+            ?.filter((v) => !v.pId)
+            ?.map((info) => (
+              <InfoContent
+                key={info.id}
+                info={info}
+                onClose={() => {
+                  setCurInfo(null);
+                  setCurId('');
+                }}
+                handleStautusSingle={handleStautusSingle}
+              />
+            ))
         }
       />
     </div>
