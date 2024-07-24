@@ -71,7 +71,6 @@ const AuditTable: React.FC<AuditTableProp> = ({
         return item[key] || '';
     }
   };
-
   return (
     <div className="flex flex-1 flex-col">
       {loading ? (
@@ -142,7 +141,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                         ))}
                         {isHandle && (
                           <>
-                            {item.joinState === ApplicationStatus.REVIEW && (
+                            {tabStatus === ApplicationStatus.REVIEW && (
                               <TableCell className="w-[15.625rem]">
                                 {!item.pId && (
                                   <div className="flex gap-[24px] underline [&>div]:cursor-pointer">
@@ -159,7 +158,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                                 )}
                               </TableCell>
                             )}
-                            {item.joinState === ApplicationStatus.APPROVED && (
+                            {tabStatus === ApplicationStatus.APPROVED && (
                               <TableCell className="w-[29.375rem]">
                                 {!item.pId && (
                                   <div className="body-s flex items-center gap-[16px] text-neutral-off-black">
@@ -208,7 +207,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                               </TableCell>
                             )}
 
-                            {item.joinState === ApplicationStatus.DECLINE && (
+                            {tabStatus === ApplicationStatus.DECLINE && (
                               <TableCell className="w-[15.625rem]">
                                 {!item.pId && (
                                   <div className="flex items-center justify-between">
@@ -227,7 +226,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                               </TableCell>
                             )}
 
-                            {item.joinState === ApplicationStatus.WAIT && (
+                            {tabStatus === ApplicationStatus.WAIT && (
                               <TableCell className="w-[21.875rem]">
                                 {!item.pId && (
                                   <div className="flex items-center justify-between">
