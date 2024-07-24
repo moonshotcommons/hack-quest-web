@@ -29,13 +29,13 @@ const baseSchema = z.object({
     .min(1, {
       message: 'Question is required'
     })
-    .max(60, {
-      message: 'Question cannot exceed 60 characters'
+    .max(300, {
+      message: 'Question cannot exceed 300 characters'
     }),
   placeholder: z
     .string()
-    .max(120, {
-      message: 'Description cannot exceed 120 characters'
+    .max(300, {
+      message: 'Description cannot exceed 300 characters'
     })
     .optional()
     .or(z.literal('')),
@@ -317,10 +317,10 @@ export function EditCustomFieldModal({
                       <span className="body-m text-neutral-rich-gray">Question*</span>
                     </FormLabel>
                     <span className="caption-14pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': form.watch('label')?.length > 60 })}>
+                      <span className={cn({ 'text-status-error': form.watch('label')?.length > 300 })}>
                         {form.watch('label')?.length}
                       </span>
-                      /60
+                      /300
                     </span>
                   </div>
                   <FormControl>
@@ -348,10 +348,10 @@ export function EditCustomFieldModal({
                       <span className="sm:body-m body-s text-neutral-rich-gray">Description</span>
                     </FormLabel>
                     <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': (form.watch('placeholder')?.length ?? 0) > 120 })}>
+                      <span className={cn({ 'text-status-error': (form.watch('placeholder')?.length ?? 0) > 300 })}>
                         {form.watch('placeholder')?.length}
                       </span>
-                      /120
+                      /300
                     </span>
                   </div>
                   <FormControl>
