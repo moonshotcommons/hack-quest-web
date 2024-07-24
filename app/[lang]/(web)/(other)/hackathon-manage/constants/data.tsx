@@ -140,3 +140,5 @@ export const submissionInformationData = [
     label: 'Fundraising Status'
   }
 ];
+
+export const applicationAboutBasicKeys = ['resume', 'name', 'gender', 'location', 'university'];

@@ -578,6 +578,9 @@ export interface SimpleHackathonInfo {
   createdAt: Date;
   updatedAt: Date;
   info: {
+    allowSubmission: boolean;
+    image: string;
+    description: any;
     application: {
       [ApplicationSectionType.ApplicationType]: {
         id: string;
@@ -653,6 +656,9 @@ export interface HackathonManageApplicationMemberType {
   isRegister: boolean;
   isSubmited: boolean;
   joinState: ApplicationStatus;
+  avatar: string;
+  location: string;
+  university: string;
 }
 export interface HackathonManageApplicationType {
   createdAt: string;
@@ -667,6 +673,9 @@ export interface HackathonManageApplicationType {
   isRegister: boolean;
   isSubmited: boolean;
   pId: string;
+  avatar: string;
+  location: string;
+  university: string;
 }
 
 export interface HackathonVoteProjectType {

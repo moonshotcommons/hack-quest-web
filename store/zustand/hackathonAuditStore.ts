@@ -1,13 +1,13 @@
-import { HackathonType } from '@/service/webApi/resourceStation/type';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import { create } from 'zustand';
 
 export interface HackathonAuditStateType {
-  hackathon: HackathonType | null;
-  setHackathon: (payload: HackathonType) => void;
+  hackathon: SimpleHackathonInfo;
+  setHackathon: (payload: SimpleHackathonInfo) => void;
 }
 
 export const useHackathonAuditStore = create<HackathonAuditStateType>()((set) => ({
-  hackathon: null,
+  hackathon: {} as SimpleHackathonInfo,
   setHackathon(payload) {
     set((state) => ({ hackathon: payload }));
   }
