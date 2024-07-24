@@ -23,6 +23,7 @@ export default function DashboardLayout({
           <DayStreak link className="bg-neutral-white p-4" />
           {/* <HackathonCard /> */}
           <MyCertificateCard />
+          {/* <DailyChallenge /> */}
           <FollowDiscord />
         </div>
       </div>

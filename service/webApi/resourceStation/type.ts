@@ -9,6 +9,7 @@ import {
 
 export enum HackathonStatusType {
   ON_GOING = 'ongoing',
+  REVIEW = 'review',
   DRAFT = 'draft',
   PAST = 'past'
 }
@@ -51,6 +52,7 @@ export interface HackathonScheduleType {
 }
 
 export interface HackathonMemberType {
+  id: string;
   userId: string;
   avatar: string;
   firstName: string;
@@ -247,6 +249,7 @@ export interface HackathonType {
   totalPrize: number;
   projectCount: number;
   remainingVote: number;
+  totalLeftVotes?: number;
 }
 
 export interface JoinedHackathonType {
@@ -362,6 +365,7 @@ export type ProjectType = {
   submitType: string;
   teamId: string;
   winner: false;
+  projectLeftVote: number;
   //! 没有这个字段了
   apolloDay?: string;
 };
@@ -473,6 +477,7 @@ export interface HackathonRegisterInfo {
   discord: string;
   collegeName: string;
   info: Record<ApplicationSectionType, any>;
+  joinState: ApplicationStatus;
 }
 
 export interface RegisterInfoBody {
@@ -573,6 +578,9 @@ export interface SimpleHackathonInfo {
   createdAt: Date;
   updatedAt: Date;
   info: {
+    allowSubmission: boolean;
+    image: string;
+    description: any;
     application: {
       [ApplicationSectionType.ApplicationType]: {
         id: string;
@@ -612,4 +620,66 @@ export interface ProjectSubmitBody {
   videos?: Record<string, any>;
   projectDetail?: Record<string, any>;
   additions?: Record<string, any>;
+}
+
+export interface HackathonVariousType {
+  pageView: number;
+  todayPageView: number;
+  application: number;
+  todayApplication: number;
+  confirmation: number;
+  todayConfirmation: number;
+  submission: number;
+  todaySubmission: number;
+}
+export enum ApplicationStatus {
+  REVIEW = 'pending',
+  APPROVED = 'approved',
+  DECLINE = 'decline',
+  WAIT = 'waiting'
+}
+
+export type HackathonMemberInfoType = {
+  [ApplicationSectionType.About]?: HackathonInfoAboutType;
+  [ApplicationSectionType.Contact]?: HackathonInfoContactType;
+  [ApplicationSectionType.OnlineProfiles]?: HackathonInfoOnlineProfilesType;
+};
+export interface HackathonManageApplicationMemberType {
+  createdAt: string;
+  id: string;
+  info: HackathonMemberInfoType;
+  bio: string;
+  name: string;
+  pId: string;
+  isAdmin: boolean;
+  index: number;
+  isRegister: boolean;
+  isSubmited: boolean;
+  joinState: ApplicationStatus;
+  avatar: string;
+  location: string;
+  university: string;
+}
+export interface HackathonManageApplicationType {
+  createdAt: string;
+  id: string;
+  bio: string;
+  name: string;
+  index: number;
+  type?: 'team' | 'member';
+  info?: HackathonMemberInfoType;
+  members?: HackathonManageApplicationMemberType[];
+  joinState: ApplicationStatus;
+  isRegister: boolean;
+  isSubmited: boolean;
+  pId: string;
+  avatar: string;
+  location: string;
+  university: string;
+}
+
+export interface HackathonVoteProjectType {
+  totalLeftVotes: number;
+  jsJudge: boolean;
+  projects: ProjectType[];
 }

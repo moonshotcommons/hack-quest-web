@@ -11,6 +11,7 @@
   "host": "Host",
   "allHackathons": "All Hackathons",
   "onGoingHackathon": "Ongoing Hackathon",
+  "review":"Under Review",
   "pastHackathon": "Past Hackathon",
   "draft": "Draft",
   "featuredProjects": "Featured Projects",
@@ -124,7 +125,8 @@
     "registrationData": "Registration Data",
     "backToEdit":"Back to Edit",
     "proceedToPreview":"Proceed to Preview",
-    "submitToPreview":"Submit to Preview"
+    "submitToPreview":"Submit to Preview",
+    "confirmAttendance":"confirm attendance"
   },
   "projectsDetail": {
     "title": {
@@ -237,10 +239,11 @@
     "title": "Hackathon Organizer",
     "description": "Welcome to the Hackathon Organizer Dashboard! Here, you can effortlessly manage your hackathons from start to finish. Create new events, edit ongoing ones, and review past successes—all in one place. Streamline your organizing process and focus on fostering innovation and collaboration.",
     "startNewHackathon": "start a new hackathon",
-    "empty": "You didn’t have any {{type}}",
-    "ongoing": "on going hackathon",
+    "empty": "You didn’t have any {{type}} hackathon",
+    "ongoing": "on going ",
     "draft": "draft",
-    "past": "past hackathon",
+    "review":"reivew",
+    "past": "past",
     "continueEditing": "continue editing",
     "previewSubmit": "preview / submit",
     "requiredSections": "Required Sections",
@@ -250,8 +253,8 @@
     "overview":"Overview",
     "application":"Application",
     "submission":"Submission",
-    "sdmin":"Admin",
-    "view hackathon details":"view hackathon details",
-    "Hackathon Stats Today":"Hackathon Stats Today"
+    "judging":"Judging",
+    "viewHackathonDetails":"view hackathon details",
+    "hackathonStatsToday":"Hackathon Stats Today"
   }
 }

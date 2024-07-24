@@ -1,3 +1,4 @@
+import { CustomComponent } from '@/components/ComponentRenderer/type';
 import { UserCertificateInfo } from '../campaigns/type';
 
 export interface Response {
@@ -36,6 +37,7 @@ export interface LoginResponse {
   role: UserRole;
   status: string;
   nickname: string;
+  username: string;
   // registerType: string;
   inviteCode: string;
   token: string;
@@ -87,11 +89,13 @@ export interface UserHackathonType {
   id: string;
   role: string;
   hackathonName: string;
+  projectTitle: string;
   location: string;
   isCurrentWork: boolean;
   startDate: string;
   endDate?: string;
   description: string;
+  winner?: boolean;
 }
 
 export interface GithubActivityType {
@@ -113,13 +117,21 @@ export interface UserProfileType {
   hackathonExperiences: UserHackathonType[];
   certifications: UserCertificateInfo[];
   user: {
+    id: string;
     avatar: string;
     email: string;
     name: string | null;
     nickname: string;
+    username: string;
     inviteCode: string;
     registerType: RegisterType;
   };
+  resumes: {
+    id: string;
+    userId: string;
+    name: string;
+    file: string;
+  }[];
 }
 
 export interface UserPersonalType {
@@ -178,4 +190,20 @@ export interface NotificationType {
   avatar: string;
   createdAt: string;
   type: NotificateType;
+}
+
+export interface DailyChallengeType {
+  challenges: {
+    links: { link: string; title: string; description: string }[];
+    id: string;
+    type: string;
+    content: CustomComponent;
+    track?: string;
+    category?: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  progress: number;
+  completed: boolean;
+  correct: number;
 }

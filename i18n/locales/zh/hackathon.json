@@ -12,6 +12,7 @@
   "allHackathons": "所有黑客松",
   "onGoingHackathon": "正在进行的黑客松",
   "pastHackathon": "已经结束的黑客松",
+  "review":"审核中",
   "draft": "草稿",
   "featuredProjects": "推荐项目",
   "submitNow": "Submit Now",
@@ -124,7 +125,8 @@
     "registrationData":"Registration Data",
     "backToEdit":"Back to Edit",
     "proceedToPreview":"Proceed to Preview",
-    "submitToPreview":"Submit to Preview"
+    "submitToPreview":"Submit to Preview",
+    "confirmAttendance":"confirm attendance"
   },
   "projectsDetail": {
     "title": {
@@ -240,6 +242,7 @@
     "empty": "你没有{{type}}的黑客松",
     "ongoing": "进行中",
     "draft": "草稿",
+    "review":"审核中",
     "past": "已结束",
     "continueEditing": "continue editing",
     "previewSubmit": "preview / submit",
@@ -250,8 +253,8 @@
     "overview":"Overview",
     "application":"Application",
     "submission":"Submission",
-    "sdmin":"Admin",
-    "view hackathon details":"view hackathon details",
-    "Hackathon Stats Today":"Hackathon Stats Today"
+    "judging":"Judging",
+    "viewHackathonDetails":"view hackathon details",
+    "hackathonStatsToday":"Hackathon Stats Today"
   }
 }

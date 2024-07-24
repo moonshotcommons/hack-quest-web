@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { HackathonTimeLineKeyType, HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
 import dayjs from '@/components/Common/Dayjs';
@@ -19,9 +19,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex, getHackathonTimeSame } = useDealHackathonData();
   const isSame = getHackathonTimeSame(hackathon);
-  const stepIndex = useMemo(() => {
-    return isEdit ? 0 : getStepIndex(hackathon);
-  }, [isEdit]);
+  const stepIndex = getStepIndex(hackathon);
 
   return (
     <EditBox title={'hackathonDetail.timeline'} type={HackathonEditModalType.TIMELINE}>
