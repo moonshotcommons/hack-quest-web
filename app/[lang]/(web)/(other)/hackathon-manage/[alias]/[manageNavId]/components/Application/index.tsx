@@ -61,11 +61,15 @@ const Application: React.FC<ApplicationProp> = () => {
           ...v,
           name: v.type === 'team' ? v.name : `${v.info?.About?.firstName} ${v.info?.About?.lastName}`,
           bio: v.type === 'team' ? v.bio : `${v.info?.About?.bio}`,
+          location: v.type === 'team' ? v.location || '' : `${v.info?.About?.location || ''}`,
+          university: v.type === 'team' ? v.university || '' : `${v.info?.About?.university || ''}`,
           members: v.members?.map((m: HackathonManageApplicationMemberType) => ({
             ...m,
             name: `${m.info?.About?.firstName} ${m.info?.About?.lastName}`,
             bio: `${m.info?.About?.bio}`,
-            pId: v.id
+            pId: v.id,
+            location: `${m.info?.About?.location || ''}`,
+            university: `${m.info?.About?.university || ''}`
           }))
         }));
         setList(newData);
