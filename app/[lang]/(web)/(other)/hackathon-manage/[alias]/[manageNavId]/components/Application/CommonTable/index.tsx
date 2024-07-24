@@ -124,6 +124,9 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         message.success('Updated Success');
         setStatus(null);
         refresh();
+        setCheckItems([]);
+        setTeamIds([]);
+        setCurId('');
       })
       .catch((err) => {
         errorMessage(err);
@@ -183,7 +186,10 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
             <InfoContent
               key={info.id}
               info={info}
-              onClose={() => setCurInfo(null)}
+              onClose={() => {
+                setCurInfo(null);
+                setCurId('');
+              }}
               handleStautusSingle={handleStautusSingle}
             />
           ))
