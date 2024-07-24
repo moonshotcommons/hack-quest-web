@@ -93,6 +93,7 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
   //   },
   //   [simpleHackathonInfo, formState.status]
   // );
+
   const TeamBlock = (
     <div className="flex flex-col gap-2 rounded-[8px] border border-neutral-light-gray bg-neutral-white px-6 py-3">
       <div

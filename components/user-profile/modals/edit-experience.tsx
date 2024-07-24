@@ -126,7 +126,7 @@ export function EditExperience({
       <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
         <MobileModalHeader />
         <DialogHeader className="shrink-0 text-left">
-          <DialogTitle className="text-[22px]">{type === 'edit' ? 'Edit' : 'Add'} Experience</DialogTitle>
+          <DialogTitle className="text-lg sm:text-[22px]">{type === 'edit' ? 'Edit' : 'Add'} Experience</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form

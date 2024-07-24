@@ -121,32 +121,31 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'How to Find a Good Idea',
-    time: '9-10:30 AM SGT, July 9th 2024 / 9-10:30 PM EST, July 8th 2024',
-    description:
-      'Want to build a Web3 project but don’t have an idea in mind yet? This session will equip aspiring founders with the knowledge, frameworks, tools, and techniques to identify the most groundbreaking ideas in Web3 and ideate on what’s most interesting and relevant to them.',
-    speaker: 'Scott Moore, Gitcoin',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
     name: 'Pitching and Venture Funding in Web3',
-    time: '4-5 PM SGT, July 15th, 2024 / 9-10 AM BST, July 15th, 2024',
+    time: '4-5:30 PM SGT, July 15th, 2024 / 9-10:30 AM BST, July 15th, 2024',
     description: `
     Learn how to effectively communicate the value proposition of a Web3 project to potential investors and the broader community. Dive into crafting a compelling narrative, structuring a winning pitch deck, and navigating the fundraising process with confidence. Explore popular fundraising mechanisms like Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), Initial Exchange Offerings (IEOs), and venture capital funding.`,
     speaker: 'Jaime Burke, Outlier Ventures',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1Zwf4H-KlvIr3ty8ezmsi6_MxtuQU32bY/view',
+    slide: 'https://drive.google.com/file/d/1xGDxgmiR8fwwJ5aUUnwsRnLyKl5r9SRV/view',
+    expand: false
+  },
+  {
+    name: 'This Talk Is Not Ligitimate',
+    time: '7-8:30 PM SGT, July 18th 2024 / 7-8:30 AM EST, July 18th 2024',
+    description: `This session is packed with philosophical beliefs and insights drawn from Immanuel Kant (1785), John Stewart Mills (1859), Émile Durkheim (1912), Alvin Goldman (1964), Thomas Merton (1968), and more. Many discussions here can be tied back to Crypto and leveraged to build Web3 protocols. If you are ideating about what and why you'd like to BUIDL - this is a session you wouldn't want to miss.`,
+    speaker: 'Scott Moore, Gitcoin',
+    video: 'https://drive.google.com/file/d/1M_Hn0KBfLMXhXnxFf1fNTJxrBDST5RFB/view',
+    slide: 'https://drive.google.com/file/d/12iXkkTZjAhoQsx1po4IhXbS98D38pvHv/view',
     expand: false
   },
   {
     name: 'The Latest Innovation Cases in Web3',
     time: '9-10:30 AM SGT, July 23rd 2024 / 9-10:30 PM EST, July 22nd 2024',
-    description: ``,
+    description: `This session dives into the use cases that make Web3 truly special and worth exploring, including gaming, community, music, art, education, dance, network effect, and more. Learn how Animoca and its portfolio companies are "tokenizing culture" and how you can be in the center of the revolution.`,
     speaker: 'Alan Lau, Animoca Brands',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1eQV_IdHbgfa7oRQ0RS6RUzDal0Pzsxph/view',
+    slide: 'https://drive.google.com/file/d/1CfBvJmfUb3lx6-1Fmz5qt5BUB80dheH9/view',
     expand: false
   },
   {

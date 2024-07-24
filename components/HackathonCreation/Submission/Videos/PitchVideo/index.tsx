@@ -30,6 +30,7 @@ export const PitchVideo: FC<PitchVideoProps> = ({ form, config }) => {
     confirmRef.current?.open({
       onConfirm: async () => {
         form.setValue('pitchVideo', '');
+        form.trigger('pitchVideo');
       }
     });
   };
