@@ -2,27 +2,35 @@ import { HackathonManageType, SubmissionStatus } from './type';
 import { GrLineChart } from 'react-icons/gr';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
+import { MdAppRegistration } from 'react-icons/md';
+import { FaBalanceScale } from 'react-icons/fa';
+import { IoMdMegaphone } from 'react-icons/io';
 
 export const hackathonAuditNavData = [
   {
     id: HackathonManageType.OVERVIEW,
-    label: 'hackathonAudit.overview',
+    label: 'hackathonManage.overview',
     icon: <GrLineChart size={20} />
   },
   {
     id: HackathonManageType.APPLICATION,
-    label: 'hackathonAudit.application',
+    label: 'hackathonManage.application',
     icon: <LiaUserEditSolid size={20} />
   }
   // {
   //   id: HackathonManageType.SUBMISSION,
-  //   label: 'hackathonAudit.submission',
+  //   label: 'hackathonManage.submission',
   //   icon: <MdAppRegistration size={20} />
   // },
   // {
   //   id: HackathonManageType.JUDGE,
-  //   label: 'hackathonAudit.judging',
+  //   label: 'hackathonManage.judging',
   //   icon: <FaBalanceScale size={20} />
+  // },
+  // {
+  //   id: HackathonManageType.ANNOUNCEMENT,
+  //   label: 'hackathonManage.announcement',
+  //   icon: <IoMdMegaphone size={20} />
   // }
 ];
 
@@ -138,5 +146,28 @@ export const submissionInformationData = [
   {
     value: 'status',
     label: 'Fundraising Status'
+  }
+];
+
+export const judgingInformationData = [
+  {
+    value: 'rank',
+    label: 'rank',
+    disable: true
+  },
+  {
+    value: 'name',
+    label: 'Project Name',
+    disable: true
+  },
+  {
+    value: 'track',
+    label: 'Sector',
+    disable: true
+  },
+  {
+    value: 'score',
+    label: 'Final Score',
+    disable: true
   }
 ];

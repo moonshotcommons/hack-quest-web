@@ -159,7 +159,7 @@
     "submissionsReview": "SUBMISSIONS REVIEW",
     "votingCloseIn": "Voting Close In",
     "yourVotingRole": "Your Voting Role",
-    "yourVotesToday": "Your Votes Today",
+    "yourVotesToday": "Your Votes",
     "refreshEveryday": "Refresh at 8AM Everyday",
     "remainingVotes": "Remaining Votes",
     "totalVotes": "Total Votes",
@@ -249,11 +249,12 @@
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
   },
-  "hackathonAudit":{
+  "hackathonManage":{
     "overview":"Overview",
     "application":"Application",
     "submission":"Submission",
     "judging":"Judging",
+    "announcement":"Announcement",
     "viewHackathonDetails":"view hackathon details",
     "hackathonStatsToday":"Hackathon Stats Today"
   }

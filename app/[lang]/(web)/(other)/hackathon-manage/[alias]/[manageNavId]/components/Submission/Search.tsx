@@ -5,7 +5,7 @@ import { BiSearch } from 'react-icons/bi';
 import { MultiSelect, MultiSelectOption } from '../../../../components/MultiSelect';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 
 interface SearchProp {
@@ -17,7 +17,7 @@ interface SearchProp {
 }
 
 const Search: React.FC<SearchProp> = ({ sort, handleSearch, tableInformation, setTableInformation, sectors }) => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))

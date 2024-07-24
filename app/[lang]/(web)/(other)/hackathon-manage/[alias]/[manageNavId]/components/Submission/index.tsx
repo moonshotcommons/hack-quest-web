@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { hackathonSortData, submissionInformationData, submissionTabData } from '../../../../constants/data';
 import Tab from '../Tab';
 import Search from './Search';
-import { InformationType } from '../../../../constants/type';
+import { SelectType } from '../../../../constants/type';
 import CommonTable from './CommonTable';
 import { useRequest } from 'ahooks';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
@@ -14,7 +14,7 @@ import webApi from '@/service';
 interface SubmissionProp {}
 
 const Submission: React.FC<SubmissionProp> = () => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))
@@ -26,7 +26,7 @@ const Submission: React.FC<SubmissionProp> = () => {
     tracks: [],
     keyword: ''
   });
-  const [tableInformation, setTableInformation] = useState<InformationType[]>(
+  const [tableInformation, setTableInformation] = useState<SelectType[]>(
     submissionInformationData
       .filter((v) => v.disable)
       .map((v) => ({
@@ -77,7 +77,7 @@ const Submission: React.FC<SubmissionProp> = () => {
           handleSearch={handleSearch}
           tableInformation={tableInformation.map((v) => v.value)}
           setTableInformation={(values) => {
-            const newTableInformation: InformationType[] = [];
+            const newTableInformation: SelectType[] = [];
             submissionInformationData.map((v) => {
               values.includes(v.value) && newTableInformation.push(v);
             });

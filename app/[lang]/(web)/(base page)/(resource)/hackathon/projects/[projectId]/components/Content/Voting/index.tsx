@@ -13,6 +13,7 @@ import VoteMsg from './VoteMsg';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from '@/components/Common/Dayjs';
+import JudgeInfo from './JudgeInfo';
 
 interface VotingProp {
   project: ProjectType;
@@ -40,12 +41,13 @@ const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
         })} `}
       />
       {!hackathon?.participation?.isRegister && !isEnd && userInfo ? (
-        <div className="flex w-full">
-          <div className="flex-1 border-r border-neutral-medium-gray pr-[40px] ">
+        <div className="flex w-full items-stretch">
+          <div className="flex flex-1 flex-col gap-[10px] border-r border-neutral-medium-gray pr-[40px] ">
             <VotingInfo project={project} hackathon={hackathon} rankInfo={rankInfo} />
             <YourVotes project={project} hackathon={hackathon} />
           </div>
-          <div className="flex flex-1 flex-col justify-between pl-[40px]">
+          <div className="flex flex-1 flex-col justify-between gap-[20px] pl-[40px]">
+            <JudgeInfo project={project} />
             <YourVoteRole project={project} hackathon={hackathon} />
             <YourTotalVotes project={project} hackathon={hackathon} />
           </div>

@@ -69,7 +69,6 @@ export interface HackathonMemberType {
 
 export enum HackathonTypeVotesRoleType {
   USER = 'USER',
-  ADVOCATE = 'ADVOCATE',
   JUDGE = 'JUDGE'
 }
 
@@ -366,6 +365,11 @@ export type ProjectType = {
   teamId: string;
   winner: false;
   projectLeftVote: number;
+  judgesVoteStats: {
+    userId: string;
+    isMe: boolean;
+    vote: number;
+  }[];
   //! 没有这个字段了
   apolloDay?: string;
 };
@@ -653,6 +657,7 @@ export interface HackathonManageApplicationMemberType {
   isRegister: boolean;
   isSubmited: boolean;
   joinState: ApplicationStatus;
+  university: string;
 }
 export interface HackathonManageApplicationType {
   createdAt: string;
@@ -667,10 +672,25 @@ export interface HackathonManageApplicationType {
   isRegister: boolean;
   isSubmited: boolean;
   pId: string;
+  university: string;
 }
 
-export interface HackathonVoteProjectType {
-  totalLeftVotes: number;
-  jsJudge: boolean;
+export interface HackathonVoteJudgeType {
+  remainingVotes: number;
+  isJudge: boolean;
   projects: ProjectType[];
+  judge: {
+    id: string;
+    hackathonId: string;
+    judgeAccounts: string[];
+    judgeMode: 'judges' | 'all';
+    judgeProjectVote: number;
+    judgeTotalVote: number;
+    projectJudgeCount: number;
+    rewardName: string;
+    voteMode: 'fixed' | 'score';
+  };
+  voteRole: HackathonTypeVotesRoleType;
+  roleVoted: Record<HackathonTypeVotesRoleType, number>;
+  totalVotes: number;
 }

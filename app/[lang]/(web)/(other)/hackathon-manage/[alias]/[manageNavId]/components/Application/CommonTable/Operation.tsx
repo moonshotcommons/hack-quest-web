@@ -4,7 +4,7 @@ import { IoMdTime } from 'react-icons/io';
 import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
 import { MdOutlineRefresh } from 'react-icons/md';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
 
@@ -17,11 +17,6 @@ interface OperationProp {
 }
 
 const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown, tabStatus, isHandle }) => {
-  const { hackathon } = useHackathonAuditStore(
-    useShallow((state) => ({
-      hackathon: state.hackathon
-    }))
-  );
   return (
     <div
       className={`body-m flex h-[44px] items-center justify-between rounded-t-[8px]  px-[20px]  ${checkIds.length ? 'bg-yellow-primary text-neutral-off-black' : 'bg-neutral-light-gray text-neutral-medium-gray'}`}
@@ -30,10 +25,10 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
       <div
         className={`flex gap-[24px] [&>div]:flex  [&>div]:items-center [&>div]:gap-[6px] ${checkIds.length ? '[&>div]:cursor-pointer ' : '[&>div]:cursor-not-allowed'}`}
       >
-        <div onClick={handleDown}>
+        {/* <div onClick={handleDown}>
           <FiDownload />
           Download Application
-        </div>
+        </div> */}
         {isHandle && (
           <>
             {tabStatus === ApplicationStatus.REVIEW && (

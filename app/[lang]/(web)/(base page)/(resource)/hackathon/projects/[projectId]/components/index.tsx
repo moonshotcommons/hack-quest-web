@@ -17,6 +17,7 @@ interface ProjectDetailProp {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) => {
+  console.info(project);
   const boxRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);

@@ -19,13 +19,11 @@ const YourVoteRole: React.FC<YourVoteRoleProp> = ({ project, hackathon }) => {
   const votesPercent = useMemo(() => {
     const vote = {
       [HackathonTypeVotesRoleType.USER]: hackathon?.votes?.[HackathonTypeVotesRoleType.USER] || 0,
-      [HackathonTypeVotesRoleType.ADVOCATE]: hackathon?.votes?.[HackathonTypeVotesRoleType.ADVOCATE] || 0,
       [HackathonTypeVotesRoleType.JUDGE]: hackathon?.votes?.[HackathonTypeVotesRoleType.JUDGE] || 0
     };
-    const total = Object.keys(vote).reduce((pre, key) => vote[key as HackathonTypeVotesRoleType] + pre, 0);
+    const total = Object.keys(vote).reduce((pre, key) => vote[key as keyof typeof vote] + pre, 0);
     return {
       [HackathonTypeVotesRoleType.USER]: decimalCountPercent(vote[HackathonTypeVotesRoleType.USER] / total, 2),
-      [HackathonTypeVotesRoleType.ADVOCATE]: decimalCountPercent(vote[HackathonTypeVotesRoleType.ADVOCATE] / total, 2),
       [HackathonTypeVotesRoleType.JUDGE]: decimalCountPercent(vote[HackathonTypeVotesRoleType.JUDGE] / total, 2)
     };
   }, [hackathon]);
@@ -49,23 +47,6 @@ const YourVoteRole: React.FC<YourVoteRoleProp> = ({ project, hackathon }) => {
             </div>
             <div className={`caption-12pt text-neutral-rich-gray`}>
               {votesPercent[HackathonTypeVotesRoleType.USER]} {t('hackathonVoting.votes')}
-            </div>
-          </div>
-          <div
-            className={`flex flex-1 flex-col items-center gap-[8px] rounded-[8px] border px-[8px] py-[6px] ${hackathon?.participation?.voteRole === HackathonTypeVotesRoleType.ADVOCATE ? 'border-neutral-off-black text-neutral-off-black' : 'border-neutral-light-gray bg-neutral-light-gray text-neutral-rich-gray opacity-[0.3]'}`}
-          >
-            <div className="body-m flex items-center gap-[8px]">
-              <RoleAdvocateIcon
-                color={
-                  hackathon?.participation?.voteRole === HackathonTypeVotesRoleType.ADVOCATE
-                    ? 'black'
-                    : 'var(--neutral-rich-gray)'
-                }
-              />
-              {t('hackathonVoting.advocate')}
-            </div>
-            <div className={`caption-12pt text-neutral-rich-gray`}>
-              {votesPercent[HackathonTypeVotesRoleType.ADVOCATE]} {t('hackathonVoting.votes')}
             </div>
           </div>
           <div

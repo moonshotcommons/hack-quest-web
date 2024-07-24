@@ -3,7 +3,7 @@ import { FiDownload, FiX } from 'react-icons/fi';
 import Button from '@/components/Common/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import BaseImage from '@/components/Common/BaseImage';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import ProjectVideo from '../ProjectVideo';
 import TeamCard from '../TeamCard';
@@ -14,7 +14,7 @@ interface InfoContentProp {
 }
 
 const InfoContent: React.FC<InfoContentProp> = ({ info, onClose }) => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))

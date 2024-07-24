@@ -21,8 +21,8 @@ interface OverviewProp {
 const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const githubLink = project.addition.githubLink || '';
-  const isOpenSource = project.addition.isOpenSource;
+  const githubLink = project.addition?.githubLink || '';
+  const isOpenSource = project.addition?.isOpenSource;
   const newGithubLink = useMemo(() => {
     return /^[http]/.test(githubLink) ? githubLink : `https://${githubLink}`;
   }, [githubLink]);

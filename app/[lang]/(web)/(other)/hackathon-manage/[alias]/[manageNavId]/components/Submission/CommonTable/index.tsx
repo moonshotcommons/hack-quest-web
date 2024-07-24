@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { InformationType } from '../../../../../constants/type';
+import { SelectType } from '../../../../../constants/type';
 import { cloneDeep } from 'lodash-es';
 import Operation from './Operation';
 import AuditTable from './AuditTable';
@@ -9,7 +9,7 @@ import InfoContent from './InfoContent';
 
 interface CommonTableProp {
   list: any[];
-  information: InformationType[];
+  information: SelectType[];
   refresh: VoidFunction;
   loading: boolean;
 }

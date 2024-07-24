@@ -16,9 +16,7 @@ import { TransNs } from '@/i18n/config';
 export function HackathonContent({ hackathons, votes }: { hackathons: HackathonType[]; votes: HackathonVoteType[] }) {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-
   const [value, setValue] = React.useState('participated');
-
   return (
     <div className="flex flex-col">
       <CardTabs

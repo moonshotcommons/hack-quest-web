@@ -6,9 +6,9 @@ import HackathonInfo from './HackathonInfo';
 import VotesData from './VotesData';
 // import VotingRules from './VotingRules';
 import VotingProjects from './VotingProjects';
-import VoteProvider from './VoteProvider';
 import Footer from './Footer';
 import HackathonImage from './HackathonImage';
+import VoteProvider from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/voting/[hackathonId]/components/VoteProvider';
 
 interface HackathonVotingProps {
   hackathon: HackathonType;

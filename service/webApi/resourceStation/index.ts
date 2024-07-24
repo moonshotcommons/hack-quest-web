@@ -15,7 +15,7 @@ import {
   HackathonTeamDetail,
   HackathonType,
   HackathonVariousType,
-  HackathonVoteProjectType,
+  HackathonVoteJudgeType,
   HackathonVoteType,
   JoinedHackathonType,
   PagedType,
@@ -101,7 +101,7 @@ class ResourceStationApi {
   }
 
   getHackathonVoteProjects({ hackathonId, params }: { hackathonId: string; params: Record<string, any> }) {
-    return this.service.get<HackathonVoteProjectType>(
+    return this.service.get<HackathonVoteJudgeType>(
       `${ResourceStationApiType.Hackathon}/${hackathonId}/voting-projects`,
       {
         params

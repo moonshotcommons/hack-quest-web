@@ -12,7 +12,7 @@ import {
   HackathonManageApplicationType,
   HackathonMemberInfoType
 } from '@/service/webApi/resourceStation/type';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from 'dayjs';
 
@@ -23,7 +23,7 @@ interface InfoContentProp {
 }
 
 const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleStautusSingle }) => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))
