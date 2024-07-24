@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BookOpenIcon, CheckIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { isMobile } from 'react-device-detect';
 import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
@@ -19,9 +19,9 @@ import { useTranslation } from '@/i18n/client';
 import { useLang } from '../Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { LearningTrackDetailType } from '@/service/webApi/learningTrack/type';
-import CourseTags from '../Web/Business/CourseTags';
 import { useJumpLeaningLesson } from '@/hooks/courses/useJumpLeaningLesson';
 import { Menu, QueryIdType } from '../Web/Business/Breadcrumb/type';
+import { CourseTag } from './course-tags';
 
 const coverImageMap: Record<string, { src: string; width: number; height: number }> = {
   [CourseTrackType.DeFi]: {
@@ -81,6 +81,8 @@ export function CourseCard({
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
 
+  console.log('course', course);
+
   const href =
     type === 'course'
       ? CourseType.UGC
@@ -117,13 +119,11 @@ export function CourseCard({
           )}
           <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex w-full flex-1 flex-col gap-2 sm:max-w-xs">
-              {course.progress !== 1 && (
-                <div className="flex items-center gap-2">
-                  <BookOpenIcon size={20} />
-                  <span className="text-xs font-bold leading-[160%] text-neutral-rich-gray">Next up</span>
-                  <span className="text-xs leading-[160%] text-neutral-rich-gray">What is Solidity?</span>
-                </div>
-              )}
+              <CourseTag
+                language={course.language}
+                count={course?.courseCount || course?.totalPages}
+                type={course.type}
+              />
               <Progress value={(course.progress || 0) * 100}>
                 <ProgressLabel>{Math.floor((course.progress || 0) * 100)}%</ProgressLabel>
               </Progress>
@@ -188,12 +188,7 @@ function LearningTrack({ item }: { item: LearningTrackDetailType }) {
           {item?.track && <Badge className="self-start">{item.track}</Badge>}
           <h1 className="body-m-bold line-clamp-1 text-neutral-off-black">{item?.name}</h1>
           {isCompleted && <p className="body-s line-clamp-2 text-neutral-medium-gray">{item?.description}</p>}
-          <CourseTags
-            language={item.language}
-            level={item?.level as string}
-            unitCount={item?.courseCount}
-            type="learning-track"
-          />
+          <CourseTag language={item.language} count={item?.courseCount} />
           {!isCompleted && (
             <div className="flex w-full flex-col justify-between gap-4 sm:flex-row sm:gap-0">
               <Progress value={(item?.progress || 0) * 100} className="sm:max-w-xs">

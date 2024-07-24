@@ -57,7 +57,7 @@ export default function Page() {
     <ProfileProvider value={{ profile, isLoading, invalidate }}>
       <div className="min-h-screen w-full sm:bg-neutral-white">
         <BasicInfo />
-        <div className="container mx-auto mt-2 flex h-full justify-center sm:mt-[88px]">
+        <div className="mt-2 h-full sm:container sm:mx-auto sm:mt-[88px] sm:flex sm:justify-center">
           <div className="flex-1 sm:max-w-5xl">
             {profile?.isMe && <CompleteProfile />}
             <BuilderScore />

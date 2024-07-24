@@ -69,7 +69,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
         OnlineProfiles: info.OnlineProfiles || {},
         Contact: info.Contact || {},
         ApplicationType: {
-          type: isNullType ? null : isSoloRegister ? 'Solo Project' : 'Group Project',
+          type: isNullType || isSoloRegister ? 'Solo Project' : 'Group Project',
           groupType:
             !!Object.keys(team || {}).length && team?.creatorId === userId
               ? 'owner'
@@ -93,6 +93,7 @@ const FormContent: FC<FormContentProps> = ({ simpleHackathonInfo }) => {
       if (!!Object.keys(registerInfo.team || {}).length) {
         teamDetail = await webApi.resourceStationApi.getHackathonTeamDetail(registerInfo.team?.code!);
       }
+
       return { registerInfo, teamDetail };
     },
     {

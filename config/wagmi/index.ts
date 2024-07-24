@@ -1,5 +1,14 @@
 import { http } from 'wagmi';
-import { mainnet, mantle, manta, arbitrumSepolia, lineaSepolia, mantleSepoliaTestnet, sepolia } from 'wagmi/chains';
+import {
+  mainnet,
+  mantle,
+  manta,
+  arbitrumSepolia,
+  lineaSepolia,
+  mantleSepoliaTestnet,
+  sepolia,
+  telosTestnet
+} from 'wagmi/chains';
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { mantaTestnet } from './chains';
 import {
@@ -17,13 +26,24 @@ export enum ChainType {
   Sepolia = sepolia.id,
   Linea_Sepolia = lineaSepolia.id,
   Arbitrum_Sepolia = arbitrumSepolia.id,
-  MANTLE_Sepolia = mantleSepoliaTestnet.id
+  MANTLE_Sepolia = mantleSepoliaTestnet.id,
+  TELOS_TESTNET = telosTestnet.id
 }
 
 export const config = getDefaultConfig({
   appName: 'Hackquest',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [mainnet, mantle, manta, mantaTestnet, mantleSepoliaTestnet, lineaSepolia, sepolia, arbitrumSepolia],
+  chains: [
+    mainnet,
+    mantle,
+    manta,
+    mantaTestnet,
+    mantleSepoliaTestnet,
+    lineaSepolia,
+    sepolia,
+    arbitrumSepolia,
+    telosTestnet
+  ],
   wallets: [
     {
       groupName: 'Recommended',
@@ -38,7 +58,8 @@ export const config = getDefaultConfig({
     [mantleSepoliaTestnet.id]: http(),
     [lineaSepolia.id]: http(),
     [sepolia.id]: http(),
-    [arbitrumSepolia.id]: http()
+    [arbitrumSepolia.id]: http(),
+    [telosTestnet.id]: http()
   },
   ssr: true
 });
