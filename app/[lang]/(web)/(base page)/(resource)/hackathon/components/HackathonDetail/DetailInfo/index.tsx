@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import EditBox from '../EditBox';
 import { ApplicationStatus, HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
@@ -71,8 +71,15 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         setLoading(false);
       });
   };
+  const needConfirm = useMemo(() => {
+    return (
+      hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
+      !hackathon.participation?.isRegister &&
+      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+    );
+  }, [hackathon]);
   const renderButton = () => {
-    if (hackathon.status !== HackathonStatus.PUBLISH) {
+    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
 
@@ -290,17 +297,15 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             </Button>
           </>
         )}
-        {hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
-          !hackathon.participation?.isRegister &&
-          dayjs().tz().isBefore(hackathon.timeline?.registrationClose) && (
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={handleConfirmAttendance}
-              loading={loading}
-            >
-              {t('hackathonDetail.confirmAttendance')}
-            </Button>
-          )}
+        {needConfirm && (
+          <Button
+            className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+            onClick={handleConfirmAttendance}
+            loading={loading}
+          >
+            {t('hackathonDetail.confirmAttendance')}
+          </Button>
+        )}
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>
     </EditBox>
