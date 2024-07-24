@@ -137,6 +137,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     setCheckItems([]);
     setTeamIds([]);
     setCurId('');
+    setCurInfo(null);
   }, [list]);
 
   const isHandle = useMemo(() => {
@@ -183,7 +184,10 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
             <InfoContent
               key={info.id}
               info={info}
-              onClose={() => setCurInfo(null)}
+              onClose={() => {
+                setCurInfo(null);
+                setCurId('');
+              }}
               handleStautusSingle={handleStautusSingle}
             />
           ))
