@@ -6,10 +6,12 @@ import Image from 'next/image';
 import Loading from '@/public/images/other/loading.png';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
 import { errorMessage } from '@/helper/ui';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ConnectGithubProp {}
 // https://www.dev.hackquest.io/en/connect-media?type=twitter&state=state&code=RFpCaVFOQTlXVjItdjdwQXdaNUpWT2JfRHhJVTE3TFppaG1yejFhWXc4Tlh5OjE3MTE1Mjg1MDY3OTE6MToxOmFjOjE
 const ConnectGithub: React.FC<ConnectGithubProp> = () => {
+  const queryClient = useQueryClient();
   const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const hashQuery = new URLSearchParams(typeof window !== 'undefined' ? window.location.hash : '');
   const { data } = useRequest(async () => {
@@ -24,6 +26,7 @@ const ConnectGithub: React.FC<ConnectGithubProp> = () => {
           const res = await webApi.userApi.linkDiscord(tokenType, accessToken);
           localStorage.setItem('linkDiscord', `${+new Date()}`);
           localStorage.setItem('linkDiscordData', JSON.stringify(res));
+          queryClient.invalidateQueries({ queryKey: ['profile'] });
         } catch (e) {
           errorMessage(e);
         } finally {

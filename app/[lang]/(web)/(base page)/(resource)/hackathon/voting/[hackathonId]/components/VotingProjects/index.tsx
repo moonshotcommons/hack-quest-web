@@ -20,12 +20,22 @@ interface VotingProjectsProp {
 const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { setInitProjects, setRemainingVotes, voteData, setVoteData } = useContext(HackathonVoteContext);
+  const {
+    setInitProjects,
+    setRemainingVotes,
+    voteData,
+    setVoteData,
+    setIsFixedVote,
+    isFixedVote,
+    setTotalLeftVotes,
+    totalLeftVotes
+  } = useContext(HackathonVoteContext);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isInit, setIsInit] = useState(true);
   const [searchParam, setSearchParam] = useState<SearchType>();
   const filterRef = useRef<FilterRef>(null);
   const [loading, setLoading] = useState(false);
+
   const handleSearch = (search: SearchType) => {
     setSearchParam(search);
     getProjects(search);
@@ -33,16 +43,22 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   };
   const getProjects = async (search: SearchType) => {
     setLoading(true);
-    const res = await webApi.resourceStationApi.getProjectsList({
-      ...search,
-      hackathonId: hackathon.id
+    const res = await webApi.resourceStationApi.getHackathonVoteProjects({
+      hackathonId: hackathon.id,
+      // params: search
+      params: {}
     });
     if (isInit) {
-      setInitProjects(res.data);
+      setInitProjects(res?.projects || []);
+      // setIsFixedVote('totalLeftVotes' in res);
+      setIsFixedVote(true);
     }
+    const totalLeftVotes = res?.totalLeftVotes || 300;
+    setTotalLeftVotes(totalLeftVotes);
+    setRemainingVotes(totalLeftVotes);
     setLoading(false);
     setIsInit(false);
-    setProjects(res.data);
+    setProjects(res?.projects || []);
   };
 
   const handleRandom = () => {
@@ -58,14 +74,12 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
     return arr.sort(() => Math.random() - 0.5);
   };
   useEffect(() => {
-    const total = hackathon.participation?.remainingVote || 0;
-    if (isInit) {
-      setRemainingVotes(total);
-    } else {
+    if (isFixedVote && !isInit) {
       const voteds = voteData.reduce((pre, cur) => pre + cur.vote, 0);
-      setRemainingVotes(total - voteds);
+      setRemainingVotes(totalLeftVotes - voteds);
     }
   }, [hackathon, isInit, voteData]);
+
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonVoting.votingProjects')} />

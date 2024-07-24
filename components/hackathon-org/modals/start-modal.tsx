@@ -63,7 +63,7 @@ export function StartModal({ open, onClose }: StartModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="w-[808px] max-w-[808px] gap-8 px-10 py-16 [&_.close-icon]:right-7 [&_.close-icon]:top-7">
+      <DialogContent className="gap-8 px-10 py-16 sm:w-[808px] sm:max-w-[808px] [&_.close-icon]:right-7 [&_.close-icon]:top-7">
         <DialogHeader className="space-y-4">
           <DialogTitle>Name Your Hackathon!</DialogTitle>
           <DialogDescription>You’ll be able to change the hackathon name later.</DialogDescription>

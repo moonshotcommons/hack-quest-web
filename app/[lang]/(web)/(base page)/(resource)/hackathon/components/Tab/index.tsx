@@ -8,6 +8,7 @@ import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { HackathonTabType } from '../../constants/type';
 import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
+import { separationNumber } from '@/helper/utils';
 
 interface TabProp {
   curTab: HackathonStatusType;
@@ -36,7 +37,7 @@ const Tab: React.FC<TabProp> = ({ curTab, hackathonTab, path, changeTab }) => {
             className={`body-xl cursor-pointer  text-neutral-off-black ${curTab === v.value ? '  body-xl-bold ' : ' '}`}
           >
             {t(v.label)}
-            {'count' in v && `(${v.count})`}
+            {'count' in v && `(${separationNumber(v.count as number)})`}
           </div>
         ) : (
           <Link key={v.value} href={getUrl(v.value)} scroll={false}>
@@ -44,7 +45,7 @@ const Tab: React.FC<TabProp> = ({ curTab, hackathonTab, path, changeTab }) => {
               className={`body-xl cursor-pointer  text-neutral-off-black ${curTab === v.value ? '  body-xl-bold ' : ' '}`}
             >
               {t(v.label)}
-              {'count' in v && `(${v.count})`}
+              {'count' in v && `(${separationNumber(v.count as number)})`}
             </div>
           </Link>
         )

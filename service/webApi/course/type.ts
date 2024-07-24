@@ -147,6 +147,7 @@ export interface CourseBaseType {
   totalPages: number;
   certificationId?: string;
   creator?: CreatorType;
+  courseCount?: number;
   documentationId: string | null;
 }
 

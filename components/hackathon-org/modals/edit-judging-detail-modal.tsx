@@ -12,25 +12,23 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '../common/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
-import { Slider } from '@/components/ui/slider';
 import { TextField } from '@/components/ui/text-field';
 import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
 import { message } from 'antd';
 import { useRouter } from 'next/navigation';
 import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { Slider } from '../common/slider';
 
 const formSchema = z
   .object({
     criteria: z.string().min(1, {
       message: 'Field is required'
     }),
-    // .max(360, {
-    //   message: 'Field cannot exceed 360 characters'
-    // }),
     judgeMode: z.enum(['all', 'judges']).nullable().default(null).optional(),
     disableJudge: z.boolean().default(false).optional(),
     voteMode: z.enum(['fixed', 'score']).optional(),
+    totalVote: z.string().optional(),
     judgeTotalVote: z.string().optional(),
     judgeProjectVote: z.string().optional(),
     projectJudgeCount: z.string().optional(),
@@ -52,9 +50,9 @@ const formSchema = z
             message: 'Please select voting mode'
           });
         } else {
-          if (!data.judgeTotalVote) {
+          if (!data.totalVote) {
             ctx.addIssue({
-              path: ['judgeTotalVote'],
+              path: ['totalVote'],
               code: z.ZodIssueCode.custom,
               message: 'Field is required'
             });
@@ -133,8 +131,8 @@ export function EditJudgingDetailModal({
   const router = useRouter();
   const queryClient = useQueryClient();
   const submitInputRef = React.useRef<HTMLInputElement>(null);
-  const [userVotes, setUserVotes] = React.useState<string | number>(50);
-  const [judgeVotes, setJudgeVotes] = React.useState<string | number>(50);
+  const [userVotes, setUserVotes] = React.useState<string | number>(0);
+  const [judgeVotes, setJudgeVotes] = React.useState<string | number>(0);
   const [sliderValue, setSliderValue] = React.useState(50);
   const [judgeAccounts, setJudgeAccounts] = React.useState<JudgeAccount[]>([]);
   const [key, setKey] = React.useState<number>(+new Date());
@@ -187,31 +185,11 @@ export function EditJudgingDetailModal({
 
   const [criteria, setCriteria] = React.useState<{ type: string; content: object }>();
 
-  function onVotesChange(value: string, isUserVotes: boolean) {
-    if (value === '') {
-      setUserVotes('');
-      setJudgeVotes('');
-      return;
-    }
-
-    let numericValue = parseInt(value, 10);
-    if (isNaN(numericValue) || numericValue < 0) numericValue = 0;
-    if (numericValue > 100) numericValue = 100;
-
-    if (isUserVotes) {
-      setUserVotes(numericValue);
-      setJudgeVotes(100 - numericValue);
-    } else {
-      setJudgeVotes(numericValue);
-      setUserVotes(100 - numericValue);
-    }
-    setSliderValue(isUserVotes ? numericValue : 100 - numericValue);
-  }
-
   function onSliderValueChange(value: number) {
+    const totalVote = form.getValues('totalVote');
     setSliderValue(value);
-    setUserVotes(value);
-    setJudgeVotes(100 - value);
+    setUserVotes(Math.round((value / 100) * Number(totalVote)));
+    setJudgeVotes(Math.round(((100 - value) / 100) * Number(totalVote)));
   }
 
   async function addJudgeAccount() {
@@ -230,6 +208,7 @@ export function EditJudgingDetailModal({
       disableJudge: data.disableJudge,
       judgeMode: null,
       voteMode: null,
+      totalVote: null,
       judgeTotalVote: null,
       judgeProjectVote: null,
       projectJudgeCount: null,
@@ -245,9 +224,9 @@ export function EditJudgingDetailModal({
       if (data.judgeMode === 'all') {
         values = {
           ...values,
-          judgeTotalVote: z.coerce.number().parse(data.judgeTotalVote),
+          totalVote: z.coerce.number().parse(data.totalVote),
           judgeProjectVote: z.coerce.number().parse(data.judgeProjectVote),
-          votesProportion: [userVotes, judgeVotes],
+          votesProportion: [sliderValue, 100 - sliderValue],
           judgeAccounts: judgeAccounts.map((account) => account.id)
         };
       } else {
@@ -280,8 +259,8 @@ export function EditJudgingDetailModal({
   function onReset() {
     form.reset();
     latestJudgeMode.current = undefined;
-    setUserVotes(50);
-    setJudgeVotes(50);
+    setUserVotes(0);
+    setJudgeVotes(0);
     setSliderValue(50);
     setJudgeAccounts([]);
   }
@@ -297,18 +276,16 @@ export function EditJudgingDetailModal({
         latestJudgeMode.current = initialValues?.judgeMode;
         if (initialValues?.judgeMode === 'all') {
           form.reset({
-            // criteria: initialValues?.criteria || '',
             criteria: '',
             disableJudge: initialValues?.disableJudge,
             judgeMode: initialValues?.judgeMode,
             voteMode: initialValues?.voteMode,
-            judgeTotalVote: z.coerce.string().parse(initialValues?.judgeTotalVote || ''),
+            totalVote: z.coerce.string().parse(initialValues?.totalVote || initialValues?.judgeTotalVote || ''),
             judgeProjectVote: z.coerce.string().parse(initialValues?.judgeProjectVote || '')
           });
         } else {
           if (initialValues?.voteMode === 'fixed') {
             form.reset({
-              // criteria: initialValues?.criteria || '',
               criteria: '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
@@ -318,7 +295,6 @@ export function EditJudgingDetailModal({
             });
           } else {
             form.reset({
-              // criteria: initialValues?.criteria || '',
               criteria: '',
               disableJudge: initialValues?.disableJudge,
               judgeMode: initialValues?.judgeMode,
@@ -334,8 +310,8 @@ export function EditJudgingDetailModal({
           disableJudge: initialValues?.disableJudge
         });
       }
-      setUserVotes(initialValues?.votesProportion?.[0] || 50);
-      setJudgeVotes(initialValues?.votesProportion?.[1] || 50);
+      setUserVotes((initialValues?.votesProportion?.[0] / 100) * initialValues?.totalVote || 0);
+      setJudgeVotes((initialValues?.votesProportion?.[1] / 100) * initialValues?.totalVote || 0);
       setSliderValue(initialValues?.votesProportion?.[0] || 50);
       setJudgeAccounts(initialValues?.judgeAccounts);
     }
@@ -345,7 +321,7 @@ export function EditJudgingDetailModal({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="flex w-[888px] max-w-[888px] flex-col gap-6 px-10 pb-10 pt-[60px] shadow-modal"
+        className="flex flex-col gap-6 px-10 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px]"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <h1 className="headline-h3 relative shrink-0 pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
@@ -365,12 +341,6 @@ export function EditJudgingDetailModal({
                     <FormLabel>
                       <span className="body-m text-neutral-rich-gray">Judging Criteria*</span>
                     </FormLabel>
-                    {/* <span className="caption-14pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': form.watch('criteria')?.length > 360 })}>
-                        {form.watch('criteria')?.length}
-                      </span>
-                      /360
-                    </span> */}
                   </div>
                   <FormControl>
                     <Textarea
@@ -526,24 +496,29 @@ export function EditJudgingDetailModal({
                     </FormItem>
                   )}
                 />
-                {voteMode === 'fixed' && (
+                {voteMode === 'fixed' && judgeMode === 'all' && (
                   <FormField
                     control={form.control}
-                    name="judgeTotalVote"
+                    name="totalVote"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
                         <div className="flex items-center justify-between">
                           <FormLabel>
-                            <span className="body-m text-neutral-rich-gray">How many votes does each judge have?*</span>
+                            <span className="body-m text-neutral-rich-gray">How many votes are there in total?*</span>
                           </FormLabel>
                         </div>
                         <FormControl>
                           <TextField
                             {...field}
+                            type="number"
                             value={field.value}
-                            onChange={(e) => field.onChange(e.target.value)}
+                            onChange={(e) => {
+                              field.onChange(e.target.value);
+                              setUserVotes(Math.round(Number(e.target.value) * (sliderValue / 100)));
+                              setJudgeVotes(Math.round(Number(e.target.value) * (1 - sliderValue / 100)));
+                            }}
                             autoComplete="off"
-                            placeholder="e.g. 100"
+                            placeholder="e.g. 100000"
                             className="aria-[invalid=true]:border-status-error-dark"
                           />
                         </FormControl>
@@ -552,17 +527,15 @@ export function EditJudgingDetailModal({
                     )}
                   />
                 )}
-                {!!voteMode && (
+                {voteMode === 'fixed' && judgeMode === 'judges' && (
                   <FormField
                     control={form.control}
-                    name="judgeProjectVote"
+                    name="judgeTotalVote"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
                         <div className="flex items-center justify-between">
                           <FormLabel>
-                            <span className="body-m text-neutral-rich-gray">
-                              The maximum number of votes each judge can cast for each project*
-                            </span>
+                            <span className="body-m text-neutral-rich-gray">How many votes does each judge have?*</span>
                           </FormLabel>
                         </div>
                         <FormControl>
@@ -610,38 +583,55 @@ export function EditJudgingDetailModal({
                 )}
                 {judgeMode === 'all' && (
                   <div className="w-full space-y-1">
-                    <label className="body-m text-neutral-rich-gray">Votes Proportion (%)*</label>
-                    <div className="flex justify-between gap-10">
-                      <div className="flex flex-col items-center justify-center gap-1">
-                        <input
-                          type="number"
-                          value={userVotes}
-                          onChange={(e) => onVotesChange(e.target.value, true)}
-                          min="0"
-                          max="100"
-                          className="body-s inline-flex h-[46px] w-[58px] items-center justify-center rounded-[8px] border border-neutral-light-gray bg-neutral-off-white text-center outline-none"
-                        />
-                        <span className="caption-12pt whitespace-nowrap text-neutral-rich-gray">User Votes</span>
+                    <label className="body-m text-neutral-rich-gray">Votes Proportion*</label>
+                    <div className="flex w-full items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-light text-neutral-rich-gray">Total User Votes</span>
+                        <span className="text-sm">{userVotes}</span>
                       </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">{judgeVotes}</span>
+                        <span className="text-xs font-light text-neutral-rich-gray">Total Judge Votes</span>
+                      </div>
+                    </div>
+                    <div className="!mt-4 w-full">
                       <Slider
                         value={[sliderValue]}
                         onValueChange={(value) => onSliderValueChange(value[0])}
                         max={100}
                         step={1}
                       />
-                      <div className="flex flex-col items-center justify-center gap-1">
-                        <input
-                          type="number"
-                          value={judgeVotes}
-                          onChange={(e) => onVotesChange(e.target.value, false)}
-                          min="0"
-                          max="100"
-                          className="body-s inline-flex h-[46px] w-[58px] items-center justify-center rounded-[8px] border border-neutral-light-gray bg-neutral-off-white text-center outline-none"
-                        />
-                        <span className="caption-12pt whitespace-nowrap text-neutral-rich-gray">Judge Votes</span>
-                      </div>
                     </div>
                   </div>
+                )}
+                {!!voteMode && (
+                  <FormField
+                    control={form.control}
+                    name="judgeProjectVote"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-1">
+                        <div className="flex items-center justify-between">
+                          <FormLabel>
+                            <span className="body-m text-neutral-rich-gray">
+                              The maximum number of votes each {judgeMode === 'all' ? 'user/judge' : 'judge'} can cast
+                              for each project*
+                            </span>
+                          </FormLabel>
+                        </div>
+                        <FormControl>
+                          <TextField
+                            {...field}
+                            value={field.value}
+                            onChange={(e) => field.onChange(e.target.value)}
+                            autoComplete="off"
+                            placeholder="e.g. 100"
+                            className="aria-[invalid=true]:border-status-error-dark"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 )}
                 <FormField
                   control={form.control}
@@ -651,6 +641,7 @@ export function EditJudgingDetailModal({
                       <FormLabel>
                         <span className="body-m text-neutral-rich-gray">
                           Judge Accounts{judgeMode === 'judges' && '*'}
+                          {judgeMode === 'all' && `(${judgeAccounts.length})`}
                         </span>
                       </FormLabel>
                       <FormControl>
@@ -681,6 +672,11 @@ export function EditJudgingDetailModal({
                     </FormItem>
                   )}
                 />
+                {judgeMode === 'all' && judgeAccounts.length > 0 && (
+                  <div className="flex w-full items-center justify-center rounded-[4px] bg-neutral-off-white p-2 text-xs text-neutral-rich-gray">
+                    {Number(judgeVotes) / judgeAccounts.length} votes for each judge
+                  </div>
+                )}
                 <AddJudgeAccounts judgeAccounts={judgeAccounts} setJudgeAccounts={setJudgeAccounts} />
               </>
             )}
@@ -693,7 +689,6 @@ export function EditJudgingDetailModal({
           </Button>
           <Button
             className="w-[165px]"
-            // disabled={!isValid}
             isLoading={mutation.isPending}
             onClick={() => {
               submitInputRef.current?.click();

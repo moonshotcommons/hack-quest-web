@@ -13,6 +13,8 @@ import { FiChevronDown } from 'react-icons/fi';
 import { PlaygroundContext } from '../../Playground/type';
 import { useSearchParams } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
+
+const CHAIN_IDE = 'develop-2egludalf0.chainide.com';
 interface ExampleRendererProps {
   // children: ReactNode
   component: ExampleComponent;
@@ -32,7 +34,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { updateExampleNum } = useUpdateHelperParams();
   const query = useSearchParams();
   const userInfo = useUserStore((state) => state.userInfo);
-
+  console.log(component);
   useEffect(() => {
     if (component) {
       const activeIndex = component.codeFiles?.findIndex((file) => {
@@ -48,10 +50,10 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
 
   const getIdeLink = () => {
     // id = '1d9db0f7-7d29-417d-a630-3258b7d52567'
-    let isSuiLearningTrack = !!query.get('learningTrackId');
-    if (isSuiLearningTrack) {
-      return `https://develop-2egludalf0.chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=filename&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
-        LzString.compressToBase64(exampleContent)
+
+    if (component.ideUrl?.includes(CHAIN_IDE)) {
+      return `https://develop-2egludalf0.chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=filename.move&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
+        exampleContent
       )}`;
     }
 
@@ -130,13 +132,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       )}
 
       {expand && component.renderIdeBtn && (
-        <Link
-          href={`${component.ideUrl || process.env.IDE_URL || 'https://ide.dev.hackquest.io'}?code=${encodeURIComponent(
-            LzString.compressToBase64(exampleContent)
-          )}`}
-          target="_blank"
-          className="self-end"
-        >
+        <Link href={getIdeLink()} target="_blank" className="self-end">
           <Button
             ghost
             className="hover:bg-neutral-white/50 body-s mt-2 border border-neutral-black px-[40px] py-[8px] text-neutral-black transition"

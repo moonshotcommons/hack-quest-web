@@ -11,9 +11,7 @@ const Accordion = AccordionPrimitive.Root;
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item ref={ref} className={cn('border-b', className)} {...props} />
-));
+>(({ className, ...props }, ref) => <AccordionPrimitive.Item ref={ref} className={cn(className)} {...props} />);
 
 AccordionItem.displayName = 'AccordionItem';
 
@@ -25,13 +23,13 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        'flex flex-1 items-center justify-between py-4 font-medium transition-all [&[data-state=open]>svg]:rotate-180',
+        'flex flex-1 items-center py-4 font-medium transition-all [&[data-state=open]>svg[aria-hidden=true]]:rotate-180',
         className
       )}
       {...props}
     >
       {children}
-      <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" />
+      <ChevronDown aria-hidden="true" className="ml-auto h-6 w-6 shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

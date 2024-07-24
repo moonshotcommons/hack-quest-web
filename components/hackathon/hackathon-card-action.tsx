@@ -10,13 +10,19 @@ import { useManageTeamModal } from './manage-team-modal';
 import { useWithdrawModal } from './withdraw-modal';
 import { hasPermission, ROLES } from './constants';
 import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
 
 function PrimaryButton({
   outline,
   children,
+  dsisabled,
+  isLoading,
   onClick
 }: {
   outline?: boolean;
+  dsisabled?: boolean;
+  isLoading?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
 }) {
@@ -24,8 +30,10 @@ function PrimaryButton({
     <Button
       size="small"
       type="primary"
+      disabled={dsisabled}
       ghost={outline}
-      className="h-[3.25rem] w-full text-sm font-medium uppercase sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
+      loading={isLoading}
+      className="h-[3.25rem] w-full text-sm font-medium uppercase disabled:bg-neutral-light-gray sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
       onClick={onClick}
     >
       {children}
@@ -63,20 +71,48 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
   const role = isGroupProject ? (isTeamLeader ? ROLES.TEAM_LEADER : ROLES.TEAM_MEMBER) : ROLES.SOLO;
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (hackathonId: string) => webApi.resourceStationApi.memberConfirmRegister(hackathonId),
+    onSuccess: () => {
+      router.refresh();
+    }
+  });
+
   if (
     hackathon.participation?.isRegister &&
-    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false)
+    ![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) &&
+    (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+    hackathon.participation?.joinState !== 'approved'
   ) {
     return (
-      <Button
-        size="small"
-        type="primary"
-        disabled
-        className="h-[3.25rem] w-full bg-neutral-light-gray text-sm font-medium uppercase text-neutral-medium-gray opacity-100 sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
-      >
-        {/* {children} */}
-        Pending
-      </Button>
+      <div className="flex flex-col gap-2">
+        <Button
+          size="small"
+          type="primary"
+          disabled
+          className="h-[3.25rem] w-full bg-neutral-light-gray text-sm font-medium uppercase text-neutral-medium-gray opacity-100 sm:h-[2.6875rem] sm:w-[11.25rem] sm:text-xs"
+        >
+          {/* {children} */}
+          Pending
+        </Button>
+        {hasPermission(role, status, 'withdraw') && (
+          <SecondaryButton onClick={() => withdrawModal.onOpen(username, hackathon.id)}>Withdraw</SecondaryButton>
+        )}
+
+        {hasPermission(role, status, 'manage') && (
+          <SecondaryButton
+            onClick={() => {
+              manageTeamModal.onOpen(code);
+            }}
+          >
+            Manage Team
+          </SecondaryButton>
+        )}
+
+        {hasPermission(role, status, 'leave') && (
+          <SecondaryButton onClick={() => leaveTeamModal.onOpen(hackathon.id)}>Leave Team</SecondaryButton>
+        )}
+      </div>
     );
   }
 
@@ -94,7 +130,8 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         </PrimaryButton>
       )}
 
-      {![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) &&
+      {(![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) ||
+        !hackathon.participation?.project) &&
         hasPermission(role, status, 'learn_more') && (
           <PrimaryButton outline onClick={() => router.push(`/hackathon/${hackathon.alias}`)}>
             learn more
@@ -102,15 +139,27 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         )}
 
       {(hasPermission(role, status, 'edit') ||
-        [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner)) && (
+        (hackathon.participation?.project &&
+          [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner))) && (
         <PrimaryButton
-          onClick={() =>
+          onClick={() => {
             isMobile
               ? setTipsModalOpenState(true)
-              : router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`)
-          }
+              : router.push(`/hackathon/projects/${hackathon.participation?.project?.id || ''}/edit`);
+          }}
         >
           edit submission
+        </PrimaryButton>
+      )}
+
+      {hasPermission(role, status, 'pending') &&
+        ![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) && (
+          <PrimaryButton dsisabled>Pending</PrimaryButton>
+        )}
+
+      {hasPermission(role, status, 'confirm') && (
+        <PrimaryButton isLoading={isPending} onClick={() => mutate(hackathon.id)}>
+          confirm attendance
         </PrimaryButton>
       )}
 

@@ -13,7 +13,7 @@ export function AddJudgeAccounts({
     setJudgeAccounts((prev) => prev.filter((judge) => judge.email !== email));
   }
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-col gap-2">
       {judgeAccounts.length > 0 && (
         <React.Fragment>
           {judgeAccounts.map((account) => (

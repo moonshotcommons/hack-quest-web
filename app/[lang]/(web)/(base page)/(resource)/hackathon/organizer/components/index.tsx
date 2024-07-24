@@ -114,7 +114,7 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
         {!hackathons[curTab].length && <NoData curTab={curTab} />}
 
         <div className={`${curTab !== HackathonStatusType.ON_GOING && 'hidden'}`}>
-          <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isOrganizer={true} />
+          <OnGoing hackathonList={hackathons[HackathonStatusType.ON_GOING]} isOrganizer={true} showManage={true} />
         </div>
         <div className={`${curTab !== HackathonStatusType.REVIEW && 'hidden'}`}>
           <OnGoing hackathonList={hackathons[HackathonStatusType.REVIEW]} isOrganizer={true} />

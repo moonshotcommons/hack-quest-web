@@ -197,11 +197,6 @@ const QuizBRenderer: FC<QuizBRendererProps> = (props) => {
     };
   }, [quiz]);
 
-  // (function(quiz) => {
-  //   quiz.children = quizChildren;
-  //   return quiz;
-  // })();
-
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="scroll-wrap-y flex-1 overflow-auto">

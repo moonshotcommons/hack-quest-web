@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import EditBox from '../EditBox';
-import { HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
+import { ApplicationStatus, HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
@@ -71,8 +71,15 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         setLoading(false);
       });
   };
+  const needConfirm = useMemo(() => {
+    return (
+      hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
+      !hackathon.participation?.isRegister &&
+      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+    );
+  }, [hackathon]);
   const renderButton = () => {
-    if (hackathon.status !== HackathonStatus.PUBLISH) {
+    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
 
@@ -86,7 +93,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         );
       }
       if (hackathon.participation?.isRegister) {
-        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
+        if (
+          (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+          hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+        ) {
           return (
             <Button
               type="primary"
@@ -183,6 +193,21 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       return null;
     }
   };
+
+  const handleConfirmAttendance = () => {
+    if (loading) return;
+    setLoading(true);
+    webApi.resourceStationApi
+      .memberConfirmRegister(hackathon.id)
+      .then(() => {
+        message.success('Confirm Success');
+        window.location.reload();
+      })
+      .catch((err) => {
+        errorMessage(err);
+        setLoading(false);
+      });
+  };
   return (
     <EditBox className="relative overflow-hidden">
       <div className={`body-m flex flex-col gap-[16px]  text-neutral-off-black ${tipsRender() ? 'pt-[32px]' : ''}`}>
@@ -271,6 +296,15 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
               {t('hackathonDetail.backToEdit')}
             </Button>
           </>
+        )}
+        {needConfirm && (
+          <Button
+            className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+            onClick={handleConfirmAttendance}
+            loading={loading}
+          >
+            {t('hackathonDetail.confirmAttendance')}
+          </Button>
         )}
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>

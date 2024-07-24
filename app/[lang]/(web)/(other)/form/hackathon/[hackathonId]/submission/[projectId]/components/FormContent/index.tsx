@@ -84,8 +84,8 @@ const HackathonSubmitPage: FC<HackathonSubmitPageProps> = ({ simpleHackathonInfo
     };
 
     const Videos = {
-      pitchVideo,
-      demoVideo
+      pitchVideo: pitchVideo || undefined,
+      demoVideo: demoVideo || undefined
     };
 
     setFormState({

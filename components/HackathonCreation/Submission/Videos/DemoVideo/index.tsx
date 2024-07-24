@@ -1,5 +1,5 @@
 import { PresetComponentConfig } from '@/components/HackathonCreation/type';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
 import VideoSwitch from '../VideoSwitch';
@@ -11,6 +11,7 @@ import { RcFile } from 'antd/es/upload';
 import webApi from '@/service';
 import LoadingIcon from '@/components/Common/LoadingIcon';
 import Image from 'next/image';
+import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -22,14 +23,17 @@ interface DemoVideoProps {
 
 export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
   const [videoType, setVideoType] = useState<'upload' | 'link'>('upload');
-
+  const confirmRef = useRef<ConfirmModalRef>(null);
   const requiredTag = config.optional ? ' (Optional)' : '*';
   const [loading, setLoading] = useState(false);
 
   const onDelete = () => {
-    // confirmRef.current?.open({
-    //   onConfirm: deleteRequest
-    // });
+    confirmRef.current?.open({
+      onConfirm: async () => {
+        form.setValue('demoVideo', '');
+        form.trigger('demoVideo');
+      }
+    });
   };
 
   const beforeUpload = async (file: FileType) => {
@@ -148,6 +152,9 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
           </Upload>
         )}
       </div>
+      <ConfirmModal confirmText="YES" ref={confirmRef}>
+        <p className="text-h4 text-center text-neutral-black">Do you want to remove this video?</p>
+      </ConfirmModal>
     </div>
   );
 };

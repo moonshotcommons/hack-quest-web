@@ -12,9 +12,9 @@ import { useShallow } from 'zustand/react/shallow';
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
-  const { hackathonAuditName } = useHackathonAuditStore(
+  const { hackathon } = useHackathonAuditStore(
     useShallow((state) => ({
-      hackathonAuditName: state.hackathonAuditName
+      hackathon: state.hackathon
     }))
   );
   return (
@@ -27,7 +27,7 @@ const NavBar: React.FC<NavBarProps> = () => {
             </Link>
           </nav>
           <div className="flex h-full flex-1 items-center justify-center gap-[4px] text-neutral-off-black">
-            <span className="text-h4">{hackathonAuditName}</span>
+            <span className="text-h4">{hackathon?.name || ''}</span>
             <span>{` - `}</span>
             <span className="body-m">{`Hackathon Organizer`}</span>
           </div>

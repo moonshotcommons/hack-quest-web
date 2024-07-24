@@ -99,12 +99,13 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen, userInfo }
 
   return (
     <div className="body-l w-full capitalize text-neutral-black">
-      <Link href={'/user/profile'}>
+      <Link href={`/user/profile`}>
         <motion.div
           variants={itemVariants}
           className="flex items-center gap-3 p-2"
           onClick={() => {
             setTipsModalOpenState(true);
+            toggleOpen();
           }}
         >
           <span>

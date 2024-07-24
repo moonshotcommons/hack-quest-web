@@ -25,6 +25,9 @@ export const getHackathonVote = cache(function (params?: object): Promise<Hackat
 export const getHackathonById = cache(function (id: string): Promise<HackathonType> {
   return webApi.resourceStationApi.getHackathonDetail(id as string);
 });
+export const getHackathonDetailById = cache(function (id: string): Promise<HackathonType> {
+  return webApi.resourceStationApi.getHackathonDetailById(id as string);
+});
 
 export const getSimpleHackathonInfo = cache(function (id: string): Promise<SimpleHackathonInfo> {
   return webApi.resourceStationApi.getSimpleHackathonInfo(id as string);
