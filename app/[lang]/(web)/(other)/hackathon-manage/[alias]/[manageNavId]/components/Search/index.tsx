@@ -1,10 +1,16 @@
 import SortBy from '@/components/Web/Business/SortBy';
 import React, { useRef } from 'react';
-import { applicationInformationData, hackathonSortData } from '../../../../constants/data';
 import { BiSearch } from 'react-icons/bi';
-import { MultiSelect } from '../../../../components/MultiSelect';
+import { MultiSelect, MultiSelectOption } from '../../../../components/MultiSelect';
 import { InformationDataType, SelectType } from '../../../../constants/type';
 
+export interface SectorType {
+  value: any;
+  options: MultiSelectOption[];
+  name: string;
+  key: string;
+  type?: 'select' | 'checkbox';
+}
 interface SearchProp {
   sorts: SelectType[];
   sort: string;
@@ -12,6 +18,7 @@ interface SearchProp {
   tableInformation: string[];
   setTableInformation: (values: string[]) => void;
   informationData: InformationDataType[];
+  sectors?: SectorType[];
 }
 
 const Search: React.FC<SearchProp> = ({
@@ -20,7 +27,8 @@ const Search: React.FC<SearchProp> = ({
   handleSearch,
   tableInformation,
   setTableInformation,
-  informationData
+  informationData,
+  sectors
 }) => {
   const timeOut = useRef<NodeJS.Timeout | null>(null);
 
@@ -49,6 +57,17 @@ const Search: React.FC<SearchProp> = ({
           name="Information"
           onSelect={setTableInformation}
         />
+        {sectors?.map((v) => (
+          <MultiSelect
+            key={v.key}
+            value={v.value}
+            options={v.options}
+            name={v.name}
+            onSelect={(sec) => {
+              handleSearch(v.key as any, sec as any);
+            }}
+          />
+        ))}
       </div>
       <div className="body-s flex h-[46px] w-[400px] items-center rounded-[56px] border border-neutral-light-gray bg-neutral-white px-[20px] text-neutral-off-black">
         <span className="flex-shrink-0">

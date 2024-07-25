@@ -1,5 +1,4 @@
 import React from 'react';
-import { FiDownload } from 'react-icons/fi';
 
 interface OperationProp {
   checkIds: string[];
@@ -15,10 +14,10 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleDown }) => {
       <div
         className={`flex gap-[24px] [&>div]:flex  [&>div]:items-center [&>div]:gap-[6px] ${checkIds.length ? '[&>div]:cursor-pointer ' : '[&>div]:cursor-not-allowed'}`}
       >
-        <div onClick={handleDown}>
+        {/* <div onClick={handleDown}>
           <FiDownload />
           Download Submission
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ import RoleJugleIcon from '@/components/Common/Icon/RoleJugle';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { HackathonVoteContext } from '../../../../constants/type';
-import { decimalCountPercent } from '@/helper/utils';
+import { decimalCountPercent, separationNumber } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import dayjs from '@/components/Common/Dayjs';
@@ -183,18 +183,20 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             <div className="my-[4px] flex rounded-[8px] bg-yellow-extra-light px-[24px] py-[16px]">
               {judgeInfo?.judge?.voteMode === 'fixed' && (
                 <div className="flex-1 border-r border-neutral-light-gray text-center">
-                  <p className="body-xl-bold text-neutral-off-black">{remainingVotes}</p>
+                  <p className="body-xl-bold text-neutral-off-black">{separationNumber(remainingVotes)}</p>
                   <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
                 </div>
               )}
               {judgeInfo?.judge?.judgeMode === 'judges' && judgeInfo?.judge?.voteMode === 'score' ? (
                 <div className="flex-1 text-center">
-                  <p className="body-xl-bold text-neutral-off-black">{judgeInfo?.judge?.judgeProjectVote}</p>
+                  <p className="body-xl-bold text-neutral-off-black">
+                    {separationNumber(judgeInfo?.judge?.judgeProjectVote)}
+                  </p>
                   <p className="body-s text-neutral-medium-gray">{'MAX Votes Per Project'}</p>
                 </div>
               ) : (
                 <div className="flex-1 text-center">
-                  <p className="body-xl-bold text-neutral-off-black">{judgeInfo?.totalVotes}</p>
+                  <p className="body-xl-bold text-neutral-off-black">{separationNumber(judgeInfo?.totalVotes)}</p>
                   <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.totalVotes')}</p>
                 </div>
               )}

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { hackathonSortData, submissionTabData } from '../../../../constants/data';
+import { hackathonSortData } from '../../../../constants/data';
 import Tab from '../Tab';
 import { Checkbox } from '@/components/ui/checkbox';
 import VoteCloseIn from './VoteCloseIn';
@@ -14,7 +14,7 @@ const Judging: React.FC<JudgingProp> = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchInfo, setSearchInfo] = useState({
-    status: submissionTabData[0].value,
+    status: '',
     sort: hackathonSortData[0].value,
     tracks: [],
     keyword: ''
@@ -24,7 +24,7 @@ const Judging: React.FC<JudgingProp> = () => {
       <div className="flex items-center justify-between">
         <Tab
           curTab={searchInfo.status}
-          tabs={submissionTabData}
+          tabs={[]}
           changeTab={(tab) =>
             setSearchInfo({
               ...searchInfo,

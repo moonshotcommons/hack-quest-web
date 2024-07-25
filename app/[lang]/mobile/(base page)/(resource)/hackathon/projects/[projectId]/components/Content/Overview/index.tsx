@@ -1,7 +1,6 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
 import React, { useContext } from 'react';
 import IconHackathon from '@/public/images/hackathon/icon_hackathon.png';
@@ -11,15 +10,14 @@ import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { DiGithubBadge } from 'react-icons/di';
 import { IoIosArrowForward } from 'react-icons/io';
+import { ProjectDetailContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
-interface OverviewProp {
-  project: ProjectType;
-  hackathon: HackathonType;
-}
+interface OverviewProp {}
 
-const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
+const Overview: React.FC<OverviewProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { project, hackathon } = useContext(ProjectDetailContext);
 
   return (
     <div className="flex flex-col gap-[1.75rem]">

@@ -25,11 +25,11 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 
   const { lang } = params;
 
-  const hackathon = await getHackathonProjectById(params.projectId);
+  const project = await getHackathonProjectById(params.projectId);
 
   return {
-    title: hackathon.name,
-    description: hackathon.detail?.oneLineIntro,
+    title: project.name,
+    description: project.detail?.oneLineIntro,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}/edit${query}`,
       languages: {
@@ -50,12 +50,12 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   }
   const [otherProjects, hackathon, projectVote] = await Promise.all([
     getOtherProjects(project.hackathonName, projectId),
-    getHackathonById(project.hackathonName),
+    getHackathonById(project.hackathonId),
     getProjectVoteById(projectId)
   ]);
 
   return (
-    <ProjectDetail project={project} projectList={otherProjects} hackathon={hackathon} projectVote={projectVote} />
+    <ProjectDetail project={project} otherProjects={otherProjects} hackathon={hackathon} projectVote={projectVote} />
   );
 };
 

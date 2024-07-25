@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { OffsetTopsType, ProjectDetailContext } from '../../../../constants/type';
-import { HackathonType, ProjectRankType, ProjectType } from '@/service/webApi/resourceStation/type';
 import Overview from './Overview';
 import Videos from './Videos';
 import Introduction from './Introduction';
@@ -9,15 +8,11 @@ import Voting from './Voting';
 
 interface ContentProp {
   setOffsetTop: (tops: OffsetTopsType[]) => void;
-  project: ProjectType;
-  rankInfo: ProjectRankType;
-  hackathon: HackathonType;
-  isShowVoting: boolean;
 }
 
-const Content: React.FC<ContentProp> = ({ setOffsetTop, project, rankInfo, hackathon, isShowVoting }) => {
+const Content: React.FC<ContentProp> = ({ setOffsetTop }) => {
   const boxRef = useRef<HTMLDivElement>(null);
-  const { titleTxtData } = useContext(ProjectDetailContext);
+  const { project, titleTxtData, isShowVoting } = useContext(ProjectDetailContext);
   const getOffsetTops = () => {
     const offsetTops = [];
     const childNodes = boxRef.current?.childNodes || [];
@@ -38,11 +33,11 @@ const Content: React.FC<ContentProp> = ({ setOffsetTop, project, rankInfo, hacka
   }, [project, isShowVoting]);
   return (
     <div className="body-m flex flex-1 flex-shrink-0 flex-col gap-[60px] text-neutral-off-black" ref={boxRef}>
-      <Overview project={project} hackathon={hackathon} />
-      {isShowVoting && <Voting project={project} rankInfo={rankInfo} hackathon={hackathon} />}
-      <Videos project={project} />
-      {<Introduction project={project} />}
-      <Team project={project} />
+      <Overview />
+      <Voting />
+      <Videos />
+      <Introduction />
+      <Team />
     </div>
   );
 };

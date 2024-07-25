@@ -338,6 +338,24 @@ export interface Additions {
   fields: Record<string, any>;
 }
 
+export interface ProjectVoteUserType {
+  userId: string;
+  isMe: boolean;
+  vote: number;
+}
+
+export interface ProjectRewardType {
+  currency: string;
+  id: string;
+  name: string;
+  prize: number;
+  ranking: {
+    rank: number;
+    total: number;
+  };
+  vote: number;
+  winner: boolean;
+}
 export type ProjectType = {
   id: string;
   name: string;
@@ -365,11 +383,8 @@ export type ProjectType = {
   teamId: string;
   winner: false;
   projectLeftVote: number;
-  judgesVoteStats: {
-    userId: string;
-    isMe: boolean;
-    vote: number;
-  }[];
+  judgesVoteStats: ProjectVoteUserType[];
+  rewards: ProjectRewardType[];
   //! 没有这个字段了
   apolloDay?: string;
 };
@@ -702,4 +717,17 @@ export interface HackathonVoteJudgeType {
   totalVotes: number;
 }
 
-export type ProjectVotesType = Omit<HackathonVoteJudgeType, 'projects'>;
+export type ProjectVotesType = Omit<HackathonVoteJudgeType, 'projects'> & {
+  ranking: {
+    rank: number;
+    total: number;
+  };
+  maxVotes: number;
+  judgesVoteStats: ProjectVoteUserType[];
+};
+
+export interface SubmissionStatusType {
+  id: string;
+  name: string;
+  projectCount: number;
+}

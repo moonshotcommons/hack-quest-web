@@ -99,12 +99,12 @@ const Overview: React.FC<OverviewProp> = () => {
               <div className="body-m mt-[12px] text-neutral-rich-gray">{renderDescription()}</div>
             </div>
             <Button ghost className="button-text-l h-[57px] w-[340px] uppercase">
-              {t('hackathonAudit.viewHackathonDetails')}
+              {t('hackathonManage.viewHackathonDetails')}
             </Button>
           </div>
         </div>
         <div>
-          <p className="text-h35 mb-[40px] text-neutral-off-black">{t('hackathonAudit.hackathonStatsToday')}</p>
+          <p className="text-h35 mb-[40px] text-neutral-off-black">{t('hackathonManage.hackathonStatsToday')}</p>
           <div className="flex gap-[20px] [&>div]:flex [&>div]:h-[280px] [&>div]:flex-1 [&>div]:flex-shrink-0 [&>div]:flex-col [&>div]:gap-[72px] [&>div]:rounded-[16px] [&>div]:bg-neutral-off-white [&>div]:px-[40px] [&>div]:py-[32px]">
             <div>
               <div className="body-l flex items-center gap-[8px] text-neutral-rich-gray">

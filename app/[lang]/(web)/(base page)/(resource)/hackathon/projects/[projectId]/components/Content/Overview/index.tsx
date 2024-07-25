@@ -1,7 +1,6 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
 import React, { useContext, useMemo } from 'react';
 import IconHackathon from '@/public/images/hackathon/icon_hackathon.png';
@@ -12,17 +11,17 @@ import MenuLink from '@/constants/MenuLink';
 import { DiGithubBadge } from 'react-icons/di';
 import { IoIosArrowForward } from 'react-icons/io';
 import { cn } from '@/helper/utils';
+import { ProjectDetailContext } from '../../../../../constants/type';
 
-interface OverviewProp {
-  project: ProjectType;
-  hackathon: HackathonType;
-}
+interface OverviewProp {}
 
-const Overview: React.FC<OverviewProp> = ({ project, hackathon }) => {
+const Overview: React.FC<OverviewProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { project, hackathon } = useContext(ProjectDetailContext);
   const githubLink = project.addition?.githubLink || '';
   const isOpenSource = project.addition?.isOpenSource;
+
   const newGithubLink = useMemo(() => {
     return /^[http]/.test(githubLink) ? githubLink : `https://${githubLink}`;
   }, [githubLink]);

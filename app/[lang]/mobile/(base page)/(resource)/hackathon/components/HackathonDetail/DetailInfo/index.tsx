@@ -224,7 +224,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         )}
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</p>
-          <p>{hackathon.info?.host}</p>
+          <p>{hackathon.info?.allowSubmission === false ? 'OFFLINE' : hackathon.info?.mode}</p>
         </div>
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hackathonMode')}</p>

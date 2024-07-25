@@ -58,13 +58,15 @@ export interface ProjectDetailContextType {
   hackathon: HackathonType;
   project: ProjectType;
   projectVote: ProjectVotesType;
+  isShowVoting: boolean;
 }
 
 export const ProjectDetailContext = createContext<ProjectDetailContextType>({
   titleTxtData: [],
-  hackathon:{} as HackathonType,
-  project:{} as ProjectType,
-  projectVote:{} as ProjectVotesType
+  hackathon: {} as HackathonType,
+  project: {} as ProjectType,
+  projectVote: {} as ProjectVotesType,
+  isShowVoting: false
 });
 
 export interface HackathonEditNavType {

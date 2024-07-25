@@ -6,11 +6,6 @@ export enum HackathonManageType {
   ANNOUNCEMENT = 'announcement'
 }
 
-export enum SubmissionStatus {
-  WEB3 = 'web3',
-  HACKQUEST = 'hackquest'
-}
-
 export interface SelectType {
   value: string;
   label: string;

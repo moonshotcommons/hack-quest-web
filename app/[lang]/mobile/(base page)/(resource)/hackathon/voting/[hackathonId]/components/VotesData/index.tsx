@@ -12,7 +12,7 @@ interface VotesDataProp {
 const VotesData: React.FC<VotesDataProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { view, judgeInfo, isFixedVote, totalLeftVotes } = useContext(HackathonVoteContext);
+  const { view, judgeInfo, totalLeftVotes } = useContext(HackathonVoteContext);
   if (!hackathon?.participation || view !== ViewValue.AGENDA) return null;
   return (
     <>
@@ -20,7 +20,7 @@ const VotesData: React.FC<VotesDataProp> = ({ hackathon }) => {
         <div className="body-s text-neutral-medium-gray">{t('hackathonVoting.yourVotesToday')}</div>
       </div>
       <div className="sticky top-[4.375rem] z-[9] mt-[-3.375rem] rounded-[8px] bg-yellow-extra-light px-[1.5rem] py-[.5rem]">
-        {isFixedVote && (
+        {judgeInfo?.judge?.voteMode === 'fixed' && (
           <div className="flex-1 border-r border-neutral-light-gray text-center">
             <p className="body-l-bold text-neutral-off-black">{totalLeftVotes}</p>
             <p className="caption-12pt text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
@@ -33,7 +33,7 @@ const VotesData: React.FC<VotesDataProp> = ({ hackathon }) => {
           </div>
         ) : (
           <div className="flex-1 text-center">
-            <p className="body-l-bold text-neutral-off-black">{hackathon.participation.totalVote}</p>
+            <p className="body-l-bold text-neutral-off-black">{judgeInfo.judge?.judgeTotalVote}</p>
             <p className="caption-12pt text-neutral-medium-gray">{t('hackathonVoting.totalVotes')}</p>
           </div>
         )}

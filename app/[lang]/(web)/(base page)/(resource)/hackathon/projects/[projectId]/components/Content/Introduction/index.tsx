@@ -1,25 +1,21 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext } from 'react';
-import Title from '../Title';
-import { ProjectDetailContext } from '../../../../constants/type';
+import Title from '../../Title';
+import { ProjectDetailContext } from '../../../../../constants/type';
 
-interface IntroductionProp {
-  project: ProjectType;
-}
+interface IntroductionProp {}
 
-const Introduction: React.FC<IntroductionProp> = ({ project }) => {
+const Introduction: React.FC<IntroductionProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-
-  if (!project.detail?.oneLineIntro) return null;
-
+  const { project, titleTxtData } = useContext(ProjectDetailContext);
+  if (!titleTxtData.includes('projectsDetail.title.introduction')) return null;
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('projectsDetail.title.introduction')} />
-      <p className="body-l text-neutral-rich-gray">{project.detail?.oneLineIntro}</p>
+      <p className="body-l whitespace-pre-line text-neutral-rich-gray">{project.detail?.oneLineIntro}</p>
     </div>
   );
 };

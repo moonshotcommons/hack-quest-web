@@ -24,7 +24,8 @@ import {
   ProjectSubmitBody,
   ProjectType,
   ProjectVotesType,
-  SimpleHackathonInfo
+  SimpleHackathonInfo,
+  SubmissionStatusType
 } from './type';
 import { isUuid } from '@/helper/utils';
 import { ApplicationSectionType } from '@/components/HackathonCreation/type';
@@ -342,6 +343,18 @@ class ResourceStationApi {
 
   getProjectVoteById(projectId: string) {
     return this.service.get<ProjectVotesType>(`${ResourceStationApiType.Projects}/${projectId}/voting`);
+  }
+
+  getHackathonSubmissionStatus(hackahtonId: string) {
+    return this.service.get<SubmissionStatusType[]>(
+      `${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/judge-stats`
+    );
+  }
+
+  getHackathonSubmissionProjects(hackahtonId: string, params: object) {
+    return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/projects`, {
+      params
+    });
   }
 }
 
