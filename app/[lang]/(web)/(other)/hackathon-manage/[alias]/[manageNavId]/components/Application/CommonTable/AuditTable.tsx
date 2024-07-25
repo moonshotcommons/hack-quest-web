@@ -60,7 +60,13 @@ const AuditTable: React.FC<AuditTableProp> = ({
                 )}
               </span>
             )}
-            <span className="flex-1 cursor-pointer truncate" onClick={() => showInfo(item)}>
+            <span
+              className={`flex-1 truncate ${!item.pId && 'cursor-pointer'}`}
+              onClick={() => {
+                if (item.pId) return;
+                showInfo(item);
+              }}
+            >
               {item[key]}
             </span>
           </div>
