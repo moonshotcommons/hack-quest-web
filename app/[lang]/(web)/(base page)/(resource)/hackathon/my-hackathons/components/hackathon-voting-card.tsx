@@ -73,7 +73,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
               </div>
               <div className="flex flex-col gap-1">
                 <h4 className="body-s text-neutral-medium-gray">Host</h4>
-                <span className="body-s leading-8 text-neutral-off-black">{vote?.info?.host}</span>
+                <span className="body-s leading-8 text-neutral-off-black">{vote?.info?.host || '-'}</span>
               </div>
             </>
           ) : (
@@ -106,7 +106,7 @@ export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
                 <span className="body-s leading-8 text-neutral-off-black">{vote.projectCount}</span>
               </div>
               <div className="flex flex-col gap-1">
-                <h4 className="body-s text-neutral-medium-gray">Today’s Remaining Votes</h4>
+                <h4 className="body-s text-neutral-medium-gray">Remaining Votes</h4>
                 <span className="body-s leading-8 text-neutral-off-black">{vote.remainingVote}</span>
               </div>
             </>

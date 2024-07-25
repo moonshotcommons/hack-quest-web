@@ -24,7 +24,7 @@ const Footer: FC<FooterProps> = ({ otherHackathons }) => {
         viewLink={`${MenuLink.EXPLORE_HACKATHON}`}
         isMobile={true}
         renderItem={(contarinerWidth) => {
-          return otherHackathons.map((item) => (
+          return otherHackathons.slice(0, 16).map((item) => (
             <div
               key={item.id}
               style={{

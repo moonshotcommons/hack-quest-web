@@ -15,7 +15,7 @@ import {
   HackathonTeamDetail,
   HackathonType,
   HackathonVariousType,
-  HackathonVoteProjectType,
+  HackathonVoteJudgeType,
   HackathonVoteType,
   JoinedHackathonType,
   PagedType,
@@ -23,7 +23,9 @@ import {
   ProjectRankType,
   ProjectSubmitBody,
   ProjectType,
-  SimpleHackathonInfo
+  ProjectVotesType,
+  SimpleHackathonInfo,
+  SubmissionStatusType
 } from './type';
 import { isUuid } from '@/helper/utils';
 import { ApplicationSectionType } from '@/components/HackathonCreation/type';
@@ -101,7 +103,7 @@ class ResourceStationApi {
   }
 
   getHackathonVoteProjects({ hackathonId, params }: { hackathonId: string; params: Record<string, any> }) {
-    return this.service.get<HackathonVoteProjectType>(
+    return this.service.get<HackathonVoteJudgeType>(
       `${ResourceStationApiType.Hackathon}/${hackathonId}/voting-projects`,
       {
         params
@@ -337,6 +339,22 @@ class ResourceStationApi {
 
   memberConfirmRegister(hackathonId: string) {
     return this.service.patch(`${ResourceStationApiType.Hackathon}/${hackathonId}/members/register-confirm`);
+  }
+
+  getProjectVoteById(projectId: string) {
+    return this.service.get<ProjectVotesType>(`${ResourceStationApiType.Projects}/${projectId}/voting`);
+  }
+
+  getHackathonSubmissionStatus(hackahtonId: string) {
+    return this.service.get<SubmissionStatusType[]>(
+      `${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/judge-stats`
+    );
+  }
+
+  getHackathonSubmissionProjects(hackahtonId: string, params: object) {
+    return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/projects`, {
+      params
+    });
   }
 }
 

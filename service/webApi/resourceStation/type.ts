@@ -69,7 +69,6 @@ export interface HackathonMemberType {
 
 export enum HackathonTypeVotesRoleType {
   USER = 'USER',
-  ADVOCATE = 'ADVOCATE',
   JUDGE = 'JUDGE'
 }
 
@@ -339,6 +338,24 @@ export interface Additions {
   fields: Record<string, any>;
 }
 
+export interface ProjectVoteUserType {
+  userId: string;
+  isMe: boolean;
+  vote: number;
+}
+
+export interface ProjectRewardType {
+  currency: string;
+  id: string;
+  name: string;
+  prize: number;
+  ranking: {
+    rank: number;
+    total: number;
+  };
+  vote: number;
+  winner: boolean;
+}
 export type ProjectType = {
   id: string;
   name: string;
@@ -366,6 +383,8 @@ export type ProjectType = {
   teamId: string;
   winner: false;
   projectLeftVote: number;
+  judgesVoteStats: ProjectVoteUserType[];
+  rewards: ProjectRewardType[];
   //! 没有这个字段了
   apolloDay?: string;
 };
@@ -678,8 +697,37 @@ export interface HackathonManageApplicationType {
   university: string;
 }
 
-export interface HackathonVoteProjectType {
-  totalLeftVotes: number;
-  jsJudge: boolean;
+export interface HackathonVoteJudgeType {
+  remainingVotes: number;
+  isJudge: boolean;
   projects: ProjectType[];
+  judge: {
+    id: string;
+    hackathonId: string;
+    judgeAccounts: string[];
+    judgeMode: 'judges' | 'all';
+    judgeProjectVote: number;
+    judgeTotalVote: number;
+    projectJudgeCount: number;
+    rewardName: string;
+    voteMode: 'fixed' | 'score';
+  };
+  voteRole: HackathonTypeVotesRoleType;
+  roleVoted: Record<HackathonTypeVotesRoleType, number>;
+  totalVotes: number;
+}
+
+export type ProjectVotesType = Omit<HackathonVoteJudgeType, 'projects'> & {
+  ranking: {
+    rank: number;
+    total: number;
+  };
+  maxVotes: number;
+  judgesVoteStats: ProjectVoteUserType[];
+};
+
+export interface SubmissionStatusType {
+  id: string;
+  name: string;
+  projectCount: number;
 }
