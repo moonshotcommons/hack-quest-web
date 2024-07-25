@@ -6,7 +6,7 @@ interface TickIconTipsProp {}
 
 const TickIconTips: React.FC<TickIconTipsProp> = () => {
   const { judgeInfo } = useContext(HackathonVoteContext);
-  if (!(judgeInfo.judge.judgeMode === 'judges' && judgeInfo.judge.voteMode === 'score')) return null;
+  if (!(judgeInfo.judge?.judgeMode === 'judges' && judgeInfo.judge?.voteMode === 'score')) return null;
   return (
     <div className="body-s flex gap-[20px] text-neutral-rich-gray">
       <div className="flex items-center gap-[4px]">
