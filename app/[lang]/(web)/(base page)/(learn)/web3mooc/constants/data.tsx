@@ -130,7 +130,7 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'This Talk Is Not Ligitimate',
+    name: 'This Talk Is Not Legitimate',
     time: '7-8:30 PM SGT, July 18th 2024 / 7-8:30 AM EST, July 18th 2024',
     description: `This session is packed with philosophical beliefs and insights drawn from Immanuel Kant (1785), John Stewart Mills (1859), Émile Durkheim (1912), Alvin Goldman (1964), Thomas Merton (1968), and more. Many discussions here can be tied back to Crypto and leveraged to build Web3 protocols. If you are ideating about what and why you'd like to BUIDL - this is a session you wouldn't want to miss.`,
     speaker: 'Scott Moore, Gitcoin',
