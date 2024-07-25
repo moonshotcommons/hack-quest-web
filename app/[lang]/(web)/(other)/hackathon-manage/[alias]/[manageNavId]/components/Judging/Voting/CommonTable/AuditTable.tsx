@@ -1,13 +1,8 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Checkbox } from '@/components/ui/checkbox';
-import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from 'react-icons/io';
 import dayjs from 'dayjs';
-import { IoCheckmarkCircleSharp } from 'react-icons/io5';
-import { BiXCircle } from 'react-icons/bi';
-import { MdOutlineAccessTimeFilled } from 'react-icons/md';
 import { Spinner } from '@/components/ui/spinner';
-import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import { HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
 import NoData from '../../../NoData';
 import { SelectType } from '../../../../../../constants/type';
 

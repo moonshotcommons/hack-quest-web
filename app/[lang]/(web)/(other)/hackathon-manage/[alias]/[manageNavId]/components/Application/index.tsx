@@ -15,7 +15,6 @@ import {
 import webApi from '@/service';
 import { arraySortByKey } from '@/helper/utils';
 import Search from '../Search';
-import { useQuery } from '@tanstack/react-query';
 
 interface ApplicationProp {}
 

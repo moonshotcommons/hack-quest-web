@@ -1,7 +1,7 @@
 'use client';
 import React, { ReactNode, useState } from 'react';
 import { HackathonVoteContext, ViewValue, VoteDataType } from '../../../../constants/type';
-import { HackathonType, HackathonVoteJudgeType, ProjectType } from '@/service/webApi/resourceStation/type';
+import { HackathonType, HackathonVoteJudgeType } from '@/service/webApi/resourceStation/type';
 
 interface VoteProviderProp {
   children: ReactNode;

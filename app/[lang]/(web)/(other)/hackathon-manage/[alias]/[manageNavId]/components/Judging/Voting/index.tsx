@@ -1,20 +1,12 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { judgingInformationData, hackathonSortData, applicationTabData } from '../../../../../constants/data';
 import { SelectType } from '../../../../../constants/type';
-import { useRequest } from 'ahooks';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
-import {
-  ApplicationStatus,
-  HackathonManageApplicationMemberType,
-  HackathonManageApplicationType
-} from '@/service/webApi/resourceStation/type';
-import webApi from '@/service';
-import { arraySortByKey } from '@/helper/utils';
+import { HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
 import Search from '../../Search';
 import CommonTable from './CommonTable';
-import { useQuery } from '@tanstack/react-query';
 
 interface VotingProp {}
 

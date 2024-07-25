@@ -76,9 +76,16 @@ const Submission: React.FC<SubmissionProp> = () => {
     run: refetch,
     data: list = [],
     loading
-  } = useRequest(() => webApi.resourceStationApi.getHackathonSubmissionProjects(hackathon.id, searchInfo), {
-    manual: true
-  });
+  } = useRequest(
+    () =>
+      webApi.resourceStationApi.getHackathonSubmissionProjects(hackathon.id, {
+        ...searchInfo,
+        track: searchInfo.track.join(',')
+      }),
+    {
+      manual: true
+    }
+  );
 
   useEffect(() => {
     if (searchInfo.prizeTrack) refetch();

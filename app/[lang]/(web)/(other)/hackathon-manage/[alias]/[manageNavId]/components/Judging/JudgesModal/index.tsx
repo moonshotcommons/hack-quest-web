@@ -5,11 +5,10 @@ import Title from '../../Title';
 import JudgeCard from './JudgeCard';
 import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 import * as z from 'zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { TextField } from '@/components/ui/text-field';
 import webApi from '@/service';
 import { useMutation } from '@tanstack/react-query';
 
