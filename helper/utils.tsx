@@ -396,3 +396,26 @@ export function getEndOfDay() {
   // 返回次日的00:00
   return nextDay.startOf('day');
 }
+
+export const insertAsterisk = ({
+  str,
+  starCount = 3,
+  start,
+  end
+}: {
+  str: string;
+  starCount?: number;
+  start: number;
+  end?: number;
+}) => {
+  end = end || start;
+  // 确保 start 和 end 在有效范围内
+  if (start < 0 || end > str.length || start + end > str.length) {
+    return str;
+  }
+  const before = str.slice(0, start);
+  const after = str.slice(str.length - end, str.length);
+  const asterisks = '.'.repeat(starCount);
+
+  return before + asterisks + after;
+};

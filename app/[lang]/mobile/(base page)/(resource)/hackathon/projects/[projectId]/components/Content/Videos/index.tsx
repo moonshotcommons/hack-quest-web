@@ -1,22 +1,19 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import Title from '../../Title';
 import VideoTab from './VideoTab';
 import Video from '../../Video';
 import { ProjectDetailContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
-interface VideosProp {
-  project: ProjectType;
-}
+interface VideosProp {}
 
-const Videos: React.FC<VideosProp> = ({ project }) => {
+const Videos: React.FC<VideosProp> = ({}) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { titleTxtData } = useContext(ProjectDetailContext);
+  const { project, titleTxtData } = useContext(ProjectDetailContext);
   const videoTab = useMemo(() => {
     const pitch = {
       label: t('projectsDetail.pitchVideo'),
@@ -34,7 +31,7 @@ const Videos: React.FC<VideosProp> = ({ project }) => {
     const width = boxRef.current?.offsetWidth || 0;
     setTranslateX(-(width * curIndex + 20 * curIndex));
   }, [curIndex]);
-  if (!videoTab.length) return null;
+  if (!titleTxtData.includes('projectsDetail.title.videos')) return null;
   return (
     <div className="flex w-full flex-col gap-[1.5rem] overflow-hidden" ref={boxRef}>
       <Title title={t('projectsDetail.title.videos')} />

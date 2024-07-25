@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { useRequest } from 'ahooks';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 import { useUserStore } from '@/store/zustand/userStore';
@@ -20,9 +20,13 @@ const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { alias, manageNavId } = useParams();
-  const { userInfo } = useUserStore();
   const { redirectToUrl } = useRedirect();
-  const { setHackathon } = useHackathonAuditStore(
+  const { userInfo } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo
+    }))
+  );
+  const { setHackathon } = useHackathonManageStore(
     useShallow((state) => ({
       setHackathon: state.setHackathon
     }))

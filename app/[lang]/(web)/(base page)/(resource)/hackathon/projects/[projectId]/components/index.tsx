@@ -1,29 +1,26 @@
 'use client';
-import { HackathonType, ProjectRankType, ProjectType } from '@/service/webApi/resourceStation/type';
-import React, { useMemo, useRef, useState } from 'react';
+import { HackathonType, ProjectType, ProjectVotesType } from '@/service/webApi/resourceStation/type';
+import React, { useRef, useState } from 'react';
 import Nav from './Nav';
 import Content from './Content';
 import { OffsetTopsType } from '../../../constants/type';
 import FeaturedProjects from '../../../components/FeaturedProject';
 import ProjectProvider from './ProjectProvider';
-import { useRequest } from 'ahooks';
-import webApi from '@/service';
 import CloseIn from './CloseIn';
-import dayjs from '@/components/Common/Dayjs';
 
 interface ProjectDetailProp {
   project: ProjectType;
-  projectList: ProjectType[];
+  otherProjects: ProjectType[];
+  hackathon: HackathonType;
+  projectVote: ProjectVotesType;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) => {
+const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, otherProjects, hackathon, projectVote }) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
   const isOnScoll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
-  const [hackathon, setHackathon] = useState<HackathonType>();
-  const [rankInfo, setRankInfo] = useState<ProjectRankType>();
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
     isOnScoll.current = true;
@@ -52,61 +49,27 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList }) =>
     }, 150);
   };
 
-  const { run: getRankInfo } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getProjectsRankInfo(project.id);
-      return res;
-    },
-    {
-      onSuccess(res) {
-        setRankInfo(res);
-      }
-    }
-  );
-
-  const { run: getHackathonInfo } = useRequest(
-    async () => {
-      const res = await webApi.resourceStationApi.getHackathonDetail(project.hackathonId);
-      return res;
-    },
-    {
-      onSuccess(res) {
-        setHackathon(res);
-      }
-    }
-  );
-  const isShowVoting = useMemo(() => {
-    const isEnd = dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
-    return !!(((isEnd && project.vote) || !isEnd) && project.isSubmit);
-  }, [hackathon, project]);
-
   return (
-    <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
-      <div className="container  relative mx-auto pt-[20px]">
-        <CloseIn project={project} hackathon={hackathon as HackathonType} rankInfo={rankInfo as ProjectRankType} />
-        <ProjectProvider isShowVoting={isShowVoting} project={project}>
+    <ProjectProvider project={project} hackathon={hackathon} projectVote={projectVote}>
+      <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
+        <div className="container  relative mx-auto pt-[20px]">
+          <CloseIn />
           <div className="relative mt-[40px] flex">
             <div className="relative">
               <Nav curAnchorIndex={curAnchorIndex} offsetTops={offsetTops} handleClickAnchor={handleClickAnchor} />
             </div>
-            <Content
-              setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)}
-              project={project}
-              hackathon={hackathon as HackathonType}
-              rankInfo={rankInfo as ProjectRankType}
-              isShowVoting={isShowVoting}
-            />
+            <Content setOffsetTop={(tops: OffsetTopsType[]) => setOffsetTops(tops)} />
           </div>
-        </ProjectProvider>
+        </div>
+        <div className="mt-[80px]">
+          <FeaturedProjects
+            projectList={otherProjects}
+            project={project}
+            title={'projectsDetail.otherProjects'}
+          ></FeaturedProjects>
+        </div>
       </div>
-      <div className="mt-[80px]">
-        <FeaturedProjects
-          projectList={projectList}
-          project={project}
-          title={'projectsDetail.otherProjects'}
-        ></FeaturedProjects>
-      </div>
-    </div>
+    </ProjectProvider>
   );
 };
 
