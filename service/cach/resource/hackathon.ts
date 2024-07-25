@@ -5,6 +5,7 @@ import {
   HackathonVoteType,
   JoinedHackathonType,
   ProjectType,
+  ProjectVotesType,
   SimpleHackathonInfo
 } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service/index';
@@ -38,7 +39,7 @@ export const getSimpleHackathonInfo = cache(function (id: string): Promise<Simpl
 export const getHackathonProjectById = cache(function (projectId: string): Promise<ProjectType> {
   return webApi.resourceStationApi.getProjectsDetail(projectId);
 });
-export const getProjectVoteById = cache(function (projectId: string): Promise<unknown> {
+export const getProjectVoteById = cache(function (projectId: string): Promise<ProjectVotesType> {
   return webApi.resourceStationApi.getProjectVoteById(projectId);
 });
 

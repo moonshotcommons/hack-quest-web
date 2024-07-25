@@ -23,6 +23,7 @@ import {
   ProjectRankType,
   ProjectSubmitBody,
   ProjectType,
+  ProjectVotesType,
   SimpleHackathonInfo
 } from './type';
 import { isUuid } from '@/helper/utils';
@@ -340,7 +341,7 @@ class ResourceStationApi {
   }
 
   getProjectVoteById(projectId: string) {
-    return this.service.get(`${ResourceStationApiType.Projects}/${projectId}/voting`);
+    return this.service.get<ProjectVotesType>(`${ResourceStationApiType.Projects}/${projectId}/voting`);
   }
 }
 

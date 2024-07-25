@@ -48,13 +48,15 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   if (isUuid(projectId)) {
     permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
   }
-  const [otherProjects, hackathon, voteInfo] = await Promise.all([
+  const [otherProjects, hackathon, projectVote] = await Promise.all([
     getOtherProjects(project.hackathonName, projectId),
     getHackathonById(project.hackathonName),
     getProjectVoteById(projectId)
   ]);
 
-  return <ProjectDetail project={project} projectList={otherProjects} hackathon={hackathon} voteInfo={voteInfo} />;
+  return (
+    <ProjectDetail project={project} projectList={otherProjects} hackathon={hackathon} projectVote={projectVote} />
+  );
 };
 
 export default ProjectDetailPage;

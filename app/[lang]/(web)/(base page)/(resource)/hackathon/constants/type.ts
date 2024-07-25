@@ -4,7 +4,8 @@ import {
   HackathonStatusType,
   HackathonType,
   HackathonVoteJudgeType,
-  ProjectType
+  ProjectType,
+  ProjectVotesType
 } from '@/service/webApi/resourceStation/type';
 import { createContext } from 'react';
 
@@ -54,12 +55,16 @@ export const HackathonVoteContext = createContext<HackathonVoteContextType>({
 
 export interface ProjectDetailContextType {
   titleTxtData: string[];
-  // setTitleTxtData: (data: string[]) => void;
+  hackathon: HackathonType;
+  project: ProjectType;
+  projectVote: ProjectVotesType;
 }
 
 export const ProjectDetailContext = createContext<ProjectDetailContextType>({
-  titleTxtData: []
-  // setTitleTxtData: () => {}
+  titleTxtData: [],
+  hackathon:{} as HackathonType,
+  project:{} as ProjectType,
+  projectVote:{} as ProjectVotesType
 });
 
 export interface HackathonEditNavType {

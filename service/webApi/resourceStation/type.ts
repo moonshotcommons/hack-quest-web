@@ -701,3 +701,5 @@ export interface HackathonVoteJudgeType {
   roleVoted: Record<HackathonTypeVotesRoleType, number>;
   totalVotes: number;
 }
+
+export type ProjectVotesType = Omit<HackathonVoteJudgeType, 'projects'>;

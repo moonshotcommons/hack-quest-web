@@ -1,5 +1,5 @@
 'use client';
-import { HackathonType, ProjectRankType, ProjectType } from '@/service/webApi/resourceStation/type';
+import { HackathonType, ProjectRankType, ProjectType, ProjectVotesType } from '@/service/webApi/resourceStation/type';
 import React, { useMemo, useRef, useState } from 'react';
 import Nav from './Nav';
 import Content from './Content';
@@ -15,11 +15,11 @@ interface ProjectDetailProp {
   project: ProjectType;
   projectList: ProjectType[];
   hackathon: HackathonType;
-  voteInfo: any;
+  projectVote: ProjectVotesType;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList, hackathon, voteInfo }) => {
-  console.info(voteInfo);
+const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList, hackathon, projectVote }) => {
+  console.info(projectVote);
   const boxRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
@@ -60,10 +60,10 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList, hack
   }, [hackathon, project]);
 
   return (
-    <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
-      <div className="container  relative mx-auto pt-[20px]">
-        <CloseIn project={project} hackathon={hackathon as HackathonType} rankInfo={rankInfo as ProjectRankType} />
-        <ProjectProvider isShowVoting={isShowVoting} project={project}>
+    <ProjectProvider isShowVoting={isShowVoting} project={project} hackathon={hackathon} projectVote={projectVote}>
+      <div className="scroll-wrap-y h-full bg-neutral-off-white" ref={boxRef} onScroll={handleScoll}>
+        <div className="container  relative mx-auto pt-[20px]">
+          <CloseIn project={project} hackathon={hackathon as HackathonType} rankInfo={rankInfo as ProjectRankType} />
           <div className="relative mt-[40px] flex">
             <div className="relative">
               <Nav curAnchorIndex={curAnchorIndex} offsetTops={offsetTops} handleClickAnchor={handleClickAnchor} />
@@ -76,16 +76,16 @@ const ProjectDetail: React.FC<ProjectDetailProp> = ({ project, projectList, hack
               isShowVoting={isShowVoting}
             />
           </div>
-        </ProjectProvider>
+        </div>
+        <div className="mt-[80px]">
+          <FeaturedProjects
+            projectList={projectList}
+            project={project}
+            title={'projectsDetail.otherProjects'}
+          ></FeaturedProjects>
+        </div>
       </div>
-      <div className="mt-[80px]">
-        <FeaturedProjects
-          projectList={projectList}
-          project={project}
-          title={'projectsDetail.otherProjects'}
-        ></FeaturedProjects>
-      </div>
-    </div>
+    </ProjectProvider>
   );
 };
 

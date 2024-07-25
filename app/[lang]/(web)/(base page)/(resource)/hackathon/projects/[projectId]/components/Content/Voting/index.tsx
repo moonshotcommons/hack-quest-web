@@ -22,6 +22,7 @@ interface VotingProp {
 }
 
 const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
+  console.info(project, rankInfo, hackathon);
   const { userInfo } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo
