@@ -27,7 +27,7 @@ const EditInfo: React.FC<EditInfoProp> = ({ hackathon }) => {
           </div>
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.hackathonMode')}</p>
-            <p>{hackathon.info?.mode === 'HYBRID' ? 'OFFLINE' : hackathon.info?.mode}</p>
+            <p>{hackathon.info?.allowSubmission === true ? 'OFFLINE' : hackathon.info?.mode}</p>
           </div>
         </div>
         {hackathon.info?.address && (
