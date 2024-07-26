@@ -1,63 +1,56 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { BookmarkIcon, Clock4Icon, MapPinIcon } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import Image from 'next/image';
+import moment from 'moment';
+import { Clock4Icon, MapPinIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Job } from '@/service/webApi/jobs/types';
+import { workTypes } from '../validations';
+import { FavoriteButton } from './favorite-button';
+import ApplyJob from './apply-job';
+import { formatLocation, formatSalary } from '../utils';
 
-export function JobCard() {
+export function JobCard({ job }: { job: Job }) {
   return (
-    <Link href="/jobs/developer">
+    <Link href={`/jobs/${job.id}`}>
       <div className="sm:card-hover relative flex w-full flex-col gap-4 rounded-2xl bg-neutral-white p-4 sm:gap-6 sm:p-6">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button className="absolute right-6 top-6 hidden outline-none sm:block" aria-hidden>
-                <BookmarkIcon size={24} className="fill-neutral-rich-gray text-neutral-rich-gray" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="text-sm">Saved for later</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <FavoriteButton jobId={job.id} favorited={job.favorited} className="absolute right-6 top-6 hidden sm:block" />
         <div className="flex items-center gap-4">
-          <div className="relative h-12 w-12 overflow-hidden rounded-full bg-green-500"></div>
+          <div className="relative h-12 w-12 overflow-hidden rounded-full">
+            <Image src={job.companyLogo} alt={job.companyName} fill className="rounded-full" />
+          </div>
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold">Senior Front End Developer</h3>
-            <p className="text-base text-neutral-rich-gray">Google</p>
+            <h3 className="text-lg font-bold">{job.name}</h3>
+            <p className="text-base text-neutral-rich-gray">{job.companyName}</p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge size="large">Remote</Badge>
-          <Badge size="large">Smart Contract</Badge>
-          <Badge size="large">Bloackchain</Badge>
+          {job.tags.map((tag) => (
+            <Badge key={tag} size="large">
+              {tag}
+            </Badge>
+          ))}
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center">
           <div className="flex items-center gap-4 sm:gap-8">
-            <div className="flex items-center gap-2">
-              <span>$</span>
-              <span>200-300k USD</span>
-            </div>
+            <span>{formatSalary(job)}</span>
             <div className="flex items-center gap-2">
               <Clock4Icon className="h-5 w-5" />
-              <span>Full-time</span>
+              <span>{workTypes.find((type) => type.id === job.workType)?.label}</span>
             </div>
           </div>
           <div className="mt-4 flex items-center gap-2 sm:ml-8 sm:mt-0">
             <MapPinIcon className="h-5 w-5" />
-            <span>Remote</span>
+            <span>{formatLocation(job)}</span>
           </div>
           <div className="mt-6 flex items-center justify-end gap-4 sm:ml-auto sm:mt-0">
-            <time dateTime="2022-01-01" className="text-neutral-medium-gray">
-              2h ago
+            <time dateTime={job.createdAt} className="text-neutral-medium-gray">
+              {moment(job.createdAt).fromNow()}
             </time>
-            <Button className="w-[165px]">Apply</Button>
+            <ApplyJob contact={job.contact} />
           </div>
         </div>
-        <button className="absolute bottom-7 left-4 block outline-none sm:hidden" aria-hidden>
-          <BookmarkIcon size={24} className="text-neutral-rich-gray" />
-        </button>
+        <FavoriteButton jobId={job.id} favorited={job.favorited} className="absolute bottom-7 left-4 sm:hidden" />
       </div>
     </Link>
   );

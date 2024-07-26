@@ -13,6 +13,7 @@ import EcosystemApi from './webApi/ecosystem';
 import IdeaApi from './webApi/ideas';
 import HackathonApi from './webApi/hackathon';
 import CommonApi from './webApi/common';
+import JobApi from './webApi/jobs';
 
 class WebApi {
   protected baseURL: string;
@@ -34,6 +35,7 @@ class WebApi {
   ideaApi: IdeaApi;
   hackathonV2Api: HackathonApi;
   commonApi: CommonApi;
+  jobApi: JobApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -56,13 +58,15 @@ class WebApi {
     this.ideaApi = new IdeaApi(this.service);
     this.hackathonV2Api = new HackathonApi(this.service);
     this.commonApi = new CommonApi(this.service);
+    this.jobApi = new JobApi(this.service);
   }
 }
 
 let webApi = null;
 
 if (!webApi) {
-  webApi = new WebApi(process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1');
+  // webApi = new WebApi(process.env.BACKEND_BASE_URL || 'https://api.dev.hackquest.io/v1');
+  webApi = new WebApi('http://localhost:3000/v1');
 }
 
 export default webApi as WebApi;

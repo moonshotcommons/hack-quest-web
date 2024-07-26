@@ -7,7 +7,7 @@ export const workModes = [
   },
   {
     id: 'ONSITE',
-    label: 'On-Site'
+    label: 'On-site'
   }
 ] as const;
 
@@ -61,11 +61,28 @@ export const currencies = [
   }
 ] as const;
 
-export const salarySchema = z.object({
-  min: z.string().optional(),
-  max: z.string().optional(),
-  currency: z.string().optional()
-});
+export const contacts = [
+  {
+    id: 'link',
+    label: 'Application Link',
+    placeholder: 'Application link'
+  },
+  {
+    id: 'telegram',
+    label: 'Telegram',
+    placeholder: 'Telegram username'
+  },
+  {
+    id: 'wechat',
+    label: 'WeChat',
+    placeholder: 'Wechat ID'
+  },
+  {
+    id: 'email',
+    label: 'Email',
+    placeholder: 'Email address'
+  }
+] as const;
 
 export const companySchema = z.object({
   companyName: z
@@ -84,12 +101,13 @@ export const jobSchema = z.object({
   name: z.string().min(1, { message: 'Job title is required' }),
   workMode: z.enum(['REMOTE', 'ONSITE']).optional().default('REMOTE'),
   location: z.string().optional(),
-  wrokType: z.enum(['FULL_TIME', 'PART_TIME', 'INTERNSHIP']).optional().default('FULL_TIME'),
-  minSalary: z.number().optional(),
-  maxSalary: z.number().optional(),
+  workType: z.enum(['FULL_TIME', 'PART_TIME', 'INTERNSHIP']).optional().default('FULL_TIME'),
+  minSalary: z.string().optional(),
+  maxSalary: z.string().optional(),
   currency: z.string().optional(),
   tags: z.array(z.string()).optional(),
-  description: z.string().optional()
+  description: z.string().optional(),
+  status: z.enum(['open', 'closed']).optional().default('open')
 });
 
 export const contactSchema = z.object({
@@ -99,9 +117,23 @@ export const contactSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }).optional()
 });
 
-export const formSchema = z.object({
-  ...jobSchema.shape,
-  ...companySchema.shape,
-  ...contactSchema.shape,
-  status: z.enum(['open', 'closed']).optional().default('open')
-});
+export const contactsSchema = z
+  .object({
+    contractKey: z.array(z.string()).refine((values) => values.some((item) => item), {
+      message: 'At least one contact is required'
+    }),
+    contractValue: contactSchema
+  })
+  .superRefine((data, ctx) => {
+    contacts.forEach((contact) => {
+      if (data.contractKey.includes(contact.id)) {
+        if (!data.contractValue[contact.id]) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `${contact.label} is required`,
+            path: ['contractValue', contact.id]
+          });
+        }
+      }
+    });
+  });

@@ -8,6 +8,7 @@ import { IDomEditor, IEditorConfig, IToolbarConfig, i18nChangeLanguage } from '@
 import { useLang } from '@/components/Provider/Lang';
 import { Lang } from '@/i18n/config';
 import webApi from '@/service';
+import { cn } from '@/helper/utils';
 
 const placeholder = {
   [Lang.EN]: 'Please enter content...',
@@ -20,6 +21,7 @@ interface TextEditorProps {
   defaultContent: any[];
   imageUploadPath?: string;
   simpleModel?: boolean;
+  className?: string;
 }
 
 export const TEXT_EDITOR_TYPE = 'text-editor';
@@ -42,7 +44,8 @@ const TextEditor: FC<TextEditorProps> = ({
   onCreated,
   defaultContent = [],
   imageUploadPath = '/text-editor/images',
-  simpleModel = false
+  simpleModel = false,
+  className
 }) => {
   const [editor, setEditor] = useState<IDomEditor | null>(null);
   const { lang } = useLang();
@@ -77,7 +80,7 @@ const TextEditor: FC<TextEditorProps> = ({
   }, [editor]);
 
   return (
-    <div style={{ border: '1px solid #ccc', zIndex: 100 }} className="reset-editor-style">
+    <div style={{ border: '1px solid #ccc', zIndex: 100 }} className={cn('reset-editor-style', className)}>
       <Toolbar editor={editor} defaultConfig={toolbarConfig} mode="simple" style={{ borderBottom: '1px solid #ccc' }} />
       <Editor
         defaultConfig={editorConfig}
