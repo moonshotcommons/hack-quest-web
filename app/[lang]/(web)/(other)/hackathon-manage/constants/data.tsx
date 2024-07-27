@@ -20,12 +20,12 @@ export const hackathonAuditNavData = [
     id: HackathonManageType.SUBMISSION,
     label: 'hackathonManage.submission',
     icon: <MdAppRegistration size={20} />
-  },
-  {
-    id: HackathonManageType.JUDGE,
-    label: 'hackathonManage.judging',
-    icon: <FaBalanceScale size={20} />
   }
+  // {
+  //   id: HackathonManageType.JUDGE,
+  //   label: 'hackathonManage.judging',
+  //   icon: <FaBalanceScale size={20} />
+  // }
   // {
   //   id: HackathonManageType.ANNOUNCEMENT,
   //   label: 'hackathonManage.announcement',
