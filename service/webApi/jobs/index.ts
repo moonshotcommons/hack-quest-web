@@ -12,11 +12,11 @@ class JobApi {
     this.service = service;
   }
 
-  getJobs(params: Record<string, any>) {
+  getJobs(params: Record<string, any> = {}) {
     return this.service.get<PageResult<Job>>(JobApiUrl.JOBS, { params });
   }
 
-  getFavoritedJobs(params: Record<string, any>) {
+  getFavoritedJobs(params: Record<string, any> = {}) {
     return this.service.get<PageResult<Job>>(`${JobApiUrl.JOBS}/favorites`, { params });
   }
 
@@ -24,8 +24,8 @@ class JobApi {
     return this.service.get<{ total: number; open: number }>(`${JobApiUrl.JOBS}/published/count`);
   }
 
-  getPublishedJobs() {
-    return this.service.get<PageResult<Job>>(`${JobApiUrl.JOBS}/published`);
+  getPublishedJobs(params: Record<string, any> = {}) {
+    return this.service.get<PageResult<Job>>(`${JobApiUrl.JOBS}/published`, { params });
   }
 
   getJob(id: string) {

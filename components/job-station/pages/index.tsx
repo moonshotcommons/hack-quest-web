@@ -1,12 +1,35 @@
+import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MegaphoneIcon, MoveRightIcon } from 'lucide-react';
+import { CircleHelpIcon, MoveRightIcon } from 'lucide-react';
 import { JobCard } from '../components/job-card';
 import { JobFilter } from '../components/job-filter';
 import { FavoriteJob } from '../components/favorite-job';
-import { getCachedJobs, getCachedPublishedJobCount } from '@/service/cach/jobs';
-import { generateQueryParams, type SearchParams } from '../utils';
+import { getCachedPublishedJobCount } from '@/service/cach/jobs';
+import { generateQueryParams, LIMIT_PER_PAGE, type SearchParams } from '../utils';
 import { SearchForm } from '../components/search-form';
+import { JobSkeleton } from '../components/job-skeleton';
+import { Pagination } from '../components/pagination';
+import { isAuthenticated } from '../utils/auth';
+import { Metadata } from 'next';
+import MenuLink from '@/constants/MenuLink';
+import { Category } from '../components/category';
+import { getCachedJobs } from '../utils/actions';
+
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const { lang } = params;
+  return {
+    title: 'HackQuest Job Station',
+    alternates: {
+      canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.JOB_STATION}`,
+      languages: {
+        'x-default': `https://www.hackquest.io/en${MenuLink.JOB_STATION}`,
+        en: `https://www.hackquest.io/en${MenuLink.JOB_STATION}`,
+        zh: `https://www.hackquest.io/zh${MenuLink.JOB_STATION}`
+      }
+    }
+  };
+}
 
 export default async function Page({ searchParams }: { searchParams?: SearchParams }) {
   const queryParams = generateQueryParams(searchParams);
@@ -20,19 +43,14 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
         <div className="flex flex-col space-y-5 px-5 sm:container sm:space-y-10 sm:px-0">
           <h1 className="font-next-book-bold font-bold sm:text-[40px]">Job Station</h1>
           <SearchForm />
-          <section className="hidden flex-wrap gap-4 sm:flex">
-            <button className="inline-flex items-center justify-center gap-3 rounded-2xl bg-yellow-extra-light px-3 py-2 font-bold sm:text-lg">
-              <MegaphoneIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-              <span>Marketing</span>
-            </button>
-          </section>
+          <Category />
         </div>
       </div>
       <main className="container mx-auto rounded-t-[32px] bg-neutral-off-white px-5 py-10">
         {total > 0 && (
           <div className="mb-10 grid w-full grid-cols-2 gap-10">
             <Link href="/jobs/hiring-portal">
-              <button className="flex w-full items-center rounded-2xl bg-neutral-light-gray p-6">
+              <button className="sm:card-hover flex w-full items-center rounded-2xl bg-neutral-light-gray p-6">
                 <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} />
                 <div className="ml-8 text-left">
                   <h3 className="font-next-book-bold text-[22px] font-bold">Hiring Portal</h3>
@@ -42,7 +60,7 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
               </button>
             </Link>
             <Link href="/jobs/publish">
-              <button className="flex w-full items-center rounded-2xl bg-neutral-light-gray p-6">
+              <button className="sm:card-hover flex w-full items-center rounded-2xl bg-neutral-light-gray p-6">
                 <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} />
                 <div className="ml-8 text-left">
                   <h3 className="font-next-book-bold text-[22px] font-bold">Post Web3 Job</h3>
@@ -54,11 +72,32 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
           </div>
         )}
         <section className="grid w-full sm:grid-cols-[320px_1fr] sm:gap-10">
-          <div className="hidden flex-col gap-8 sm:flex">
+          <div className="hidden h-full gap-8 sm:flex sm:flex-col">
             <JobFilter />
-            <FavoriteJob />
+            {isAuthenticated() && <FavoriteJob />}
+            {total <= 0 && isAuthenticated() && (
+              <Link href="/jobs/publish">
+                <button className="sm:card-hover inline-flex w-full items-center  justify-between rounded-2xl bg-neutral-light-gray p-4 font-next-book-bold text-lg font-bold outline-none">
+                  <span>Post a Web3 Job</span>
+                  <MoveRightIcon size={20} />
+                </button>
+              </Link>
+            )}
           </div>
-          <div className="flex flex-col space-y-6">{jobs.data?.map((job) => <JobCard key={job.id} job={job} />)}</div>
+          <div className="flex flex-col space-y-6">
+            <React.Suspense fallback={<JobSkeleton />}>
+              {jobs.total > 0 ? (
+                jobs.data?.map((job) => <JobCard key={job.id} job={job} />)
+              ) : (
+                <div className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl bg-neutral-white py-20">
+                  <CircleHelpIcon size={32} className="text-neutral-medium-gray" />
+                  <p className="text-neutral-medium-gray">No job found</p>
+                </div>
+              )}
+              {}
+            </React.Suspense>
+            {jobs.total > LIMIT_PER_PAGE && <Pagination total={jobs.total} />}
+          </div>
         </section>
       </main>
     </div>

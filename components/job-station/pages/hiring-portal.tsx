@@ -4,10 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Back } from '../components/back';
 import { Badge } from '@/components/ui/badge';
 import { ArrowIcon } from '@/components/ui/icons/arrow';
-import { getCachedPublishedJobs } from '@/service/cach/jobs';
+import { generateQueryParams, LIMIT_PER_PAGE, SearchParams } from '../utils';
+import { Pagination } from '../components/pagination';
+import { getCachedPublishedJobs } from '../utils/actions';
 
-export default async function Page() {
-  const publishedJobs = await getCachedPublishedJobs();
+export default async function Page({ searchParams }: { searchParams?: SearchParams }) {
+  const queryParams = generateQueryParams(searchParams);
+  const publishedJobs = await getCachedPublishedJobs(queryParams);
   return (
     <main
       className="flex h-full min-h-[calc(100vh-64px)] w-full flex-col bg-[var(--primary-color)] sm:bg-neutral-off-white"
@@ -23,7 +26,10 @@ export default async function Page() {
       <div className="mx-auto w-full max-w-5xl flex-1 space-y-6 rounded-t-[32px] bg-neutral-off-white px-5 py-10 sm:mt-6 sm:p-0 sm:pb-10">
         <div className="flex items-center justify-between">
           <Back />
-          <Button className="w-[165px] bg-[var(--primary-color)] hover:bg-[var(--primary-color)]" asChild>
+          <Button
+            className="w-[165px] bg-[var(--primary-color)] hover:bg-[var(--primary-color)] sm:hover:scale-105"
+            asChild
+          >
             <Link href="/jobs/publish">Post NEW Job</Link>
           </Button>
         </div>
@@ -41,7 +47,10 @@ export default async function Page() {
                   </div>
                 </div>
                 <div className="flex items-center justify-between gap-6 sm:ml-auto sm:justify-end">
-                  <Badge size="large" className="capitalize">
+                  <Badge
+                    size="large"
+                    className={`capitalize ${job.status === 'closed' && 'border-status-error text-status-error'}`}
+                  >
                     {job.status}
                   </Badge>
                   <ArrowIcon className="rotate-180" />
@@ -49,6 +58,7 @@ export default async function Page() {
               </div>
             </Link>
           ))}
+          {publishedJobs.total > LIMIT_PER_PAGE && <Pagination total={publishedJobs.total} />}
         </div>
       </div>
     </main>

@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <h3 className="text-lg text-neutral-rich-gray">{job.companyName}</h3>
         </div>
         <div className="flex items-center gap-4 sm:gap-8">
-          <span>{formatSalary(job)}</span>
+          {job?.minSalary || job?.maxSalary ? <span>{formatSalary(job)}</span> : null}
           <div className="flex items-center gap-2">
             <Clock4Icon className="h-5 w-5" />
             <span>{workTypes.find((w) => w.id === job.workType)?.label}</span>

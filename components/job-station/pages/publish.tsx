@@ -9,22 +9,28 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/user-profile/common/input';
+// eslint-disable-next-line prettier/prettier
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Steps } from '../components/steps';
+// eslint-disable-next-line prettier/prettier
 import { companySchema, contacts, contactsSchema, currencies, jobSchema, workModes, workTypes } from '../validations';
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
+// eslint-disable-next-line prettier/prettier
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
 import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useJobStore } from '../utils/store';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import Image from 'next/image';
 import { TagCombobox } from '../components/tag-combobox';
 import { Textarea } from '@/components/user-profile/common/textarea';
 import toast from 'react-hot-toast';
 import { Spinner } from '@/components/ui/spinner';
+import { useParams } from 'next/navigation';
+import omit from 'lodash-es/omit';
+import { revalidate } from '../utils/actions';
 
 function Step1() {
   const { values, onNext, setValues } = useJobStore();
@@ -34,14 +40,18 @@ function Step1() {
     resolver: zodResolver(companySchema),
     defaultValues: {
       companyName: '',
+      companyLogo: '',
       website: ''
     }
   });
 
+  const companyLogo = form.watch('companyLogo');
+
   const { mutate, isPending } = useMutation({
     mutationFn: (data: FormData) => webApi.commonApi.uploadImage(data),
     onSuccess: ({ filepath }) => {
-      setValues({ companyLogo: filepath });
+      form.setValue('companyLogo', filepath);
+      form.clearErrors('companyLogo');
       toast.success('Upload success');
     }
   });
@@ -61,6 +71,17 @@ function Step1() {
     setValues(data);
     onNext();
   }
+
+  React.useEffect(() => {
+    if (Object.keys(values || {}).length > 0) {
+      form.reset({
+        companyName: values.companyName,
+        companyLogo: values.companyLogo,
+        website: values.website
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values]);
 
   return (
     <Form {...form}>
@@ -82,9 +103,9 @@ function Step1() {
           <Label htmlFor="logo">Company Logo*</Label>
           {isPending ? (
             <Spinner size={24} />
-          ) : values.companyLogo ? (
+          ) : companyLogo ? (
             <div className="relative h-20 w-20 overflow-hidden rounded-full">
-              <Image src={values.companyLogo} alt="logo" fill />
+              <Image src={companyLogo} alt="logo" fill />
               <label className="absolute inset-0 h-full w-full cursor-pointer">
                 <input type="file" accept="image/*" className="hidden" onChange={onChange} />
               </label>
@@ -101,6 +122,11 @@ function Step1() {
               </Button>
               <p className="text-neutral-medium-gray">Support file type: jpeg, png, pdf no larger than 5mb</p>
             </div>
+          )}
+          {form.formState.errors.companyLogo && (
+            <p role="alert" className="text-status-error-dark">
+              {form.formState.errors.companyLogo?.message}
+            </p>
           )}
         </div>
         <FormField
@@ -126,7 +152,8 @@ function Step1() {
 }
 
 function Step2() {
-  const { values, onNext, setValues } = useJobStore();
+  const params = useParams();
+  const { values, onBack, onNext, setValues } = useJobStore();
 
   const [description, setDescription] = React.useState<{ type: string; content: object }>();
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -140,11 +167,13 @@ function Step2() {
     }
   });
 
+  const isOnSite = form.watch('workMode') === 'ONSITE';
+
+  const tags = form.watch('tags');
+
   function onValueChange(value: string) {
-    const tags = values.tags?.includes(value)
-      ? values.tags?.filter((item: string) => item !== value)
-      : [...(values.tags || []), value];
-    setValues({ tags });
+    const newTags = tags?.includes(value) ? tags?.filter((item: string) => item !== value) : [...(tags || []), value];
+    form.setValue('tags', newTags);
   }
 
   function onSubmit(data: z.infer<typeof jobSchema>) {
@@ -157,9 +186,53 @@ function Step2() {
     onNext();
   }
 
+  React.useEffect(() => {
+    if (Object.keys(values || {}).length > 0) {
+      form.reset({
+        ...values,
+        description: '',
+        minSalary: values?.minSalary?.toString(),
+        maxSalary: values?.maxSalary?.toString(),
+        location: values?.location || ''
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values]);
+
   return (
     <Form {...form}>
-      <form className="w-full flex-1 space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="w-full flex-1 space-y-6 pb-10" onSubmit={form.handleSubmit(onSubmit)}>
+        {params.id && (
+          <FormField
+            control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem className="shrink-0">
+                <FormControl>
+                  <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="open" />
+                      </FormControl>
+                      <FormLabel className="text-neutral-medium-gray peer-aria-checked:text-neutral-black">
+                        Open
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="closed" />
+                      </FormControl>
+                      <FormLabel className="text-neutral-medium-gray peer-aria-checked:text-neutral-black">
+                        Closed
+                      </FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
           name="name"
@@ -182,11 +255,7 @@ function Step2() {
               render={({ field }) => (
                 <FormItem className="shrink-0">
                   <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex items-center gap-9"
-                    >
+                    <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
                       {workModes.map((item) => (
                         <FormItem key={item.id} className="flex items-center space-x-3 space-y-0">
                           <FormControl>
@@ -203,18 +272,20 @@ function Step2() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormControl>
-                    <Input placeholder="e.g. New York" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {isOnSite && (
+              <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <Input placeholder="e.g. New York" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
         </div>
         <FormField
@@ -224,11 +295,7 @@ function Step2() {
             <FormItem>
               <FormLabel>Job Type</FormLabel>
               <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex items-center gap-9"
-                >
+                <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
                   {workTypes.map((item) => (
                     <FormItem key={item.id} className="flex items-center space-x-3 space-y-0">
                       <FormControl>
@@ -286,7 +353,7 @@ function Step2() {
                 name="currency"
                 render={({ field }) => (
                   <FormItem className="w-full sm:w-64 sm:shrink-0">
-                    <Select onValueChange={field.onChange} value={field.value}>
+                    <Select value={field.value} defaultValue={values?.currency} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Please select" />
@@ -309,7 +376,7 @@ function Step2() {
         </div>
         <div className="flex flex-col space-y-1.5">
           <Label className="text-base">Tags</Label>
-          <TagCombobox value={values?.tags || []} onValueChange={onValueChange} />
+          <TagCombobox value={tags || []} onValueChange={onValueChange} />
         </div>
         <FormField
           control={form.control}
@@ -327,13 +394,13 @@ function Step2() {
                 className="overflow-hidden rounded-[8px]"
                 onCreated={(editor) => {
                   const text = editor.getText().replace(/\n|\r/gm, '');
+                  form.setValue('description', text);
                   setDescription({
                     type: TEXT_EDITOR_TYPE,
                     content: editor.children
                   });
-                  form.setValue('description', text);
                 }}
-                defaultContent={transformTextToEditorValue('')}
+                defaultContent={transformTextToEditorValue(values?.description)}
                 onChange={(editor) => {
                   const text = editor.getText().replace(/\n|\r/gm, '');
                   form.setValue('description', text);
@@ -349,6 +416,9 @@ function Step2() {
         />
         <input type="submit" ref={submitRef} className="hidden" />
         <div className="flex items-center justify-end gap-4">
+          <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-[270px]">
+            Back
+          </Button>
           <Button type="submit" className="w-full sm:w-[270px]" onClick={() => submitRef.current?.click()}>
             Continue
           </Button>
@@ -360,7 +430,9 @@ function Step2() {
 
 function Step3() {
   const router = useRouter();
-  const { values } = useJobStore();
+  const params = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
+  const { values, reset, onBack } = useJobStore();
   const [pending, startTransition] = React.useTransition();
 
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -375,13 +447,32 @@ function Step3() {
 
   const contractKey = form.watch('contractKey');
 
+  const { mutate: update, isPending: updatePending } = useMutation({
+    mutationKey: ['update', params.id],
+    mutationFn: (values: any) => webApi.jobApi.updateJob(params.id, values),
+    onSuccess: async () => {
+      await revalidate();
+      await queryClient.invalidateQueries({ queryKey: ['job', params.id] });
+      toast.success('Job updated');
+      startTransition(() => {
+        router.back();
+        setTimeout(() => {
+          reset();
+        }, 1000);
+      });
+    }
+  });
+
   const { mutate, isPending } = useMutation({
     mutationFn: (values: any) => webApi.jobApi.publishJob(values),
-    onSuccess: () => {
-      router.refresh();
+    onSuccess: async () => {
+      await revalidate();
       toast.success('Job published');
       startTransition(() => {
-        router.push('/jobs');
+        router.back();
+        setTimeout(() => {
+          reset();
+        }, 1000);
       });
     }
   });
@@ -392,8 +483,23 @@ function Step3() {
       contact: data.contractValue
     };
 
-    mutate(formatedValues);
+    if (params.id) {
+      update(omit(formatedValues, 'favorited'));
+    } else {
+      mutate(formatedValues);
+    }
   }
+
+  React.useEffect(() => {
+    if (values?.contact) {
+      const contractKey = Object.keys(values.contact);
+      form.reset({
+        contractKey,
+        contractValue: values.contact
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values?.contact]);
 
   return (
     <Form {...form}>
@@ -452,14 +558,19 @@ function Step3() {
         />
         <input ref={submitRef} type="submit" className="hidden" />
       </form>
-      <Button
-        type="submit"
-        isLoading={isPending || pending}
-        className="w-full sm:w-[270px] sm:self-end"
-        onClick={() => submitRef.current?.click()}
-      >
-        Continue
-      </Button>
+      <div className="flex w-full items-center justify-end gap-4">
+        <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-[270px]">
+          Back
+        </Button>
+        <Button
+          type="submit"
+          isLoading={isPending || updatePending || pending}
+          className="w-full sm:w-[270px]"
+          onClick={() => submitRef.current?.click()}
+        >
+          Submit
+        </Button>
+      </div>
     </Form>
   );
 }
@@ -467,20 +578,45 @@ function Step3() {
 const steps = [Step1, Step2, Step3];
 
 export default function Page() {
-  const { step } = useJobStore();
+  const { step, reset, setValues } = useJobStore();
+  const params = useParams();
   const router = useRouter();
 
   const Component = steps[step] || null;
 
+  const { isPending, data } = useQuery({
+    enabled: !!params.id,
+    queryKey: ['job', params.id],
+    staleTime: Infinity,
+    queryFn: () => webApi.jobApi.getJob(params.id as string)
+  });
+
+  React.useEffect(() => {
+    if (data && params.id) {
+      setValues(data);
+    }
+  }, [data, params.id, setValues]);
+
+  function onBack() {
+    router.back();
+    if (params.id) {
+      setTimeout(() => {
+        reset();
+      }, 1000);
+    }
+  }
+
   return (
     <main className="relative h-full w-full justify-between overflow-y-auto bg-neutral-white sm:py-12">
-      <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={() => router.back()}>
+      <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={onBack}>
         <XIcon size={28} />
       </button>
       <div className="flex h-full w-full flex-col items-center px-5 py-6 sm:mx-auto sm:max-w-5xl sm:p-0">
         <Steps currentStep={step + 1} />
-        <h1 className="my-8 font-next-book-bold text-[22px] font-bold sm:text-[28px]">Post a Web3 Position</h1>
-        <Component />
+        <h1 className="my-8 font-next-book-bold text-[22px] font-bold sm:text-[28px]">
+          {params.id ? 'Edit Job Post' : 'Post a Web3 Position'}
+        </h1>
+        {isPending && params.id ? <Spinner size={40} /> : <Component />}
       </div>
     </main>
   );

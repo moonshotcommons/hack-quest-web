@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { cn } from '@/helper/utils';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
+import { useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function FavoriteButton({
   jobId,
@@ -17,6 +19,13 @@ export function FavoriteButton({
   className?: string;
 }) {
   const router = useRouter();
+
+  const { userInfo, setAuthModalOpen } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      setAuthModalOpen: state.setAuthModalOpen
+    }))
+  );
 
   const favoriteMutation = useMutation({
     mutationKey: ['favorite', jobId],
@@ -39,6 +48,12 @@ export function FavoriteButton({
   function onClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
+
+    if (!userInfo?.id) {
+      toast.error('Please login first');
+      setAuthModalOpen(true);
+      return;
+    }
 
     if (favorited) {
       unfavoriteMutation.mutate();

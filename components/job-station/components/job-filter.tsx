@@ -1,11 +1,13 @@
 'use client';
 
 import * as React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CheckboxTag, CheckboxTagItem } from './checkbox-tag';
 import { workModes as WORK_MODES, workTypes as WORK_TYPES } from '../validations';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createUrl } from '@/helper/utils';
+import webApi from '@/service';
 
 function JobType() {
   const router = useRouter();
@@ -95,13 +97,29 @@ function JobKeyword() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const currentParams = new URLSearchParams(searchParams.toString());
+  const tags = currentParams.getAll('tags');
+
+  const { data } = useQuery({
+    queryKey: ['tags'],
+    staleTime: Infinity,
+    queryFn: () => webApi.jobApi.getJobTags()
+  });
+
+  function onValueChange(value: string[]) {
+    currentParams.delete('tags');
+    value?.forEach((value) => currentParams.append('tags', value));
+    const url = createUrl(pathname, currentParams);
+    router.replace(url);
+  }
+
   return (
-    <CheckboxTag>
-      <CheckboxTagItem value="Smart Contract">Smart Contract</CheckboxTagItem>
-      <CheckboxTagItem value="Rust">Rust</CheckboxTagItem>
-      <CheckboxTagItem value="Solidity">Solidity</CheckboxTagItem>
-      <CheckboxTagItem value="NFT">NFT</CheckboxTagItem>
-      <CheckboxTagItem value="Solana">Solana</CheckboxTagItem>
+    <CheckboxTag value={tags} onValueChange={onValueChange}>
+      {data?.map((item) => (
+        <CheckboxTagItem value={item} key={item}>
+          {item}
+        </CheckboxTagItem>
+      ))}
     </CheckboxTag>
   );
 }
@@ -113,7 +131,7 @@ export function JobFilter() {
       <JobType />
       <h2 className="mb-4 mt-12 font-next-book-bold text-lg font-bold">Job Location</h2>
       <JobLocation />
-      <h2 className="mb-4 mt-12 font-next-book-bold text-lg font-bold">Keyword</h2>
+      <h2 className="mb-4 mt-12 font-next-book-bold text-lg font-bold">Keywords</h2>
       <JobKeyword />
     </div>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -21,7 +23,17 @@ export function JobCard({ job }: { job: Job }) {
           </div>
           <div className="flex flex-col">
             <h3 className="text-lg font-bold">{job.name}</h3>
-            <p className="text-base text-neutral-rich-gray">{job.companyName}</p>
+            <span
+              className="self-start text-base text-neutral-rich-gray hover:underline"
+              data-prevent-nprogress={true}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(job.website, '_blank');
+              }}
+            >
+              {job.companyName}
+            </span>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -33,7 +45,7 @@ export function JobCard({ job }: { job: Job }) {
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center">
           <div className="flex items-center gap-4 sm:gap-8">
-            <span>{formatSalary(job)}</span>
+            {job.minSalary || job.maxSalary ? <span>{formatSalary(job)}</span> : null}
             <div className="flex items-center gap-2">
               <Clock4Icon className="h-5 w-5" />
               <span>{workTypes.find((type) => type.id === job.workType)?.label}</span>

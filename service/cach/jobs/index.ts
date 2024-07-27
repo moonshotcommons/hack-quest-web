@@ -17,6 +17,6 @@ export const getCachedPublishedJobCount = cache(async () => {
   return await webApi.jobApi.getPublishedJobCount();
 });
 
-export const getCachedPublishedJobs = cache(async () => {
-  return await webApi.jobApi.getPublishedJobs();
+export const getCachedPublishedJobs = cache(async (params: Record<string, any>) => {
+  return await webApi.jobApi.getPublishedJobs(params);
 });

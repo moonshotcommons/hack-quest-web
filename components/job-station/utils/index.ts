@@ -48,7 +48,8 @@ function formatWithSuffix(num: number, divisor: number, suffix: string): string 
   return result % 1 === 0 ? `${result}${suffix}` : `${result.toFixed(1)}${suffix}`;
 }
 
-export function formatNumber(num: number): string {
+export function formatNumber(num?: number): string {
+  if (!num) return '';
   if (num >= 1_000_000_000) {
     return formatWithSuffix(num, 1_000_000_000, 'B');
   } else if (num >= 1_000_000) {
@@ -61,7 +62,7 @@ export function formatNumber(num: number): string {
 }
 
 export function formatSalary(job: Job) {
-  const min = formatNumber(job.minSalary)?.replace(/[KMB]$/, '');
-  const max = formatNumber(job.maxSalary);
-  return `${min} - ${max} ${job.currency}`;
+  const min = formatNumber(job?.minSalary)?.replace(/[KMB]$/, '');
+  const max = formatNumber(job?.maxSalary);
+  return `${min} - ${max} ${job?.currency ?? ''}`;
 }

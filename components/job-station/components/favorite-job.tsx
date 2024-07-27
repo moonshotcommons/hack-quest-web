@@ -25,7 +25,7 @@ export async function FavoriteJob() {
         </div>
       ))}
       {favoriteJobs.total > 3 && (
-        <Link href="/jobs/bookmark">
+        <Link href="/jobs/favorites">
           <button className="inline-flex items-center gap-1.5 outline-none">
             <span className="text-sm">View all</span>
             <MoveRightIcon size={16} />

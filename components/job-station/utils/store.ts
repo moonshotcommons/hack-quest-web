@@ -11,9 +11,7 @@ type Store = {
 
 export const useJobStore = create<Store>((set) => ({
   step: 0,
-  values: {
-    // companyLogo: 'https://assets.dev.hackquest.io/jobs/xHbrr063HYZ-5LEE86NfR.png'
-  },
+  values: {},
   onNext: () => set((state) => ({ step: state.step + 1 })),
   onBack: () => set((state) => ({ step: state.step - 1 })),
   setValues: (values) => set((state) => ({ values: { ...state.values, ...values } })),

@@ -1,3 +1,4 @@
+import { BoxesIcon, MegaphoneIcon, TerminalIcon, WrenchIcon } from 'lucide-react';
 import * as z from 'zod';
 
 export const workModes = [
@@ -84,12 +85,46 @@ export const contacts = [
   }
 ] as const;
 
+export const categories = [
+  {
+    id: 'marketing',
+    label: 'Marketing',
+    icon: MegaphoneIcon
+  },
+  {
+    id: 'operation',
+    label: 'Operation',
+    icon: WrenchIcon
+  },
+  {
+    id: 'frontend',
+    label: 'Front-End',
+    icon: TerminalIcon
+  },
+  {
+    id: 'backend',
+    label: 'Back-End',
+    icon: TerminalIcon
+  },
+  {
+    id: 'fullstack',
+    label: 'Full-Stack',
+    icon: TerminalIcon
+  },
+  {
+    id: 'blockchain',
+    label: 'Blockchain Development',
+    icon: BoxesIcon
+  }
+] as const;
+
 export const companySchema = z.object({
   companyName: z
     .string({
       required_error: 'Company name is required'
     })
     .min(1, { message: 'Company name is required' }),
+  companyLogo: z.string().min(1, { message: 'Company logo is required' }),
   website: z
     .string({
       required_error: 'Website is required'
@@ -97,18 +132,30 @@ export const companySchema = z.object({
     .url({ message: 'Please enter a valid URL' })
 });
 
-export const jobSchema = z.object({
-  name: z.string().min(1, { message: 'Job title is required' }),
-  workMode: z.enum(['REMOTE', 'ONSITE']).optional().default('REMOTE'),
-  location: z.string().optional(),
-  workType: z.enum(['FULL_TIME', 'PART_TIME', 'INTERNSHIP']).optional().default('FULL_TIME'),
-  minSalary: z.string().optional(),
-  maxSalary: z.string().optional(),
-  currency: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  description: z.string().optional(),
-  status: z.enum(['open', 'closed']).optional().default('open')
-});
+export const jobSchema = z
+  .object({
+    name: z.string().min(1, { message: 'Job title is required' }),
+    workMode: z.enum(['REMOTE', 'ONSITE']).optional().default('REMOTE'),
+    location: z.string().optional(),
+    workType: z.enum(['FULL_TIME', 'PART_TIME', 'INTERNSHIP']).optional().default('FULL_TIME'),
+    minSalary: z.string().optional(),
+    maxSalary: z.string().optional(),
+    currency: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    description: z.string().min(1, { message: 'Job description is required' }),
+    status: z.enum(['open', 'closed']).optional().default('open')
+  })
+  .superRefine((data, ctx) => {
+    if (data.workMode === 'ONSITE') {
+      if (!data.location) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'location is required for on-site mode',
+          path: ['location']
+        });
+      }
+    }
+  });
 
 export const contactSchema = z.object({
   link: z.string().url({ message: 'Please enter a valid URL' }).optional(),

@@ -40,7 +40,7 @@ function generateQueryParams(query?: SearchParams, limit = LIMIT_PER_PAGE) {
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = params;
   return {
-    title: 'Hack Quest - Idea Bank',
+    title: 'HackQuest Idea Bank',
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.IDEA_BANK}`,
       languages: {

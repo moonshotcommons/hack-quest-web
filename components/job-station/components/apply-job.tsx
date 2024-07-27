@@ -15,19 +15,12 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
 
   const telegram = React.useMemo(() => {
     if (contact?.telegram) {
-      let username: string;
-      const pattern = /^https?:\/\/t\.me\/([^\/\s]+)\/?$/;
-      const match = contact.telegram.match(pattern);
-      if (match) {
-        username = match[1];
+      const telegram = contact?.telegram;
+      if (/^https?:\/\//.test(telegram)) {
+        return telegram;
       } else {
-        username = contact.telegram;
+        return `https://t.me/${telegram}`;
       }
-      const link = `https://t.me/${username}`;
-      return {
-        link,
-        username
-      };
     }
   }, [contact]);
 
@@ -122,12 +115,12 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
                 <span className="font-bold text-neutral-off-black">Telegram</span>
               </div>
               <Link
-                href={telegram?.link || '#'}
+                href={telegram || '#'}
                 target="_blank"
-                onClick={(e) => onClick(e, telegram?.link)}
+                onClick={(e) => onClick(e, telegram)}
                 className="truncate text-neutral-black underline underline-offset-2"
               >
-                {telegram?.username}
+                {contact.telegram}
               </Link>
             </div>
           )}
