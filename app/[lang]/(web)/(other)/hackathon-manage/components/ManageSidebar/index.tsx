@@ -13,10 +13,11 @@ import { useShallow } from 'zustand/react/shallow';
 import webApi from '@/service';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { HackathonManageType } from '../../constants/type';
 
-interface AuditsSidebarProp {}
+interface ManageSidebarProp {}
 
-const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
+const ManageSidebar: React.FC<ManageSidebarProp> = () => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { alias, manageNavId } = useParams();
@@ -61,6 +62,9 @@ const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
           >
             {nav.icon}
             <span>{t(nav.label)}</span>
+            {nav.id === HackathonManageType.JUDGE && (
+              <div className="caption-12pt rounded-[4px] bg-yellow-primary px-[8px] py-[6px] uppercase text-neutral-off-black">{`ACTION REQUIRED`}</div>
+            )}
           </div>
         </Link>
       ))}
@@ -68,4 +72,4 @@ const AuditsSidebar: React.FC<AuditsSidebarProp> = () => {
   );
 };
 
-export default AuditsSidebar;
+export default ManageSidebar;
