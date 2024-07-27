@@ -1,11 +1,8 @@
 import React from 'react';
-import { FiDownload } from 'react-icons/fi';
 import { IoMdTime } from 'react-icons/io';
 import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
 import { MdOutlineRefresh } from 'react-icons/md';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
-import { useShallow } from 'zustand/react/shallow';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
 
 interface OperationProp {
@@ -17,11 +14,14 @@ interface OperationProp {
 }
 
 const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown, tabStatus, isHandle }) => {
-  const { hackathon } = useHackathonAuditStore(
-    useShallow((state) => ({
-      hackathon: state.hackathon
-    }))
-  );
+  const onHandleStatus = (status: ApplicationStatus) => {
+    if (!checkIds.length) return;
+    handleStatus(status);
+  };
+  const onHandleDwon = () => {
+    if (!checkIds.length) return;
+    handleDown();
+  };
   return (
     <div
       className={`body-m flex h-[44px] items-center justify-between rounded-t-[8px]  px-[20px]  ${checkIds.length ? 'bg-yellow-primary text-neutral-off-black' : 'bg-neutral-light-gray text-neutral-medium-gray'}`}
@@ -30,23 +30,23 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
       <div
         className={`flex gap-[24px] [&>div]:flex  [&>div]:items-center [&>div]:gap-[6px] ${checkIds.length ? '[&>div]:cursor-pointer ' : '[&>div]:cursor-not-allowed'}`}
       >
-        <div onClick={handleDown}>
+        {/* <div onClick={onHandleDwon}>
           <FiDownload />
           Download Application
-        </div>
+        </div> */}
         {isHandle && (
           <>
             {tabStatus === ApplicationStatus.REVIEW && (
               <>
-                <div onClick={() => handleStatus(ApplicationStatus.APPROVED)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.APPROVED)}>
                   <IoCheckmarkCircleOutline />
                   Approve
                 </div>
-                <div onClick={() => handleStatus(ApplicationStatus.DECLINE)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.DECLINE)}>
                   <VscError />
                   Decline
                 </div>
-                <div onClick={() => handleStatus(ApplicationStatus.WAIT)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.WAIT)}>
                   <IoMdTime />
                   Waitlist
                 </div>
@@ -55,7 +55,7 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
 
             {tabStatus === ApplicationStatus.APPROVED && (
               <>
-                <div onClick={() => handleStatus(ApplicationStatus.REVIEW)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.REVIEW)}>
                   <MdOutlineRefresh />
                   Undo Approve
                 </div>
@@ -64,7 +64,7 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
 
             {tabStatus === ApplicationStatus.DECLINE && (
               <>
-                <div onClick={() => handleStatus(ApplicationStatus.REVIEW)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.REVIEW)}>
                   <MdOutlineRefresh />
                   Undo Deciline
                 </div>
@@ -72,15 +72,15 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
             )}
             {tabStatus === ApplicationStatus.WAIT && (
               <>
-                <div onClick={() => handleStatus(ApplicationStatus.APPROVED)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.APPROVED)}>
                   <IoCheckmarkCircleOutline />
                   Approve
                 </div>
-                <div onClick={() => handleStatus(ApplicationStatus.DECLINE)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.DECLINE)}>
                   <VscError />
                   Decline
                 </div>
-                <div onClick={() => handleStatus(ApplicationStatus.REVIEW)}>
+                <div onClick={() => onHandleStatus(ApplicationStatus.REVIEW)}>
                   <MdOutlineRefresh />
                   Undo Waitlist
                 </div>

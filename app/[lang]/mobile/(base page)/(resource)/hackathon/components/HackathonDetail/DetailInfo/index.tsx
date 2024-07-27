@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import EditBox from '../EditBox';
 import { ApplicationStatus, HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
 import { TransNs } from '@/i18n/config';
@@ -73,9 +73,16 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         setLoading(false);
       });
   };
+  const needConfirm = useMemo(() => {
+    return (
+      hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
+      !hackathon.participation?.isRegister &&
+      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+    );
+  }, [hackathon]);
 
   const renderButton = () => {
-    if (hackathon.status !== HackathonStatus.PUBLISH) {
+    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
     if (stepIndex < 1) {
@@ -217,7 +224,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         )}
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</p>
-          <p>{hackathon.info?.host}</p>
+          <p>{hackathon.info?.allowSubmission === false ? 'OFFLINE' : hackathon.info?.mode}</p>
         </div>
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hackathonMode')}</p>
@@ -281,17 +288,15 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
               )}
             </>
           )}
-          {hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
-            !hackathon.participation?.isRegister &&
-            dayjs().tz().isBefore(hackathon.timeline?.registrationClose) && (
-              <Button
-                className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-                onClick={handleConfirmAttendance}
-                loading={loading}
-              >
-                {t('hackathonDetail.confirmAttendance')}
-              </Button>
-            )}
+          {needConfirm && (
+            <Button
+              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+              onClick={handleConfirmAttendance}
+              loading={loading}
+            >
+              {t('hackathonDetail.confirmAttendance')}
+            </Button>
+          )}
         </div>
         <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
       </div>

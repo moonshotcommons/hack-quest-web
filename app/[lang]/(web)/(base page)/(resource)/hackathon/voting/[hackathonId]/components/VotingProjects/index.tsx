@@ -4,7 +4,6 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
-import Filter, { FilterRef, SearchType } from './Filter';
 import VoteCards from './VoteCards';
 import { HackathonVoteContext } from '../../../../constants/type';
 import webApi from '@/service';
@@ -12,6 +11,9 @@ import { cloneDeep } from 'lodash-es';
 import SearchTxt from './SearchTxt';
 import Loading from '@/components/Common/Loading';
 import Title from '../../../../components/HackathonDetail/Title';
+import Tips from './Tips';
+import Filter, { FilterRef, SearchType } from './Filter';
+import TickIconTips from './TickIconTips';
 
 interface VotingProjectsProp {
   hackathon: HackathonType;
@@ -20,16 +22,8 @@ interface VotingProjectsProp {
 const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const {
-    setInitProjects,
-    setRemainingVotes,
-    voteData,
-    setVoteData,
-    setIsFixedVote,
-    isFixedVote,
-    setTotalLeftVotes,
-    totalLeftVotes
-  } = useContext(HackathonVoteContext);
+  const { setRemainingVotes, voteData, setVoteData, setTotalLeftVotes, totalLeftVotes, setJudgeInfo, judgeInfo } =
+    useContext(HackathonVoteContext);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isInit, setIsInit] = useState(true);
   const [searchParam, setSearchParam] = useState<SearchType>();
@@ -49,13 +43,11 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
       params: {}
     });
     if (isInit) {
-      setInitProjects(res?.projects || []);
-      // setIsFixedVote('totalLeftVotes' in res);
-      setIsFixedVote(true);
+      setJudgeInfo(res);
+      const totalLeftVotes = res?.remainingVotes || 0;
+      setTotalLeftVotes(totalLeftVotes);
+      setRemainingVotes(totalLeftVotes);
     }
-    const totalLeftVotes = res?.totalLeftVotes || 300;
-    setTotalLeftVotes(totalLeftVotes);
-    setRemainingVotes(totalLeftVotes);
     setLoading(false);
     setIsInit(false);
     setProjects(res?.projects || []);
@@ -74,16 +66,18 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
     return arr.sort(() => Math.random() - 0.5);
   };
   useEffect(() => {
-    if (isFixedVote && !isInit) {
+    if (judgeInfo?.judge?.voteMode === 'fixed' && !isInit) {
       const voteds = voteData.reduce((pre, cur) => pre + cur.vote, 0);
       setRemainingVotes(totalLeftVotes - voteds);
     }
-  }, [hackathon, isInit, voteData]);
+  }, [judgeInfo, isInit, voteData]);
 
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('hackathonVoting.votingProjects')} />
+      <Tips />
       <Filter hackathon={hackathon} ref={filterRef} handleSearch={handleSearch} handleRandom={handleRandom} />
+      <TickIconTips />
       <Loading loading={loading}>
         <SearchTxt projects={projects} keyword={searchParam?.keyword || ''} handleReset={handleReset} />
         <VoteCards projects={projects} />

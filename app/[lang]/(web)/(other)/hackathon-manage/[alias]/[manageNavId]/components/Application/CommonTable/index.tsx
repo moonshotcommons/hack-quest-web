@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { InformationType } from '../../../../../constants/type';
+import { SelectType } from '../../../../../constants/type';
 import { applicationTabData } from '../../../../../constants/data';
 import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 import { cloneDeep } from 'lodash-es';
@@ -12,20 +12,20 @@ import { ApplicationStatus, HackathonManageApplicationType } from '@/service/web
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from '@/components/Common/Dayjs';
 
 interface CommonTableProp {
   list: HackathonManageApplicationType[];
-  information: InformationType[];
+  information: SelectType[];
   refresh: VoidFunction;
   status: ApplicationStatus;
   loading: boolean;
 }
 
 const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, refresh, status: tabStatus }) => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))
@@ -49,9 +49,12 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     !checkAll ? setCheckItems(list) : setCheckItems([]);
   };
 
-  const handleDown = () => {};
+  const handleDown = () => {
+    if (!checkItems.length) return;
+  };
 
   const handleStatus = (sta: ApplicationStatus) => {
+    if (!checkItems.length) return;
     setStatus(sta);
     setConfirmTxt(
       `Do you want to ${applicationTabData?.find((v) => v.value === sta)?.label?.toLocaleLowerCase()} selected applications?`
@@ -137,6 +140,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     setCheckItems([]);
     setTeamIds([]);
     setCurId('');
+    setCurInfo(null);
   }, [list]);
 
   const isHandle = useMemo(() => {
@@ -179,14 +183,19 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         open={!!curInfo?.id && !!curId}
         curInfo={curInfo}
         renderItem={() =>
-          tableList?.map((info) => (
-            <InfoContent
-              key={info.id}
-              info={info}
-              onClose={() => setCurInfo(null)}
-              handleStautusSingle={handleStautusSingle}
-            />
-          ))
+          tableList
+            ?.filter((v) => !v.pId)
+            ?.map((info) => (
+              <InfoContent
+                key={info.id}
+                info={info}
+                onClose={() => {
+                  setCurInfo(null);
+                  setCurId('');
+                }}
+                handleStautusSingle={handleStautusSingle}
+              />
+            ))
         }
       />
     </div>

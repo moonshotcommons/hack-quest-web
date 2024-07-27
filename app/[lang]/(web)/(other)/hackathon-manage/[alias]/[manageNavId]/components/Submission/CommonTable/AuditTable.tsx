@@ -1,15 +1,15 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
-import { InformationType } from '../../../../../constants/type';
-import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from 'react-icons/io';
+import { SelectType } from '../../../../../constants/type';
 import dayjs from 'dayjs';
 import { Spinner } from '@/components/ui/spinner';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface AuditTableProp {
   handleCheckAll: VoidFunction;
   checkAll: boolean;
-  information: InformationType[];
+  information: SelectType[];
   tableList: any;
   checkIds: string[];
   changeTeamIds: (id: string) => void;
@@ -31,36 +31,33 @@ const AuditTable: React.FC<AuditTableProp> = ({
   showInfo,
   loading
 }) => {
-  const renderTd = (key: string, item: any) => {
+  const renderText = (key: string, item: any) => {
     switch (key) {
-      case 'ptName':
-        return (
-          <div className="flex cursor-pointer items-center gap-[8px]" onClick={() => showInfo(item)}>
-            111 {item[key]}
-          </div>
-        );
-      case 'name':
-        return (
-          <div className={`flex items-center gap-[8px] ${!item.team?.length && 'pl-[32px]'}`}>
-            {item.team?.length > 0 && (
-              <span
-                className="flex-shrink-0 cursor-pointer text-neutral-medium-gray"
-                onClick={() => changeTeamIds(item.id)}
-              >
-                {teamIds.includes(item.id) ? (
-                  <IoIosRemoveCircleOutline size={24} />
-                ) : (
-                  <IoIosAddCircleOutline size={24} />
-                )}
-              </span>
-            )}
-            <span className="flex-1 truncate">{item[key]}</span>
-          </div>
-        );
       case 'createdAt':
         return dayjs(item[key]).format('MMM D,YYYY');
+      case 'tracks':
+        return item[key].join(',');
+      case 'winner':
+        return item[key] ? 'YES' : 'NO';
       default:
         return item[key];
+    }
+  };
+  const renderTd = (key: string, item: any) => {
+    switch (key) {
+      case 'name':
+        return (
+          <div className={`flex cursor-pointer items-center gap-[8px]`} onClick={() => showInfo(item)}>
+            <BaseImage
+              src={item.logo}
+              alt={item[key]}
+              className="h-[32px] w-[32px] rounded-[4px] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
+            />
+            <span className="flex-1 truncate">{renderText(key, item)}</span>
+          </div>
+        );
+      default:
+        return renderText(key, item);
     }
   };
   return (
@@ -82,7 +79,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                 </TableHead>
                 {information.map((v) => (
                   <TableHead key={v.value} className="min-w-[180px]">
-                    <div className={`${v.value === 'name' && 'pl-[32px]'}`}>{v.label}</div>
+                    <div className={`${v.value === 'name' && 'pl-[37px]'}`}>{v.label}</div>
                   </TableHead>
                 ))}
               </TableRow>
@@ -107,11 +104,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                         {!item.pId && <Checkbox checked={checkIds.includes(item.id)} />}
                       </TableCell>
                       {information.map((v) => (
-                        <TableCell
-                          key={v.value}
-                          className="min-w-[180px] truncate"
-                          title={v.value === 'createdAt' ? dayjs(item[v.value]).format('MMM D,YYYY') : item[v.value]}
-                        >
+                        <TableCell key={v.value} className="min-w-[180px] truncate" title={renderText(v.value, item)}>
                           {renderTd(v.value, item)}
                         </TableCell>
                       ))}

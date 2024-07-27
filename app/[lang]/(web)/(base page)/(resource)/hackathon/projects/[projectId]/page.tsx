@@ -1,6 +1,11 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import { getHackathonProjectById, getOtherProjects } from '@/service/cach/resource/hackathon';
+import {
+  getHackathonById,
+  getHackathonProjectById,
+  getOtherProjects,
+  getProjectVoteById
+} from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
 import { permanentRedirect } from 'next/navigation';
 import MenuLink from '@/constants/MenuLink';
@@ -20,11 +25,11 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 
   const { lang } = params;
 
-  const hackathon = await getHackathonProjectById(params.projectId);
+  const project = await getHackathonProjectById(params.projectId);
 
   return {
-    title: hackathon.name,
-    description: hackathon.detail.oneLineIntro,
+    title: project.name,
+    description: project.detail?.oneLineIntro,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}/edit${query}`,
       languages: {
@@ -39,13 +44,19 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
   const { projectId } = params;
 
-  const [project] = await Promise.all([getHackathonProjectById(projectId)]);
+  const project = await getHackathonProjectById(projectId);
   if (isUuid(projectId)) {
     permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
   }
-  const otherProjects = await getOtherProjects(project.hackathonName, projectId);
+  const [otherProjects, hackathon, projectVote] = await Promise.all([
+    getOtherProjects(project.hackathonName, projectId),
+    getHackathonById(project.hackathonId),
+    getProjectVoteById(projectId)
+  ]);
 
-  return <ProjectDetail project={project} projectList={otherProjects} />;
+  return (
+    <ProjectDetail project={project} otherProjects={otherProjects} hackathon={hackathon} projectVote={projectVote} />
+  );
 };
 
 export default ProjectDetailPage;

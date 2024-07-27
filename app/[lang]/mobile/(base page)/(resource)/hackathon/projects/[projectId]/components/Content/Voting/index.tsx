@@ -1,7 +1,6 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonType, ProjectRankType, ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useMemo } from 'react';
 
 import Title from '../../Title';
@@ -10,28 +9,21 @@ import YourVotes from './YourVotes';
 import YourVoteRole from './YourVoteRole';
 import YourTotalVotes from './YourTotalVotes';
 import VoteMsg from './VoteMsg';
-import { useUserStore } from '@/store/zustand/userStore';
-import { useShallow } from 'zustand/react/shallow';
 import dayjs from '@/components/Common/Dayjs';
+import { ProjectDetailContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import Rewards from './Rewards';
+import JudgeInfo from './JudgeInfo';
 
-interface VotingProp {
-  project: ProjectType;
-  rankInfo: ProjectRankType;
-  hackathon: HackathonType;
-}
+interface VotingProp {}
 
-const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
-  const { userInfo } = useUserStore(
-    useShallow((state) => ({
-      userInfo: state.userInfo
-    }))
-  );
+const Voting: React.FC<VotingProp> = ({}) => {
+  const { project, hackathon, projectVote, titleTxtData } = useContext(ProjectDetailContext);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const isEnd = useMemo(() => {
     return dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
   }, [hackathon]);
-  if (!hackathon) return null;
+  if (!titleTxtData.includes('projectsDetail.title.voting')) return null;
   return (
     <div className="flex flex-col gap-[1.5rem]">
       <Title
@@ -39,21 +31,22 @@ const Voting: React.FC<VotingProp> = ({ project, rankInfo, hackathon }) => {
           name: project.name
         })} `}
       />
-      {!hackathon?.participation?.isRegister && !isEnd && userInfo ? (
-        <div className="flex w-full flex-col gap-[1.5rem]">
-          <YourVoteRole project={project} hackathon={hackathon} />
-          <YourTotalVotes project={project} hackathon={hackathon} />
-          <div className="w-full border-b border-neutral-medium-gray"></div>
-          <VotingInfo project={project} hackathon={hackathon} rankInfo={rankInfo} />
-          <YourVotes project={project} hackathon={hackathon} />
-        </div>
+
+      {!isEnd ? (
+        projectVote.isJudge ? (
+          <div className="flex w-full flex-col gap-[1.5rem]">
+            <JudgeInfo />
+            <YourVoteRole />
+            <YourTotalVotes />
+            <div className="w-full border-b border-neutral-medium-gray"></div>
+            <VotingInfo />
+            <YourVotes />
+          </div>
+        ) : (
+          <VoteMsg />
+        )
       ) : (
-        <VoteMsg
-          project={project}
-          hackathon={hackathon}
-          rankInfo={rankInfo}
-          isJoin={!!hackathon?.participation?.isRegister}
-        />
+        <Rewards />
       )}
     </div>
   );
