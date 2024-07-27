@@ -11,7 +11,6 @@ const VoteCloseIn: React.FC<VoteCloseInProp> = () => {
       hackathon: state.hackathon
     }))
   );
-  console.info(hackathon);
   return (
     <div className="body-m relative flex justify-center rounded-[8px] bg-yellow-extra-light px-[16px] py-[8px] text-neutral-medium-gray">
       <span className="absolute left-[16px] top-0 flex h-full items-center">Voting Close in</span>
