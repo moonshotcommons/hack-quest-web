@@ -47,7 +47,7 @@ export function SearchForm() {
       <SearchIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       <input
         type="text"
-        className="h-[38px] flex-1 bg-transparent outline-none sm:h-[60px]"
+        className="h-[38px] flex-1 bg-transparent text-sm outline-none sm:h-[60px] sm:text-base"
         placeholder="Search for positions, companies, keywords, etc..."
         value={value}
         onChange={(e) => setValue(e.target.value)}

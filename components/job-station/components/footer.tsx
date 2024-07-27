@@ -26,8 +26,8 @@ export function Footer({
       <div className="flex h-full w-full items-center justify-between border-t-neutral-light-gray bg-neutral-white px-5 sm:mx-auto sm:max-w-5xl sm:px-0">
         <FavoriteButton favorited={favorited} jobId={id} />
         <div className="flex items-center gap-4">
-          <time className="text-neutral-medium-gray" dateTime={createdAt}>
-            Updated {moment(createdAt).fromNow()}
+          <time className="text-sm text-neutral-medium-gray sm:text-base" dateTime={createdAt}>
+            {moment(createdAt).fromNow()}
           </time>
           <ApplyJob contact={contact} />
         </div>

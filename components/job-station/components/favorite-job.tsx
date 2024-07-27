@@ -10,6 +10,7 @@ export async function FavoriteJob() {
   return (
     <div className="flex w-full flex-col space-y-6 rounded-2xl bg-neutral-white p-6">
       <h2 className="font-next-book-bold text-lg font-bold">Saved for later</h2>
+      {!favoriteJobs.data?.length && <p className="text-center text-neutral-rich-gray">No saved jobs yet</p>}
       {favoriteJobs.data?.map((job) => (
         <div key={job.id} className="flex items-start justify-between">
           <div>

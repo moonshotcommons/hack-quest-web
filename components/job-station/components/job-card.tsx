@@ -18,13 +18,13 @@ export function JobCard({ job }: { job: Job }) {
       <div className="sm:card-hover relative flex w-full flex-col gap-4 rounded-2xl bg-neutral-white p-4 sm:gap-6 sm:p-6">
         <FavoriteButton jobId={job.id} favorited={job.favorited} className="absolute right-6 top-6 hidden sm:block" />
         <div className="flex items-center gap-4">
-          <div className="relative h-12 w-12 overflow-hidden rounded-full">
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
             <Image src={job.companyLogo} alt={job.companyName} fill className="rounded-full" />
           </div>
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold">{job.name}</h3>
+            <h3 className="line-clamp-1 text-lg font-bold">{job.name}</h3>
             <span
-              className="self-start text-base text-neutral-rich-gray hover:underline"
+              className="line-clamp-1 self-start text-base text-neutral-rich-gray hover:underline"
               data-prevent-nprogress={true}
               onClick={(e) => {
                 e.preventDefault();

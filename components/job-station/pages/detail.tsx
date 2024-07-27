@@ -11,7 +11,7 @@ import { formatLocation, formatSalary } from '../utils';
 export default async function Page({ params }: { params: { id: string } }) {
   const job = await getCachedJob(params.id);
   return (
-    <main className="flex h-full w-full flex-col bg-neutral-off-white sm:bg-neutral-white">
+    <main className="flex h-full max-h-[calc(100vh-64px)] w-full flex-col bg-neutral-off-white sm:max-h-full sm:bg-neutral-white">
       <div className="no-scrollbar w-full flex-1 space-y-5 overflow-auto px-5 py-10 sm:mx-auto sm:max-w-5xl sm:space-y-6 sm:px-0 sm:py-12">
         <Back />
         <h1 className="text-2xl font-bold">{job.name}</h1>

@@ -57,7 +57,10 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           Apply
         </Button>
       </DialogTrigger>
-      <DialogContent stopPropagation className="block w-[640px] max-w-[640px] rounded-3xl p-8">
+      <DialogContent
+        stopPropagation
+        className="block w-[92.5%] rounded-2xl p-8 sm:w-[640px] sm:max-w-[640px] sm:rounded-3xl"
+      >
         <h2 className="font-next-book-bold text-[22px] font-bold">Apply to this Role</h2>
         <div className="mt-6 flex w-full flex-col space-y-6">
           {contact.wechat && (

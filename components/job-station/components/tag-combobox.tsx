@@ -25,7 +25,7 @@ export function TagCombobox({ value, onValueChange }: { value: string[]; onValue
           role="combobox"
           aria-expanded={open}
           aria-controls="content"
-          className="flex min-h-[50px] w-96 items-center justify-between rounded-[8px] px-3 py-1.5 outline-none ring-1 ring-inset ring-neutral-light-gray transition-all duration-300 aria-expanded:shadow-field-valid aria-expanded:ring-neutral-medium-gray"
+          className="flex min-h-[50px] w-full items-center justify-between rounded-[8px] px-3 py-1.5 outline-none ring-1 ring-inset ring-neutral-light-gray transition-all duration-300 aria-expanded:shadow-field-valid aria-expanded:ring-neutral-medium-gray sm:w-96"
         >
           {value.length > 0 ? (
             <div className="flex flex-wrap gap-1">

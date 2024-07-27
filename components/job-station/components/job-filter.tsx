@@ -9,7 +9,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createUrl } from '@/helper/utils';
 import webApi from '@/service';
 
-function JobType() {
+export function JobType() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -51,7 +51,7 @@ function JobType() {
   );
 }
 
-function JobLocation() {
+export function JobLocation() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -92,7 +92,7 @@ function JobLocation() {
   );
 }
 
-function JobKeyword() {
+export function JobKeyword() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

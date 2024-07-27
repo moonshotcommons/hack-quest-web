@@ -42,6 +42,7 @@ const isNoNeedUserInfoDetail = (pathname: string) => {
     MenuLink.HACKATHON,
     MenuLink.HACKATHON_VOTING,
     MenuLink.EXPLORE_HACKATHON,
+    MenuLink.JOB_STATION,
     '/hackquest/'
   ].some((menu) => pathname.includes(menu));
 };

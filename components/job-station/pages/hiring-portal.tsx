@@ -42,8 +42,8 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
                     <Image src={job.companyLogo} alt={job.companyName} fill className="rounded-full" />
                   </div>
                   <div className="flex flex-col">
-                    <h3 className="text-lg font-bold">{job.name}</h3>
-                    <p className="text-base text-neutral-rich-gray">{job.companyName}</p>
+                    <h3 className="line-clamp-1 text-lg font-bold">{job.name}</h3>
+                    <p className="line-clamp-1 text-base text-neutral-rich-gray">{job.companyName}</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between gap-6 sm:ml-auto sm:justify-end">

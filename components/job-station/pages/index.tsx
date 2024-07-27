@@ -15,6 +15,7 @@ import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
 import { Category } from '../components/category';
 import { getCachedJobs } from '../utils/actions';
+import { FilterModal } from '../components/filter-modal';
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = params;
@@ -47,28 +48,48 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
         </div>
       </div>
       <main className="container mx-auto rounded-t-[32px] bg-neutral-off-white px-5 py-10">
-        {total > 0 && (
-          <div className="mb-10 grid w-full grid-cols-2 gap-10">
+        {total > 0 && isAuthenticated() && (
+          <div className="mb-5 grid w-full grid-cols-2 gap-5 sm:mb-10 sm:gap-10">
             <Link href="/jobs/hiring-portal">
-              <button className="sm:card-hover flex w-full items-center rounded-2xl bg-neutral-light-gray p-6">
-                <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} />
-                <div className="ml-8 text-left">
-                  <h3 className="font-next-book-bold text-[22px] font-bold">Hiring Portal</h3>
-                  <p className="text-base text-neutral-rich-gray">{open} positions open</p>
+              <button className="sm:card-hover flex w-full items-center gap-4 rounded-2xl bg-neutral-light-gray p-4 sm:p-6">
+                <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} className="hidden sm:block" />
+                <div className="text-left sm:ml-8">
+                  <h3 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Hiring Portal</h3>
+                  <p className="hidden text-base text-neutral-rich-gray sm:block">{open} positions open</p>
                 </div>
-                <MoveRightIcon size={20} className="ml-auto" />
+                <MoveRightIcon size={20} className="ml-auto shrink-0" />
               </button>
             </Link>
             <Link href="/jobs/publish">
-              <button className="sm:card-hover flex w-full items-center rounded-2xl bg-neutral-light-gray p-6">
-                <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} />
-                <div className="ml-8 text-left">
-                  <h3 className="font-next-book-bold text-[22px] font-bold">Post Web3 Job</h3>
-                  <p className="text-base text-neutral-rich-gray">Grow your team for the future of web3</p>
+              <button className="sm:card-hover flex w-full items-center gap-4 rounded-2xl bg-neutral-light-gray p-4 sm:p-6">
+                <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} className="hidden sm:block" />
+                <div className="text-left sm:ml-8">
+                  <h3 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Post Web3 Job</h3>
+                  <p className="hidden text-base text-neutral-rich-gray sm:block">
+                    Grow your team for the future of web3
+                  </p>
                 </div>
-                <MoveRightIcon size={20} className="ml-auto" />
+                <MoveRightIcon size={20} className="ml-auto shrink-0" />
               </button>
             </Link>
+          </div>
+        )}
+        {isAuthenticated() && (
+          <div className="flex w-full items-center gap-5 sm:hidden">
+            <Link href="/jobs/favorites" className="flex w-full">
+              <button className="mb-5 flex w-full flex-1 items-center gap-4 rounded-2xl bg-neutral-light-gray p-4">
+                <h3 className="text-left font-next-book-bold text-lg font-bold">Saved for Later</h3>
+                <MoveRightIcon size={20} className="ml-auto shrink-0" />
+              </button>
+            </Link>
+            {total <= 0 && (
+              <Link href="/jobs/publish" className="flex w-full">
+                <button className="mb-5 flex w-full flex-1 items-center gap-4 rounded-2xl bg-neutral-light-gray p-4">
+                  <h3 className="text-left font-next-book-bold text-lg font-bold">Post Web3 Job</h3>
+                  <MoveRightIcon size={20} className="ml-auto shrink-0" />
+                </button>
+              </Link>
+            )}
           </div>
         )}
         <section className="grid w-full sm:grid-cols-[320px_1fr] sm:gap-10">
@@ -84,7 +105,10 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
               </Link>
             )}
           </div>
-          <div className="flex flex-col space-y-6">
+          <div className="flex flex-col gap-6">
+            <div className="sm:hidden">
+              <FilterModal />
+            </div>
             <React.Suspense fallback={<JobSkeleton />}>
               {jobs.total > 0 ? (
                 jobs.data?.map((job) => <JobCard key={job.id} job={job} />)

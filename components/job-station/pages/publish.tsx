@@ -9,14 +9,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/user-profile/common/input';
-// eslint-disable-next-line prettier/prettier
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Steps } from '../components/steps';
-// eslint-disable-next-line prettier/prettier
 import { companySchema, contacts, contactsSchema, currencies, jobSchema, workModes, workTypes } from '../validations';
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
-// eslint-disable-next-line prettier/prettier
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
 import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -144,7 +141,11 @@ function Step1() {
         />
         <input type="submit" ref={submitRef} className="hidden" />
       </form>
-      <Button type="submit" className="w-full sm:w-[270px] sm:self-end" onClick={() => submitRef.current?.click()}>
+      <Button
+        type="submit"
+        className="mt-20 w-full sm:mt-0 sm:w-[270px] sm:self-end"
+        onClick={() => submitRef.current?.click()}
+      >
         Continue
       </Button>
     </Form>
@@ -295,7 +296,11 @@ function Step2() {
             <FormItem>
               <FormLabel>Job Type</FormLabel>
               <FormControl>
-                <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-9"
+                >
                   {workTypes.map((item) => (
                     <FormItem key={item.id} className="flex items-center space-x-3 space-y-0">
                       <FormControl>
@@ -415,7 +420,7 @@ function Step2() {
           )}
         />
         <input type="submit" ref={submitRef} className="hidden" />
-        <div className="flex items-center justify-end gap-4">
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-end">
           <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-[270px]">
             Back
           </Button>
@@ -558,7 +563,7 @@ function Step3() {
         />
         <input ref={submitRef} type="submit" className="hidden" />
       </form>
-      <div className="flex w-full items-center justify-end gap-4">
+      <div className="mt-20 flex w-full flex-col items-center gap-4 sm:mt-0 sm:flex-row sm:justify-end">
         <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-[270px]">
           Back
         </Button>
