@@ -186,6 +186,12 @@ export const navbarList: NavbarListType[] = [
         label: 'navbar.resources.faucets',
         path: MenuLink.FAUCETS,
         description: 'navbar.resources.faucetsDesc'
+      },
+      {
+        id: 'jobs',
+        label: 'navbar.resources.jobs',
+        path: MenuLink.JOB_STATION,
+        description: 'navbar.resources.jobsDesc'
       }
       // {
       //id:'partners',

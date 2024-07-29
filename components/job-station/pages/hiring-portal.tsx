@@ -7,10 +7,16 @@ import { ArrowIcon } from '@/components/ui/icons/arrow';
 import { generateQueryParams, LIMIT_PER_PAGE, SearchParams } from '../utils';
 import { Pagination } from '../components/pagination';
 import { getCachedPublishedJobs } from '../utils/actions';
+import { redirect } from 'next/navigation';
 
 export default async function Page({ searchParams }: { searchParams?: SearchParams }) {
   const queryParams = generateQueryParams(searchParams);
-  const publishedJobs = await getCachedPublishedJobs(queryParams);
+  const result = await getCachedPublishedJobs(queryParams);
+
+  if (result?.code === 401) {
+    redirect('/jobs');
+  }
+
   return (
     <main
       className="flex h-full min-h-[calc(100vh-64px)] w-full flex-col bg-[var(--primary-color)] sm:bg-neutral-off-white"
@@ -34,7 +40,7 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
           </Button>
         </div>
         <div className="flex flex-col space-y-6">
-          {publishedJobs.data?.map((job) => (
+          {result.data?.map((job) => (
             <Link key={job.id} href={`/jobs/publish/${job.id}`}>
               <div className="sm:card-hover flex w-full flex-col gap-4 rounded-2xl bg-neutral-white p-6 sm:flex-row sm:items-center">
                 <div className="flex items-center gap-4">
@@ -58,7 +64,7 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
               </div>
             </Link>
           ))}
-          {publishedJobs.total > LIMIT_PER_PAGE && <Pagination total={publishedJobs.total} />}
+          {result.total > LIMIT_PER_PAGE && <Pagination total={result.total} />}
         </div>
       </div>
     </main>

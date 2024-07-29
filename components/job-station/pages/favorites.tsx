@@ -37,13 +37,17 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
             </React.Suspense>
             {favoriteJobs.total > LIMIT_PER_PAGE && <Pagination total={favoriteJobs.total} />}
           </div>
-          <JobFilter />
+          <div className="relative hidden w-full sm:block">
+            <div className="sticky top-10">
+              <JobFilter />
+            </div>
+          </div>
         </div>
       </main>
     );
   } catch (error: any) {
     if (error.code === 401) {
-      redirect('/');
+      redirect('/jobs');
     }
   }
 }

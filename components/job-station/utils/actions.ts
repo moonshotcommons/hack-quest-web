@@ -6,7 +6,7 @@ import { getToken } from '@/helper/user-token';
 import { Job } from '@/service/webApi/jobs/types';
 
 type TParams = Record<string, any>;
-type TResponse = Promise<{ data: Job[]; total: number }>;
+type TResponse = Promise<{ data: Job[]; total: number; code?: number }>;
 
 function filterParams(params: TParams) {
   Object.keys(params).forEach((key) => {
@@ -19,8 +19,7 @@ function filterParams(params: TParams) {
 
 const JOB_CACHE_TAG = 'jobs';
 const PUBLISHED_JOBS_CACHE_TAG = 'published-jobs';
-// const API_URL = process.env.BACKEND_BASE_URL;
-const API_URL = 'http://localhost:3000/v1';
+const API_URL = process.env.BACKEND_BASE_URL;
 
 export async function getCachedJobs(params: TParams): TResponse {
   const token = getToken();

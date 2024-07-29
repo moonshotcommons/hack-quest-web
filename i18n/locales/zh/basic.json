@@ -121,7 +121,9 @@
       "partners": "合作伙伴",
       "partnersDesc": "成为我们的合作伙伴",
       "faucets": "水龙头",
-      "faucetsDesc": "领取学习测试币"
+      "faucetsDesc": "领取学习测试币",
+      "jobs": "工作机会",
+      "jobsDesc": "发现并申请 Web3 工作"
     },
     "launch": {
       "title": "发射台"

@@ -19,8 +19,23 @@ import { FilterModal } from '../components/filter-modal';
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = params;
+  const description = 'Find and apply for Web 3 jobs.';
   return {
-    title: 'HackQuest Job Station',
+    title: {
+      template: '%s - Job Station',
+      default: 'Job Station'
+    },
+    description,
+    openGraph: {
+      title: 'Job Station',
+      description,
+      url: `https://hackquest.io/jobs`
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Job Station',
+      description
+    },
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}${MenuLink.JOB_STATION}`,
       languages: {
@@ -93,17 +108,19 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
           </div>
         )}
         <section className="grid w-full sm:grid-cols-[320px_1fr] sm:gap-10">
-          <div className="hidden h-full gap-8 sm:flex sm:flex-col">
-            <JobFilter />
-            {isAuthenticated() && <FavoriteJob />}
-            {total <= 0 && isAuthenticated() && (
-              <Link href="/jobs/publish">
-                <button className="sm:card-hover inline-flex w-full items-center  justify-between rounded-2xl bg-neutral-light-gray p-4 font-next-book-bold text-lg font-bold outline-none">
-                  <span>Post a Web3 Job</span>
-                  <MoveRightIcon size={20} />
-                </button>
-              </Link>
-            )}
+          <div className="relative hidden w-full sm:block">
+            <div className="sticky top-10 flex flex-col gap-8">
+              <JobFilter />
+              {isAuthenticated() && <FavoriteJob />}
+              {total <= 0 && isAuthenticated() && (
+                <Link href="/jobs/publish">
+                  <button className="sm:card-hover inline-flex w-full items-center  justify-between rounded-2xl bg-neutral-light-gray p-4 font-next-book-bold text-lg font-bold outline-none">
+                    <span>Post a Web3 Job</span>
+                    <MoveRightIcon size={20} />
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
           <div className="flex flex-col gap-6">
             <div className="sm:hidden">

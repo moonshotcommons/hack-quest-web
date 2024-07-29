@@ -28,6 +28,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { useParams } from 'next/navigation';
 import omit from 'lodash-es/omit';
 import { revalidate } from '../utils/actions';
+import { useUserStore } from '@/store/zustand/userStore';
 
 function Step1() {
   const { values, onNext, setValues } = useJobStore();
@@ -587,6 +588,8 @@ export default function Page() {
   const params = useParams();
   const router = useRouter();
 
+  const { userInfo } = useUserStore();
+
   const Component = steps[step] || null;
 
   const { isPending, data } = useQuery({
@@ -601,6 +604,12 @@ export default function Page() {
       setValues(data);
     }
   }, [data, params.id, setValues]);
+
+  React.useEffect(() => {
+    if (!userInfo) {
+      router.push('/jobs');
+    }
+  }, [router, userInfo]);
 
   function onBack() {
     router.back();
