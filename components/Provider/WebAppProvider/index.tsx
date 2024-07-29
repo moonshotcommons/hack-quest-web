@@ -1,5 +1,6 @@
 'use client';
 import { FC, PropsWithChildren } from 'react';
+import { Toaster } from 'react-hot-toast';
 import LangProvider from '../Lang';
 import { Lang } from '@/i18n/config';
 import { Analytics } from '@vercel/analytics/react';
@@ -31,6 +32,7 @@ const WebAppProvider: FC<PropsWithChildren<WebAppProviderProps>> = ({ lang, chil
               disableSameURL
             />
             <GlobalModal />
+            <Toaster />
             <Analytics mode="production" debug={false} />
           </WagmiConfigProvider>
         </DndProvider>

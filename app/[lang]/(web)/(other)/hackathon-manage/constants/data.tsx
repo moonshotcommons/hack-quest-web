@@ -3,7 +3,6 @@ import { GrLineChart } from 'react-icons/gr';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
 import { MdAppRegistration } from 'react-icons/md';
-import { FaBalanceScale } from 'react-icons/fa';
 
 export const hackathonAuditNavData = [
   {
