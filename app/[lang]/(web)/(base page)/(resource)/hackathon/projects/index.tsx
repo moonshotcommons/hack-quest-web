@@ -1,12 +1,16 @@
 import { FC } from 'react';
-import ProjectsPage from './components';
 import webApi from '@/service';
 import { projectSort } from '../constants/data';
 import { PageLayout } from '@/components/hackathon/page-layout';
+import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
+import { Tab } from './components/Tab';
+import { FilterPanel } from './components/FilterPanel';
+import { getHackathonsList } from '@/service/cach/resource/hackathon';
+import PastHackathonCard from '../components/HackathonBox/Past/PastHackathonCard';
 
 export interface SearchParamsType {
   keyword: string;
@@ -15,6 +19,7 @@ export interface SearchParamsType {
   tracks: string;
   track: string;
   prizeTrack: string;
+  view?: string;
 }
 export interface PageInfoType {
   page: number;
@@ -60,18 +65,31 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, search
     keyword: searchParams.keyword || ''
   };
 
+  const view = searchParams?.view || 'project';
+
   const project = await webApi.resourceStationApi.getProjectsList({
     ...pageInfo,
     ...params
   });
+
+  const hackathons = await getHackathonsList({});
+
   return (
     <PageLayout lang={lang} slug="project_archive" title={t('project.title')} description={t('project.description')}>
-      <ProjectsPage
-        list={project.data}
-        pageInfo={pageInfo}
-        searchParams={params as SearchParamsType}
-        total={project.total}
-      />
+      <div>
+        <Tab currentTab={view} />
+        <FilterPanel />
+        {view === 'project' && (
+          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-16">
+            {project.data?.map((item) => <ProjectCard key={item.id} project={item} />)}
+          </div>
+        )}
+        {view === 'hackathon' && (
+          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-16">
+            {hackathons.data?.map((item) => <PastHackathonCard key={item.id} hackathon={item} />)}
+          </div>
+        )}
+      </div>
     </PageLayout>
   );
 };
