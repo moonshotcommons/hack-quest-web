@@ -13,13 +13,14 @@ import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { useMintFromEvm } from '@/hooks/certificate/useMintFromEvm';
+import { ChainType } from '@/config/wagmi';
+import { useMintCertificate } from '@/hooks/certificate';
 
 export function MintCertificateModal() {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const router = useRouter();
-  const { safeMintAsync } = useMintFromEvm();
+  const { safeMintAsyncFromEvm, safeMintAsyncFromSolana, safeMintAsyncFromSui } = useMintCertificate();
   const { open, type, data, onClose } = useCertificateModal();
 
   const certification = data?.certification;
@@ -35,7 +36,18 @@ export function MintCertificateModal() {
   // const ecosystemName = stringArray.join(' ');
 
   const mutation = useMutation({
-    mutationFn: () => safeMintAsync(data.certification),
+    mutationFn: async () => {
+      switch (certification.chainId) {
+        case ChainType.Solana:
+          await safeMintAsyncFromSolana(data.certification);
+          break;
+        case ChainType.Sui:
+          await safeMintAsyncFromSui(data.certification);
+          break;
+        default:
+          await safeMintAsyncFromEvm(data.certification);
+      }
+    },
     onSuccess: () => {
       router.refresh();
       setModalStatus('success');

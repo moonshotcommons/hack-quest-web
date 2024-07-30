@@ -10,7 +10,8 @@ import { FC, useContext, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { useMintFromEvm } from '@/hooks/certificate/useMintFromEvm';
+import { useMintCertificate } from '@/hooks/certificate';
+import { ChainType } from '@/config/wagmi';
 interface GettingCertificateProps {
   certification: UserCertificateInfo;
   refreshCertification?: VoidFunction;
@@ -60,18 +61,26 @@ const badge = (
 
 const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refreshCertification, closeModal }) => {
   const [showShare, setShowShare] = useState(false);
-  const { safeMintAsync } = useMintFromEvm();
+  const { safeMintAsyncFromEvm, safeMintAsyncFromSolana, safeMintAsyncFromSui } = useMintCertificate();
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
 
   const { run: safeMint, loading } = useRequest(
     async () => {
-      const res = await safeMintAsync(certification);
-      return res;
+      switch (certification.chainId) {
+        case ChainType.Solana:
+          await safeMintAsyncFromSolana(certification);
+          break;
+        case ChainType.Sui:
+          await safeMintAsyncFromSui(certification);
+          break;
+        default:
+          await safeMintAsyncFromEvm(certification);
+      }
     },
     {
       manual: true,
-      onSuccess(res) {
+      onSuccess() {
         refreshCertification?.();
       },
       onError(e) {

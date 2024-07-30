@@ -67,11 +67,18 @@ export const useMintFromEvm = (onSuccess?: (res: any) => void) => {
         ]
       });
 
-      const result = await webApi.campaignsApi.savaMintState({
-        certificationId: certificate.id,
-        txId: data
-      });
-      return result;
+      let isSuccess = false;
+
+      while (!isSuccess) {
+        try {
+          const result = await webApi.campaignsApi.savaMintState({
+            certificationId: certificate.id,
+            txId: data
+          });
+          isSuccess = true;
+          return result;
+        } catch (err) {}
+      }
     },
     {
       manual: true
