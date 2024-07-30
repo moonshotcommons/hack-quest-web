@@ -34,7 +34,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
   const { updateExampleNum } = useUpdateHelperParams();
   const query = useSearchParams();
   const userInfo = useUserStore((state) => state.userInfo);
-  console.log(component);
+
   useEffect(() => {
     if (component) {
       const activeIndex = component.codeFiles?.findIndex((file) => {
@@ -43,7 +43,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       if (activeIndex !== -1) setActiveFileIndex(activeIndex);
     }
   }, [component]);
-
+  console.log(component.codeFiles);
   useEffect(() => {
     updateExampleNum(activeFileIndex);
   }, [activeFileIndex]);
@@ -52,8 +52,16 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
     // id = '1d9db0f7-7d29-417d-a630-3258b7d52567'
 
     if (component.ideUrl?.includes(CHAIN_IDE)) {
-      return `https://chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=filename.move&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
-        exampleContent
+      const files =
+        component.codeFiles?.map((item) => {
+          return {
+            filename: item.filename,
+            content: item.codeContent?.content?.rich_text?.map((richText: any) => richText.plain_text).join('') || ''
+          };
+        }) || [];
+
+      return `https://develop-2egludalf0.chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=${files[0]?.filename || 'filename.move'}&chain=sui&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
+        JSON.stringify(files)
       )}`;
     }
 
@@ -99,8 +107,10 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                     <div
                       key={`${codeFile.filename}-${index}`}
                       className={cn(
-                        'cursor-pointer rounded-t-[10px]  px-[10px] py-[3px]',
-                        index === activeFileIndex ? 'bg-[#fafafa]' : 'bg-[#ececec]'
+                        'mt-4 cursor-pointer  truncate rounded-t-[10px] px-[10px] py-[2px]',
+                        index === activeFileIndex
+                          ? 'border-b-2 border-neutral-light-gray bg-[#ececec] font-bold'
+                          : 'bg-[#fafafa]'
                       )}
                       onClick={() => setActiveFileIndex(index)}
                     >
@@ -109,7 +119,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
                   );
                 })}
               </div>
-              <div className="relative mb-[20px] flex flex-1 flex-col overflow-y-auto rounded-[10px] rounded-tl-[0px] bg-red-700">
+              <div className="relative mb-[20px] flex flex-1 flex-col overflow-y-auto !rounded-[10px] rounded-tl-[0px] bg-[#fafafa]">
                 <ExampleContext.Provider
                   value={{
                     updateExampleContent: (value: string) => setExampleContent(value),
