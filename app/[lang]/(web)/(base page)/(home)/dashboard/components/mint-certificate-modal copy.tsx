@@ -8,17 +8,18 @@ import { MoveRightIcon, XIcon } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
-import { useMintCertification } from '@/hooks/useMintCertification';
+
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useMintFromEvm } from '@/hooks/certificate/useMintFromEvm';
 
 export function MintCertificateModal() {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const router = useRouter();
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsync } = useMintFromEvm();
   const { open, type, data, onClose } = useCertificateModal();
 
   const certification = data?.certification;

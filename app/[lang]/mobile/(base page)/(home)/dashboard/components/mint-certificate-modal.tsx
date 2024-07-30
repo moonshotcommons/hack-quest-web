@@ -9,11 +9,11 @@ import { MoveRightIcon, XIcon } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import Button from '@/components/Common/Button';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
-import { useMintCertification } from '@/hooks/useMintCertification';
 import { TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import { useLang } from '@/components/Provider/Lang';
 import { getDomain } from '@/constants/links';
+import { useMintFromEvm } from '@/hooks/certificate/useMintFromEvm';
 
 function ClaimCertificateForm() {
   const [name, setName] = React.useState('');
@@ -52,7 +52,7 @@ function ClaimCertificateForm() {
 
 export function MintCertificateModal() {
   const router = useRouter();
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsync } = useMintFromEvm();
   const { open, type, data, onClose } = useCertificateModal();
 
   const { lang } = useLang();

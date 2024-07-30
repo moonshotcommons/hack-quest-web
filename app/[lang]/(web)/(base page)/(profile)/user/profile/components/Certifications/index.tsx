@@ -12,11 +12,11 @@ import CertificationModal, {
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
-import { useMintCertification } from '@/hooks/useMintCertification';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
 import message from 'antd/es/message';
 import { getDomain } from '@/constants/links';
+import { useMintFromEvm } from '@/hooks/certificate/useMintFromEvm';
 interface PersonalLinksProps {}
 
 const MintButton = (props: {
@@ -24,7 +24,7 @@ const MintButton = (props: {
   updateSelectCertification: (certification: UserCertificateInfo) => void;
 }) => {
   const { certification, updateSelectCertification } = props;
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsync } = useMintFromEvm();
 
   const { run: safeMint, loading } = useRequest(
     async () => {

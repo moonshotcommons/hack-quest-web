@@ -52,7 +52,7 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
     // id = '1d9db0f7-7d29-417d-a630-3258b7d52567'
 
     if (component.ideUrl?.includes(CHAIN_IDE)) {
-      return `https://develop-2egludalf0.chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=filename.move&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
+      return `https://chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=filename.move&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
         exampleContent
       )}`;
     }

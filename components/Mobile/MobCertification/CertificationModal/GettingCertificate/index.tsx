@@ -1,7 +1,6 @@
 import Button from '@/components/Common/Button';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
-import { useMintCertification } from '@/hooks/useMintCertification';
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import message from 'antd/es/message';
@@ -12,6 +11,7 @@ import { isMobile } from 'react-device-detect';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useMintFromEvm } from '@/hooks/certificate/useMintFromEvm';
 interface GettingCertificateProps {
   certification: UserCertificateInfo;
   refreshCertification?: VoidFunction;
@@ -61,7 +61,7 @@ const badge = (
 
 const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refreshCertification, closeModal }) => {
   const [showShare, setShowShare] = useState(false);
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsync } = useMintFromEvm();
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
 

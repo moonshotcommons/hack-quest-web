@@ -6,12 +6,15 @@ import { Button } from '@/components/ui/button';
 import { AddAttestation } from '../modals/add-attestation';
 import { getDomain } from '@/constants/links';
 import { useMutation } from '@tanstack/react-query';
-import { useMintCertification } from '@/hooks/useMintCertification';
+
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { CertificationModalInstance } from '@/components/Web/Business/Certification/CertificationModal';
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { message } from 'antd';
+
+import { ChainType } from '@/config/wagmi';
+import { useMintCertificate } from '@/hooks/certificate';
 
 function MintButton({
   certificate,
@@ -20,10 +23,20 @@ function MintButton({
   certificate: UserCertificateInfo;
   update: (certificate: UserCertificateInfo) => void;
 }) {
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsyncFromEvm, safeMintAsyncFromSolana, safeMintAsyncFromSui } = useMintCertificate();
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (certification: UserCertificateInfo) => {
-      await safeMintAsync(certification);
+      switch (certification.chainId) {
+        case ChainType.Solana:
+          await safeMintAsyncFromSolana(certification);
+          break;
+        case ChainType.Sui:
+          await safeMintAsyncFromSui(certification);
+          break;
+        default:
+          await safeMintAsyncFromEvm(certification);
+      }
       return await webApi.campaignsApi.getCertificationDetail(certification.id);
     },
     onSuccess: (certificate) => {
