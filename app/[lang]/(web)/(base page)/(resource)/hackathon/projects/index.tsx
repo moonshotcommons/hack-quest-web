@@ -80,12 +80,12 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, search
         <Tab currentTab={view} />
         <FilterPanel />
         {view === 'project' && (
-          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-16">
+          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-10">
             {project.data?.map((item) => <ProjectCard key={item.id} project={item} />)}
           </div>
         )}
         {view === 'hackathon' && (
-          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-16">
+          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-10">
             {hackathons.data?.map((item) => <PastHackathonCard key={item.id} hackathon={item} />)}
           </div>
         )}
