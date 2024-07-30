@@ -8,17 +8,19 @@ import { MoveRightIcon, XIcon } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import Modal from '@/components/Common/Modal';
 import Button from '@/components/Common/Button';
-import { useMintCertification } from '@/hooks/useMintCertification';
+
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { ChainType } from '@/config/wagmi';
+import { useMintCertificate } from '@/hooks/certificate';
 
 export function MintCertificateModal() {
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const router = useRouter();
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsyncFromEvm, safeMintAsyncFromSolana, safeMintAsyncFromSui } = useMintCertificate();
   const { open, type, data, onClose } = useCertificateModal();
 
   const certification = data?.certification;
@@ -34,7 +36,18 @@ export function MintCertificateModal() {
   // const ecosystemName = stringArray.join(' ');
 
   const mutation = useMutation({
-    mutationFn: () => safeMintAsync(data.certification),
+    mutationFn: async () => {
+      switch (certification.chainId) {
+        case ChainType.Solana:
+          await safeMintAsyncFromSolana(data.certification);
+          break;
+        case ChainType.Sui:
+          await safeMintAsyncFromSui(data.certification);
+          break;
+        default:
+          await safeMintAsyncFromEvm(data.certification);
+      }
+    },
     onSuccess: () => {
       router.refresh();
       setModalStatus('success');

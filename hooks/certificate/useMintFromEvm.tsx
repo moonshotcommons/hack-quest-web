@@ -10,7 +10,7 @@ import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 const CONTRACT_ADDRESS = '0x8eDBf22b97f7bddC7F78AE13b348949DFa0731D3';
 const FUNCTION_NAME = 'safeMint';
 
-export const useMintCertification = (onSuccess?: (res: any) => void) => {
+export const useMintFromEvm = (onSuccess?: (res: any) => void) => {
   // const { connectAsync, connectors, error, isLoading, pendingConnector } =
   //   useConnect();
 
@@ -67,11 +67,18 @@ export const useMintCertification = (onSuccess?: (res: any) => void) => {
         ]
       });
 
-      const result = await webApi.campaignsApi.savaMintState({
-        certificationId: certificate.id,
-        txId: data
-      });
-      return result;
+      let isSuccess = false;
+
+      while (!isSuccess) {
+        try {
+          const result = await webApi.campaignsApi.savaMintState({
+            certificationId: certificate.id,
+            txId: data
+          });
+          isSuccess = true;
+          return result;
+        } catch (err) {}
+      }
     },
     {
       manual: true

@@ -63,9 +63,9 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
         <div className="mt-6 flex w-full flex-col space-y-6">
           {contact.wechat && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <g clip-path="url(#clip0_11832_4851)">
+                  <g clipPath="url(#clip0_11832_4851)">
                     <path
                       d="M16.4999 7.51604C16.9545 7.51604 17.3984 7.55382 17.8364 7.60782C17.0446 4.13036 13.3921 1.5 9.00014 1.5C4.02899 1.5 0 4.86737 0 9.02007C0 11.4143 1.34708 13.5384 3.4365 14.9129L2.24996 17.2923L5.4823 15.904C6.17544 16.1509 6.8957 16.3541 7.66501 16.4487C7.55988 15.9898 7.50014 15.5193 7.50014 15.0365C7.50014 10.8897 11.5364 7.51604 16.4999 7.51604ZM12.0002 4.88381C12.6213 4.88381 13.125 5.38911 13.125 6.01197C13.125 6.63503 12.6213 7.13997 12.0002 7.13997C11.3787 7.13997 10.8751 6.63503 10.8751 6.01197C10.8751 5.38906 11.3787 4.88381 12.0002 4.88381ZM6.00003 7.13997C5.37879 7.13997 4.87505 6.63503 4.87505 6.01197C4.87505 5.38911 5.37884 4.88381 6.00003 4.88381C6.62121 4.88381 7.12506 5.38911 7.12506 6.01197C7.125 6.63503 6.62116 7.13997 6.00003 7.13997Z"
                       fill="#3E3E3E"
@@ -97,7 +97,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           )}
           {contact.link && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <LinkIcon className="h-6 w-6" />
                 <span className="font-bold text-neutral-off-black">Link</span>
               </div>
@@ -113,7 +113,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           )}
           {contact.email && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <MailIcon className="h-6 w-6" />
                 <span className="font-bold text-neutral-off-black">Email</span>
               </div>
@@ -127,7 +127,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           )}
           {contact.telegram && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <g clipPath="url(#clip0_11835_4889)">
                     <path

@@ -130,7 +130,7 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'This Talk Is Not Ligitimate',
+    name: 'This Talk Is Not Legitimate',
     time: '7-8:30 PM SGT, July 18th 2024 / 7-8:30 AM EST, July 18th 2024',
     description: `This session is packed with philosophical beliefs and insights drawn from Immanuel Kant (1785), John Stewart Mills (1859), Émile Durkheim (1912), Alvin Goldman (1964), Thomas Merton (1968), and more. Many discussions here can be tied back to Crypto and leveraged to build Web3 protocols. If you are ideating about what and why you'd like to BUIDL - this is a session you wouldn't want to miss.`,
     speaker: 'Scott Moore, Gitcoin',
@@ -177,10 +177,10 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'The Future of Decentralized Social',
+    name: 'The Future of Decentralized Social Networks',
     time: '9-10 AM SGT, August 13th 2024 / 9-10 PM EST, August 12th 2024',
     // description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
-    description: '',
+    description: `From John Barlow to Cypherpunks, Cyberspace is calling. What's the best path to the future？What are the biggest trends in Social-fi and Decentralized Social Networks? Here's the journey to building for the bright future of Decentralized Social Networks.`,
     speaker: 'Suji Yan, Mask Network',
     video: '',
     slide: '',
