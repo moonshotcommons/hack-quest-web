@@ -159,7 +159,7 @@
     "submissionsReview": "SUBMISSIONS REVIEW",
     "votingCloseIn": "Voting Close In",
     "yourVotingRole": "Your Voting Role",
-    "yourVotesToday": "Your Votes Today",
+    "yourVotesToday": "Your Votes",
     "refreshEveryday": "Refresh at 8AM Everyday",
     "remainingVotes": "Remaining Votes",
     "totalVotes": "Total Votes",
@@ -178,7 +178,7 @@
     "yourVotes": "Your Votes",
     "currentVotes": "Current Votes",
     "currentRanking": "Current Ranking",
-    "youCantVote": "You can’t vote for projects because your project is under review in this hackathon",
+    "youCantVote": "You can’t vote for projects",
     "nodataText": "Sorry, there is no hackathon under review.",
     "nodataButtonText": "explore project archive",
     "tipsModalTitle": "作为此次黑客马拉松的投票者，我承诺秉持公平、诚信和尊重的原则。我同意：",
@@ -249,11 +249,12 @@
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
   },
-  "hackathonAudit":{
+  "hackathonManage":{
     "overview":"Overview",
     "application":"Application",
     "submission":"Submission",
     "judging":"Judging",
+    "announcement":"Announcement",
     "viewHackathonDetails":"view hackathon details",
     "hackathonStatsToday":"Hackathon Stats Today"
   }

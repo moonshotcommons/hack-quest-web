@@ -1,7 +1,6 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import React, { useContext, useMemo, useState } from 'react';
 import Image from 'next/image';
 import ArrowUp from '@/public/images/hackathon/arrow_up.svg';
@@ -13,21 +12,20 @@ import Button from '@/components/Common/Button';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import message from 'antd/es/message';
+import { ProjectDetailContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 
-interface YourVotesProp {
-  project: ProjectType;
-  hackathon: HackathonType;
-}
+interface YourVotesProp {}
 
-const YourVotes: React.FC<YourVotesProp> = ({ project, hackathon }) => {
+const YourVotes: React.FC<YourVotesProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { project, hackathon, projectVote, titleTxtData } = useContext(ProjectDetailContext);
   const [voteCount, setVoteCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const remainingVotes = useMemo(() => {
-    const remaining = hackathon?.participation?.remainingVote || 50;
+    const remaining = projectVote.remainingVotes || 0;
     return remaining - voteCount;
-  }, [voteCount]);
+  }, [voteCount, projectVote]);
   const handleCount = (count: number, set?: boolean) => {
     const c = set ? count : voteCount + count;
     setVoteCount(c);

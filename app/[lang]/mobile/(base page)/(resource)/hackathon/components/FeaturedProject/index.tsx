@@ -26,7 +26,7 @@ const FeaturedProjects: FC<FeaturedProjectsProps> = ({ projectList, title, proje
       viewLink={project?.id ? `${MenuLink.PROJECTS}?keyword=${project.hackathonName}` : `${MenuLink.PROJECTS}`}
       isMobile={true}
       renderItem={(contarinerWidth) => {
-        return list.map((item) => (
+        return list.slice(0, 12).map((item) => (
           <div
             key={item.id}
             style={{

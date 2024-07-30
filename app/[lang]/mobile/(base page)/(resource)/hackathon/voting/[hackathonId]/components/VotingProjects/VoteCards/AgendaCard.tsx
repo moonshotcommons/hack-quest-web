@@ -1,18 +1,22 @@
 import TrackTag from '@/components/Common/TrackTag';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import HandleVote from './HandleVote';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
-import { ViewValue } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { HackathonVoteContext, ViewValue } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import HandleVote from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/voting/[hackathonId]/components/HandleVote';
 
 interface GridCardProp {
   project: ProjectType;
 }
 
 const GridCard: React.FC<GridCardProp> = ({ project }) => {
+  const { judgeInfo } = useContext(HackathonVoteContext);
+  const isShowTick = useMemo(() => {
+    return judgeInfo?.judge?.judgeMode === 'judges' && judgeInfo?.judge?.voteMode === 'score';
+  }, [judgeInfo]);
   return (
     <div className=" w-full  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[16px]">
       <div className="mb-[8px]">
@@ -33,9 +37,9 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="body-xs mt-[8px] line-clamp-3  text-neutral-rich-gray">{project.detail?.detailedIntro}</div>
+        <div className="body-xs mt-[.5rem] line-clamp-3  text-neutral-rich-gray">{project.detail?.detailedIntro}</div>
       </div>
-      <div className="h-[63px] w-full rounded-[8px] bg-neutral-off-white px-[12px] py-[8px]">
+      <div className={` w-full ${isShowTick ? 'h-[5.375rem]' : 'h-[3.9375rem]'}`}>
         <HandleVote view={ViewValue.GRID} project={project} />
       </div>
     </div>

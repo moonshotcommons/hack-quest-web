@@ -4,35 +4,32 @@ import { useTranslation } from '@/i18n/client';
 import Image from 'next/image';
 import React, { useContext, useMemo } from 'react';
 import IconLevelPrize from '@/public/images/hackathon/icon_level_prize.png';
-import { HackathonType, ProjectRankType, ProjectType } from '@/service/webApi/resourceStation/type';
 import { IoIosArrowForward } from 'react-icons/io';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import dayjs from '@/components/Common/Dayjs';
 import CountDown from '@/components/Web/Business/CountDown';
+import { ProjectDetailContext } from '../../../../constants/type';
 
-interface CloseInProp {
-  project: ProjectType;
-  rankInfo: ProjectRankType;
-  hackathon: HackathonType;
-}
+interface CloseInProp {}
 
-const CloseIn: React.FC<CloseInProp> = ({ project, rankInfo, hackathon }) => {
+const CloseIn: React.FC<CloseInProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const { project, hackathon } = useContext(ProjectDetailContext);
   const isEnd = useMemo(() => {
     return dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
   }, [hackathon]);
-  if ((isEnd && (!project.vote || rankInfo?.rank !== 1)) || !rankInfo || !hackathon) return null;
+  if (isEnd && !project.rewards?.some((v) => v.winner)) return null;
   return (
     <div className="sticky left-0 top-0 z-[2] h-[61px] w-full rounded-[4px] bg-yellow-extra-light px-[28px]">
       <div className="body-l relative flex h-full items-center  justify-center gap-[12px] text-neutral-off-black">
-        {project.vote && isEnd ? (
+        {isEnd ? (
           <>
             <Image src={IconLevelPrize} alt="level-prize-icon" width={30} />
             <div>
-              This project won the <span className="body-xl-bold">1st</span> prize
+              This project won the <span className="body-xl-bold">{project.rewards[0].name}</span> prize
             </div>
           </>
         ) : (

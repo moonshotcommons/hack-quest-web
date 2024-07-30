@@ -3,7 +3,9 @@ import {
   HackathonInfoSectionCustomType,
   HackathonStatusType,
   HackathonType,
-  ProjectType
+  HackathonVoteJudgeType,
+  ProjectType,
+  ProjectVotesType
 } from '@/service/webApi/resourceStation/type';
 import { createContext } from 'react';
 
@@ -28,15 +30,13 @@ export interface HackathonVoteContextType {
   setVoteData: (data: VoteDataType[]) => void;
   view: ViewValue;
   setView: (view: ViewValue) => void;
-  initProjects: ProjectType[];
-  setInitProjects: (list: ProjectType[]) => void;
   remainingVotes: number;
   setRemainingVotes: (count: number) => void;
-  hackathon: HackathonType | null;
-  isFixedVote: boolean;
-  setIsFixedVote: (isFixed: boolean) => void;
+  hackathon: HackathonType;
   totalLeftVotes: number;
   setTotalLeftVotes: (count: number) => void;
+  judgeInfo: HackathonVoteJudgeType;
+  setJudgeInfo: (data: HackathonVoteJudgeType) => void;
 }
 
 export const HackathonVoteContext = createContext<HackathonVoteContextType>({
@@ -44,25 +44,29 @@ export const HackathonVoteContext = createContext<HackathonVoteContextType>({
   setVoteData: () => {},
   view: ViewValue.AGENDA,
   setView: () => {},
-  initProjects: [],
-  setInitProjects: () => {},
   remainingVotes: 0,
   setRemainingVotes: () => {},
-  hackathon: null,
-  isFixedVote: false,
-  setIsFixedVote: () => {},
+  hackathon: {} as HackathonType,
   totalLeftVotes: 0,
-  setTotalLeftVotes: () => {}
+  setTotalLeftVotes: () => {},
+  judgeInfo: {} as HackathonVoteJudgeType,
+  setJudgeInfo: () => {}
 });
 
 export interface ProjectDetailContextType {
   titleTxtData: string[];
-  // setTitleTxtData: (data: string[]) => void;
+  hackathon: HackathonType;
+  project: ProjectType;
+  projectVote: ProjectVotesType;
+  isShowVoting: boolean;
 }
 
 export const ProjectDetailContext = createContext<ProjectDetailContextType>({
-  titleTxtData: []
-  // setTitleTxtData: () => {}
+  titleTxtData: [],
+  hackathon: {} as HackathonType,
+  project: {} as ProjectType,
+  projectVote: {} as ProjectVotesType,
+  isShowVoting: false
 });
 
 export interface HackathonEditNavType {

@@ -8,13 +8,13 @@ import { BiXCircle } from 'react-icons/bi';
 import { MdKeyboardArrowDown, MdOutlineAccessTimeFilled } from 'react-icons/md';
 import Title from '../../Title';
 import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from 'dayjs';
 import BaseImage from '@/components/Common/BaseImage';
 import { applicationAboutBasicKeys } from '../../../../../constants/data';
 import Link from 'next/link';
 import { isUuid } from '@/helper/utils';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { cloneDeep } from 'lodash-es';
 
 interface InfoContentProp {
@@ -24,7 +24,7 @@ interface InfoContentProp {
 }
 
 const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleStautusSingle }) => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))

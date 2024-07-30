@@ -3,10 +3,10 @@ import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import HandleVote from './HandleVote';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { ViewValue } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import HandleVote from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/voting/[hackathonId]/components/HandleVote';
 
 interface GridCardProp {
   project: ProjectType;
