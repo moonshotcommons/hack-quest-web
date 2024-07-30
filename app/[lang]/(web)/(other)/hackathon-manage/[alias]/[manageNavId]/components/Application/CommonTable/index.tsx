@@ -8,13 +8,18 @@ import Operation from './Operation';
 import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
-import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import {
+  ApplicationStatus,
+  HackathonManageApplicationMemberType,
+  HackathonManageApplicationType
+} from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from '@/components/Common/Dayjs';
+import { exportToExcel, isUuid } from '@/helper/utils';
 
 interface CommonTableProp {
   list: HackathonManageApplicationType[];
@@ -49,8 +54,52 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     !checkAll ? setCheckItems(list) : setCheckItems([]);
   };
 
+  const getInfoObj = (infoKey: 'About' | 'Contact' | 'OnlineProfiles', key: string, value: string) => {
+    if (isUuid(key)) {
+      const application = hackathon?.info?.application;
+      const label = (application[infoKey]?.find((v) => v.id === key)?.property as any)?.label;
+      return {
+        label,
+        value
+      };
+    } else {
+      return {
+        label: key,
+        value
+      };
+    }
+  };
+
+  const getInfo = (item: HackathonManageApplicationType | HackathonManageApplicationMemberType) => {
+    item.info = item.info || {};
+    const info: Record<string, any> = {
+      createdAt: dayjs(item.createdAt).format('YYYY-M-D HH:mm')
+    };
+    for (let infoKey in item.info) {
+      const iKey = infoKey as keyof typeof item.info;
+      const vInfo = item.info[iKey];
+      for (let dataKey in vInfo) {
+        const dKey = dataKey as keyof typeof vInfo;
+        const appInfo = getInfoObj(iKey, dKey, vInfo[dKey]);
+        info[appInfo['label']] = appInfo['value'];
+      }
+    }
+    return info;
+  };
+
   const handleDown = () => {
     if (!checkItems.length) return;
+    const applicationData: Record<string, any>[] = [];
+    checkItems.forEach((v) => {
+      if (v.type === 'team') {
+        v.members?.forEach((m) => {
+          applicationData.push(getInfo(m));
+        });
+      } else {
+        applicationData.push(getInfo(v));
+      }
+    });
+    exportToExcel(applicationData, `application data`);
   };
 
   const handleStatus = (sta: ApplicationStatus) => {

@@ -5,6 +5,7 @@ import { SelectType } from '../../../../../constants/type';
 import dayjs from 'dayjs';
 import { Spinner } from '@/components/ui/spinner';
 import BaseImage from '@/components/Common/BaseImage';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 
 interface AuditTableProp {
   handleCheckAll: VoidFunction;
@@ -14,7 +15,7 @@ interface AuditTableProp {
   checkIds: string[];
   changeTeamIds: (id: string) => void;
   teamIds: string[];
-  handleCheck: (id: string) => void;
+  handleCheck: (item: ProjectType) => void;
   showInfo: (v: any) => void;
   loading: boolean;
 }
@@ -97,10 +98,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                       key={item.id}
                       className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${item.pId ? 'bg-neutral-off-white' : item.index % 2 ? 'bg-yellow-extra-light' : ''}`}
                     >
-                      <TableCell
-                        className="w-[44px] cursor-pointer  p-0 text-center"
-                        onClick={() => handleCheck(item.id)}
-                      >
+                      <TableCell className="w-[44px] cursor-pointer  p-0 text-center" onClick={() => handleCheck(item)}>
                         {!item.pId && <Checkbox checked={checkIds.includes(item.id)} />}
                       </TableCell>
                       {information.map((v) => (
