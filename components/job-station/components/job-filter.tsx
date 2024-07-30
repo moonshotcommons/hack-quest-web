@@ -2,10 +2,11 @@
 
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next-nprogress-bar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CheckboxTag, CheckboxTagItem } from './checkbox-tag';
 import { workModes as WORK_MODES, workTypes as WORK_TYPES } from '../validations';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { createUrl } from '@/helper/utils';
 import webApi from '@/service';
 
