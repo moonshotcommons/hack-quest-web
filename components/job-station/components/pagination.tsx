@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import { useKeyPress } from 'ahooks';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { GoArrowRight, GoArrowLeft } from 'react-icons/go';
 import { createUrl } from '@/helper/utils';
 import { LIMIT_PER_PAGE } from '../utils';

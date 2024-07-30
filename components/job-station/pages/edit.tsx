@@ -10,15 +10,13 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/user-profile/common/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Steps } from '../components/steps';
-import { companySchema, contacts, contactsSchema, currencies, jobSchema, workModes, workTypes } from '../validations';
+import { contacts, currencies, formSchema, workModes, workTypes } from '../validations';
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
-import TextEditor, { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useJobStore } from '../utils/store';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import Image from 'next/image';
 import { TagCombobox } from '../components/tag-combobox-new';
@@ -26,23 +24,64 @@ import { Textarea } from '@/components/user-profile/common/textarea';
 import toast from 'react-hot-toast';
 import { Spinner } from '@/components/ui/spinner';
 import { useParams } from 'next/navigation';
+import omit from 'lodash-es/omit';
 import { revalidate } from '../utils/actions';
 import { useUserStore } from '@/store/zustand/userStore';
 
-function Step1() {
-  const { onNext, setValues } = useJobStore();
-  const submitRef = React.useRef<HTMLInputElement>(null);
+function FormEdit() {
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
+  const [pending, startTransition] = React.useTransition();
+  const [description, setDescription] = React.useState<{ type: string; content: object }>();
 
-  const form = useForm<z.infer<typeof companySchema>>({
-    resolver: zodResolver(companySchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       companyName: '',
       companyLogo: '',
-      website: ''
+      website: '',
+      name: '',
+      workMode: 'REMOTE',
+      workType: 'FULL_TIME',
+      minSalary: '',
+      maxSalary: '',
+      currency: '',
+      tags: [],
+      contractKey: [],
+      contractValue: {}
     }
   });
 
+  const { data } = useQuery({
+    enabled: !!params.id,
+    queryKey: ['job', params.id],
+    staleTime: Infinity,
+    queryFn: () => webApi.jobApi.getJob(params.id as string)
+  });
+
+  React.useEffect(() => {
+    if (data) {
+      const contractKey = Object.keys(data?.contact || {});
+      form.reset({
+        ...data,
+        description: '',
+        desc: data?.description,
+        minSalary: data?.minSalary?.toString() || '',
+        maxSalary: data?.maxSalary?.toString() || '',
+        location: data?.location || '',
+        contractKey,
+        contractValue: data?.contact || {}
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   const companyLogo = form.watch('companyLogo');
+  const tags = form.watch('tags');
+  const desc = form.watch('desc');
+  const isOnSite = form.watch('workMode') === 'ONSITE';
+  const contractKey = form.watch('contractKey');
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: FormData) => webApi.commonApi.uploadImage(data),
@@ -50,6 +89,19 @@ function Step1() {
       form.setValue('companyLogo', filepath);
       form.clearErrors('companyLogo');
       toast.success('Upload success');
+    }
+  });
+
+  const submit = useMutation({
+    mutationKey: ['update', params.id],
+    mutationFn: (values: any) => webApi.jobApi.updateJob(params.id, values),
+    onSuccess: async () => {
+      await revalidate();
+      await queryClient.invalidateQueries({ queryKey: ['job', params.id] });
+      toast.success('Job updated');
+      startTransition(() => {
+        router.back();
+      });
     }
   });
 
@@ -64,14 +116,52 @@ function Step1() {
     }
   }
 
-  function onSubmit(data: z.infer<typeof companySchema>) {
-    setValues(data);
-    onNext();
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    const values = {
+      ...data,
+      description,
+      location: data.location || null,
+      minSalary: data.minSalary ? z.coerce.number().parse(data.minSalary) : null,
+      maxSalary: data.maxSalary ? z.coerce.number().parse(data.maxSalary) : null,
+      contact: data.contractValue
+    };
+
+    submit.mutate(omit(values, ['contractKey', 'contractValue', 'desc']));
   }
 
   return (
     <Form {...form}>
-      <form className="w-full flex-1 space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="flex w-full flex-1 flex-col space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem className="shrink-0">
+              <FormLabel>Job Post Status</FormLabel>
+              <FormControl>
+                <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="open" />
+                    </FormControl>
+                    <FormLabel className="text-neutral-medium-gray peer-aria-checked:text-neutral-black">
+                      Open
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="closed" />
+                    </FormControl>
+                    <FormLabel className="text-neutral-medium-gray peer-aria-checked:text-neutral-black">
+                      Closed
+                    </FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="companyName"
@@ -128,51 +218,6 @@ function Step1() {
             </FormItem>
           )}
         />
-        <input type="submit" ref={submitRef} className="hidden" />
-      </form>
-      <Button
-        type="submit"
-        className="mt-20 w-full sm:mt-0 sm:w-[270px] sm:self-end"
-        onClick={() => submitRef.current?.click()}
-      >
-        Continue
-      </Button>
-    </Form>
-  );
-}
-
-function Step2() {
-  const { onBack, onNext, setValues } = useJobStore();
-
-  const [description, setDescription] = React.useState<{ type: string; content: object }>();
-  const submitRef = React.useRef<HTMLInputElement>(null);
-
-  const form = useForm<z.infer<typeof jobSchema>>({
-    resolver: zodResolver(jobSchema),
-    defaultValues: {
-      name: '',
-      workMode: 'REMOTE',
-      workType: 'FULL_TIME'
-    }
-  });
-
-  const isOnSite = form.watch('workMode') === 'ONSITE';
-
-  const tags = form.watch('tags');
-
-  function onSubmit(data: z.infer<typeof jobSchema>) {
-    setValues({
-      ...data,
-      minSalary: data.minSalary ? z.coerce.number().parse(data.minSalary) : null,
-      maxSalary: data.maxSalary ? z.coerce.number().parse(data.maxSalary) : null,
-      description
-    });
-    onNext();
-  }
-
-  return (
-    <Form {...form}>
-      <form className="w-full flex-1 space-y-6 pb-10" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="name"
@@ -195,13 +240,7 @@ function Step2() {
               render={({ field }) => (
                 <FormItem className="shrink-0">
                   <FormControl>
-                    <RadioGroup
-                      onValueChange={(value) => {
-                        field.onChange(value);
-                      }}
-                      value={field.value as string}
-                      className="flex items-center gap-9"
-                    >
+                    <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
                       {workModes.map((item) => (
                         <FormItem key={item.id} className="flex items-center space-x-3 space-y-0">
                           <FormControl>
@@ -303,7 +342,7 @@ function Step2() {
                 name="currency"
                 render={({ field }) => (
                   <FormItem className="w-full sm:w-64 sm:shrink-0">
-                    <Select value={field.value} onValueChange={field.onChange}>
+                    <Select value={field.value} defaultValue={'USD'} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Please select" />
@@ -339,187 +378,118 @@ function Step2() {
               <FormControl>
                 <Textarea {...field} className="hidden" />
               </FormControl>
-              <TextEditor
-                simpleModel={false}
-                className="overflow-hidden rounded-[8px]"
-                onCreated={(editor) => {
-                  const text = editor.getText().replace(/\n|\r/gm, '');
-                  form.setValue('description', text);
-                  setDescription({
-                    type: TEXT_EDITOR_TYPE,
-                    content: editor.children
-                  });
-                }}
-                defaultContent={[]}
-                onChange={(editor) => {
-                  const text = editor.getText().replace(/\n|\r/gm, '');
-                  form.setValue('description', text);
-                  setDescription({
-                    type: TEXT_EDITOR_TYPE,
-                    content: editor.children
-                  });
-                }}
-              />
+              {desc && (
+                <TextEditor
+                  simpleModel={false}
+                  className="overflow-hidden rounded-[8px]"
+                  onCreated={(editor) => {
+                    const text = editor.getText().replace(/\n|\r/gm, '');
+                    form.setValue('description', text);
+                    setDescription({
+                      type: TEXT_EDITOR_TYPE,
+                      content: editor.children
+                    });
+                  }}
+                  defaultContent={transformTextToEditorValue(desc)}
+                  onChange={(editor) => {
+                    const text = editor.getText().replace(/\n|\r/gm, '');
+                    form.setValue('description', text);
+                    setDescription({
+                      type: TEXT_EDITOR_TYPE,
+                      content: editor.children
+                    });
+                  }}
+                />
+              )}
               <FormMessage />
             </FormItem>
           )}
         />
-        <input type="submit" ref={submitRef} className="hidden" />
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-end">
-          <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-[270px]">
-            Back
-          </Button>
-          <Button type="submit" className="w-full sm:w-[270px]" onClick={() => submitRef.current?.click()}>
-            Continue
-          </Button>
-        </div>
-      </form>
-    </Form>
-  );
-}
-
-function Step3() {
-  const router = useRouter();
-  const { values, reset, onBack } = useJobStore();
-  const [pending, startTransition] = React.useTransition();
-
-  const submitRef = React.useRef<HTMLInputElement>(null);
-
-  const form = useForm<z.infer<typeof contactsSchema>>({
-    resolver: zodResolver(contactsSchema),
-    defaultValues: {
-      contractKey: [],
-      contractValue: {}
-    }
-  });
-
-  const contractKey = form.watch('contractKey');
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: (values: any) => webApi.jobApi.publishJob(values),
-    onSuccess: async () => {
-      await revalidate();
-      toast.success('Job published');
-      startTransition(() => {
-        router.back();
-        setTimeout(() => {
-          reset();
-        }, 1000);
-      });
-    }
-  });
-
-  function onSubmit(data: z.infer<typeof contactsSchema>) {
-    const formatedValues = {
-      ...values,
-      contact: data.contractValue
-    };
-
-    mutate(formatedValues);
-  }
-
-  return (
-    <Form {...form}>
-      <Label className="self-start text-base">
-        How would applicants reach out to you? (You can choose multiple ways)*
-      </Label>
-      <form className="w-full flex-1 space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="contractKey"
-          render={() => (
-            <FormItem className="mt-4 flex w-full flex-col gap-3">
-              {contacts.map((item) => (
-                <div key={item.id} className="flex w-full flex-col gap-3 sm:min-h-[50px] sm:flex-row">
-                  <FormField
-                    control={form.control}
-                    name="contractKey"
-                    render={({ field }) => (
-                      <FormItem key={item.id} className="sm:min-w-36 flex flex-row items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <Checkbox
-                            size="large"
-                            checked={field.value?.includes(item.id)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(field.value?.filter((value) => value !== item.id));
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className="text-sm text-neutral-medium-gray peer-aria-checked:text-neutral-black">
-                          {item.label}
-                        </FormLabel>
-                      </FormItem>
-                    )}
-                  />
-                  {contractKey.includes(item.id) && (
+        <div>
+          <Label className="self-start text-base">
+            How would applicants reach out to you? (You can choose multiple ways)*
+          </Label>
+          <FormField
+            control={form.control}
+            name="contractKey"
+            render={() => (
+              <FormItem className="mt-4 flex w-full flex-col gap-3">
+                {contacts.map((item) => (
+                  <div key={item.id} className="flex w-full flex-col gap-3 sm:min-h-[50px] sm:flex-row">
                     <FormField
                       control={form.control}
-                      name={`contractValue.${item.id}`}
+                      name="contractKey"
                       render={({ field }) => (
-                        <FormItem className="flex-1">
+                        <FormItem key={item.id} className="sm:min-w-36 flex flex-row items-center space-x-3 space-y-0">
                           <FormControl>
-                            <Input placeholder={item.placeholder} {...field} />
+                            <Checkbox
+                              size="large"
+                              checked={field.value?.includes(item.id)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([...field.value, item.id])
+                                  : field.onChange(field.value?.filter((value) => value !== item.id));
+                              }}
+                            />
                           </FormControl>
-                          <FormMessage />
+                          <FormLabel className="text-sm text-neutral-medium-gray peer-aria-checked:text-neutral-black">
+                            {item.label}
+                          </FormLabel>
                         </FormItem>
                       )}
                     />
-                  )}
-                </div>
-              ))}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <input ref={submitRef} type="submit" className="hidden" />
-      </form>
-      <div className="mt-20 flex w-full flex-col items-center gap-4 sm:mt-0 sm:flex-row sm:justify-end">
-        <Button type="button" variant="outline" onClick={onBack} className="w-full sm:w-[270px]">
-          Back
-        </Button>
+                    {contractKey?.includes(item.id) && (
+                      <FormField
+                        control={form.control}
+                        name={`contractValue.${item.id}`}
+                        render={({ field }) => (
+                          <FormItem className="flex-1">
+                            <FormControl>
+                              <Input placeholder={item.placeholder} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                ))}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <Button
           type="submit"
-          isLoading={isPending || pending}
-          className="w-full sm:w-[270px]"
-          onClick={() => submitRef.current?.click()}
+          isLoading={submit.isPending || pending}
+          className="mt-20 w-full sm:mb-10 sm:mt-0 sm:w-[270px] sm:self-end"
         >
-          Submit
+          Save Changes
         </Button>
-      </div>
+      </form>
     </Form>
   );
 }
 
-const steps = [Step1, Step2, Step3];
-
 export default function Page() {
-  const { step } = useJobStore();
-  const params = useParams();
   const router = useRouter();
-
+  const { id } = useParams<{ id: string }>();
   const { userInfo } = useUserStore();
 
-  const Component = steps[step] || null;
-
   React.useEffect(() => {
-    if (!userInfo) {
+    if (!userInfo || !id) {
       router.push('/jobs');
     }
-  }, [router, userInfo]);
+  }, [id, router, userInfo]);
 
   return (
-    <main className="relative h-full w-full justify-between overflow-y-auto bg-neutral-white sm:py-12">
+    <main className="relative w-full justify-between bg-neutral-white sm:py-12">
       <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={() => router.back()}>
         <XIcon size={28} />
       </button>
       <div className="flex h-full w-full flex-col items-center px-5 py-6 sm:mx-auto sm:max-w-5xl sm:p-0">
-        <Steps currentStep={step + 1} />
-        <h1 className="my-8 font-next-book-bold text-[22px] font-bold sm:text-[28px]">
-          {params.id ? 'Edit Job Post' : 'Post a Web3 Position'}
-        </h1>
-        <Component />
+        <h1 className="mb-8 font-next-book-bold text-[22px] font-bold sm:text-[28px]">Edit Job Post</h1>
+        <FormEdit />
       </div>
     </main>
   );
