@@ -476,19 +476,15 @@ export default function Page() {
   const { id } = useParams<{ id: string }>();
   const { userInfo } = useUserStore();
 
-  // React.useEffect(() => {
-  //   if (!userInfo?.id || !id) {
-  //     router.push('/jobs');
-  //   }
-  // }, [id, router, userInfo?.id]);
-
-  function onBack() {
-    router.back();
-  }
+  React.useEffect(() => {
+    if (!userInfo || !id) {
+      router.push('/jobs');
+    }
+  }, [id, router, userInfo]);
 
   return (
     <main className="relative w-full justify-between bg-neutral-white sm:py-12">
-      <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={onBack}>
+      <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={() => router.back()}>
         <XIcon size={28} />
       </button>
       <div className="flex h-full w-full flex-col items-center px-5 py-6 sm:mx-auto sm:max-w-5xl sm:p-0">
