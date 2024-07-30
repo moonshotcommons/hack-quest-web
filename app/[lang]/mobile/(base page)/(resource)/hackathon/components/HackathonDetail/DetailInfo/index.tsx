@@ -168,7 +168,6 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       return null;
     }
   };
-
   const statusRender = () => {
     if (stepIndex >= 0) {
       return (
@@ -228,7 +227,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         </div>
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hackathonMode')}</p>
-          <p>{hackathon.info?.mode}</p>
+          <p>{hackathon.info?.allowSubmission === false ? 'OFFLINE' : hackathon.info?.mode}</p>
         </div>
         {hackathon.info?.address && hackathon.info?.mode === 'HYBRID' && (
           <div>
