@@ -10,8 +10,8 @@ import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
 import {
   ApplicationStatus,
-  HackathonManageApplicationMemberType,
-  HackathonManageApplicationType
+  HackathonManageApplicationType,
+  HackathonType
 } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
@@ -19,7 +19,8 @@ import { message } from 'antd';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import dayjs from '@/components/Common/Dayjs';
-import { exportToExcel, isUuid } from '@/helper/utils';
+import { exportToExcel } from '@/helper/utils';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface CommonTableProp {
   list: HackathonManageApplicationType[];
@@ -43,6 +44,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   const [curInfo, setCurInfo] = useState<HackathonManageApplicationType | null>(null);
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const { getInfo, getInfoObj } = useDealHackathonData();
   const handleCheck = (item: HackathonManageApplicationType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -54,49 +56,16 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     !checkAll ? setCheckItems(list) : setCheckItems([]);
   };
 
-  const getInfoObj = (infoKey: 'About' | 'Contact' | 'OnlineProfiles', key: string, value: string) => {
-    if (isUuid(key)) {
-      const application = hackathon?.info?.application;
-      const label = (application[infoKey]?.find((v) => v.id === key)?.property as any)?.label;
-      return {
-        label,
-        value
-      };
-    } else {
-      return {
-        label: key,
-        value
-      };
-    }
-  };
-
-  const getInfo = (item: HackathonManageApplicationType | HackathonManageApplicationMemberType) => {
-    item.info = item.info || {};
-    const info: Record<string, any> = {
-      createdAt: dayjs(item.createdAt).format('YYYY-M-D HH:mm')
-    };
-    for (let infoKey in item.info) {
-      const iKey = infoKey as keyof typeof item.info;
-      const vInfo = item.info[iKey];
-      for (let dataKey in vInfo) {
-        const dKey = dataKey as keyof typeof vInfo;
-        const appInfo = getInfoObj(iKey, dKey, vInfo[dKey]);
-        info[appInfo['label']] = appInfo['value'];
-      }
-    }
-    return info;
-  };
-
   const handleDown = () => {
     if (!checkItems.length) return;
     const applicationData: Record<string, any>[] = [];
     checkItems.forEach((v) => {
       if (v.type === 'team') {
         v.members?.forEach((m) => {
-          applicationData.push(getInfo(m));
+          applicationData.push(getInfo(hackathon as unknown as HackathonType, m));
         });
       } else {
-        applicationData.push(getInfo(v));
+        applicationData.push(getInfo(hackathon as unknown as HackathonType, v));
       }
     });
     exportToExcel(applicationData, `application data`);
