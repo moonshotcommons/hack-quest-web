@@ -63,7 +63,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
         <div className="mt-6 flex w-full flex-col space-y-6">
           {contact.wechat && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <g clipPath="url(#clip0_11832_4851)">
                     <path
@@ -97,7 +97,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           )}
           {contact.link && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <LinkIcon className="h-6 w-6" />
                 <span className="font-bold text-neutral-off-black">Link</span>
               </div>
@@ -113,7 +113,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           )}
           {contact.email && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <MailIcon className="h-6 w-6" />
                 <span className="font-bold text-neutral-off-black">Email</span>
               </div>
@@ -127,7 +127,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           )}
           {contact.telegram && (
             <div className="flex items-center gap-3">
-              <div className="flex min-w-32 items-center gap-3">
+              <div className="min-w-32 flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <g clipPath="url(#clip0_11835_4889)">
                     <path
