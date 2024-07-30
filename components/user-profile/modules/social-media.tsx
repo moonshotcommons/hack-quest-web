@@ -41,7 +41,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <DiscordIcon className="h-6 w-6" />
-            <span className="hidden min-w-28 text-sm sm:block">Discord</span>
+            <span className="min-w-28 hidden text-sm sm:block">Discord</span>
           </div>
           {profile?.personalLinks?.discord ? (
             <div className="flex w-full items-center gap-4">
@@ -73,7 +73,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <TwitterIcon className="h-6 w-6" />
-            <span className="hidden min-w-28 text-sm sm:block">Twitter</span>
+            <span className="min-w-28 hidden text-sm sm:block">Twitter</span>
           </div>
           <FormField
             control={form.control}
@@ -91,7 +91,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <GithubIcon className="h-6 w-6" />
-            <span className="hidden min-w-28 text-sm sm:block">Github</span>
+            <span className="min-w-28 hidden text-sm sm:block">Github</span>
           </div>
           <FormField
             control={form.control}
@@ -109,7 +109,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <LinkedInIcon className="h-6 w-6" />
-            <span className="hidden min-w-28 text-sm sm:block">LinkedIn</span>
+            <span className="min-w-28 hidden text-sm sm:block">LinkedIn</span>
           </div>
           <FormField
             control={form.control}
@@ -127,7 +127,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <TelegramIcon className="h-6 w-6" />
-            <span className="hidden min-w-28 text-sm sm:block">Telegram</span>
+            <span className="min-w-28 hidden text-sm sm:block">Telegram</span>
           </div>
           <FormField
             control={form.control}
@@ -145,7 +145,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <WeChatIcon className="h-6 w-6" />
-            <span className="hidden min-w-28 text-sm sm:block">WeChat</span>
+            <span className="min-w-28 hidden text-sm sm:block">WeChat</span>
           </div>
           <FormField
             control={form.control}

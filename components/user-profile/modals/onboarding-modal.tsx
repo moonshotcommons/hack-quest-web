@@ -170,28 +170,28 @@ function Step3() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <TwitterIcon className="h-6 w-6" />
-              <span className="hidden min-w-24 text-sm sm:block">Twitter</span>
+              <span className="min-w-24 hidden text-sm sm:block">Twitter</span>
             </div>
             <Input />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <LinkedInIcon className="h-6 w-6" />
-              <span className="hidden min-w-24 text-sm sm:block">LinkedIn</span>
+              <span className="min-w-24 hidden text-sm sm:block">LinkedIn</span>
             </div>
             <Input />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <TelegramIcon className="h-6 w-6" />
-              <span className="hidden min-w-24 text-sm sm:block">Telegram</span>
+              <span className="min-w-24 hidden text-sm sm:block">Telegram</span>
             </div>
             <Input />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <WeChatIcon className="h-6 w-6" />
-              <span className="hidden min-w-24 text-sm sm:block">WeChat</span>
+              <span className="min-w-24 hidden text-sm sm:block">WeChat</span>
             </div>
             <Input />
           </div>

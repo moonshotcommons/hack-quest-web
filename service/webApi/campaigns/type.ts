@@ -18,6 +18,7 @@ export interface UserCertificateInfo extends CertificationType {
   certificateTime: string;
   username: string;
   contract: `0x${string}`;
+  extra: any;
   certificateImage: string;
 }
 

@@ -21,7 +21,6 @@ export async function GET(request: NextRequest, context: { params: { name: strin
         name: `${username}-${certificateId}`
       });
     } else {
-      console.log(id, ext, username, certificateId, certificateTime);
       return new ImageResponse(
         (
           <div

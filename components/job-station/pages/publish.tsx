@@ -524,7 +524,7 @@ function Step3() {
                     control={form.control}
                     name="contractKey"
                     render={({ field }) => (
-                      <FormItem key={item.id} className="flex flex-row items-center space-x-3 space-y-0 sm:min-w-36">
+                      <FormItem key={item.id} className="sm:min-w-36 flex flex-row items-center space-x-3 space-y-0">
                         <FormControl>
                           <Checkbox
                             size="large"
