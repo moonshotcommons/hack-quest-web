@@ -2,7 +2,6 @@ import { FC } from 'react';
 import webApi from '@/service';
 import { projectSort } from '../constants/data';
 import { PageLayout } from '@/components/hackathon/page-layout';
-import ProjectCard from '@/components/Web/Business/ProjectCard';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 import { Metadata } from 'next';
@@ -10,7 +9,8 @@ import MenuLink from '@/constants/MenuLink';
 import { Tab } from './components/Tab';
 import { FilterPanel } from './components/FilterPanel';
 import { getHackathonsList } from '@/service/cach/resource/hackathon';
-import PastHackathonCard from '../components/HackathonBox/Past/PastHackathonCard';
+import { ProjectList } from './components/ProjectList';
+import { HackathonList } from './components/HackathonList';
 
 export interface SearchParamsType {
   keyword: string;
@@ -20,6 +20,7 @@ export interface SearchParamsType {
   track: string;
   prizeTrack: string;
   view?: string;
+  page: string;
 }
 export interface PageInfoType {
   page: number;
@@ -46,12 +47,14 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   };
 }
 
-const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, searchParams }) => {
+const Projects: FC<ProjectsProps> = async ({ params: { lang }, searchParams }) => {
   const { t } = await useTranslation(lang, TransNs.HACKATHON);
   const PROJECTS_LIMIT = 12;
-  const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
+  const offsetInt = parseInt(searchParams?.page ?? '1');
+  const page = Number.isNaN(offsetInt) ? 1 : offsetInt;
+
   const pageInfo = {
-    page: slug[0] === 'p' ? minPage : 1,
+    page,
     limit: PROJECTS_LIMIT
   };
   const params = {
@@ -67,28 +70,23 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, search
 
   const view = searchParams?.view || 'project';
 
-  const project = await webApi.resourceStationApi.getProjectsList({
+  const projects = await webApi.resourceStationApi.getProjectsList({
     ...pageInfo,
     ...params
   });
 
-  const hackathons = await getHackathonsList({});
+  const hackathons = await getHackathonsList({
+    ...pageInfo,
+    track: params.track
+  });
 
   return (
     <PageLayout lang={lang} slug="project_archive" title={t('project.title')} description={t('project.description')}>
       <div>
         <Tab currentTab={view} />
         <FilterPanel />
-        {view === 'project' && (
-          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-10">
-            {project.data?.map((item) => <ProjectCard key={item.id} project={item} />)}
-          </div>
-        )}
-        {view === 'hackathon' && (
-          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-10">
-            {hackathons.data?.map((item) => <PastHackathonCard key={item.id} hackathon={item} />)}
-          </div>
-        )}
+        {view === 'project' && <ProjectList {...projects} />}
+        {view === 'hackathon' && <HackathonList {...hackathons} />}
       </div>
     </PageLayout>
   );

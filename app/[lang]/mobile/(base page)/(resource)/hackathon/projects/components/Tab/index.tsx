@@ -23,15 +23,13 @@ export function Tab({ currentTab }: { currentTab: string }) {
   return (
     <div className="w-full">
       <SlideHighlight
-        className="mb-10 flex gap-8 pb-0.5"
+        className="my-5 flex gap-8 pb-0.5"
         type="LEARNING_TRACK"
         currentIndex={tabs.findIndex((tab) => tab.name === currentTab)}
       >
         {tabs.map((tab) => (
           <Link key={tab.name} href={getUrl(tab.name)} scroll={false}>
-            <div
-              className={`body-xl cursor-pointer text-neutral-off-black ${currentTab === tab.name && 'body-xl-bold'}`}
-            >
+            <div className={`body-l cursor-pointer text-neutral-off-black ${currentTab === tab.name && 'body-l-bold'}`}>
               {tab.label}
             </div>
           </Link>

@@ -4,15 +4,16 @@ import * as React from 'react';
 import { useDebounceFn } from 'ahooks';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next-nprogress-bar';
-import { CheckIcon, SearchIcon, XIcon } from 'lucide-react';
+import { CheckIcon, SearchIcon, SlidersHorizontalIcon, XIcon } from 'lucide-react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { SortIcon } from '@/components/Common/Icon/Sort';
 import { createUrl } from '@/helper/utils';
-import { animateProps } from '../../../constants/data';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import webApi from '@/service';
-import { DropdownFilter } from '@/components/idea-bank/filters/dropdown';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { DialogTrigger } from '@radix-ui/react-dialog';
+import { Button } from '@/components/ui/button';
 
 const options = [
   { label: 'Latest to oldest', value: '-registrationOpen' },
@@ -62,13 +63,9 @@ export function Sort() {
         className="group inline-flex items-center justify-center gap-2 rounded-full py-1.5 pr-0 text-neutral-off-black data-[state=open]:bg-neutral-off-white sm:px-4"
       >
         <SortIcon className="h-5 w-5" />
-        <span className="body-l whitespace-nowrap capitalize">Sort by</span>
       </button>
       {hovered && (
-        <motion.ul
-          {...animateProps}
-          className="absolute -bottom-[0.1875rem] left-0 z-50 flex w-48 flex-col rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2"
-        >
+        <motion.ul className="absolute -bottom-[0.1875rem] left-0 z-50 flex w-48 flex-col rounded-[0.625rem] border border-neutral-light-gray bg-neutral-white px-0 py-2">
           {options.map((option) => (
             <li
               key={option.value}
@@ -113,14 +110,14 @@ export function WinnersOnly() {
     <div className="flex items-center space-x-2.5 sm:ml-6">
       <Checkbox
         id="winner"
-        size="large"
+        size="small"
         disabled={view === 'hackathon'}
         checked={winner === 'true'}
         onCheckedChange={onCheckedChange}
       />
       <label
         htmlFor="winner"
-        className="body-m select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
+        className="body-s select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
       >
         Winners only
       </label>
@@ -143,10 +140,6 @@ export function SearchForm() {
       currentParams.set('keyword', value);
       const url = createUrl(pathname, currentParams);
       router.replace(url, { scroll: false });
-      const element = document.querySelector('h1[data-id="all-ideas"]');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
     }
   }
 
@@ -158,16 +151,16 @@ export function SearchForm() {
   }
   return (
     <form
-      className="flex min-w-[630px] items-center gap-3 rounded-full border border-neutral-light-gray bg-neutral-white px-5 py-3 transition-colors duration-300 focus-within:border-neutral-medium-gray"
+      className="flex w-full items-center gap-3 rounded-full border border-neutral-light-gray bg-neutral-white px-5 py-3 transition-colors duration-300 focus-within:border-neutral-medium-gray"
       onSubmit={onSubmit}
     >
-      <SearchIcon />
+      <SearchIcon size={20} />
       <input
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search for keywords, topics, etc..."
-        className="flex-1 bg-transparent outline-none placeholder:text-neutral-medium-gray"
+        className="flex-1 bg-transparent text-sm outline-none placeholder:text-neutral-medium-gray"
       />
       {value && (
         <button type="button" className="outline-none">
@@ -179,107 +172,130 @@ export function SearchForm() {
 }
 
 export function FilterPanel() {
+  return (
+    <section className="flex w-full flex-col gap-4">
+      <SearchForm />
+      <div className="flex items-center justify-between gap-4">
+        <Sort />
+        {/* <ViewBy /> */}
+        <WinnersOnly />
+        <FilterButton />
+      </div>
+    </section>
+  );
+}
+
+function PrizeTrack() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const [{ data: tracks }, { data: prizeTracks }] = useQueries({
-    queries: [
-      {
-        staleTime: Infinity,
-        queryKey: ['tracks'],
-        queryFn: () => webApi.resourceStationApi.getProjectTracksDict(),
-        select: (data: string[]) => data?.map((item) => ({ label: item, value: item }))
-      },
-      {
-        staleTime: Infinity,
-        queryKey: ['prizeTracks'],
-        queryFn: () => webApi.resourceStationApi.fetchHackathonPrizeTracks(),
-        select: (data: string[]) => data?.map((item) => ({ label: item, value: item }))
-      }
-    ]
+  const selectedPrizeTracks = currentParams.getAll('prizeTrack');
+
+  const { data } = useQuery({
+    staleTime: Infinity,
+    queryKey: ['prizeTracks'],
+    queryFn: () => webApi.resourceStationApi.fetchHackathonPrizeTracks()
   });
 
-  const view = currentParams.get('view') || 'project';
-  const prizeTrackOptions = currentParams.getAll('prizeTrack');
-  const trackOptions = currentParams.getAll('track');
+  function onCheckedChange(value: string) {
+    const newValue = selectedPrizeTracks?.includes(value)
+      ? selectedPrizeTracks?.filter((item) => item !== value)
+      : [...(selectedPrizeTracks || []), value];
 
-  const [selectedPrizeTracks, setSelectedPrizeTracks] = React.useState(prizeTrackOptions);
-  const [selectedTracks, setSelectedTracks] = React.useState(trackOptions);
-
-  const filteredParams = [...selectedTracks, ...selectedPrizeTracks];
-
-  const filteredPrizeTracks = prizeTracks?.filter((item) => filteredParams.includes(item.value));
-  const filteredTracks = tracks?.filter((item) => filteredParams.includes(item.value));
-
-  const filteredOptions = filteredPrizeTracks?.concat(filteredTracks || []);
-
-  function onValueChange(value: string, type: 'prizeTrack' | 'track') {
-    const isPrizeTrack = type === 'prizeTrack';
-    const selectedValues = isPrizeTrack ? selectedPrizeTracks : selectedTracks;
-    const setSelectedValues = isPrizeTrack ? setSelectedPrizeTracks : setSelectedTracks;
-    const paramName = isPrizeTrack ? 'prizeTrack' : 'track';
-
-    const newValues = selectedValues.includes(value)
-      ? selectedValues.filter((item) => item !== value)
-      : [...selectedValues, value];
-
-    setSelectedValues(newValues);
-
-    currentParams.delete(paramName);
-    if (newValues.length > 0) {
-      newValues.forEach((v) => currentParams.append(paramName, v));
-    }
+    currentParams.delete('prizeTrack');
+    newValue.forEach((value) => currentParams.append('prizeTrack', value));
 
     const url = createUrl(pathname, currentParams);
-
-    router.replace(url, { scroll: false });
-  }
-
-  function onRemove(value: string) {
-    const index = selectedPrizeTracks.indexOf(value);
-    if (index !== -1) {
-      onValueChange(value, 'prizeTrack');
-    } else {
-      onValueChange(value, 'track');
-    }
+    router.replace(url);
   }
 
   return (
-    <section className="flex w-full flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-5">
-          <Sort />
-          {/* <ViewBy /> */}
-          <WinnersOnly />
-        </div>
-        <SearchForm />
+    <div className="flex flex-col gap-4">
+      <h2 className="body-m-bold text-neutral-off-black">Prize Track</h2>
+      <div className="flex flex-col gap-4">
+        {data?.map((track) => (
+          <div key={track} className="flex items-center gap-2.5">
+            <Checkbox checked={selectedPrizeTracks.includes(track)} onCheckedChange={() => onCheckedChange(track)} />
+            <span className="body-s text-neutral-off-black">{track}</span>
+          </div>
+        ))}
       </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <DropdownFilter
-          label="Prize Track"
-          values={selectedPrizeTracks}
-          onValueChange={(value) => onValueChange(value, 'prizeTrack')}
-          options={prizeTracks}
-        />
-        <DropdownFilter
-          label="Sector"
-          values={selectedTracks}
-          onValueChange={(value) => onValueChange(value, 'track')}
-          options={tracks}
-        />
-        {view === 'project' &&
-          filteredOptions?.map((option) => (
-            <button
-              key={option.value}
-              className="inline-flex h-11 items-center justify-between gap-2.5 rounded-full bg-yellow-primary px-4 py-1.5 text-neutral-off-black"
-            >
-              <span className="body-m">{option.label}</span>
-              <XIcon className="h-5 w-5" onClick={() => onRemove(option.value)} />
-            </button>
-          ))}
+    </div>
+  );
+}
+
+function Track() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentParams = new URLSearchParams(searchParams.toString());
+
+  const selectedTracks = currentParams.getAll('track');
+
+  const { data } = useQuery({
+    staleTime: Infinity,
+    queryKey: ['tracks'],
+    queryFn: () => webApi.resourceStationApi.getProjectTracksDict()
+  });
+
+  function onCheckedChange(value: string) {
+    const newValue = selectedTracks?.includes(value)
+      ? selectedTracks?.filter((item) => item !== value)
+      : [...(selectedTracks || []), value];
+
+    currentParams.delete('track');
+    newValue.forEach((value) => currentParams.append('track', value));
+
+    const url = createUrl(pathname, currentParams);
+    router.replace(url);
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <h2 className="body-m-bold text-neutral-off-black">Sector</h2>
+      <div className="flex flex-col gap-4">
+        {data?.map((track) => (
+          <div key={track} className="flex items-center gap-2.5">
+            <Checkbox checked={selectedTracks.includes(track)} onCheckedChange={() => onCheckedChange(track)} />
+            <span className="body-s text-neutral-off-black">{track}</span>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
+  );
+}
+
+export function FilterButton() {
+  const searchParams = useSearchParams();
+
+  const currentParams = new URLSearchParams(searchParams.toString());
+
+  const count = currentParams.toString()
+    ? currentParams.has('view')
+      ? currentParams.toString()?.split('&')?.length - 1
+      : currentParams.toString()?.split('&')?.length
+    : 0;
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="w-full flex-1" variant="outline" size="small">
+          {count > 0 ? (
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-neutral-off-black text-neutral-white">
+              {count}
+            </span>
+          ) : (
+            <SlidersHorizontalIcon className="h-5 w-5" />
+          )}
+          <span className="ml-2 text-sm font-medium">Filter</span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-h-96 w-[92.5%] gap-8 overflow-auto rounded-xl p-8">
+        <PrizeTrack />
+        <Track />
+      </DialogContent>
+    </Dialog>
   );
 }

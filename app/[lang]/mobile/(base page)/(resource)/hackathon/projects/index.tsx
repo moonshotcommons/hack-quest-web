@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import ProjectsPage from './components';
 import webApi from '@/service';
 import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { PageLayout } from '@/components/hackathon/page-layout';
@@ -7,6 +6,11 @@ import { Lang, TransNs } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import { Metadata } from 'next';
 import { useTranslation } from '@/i18n/server';
+import { getHackathonsList } from '@/service/cach/resource/hackathon';
+import { Tab } from './components/Tab';
+import { FilterPanel } from './components/FilterPanel';
+import { ProjectList } from './components/ProjectList';
+import { HackathonList } from './components/HackathonList';
 
 export interface SearchParamsType {
   keyword: string;
@@ -15,6 +19,8 @@ export interface SearchParamsType {
   tracks: string;
   track: string;
   prizeTrack: string;
+  view?: string;
+  page: string;
 }
 export interface PageInfoType {
   page: number;
@@ -40,12 +46,14 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
   };
 }
 
-const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, searchParams }) => {
+const Projects: FC<ProjectsProps> = async ({ params: { lang }, searchParams }) => {
   const { t } = await useTranslation(lang, TransNs.HACKATHON);
   const PROJECTS_LIMIT = 12;
-  const minPage = Number(slug[1]) < 1 ? 1 : Number(slug[1]);
+  const offsetInt = parseInt(searchParams?.page ?? '1');
+  const page = Number.isNaN(offsetInt) ? 1 : offsetInt;
+
   const pageInfo = {
-    page: slug[0] === 'p' ? minPage : 1,
+    page,
     limit: PROJECTS_LIMIT
   };
   const params = {
@@ -58,18 +66,27 @@ const Projects: FC<ProjectsProps> = async ({ params: { slug = [], lang }, search
       : searchParams.prizeTrack || '',
     keyword: searchParams.keyword || ''
   };
-  const project = await webApi.resourceStationApi.getProjectsList({
+
+  const view = searchParams?.view || 'project';
+
+  const projects = await webApi.resourceStationApi.getProjectsList({
     ...pageInfo,
     ...params
   });
+
+  const hackathons = await getHackathonsList({
+    ...pageInfo,
+    track: params.track
+  });
+
   return (
     <PageLayout lang={lang} slug="project_archive" title={t('project.title')} description={t('project.description')}>
-      <ProjectsPage
-        list={project.data}
-        pageInfo={pageInfo}
-        searchParams={params as SearchParamsType}
-        total={project.total}
-      />
+      <div className="px-5 pt-10">
+        <Tab currentTab={view} />
+        <FilterPanel />
+        {view === 'project' && <ProjectList {...projects} />}
+        {view === 'hackathon' && <HackathonList {...hackathons} />}
+      </div>
     </PageLayout>
   );
 };
