@@ -230,15 +230,22 @@ const useDealHackathonData = () => {
 
   const hackathonDownload = (id: string, cb: VoidFunction) => {
     webApi.resourceStationApi
-      .getHackathonDetail(id)
-      .then((hackathon) => {
-        const memberDatas: Record<string, any>[] = [];
-        hackathon.members?.map((v) => {
-          memberDatas.push(getInfo(hackathon, v));
-        });
-        exportToExcel(memberDatas, `${hackathon.name} members`);
+      .getHackathonMember(id)
+      .then((members) => {
+        webApi.resourceStationApi
+          .getHackathonDetail(id)
+          .then((hackathon) => {
+            const memberDatas: Record<string, any>[] = [];
+            members?.data?.map((v) => {
+              memberDatas.push(getInfo(hackathon, v));
+            });
+            exportToExcel(memberDatas, `${hackathon.name} members`);
+          })
+          .finally(() => {
+            cb();
+          });
       })
-      .finally(() => {
+      .catch(() => {
         cb();
       });
   };
