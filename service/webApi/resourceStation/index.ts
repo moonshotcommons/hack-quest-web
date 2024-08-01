@@ -9,6 +9,7 @@ import {
   FaucetRecordType,
   FaucetType,
   HackathonDataType,
+  HackathonJugingInfoType,
   HackathonManageApplicationType,
   HackathonMemberType,
   HackathonRegisterInfo,
@@ -17,6 +18,7 @@ import {
   HackathonVariousType,
   HackathonVoteJudgeType,
   HackathonVoteType,
+  HackathonWinnerType,
   JoinedHackathonType,
   PagedType,
   ProjectDataType,
@@ -326,13 +328,14 @@ class ResourceStationApi {
   }
 
   changeHackathonApplicationStatus(
+    hackathonId: string,
     data: {
       id: string;
       type: 'team' | 'member';
       joinState: ApplicationStatus;
     }[]
   ) {
-    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/review`, {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/review`, {
       data
     });
   }
@@ -355,6 +358,41 @@ class ResourceStationApi {
     return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/projects`, {
       params
     });
+  }
+
+  getHackathonJudgingInfo(hackahtonId: string, params: object) {
+    return this.service.get<HackathonJugingInfoType>(
+      `${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/judging`,
+      {
+        params
+      }
+    );
+  }
+
+  getHackathonJudgingWinner(hackahtonId: string, params: object) {
+    return this.service.get<HackathonWinnerType>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
+      params
+    });
+  }
+
+  hackathonWinnerAdd(hackahtonId: string, params: { judgeId: string; name: string; proejctId: string }) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
+      params
+    });
+  }
+
+  hackathonWinnerEdit(hackahtonId: string, winnerId: string, params: { name: string; proejctId: string }) {
+    return this.service.patch(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner/${winnerId}`, {
+      params
+    });
+  }
+
+  hackathonWinnerDelete(hackahtonId: string, winnerId: string) {
+    return this.service.delete(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner/${winnerId}`);
+  }
+
+  hackathonJudgeAnnounce(hackathonId: string, judgeId: string) {
+    return this.service.get(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/${judgeId}/announce`);
   }
 }
 

@@ -10,7 +10,9 @@ import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import webApi from '@/service';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
+import { useShallow } from 'zustand/react/shallow';
 
 const formSchema = z.object({
   judgeAccount: z.string().email()
@@ -21,7 +23,13 @@ interface JudgesModalProp {
 }
 
 const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
+  const { hackathon } = useHackathonManageStore(
+    useShallow((state) => ({
+      hackathon: state.hackathon
+    }))
+  );
   const [removeJudge, setRemoveJudge] = useState<any>(null);
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,6 +52,17 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
       }
     }
   });
+  // const mutation = useMutation({
+  //   mutationKey: ['updateJudge',hackathon?.id],
+  //   mutationFn: (data: any) => webApi.hackathonV2Api.updateHackathonJudge(initialValues?.id, data),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ['hackathon'] });
+  //     refresh?.();
+  //     router.refresh();
+  //     message.success('Success');
+  //     handleClose();
+  //   }
+  // });
   async function addJudgeAccount() {
     const isValid = await form.trigger('judgeAccount');
     const email = form.getValues('judgeAccount');

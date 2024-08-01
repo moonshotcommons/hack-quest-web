@@ -119,7 +119,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
       }));
     }
     webApi.resourceStationApi
-      .changeHackathonApplicationStatus(data)
+      .changeHackathonApplicationStatus(hackathon?.id, data)
       .then(() => {
         message.success('Updated Success');
         setStatus(null);

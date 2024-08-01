@@ -5,13 +5,20 @@ import { Checkbox } from '@/components/ui/checkbox';
 import VoteCloseIn from './VoteCloseIn';
 import JudgInfo from './JudgInfo';
 import JudgesModal from './JudgesModal';
-import { SubmissionStatusType } from '@/service/webApi/resourceStation/type';
+import {
+  HackathonJugingInfoType,
+  HackathonWinnerType,
+  SubmissionStatusType
+} from '@/service/webApi/resourceStation/type';
 import { AuditTabType } from '../../../../constants/type';
 import webApi from '@/service';
 import { useQueries } from '@tanstack/react-query';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import WinnerBelow from './WinnerBelow';
+import { useRequest } from 'ahooks';
+import Voting from './Voting';
+import WinnerView from './WinnerView';
 
 interface JudgingProp {}
 
@@ -24,7 +31,7 @@ const Judging: React.FC<JudgingProp> = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
-  const [{ data: tabData = [] }] = useQueries({
+  const [{ data: tabData = [] }, { data: judgeInfo = {} as HackathonJugingInfoType }, { data: winners }] = useQueries({
     queries: [
       {
         enabled: !!hackathon?.id,
@@ -38,6 +45,22 @@ const Judging: React.FC<JudgingProp> = () => {
           }));
           return newData;
         }
+      },
+      {
+        enabled: !!status,
+        queryKey: ['judgingInfo', status],
+        queryFn: () =>
+          webApi.resourceStationApi.getHackathonJudgingInfo(hackathon.id, {
+            prizeTrack: status
+          })
+      },
+      {
+        enabled: !!status,
+        queryKey: ['judgingWinner', status],
+        queryFn: () =>
+          webApi.resourceStationApi.getHackathonJudgingWinner(hackathon.id, {
+            prizeTrack: status
+          })
       }
     ]
   });
@@ -61,10 +84,14 @@ const Judging: React.FC<JudgingProp> = () => {
       </div>
       <div className="flex flex-1 flex-col gap-[28px] pb-[40px]">
         <VoteCloseIn />
-        <JudgInfo show={isShowDetail} handleShowJudges={() => setOpen(true)} />
-        {/* <Voting /> */}
-        {/* <WinnerView /> */}
-        <WinnerBelow />
+        <JudgInfo
+          show={isShowDetail}
+          handleShowJudges={() => setOpen(true)}
+          rewardJudgeInfo={judgeInfo?.reward?.judge}
+        />
+        <Voting />
+        {/* <WinnerView />
+        <WinnerBelow /> */}
       </div>
       <JudgesModal open={open} onClose={() => setOpen(false)} />
     </div>

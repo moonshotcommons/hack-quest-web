@@ -188,7 +188,7 @@ export interface HackathonJudgeType {
   judgeAccounts: HackathonJudgeAccountType[];
   criteria: any;
   votesProportion: number[];
-  judgeMode: string;
+  judgeMode: 'judges' | 'all';
   judgeProjectVote: number;
   judgeTotalVote: number;
   projectJudgeCount: number;
@@ -730,4 +730,64 @@ export interface SubmissionStatusType {
   id: string;
   name: string;
   projectCount: number;
+}
+export interface HackathonJugingInfoAccoutType {
+  avatar: string;
+  email: string;
+  id: string;
+  nickname: string;
+}
+export interface HackathonJugingInfoRewardJudgeType {
+  announce: boolean;
+  disableJudge: boolean;
+  id: string;
+  criteria: any;
+  judgeAccounts: HackathonJugingInfoAccoutType[];
+  judgeMode: 'judges' | 'all';
+  judgeProjectVote: number;
+  judgeTotalVote: number;
+  projectJudgeCount: number;
+  rewardName: string;
+  voteMode: 'fixed' | 'score';
+  votes: {
+    judgesVotes: number;
+    totalVotes: number;
+    userVotes: number;
+  };
+}
+
+export interface HackathonJugingInfoRewardType {
+  id: string;
+  currency: string;
+  mode: string;
+  name: string;
+  totalReward: number;
+  judge: HackathonJugingInfoRewardJudgeType;
+}
+
+export interface HackathonJudgeProjectType {
+  id: string;
+  name: string;
+  tracks: string[];
+  votes: {
+    judgesVotes: number;
+    rank: number;
+    totalVotes: number;
+    userVotes: number;
+  };
+}
+
+export interface HackathonJugingInfoType {
+  projects: HackathonJudgeProjectType[];
+  reward: HackathonJugingInfoRewardType;
+}
+
+export interface HackathonWinnerType {
+  id: string;
+  hackathonId: string;
+  name: string;
+  place: number;
+  projects: ProjectType[];
+  rewardId: string;
+  type: 'base' | 'other';
 }

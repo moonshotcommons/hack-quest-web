@@ -3,6 +3,7 @@ import { GrLineChart } from 'react-icons/gr';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
 import { MdAppRegistration } from 'react-icons/md';
+import { FaBalanceScale } from 'react-icons/fa';
 
 export const hackathonAuditNavData = [
   {
@@ -19,12 +20,12 @@ export const hackathonAuditNavData = [
     id: HackathonManageType.SUBMISSION,
     label: 'hackathonManage.submission',
     icon: <MdAppRegistration size={20} />
+  },
+  {
+    id: HackathonManageType.JUDGE,
+    label: 'hackathonManage.judging',
+    icon: <FaBalanceScale size={20} />
   }
-  // {
-  //   id: HackathonManageType.JUDGE,
-  //   label: 'hackathonManage.judging',
-  //   icon: <FaBalanceScale size={20} />
-  // }
   // {
   //   id: HackathonManageType.ANNOUNCEMENT,
   //   label: 'hackathonManage.announcement',
