@@ -89,11 +89,11 @@ const Judging: React.FC<JudgingProp> = () => {
           handleShowJudges={() => setOpen(true)}
           rewardJudgeInfo={judgeInfo?.reward?.judge}
         />
-        <Voting />
+        <Voting judgeInfo={judgeInfo} />
         {/* <WinnerView />
         <WinnerBelow /> */}
       </div>
-      <JudgesModal open={open} onClose={() => setOpen(false)} />
+      <JudgesModal open={open} onClose={() => setOpen(false)} judgeReward={judgeInfo?.reward} />
     </div>
   );
 };

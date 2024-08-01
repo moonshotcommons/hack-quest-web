@@ -5,6 +5,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
 import NoData from '../../../NoData';
 import { SelectType } from '../../../../../../constants/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface AuditTableProp {
   information: SelectType[];
@@ -13,12 +14,32 @@ interface AuditTableProp {
 }
 
 const AuditTable: React.FC<AuditTableProp> = ({ information, tableList, loading }) => {
+  const renderText = (key: string, item: any) => {
+    switch (key) {
+      case 'tracks':
+        return item[key].join(',');
+      default:
+        if (key in item.votes) {
+          return item?.votes?.[key];
+        }
+        return item[key];
+    }
+  };
   const renderTd = (key: string, item: any) => {
     switch (key) {
-      case 'createdAt':
-        return dayjs(item[key]).format('MMM D,YYYY');
+      case 'name':
+        return (
+          <div className={`flex  items-center gap-[8px]`}>
+            <BaseImage
+              src={item.logo}
+              alt={item[key]}
+              className="h-[32px] w-[32px] rounded-[4px] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
+            />
+            <span className="flex-1 truncate">{renderText(key, item)}</span>
+          </div>
+        );
       default:
-        return item[key] || '';
+        return renderText(key, item);
     }
   };
 
@@ -34,7 +55,7 @@ const AuditTable: React.FC<AuditTableProp> = ({ information, tableList, loading 
             <TableHeader className={`table w-full table-fixed `}>
               <TableRow className="body-m-bold table w-full table-fixed border-b-0  border-l border-neutral-light-gray  bg-neutral-off-white text-neutral-rich-gray [&>th]:border-r [&>th]:border-neutral-light-gray">
                 {information.map((v) => (
-                  <TableHead key={v.value} className="min-w-[180px]">
+                  <TableHead key={v.value} className={`min-w-[180px] ${v.value === 'rank' && 'w-[60px]'}`}>
                     <div className={`${v.value === 'name' && 'pl-[32px]'}`}>{v.label}</div>
                   </TableHead>
                 ))}
@@ -56,17 +77,12 @@ const AuditTable: React.FC<AuditTableProp> = ({ information, tableList, loading 
                     {tableList.map((item) => (
                       <TableRow
                         key={item.id}
-                        className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${item.pId ? 'bg-neutral-off-white' : item.index % 2 ? 'bg-yellow-extra-light' : ''}`}
+                        className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${item.index % 2 ? 'bg-yellow-extra-light' : ''} `}
                       >
                         {information.map((v) => (
                           <TableCell
                             key={v.value}
-                            className="min-w-[180px] truncate"
-                            title={
-                              v.value === 'createdAt'
-                                ? dayjs(item[v.value]).format('MMM D,YYYY')
-                                : (item[v.value as keyof HackathonManageApplicationType] as string)
-                            }
+                            className={`min-w-[180px] truncate ${v.value === 'rank' && 'w-[60px]'}`}
                           >
                             {renderTd(v.value, item)}
                           </TableCell>

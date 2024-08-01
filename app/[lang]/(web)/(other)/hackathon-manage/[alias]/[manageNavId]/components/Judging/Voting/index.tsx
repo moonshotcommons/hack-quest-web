@@ -1,36 +1,43 @@
 'use client';
-import React, { useState } from 'react';
-import { judgingInformationData, hackathonSortData, applicationTabData } from '../../../../../constants/data';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  judgingAllFixedInformationData,
+  judgingJudgeFixedInformationData,
+  judgingJudgeScoreInformationData,
+  hackathonSortData,
+  applicationTabData
+} from '../../../../../constants/data';
 import { SelectType } from '../../../../../constants/type';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
-import { HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import { HackathonJugingInfoType, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
 import Search from '../../Search';
 import CommonTable from './CommonTable';
+import { arraySortByKey } from '@/helper/utils';
 
-interface VotingProp {}
+interface VotingProp {
+  judgeInfo: HackathonJugingInfoType;
+}
 
-const Voting: React.FC<VotingProp> = () => {
-  const { hackathon } = useHackathonManageStore(
-    useShallow((state) => ({
-      hackathon: state.hackathon
-    }))
-  );
+const Voting: React.FC<VotingProp> = ({ judgeInfo }) => {
   const [searchInfo, setSearchInfo] = useState({
     status: applicationTabData[0].value,
     sort: hackathonSortData[0].value,
     keyword: ''
   });
+  const list = judgeInfo?.projects || [];
   const [tableList, setTableList] = useState<HackathonManageApplicationType[]>([]);
 
-  const [tableInformation, setTableInformation] = useState<SelectType[]>(
-    judgingInformationData
-      .filter((v) => v.disable)
-      .map((v) => ({
-        value: v.value,
-        label: v.label
-      }))
-  );
+  const tableInformation = useMemo(() => {
+    const judge = judgeInfo?.reward?.judge;
+    if (judge?.judgeMode === 'all' && judge?.voteMode === 'fixed') {
+      return judgingAllFixedInformationData;
+    }
+    if (judge?.judgeMode === 'judges' && judge?.voteMode === 'fixed') {
+      return judgingJudgeFixedInformationData;
+    }
+    return judgingJudgeScoreInformationData;
+  }, [judgeInfo]);
 
   const handleSearch = (key: 'sort' | 'keyword', value: string) => {
     setSearchInfo({
@@ -39,49 +46,16 @@ const Voting: React.FC<VotingProp> = () => {
     });
   };
 
-  // const {
-  //   refetch,
-  //   isLoading,
-  //   data: list = []
-  // } = useQuery({
-  //   enabled: !!hackathon?.id,
-  //   staleTime: Infinity,
-  //   queryKey: ['judging-voting', hackathon?.id],
-  //   queryFn: () => webApi.resourceStationApi.getHackathonApplications(hackathon?.id as string)
-  // });
+  const refreshTableList = () => {
+    const { keyword, sort } = searchInfo;
+    const newList = list.filter((v) => v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()));
+    const sortList = arraySortByKey(newList, sort);
+    setTableList(sortList);
+  };
 
-  // const tabs = useMemo(() => {
-  //   const pendings = list.filter((v) => v.joinState === ApplicationStatus.REVIEW)?.length;
-  //   const approveds = list.filter((v) => v.joinState === ApplicationStatus.APPROVED)?.length;
-  //   const decline = list.filter((v) => v.joinState === ApplicationStatus.DECLINE)?.length;
-  //   const waits = list.filter((v) => v.joinState === ApplicationStatus.WAIT)?.length;
-  //   const counts = [pendings, approveds, decline, waits];
-  //   return applicationTabData.map((v, i) => ({
-  //     ...v,
-  //     count: counts[i]
-  //   }));
-  // }, [list]);
-
-  // const refreshTableList = () => {
-  //   const { keyword, sort, status } = searchInfo;
-  //   const newList = list.filter(
-  //     (v) => v.joinState === status && v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
-  //   );
-  //   const sortList = arraySortByKey(newList, sort);
-  //   setTableList(sortList);
-  // };
-
-  // useEffect(() => {
-  //   if (hackathon?.id) {
-  //     refreshTableList();
-  //   }
-  // }, [searchInfo, hackathon, list]);
-
-  // useEffect(() => {
-  //   if (hackathon?.id) {
-  //     refetch();
-  //   }
-  // }, [hackathon]);
+  useEffect(() => {
+    refreshTableList();
+  }, [searchInfo, list]);
 
   return (
     <div className="flex flex-1 flex-col gap-[24px]">
@@ -89,23 +63,9 @@ const Voting: React.FC<VotingProp> = () => {
         sorts={hackathonSortData}
         sort={searchInfo.sort}
         handleSearch={handleSearch}
-        informationData={judgingInformationData}
         tableInformation={tableInformation.map((v) => v.value)}
-        setTableInformation={(values) => {
-          const newTableInformation: SelectType[] = [];
-          judgingInformationData.map((v) => {
-            values.includes(v.value) && newTableInformation.push(v);
-          });
-          setTableInformation(newTableInformation);
-        }}
       />
-      <CommonTable
-        loading={false}
-        list={tableList}
-        refresh={() => {}}
-        information={tableInformation}
-        status={searchInfo.status}
-      />
+      <CommonTable loading={false} list={tableList} information={tableInformation} status={searchInfo.status} />
     </div>
   );
 };

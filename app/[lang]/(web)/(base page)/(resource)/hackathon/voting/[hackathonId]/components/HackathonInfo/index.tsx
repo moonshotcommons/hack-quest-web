@@ -22,6 +22,7 @@ import { errorMessage } from '@/helper/ui';
 import dayjs from '@/components/Common/Dayjs';
 import message from 'antd/es/message';
 import Box from '../Box';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -40,8 +41,9 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [loading, setLoading] = useState(false);
   const [isConfirmReload, setIsConfirmReload] = useState(false);
+  const { getStepIndex } = useDealHackathonData();
   const isCanSubmit = useMemo(() => {
-    const isReview = dayjs().tz().isBefore(hackathon.timeline?.rewardTime);
+    const isReview = getStepIndex(hackathon) < 2;
     const isVote = !!(voteData.reduce((pre, cur) => pre + cur.vote, 0) && isReview && judgeInfo?.isJudge);
     setIsConfirmReload(isVote);
     return isVote;

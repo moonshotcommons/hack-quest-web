@@ -130,7 +130,9 @@ export const submissionInformationData = [
   }
 ];
 
-export const judgingInformationData = [
+export const applicationAboutBasicKeys = ['resume', 'name', 'gender', 'location', 'university'];
+
+export const judgingBaseInformationData = [
   {
     value: 'rank',
     label: 'rank',
@@ -145,11 +147,42 @@ export const judgingInformationData = [
     value: 'track',
     label: 'Sector',
     disable: true
+  }
+];
+
+export const judgingAllFixedInformationData = [
+  ...judgingBaseInformationData,
+  {
+    value: 'userVotes',
+    label: 'User Votes',
+    disable: true
   },
   {
-    value: 'score',
+    value: 'judgesVotes',
+    label: 'Judge Votes',
+    disable: true
+  },
+  {
+    value: 'totalVotes',
+    label: 'Total Votes',
+    disable: true
+  }
+];
+
+export const judgingJudgeFixedInformationData = [
+  ...judgingBaseInformationData,
+  {
+    value: 'totalVotes',
+    label: 'Total Votes',
+    disable: true
+  }
+];
+
+export const judgingJudgeScoreInformationData = [
+  ...judgingBaseInformationData,
+  {
+    value: 'totalVotes',
     label: 'Final Score',
     disable: true
   }
 ];
-export const applicationAboutBasicKeys = ['resume', 'name', 'gender', 'location', 'university'];

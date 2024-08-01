@@ -178,6 +178,7 @@ export interface HackathonInfoType {
 }
 
 export interface HackathonJudgeAccountType {
+  id: string;
   email: string;
   nickname: string;
   avatar: string;
@@ -759,6 +760,7 @@ export interface HackathonJugingInfoRewardJudgeType {
 export interface HackathonJugingInfoRewardType {
   id: string;
   currency: string;
+  hackathonId: string;
   mode: string;
   name: string;
   totalReward: number;

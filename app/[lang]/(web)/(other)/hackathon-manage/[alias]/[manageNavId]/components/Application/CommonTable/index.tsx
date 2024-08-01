@@ -44,7 +44,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   const [curInfo, setCurInfo] = useState<HackathonManageApplicationType | null>(null);
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const { getInfo, getInfoObj } = useDealHackathonData();
+  const { getInfo, getStepIndex } = useDealHackathonData();
   const handleCheck = (item: HackathonManageApplicationType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -162,7 +162,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   }, [list]);
 
   const isHandle = useMemo(() => {
-    return hackathon?.info?.allowSubmission === false && dayjs().tz().isBefore(hackathon?.timeline?.registrationClose);
+    return hackathon?.info?.allowSubmission === false && getStepIndex(hackathon as unknown as HackathonType) < 1;
   }, [hackathon]);
   return (
     <div className="flex w-full flex-1 flex-col">

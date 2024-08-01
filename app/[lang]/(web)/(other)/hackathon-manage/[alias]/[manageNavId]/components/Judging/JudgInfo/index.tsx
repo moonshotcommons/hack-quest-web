@@ -1,3 +1,4 @@
+import BaseImage from '@/components/Common/BaseImage';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { separationNumber } from '@/helper/utils';
 import { HackathonJugingInfoRewardJudgeType } from '@/service/webApi/resourceStation/type';
@@ -13,7 +14,6 @@ interface JudgInfoProp {
 }
 
 const JudgInfo: React.FC<JudgInfoProp> = ({ show, handleShowJudges, rewardJudgeInfo }) => {
-  const judges = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <div
       className={`grid overflow-hidden transition-all ${show ? 'mt-0 grid-rows-[1fr]' : 'mt-[-28px] grid-rows-[0fr]'}`}
@@ -39,46 +39,53 @@ const JudgInfo: React.FC<JudgInfoProp> = ({ show, handleShowJudges, rewardJudgeI
               <div className="mt-[8px] whitespace-pre-line text-neutral-rich-gray">{''.replaceAll('\\n', '\n')}</div>
             )}
           </div>
-          <div className="flex flex-wrap gap-[8px_40px]">
-            <div>
-              <p className="text-neutral-medium-gray">Judging Mode</p>
-              <p>{rewardJudgeInfo?.judgeMode === 'judges' ? 'Judges Only' : 'Users + Judges'}</p>
-            </div>
-            <div>
-              <p className="text-neutral-medium-gray">Voting Mode</p>
-              <p>{rewardJudgeInfo?.voteMode === 'fixed' ? 'Fixed Votes' : 'Project Scoring'}</p>
-            </div>
-            {rewardJudgeInfo?.judgeMode === 'all' && (
+          {!rewardJudgeInfo?.disableJudge && (
+            <div className="flex flex-wrap gap-[8px_40px]">
               <div>
-                <p className="text-neutral-medium-gray">Total User Votes</p>
+                <p className="text-neutral-medium-gray">Judging Mode</p>
+                <p>{rewardJudgeInfo?.judgeMode === 'judges' ? 'Judges Only' : 'Users + Judges'}</p>
+              </div>
+              <div>
+                <p className="text-neutral-medium-gray">Voting Mode</p>
+                <p>{rewardJudgeInfo?.voteMode === 'fixed' ? 'Fixed Votes' : 'Project Scoring'}</p>
+              </div>
+              {rewardJudgeInfo?.judgeMode === 'all' && (
+                <div>
+                  <p className="text-neutral-medium-gray">Total User Votes</p>
+                  <p>{separationNumber(rewardJudgeInfo?.votes?.userVotes)}</p>
+                </div>
+              )}
+              <div>
+                <p className="text-neutral-medium-gray">Total Judge Votes</p>
                 <p>{separationNumber(rewardJudgeInfo?.votes?.userVotes)}</p>
               </div>
-            )}
-            <div>
-              <p className="text-neutral-medium-gray">Total Judge Votes</p>
-              <p>{separationNumber(rewardJudgeInfo?.votes?.userVotes)}</p>
-            </div>
 
-            <div>
-              <p className="text-neutral-medium-gray">Votes for Each Judge</p>
-              <p>{separationNumber(rewardJudgeInfo?.projectJudgeCount)}</p>
-            </div>
-            <div className="cursor-pointer" onClick={handleShowJudges}>
-              <p className="text-neutral-medium-gray">{`Judges (${judges.length ?? 0})`}</p>
-              <div className="flex pl-[10px]">
-                {rewardJudgeInfo?.judgeAccounts?.slice(0, 3).map((v, i) => (
-                  <div key={i} className="relative ml-[-10px] h-[26px] w-[26px] overflow-hidden rounded-[50%]">
-                    <Image src={'/images/learn/hack_logo.png'} alt={'111'} fill className="object-contain"></Image>
-                  </div>
-                ))}
-                {rewardJudgeInfo?.judgeAccounts?.length > 3 && (
-                  <div className="flex-center body-xs relative ml-[-10px] h-[26px] w-[26px]  rounded-[50%] border border-yellow-dark bg-yellow-light text-neutral-off-black">
-                    {`+${rewardJudgeInfo?.judgeAccounts?.length - 3}`}
-                  </div>
-                )}
+              <div>
+                <p className="text-neutral-medium-gray">Votes for Each Judge</p>
+                <p>{separationNumber(rewardJudgeInfo?.projectJudgeCount)}</p>
+              </div>
+              <div className="cursor-pointer" onClick={handleShowJudges}>
+                <p className="text-neutral-medium-gray">{`Judges (${rewardJudgeInfo?.judgeAccounts?.length ?? 0})`}</p>
+                <div className="flex pl-[10px]">
+                  {rewardJudgeInfo?.judgeAccounts
+                    ?.slice(0, 3)
+                    .map((v) => (
+                      <BaseImage
+                        key={v.id}
+                        src={v.avatar || ''}
+                        alt={v.nickname}
+                        className="relative ml-[-10px] h-[26px] w-[26px] rounded-[50%]"
+                      />
+                    ))}
+                  {rewardJudgeInfo?.judgeAccounts?.length > 3 && (
+                    <div className="flex-center body-xs relative ml-[-10px] h-[26px] w-[26px]  rounded-[50%] border border-yellow-dark bg-yellow-light text-neutral-off-black">
+                      {`+${rewardJudgeInfo?.judgeAccounts?.length - 3}`}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
