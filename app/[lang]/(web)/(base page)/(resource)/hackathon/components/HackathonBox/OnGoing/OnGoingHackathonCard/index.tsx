@@ -214,7 +214,6 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
                   e.stopPropagation();
                   if (loading) return;
                   setLoading(true);
-                  console.info(hackathon);
                   hackathonDownload(hackathon.id, () => {
                     setLoading(false);
                   });
