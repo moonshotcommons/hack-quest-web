@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import { useKeyPress } from 'ahooks';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { GoArrowRight, GoArrowLeft } from 'react-icons/go';
 import { createUrl } from '@/helper/utils';
+import { useRouter } from 'next-nprogress-bar';
 
 export function Pagination({ total }: { total: number }) {
   const searchParams = useSearchParams();
