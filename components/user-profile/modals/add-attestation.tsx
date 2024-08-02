@@ -215,7 +215,6 @@ export function AddAttestation({
   function onClick() {
     if (!userInfo) {
       setAuthModalOpen(true);
-      toast.error('Please sign in first');
       return;
     }
     setState({ type, sourceId });
