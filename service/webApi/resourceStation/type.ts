@@ -755,27 +755,44 @@ export interface HackathonJugingInfoRewardJudgeType {
     totalVotes: number;
     userVotes: number;
   };
+  votesProportion: number[];
 }
 
 export interface HackathonJugingInfoRewardType {
   id: string;
   currency: string;
   hackathonId: string;
+  projectId: string;
   mode: string;
   name: string;
   totalReward: number;
   judge: HackathonJugingInfoRewardJudgeType;
 }
 
+export interface HackathonJudgeProjectScoreType {
+  userId: string;
+  vote: number;
+  avatar: string;
+}
 export interface HackathonJudgeProjectType {
   id: string;
+  logo: string;
   name: string;
   tracks: string[];
+  alias: string;
+  creator: {
+    avatar: string;
+    email: string;
+    id: string;
+    nickname: string;
+  };
   votes: {
     judgesVotes: number;
     rank: number;
     totalVotes: number;
     userVotes: number;
+    finalScore: number;
+    scores: HackathonJudgeProjectScoreType[];
   };
 }
 
@@ -787,9 +804,10 @@ export interface HackathonJugingInfoType {
 export interface HackathonWinnerType {
   id: string;
   hackathonId: string;
+  projectId: string;
   name: string;
   place: number;
-  projects: ProjectType[];
+  project: HackathonJudgeProjectType;
   rewardId: string;
   type: 'base' | 'other';
 }

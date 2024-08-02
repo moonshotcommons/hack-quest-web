@@ -3,8 +3,6 @@ import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { separationNumber } from '@/helper/utils';
 import { HackathonJugingInfoRewardJudgeType } from '@/service/webApi/resourceStation/type';
 import { createEditor } from '@wangeditor/editor';
-import { CircleAlert } from 'lucide-react';
-import Image from 'next/image';
 import React from 'react';
 
 interface JudgInfoProp {
@@ -19,12 +17,6 @@ const JudgInfo: React.FC<JudgInfoProp> = ({ show, handleShowJudges, rewardJudgeI
       className={`grid overflow-hidden transition-all ${show ? 'mt-0 grid-rows-[1fr]' : 'mt-[-28px] grid-rows-[0fr]'}`}
     >
       <div className="body-m flex flex-col gap-[40px]  overflow-hidden text-neutral-off-black ">
-        {rewardJudgeInfo?.disableJudge && (
-          <div className="body-m flex items-center justify-center gap-[8px] rounded-[16px] bg-neutral-off-white py-[16px] text-neutral-medium-gray">
-            <CircleAlert />
-            <span>HackQuest voting and judging system will not be applied to this track.</span>
-          </div>
-        )}
         <div className="flex gap-[40px] [&>div]:flex-1 [&>div]:flex-shrink-0">
           <div className="">
             <p className="text-neutral-medium-gray">Judging Criteria</p>
@@ -52,18 +44,38 @@ const JudgInfo: React.FC<JudgInfoProp> = ({ show, handleShowJudges, rewardJudgeI
               {rewardJudgeInfo?.judgeMode === 'all' && (
                 <div>
                   <p className="text-neutral-medium-gray">Total User Votes</p>
-                  <p>{separationNumber(rewardJudgeInfo?.votes?.userVotes)}</p>
+                  <p>
+                    {separationNumber(rewardJudgeInfo?.votes?.totalVotes * (rewardJudgeInfo.votesProportion[0] || 0))}
+                  </p>
                 </div>
               )}
-              <div>
-                <p className="text-neutral-medium-gray">Total Judge Votes</p>
-                <p>{separationNumber(rewardJudgeInfo?.votes?.userVotes)}</p>
-              </div>
+              {rewardJudgeInfo?.voteMode === 'fixed' && (
+                <>
+                  <div>
+                    <p className="text-neutral-medium-gray">Total Judge Votes</p>
+                    <p>{separationNumber(rewardJudgeInfo?.judgeTotalVote)}</p>
+                  </div>
 
-              <div>
-                <p className="text-neutral-medium-gray">Votes for Each Judge</p>
-                <p>{separationNumber(rewardJudgeInfo?.projectJudgeCount)}</p>
-              </div>
+                  <div>
+                    <p className="text-neutral-medium-gray">Votes for Each Judge</p>
+                    <p>{separationNumber(rewardJudgeInfo?.projectJudgeCount)}</p>
+                  </div>
+                </>
+              )}
+              {rewardJudgeInfo?.voteMode === 'score' && (
+                <>
+                  <div>
+                    <p className="text-neutral-medium-gray">MAX Score from Each Judge</p>
+                    <p>{separationNumber(rewardJudgeInfo?.judgeProjectVote)}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-neutral-medium-gray">Judges Required for Each Project</p>
+                    <p>{separationNumber(rewardJudgeInfo?.projectJudgeCount)}</p>
+                  </div>
+                </>
+              )}
+
               <div className="cursor-pointer" onClick={handleShowJudges}>
                 <p className="text-neutral-medium-gray">{`Judges (${rewardJudgeInfo?.judgeAccounts?.length ?? 0})`}</p>
                 <div className="flex pl-[10px]">

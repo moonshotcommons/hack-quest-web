@@ -1,15 +1,14 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import dayjs from 'dayjs';
 import { Spinner } from '@/components/ui/spinner';
-import { HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import { HackathonJudgeProjectType } from '@/service/webApi/resourceStation/type';
 import NoData from '../../../NoData';
 import { SelectType } from '../../../../../../constants/type';
 import BaseImage from '@/components/Common/BaseImage';
 
 interface AuditTableProp {
   information: SelectType[];
-  tableList: HackathonManageApplicationType[];
+  tableList: HackathonJudgeProjectType[];
   loading: boolean;
 }
 
@@ -17,10 +16,23 @@ const AuditTable: React.FC<AuditTableProp> = ({ information, tableList, loading 
   const renderText = (key: string, item: any) => {
     switch (key) {
       case 'tracks':
-        return item[key].join(',');
+        return item[key]?.join(',');
       default:
         if (key in item.votes) {
           return item?.votes?.[key];
+        }
+        if (key.startsWith('score')) {
+          const index = key.split('-')[1];
+          return (
+            <div className={`flex  items-center gap-[8px]`}>
+              <BaseImage
+                src={item?.votes?.scores?.[index]?.avatar || ''}
+                alt={`score-${index}`}
+                className="h-[26px] w-[26px] rounded-[50%]"
+              />
+              <span className="flex-1 truncate">{item?.votes?.scores?.[index]?.vote || 0}</span>
+            </div>
+          );
         }
         return item[key];
     }
@@ -51,7 +63,10 @@ const AuditTable: React.FC<AuditTableProp> = ({ information, tableList, loading 
         </div>
       ) : (
         <>
-          <Table className="table-fixed" tableContainerClassName="overflow-hidden">
+          <Table
+            className="table-fixed "
+            tableContainerClassName="overflow-hidden  rounded-t-[8px] border-t border-neutral-light-gray"
+          >
             <TableHeader className={`table w-full table-fixed `}>
               <TableRow className="body-m-bold table w-full table-fixed border-b-0  border-l border-neutral-light-gray  bg-neutral-off-white text-neutral-rich-gray [&>th]:border-r [&>th]:border-neutral-light-gray">
                 {information.map((v) => (
@@ -74,10 +89,10 @@ const AuditTable: React.FC<AuditTableProp> = ({ information, tableList, loading 
                   tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto "
                 >
                   <TableBody className={`body-s w-full text-neutral-off-black`}>
-                    {tableList.map((item) => (
+                    {tableList.map((item, i) => (
                       <TableRow
                         key={item.id}
-                        className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${item.index % 2 ? 'bg-yellow-extra-light' : ''} `}
+                        className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${i % 2 ? 'bg-yellow-extra-light' : ''} `}
                       >
                         {information.map((v) => (
                           <TableCell

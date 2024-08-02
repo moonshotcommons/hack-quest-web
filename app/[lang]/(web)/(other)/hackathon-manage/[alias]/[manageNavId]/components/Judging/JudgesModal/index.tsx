@@ -1,5 +1,5 @@
 import Modal from '@/components/Common/Modal';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import Title from '../../Title';
 import JudgeCard from './JudgeCard';
@@ -11,8 +11,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import webApi from '@/service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
-import { useShallow } from 'zustand/react/shallow';
 import { HackathonJudgeAccountType, HackathonJugingInfoRewardType } from '@/service/webApi/resourceStation/type';
 import { message } from 'antd';
 
@@ -89,7 +87,7 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose, judgeReward }) 
         <div className="flex flex-col gap-[20px] px-[40px]">
           <Title title="Judges" />
           <div className="flex flex-col gap-[8px]">
-            <p>{`Judge Accounts (${10})`}</p>
+            <p>{`Judge Accounts (${judgeAccounts.length})`}</p>
             <Form {...form}>
               <FormField
                 control={form.control}
@@ -126,7 +124,7 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose, judgeReward }) 
               ></FormField>
             </Form>
             <div className="body-xs flex-center rounded-[4px] bg-neutral-off-white py-[8px] text-neutral-rich-gray">
-              {`10,000 votes for each judge`}
+              {`${judgeReward?.judge?.judgeProjectVote} votes for each judge`}
             </div>
           </div>
         </div>

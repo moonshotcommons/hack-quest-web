@@ -370,20 +370,23 @@ class ResourceStationApi {
   }
 
   getHackathonJudgingWinner(hackahtonId: string, params: object) {
-    return this.service.get<HackathonWinnerType>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
+    return this.service.get<HackathonWinnerType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
       params
     });
   }
 
-  hackathonWinnerAdd(hackahtonId: string, params: { judgeId: string; name: string; proejctId: string }) {
+  hackathonWinnerAdd(
+    hackahtonId: string,
+    data: { rewardId: string; place: number; name: string; projectId: string; type: 'base' | 'other' }
+  ) {
     return this.service.post(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
-      params
+      data
     });
   }
 
-  hackathonWinnerEdit(hackahtonId: string, winnerId: string, params: { name: string; proejctId: string }) {
+  hackathonWinnerEdit(hackahtonId: string, winnerId: string, data: { name: string; projectId: string }) {
     return this.service.patch(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner/${winnerId}`, {
-      params
+      data
     });
   }
 
@@ -392,7 +395,7 @@ class ResourceStationApi {
   }
 
   hackathonJudgeAnnounce(hackathonId: string, judgeId: string) {
-    return this.service.get(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/${judgeId}/announce`);
+    return this.service.get(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/judge/${judgeId}/announce`);
   }
 }
 

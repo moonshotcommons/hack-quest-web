@@ -144,7 +144,7 @@ export const judgingBaseInformationData = [
     disable: true
   },
   {
-    value: 'track',
+    value: 'tracks',
     label: 'Sector',
     disable: true
   }
@@ -181,7 +181,7 @@ export const judgingJudgeFixedInformationData = [
 export const judgingJudgeScoreInformationData = [
   ...judgingBaseInformationData,
   {
-    value: 'totalVotes',
+    value: 'finalScore',
     label: 'Final Score',
     disable: true
   }

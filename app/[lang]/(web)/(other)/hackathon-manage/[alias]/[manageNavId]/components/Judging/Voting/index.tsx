@@ -4,29 +4,27 @@ import {
   judgingAllFixedInformationData,
   judgingJudgeFixedInformationData,
   judgingJudgeScoreInformationData,
-  hackathonSortData,
-  applicationTabData
+  hackathonSortData
 } from '../../../../../constants/data';
-import { SelectType } from '../../../../../constants/type';
-import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
-import { useShallow } from 'zustand/react/shallow';
-import { HackathonJugingInfoType, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import { HackathonJudgeProjectType, HackathonJugingInfoType } from '@/service/webApi/resourceStation/type';
 import Search from '../../Search';
 import CommonTable from './CommonTable';
 import { arraySortByKey } from '@/helper/utils';
+import { MultiSelectOption } from '../../../../../components/MultiSelect';
 
 interface VotingProp {
   judgeInfo: HackathonJugingInfoType;
+  loading: boolean;
+  tracks: MultiSelectOption[];
 }
 
-const Voting: React.FC<VotingProp> = ({ judgeInfo }) => {
+const Voting: React.FC<VotingProp> = ({ judgeInfo, loading, tracks }) => {
   const [searchInfo, setSearchInfo] = useState({
-    status: applicationTabData[0].value,
     sort: hackathonSortData[0].value,
+    tracks: [] as string[],
     keyword: ''
   });
-  const list = judgeInfo?.projects || [];
-  const [tableList, setTableList] = useState<HackathonManageApplicationType[]>([]);
+  const [tableList, setTableList] = useState<HackathonJudgeProjectType[]>([]);
 
   const tableInformation = useMemo(() => {
     const judge = judgeInfo?.reward?.judge;
@@ -36,10 +34,18 @@ const Voting: React.FC<VotingProp> = ({ judgeInfo }) => {
     if (judge?.judgeMode === 'judges' && judge?.voteMode === 'fixed') {
       return judgingJudgeFixedInformationData;
     }
-    return judgingJudgeScoreInformationData;
+    const scores = judgeInfo?.projects?.[0]?.votes?.scores || [];
+    const scoresTableInformation = scores.map((v, i) => ({
+      disable: true,
+      value: `score-${i}`,
+      label: `Score ${i + 1}`
+    }));
+    const judgingJudgeScoreInformation = structuredClone(judgingJudgeScoreInformationData);
+    judgingJudgeScoreInformation.splice(3, 0, ...scoresTableInformation);
+    return judgingJudgeScoreInformation;
   }, [judgeInfo]);
 
-  const handleSearch = (key: 'sort' | 'keyword', value: string) => {
+  const handleSearch = (key: keyof typeof searchInfo, value: string) => {
     setSearchInfo({
       ...searchInfo,
       [key]: value
@@ -47,15 +53,19 @@ const Voting: React.FC<VotingProp> = ({ judgeInfo }) => {
   };
 
   const refreshTableList = () => {
-    const { keyword, sort } = searchInfo;
-    const newList = list.filter((v) => v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()));
+    const { keyword, sort, tracks } = searchInfo;
+    const newList = judgeInfo?.projects?.filter((v) => {
+      const isKeywordMatch = v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase());
+      const isTrackMatch = tracks.every((track) => v.tracks.includes(track));
+      return isKeywordMatch && isTrackMatch;
+    });
     const sortList = arraySortByKey(newList, sort);
     setTableList(sortList);
   };
 
   useEffect(() => {
     refreshTableList();
-  }, [searchInfo, list]);
+  }, [searchInfo, judgeInfo]);
 
   return (
     <div className="flex flex-1 flex-col gap-[24px]">
@@ -63,9 +73,18 @@ const Voting: React.FC<VotingProp> = ({ judgeInfo }) => {
         sorts={hackathonSortData}
         sort={searchInfo.sort}
         handleSearch={handleSearch}
+        sectors={[
+          {
+            name: 'Sector',
+            options: tracks,
+            value: searchInfo.tracks,
+            key: 'tracks',
+            type: 'checkbox'
+          }
+        ]}
         tableInformation={tableInformation.map((v) => v.value)}
       />
-      <CommonTable loading={false} list={tableList} information={tableInformation} status={searchInfo.status} />
+      <CommonTable loading={loading} list={tableList} information={tableInformation} />
     </div>
   );
 };

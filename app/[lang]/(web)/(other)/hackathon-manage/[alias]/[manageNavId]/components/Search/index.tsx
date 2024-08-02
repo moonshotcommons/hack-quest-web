@@ -80,7 +80,7 @@ const Search: React.FC<SearchProp> = ({
           type="text"
           onInput={changeInput}
           className="flex-1 border-none pl-[10px] outline-none"
-          placeholder="Search for name, country, email, etc..."
+          placeholder="Search for name"
         />
       </div>
     </div>

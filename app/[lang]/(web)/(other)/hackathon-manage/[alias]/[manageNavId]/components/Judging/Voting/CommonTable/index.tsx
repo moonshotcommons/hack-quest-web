@@ -1,17 +1,16 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { SelectType } from '../../../../../../constants/type';
 import AuditTable from './AuditTable';
-import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import { HackathonJudgeProjectType } from '@/service/webApi/resourceStation/type';
 
 interface CommonTableProp {
-  list: HackathonManageApplicationType[];
+  list: HackathonJudgeProjectType[];
   information: SelectType[];
-  status: ApplicationStatus;
   loading: boolean;
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, status: tabStatus }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information }) => {
   return (
     <div className="flex w-full flex-1 flex-col">
       <AuditTable tableList={list} information={information} loading={loading} />

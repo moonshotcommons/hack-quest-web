@@ -7,9 +7,10 @@ interface TabProp {
   curTab: any;
   changeTab: (tab: any) => void;
   tabs: AuditTabType[];
+  disable?: boolean;
 }
 
-const Tab: React.FC<TabProp> = ({ changeTab, curTab, tabs }) => {
+const Tab: React.FC<TabProp> = ({ changeTab, curTab, tabs, disable }) => {
   return (
     <SlideHighlight
       className={`flex gap-[30px] pb-[2px]`}
@@ -19,7 +20,13 @@ const Tab: React.FC<TabProp> = ({ changeTab, curTab, tabs }) => {
       {tabs.map((v) => (
         <div
           key={v.value}
-          onClick={() => changeTab(v.value)}
+          onClick={(e) => {
+            if (disable) {
+              e.stopPropagation();
+              return;
+            }
+            changeTab(v.value);
+          }}
           className={`body-l cursor-pointer  text-neutral-off-black ${curTab === v.value ? '  body-l-bold ' : ' '}`}
         >
           {v.label}

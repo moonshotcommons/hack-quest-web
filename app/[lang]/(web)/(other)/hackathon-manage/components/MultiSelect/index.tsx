@@ -33,7 +33,7 @@ export function MultiSelect({
   };
 
   const isBgYellow = React.useMemo(() => {
-    return selected.length > options?.filter((v) => v.disable)?.length;
+    return selected?.length > options?.filter((v) => v.disable)?.length;
   }, [selected, options]);
 
   useEffect(() => {
