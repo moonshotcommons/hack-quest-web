@@ -50,8 +50,8 @@ const Judging: React.FC<JudgingProp> = () => {
   const [deleteWinnerInfo, setDeleteWinnerInfo] = useState<HackathonWinnerType | null>(null);
   const [
     { data: tracks = [] },
-    { data: tabData = [] },
-    { data: judgeInfo = {} as HackathonJugingInfoType, isLoading: judgingLoading }
+    { data: tabData = [] }
+    // { data: judgeInfo = {} as HackathonJugingInfoType, isLoading: judgingLoading }
     // { data: initWinners = [], isLoading: winnersLoading }
   ] = useQueries({
     queries: [
@@ -79,26 +79,26 @@ const Judging: React.FC<JudgingProp> = () => {
           }));
           return newData;
         }
-      },
-      {
-        enabled: !!status,
-        queryKey: ['judgingInfo', status],
-        queryFn: () =>
-          webApi.resourceStationApi.getHackathonJudgingInfo(hackathon.id, {
-            prizeTrack: status
-          }),
-        select: (data: HackathonJugingInfoType) => {
-          const judge = data.reward?.judge;
-          if (judge.judgeMode === 'judges' && judge.voteMode === 'score') {
-            data.projects?.map((v) => {
-              v.votes?.scores?.map((s) => {
-                s.avatar = judge.judgeAccounts.find((j) => j.id === s.userId)?.avatar || '';
-              });
-            });
-          }
-          return data;
-        }
       }
+      // {
+      //   enabled: !!status,
+      //   queryKey: ['judgingInfo', status],
+      //   queryFn: () =>
+      //     webApi.resourceStationApi.getHackathonJudgingInfo(hackathon.id, {
+      //       prizeTrack: status
+      //     }),
+      //   select: (data: HackathonJugingInfoType) => {
+      // const judge = data.reward?.judge;
+      // if (judge.judgeMode === 'judges' && judge.voteMode === 'score') {
+      //   data.projects?.map((v) => {
+      //     v.votes?.scores?.map((s) => {
+      //       s.avatar = judge.judgeAccounts.find((j) => j.id === s.userId)?.avatar || '';
+      //     });
+      //   });
+      // }
+      // return data;
+      //   }
+      // }
       // {
       //   enabled: !!status,
       //   queryKey: ['judgingWinner', status],
@@ -109,6 +109,29 @@ const Judging: React.FC<JudgingProp> = () => {
       // }
     ]
   });
+  const {
+    run: refreshJudge,
+    loading: judgingLoading,
+    data: judgeInfo = {} as HackathonJugingInfoType
+  } = useRequest(
+    async () => {
+      const data = await webApi.resourceStationApi.getHackathonJudgingInfo(hackathon.id, {
+        prizeTrack: status
+      });
+      const judge = data.reward?.judge;
+      if (judge.judgeMode === 'judges' && judge.voteMode === 'score') {
+        data.projects?.map((v) => {
+          v.votes?.scores?.map((s) => {
+            s.avatar = judge.judgeAccounts.find((j) => j.id === s.userId)?.avatar || '';
+          });
+        });
+      }
+      return data;
+    },
+    {
+      manual: true
+    }
+  );
   const {
     run: refreshWinners,
     loading: winnersLoading,
@@ -287,6 +310,7 @@ const Judging: React.FC<JudgingProp> = () => {
 
   useEffect(() => {
     refreshWinners();
+    refreshJudge();
   }, [status]);
   return (
     <div className="flex h-full flex-col gap-[20px]">
@@ -344,7 +368,7 @@ const Judging: React.FC<JudgingProp> = () => {
             <Voting judgeInfo={judgeInfo} loading={judgingLoading} tracks={tracks} />
           ))}
       </div>
-      <JudgesModal open={open} onClose={() => setOpen(false)} judgeReward={judgeInfo?.reward} />
+      <JudgesModal open={open} onClose={() => setOpen(false)} judgeReward={judgeInfo?.reward} refresh={refreshJudge} />
       <ConfirmModal
         open={!!deleteWinnerInfo?.id}
         autoClose={false}

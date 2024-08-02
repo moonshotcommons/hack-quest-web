@@ -21,9 +21,10 @@ interface JudgesModalProp {
   open: boolean;
   onClose: () => void;
   judgeReward: HackathonJugingInfoRewardType;
+  refresh: VoidFunction;
 }
 
-const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose, judgeReward }) => {
+const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose, judgeReward, refresh }) => {
   const judgeAccounts = judgeReward?.judge?.judgeAccounts || [];
   const [removeJudge, setRemoveJudge] = useState<HackathonJudgeAccountType | null>(null);
   const queryClient = useQueryClient();
@@ -62,7 +63,7 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose, judgeReward }) 
     onSuccess: () => {
       message.success('Success');
       form.resetField('judgeAccount', { defaultValue: '' });
-      queryClient.invalidateQueries({ queryKey: ['judgingInfo'] });
+      refresh();
       setRemoveJudge(null);
     },
     onError: (error: any) => {
