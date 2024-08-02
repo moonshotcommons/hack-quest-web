@@ -18,7 +18,6 @@ import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
-import dayjs from '@/components/Common/Dayjs';
 import { exportToExcel } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 

@@ -19,7 +19,6 @@ import { HackathonVoteContext } from '../../../../constants/type';
 import { decimalCountPercent, separationNumber } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import dayjs from '@/components/Common/Dayjs';
 import message from 'antd/es/message';
 import Box from '../Box';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';

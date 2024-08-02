@@ -19,7 +19,6 @@ import { HackathonVoteContext, ViewValue } from '@/app/[lang]/(web)/(base page)/
 import { decimalCountPercent } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import dayjs from 'dayjs';
 import message from 'antd/es/message';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
