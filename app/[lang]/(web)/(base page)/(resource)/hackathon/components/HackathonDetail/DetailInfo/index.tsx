@@ -75,7 +75,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     return (
       hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
       !hackathon.participation?.isRegister &&
-      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      stepIndex
     );
   }, [hackathon]);
   const renderButton = () => {
@@ -254,7 +254,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
                 ))}
               </div>
 
-              <p className="body-m">{`${hackathon.members.length} ${t('hackathonDetail.usersParticipated')}`}</p>
+              <p className="body-m">{`${hackathon.memberCount || 0} ${t('hackathonDetail.usersParticipated')}`}</p>
             </div>
           </div>
         )}

@@ -8,13 +8,18 @@ import Operation from './Operation';
 import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
-import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import {
+  ApplicationStatus,
+  HackathonManageApplicationType,
+  HackathonType
+} from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
-import dayjs from '@/components/Common/Dayjs';
+import { exportToExcel } from '@/helper/utils';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface CommonTableProp {
   list: HackathonManageApplicationType[];
@@ -38,6 +43,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   const [curInfo, setCurInfo] = useState<HackathonManageApplicationType | null>(null);
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const { getInfo, getStepIndex } = useDealHackathonData();
   const handleCheck = (item: HackathonManageApplicationType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -51,6 +57,17 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
 
   const handleDown = () => {
     if (!checkItems.length) return;
+    const applicationData: Record<string, any>[] = [];
+    checkItems.forEach((v) => {
+      if (v.type === 'team') {
+        v.members?.forEach((m) => {
+          applicationData.push(getInfo(hackathon as unknown as HackathonType, m));
+        });
+      } else {
+        applicationData.push(getInfo(hackathon as unknown as HackathonType, v));
+      }
+    });
+    exportToExcel(applicationData, `application data`);
   };
 
   const handleStatus = (sta: ApplicationStatus) => {
@@ -122,7 +139,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
       }));
     }
     webApi.resourceStationApi
-      .changeHackathonApplicationStatus(data)
+      .changeHackathonApplicationStatus(hackathon?.id, data)
       .then(() => {
         message.success('Updated Success');
         setStatus(null);
@@ -144,7 +161,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   }, [list]);
 
   const isHandle = useMemo(() => {
-    return hackathon?.info?.allowSubmission === false && dayjs().tz().isBefore(hackathon?.timeline?.registrationClose);
+    return hackathon?.info?.allowSubmission === false && getStepIndex(hackathon as unknown as HackathonType) < 1;
   }, [hackathon]);
   return (
     <div className="flex w-full flex-1 flex-col">

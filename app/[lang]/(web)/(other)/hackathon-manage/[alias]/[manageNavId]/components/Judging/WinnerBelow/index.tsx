@@ -1,37 +1,56 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import WinnerAdd from '../WinnerAdd';
-import { Button } from '@/components/ui/button';
-import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
+import { HackathonWinnerType, HackathonJugingInfoType } from '@/service/webApi/resourceStation/type';
+import Button from '@/components/Common/Button';
 
-interface WinnerBelowProp {}
+interface WinnerBelowProp {
+  winners: HackathonWinnerType[];
+  handleAdd: (type: 'base' | 'other') => void;
+  handleDelete: (winner: HackathonWinnerType) => void;
+  handleEdit: (winner: HackathonWinnerType) => void;
+  loading: boolean;
+  judgeInfo: HackathonJugingInfoType;
+  handleAnnounce: VoidFunction;
+}
 
-const WinnerBelow: React.FC<WinnerBelowProp> = () => {
-  const [winners, setWinners] = useState<any>([]);
-  const [announceOpen, setAnnounceOpen] = useState(false);
-  const confirmAnnounce = () => {
-    setAnnounceOpen(false);
-  };
+const WinnerBelow: React.FC<WinnerBelowProp> = ({
+  winners,
+  handleAdd,
+  handleDelete,
+  handleEdit,
+  loading,
+  judgeInfo,
+  handleAnnounce
+}) => {
+  const announceDisabled = useMemo(() => {
+    return winners.some((v) => !v.name || !v.project?.id) || !winners.length;
+  }, [winners]);
   return (
     <div className="flex flex-col gap-[16px]">
       <p className="text-h5">Please add winners below</p>
-      <WinnerAdd winners={winners} setWinners={setWinners} />
-      <div className="flex justify-end">
-        <Button className="h-[48px] w-[320px]" disabled={false} onClick={() => setAnnounceOpen(true)}>
-          announce winners
-        </Button>
-      </div>
-      <ConfirmModal
-        open={announceOpen}
-        autoClose={false}
-        onClose={() => setAnnounceOpen(false)}
-        onConfirm={confirmAnnounce}
-        className=" px-[132px] sm:!w-[808px] sm:!max-w-[808px]"
-      >
-        <div className="body-m flex flex-col items-center gap-[40px] text-neutral-black">
-          <p className="text-h3">Do you want to announce winners?</p>
-          <p className="">This step cannot be undone and all winners will be notified.</p>
+      <WinnerAdd
+        judgeInfo={judgeInfo}
+        loading={loading}
+        winners={winners}
+        handleEdit={handleEdit}
+        handleAdd={() => handleAdd('other')}
+        handleDelete={handleDelete}
+      />
+      {!judgeInfo.reward?.judge?.announce && (
+        <div className="flex justify-end">
+          <Button
+            type="primary"
+            className="h-[48px] w-[320px]"
+            disabled={announceDisabled}
+            onClick={() => {
+              if (announceDisabled) return;
+              handleAnnounce();
+            }}
+          >
+            announce winners
+          </Button>
         </div>
-      </ConfirmModal>
+      )}
     </div>
   );
 };

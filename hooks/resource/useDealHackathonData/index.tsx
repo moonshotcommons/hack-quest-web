@@ -1,9 +1,16 @@
 import moment from 'moment';
-import { HackathonRewardType, HackathonStatusType, HackathonType } from '@/service/webApi/resourceStation/type';
+import {
+  HackathonManageApplicationMemberType,
+  HackathonManageApplicationType,
+  HackathonMemberType,
+  HackathonRewardType,
+  HackathonStatusType,
+  HackathonType
+} from '@/service/webApi/resourceStation/type';
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
-import { exportToExcel } from '@/helper/utils';
+import { exportToExcel, isUuid } from '@/helper/utils';
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { useContext, useMemo } from 'react';
@@ -181,29 +188,69 @@ const useDealHackathonData = () => {
     return list;
   };
 
+  const getInfoObj = (
+    hackathon: HackathonType,
+    infoKey: 'About' | 'Contact' | 'OnlineProfiles',
+    key: string,
+    value: string | { label: string; value: string }
+  ) => {
+    if (isUuid(key)) {
+      if (typeof value === 'object') {
+        return value;
+      } else {
+        const application = hackathon?.info?.application;
+        const label = (application[infoKey]?.find((v) => v.id === key)?.property as any)?.label;
+        return {
+          label,
+          value
+        };
+      }
+    } else {
+      return {
+        label: key,
+        value
+      };
+    }
+  };
+
+  const getInfo = (
+    hackathon: HackathonType,
+    item: HackathonMemberType | HackathonManageApplicationType | HackathonManageApplicationMemberType
+  ) => {
+    item.info = item.info || {};
+    const info: Record<string, any> = {
+      createdAt: dayjs(item.createdAt).format('YYYY-M-D HH:mm')
+    };
+    for (let infoKey in item.info) {
+      const iKey = infoKey as keyof typeof item.info;
+      const vInfo = item.info[iKey];
+      for (let dataKey in vInfo) {
+        const dKey = dataKey as keyof typeof vInfo;
+        const appInfo = getInfoObj(hackathon, iKey, dKey, vInfo[dKey]);
+        info[appInfo['label']] = appInfo['value'];
+      }
+    }
+    return info;
+  };
+
   const hackathonDownload = (id: string, cb: VoidFunction) => {
     webApi.resourceStationApi
-      .getHackathonDetail(id)
-      .then((hackathon) => {
-        const memberDatas: Record<string, any>[] = [];
-        hackathon.members?.map((v) => {
-          v.info = v.info || {};
-          const info: Record<string, any> = {
-            createdAt: dayjs(v.createdAt).format('YYYY-M-D HH:mm')
-          };
-          for (let infoKey in v.info) {
-            const iKey = infoKey as keyof typeof v.info;
-            const vInfo = v.info[iKey];
-            for (let dataKey in vInfo) {
-              const dKey = dataKey as keyof typeof vInfo;
-              info[dataKey] = vInfo[dKey];
-            }
-          }
-          memberDatas.push(info);
-        });
-        exportToExcel(memberDatas, `${hackathon.name} members`);
+      .getHackathonMember(id)
+      .then((members) => {
+        webApi.resourceStationApi
+          .getHackathonDetail(id)
+          .then((hackathon) => {
+            const memberDatas: Record<string, any>[] = [];
+            members?.data?.map((v) => {
+              memberDatas.push(getInfo(hackathon, v));
+            });
+            exportToExcel(memberDatas, `${hackathon.name} members`);
+          })
+          .finally(() => {
+            cb();
+          });
       })
-      .finally(() => {
+      .catch(() => {
         cb();
       });
   };
@@ -242,6 +289,8 @@ const useDealHackathonData = () => {
     dealModalList,
     getSectionProgress,
     getHackathonNavList,
+    getInfoObj,
+    getInfo,
     hackathonDownload,
     getHackathonTimeSame,
     getLinks,

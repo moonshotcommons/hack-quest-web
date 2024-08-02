@@ -40,13 +40,15 @@ const Overview: React.FC<OverviewProp> = ({}) => {
 
           <div className="flex-1">
             <p className="body-xs text-neutral-medium-gray">{t('navbar.resources.hackathon')}</p>
-            <Link
-              href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon?.alias}`}
-              title={project.hackathonName}
-              className="underline-s w-full"
-            >
-              {project.hackathonName}
-            </Link>
+            {(hackathon?.alias || project.hackathonId) && (
+              <Link
+                href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon?.alias || project.hackathonId}`}
+                title={project.hackathonName}
+                className="underline-s w-full"
+              >
+                {project.hackathonName}
+              </Link>
+            )}
           </div>
         </div>
         <div className="">

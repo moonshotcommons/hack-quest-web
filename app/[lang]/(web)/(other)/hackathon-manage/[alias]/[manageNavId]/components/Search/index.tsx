@@ -16,8 +16,8 @@ interface SearchProp {
   sort: string;
   handleSearch: (key: 'sort' | 'keyword', value: string) => void;
   tableInformation: string[];
-  setTableInformation: (values: string[]) => void;
-  informationData: InformationDataType[];
+  setTableInformation?: (values: string[]) => void;
+  informationData?: InformationDataType[];
   sectors?: SectorType[];
 }
 
@@ -50,13 +50,16 @@ const Search: React.FC<SearchProp> = ({
           curSort={sort}
           sorts={sorts}
         />
-        <MultiSelect
-          type="checkbox"
-          value={tableInformation}
-          options={informationData}
-          name="Information"
-          onSelect={setTableInformation}
-        />
+        {informationData && setTableInformation && (
+          <MultiSelect
+            type="checkbox"
+            value={tableInformation}
+            options={informationData}
+            name="Information"
+            onSelect={setTableInformation}
+          />
+        )}
+
         {sectors?.map((v) => (
           <MultiSelect
             key={v.key}
@@ -77,7 +80,7 @@ const Search: React.FC<SearchProp> = ({
           type="text"
           onInput={changeInput}
           className="flex-1 border-none pl-[10px] outline-none"
-          placeholder="Search for name, country, email, etc..."
+          placeholder="Search for name"
         />
       </div>
     </div>
