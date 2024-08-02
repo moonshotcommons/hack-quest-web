@@ -6,10 +6,10 @@ import { Skeleton } from '@/components/shared/skeleton';
 import { CropImageModal } from './crop-image-modal';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { message } from 'antd';
 import { FileInput } from '../common/file-input';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { useProfile } from '../modules/profile-provider';
+import toast from 'react-hot-toast';
 
 export function UserAvatar() {
   const [open, toggle] = useToggle(false);
@@ -21,7 +21,7 @@ export function UserAvatar() {
     onSuccess: async () => {
       invalidate();
       onClose();
-      message.success('Upload avatar successfully');
+      toast.success('Avatar updated');
     }
   });
 

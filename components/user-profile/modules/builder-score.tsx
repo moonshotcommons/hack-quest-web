@@ -88,7 +88,7 @@ export function BuilderScore() {
             </Accordion>
           </div>
         </div>
-        {/* {profile?.isMe && (
+        {/* {profile?.isCurrentUser && (
           <div className="hidden w-full rounded-2xl bg-neutral-off-white p-4 sm:block">
             <div className="flex flex-col gap-2">
               <h3 className="font-bold">

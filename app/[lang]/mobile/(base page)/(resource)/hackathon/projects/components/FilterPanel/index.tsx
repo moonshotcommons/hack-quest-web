@@ -272,18 +272,16 @@ export function FilterButton() {
 
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const count = currentParams.toString()
-    ? currentParams.has('view')
-      ? currentParams.toString()?.split('&')?.length - 1
-      : currentParams.toString()?.split('&')?.length
-    : 0;
+  const size = [...new Set(currentParams.keys())]?.length ?? 0;
+
+  const count = currentParams.has('view') ? size - 1 : size;
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button className="w-full flex-1" variant="outline" size="small">
           {count > 0 ? (
-            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-neutral-off-black text-neutral-white">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-neutral-off-black text-neutral-white">
               {count}
             </span>
           ) : (

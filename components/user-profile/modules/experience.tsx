@@ -6,6 +6,7 @@ import { EditExperience } from '../modals/edit-experience';
 import { useProfile } from './profile-provider';
 import { AddAttestation } from '../modals/add-attestation';
 import { EMPLOYMENT_TYPE } from '../constants';
+import { Attestations } from '../common/attestations';
 
 export function Experience() {
   const { profile } = useProfile();
@@ -14,7 +15,7 @@ export function Experience() {
     <div className="mt-2 flex flex-col bg-neutral-white px-5 py-4 sm:mt-12 sm:p-0">
       <div className="flex items-center justify-between">
         <h2 className="font-next-book-bold text-lg font-bold text-neutral-off-black sm:text-[22px]">Experience</h2>
-        {profile?.isMe && profile?.workExperiences.length > 0 && <EditExperience type="create" />}
+        {profile?.isCurrentUser && profile?.workExperiences.length > 0 && <EditExperience type="create" />}
       </div>
       {profile?.workExperiences?.length === 0 && (
         <div className="flex flex-col items-center justify-center gap-3 py-10">
@@ -38,7 +39,9 @@ export function Experience() {
                   {EMPLOYMENT_TYPE.find((type) => type.value === experience.employmentType)?.label || ''}
                 </span>
               </div>
-              {profile?.isMe && isLargeScreen && <AddAttestation />}
+              {!profile?.isCurrentUser && isLargeScreen && (
+                <AddAttestation type="Experience" sourceId={experience.id} />
+              )}
             </div>
             <div className="flex items-center gap-2 text-sm text-neutral-medium-gray sm:text-base">
               <span>
@@ -50,9 +53,10 @@ export function Experience() {
             </div>
             <p className="text-sm text-neutral-medium-gray sm:text-base">{experience.location}</p>
             <p className="line-clamp-5 text-sm text-neutral-off-black sm:text-base">{experience.description}</p>
-            {!isLargeScreen && <AddAttestation />}
+            {!isLargeScreen && <AddAttestation type="Experience" sourceId={experience.id} />}
+            <Attestations attestations={experience.attestations} />
           </div>
-          {profile?.isMe && <EditExperience type="edit" initialValues={experience} />}
+          {profile?.isCurrentUser && <EditExperience type="edit" initialValues={experience} />}
         </div>
       ))}
     </div>

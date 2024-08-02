@@ -16,13 +16,15 @@ import { useToggle } from '@/hooks/utils/use-toggle';
 import { useParams, useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
 import { ProfileProvider } from './modules/profile-provider';
+import { ChevronRightIcon } from 'lucide-react';
+import { Attestations } from './modules/attestations';
 
 export default function Page() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { username } = useParams<{ username: string }>();
   const { userInfo } = useUserStore();
-  const [open, toggle] = useToggle(false);
+  const [open, toggle] = useToggle(true);
 
   const {
     isLoading,
@@ -35,10 +37,17 @@ export default function Page() {
     select: (data) => {
       return {
         ...data,
-        isMe: data.user.id === userInfo?.id
+        isCurrentUser: data.user.id === userInfo?.id,
+        attestations: [
+          ...data.certifications.map((c) => c.attestations).flat(),
+          ...data.workExperiences.map((e) => e.attestations).flat(),
+          ...data.hackathonExperiences.map((h) => h.attestations).flat()
+        ]
       };
     }
   });
+
+  console.log('profile', profile);
 
   React.useEffect(() => {
     if (isError) {
@@ -59,20 +68,24 @@ export default function Page() {
         <BasicInfo />
         <div className="mt-2 h-full sm:container sm:mx-auto sm:mt-[88px] sm:flex sm:justify-center">
           <div className="flex-1 sm:max-w-5xl">
-            {profile?.isMe && <CompleteProfile />}
+            {profile?.isCurrentUser && <CompleteProfile />}
             <BuilderScore />
             <div className="mt-2 grid grid-cols-1 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-8">
-              {(profile?.isMe || Object.keys(profile?.githubActivity || {}).length > 0) && <DeveloperProfile />}
-              {(profile?.isMe || Object.keys(profile?.onChainActivity || {}).length > 0) && <OnChainActivity />}
+              {(profile?.isCurrentUser || Object.keys(profile?.githubActivity || {}).length > 0) && (
+                <DeveloperProfile />
+              )}
+              {(profile?.isCurrentUser || Object.keys(profile?.onChainActivity || {}).length > 0) && (
+                <OnChainActivity />
+              )}
             </div>
-            {(profile?.isMe || (profile?.certifications?.length || 0) > 0) && <Certification />}
-            {(profile?.isMe || (profile?.resumes?.length || 0) > 0) && <Resume />}
-            {(profile?.isMe || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
-            {(profile?.isMe || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
+            {(profile?.isCurrentUser || (profile?.certifications?.length || 0) > 0) && <Certification />}
+            {(profile?.isCurrentUser || (profile?.resumes?.length || 0) > 0) && <Resume />}
+            {(profile?.isCurrentUser || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
+            {(profile?.isCurrentUser || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
           </div>
-          {/* <div
+          <div
             data-state={open ? 'open' : 'closed'}
-            className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-2.5 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:block"
+            className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-3 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:flex sm:items-end"
           >
             <button
               className="absolute -left-4 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-rich-gray bg-neutral-white text-neutral-rich-gray outline-none"
@@ -80,8 +93,10 @@ export default function Page() {
             >
               <ChevronRightIcon className="duration-300 group-data-[state=closed]:rotate-180" size={20} />
             </button>
-            <div className="hidden">hello world</div>
-          </div> */}
+            <div className="group-data-[state=closed]:hidden">
+              <Attestations />
+            </div>
+          </div>
         </div>
       </div>
     </ProfileProvider>

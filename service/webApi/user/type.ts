@@ -73,6 +73,25 @@ export enum RegisterType {
   WALLET = 'wallet'
 }
 
+export interface Attestation {
+  id: string;
+  userId: string;
+  creatorId: string;
+  creator: {
+    id: string;
+    nickname: string;
+    username: string;
+    avatar: string;
+  };
+  sourceId: string;
+  type: string;
+  attest: boolean;
+  comment: string;
+  chain: Record<string, any>;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface UserExperienceType {
   id: string;
   title: string;
@@ -83,6 +102,7 @@ export interface UserExperienceType {
   startDate: string;
   endDate?: string;
   description: string;
+  attestations: Attestation[];
 }
 
 export interface UserHackathonType {
@@ -96,6 +116,7 @@ export interface UserHackathonType {
   endDate?: string;
   description: string;
   winner?: boolean;
+  attestations: Attestation[];
 }
 
 export interface GithubActivityType {
@@ -207,3 +228,17 @@ export interface DailyChallengeType {
   completed: boolean;
   correct: number;
 }
+
+export interface AttestationType {
+  id: string;
+  username: string;
+  sourceId: string;
+  type: 'Certification' | 'Experience' | 'Hackathon';
+  attest: boolean;
+  comment?: string;
+  chain?: Record<string, any>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CreateAttestationInput = Omit<AttestationType, 'id' | 'createdAt' | 'updatedAt'>;

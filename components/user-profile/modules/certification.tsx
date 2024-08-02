@@ -15,6 +15,7 @@ import { message } from 'antd';
 
 import { ChainType } from '@/config/wagmi';
 import { useMintCertificate } from '@/hooks/certificate';
+import { Attestations } from '../common/attestations';
 
 function MintButton({
   certificate,
@@ -93,18 +94,21 @@ export function Certification() {
             </div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold">{cert.name}</h3>
-              <AddAttestation />
+              <AddAttestation type="Certification" sourceId={cert.id} />
             </div>
             <time className="text-xs text-neutral-medium-gray" dateTime={cert.certificateTime}>
               Issued {moment(cert.certificateTime).format('MMM.D YYYY')}
             </time>
-            <MintButton
-              certificate={cert}
-              update={(c) => {
-                setSelectCertification(c);
-                invalidate();
-              }}
-            />
+            {profile?.isCurrentUser && (
+              <MintButton
+                certificate={cert}
+                update={(c) => {
+                  setSelectCertification(c);
+                  invalidate();
+                }}
+              />
+            )}
+            <Attestations attestations={cert.attestations} />
           </div>
         ))}
         <div className="h-[95px] w-full rounded-[5px] border border-dashed border-neutral-medium-gray sm:h-[168px] sm:rounded-[10px]"></div>

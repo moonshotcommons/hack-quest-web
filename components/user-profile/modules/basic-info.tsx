@@ -61,7 +61,7 @@ export function BasicInfo() {
             <Skeleton loading={isLoading} className="h-6 w-52 rounded" />
           ) : (
             <div className="flex items-center gap-4">
-              {(profile?.isMe || profile?.personalLinks.twitter) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.twitter) && (
                 <TwitterIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.twitter
@@ -75,7 +75,7 @@ export function BasicInfo() {
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.linkedIn) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.linkedIn) && (
                 <LinkedInIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.linkedIn
@@ -89,7 +89,7 @@ export function BasicInfo() {
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.telegram) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.telegram) && (
                 <TelegramIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.telegram
@@ -103,7 +103,7 @@ export function BasicInfo() {
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.github) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.github) && (
                 <GithubIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.github
@@ -117,7 +117,7 @@ export function BasicInfo() {
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.wechat) &&
+              {(profile?.isCurrentUser || profile?.personalLinks.wechat) &&
                 (profile?.personalLinks.wechat ? (
                   <HoverCard>
                     <HoverCardTrigger>
@@ -155,7 +155,7 @@ export function BasicInfo() {
           </div>
         </div>
         <div className="absolute right-5 top-6 flex items-center gap-4 sm:right-0 sm:top-10">
-          {profile?.isMe && <EditProfile open={open} toggle={toggle} />}
+          {profile?.isCurrentUser && <EditProfile open={open} toggle={toggle} />}
           <ShareProfile />
         </div>
       </div>

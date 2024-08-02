@@ -6,10 +6,10 @@ import { Skeleton } from '@/components/shared/skeleton';
 import { CropImageModal } from './crop-image-modal';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { message } from 'antd';
 import { FileInput } from '../common/file-input';
 import { useToggle } from '@/hooks/utils/use-toggle';
 import { useProfile } from '../modules/profile-provider';
+import toast from 'react-hot-toast';
 
 export function Background() {
   const { isLoading, profile, invalidate } = useProfile();
@@ -21,7 +21,7 @@ export function Background() {
     onSuccess: async () => {
       invalidate();
       toggle(false);
-      message.success('Upload background successfully');
+      toast.success('Background image updated');
     }
   });
 
