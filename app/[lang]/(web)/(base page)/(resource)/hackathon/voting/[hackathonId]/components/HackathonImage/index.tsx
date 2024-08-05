@@ -5,7 +5,13 @@ interface HackathonImageProp {
 }
 
 const HackathonImage: React.FC<HackathonImageProp> = ({ hackathon }) => {
-  return <img src={hackathon.info?.image} className="w-full rounded-[16px]" alt={hackathon.alias} />;
+  return (
+    <img
+      src={hackathon.info?.image}
+      className="w-full rounded-[16px] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
+      alt={hackathon.alias}
+    />
+  );
 };
 
 export default HackathonImage;
