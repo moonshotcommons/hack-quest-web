@@ -1,24 +1,24 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { InformationType } from '../../../../../constants/type';
+import { SelectType } from '../../../../../constants/type';
 import { cloneDeep } from 'lodash-es';
 import Operation from './Operation';
 import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
 
 interface CommonTableProp {
   list: any[];
-  information: InformationType[];
-  refresh: VoidFunction;
+  information: SelectType[];
   loading: boolean;
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ list, information, refresh, loading }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) => {
   const [checkAll, setCheckAll] = useState(false);
   const [checkIds, setCheckIds] = useState<string[]>([]);
   const [teamIds, setTeamIds] = useState<string[]>([]);
-  const [curInfo, setCurInfo] = useState<any>(null);
+  const [curInfo, setCurInfo] = useState<ProjectType | null>(null);
   const handleCheck = (id: string) => {
     const newCheckIds = checkIds.includes(id) ? checkIds.filter((v) => v !== id) : [...checkIds, id];
     setCheckIds(newCheckIds);
@@ -46,17 +46,13 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, refresh, lo
   const tableList = useMemo(() => {
     const l = list.map((v, i) => ({
       ...v,
-      index: i,
-      team: v.team?.map((t: any) => ({
-        ...t,
-        pId: v.id
-      }))
+      index: i
     }));
     const newList = cloneDeep(l);
-    teamIds.map((id) => {
-      const index = l.findIndex((l) => l.id === id);
-      newList.splice(index + 1, 0, ...l[index].team);
-    });
+    // teamIds.map((id) => {
+    //   const index = l.findIndex((l) => l.id === id);
+    //   newList.splice(index + 1, 0, ...l[index].team);
+    // });
     return newList;
   }, [list, teamIds]);
 

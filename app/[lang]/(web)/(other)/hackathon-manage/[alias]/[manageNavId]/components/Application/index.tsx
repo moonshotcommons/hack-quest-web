@@ -2,11 +2,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { applicationInformationData, hackathonSortData, applicationTabData } from '../../../../constants/data';
 import Tab from '../Tab';
-import Search from './Search';
-import { InformationType } from '../../../../constants/type';
+import { SelectType } from '../../../../constants/type';
 import CommonTable from './CommonTable';
 import { useRequest } from 'ahooks';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import {
   ApplicationStatus,
@@ -15,11 +14,12 @@ import {
 } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { arraySortByKey } from '@/helper/utils';
+import Search from '../Search';
 
 interface ApplicationProp {}
 
 const Application: React.FC<ApplicationProp> = () => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))
@@ -32,7 +32,7 @@ const Application: React.FC<ApplicationProp> = () => {
   const [list, setList] = useState<HackathonManageApplicationType[]>([]);
   const [tableList, setTableList] = useState<HackathonManageApplicationType[]>([]);
 
-  const [tableInformation, setTableInformation] = useState<InformationType[]>(
+  const [tableInformation, setTableInformation] = useState<SelectType[]>(
     applicationInformationData
       .filter((v) => v.disable)
       .map((v) => ({
@@ -40,7 +40,6 @@ const Application: React.FC<ApplicationProp> = () => {
         label: v.label
       }))
   );
-  const [open, setOpen] = useState(false);
 
   const handleSearch = (key: 'sort' | 'keyword', value: string) => {
     setSearchInfo({
@@ -49,7 +48,7 @@ const Application: React.FC<ApplicationProp> = () => {
     });
   };
 
-  const { run: refresh, loading } = useRequest(
+  const { run: refetch, loading: isLoading } = useRequest(
     async () => {
       const res = await webApi.resourceStationApi.getHackathonApplications(hackathon?.id as string);
       return res;
@@ -79,7 +78,7 @@ const Application: React.FC<ApplicationProp> = () => {
 
   useEffect(() => {
     if (hackathon?.id) {
-      refresh();
+      refetch();
     }
   }, [hackathon]);
 
@@ -98,7 +97,9 @@ const Application: React.FC<ApplicationProp> = () => {
   const refreshTableList = () => {
     const { keyword, sort, status } = searchInfo;
     const newList = list.filter(
-      (v) => v.joinState === status && v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
+      (v) =>
+        (v.joinState === status || hackathon?.info?.allowSubmission) &&
+        v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
     );
     const sortList = arraySortByKey(newList, sort);
     setTableList(sortList);
@@ -126,11 +127,13 @@ const Application: React.FC<ApplicationProp> = () => {
       )}
       <div className="flex flex-1 flex-col gap-[24px]">
         <Search
+          sorts={hackathonSortData}
           sort={searchInfo.sort}
           handleSearch={handleSearch}
+          informationData={applicationInformationData}
           tableInformation={tableInformation.map((v) => v.value)}
           setTableInformation={(values) => {
-            const newTableInformation: InformationType[] = [];
+            const newTableInformation: SelectType[] = [];
             applicationInformationData.map((v) => {
               values.includes(v.value) && newTableInformation.push(v);
             });
@@ -138,9 +141,9 @@ const Application: React.FC<ApplicationProp> = () => {
           }}
         />
         <CommonTable
-          loading={loading}
+          loading={isLoading}
           list={tableList}
-          refresh={refresh}
+          refresh={refetch}
           information={tableInformation}
           status={searchInfo.status}
         />

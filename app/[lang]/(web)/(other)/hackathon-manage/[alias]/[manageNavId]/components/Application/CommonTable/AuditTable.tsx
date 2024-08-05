@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
-import { InformationType } from '../../../../../constants/type';
+import { SelectType } from '../../../../../constants/type';
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from 'react-icons/io';
 import dayjs from 'dayjs';
 import { IoCheckmarkCircleSharp } from 'react-icons/io5';
@@ -14,7 +14,7 @@ import NoData from '../../NoData';
 interface AuditTableProp {
   handleCheckAll: VoidFunction;
   checkAll: boolean;
-  information: InformationType[];
+  information: SelectType[];
   tableList: HackathonManageApplicationType[];
   checkIds: string[];
   changeTeamIds: (id: string) => void;

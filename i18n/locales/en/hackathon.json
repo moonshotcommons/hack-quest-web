@@ -159,7 +159,7 @@
     "submissionsReview": "SUBMISSIONS REVIEW",
     "votingCloseIn": "Voting Close In",
     "yourVotingRole": "Your Voting Role",
-    "yourVotesToday": "Your Votes Today",
+    "yourVotesToday": "Your Votes",
     "refreshEveryday": "Refresh at 8AM Everyday",
     "remainingVotes": "Remaining Votes",
     "totalVotes": "Total Votes",
@@ -178,7 +178,7 @@
     "yourVotes": "Your Votes",
     "currentVotes": "Current Votes",
     "currentRanking": "Current Ranking",
-    "youCantVote": "You can’t vote for projects because your project is under review in this hackathon",
+    "youCantVote": "You can’t vote for projects",
     "nodataText": "Sorry, there is no hackathon under review.",
     "nodataButtonText": "explore project archive",
     "tipsModalTitle": "As a voter in this hackathon, I commit to upholding the principles of fairness, integrity, and respect. I agree to:",
@@ -249,11 +249,12 @@
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
   },
-  "hackathonAudit":{
+  "hackathonManage":{
     "overview":"Overview",
     "application":"Application",
     "submission":"Submission",
     "judging":"Judging",
+    "announcement":"Announcement",
     "viewHackathonDetails":"view hackathon details",
     "hackathonStatsToday":"Hackathon Stats Today"
   }

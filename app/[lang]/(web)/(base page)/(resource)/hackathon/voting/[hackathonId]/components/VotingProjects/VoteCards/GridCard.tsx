@@ -1,20 +1,24 @@
 import TrackTag from '@/components/Common/TrackTag';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import HandleVote from './HandleVote';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
-import { ViewValue } from '../../../../../constants/type';
+import { HackathonVoteContext, ViewValue } from '../../../../../constants/type';
+import HandleVote from '../../HandleVote';
 
 interface GridCardProp {
   project: ProjectType;
 }
 
 const GridCard: React.FC<GridCardProp> = ({ project }) => {
+  const { judgeInfo } = useContext(HackathonVoteContext);
+  const isShowTick = useMemo(() => {
+    return judgeInfo?.judge?.judgeMode === 'judges' && judgeInfo?.judge?.voteMode === 'score';
+  }, [judgeInfo]);
   return (
-    <div className=" w-full  rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[16px]">
+    <div className=" flex w-full flex-col justify-between rounded-[16px] border border-neutral-light-gray bg-neutral-white p-[12px]">
       <div className="mb-[8px]">
         <div className="flex gap-[8px]">
           <div className="relative h-[48px] w-[48px] flex-shrink-0  overflow-hidden">
@@ -33,11 +37,13 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="caption-10pt mt-[8px] line-clamp-4 h-[60px] text-neutral-rich-gray">
+        <div
+          className={`caption-10pt mt-[8px]  text-neutral-rich-gray ${isShowTick ? 'line-clamp-3 h-[45px]' : 'line-clamp-4 h-[66px]'}`}
+        >
           {project.detail?.detailedIntro}
         </div>
       </div>
-      <div className="h-[63px] w-full rounded-[8px] bg-neutral-off-white px-[12px] py-[8px]">
+      <div className={` w-full rounded-[8px] ${isShowTick ? 'h-[90px]' : 'h-[66px]'}`}>
         <HandleVote view={ViewValue.GRID} project={project} />
       </div>
     </div>

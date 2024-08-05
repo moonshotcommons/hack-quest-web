@@ -6,13 +6,13 @@ import HackLogo from '@/public/images/logo/hackquest_logo.png';
 import Link from 'next/link';
 import { IoExitOutline } from 'react-icons/io5';
 import MenuLink from '@/constants/MenuLink';
-import { useHackathonAuditStore } from '@/store/zustand/hackathonAuditStore';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = () => {
-  const { hackathon } = useHackathonAuditStore(
+  const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
     }))

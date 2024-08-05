@@ -3,7 +3,7 @@ import { ProjectType } from '@/service/webApi/resourceStation/type';
 import Image from 'next/image';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
-import HandleVote from './HandleVote';
+import HandleVote from '../../HandleVote';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { ViewValue } from '../../../../../constants/type';
@@ -33,7 +33,7 @@ const AgendaCard: React.FC<AgendaCardProp> = ({ project }) => {
         </div>
         <p className="body-xs line-clamp-3 text-neutral-rich-gray">{project.detail?.detailedIntro}</p>
       </div>
-      <div className="h-full w-[209px] rounded-[8px] bg-neutral-off-white p-[12px] pt-[40px]">
+      <div className="h-full w-[209px]">
         <HandleVote view={ViewValue.AGENDA} project={project} />
       </div>
     </div>
