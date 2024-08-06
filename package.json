@@ -69,6 +69,7 @@
     "cookies-next": "^4.1.1",
     "dayjs": "^1.11.10",
     "echarts": "^5.4.3",
+    "ethers": "^6.13.2",
     "framer-motion": "^10.16.0",
     "github-markdown-css": "^5.5.1",
     "grapheme-splitter": "^1.0.4",

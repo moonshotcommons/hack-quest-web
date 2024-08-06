@@ -164,6 +164,9 @@ importers:
       echarts:
         specifier: ^5.4.3
         version: 5.4.3
+      ethers:
+        specifier: ^6.13.2
+        version: 6.13.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       framer-motion:
         specifier: ^10.16.0
         version: 10.16.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -12204,18 +12207,6 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@7.5.9:
-    resolution: {integrity: sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==}
-    engines: {node: '>=8.3.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
   ws@8.11.0:
     resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
     engines: {node: '>=10.0.0'}
@@ -12230,18 +12221,6 @@ packages:
 
   ws@8.13.0:
     resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
-  ws@8.15.1:
-    resolution: {integrity: sha512-W5OZiCjXEmk0yZ66ZN82beM5Sz7l7coYxpRkzS+p9PP+ToQry8szKh+61eNktr7EA9DOwvFGhfC605jDHbP6QQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -13977,7 +13956,7 @@ snapshots:
 
   '@emnapi/runtime@0.45.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
     optional: true
 
   '@emotion/hash@0.8.0': {}
@@ -14649,7 +14628,7 @@ snapshots:
   '@jest/console@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       chalk: 4.1.2
       jest-message-util: 29.7.0
       jest-util: 29.7.0
@@ -14662,14 +14641,14 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       ci-info: 3.9.0
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.7.0
-      jest-config: 29.7.0(@types/node@20.5.1)(ts-node@10.9.1(@types/node@20.5.1)(typescript@5.3.3))
+      jest-config: 29.7.0(@types/node@20.14.13)(ts-node@10.9.1(@types/node@20.5.1)(typescript@5.3.3))
       jest-haste-map: 29.7.0
       jest-message-util: 29.7.0
       jest-regex-util: 29.6.3
@@ -14698,7 +14677,7 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       jest-mock: 29.7.0
 
   '@jest/expect-utils@29.7.0':
@@ -14716,7 +14695,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -14738,7 +14717,7 @@ snapshots:
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
       '@jridgewell/trace-mapping': 0.3.20
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       chalk: 4.1.2
       collect-v8-coverage: 1.0.2
       exit: 0.1.2
@@ -14816,7 +14795,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       '@types/yargs': 17.0.32
       chalk: 4.1.2
 
@@ -14903,7 +14882,7 @@ snapshots:
     dependencies:
       '@ngraveio/bc-ur': 1.1.13
       bs58check: 2.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@keystonehq/sdk@0.13.1':
     dependencies:
@@ -17553,7 +17532,7 @@ snapshots:
 
   '@solana/wallet-adapter-unsafe-burner@0.1.7(@solana/web3.js@1.95.1(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))':
     dependencies:
-      '@noble/curves': 1.3.0
+      '@noble/curves': 1.4.2
       '@solana/wallet-adapter-base': 0.9.23(@solana/web3.js@1.95.1(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))
       '@solana/wallet-standard-features': 1.2.0
       '@solana/wallet-standard-util': 1.1.1
@@ -17671,7 +17650,7 @@ snapshots:
 
   '@solana/wallet-standard-util@1.1.1':
     dependencies:
-      '@noble/curves': 1.3.0
+      '@noble/curves': 1.4.2
       '@solana/wallet-standard-chains': 1.1.0
       '@solana/wallet-standard-features': 1.2.0
 
@@ -17845,12 +17824,12 @@ snapshots:
 
   '@swc/helpers@0.5.12':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@swc/helpers@0.5.5':
     dependencies:
       '@swc/counter': 0.1.3
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@tanstack/query-core@5.28.6': {}
 
@@ -18242,7 +18221,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
 
   '@types/cookie@0.6.0': {}
 
@@ -18301,7 +18280,7 @@ snapshots:
 
   '@types/graceful-fs@4.1.9':
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
 
   '@types/hast@2.3.8':
     dependencies:
@@ -18335,7 +18314,7 @@ snapshots:
 
   '@types/jsdom@20.0.1':
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       '@types/tough-cookie': 4.0.5
       parse5: 7.1.2
 
@@ -18418,7 +18397,7 @@ snapshots:
 
   '@types/secp256k1@4.0.6':
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
 
   '@types/stack-utils@2.0.3': {}
 
@@ -18446,11 +18425,11 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
 
   '@types/ws@8.5.11':
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -18849,7 +18828,7 @@ snapshots:
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/safe-json': 1.0.2
       events: 3.3.0
-      ws: 7.5.9(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 7.5.10(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -19542,7 +19521,7 @@ snapshots:
 
   aria-hidden@1.2.3:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   aria-query@5.1.3:
     dependencies:
@@ -20042,7 +20021,7 @@ snapshots:
 
   bs58check@3.0.1:
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.4.0
       bs58: 5.0.0
 
   bser@2.1.1:
@@ -20118,7 +20097,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   camelcase-css@2.0.1: {}
 
@@ -20139,7 +20118,7 @@ snapshots:
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
       upper-case-first: 2.0.2
 
   cashaddrjs@0.4.4:
@@ -20188,7 +20167,7 @@ snapshots:
       path-case: 3.0.4
       sentence-case: 3.0.4
       snake-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   char-regex@1.0.2: {}
 
@@ -20481,7 +20460,7 @@ snapshots:
   constant-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
       upper-case: 2.0.2
 
   conventional-changelog-angular@6.0.0:
@@ -20974,7 +20953,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   dot-prop@5.3.0:
     dependencies:
@@ -21285,7 +21264,7 @@ snapshots:
       eslint: 8.44.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.44.0))(eslint@8.44.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.44.0))(eslint@8.44.0))(eslint@8.44.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.44.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.44.0)
       eslint-plugin-react: 7.33.2(eslint@8.44.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.44.0)
@@ -21324,7 +21303,7 @@ snapshots:
       enhanced-resolve: 5.15.0
       eslint: 8.44.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.44.0))(eslint@8.44.0))(eslint@8.44.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.44.0))(eslint@8.44.0))(eslint@8.44.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.44.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.2
       is-core-module: 2.13.1
@@ -21346,7 +21325,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.44.0))(eslint@8.44.0))(eslint@8.44.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@5.62.0(eslint@8.44.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.44.0):
     dependencies:
       array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.3
@@ -22278,7 +22257,7 @@ snapshots:
   header-case@2.0.4:
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   help-me@5.0.0: {}
 
@@ -22864,7 +22843,7 @@ snapshots:
       '@jest/expect': 29.7.0
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       chalk: 4.1.2
       co: 4.6.0
       dedent: 1.5.1
@@ -22902,6 +22881,37 @@ snapshots:
       - babel-plugin-macros
       - supports-color
       - ts-node
+
+  jest-config@29.7.0(@types/node@20.14.13)(ts-node@10.9.1(@types/node@20.5.1)(typescript@5.3.3)):
+    dependencies:
+      '@babel/core': 7.23.6
+      '@jest/test-sequencer': 29.7.0
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.23.6)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      deepmerge: 4.3.1
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      jest-circus: 29.7.0
+      jest-environment-node: 29.7.0
+      jest-get-type: 29.6.3
+      jest-regex-util: 29.6.3
+      jest-resolve: 29.7.0
+      jest-runner: 29.7.0
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      micromatch: 4.0.5
+      parse-json: 5.2.0
+      pretty-format: 29.7.0
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 20.14.13
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@5.3.3)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
 
   jest-config@29.7.0(@types/node@20.5.1)(ts-node@10.9.1(@types/node@20.5.1)(typescript@5.3.3)):
     dependencies:
@@ -22973,7 +22983,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -22983,7 +22993,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.9
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -23022,7 +23032,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       jest-util: 29.7.0
 
   jest-pnp-resolver@1.2.3(jest-resolve@29.7.0):
@@ -23057,7 +23067,7 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       chalk: 4.1.2
       emittery: 0.13.1
       graceful-fs: 4.2.11
@@ -23085,7 +23095,7 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       chalk: 4.1.2
       cjs-module-lexer: 1.2.3
       collect-v8-coverage: 1.0.2
@@ -23131,7 +23141,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -23150,7 +23160,7 @@ snapshots:
     dependencies:
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       emittery: 0.13.1
@@ -23165,7 +23175,7 @@ snapshots:
 
   jest-worker@29.7.0:
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -23276,7 +23286,7 @@ snapshots:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.15.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -23406,7 +23416,7 @@ snapshots:
     dependencies:
       copy-anything: 2.0.6
       parse-node-version: 1.0.1
-      tslib: 2.6.2
+      tslib: 2.6.3
     optionalDependencies:
       errno: 0.1.8
       graceful-fs: 4.2.11
@@ -23638,7 +23648,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   lowlight@1.20.0:
     dependencies:
@@ -24374,7 +24384,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   nocache@3.0.4: {}
 
@@ -24658,7 +24668,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   parent-module@1.0.1:
     dependencies:
@@ -24723,14 +24733,14 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   path-browserify@1.0.1: {}
 
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   path-exists@3.0.0: {}
 
@@ -25001,7 +25011,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.5.1
+      '@types/node': 20.14.13
       long: 5.2.3
 
   proxy-compare@2.5.1: {}
@@ -25655,7 +25665,7 @@ snapshots:
     dependencies:
       react: 18.2.0
       react-style-singleton: 2.2.1(@types/react@18.2.14)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.6.3
     optionalDependencies:
       '@types/react': 18.2.14
 
@@ -25664,7 +25674,7 @@ snapshots:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.5(@types/react@18.2.14)(react@18.2.0)
       react-style-singleton: 2.2.1(@types/react@18.2.14)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.6.3
       use-callback-ref: 1.3.1(@types/react@18.2.14)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.2.14)(react@18.2.0)
     optionalDependencies:
@@ -25675,7 +25685,7 @@ snapshots:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.5(@types/react@18.2.14)(react@18.2.0)
       react-style-singleton: 2.2.1(@types/react@18.2.14)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.6.3
       use-callback-ref: 1.3.1(@types/react@18.2.14)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.2.14)(react@18.2.0)
     optionalDependencies:
@@ -25706,7 +25716,7 @@ snapshots:
       get-nonce: 1.0.1
       invariant: 2.2.4
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.6.3
     optionalDependencies:
       '@types/react': 18.2.14
 
@@ -26019,7 +26029,7 @@ snapshots:
       ripple-binary-codec: 1.11.0
       ripple-keypairs: 1.3.1
       ripple-lib-transactionparser: 0.8.2
-      ws: 7.5.9(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 7.5.10(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -26044,7 +26054,7 @@ snapshots:
       buffer: 6.0.3
       eventemitter3: 5.0.1
       uuid: 8.3.2
-      ws: 8.15.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
@@ -26065,7 +26075,7 @@ snapshots:
 
   rxjs@7.8.1:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   safe-array-concat@1.0.1:
     dependencies:
@@ -26204,7 +26214,7 @@ snapshots:
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
       upper-case-first: 2.0.2
 
   serialize-error@2.1.0: {}
@@ -26353,7 +26363,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   socket.io-client@4.7.5(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
@@ -26728,7 +26738,7 @@ snapshots:
   synckit@0.8.8:
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   tabbable@6.2.0: {}
 
@@ -27178,11 +27188,11 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   uqr@0.1.2: {}
 
@@ -27206,7 +27216,7 @@ snapshots:
   use-callback-ref@1.3.1(@types/react@18.2.14)(react@18.2.0):
     dependencies:
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.6.3
     optionalDependencies:
       '@types/react': 18.2.14
 
@@ -27220,7 +27230,7 @@ snapshots:
     dependencies:
       detect-node-es: 1.1.0
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.6.3
     optionalDependencies:
       '@types/react': 18.2.14
 
@@ -27628,22 +27638,12 @@ snapshots:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
 
-  ws@7.5.9(bufferutil@4.0.8)(utf-8-validate@5.0.10):
-    optionalDependencies:
-      bufferutil: 4.0.8
-      utf-8-validate: 5.0.10
-
   ws@8.11.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
 
   ws@8.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
-    optionalDependencies:
-      bufferutil: 4.0.8
-      utf-8-validate: 5.0.10
-
-  ws@8.15.1(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
