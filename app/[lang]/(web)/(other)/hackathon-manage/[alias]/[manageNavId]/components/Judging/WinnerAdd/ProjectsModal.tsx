@@ -1,71 +1,16 @@
 import React, { useMemo } from 'react';
 import WinnerProject from '../WinnerProject';
+import { HackathonJudgeProjectType } from '@/service/webApi/resourceStation/type';
 
 interface ProjectsModalProp {
-  handleSelect: (item: any) => void;
+  handleSelect: (item: HackathonJudgeProjectType) => void;
   projectName: string;
+  projects: HackathonJudgeProjectType[];
 }
 
-const ProjectsModal: React.FC<ProjectsModalProp> = ({ handleSelect, projectName }) => {
-  const winners = [
-    {
-      prizeName: 'fisrt1',
-      id: 1,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-XMetaLine-X',
-      team: 'Scroll',
-      rank: 1,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt2',
-      id: 2,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 2,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt3',
-      id: 3,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 3,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt4',
-      id: 4,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 4,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt5',
-      id: 5,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 5,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt6',
-      id: 6,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 6,
-      totalVotes: 100
-    }
-  ];
-
+const ProjectsModal: React.FC<ProjectsModalProp> = ({ handleSelect, projectName, projects }) => {
   const winnerList = useMemo(() => {
-    return winners.filter((v) => v.name?.toLocaleLowerCase().includes(projectName?.toLocaleLowerCase()));
+    return projects.filter((v) => v.name?.toLocaleLowerCase().includes(projectName?.toLocaleLowerCase()));
   }, [projectName]);
   return (
     <div className="scroll-wrap-y max-h-[200px] w-full rounded-[8px] border border-neutral-medium-gray bg-neutral-white py-[10px]">

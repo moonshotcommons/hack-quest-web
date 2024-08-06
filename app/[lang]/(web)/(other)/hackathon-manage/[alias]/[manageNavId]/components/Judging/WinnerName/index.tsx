@@ -1,27 +1,28 @@
+import { HackathonWinnerType } from '@/service/webApi/resourceStation/type';
 import React, { useEffect, useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 
 interface WinnerNameProp {
-  project: any;
+  winner: HackathonWinnerType;
   handleChangeName: (prizeName: string) => void;
   initEdit?: boolean;
   disabled?: boolean;
 }
 
-const WinnerName: React.FC<WinnerNameProp> = ({ project, handleChangeName, initEdit = false, disabled = false }) => {
-  const [prizeName, setPrizeName] = useState(project.prizeName);
+const WinnerName: React.FC<WinnerNameProp> = ({ winner, handleChangeName, initEdit = false, disabled = false }) => {
+  const [winnerName, setWinnerName] = useState(winner.name);
   const [isEdit, setIsEdit] = useState(initEdit);
-  const changePrizeName = () => {
-    if (!prizeName) {
-      setPrizeName(project.prizeName);
+  const changeWinnerName = () => {
+    if (!winnerName) {
+      setWinnerName(winner.name);
     } else {
-      handleChangeName(prizeName);
+      handleChangeName(winnerName);
     }
     setIsEdit(false);
   };
   useEffect(() => {
-    setPrizeName(project.prizeName);
-  }, [project]);
+    setWinnerName(winner.name);
+  }, [winner]);
 
   return (
     <div
@@ -29,13 +30,13 @@ const WinnerName: React.FC<WinnerNameProp> = ({ project, handleChangeName, initE
     >
       {(!isEdit || disabled) && (
         <div
-          className={` relative flex h-full w-full cursor-pointer items-center justify-center px-[26px]  ${!disabled && 'group hover:bg-neutral-off-white'}`}
+          className={` relative flex h-full w-full  items-center justify-center px-[26px]  ${!disabled && 'group cursor-pointer hover:bg-neutral-off-white'}`}
           onClick={() => {
             if (disabled) return;
             setIsEdit(!isEdit);
           }}
         >
-          {prizeName}
+          {winnerName}
           <CiEdit size={18} className="absolute right-[8px]  hidden group-hover:block" />
         </div>
       )}
@@ -44,15 +45,15 @@ const WinnerName: React.FC<WinnerNameProp> = ({ project, handleChangeName, initE
           type="text"
           className="flex h-full w-full border-none text-center outline-status-success"
           placeholder="e.g. First Prize, Best Teamwork..."
-          value={prizeName}
+          value={winnerName}
           onChange={(e) => {
             const value = e.target.value;
-            setPrizeName(value);
+            setWinnerName(value);
           }}
-          onBlur={changePrizeName}
+          onBlur={changeWinnerName}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
-              changePrizeName();
+              changeWinnerName();
             }
           }}
         />
