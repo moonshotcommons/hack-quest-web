@@ -201,7 +201,10 @@ export function ApplicationForm({
                       {...field}
                       disabled={disabled}
                       onChange={(e) => {
-                        field.onChange(e);
+                        const value = e.target.value;
+                        if (/^\d*$/.test(value)) {
+                          field.onChange(value);
+                        }
                       }}
                       autoComplete="off"
                       type="number"
@@ -228,9 +231,13 @@ export function ApplicationForm({
                       {...field}
                       disabled={disabled}
                       onChange={(e) => {
-                        field.onChange(e);
+                        const value = e.target.value;
+                        if (/^\d*$/.test(value)) {
+                          field.onChange(value);
+                        }
                       }}
                       autoComplete="off"
+                      type="number"
                       placeholder="e.g. 4"
                       className="aria-[invalid=true]:border-status-error-dark"
                     />
