@@ -20,6 +20,7 @@ import webApi from '@/service';
 import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
+import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
 
 type Store = {
   current: number;
@@ -40,6 +41,59 @@ const useAttestation = create<Store>((set) => ({
   onOpenChange: (open) => set({ open }),
   reset: () => set({ current: 0, state: {}, open: false })
 }));
+
+function Wallet() {
+  return (
+    <ConnectButton.Custom>
+      {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
+        const ready = mounted && authenticationStatus !== 'loading';
+        const connected =
+          ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
+
+        return (
+          <div
+            {...(!ready && {
+              'aria-hidden': true,
+              style: {
+                opacity: 0,
+                pointerEvents: 'none',
+                userSelect: 'none'
+              }
+            })}
+            className="w-full"
+          >
+            {(() => {
+              if (!connected) {
+                return (
+                  <div className="flex items-center gap-3" onClick={openConnectModal}>
+                    <WalletIcon size={24} />
+                    <span>Connect Wallet</span>
+                  </div>
+                );
+              }
+
+              if (chain.unsupported) {
+                return (
+                  <div className="flex items-center gap-3" onClick={openChainModal}>
+                    <WalletIcon size={24} />
+                    <p>Wrong network</p>
+                  </div>
+                );
+              }
+
+              return (
+                <div className="flex items-center gap-3">
+                  <WalletIcon size={24} />
+                  <p>{account.displayName}</p>
+                </div>
+              );
+            })()}
+          </div>
+        );
+      }}
+    </ConnectButton.Custom>
+  );
+}
 
 function Step1() {
   const { state, setState, setCurrent } = useAttestation();
@@ -127,6 +181,17 @@ function Step2() {
 function Step3() {
   const { profile } = useProfile();
   const { setCurrent } = useAttestation();
+
+  const { connectModalOpen } = useConnectModal();
+
+  React.useEffect(() => {
+    if (connectModalOpen) {
+      document.body.style.pointerEvents = 'auto';
+    } else {
+      document.body.style.pointerEvents = 'none';
+    }
+  }, [connectModalOpen]);
+
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-lg font-bold sm:text-[22px]">Choose Wallet</h2>
@@ -136,10 +201,7 @@ function Step3() {
             value="1"
             className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
           >
-            <WalletIcon className="h-5 w-5" />
-            {profile?.onChainActivity.address && (
-              <span className="truncate text-left">{profile?.onChainActivity.address}</span>
-            )}
+            <Wallet />
           </RadioCardsItem>
         </RadioCards>
       </div>
@@ -154,6 +216,39 @@ function Step4() {
   const { username } = useParams();
   const { invalidate } = useProfile();
   const { state, reset } = useAttestation();
+
+  // const signer = useEthersSigner();
+
+  // const EASContractAddress = '0xC2679fBD37d54388Ce493F1DB75320D236e1815e';
+
+  // const eas = new EAS(EASContractAddress);
+
+  // eas.connect(signer!);
+
+  // const schemaEncoder = new SchemaEncoder('uint256 eventId, uint8 voteIndex');
+  // const encodedData = schemaEncoder.encodeData([
+  //   { name: 'eventId', value: 1, type: 'uint256' },
+  //   { name: 'voteIndex', value: 1, type: 'uint8' }
+  // ]);
+
+  // const schemaUID = '0xb16fa048b0d597f5a821747eba64efa4762ee5143e9a80600d0005386edfc995';
+
+  // async function createAttestation() {
+  //   const transaction = await eas.attest({
+  //     schema: schemaUID,
+  //     data: {
+  //       recipient: '0x0000000000000000000000000000000000000000',
+  //       revocable: true,
+  //       data: encodedData
+  //     }
+  //   });
+
+  //   const newAttestationUID = await transaction.wait();
+
+  //   console.log('New attestation UID:', newAttestationUID);
+
+  //   console.log('Transaction receipt:', transaction.receipt);
+  // }
 
   const create = useMutation({
     mutationFn: (input: any) => webApi.userApi.createAttestation(input),
@@ -171,6 +266,7 @@ function Step4() {
       attest: state?.attest === 'true'
     };
     create.mutate(values);
+    // createAttestation();
   }
 
   return (

@@ -67,7 +67,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
       <div className="body-s flex min-w-[220px] flex-col text-neutral-black">
         <UserInfo userInfo={userInfo}></UserInfo>
         <ConnectButton t={t} />
-        <Link href={`/user/profile`} className="w-full">
+        <Link href={`/user/${userInfo?.username}`} className="w-full">
           <div
             className="mt-[8px] flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
             onClick={() => {
