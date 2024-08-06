@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import Title from '../../Title';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
-import Button from '@/components/Common/Button';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
