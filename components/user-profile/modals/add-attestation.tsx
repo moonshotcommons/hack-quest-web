@@ -20,7 +20,7 @@ import webApi from '@/service';
 import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
 
 type Store = {
   current: number;
@@ -181,6 +181,17 @@ function Step2() {
 function Step3() {
   const { profile } = useProfile();
   const { setCurrent } = useAttestation();
+
+  const { connectModalOpen } = useConnectModal();
+
+  React.useEffect(() => {
+    if (connectModalOpen) {
+      document.body.style.pointerEvents = 'auto';
+    } else {
+      document.body.style.pointerEvents = 'none';
+    }
+  }, [connectModalOpen]);
+
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-lg font-bold sm:text-[22px]">Choose Wallet</h2>
@@ -205,6 +216,7 @@ function Step4() {
   const { username } = useParams();
   const { invalidate } = useProfile();
   const { state, reset } = useAttestation();
+
   // const signer = useEthersSigner();
 
   // const EASContractAddress = '0xC2679fBD37d54388Ce493F1DB75320D236e1815e';

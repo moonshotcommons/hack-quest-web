@@ -26,7 +26,7 @@ export function Hackathon() {
         >
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
-              <div className="flex flex-col text-base text-neutral-off-black sm:flex-row sm:items-center sm:gap-2">
+              <div className="flex items-center gap-2 text-base text-neutral-off-black">
                 <span className="whitespace-nowrap font-bold">{hackathon.projectTitle}</span>
                 {hackathon.winner && (
                   <span className="rounded-[8px] bg-neutral-light-gray px-3.5 py-[3px] text-xs font-bold">WINNER</span>
