@@ -145,7 +145,7 @@ export function BasicInfoForm({
       id: initialValues?.id,
       ...data,
       address: data.mode === 'HYBRID' ? data.address : undefined,
-      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : undefined,
+      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : true,
       description
     };
     mutation.mutate(values);
