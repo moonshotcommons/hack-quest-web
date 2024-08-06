@@ -194,6 +194,7 @@ export interface HackathonJudgeType {
   judgeTotalVote: number;
   projectJudgeCount: number;
   voteMode: string;
+  totalVote: number;
   rewardName: string;
   rewardId: string;
   disableJudge: boolean;

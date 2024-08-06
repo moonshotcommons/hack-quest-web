@@ -18,7 +18,7 @@ import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { message } from 'antd';
+import toast from 'react-hot-toast';
 
 export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?: boolean) => void }) => {
   const { profile, invalidate } = useProfile();
@@ -31,14 +31,16 @@ export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?:
   const { isPending, mutate } = useMutation({
     mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
     onSuccess: () => {
-      message.success('Update profile successfully');
+      toast.success('Profile updated');
       invalidate();
+      toggle?.(false);
     }
   });
 
   React.useEffect(() => {
     form.reset({
       nickname: profile?.user.nickname,
+      bio: profile?.bio || '',
       email: profile?.user.email,
       location: profile?.location,
       techStack: profile?.techStack,

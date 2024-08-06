@@ -11,7 +11,7 @@ export function FilterModal() {
 
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const count = currentParams.toString() ? currentParams.toString()?.split('&')?.length : 0;
+  const count = [...new Set(currentParams.keys())]?.length ?? 0;
 
   return (
     <Dialog>
