@@ -675,7 +675,7 @@ export interface HackathonManageApplicationMemberType {
   isAdmin: boolean;
   index: number;
   isRegister: boolean;
-  isSubmited: boolean;
+  isSubmitted: boolean;
   joinState: ApplicationStatus;
   avatar: string;
   location: string;
@@ -692,7 +692,7 @@ export interface HackathonManageApplicationType {
   members?: HackathonManageApplicationMemberType[];
   joinState: ApplicationStatus;
   isRegister: boolean;
-  isSubmited: boolean;
+  isSubmitted: boolean;
   pId: string;
   avatar: string;
   location: string;
@@ -795,6 +795,9 @@ export interface HackathonJudgeProjectType {
     finalScore: number;
     scores: HackathonJudgeProjectScoreType[];
   };
+  detail?: {
+    detailedIntro: string;
+  };
 }
 
 export interface HackathonJugingInfoType {
@@ -811,4 +814,10 @@ export interface HackathonWinnerType {
   project: HackathonJudgeProjectType;
   rewardId: string;
   type: 'base' | 'other';
+}
+
+export interface HackathonDetailRewardType {
+  projectCount: number;
+  projects: HackathonJudgeProjectType[];
+  reward: HackathonRewardType;
 }

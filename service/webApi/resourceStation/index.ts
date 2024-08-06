@@ -15,6 +15,7 @@ import {
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
+  HackathonDetailRewardType,
   HackathonVariousType,
   HackathonVoteJudgeType,
   HackathonVoteType,
@@ -78,6 +79,10 @@ class ResourceStationApi {
   }
   getHackathonDetailById(id: string) {
     return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}/detail`);
+  }
+
+  getHackathonRewards(hackathonId: string) {
+    return this.service.get<HackathonDetailRewardType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/winners`);
   }
 
   /** 获取hackathon 可以投票的project */
