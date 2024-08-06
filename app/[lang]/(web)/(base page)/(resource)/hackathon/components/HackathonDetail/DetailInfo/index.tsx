@@ -289,12 +289,11 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
                 {t('hackathonDetail.submitToPreview')}
               </Button>
             )}
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={() => redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`)}
-            >
-              {t('hackathonDetail.backToEdit')}
-            </Button>
+            <Link href={`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`}>
+              <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">
+                {t('hackathonDetail.backToEdit')}
+              </Button>
+            </Link>
           </>
         )}
         {needConfirm && (

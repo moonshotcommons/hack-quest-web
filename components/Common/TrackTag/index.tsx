@@ -11,7 +11,7 @@ const TrackTag: React.FC<TrackTagProp> = ({ track, className = 'caption-12pt ' }
   return (
     <div
       className={cn(
-        'w-fit rounded-[20px]  border-[0.5px] border-neutral-rich-gray px-[12px] py-[4px] text-neutral-rich-gray',
+        'w-fit rounded-[1.25rem]  border-[.0313rem] border-neutral-rich-gray px-[.75rem] py-[.25rem] text-neutral-rich-gray',
         className
       )}
     >

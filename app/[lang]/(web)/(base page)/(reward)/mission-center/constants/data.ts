@@ -47,16 +47,16 @@ export const rewardsCardData: RewardsCardDataType = {
 
 export const leaderboardTab = [
   {
-    label: 'all',
-    value: 'allTime'
+    label: 'day',
+    value: 'day'
   },
   {
     label: 'month',
     value: 'month'
   },
   {
-    label: 'day',
-    value: 'day'
+    label: 'all',
+    value: 'allTime'
   }
 ];
 
