@@ -22,7 +22,7 @@ export function Resume() {
     mutationFn: (resumeId: string) => webApi.userApi.removeResume(resumeId),
     onSuccess: () => {
       invalidate();
-      toast.success('Remove success');
+      toast.success('Resume deleted');
     }
   });
 
@@ -43,10 +43,10 @@ export function Resume() {
         .mutateAsync(formData)
         .then(() => {
           invalidate();
-          toast.success('Upload success');
+          toast.success('Resume uploaded');
         })
         .catch(() => {
-          toast.error('Upload failed');
+          toast.error('Resume upload failed');
           setTimeout(() => {
             setFiles((prev: any) => prev.filter((f: any) => f.name !== file.name));
           }, 2000);

@@ -33,12 +33,14 @@ export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?:
     onSuccess: () => {
       toast.success('Profile updated');
       invalidate();
+      toggle?.(false);
     }
   });
 
   React.useEffect(() => {
     form.reset({
       nickname: profile?.user.nickname,
+      bio: profile?.bio || '',
       email: profile?.user.email,
       location: profile?.location,
       techStack: profile?.techStack,

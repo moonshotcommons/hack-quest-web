@@ -15,7 +15,7 @@ import { companySchema, contacts, contactsSchema, currencies, jobSchema, workMod
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
-import TextEditor, { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
+import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useJobStore } from '../utils/store';
 import { useMutation } from '@tanstack/react-query';
@@ -28,17 +28,18 @@ import { Spinner } from '@/components/ui/spinner';
 import { useParams } from 'next/navigation';
 import { revalidate } from '../utils/actions';
 import { useUserStore } from '@/store/zustand/userStore';
+import { omit } from 'lodash-es';
 
 function Step1() {
-  const { onNext, setValues } = useJobStore();
+  const { values, onNext, setValues } = useJobStore();
   const submitRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof companySchema>>({
     resolver: zodResolver(companySchema),
     defaultValues: {
-      companyName: '',
-      companyLogo: '',
-      website: ''
+      companyName: values?.companyName || '',
+      companyLogo: values?.companyLogo || '',
+      website: values?.website || ''
     }
   });
 
@@ -48,8 +49,13 @@ function Step1() {
     mutationFn: (data: FormData) => webApi.commonApi.uploadImage(data),
     onSuccess: ({ filepath }) => {
       form.setValue('companyLogo', filepath);
+      setValues({ companyLogo: filepath });
       form.clearErrors('companyLogo');
-      toast.success('Upload success');
+      toast.success('Company logo uploaded');
+    },
+    onError: () => {
+      form.clearErrors('companyLogo');
+      toast.error('Company logo upload failed');
     }
   });
 
@@ -79,7 +85,15 @@ function Step1() {
             <FormItem>
               <FormLabel>Company Name*</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. Google" {...field} />
+                <Input
+                  placeholder="e.g. Google"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setValues({ companyName: e.target.value });
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -122,7 +136,15 @@ function Step1() {
             <FormItem>
               <FormLabel>Website*</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. https://google.com" {...field} />
+                <Input
+                  placeholder="e.g. https://google.com"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setValues({ website: e.target.value });
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -142,7 +164,7 @@ function Step1() {
 }
 
 function Step2() {
-  const { onBack, onNext, setValues } = useJobStore();
+  const { values, onBack, onNext, setValues } = useJobStore();
 
   const [description, setDescription] = React.useState<{ type: string; content: object }>();
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -150,9 +172,14 @@ function Step2() {
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
-      name: '',
-      workMode: 'REMOTE',
-      workType: 'FULL_TIME'
+      name: values?.name || '',
+      workMode: values?.workMode || 'REMOTE',
+      workType: values?.workType || 'FULL_TIME',
+      minSalary: values?.minSalary?.toString() || '',
+      maxSalary: values?.maxSalary?.toString() || '',
+      currency: values?.currency || undefined,
+      tags: values?.tags || [],
+      description: values?.description || undefined
     }
   });
 
@@ -180,7 +207,15 @@ function Step2() {
             <FormItem>
               <FormLabel>Job Title*</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. Software Engineer" {...field} />
+                <Input
+                  placeholder="e.g. Software Engineer"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setValues({ name: e.target.value });
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -198,8 +233,9 @@ function Step2() {
                     <RadioGroup
                       onValueChange={(value) => {
                         field.onChange(value);
+                        setValues({ workMode: value });
                       }}
-                      value={field.value as string}
+                      value={field.value}
                       className="flex items-center gap-9"
                     >
                       {workModes.map((item) => (
@@ -225,7 +261,15 @@ function Step2() {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input placeholder="e.g. New York" {...field} />
+                      <Input
+                        placeholder="e.g. New York"
+                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setValues({ location: e.target.value });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -242,7 +286,10 @@ function Step2() {
               <FormLabel>Job Type</FormLabel>
               <FormControl>
                 <RadioGroup
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    setValues({ workType: value });
+                  }}
                   value={field.value}
                   className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-9"
                 >
@@ -273,7 +320,16 @@ function Step2() {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input type="number" placeholder="e.g. 10000" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="e.g. 10000"
+                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setValues({ minSalary: e.target.value });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -289,7 +345,16 @@ function Step2() {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input type="number" placeholder="e.g. 10000" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="e.g. 10000"
+                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setValues({ maxSalary: e.target.value });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -303,7 +368,13 @@ function Step2() {
                 name="currency"
                 render={({ field }) => (
                   <FormItem className="w-full sm:w-64 sm:shrink-0">
-                    <Select value={field.value} onValueChange={field.onChange}>
+                    <Select
+                      value={field.value}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        setValues({ currency: value });
+                      }}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Please select" />
@@ -326,7 +397,13 @@ function Step2() {
         </div>
         <div className="flex flex-col space-y-1.5">
           <Label className="text-base">Tags</Label>
-          <TagCombobox value={tags || []} onValueChange={(value) => form.setValue('tags', value)} />
+          <TagCombobox
+            value={tags || []}
+            onValueChange={(value) => {
+              form.setValue('tags', value);
+              setValues({ tags: value });
+            }}
+          />
         </div>
         <FormField
           control={form.control}
@@ -345,15 +422,27 @@ function Step2() {
                 onCreated={(editor) => {
                   const text = editor.getText().replace(/\n|\r/gm, '');
                   form.setValue('description', text);
+                  setValues({
+                    description: {
+                      type: TEXT_EDITOR_TYPE,
+                      content: editor.children
+                    }
+                  });
                   setDescription({
                     type: TEXT_EDITOR_TYPE,
                     content: editor.children
                   });
                 }}
-                defaultContent={[]}
+                defaultContent={transformTextToEditorValue(values?.description)}
                 onChange={(editor) => {
                   const text = editor.getText().replace(/\n|\r/gm, '');
                   form.setValue('description', text);
+                  setValues({
+                    description: {
+                      type: TEXT_EDITOR_TYPE,
+                      content: editor.children
+                    }
+                  });
                   setDescription({
                     type: TEXT_EDITOR_TYPE,
                     content: editor.children
@@ -380,7 +469,7 @@ function Step2() {
 
 function Step3() {
   const router = useRouter();
-  const { values, reset, onBack } = useJobStore();
+  const { values, setValues, reset, onBack } = useJobStore();
   const [pending, startTransition] = React.useTransition();
 
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -388,8 +477,8 @@ function Step3() {
   const form = useForm<z.infer<typeof contactsSchema>>({
     resolver: zodResolver(contactsSchema),
     defaultValues: {
-      contractKey: [],
-      contractValue: {}
+      contractKey: values?.contractKey || [],
+      contractValue: values?.contractValue || {}
     }
   });
 
@@ -415,7 +504,7 @@ function Step3() {
       contact: data.contractValue
     };
 
-    mutate(formatedValues);
+    mutate(omit(formatedValues, ['contractKey', 'contractValue']));
   }
 
   return (
@@ -441,9 +530,12 @@ function Step3() {
                             size="large"
                             checked={field.value?.includes(item.id)}
                             onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(field.value?.filter((value) => value !== item.id));
+                              const newValues = checked
+                                ? [...field.value, item.id]
+                                : field.value?.filter((value) => value !== item.id);
+
+                              field.onChange(newValues);
+                              setValues({ contractKey: newValues });
                             }}
                           />
                         </FormControl>
@@ -460,7 +552,20 @@ function Step3() {
                       render={({ field }) => (
                         <FormItem className="flex-1">
                           <FormControl>
-                            <Input placeholder={item.placeholder} {...field} />
+                            <Input
+                              placeholder={item.placeholder}
+                              {...field}
+                              value={field.value}
+                              onChange={(e) => {
+                                field.onChange(e.target.value);
+                                setValues({
+                                  contractValue: {
+                                    ...values.contractValue,
+                                    [item.id]: e.target.value
+                                  }
+                                });
+                              }}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -495,7 +600,7 @@ function Step3() {
 const steps = [Step1, Step2, Step3];
 
 export default function Page() {
-  const { step } = useJobStore();
+  const { step, reset } = useJobStore();
   const params = useParams();
   const router = useRouter();
 
@@ -511,7 +616,16 @@ export default function Page() {
 
   return (
     <main className="relative h-full w-full justify-between overflow-y-auto bg-neutral-white sm:py-12">
-      <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={() => router.back()}>
+      <button
+        aria-label="Close"
+        className="absolute right-6 top-6 outline-none"
+        onClick={() => {
+          router.back();
+          setTimeout(() => {
+            reset();
+          }, 300);
+        }}
+      >
         <XIcon size={28} />
       </button>
       <div className="flex h-full w-full flex-col items-center px-5 py-6 sm:mx-auto sm:max-w-5xl sm:p-0">

@@ -47,8 +47,6 @@ export default function Page() {
     }
   });
 
-  console.log('profile', profile);
-
   React.useEffect(() => {
     if (isError) {
       router.push('/404');
@@ -67,8 +65,8 @@ export default function Page() {
       <div className="min-h-screen w-full sm:bg-neutral-white">
         <BasicInfo />
         <div className="mt-2 h-full sm:container sm:mx-auto sm:mt-[88px] sm:flex sm:justify-center">
-          <div className="flex-1 sm:max-w-5xl">
-            {profile?.isCurrentUser && <CompleteProfile />}
+          <div className="flex-1 sm:max-w-5xl sm:pb-10">
+            {profile?.isCurrentUser && profile?.progress[0] < profile?.progress[1] && <CompleteProfile />}
             <BuilderScore />
             <div className="mt-2 grid grid-cols-1 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-8">
               {(profile?.isCurrentUser || Object.keys(profile?.githubActivity || {}).length > 0) && (
@@ -83,7 +81,7 @@ export default function Page() {
             {(profile?.isCurrentUser || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
             {(profile?.isCurrentUser || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
           </div>
-          {(profile?.attestations.length || 0) > 0 && (
+          {(profile?.attestations.length || 0) > 0 && !profile?.isCurrentUser && (
             <div
               data-state={open ? 'open' : 'closed'}
               className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-3 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:flex sm:items-end"

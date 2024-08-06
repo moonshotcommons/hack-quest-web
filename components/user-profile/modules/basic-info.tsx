@@ -9,15 +9,27 @@ import { WeChatIcon } from '@/components/ui/icons/wechat';
 import { Skeleton } from '@/components/shared/skeleton';
 import { ShareProfile } from '../modals/share-profile-modal';
 import { EditProfile } from '../modals/edit-profile';
-import { cn, copyText } from '@/helper/utils';
+import { cn } from '@/helper/utils';
 import { useProfile } from './profile-provider';
 import { GithubIcon } from '@/components/ui/icons/github';
 import { useToggle } from '@/hooks/utils/use-toggle';
-import { CopyIcon } from 'lucide-react';
+import { CheckIcon, CopyIcon } from 'lucide-react';
 
 export function BasicInfo() {
   const { isLoading, profile } = useProfile();
+  const [copied, setCopied] = React.useState(false);
   const [open, toggle] = useToggle(false);
+
+  function onCopyClick(event: React.MouseEvent<HTMLButtonElement>, value: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    setCopied(true);
+    navigator.clipboard.writeText(value);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  }
+
   return (
     <React.Fragment>
       <Skeleton loading={isLoading}>
@@ -45,9 +57,7 @@ export function BasicInfo() {
             <h1 className="text-lg font-bold text-neutral-off-black sm:text-2xl">{profile?.user?.nickname}</h1>
           </Skeleton>
           <Skeleton loading={isLoading} className="h-6 w-40 rounded">
-            <p className="text-sm text-neutral-medium-gray sm:text-base">
-              one line intro colorless green idea sleeps furiously
-            </p>
+            {profile?.bio && <p className="text-sm text-neutral-medium-gray sm:text-base">{profile?.bio}</p>}
           </Skeleton>
           <Skeleton loading={isLoading} className="h-6 w-32 rounded">
             {profile?.location && (
@@ -131,9 +141,16 @@ export function BasicInfo() {
                         </div>
                         <div className="flex items-center justify-between rounded-full bg-neutral-off-white px-4 py-2">
                           <span className="text-sm">{profile?.personalLinks.wechat}</span>
-                          <button className="outline-none" onClick={() => copyText(profile?.personalLinks.wechat)}>
-                            <CopyIcon className="h-4 w-4" />
-                          </button>
+                          {copied ? (
+                            <CheckIcon className="h-4 w-4" />
+                          ) : (
+                            <button
+                              className="outline-none"
+                              onClick={(event) => onCopyClick(event, profile?.personalLinks.wechat)}
+                            >
+                              <CopyIcon className="h-4 w-4" />
+                            </button>
+                          )}
                         </div>
                       </div>
                     </HoverCardContent>

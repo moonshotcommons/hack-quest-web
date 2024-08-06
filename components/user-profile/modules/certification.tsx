@@ -94,7 +94,7 @@ export function Certification() {
             </div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold">{cert.name}</h3>
-              <AddAttestation type="Certification" sourceId={cert.id} />
+              {!profile.isCurrentUser && <AddAttestation type="Certification" sourceId={cert.id} />}
             </div>
             <time className="text-xs text-neutral-medium-gray" dateTime={cert.certificateTime}>
               Issued {moment(cert.certificateTime).format('MMM.D YYYY')}

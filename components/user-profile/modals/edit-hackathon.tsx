@@ -44,6 +44,7 @@ export function EditHackathon({
   });
 
   const create = useMutation({
+    mutationKey: ['create-hackathon'],
     mutationFn: (data: any) => webApi.userApi.addHackathon(data),
     onSuccess: () => {
       toggle(false);

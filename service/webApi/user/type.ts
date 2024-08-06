@@ -120,6 +120,7 @@ export interface UserHackathonType {
 }
 
 export interface GithubActivityType {
+  name: string;
   languages: Record<string, number>;
   totalContributor: number;
   totalFork: number;
@@ -127,9 +128,11 @@ export interface GithubActivityType {
 }
 export interface UserProfileType {
   id: string;
+  bio: string;
   location: string;
   experience: number;
   techStack: string[];
+  progress: [number, number];
   backgroundImage?: string;
   personalLinks: Record<string, string>;
   githubActivity: GithubActivityType;

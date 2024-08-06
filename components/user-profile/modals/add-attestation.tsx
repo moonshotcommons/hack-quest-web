@@ -105,7 +105,7 @@ function Step2() {
     <React.Fragment>
       <h2 className="shrink-0 text-lg font-bold sm:text-[22px]">Choose a Service</h2>
       <div className="flex flex-1 flex-col gap-6">
-        <RadioCards>
+        <RadioCards defaultValue="evs">
           <RadioCardsItem
             value="evs"
             className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
@@ -125,6 +125,7 @@ function Step2() {
 }
 
 function Step3() {
+  const { profile } = useProfile();
   const { setCurrent } = useAttestation();
   return (
     <React.Fragment>
@@ -136,7 +137,9 @@ function Step3() {
             className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
           >
             <WalletIcon className="h-5 w-5" />
-            <span className="text-left">0x2974910dzfkhkaqj129hfasfhakslkfjsa</span>
+            {profile?.onChainActivity.address && (
+              <span className="truncate text-left">{profile?.onChainActivity.address}</span>
+            )}
           </RadioCardsItem>
         </RadioCards>
       </div>
