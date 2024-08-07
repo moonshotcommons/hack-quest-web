@@ -21,7 +21,7 @@ const BackButton: FC<BackButtonProps> = ({ type, lang }) => {
     } else {
       switch (type) {
         case 'learningTrack':
-          redirectToUrl('/learning-track');
+          redirectToUrl('/ecosystem-explore');
           break;
         case 'electives':
           redirectToUrl('/electives');

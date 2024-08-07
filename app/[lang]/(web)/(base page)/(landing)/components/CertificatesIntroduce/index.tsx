@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { icons, leftCardData, rightCardData } from './constant';
 import Link from 'next/link';
-import { LearningTrackTab } from '../../../(learn)/learning-track/constants/type';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
 
@@ -67,7 +66,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = async ({ lang }) =
                   );
                 })}
                 <Link
-                  href={`/learning-track`}
+                  href={`'/ecosystem-explore'`}
                   target="_blank"
                   className="body-m-bold flex cursor-pointer items-center gap-2"
                 >
@@ -97,7 +96,7 @@ const CertificatesIntroduce: FC<CertificatesIntroduceProps> = async ({ lang }) =
                   );
                 })}
                 <Link
-                  href={`/learning-track?track=${LearningTrackTab.SPECIALLIZATION}`}
+                  href={`'/ecosystem-explore'`}
                   target="_blank"
                   className="body-m-bold flex cursor-pointer items-center gap-2"
                 >
