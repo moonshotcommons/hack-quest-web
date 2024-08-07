@@ -15,7 +15,6 @@ import { Steps } from '../common/steps';
 import { GithubIcon } from '@/components/ui/icons/github';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
-// import { UserAvatar } from './user-avatar';
 import { DiscordIcon } from '@/components/ui/icons/discord';
 import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { LinkedInIcon } from '@/components/ui/icons/linkedin';
@@ -57,7 +56,7 @@ function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
   function onSubmit(values: ProfileSchema) {
     mutate({
       ...values,
-      progress: [1, 3]
+      progress: 1
     });
   }
 
@@ -221,12 +220,13 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
                 </p>
               </div>
               {profile?.onChainActivity?.address ? (
-                <button className="ml-auto outline-none">
+                <button type="button" className="ml-auto outline-none">
                   <CheckIcon size={20} className="text-status-success-dark" />
                 </button>
               ) : (
                 <button
                   disabled={mutation.isPending}
+                  type="button"
                   className="ml-auto outline-none"
                   onClick={() => mutation.mutate()}
                 >
@@ -242,11 +242,16 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
         </div> */}
       </div>
       <div className="flex shrink-0 flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-        <button className="flex items-center gap-2 outline-none" onClick={() => setStep(3)}>
+        <button
+          className="flex items-center gap-2 outline-none"
+          type="button"
+          onClick={() => setStep(3)}
+          aria-label="Skip"
+        >
           <span>Skip for Now</span>
           <MoveRightIcon className="h-4 w-4" />
         </button>
-        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={() => mutate({ progress: [2, 3] })}>
+        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={() => mutate({ progress: 2 })}>
           Continue
         </Button>
       </div>
@@ -282,7 +287,7 @@ function Step3({ onClose }: { onClose?: () => void }) {
   });
 
   function onSubmit(data: PersonalLinks) {
-    mutate({ personalLinks: data, progress: [3, 3] });
+    mutate({ personalLinks: data, progress: 3 });
   }
 
   return (
@@ -301,11 +306,11 @@ function Step3({ onClose }: { onClose?: () => void }) {
                 )}
               </div>
               {profile?.personalLinks?.discord ? (
-                <button className="ml-auto outline-none">
+                <button type="button" className="ml-auto outline-none">
                   <CheckIcon size={20} className="text-status-success-dark" />
                 </button>
               ) : (
-                <button className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
+                <button type="button" className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
                   <PlusIcon size={20} className="text-neutral-medium-gray" />
                 </button>
               )}
@@ -390,7 +395,7 @@ function Step3({ onClose }: { onClose?: () => void }) {
         </form>
       </div>
       <div className="flex shrink-0 flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-        <button className="flex items-center gap-2 outline-none">
+        <button className="flex items-center gap-2 outline-none" type="button" onClick={onClose} aria-label="skip">
           <span>Skip for Now</span>
           <MoveRightIcon className="h-4 w-4" />
         </button>
