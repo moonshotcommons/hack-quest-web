@@ -89,6 +89,7 @@ export function Skills({ form }: { form: UseFormReturn<any> }) {
           const skillElement = (
             <button
               key={skill}
+              type="button"
               className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-neutral-off-white px-3 py-1"
             >
               <XIcon size={20} onClick={() => handleRemoveSkill(skill)} />
