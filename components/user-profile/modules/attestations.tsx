@@ -7,6 +7,7 @@ import { cn } from '@/helper/utils';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useAttestation } from '../common/attestations';
 import { ChevronDownIcon } from 'lucide-react';
+import { baseURL } from '../utils/utils';
 
 export function Attestations() {
   const [isExpanded, setIsExpanded] = React.useState(new Map());
@@ -34,19 +35,28 @@ export function Attestations() {
     setIsExpanded((prevState) => new Map(prevState).set(id, !isExpanded.get(id)));
   }
 
+  function handleClick(offchainAttestationId: string) {
+    window.open(`${baseURL}/attestation/view/${offchainAttestationId}`, '_blank', 'noopener,noreferrer');
+  }
+
   return (
     <div className="flex w-full flex-col gap-0.5">
       {attestations?.map((attest) => (
         <div
           key={attest?.id}
-          className={cn('flex flex-col gap-3 rounded-2xl p-4 opacity-30', {
+          className={cn('flex cursor-pointer flex-col gap-3 rounded-2xl p-4 opacity-30', {
             'bg-yellow-extra-light': userInfo?.id === attest?.creatorId,
             'opacity-100': activeIds.includes(attest?.sourceId!)
           })}
+          onClick={() => {
+            if (attest.chain?.offchainAttestationId) {
+              handleClick(attest.chain.offchainAttestationId);
+            }
+          }}
         >
           <div className="flex items-center gap-2">
             <Avatar className="h-6 w-6">
-              <Link href={`/user/${attest?.creator.username}`} target="_blank">
+              <Link href={`/user/${attest?.creator.username}`} target="_blank" onClick={(e) => e.stopPropagation()}>
                 <AvatarImage src={attest?.creator.avatar} />
               </Link>
               <AvatarFallback />
@@ -55,6 +65,7 @@ export function Attestations() {
               href={`/user/${attest?.creator.username}`}
               target="_blank"
               className="text-sm font-bold hover:underline"
+              onClick={(e) => e.stopPropagation()}
             >
               {attest?.creator.nickname}
             </Link>

@@ -140,6 +140,10 @@ export interface UserProfileType {
   workExperiences: UserExperienceType[];
   hackathonExperiences: UserHackathonType[];
   certifications: UserCertificateInfo[];
+  web3Score: {
+    latitude: string;
+    score: number;
+  }[];
   user: {
     id: string;
     avatar: string;
