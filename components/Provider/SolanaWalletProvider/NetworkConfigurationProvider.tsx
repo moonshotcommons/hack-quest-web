@@ -1,3 +1,4 @@
+'use client';
 import { useLocalStorage } from '@solana/wallet-adapter-react';
 import { createContext, FC, ReactNode, useContext } from 'react';
 

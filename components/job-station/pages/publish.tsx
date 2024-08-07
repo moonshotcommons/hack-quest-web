@@ -15,7 +15,7 @@ import { companySchema, contacts, contactsSchema, currencies, jobSchema, workMod
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useJobStore } from '../utils/store';
 import { useMutation } from '@tanstack/react-query';
@@ -29,6 +29,12 @@ import { useParams } from 'next/navigation';
 import { revalidate } from '../utils/actions';
 import { useUserStore } from '@/store/zustand/userStore';
 import { omit } from 'lodash-es';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 function Step1() {
   const { values, onNext, setValues } = useJobStore();

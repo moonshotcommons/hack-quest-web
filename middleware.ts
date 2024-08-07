@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { locales, defaultLocale, Lang, cookieName } from '@/i18n/config';
 const isMobile = (ua: string) => {
-  return Boolean(ua.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
+  return Boolean(ua?.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
 };
 
 function getLocale(request: NextRequest): Lang {
