@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { SchemaEncoder, AttestationShareablePackageObject } from '@ethereum-attestation-service/eas-sdk';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { MobileModalHeader } from './mobile-modal-header';
 import { AttestButton } from '../common/attest-button';
@@ -21,6 +22,11 @@ import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
+import { eas, refUID, schemaUID, submitSignedAttestation } from '../utils/utils';
+import { ethers } from 'ethers';
+import dayjs from 'dayjs';
+import { useEthersSigner } from '../utils/wagmi-utils';
 
 type Store = {
   current: number;
@@ -65,7 +71,7 @@ function Wallet() {
             {(() => {
               if (!connected) {
                 return (
-                  <div className="flex items-center gap-3" onClick={openConnectModal}>
+                  <div className="flex items-center gap-3 text-sm" onClick={openConnectModal}>
                     <WalletIcon size={24} />
                     <span>Connect Wallet</span>
                   </div>
@@ -74,7 +80,7 @@ function Wallet() {
 
               if (chain.unsupported) {
                 return (
-                  <div className="flex items-center gap-3" onClick={openChainModal}>
+                  <div className="flex items-center gap-3 text-sm" onClick={openChainModal}>
                     <WalletIcon size={24} />
                     <p>Wrong network</p>
                   </div>
@@ -82,7 +88,7 @@ function Wallet() {
               }
 
               return (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-sm">
                   <WalletIcon size={24} />
                   <p>{account.displayName}</p>
                 </div>
@@ -179,10 +185,19 @@ function Step2() {
 }
 
 function Step3() {
-  const { profile } = useProfile();
+  const { address } = useAccount();
+  const { connectModalOpen, openConnectModal } = useConnectModal();
   const { setCurrent } = useAttestation();
 
-  const { connectModalOpen } = useConnectModal();
+  function onSubmit() {
+    if (!address) {
+      openConnectModal?.();
+      toast.error('Please connect your wallet first');
+      return;
+    }
+
+    setCurrent(3);
+  }
 
   React.useEffect(() => {
     if (connectModalOpen) {
@@ -196,7 +211,7 @@ function Step3() {
     <React.Fragment>
       <h2 className="shrink-0 text-lg font-bold sm:text-[22px]">Choose Wallet</h2>
       <div className="flex flex-1 flex-col gap-6">
-        <RadioCards>
+        <RadioCards defaultValue="1">
           <RadioCardsItem
             value="1"
             className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
@@ -205,7 +220,7 @@ function Step3() {
           </RadioCardsItem>
         </RadioCards>
       </div>
-      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" onClick={() => setCurrent(3)}>
+      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" onClick={onSubmit}>
         Continue
       </Button>
     </React.Fragment>
@@ -215,40 +230,66 @@ function Step3() {
 function Step4() {
   const { username } = useParams();
   const { invalidate } = useProfile();
+  const { address } = useAccount();
   const { state, reset } = useAttestation();
+  const signer = useEthersSigner();
+  const [loading, setLoading] = React.useState(false);
 
-  // const signer = useEthersSigner();
+  async function createAttestation(data: { attest: boolean; comment?: string }) {
+    if (!signer || !address) {
+      toast.error('Please connect your wallet');
+      return;
+    }
+    setLoading(true);
+    try {
+      const schemaEncoder = new SchemaEncoder('bool attest, string comment');
+      const encodedData = schemaEncoder.encodeData([
+        { name: 'attest', value: data.attest, type: 'bool' },
+        { name: 'comment', value: data.comment || '', type: 'string' }
+      ]);
 
-  // const EASContractAddress = '0xC2679fBD37d54388Ce493F1DB75320D236e1815e';
+      eas.connect(signer);
 
-  // const eas = new EAS(EASContractAddress);
+      const offchain = await eas.getOffchain();
 
-  // eas.connect(signer!);
+      const offchainAttestation = await offchain.signOffchainAttestation(
+        {
+          schema: schemaUID,
+          recipient: ethers.ZeroAddress,
+          refUID: refUID,
+          expirationTime: BigInt(0),
+          time: BigInt(dayjs().unix()),
+          revocable: true,
+          data: encodedData,
+          nonce: BigInt(0)
+        },
+        signer
+      );
+      const pkg: AttestationShareablePackageObject = {
+        signer: address,
+        sig: offchainAttestation
+      };
+      const { data: attestation } = await submitSignedAttestation(pkg);
 
-  // const schemaEncoder = new SchemaEncoder('uint256 eventId, uint8 voteIndex');
-  // const encodedData = schemaEncoder.encodeData([
-  //   { name: 'eventId', value: 1, type: 'uint256' },
-  //   { name: 'voteIndex', value: 1, type: 'uint8' }
-  // ]);
-
-  // const schemaUID = '0xb16fa048b0d597f5a821747eba64efa4762ee5143e9a80600d0005386edfc995';
-
-  // async function createAttestation() {
-  //   const transaction = await eas.attest({
-  //     schema: schemaUID,
-  //     data: {
-  //       recipient: '0x0000000000000000000000000000000000000000',
-  //       revocable: true,
-  //       data: encodedData
-  //     }
-  //   });
-
-  //   const newAttestationUID = await transaction.wait();
-
-  //   console.log('New attestation UID:', newAttestationUID);
-
-  //   console.log('Transaction receipt:', transaction.receipt);
-  // }
+      if (!attestation.error) {
+        await create.mutateAsync({
+          ...state,
+          username,
+          chain: {
+            ipfsHash: attestation.ipfsHash,
+            offchainAttestationId: attestation.offchainAttestationId
+          },
+          attest: data.attest,
+          comment: data.comment || null
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to create attestation');
+      setLoading(false);
+    }
+  }
 
   const create = useMutation({
     mutationFn: (input: any) => webApi.userApi.createAttestation(input),
@@ -260,13 +301,10 @@ function Step4() {
   });
 
   function onSubmit() {
-    const values: any = {
-      ...state,
-      username,
-      attest: state?.attest === 'true'
-    };
-    create.mutate(values);
-    // createAttestation();
+    createAttestation({
+      attest: state?.attest === 'true',
+      comment: state?.comment
+    });
   }
 
   return (
@@ -290,7 +328,7 @@ function Step4() {
         </div>
         {state?.comment && <p className="text-sm text-neutral-rich-gray">{state.comment}</p>}
       </div>
-      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" isLoading={create.isPending} onClick={onSubmit}>
+      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" isLoading={loading} onClick={onSubmit}>
         Sign
       </Button>
     </React.Fragment>
