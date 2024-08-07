@@ -41,6 +41,7 @@
   "footer": {
     "learn": "学习",
     "learningTrack": "学习路径",
+    "ecosystem": "生态系统",
     "projects": "实战课",
     "electives": "选修课",
     "playground": "开发环境",
@@ -86,8 +87,8 @@
     },
     "build": {
       "title": "实战",
-      "hackathonOrganizer":"黑客松组织",
-      "hackathonOrganizerDesc":"创建你的黑客松",
+      "hackathonOrganizer": "黑客松组织",
+      "hackathonOrganizerDesc": "创建你的黑客松",
       "myHackathon": "我的黑客松",
       "myHackathonDesc": "查看所有的黑客松活动",
       "exploreHackathons": "黑客松探索",
@@ -224,8 +225,8 @@
   "remove": "移除",
   "description": "描述",
   "uploadImage": "上传图片",
-   "add":"新增",
-  "change":"修改",
-  "download":"下载",
-  "apply":"申请"
+  "add": "新增",
+  "change": "修改",
+  "download": "下载",
+  "apply": "申请"
 }
