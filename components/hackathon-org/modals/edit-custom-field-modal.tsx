@@ -17,7 +17,13 @@ import { AddFieldButton } from '../common/add-field-button';
 import { v4 } from 'uuid';
 import { CustomTextField } from '../common/custom-text-field';
 import { InfoIcon } from 'lucide-react';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 const optionSchema = z.object({
   value: z.string().optional()
