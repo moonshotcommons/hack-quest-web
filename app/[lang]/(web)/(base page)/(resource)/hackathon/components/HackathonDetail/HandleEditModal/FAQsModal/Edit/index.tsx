@@ -7,8 +7,14 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { FormValueType } from '../../../../../constants/data';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 // import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 interface EditProp {
   form: UseFormReturn<FormValueType>;
