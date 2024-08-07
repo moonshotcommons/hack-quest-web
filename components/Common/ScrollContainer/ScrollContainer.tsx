@@ -46,7 +46,7 @@ export const ScrollContainer = forwardRef<unknown, ScrollContainerProps>(functio
   }, [containerWidth, translateX, listWidth]);
 
   useEffect(() => {
-    setListWidth((listRef.current as HTMLDivElement).clientWidth);
+    setListWidth((listRef.current as HTMLDivElement).getBoundingClientRect().width);
   }, [children]);
 
   const [leftArrowVisible, rightArrowVisible] = useMemo(() => {

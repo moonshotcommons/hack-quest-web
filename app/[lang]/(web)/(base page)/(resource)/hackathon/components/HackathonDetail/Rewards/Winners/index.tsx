@@ -1,5 +1,5 @@
-import { HackathonType } from '@/service/webApi/resourceStation/type';
-import React, { useContext } from 'react';
+import { HackathonType, HackathonDetailRewardType } from '@/service/webApi/resourceStation/type';
+import React, { useContext, useMemo } from 'react';
 import Title from '../../Title';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
@@ -12,11 +12,15 @@ import SliderCard from '@/components/Web/Business/SliderCard';
 
 interface WinnersProp {
   hackathon: HackathonType;
+  rewards: HackathonDetailRewardType[];
 }
 
-const Winners: React.FC<WinnersProp> = ({ hackathon }) => {
+const Winners: React.FC<WinnersProp> = ({ hackathon, rewards: re }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+  const rewards = useMemo(() => {
+    return re.filter((w) => w.projects.length);
+  }, [re]);
   return (
     <div className="flex flex-col gap-[32px]">
       <div className="flex items-center justify-between">
@@ -26,29 +30,31 @@ const Winners: React.FC<WinnersProp> = ({ hackathon }) => {
         </Link>
       </div>
       <div className={'flex flex-col gap-[32px]'}>
-        <div className="flex flex-col">
-          <div className="body-m flex items-center gap-[8px] text-neutral-medium-gray">
-            <div className="text-h4 text-neutral-black">{`${separationNumber(100000)} USD`}</div>
-            <div className="border-l border-neutral-light-gray pl-[8px]">Web3 Track</div>
+        {rewards.map((r) => (
+          <div className="flex flex-col" key={r.reward?.id}>
+            <div className="body-m flex items-center gap-[8px] text-neutral-medium-gray">
+              <div className="text-h4 text-neutral-black">{`${separationNumber(r.reward?.totalRewards)} ${r.reward?.currency}`}</div>
+              <div className="border-l border-neutral-light-gray pl-[8px]">{r.reward?.name}</div>
+            </div>
+            <div>
+              <SliderCard
+                className="py-[20px]"
+                renderItem={(contarinerWidth) => {
+                  return r.projects?.map((p, i) => (
+                    <div
+                      key={p.id}
+                      style={{
+                        width: `${contarinerWidth}px`
+                      }}
+                    >
+                      <WinnerCard project={p} reward={r} index={i} />
+                    </div>
+                  ));
+                }}
+              />
+            </div>
           </div>
-          <div>
-            <SliderCard
-              className="py-[20px]"
-              renderItem={(contarinerWidth) => {
-                return [1, 2, 3].map((item) => (
-                  <div
-                    key={item}
-                    style={{
-                      width: `${contarinerWidth}px`
-                    }}
-                  >
-                    <WinnerCard />
-                  </div>
-                ));
-              }}
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

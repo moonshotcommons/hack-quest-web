@@ -36,7 +36,9 @@ function ScrollControl({
     const { containerWidth, listWidth, translateX } = changeState;
     setWidthRatio(containerWidth / listWidth);
     if (scrollBarRef.current && scrollBarInstanceRef.current) {
-      const scrollbarInstanceWidth = scrollBarInstanceRef.current.clientWidth;
+      const scrollbarInstanceWidth = scrollBarInstanceRef.current
+        .getBoundingClientRect()
+        .width.toFixed(2) as unknown as number;
       setTranslateX(translateX * (scrollbarInstanceWidth / containerWidth));
     }
   }, [changeState]);
