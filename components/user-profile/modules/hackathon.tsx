@@ -1,11 +1,13 @@
 import { useMediaQuery } from '@/hooks/dom/use-media-query';
 import { EditHackathon } from '../modals/edit-hackathon';
 import { useProfile } from './profile-provider';
-import { AddAttestation } from '../modals/add-attestation';
+import { useAttestation } from '../modals/add-attestation';
 import { Attestations } from '../common/attestations';
+import { AttestButton } from '../common/attest-button';
 
 export function Hackathon() {
   const { profile } = useProfile();
+  const { onOpen } = useAttestation();
   const isLargeScreen = useMediaQuery('(min-width: 640px)');
   return (
     <div className="mt-2 flex flex-col gap-5 bg-neutral-white px-5 py-4 sm:mt-12 sm:gap-8 sm:p-0">
@@ -32,13 +34,23 @@ export function Hackathon() {
                   <span className="rounded-[8px] bg-neutral-light-gray px-3.5 py-[3px] text-xs font-bold">WINNER</span>
                 )}
                 {!profile?.isCurrentUser && isLargeScreen && (
-                  <AddAttestation type="Hackathon" sourceId={hackathon.id} />
+                  <AttestButton
+                    onClick={() => {
+                      onOpen({ type: 'Hackathon', sourceId: hackathon.id });
+                    }}
+                  />
                 )}
               </div>
               <p className="text-sm text-neutral-medium-gray sm:text-base">{hackathon.hackathonName}</p>
               <p className="line-clamp-5 text-sm text-neutral-off-black sm:text-base">{hackathon.description}</p>
             </div>
-            {!isLargeScreen && <AddAttestation type="Hackathon" sourceId={hackathon.id} />}
+            {!isLargeScreen && !profile?.isCurrentUser && (
+              <AttestButton
+                onClick={() => {
+                  onOpen({ type: 'Hackathon', sourceId: hackathon.id });
+                }}
+              />
+            )}
             <Attestations attestations={hackathon.attestations} />
           </div>
           {profile?.isCurrentUser && <EditHackathon type="edit" initialValues={hackathon} />}

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useProfile } from './profile-provider';
 import moment from 'moment';
 import { Button } from '@/components/ui/button';
-import { AddAttestation } from '../modals/add-attestation';
+import { useAttestation } from '../modals/add-attestation';
 import { getDomain } from '@/constants/links';
 import { useMutation } from '@tanstack/react-query';
 
@@ -16,6 +16,7 @@ import { message } from 'antd';
 import { ChainType } from '@/config/wagmi';
 import { useMintCertificate } from '@/hooks/certificate';
 import { Attestations } from '../common/attestations';
+import { AttestButton } from '../common/attest-button';
 
 function MintButton({
   certificate,
@@ -68,6 +69,7 @@ function MintButton({
 
 export function Certification() {
   const { profile, invalidate } = useProfile();
+  const { onOpen } = useAttestation();
   const certificationModalInstance = React.useRef<CertificationModalInstance>(null);
   const [selectCertification, setSelectCertification] = React.useState<UserCertificateInfo | null>(null);
 
@@ -94,7 +96,13 @@ export function Certification() {
             </div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold">{cert.name}</h3>
-              {!profile.isCurrentUser && <AddAttestation type="Certification" sourceId={cert.id} />}
+              {!profile?.isCurrentUser && (
+                <AttestButton
+                  onClick={() => {
+                    onOpen({ type: 'Certification', sourceId: cert.id });
+                  }}
+                />
+              )}
             </div>
             <time className="text-xs text-neutral-medium-gray" dateTime={cert.certificateTime}>
               Issued {moment(cert.certificateTime).format('MMM.D YYYY')}

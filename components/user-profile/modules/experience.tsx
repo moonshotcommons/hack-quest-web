@@ -4,12 +4,14 @@ import { useMediaQuery } from '@/hooks/dom/use-media-query';
 import { calculateWorkExperience, convertMonthYear } from '../utils';
 import { EditExperience } from '../modals/edit-experience';
 import { useProfile } from './profile-provider';
-import { AddAttestation } from '../modals/add-attestation';
+import { useAttestation } from '../modals/add-attestation';
 import { EMPLOYMENT_TYPE } from '../constants';
 import { Attestations } from '../common/attestations';
+import { AttestButton } from '../common/attest-button';
 
 export function Experience() {
   const { profile } = useProfile();
+  const { onOpen } = useAttestation();
   const isLargeScreen = useMediaQuery('(min-width: 640px)');
   return (
     <div className="mt-2 flex flex-col bg-neutral-white px-5 py-4 sm:mt-12 sm:p-0">
@@ -41,7 +43,11 @@ export function Experience() {
                   </span>
                 </div>
                 {!profile?.isCurrentUser && isLargeScreen && (
-                  <AddAttestation type="Experience" sourceId={experience.id} />
+                  <AttestButton
+                    onClick={() => {
+                      onOpen({ type: 'Experience', sourceId: experience.id });
+                    }}
+                  />
                 )}
               </div>
               <div className="flex items-center gap-2 text-sm text-neutral-medium-gray sm:text-base">
@@ -55,7 +61,13 @@ export function Experience() {
               <p className="text-sm text-neutral-medium-gray sm:text-base">{experience.location}</p>
               <p className="line-clamp-5 text-sm text-neutral-off-black sm:text-base">{experience.description}</p>
             </div>
-            {!isLargeScreen && <AddAttestation type="Experience" sourceId={experience.id} />}
+            {!isLargeScreen && !profile?.isCurrentUser && (
+              <AttestButton
+                onClick={() => {
+                  onOpen({ type: 'Experience', sourceId: experience.id });
+                }}
+              />
+            )}
             <Attestations attestations={experience.attestations} />
           </div>
           {profile?.isCurrentUser && <EditExperience type="edit" initialValues={experience} />}
