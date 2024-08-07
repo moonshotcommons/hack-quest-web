@@ -14,7 +14,6 @@ import { useRouter } from 'next-nprogress-bar';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import { LangContext } from '@/components/Provider/Lang';
-import MenuLink from '@/constants/MenuLink';
 import ConnectButton from '@/components/Web/Business/ConnectButton';
 interface UserDropCardProps {
   // children: ReactNode;
@@ -68,7 +67,7 @@ const UserDropCard: FC<UserDropCardProps> = (props) => {
         <UserInfo userInfo={userInfo}></UserInfo>
         <ConnectButton t={t} />
 
-        <Link href={MenuLink.USER_PROFILE} className="w-full">
+        <Link href={`/user/${userInfo?.username}`} className="w-full">
           <div
             className="flex w-full cursor-pointer  items-center gap-[12px] px-[30px] py-[12px] hover:bg-neutral-off-white"
             onClick={() => {

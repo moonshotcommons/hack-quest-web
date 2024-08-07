@@ -63,7 +63,7 @@ export function DropdownFilter({
     >
       <button
         data-state={hovered ? 'open' : 'closed'}
-        className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-neutral-off-black px-4 py-1.5 text-neutral-off-black data-[state=open]:bg-yellow-light"
+        className="group inline-flex h-11 items-center justify-center gap-2.5 rounded-full border border-neutral-off-black px-4 py-1.5 text-neutral-off-black data-[state=open]:bg-yellow-light"
       >
         <span className="body-l whitespace-nowrap capitalize">{label}</span>
         <ChevronDownIcon className="h-4 w-4 transition-all group-data-[state=open]:rotate-180" />
@@ -86,8 +86,8 @@ export function DropdownFilter({
               onClick={() => onValueChange(option.value)}
               data-selected={values.includes(option.value)}
             >
-              <span className="body-m">{option.label}</span>
-              {values.includes(option.value) && <CheckIcon className="ml-2 h-4 w-4" />}
+              <span className="body-m truncate">{option.label}</span>
+              {values.includes(option.value) && <CheckIcon className="ml-2 h-4 w-4 shrink-0" />}
             </li>
           ))}
         </motion.ul>

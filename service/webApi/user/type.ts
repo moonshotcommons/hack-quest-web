@@ -73,6 +73,25 @@ export enum RegisterType {
   WALLET = 'wallet'
 }
 
+export interface Attestation {
+  id: string;
+  userId: string;
+  creatorId: string;
+  creator: {
+    id: string;
+    nickname: string;
+    username: string;
+    avatar: string;
+  };
+  sourceId: string;
+  type: string;
+  attest: boolean;
+  comment: string;
+  chain: Record<string, any>;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface UserExperienceType {
   id: string;
   title: string;
@@ -83,6 +102,7 @@ export interface UserExperienceType {
   startDate: string;
   endDate?: string;
   description: string;
+  attestations: Attestation[];
 }
 
 export interface UserHackathonType {
@@ -96,9 +116,11 @@ export interface UserHackathonType {
   endDate?: string;
   description: string;
   winner?: boolean;
+  attestations: Attestation[];
 }
 
 export interface GithubActivityType {
+  name: string;
   languages: Record<string, number>;
   totalContributor: number;
   totalFork: number;
@@ -106,9 +128,11 @@ export interface GithubActivityType {
 }
 export interface UserProfileType {
   id: string;
+  bio: string;
   location: string;
   experience: number;
   techStack: string[];
+  progress: [number, number];
   backgroundImage?: string;
   personalLinks: Record<string, string>;
   githubActivity: GithubActivityType;
@@ -116,6 +140,10 @@ export interface UserProfileType {
   workExperiences: UserExperienceType[];
   hackathonExperiences: UserHackathonType[];
   certifications: UserCertificateInfo[];
+  web3Score: {
+    latitude: string;
+    score: number;
+  }[];
   user: {
     id: string;
     avatar: string;
@@ -207,3 +235,17 @@ export interface DailyChallengeType {
   completed: boolean;
   correct: number;
 }
+
+export interface AttestationType {
+  id: string;
+  username: string;
+  sourceId: string;
+  type: 'Certification' | 'Experience' | 'Hackathon';
+  attest: boolean;
+  comment?: string;
+  chain?: Record<string, any>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CreateAttestationInput = Omit<AttestationType, 'id' | 'createdAt' | 'updatedAt'>;

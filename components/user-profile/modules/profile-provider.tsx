@@ -1,10 +1,13 @@
 'use client';
 
-import { UserProfileType } from '@/service/webApi/user/type';
 import * as React from 'react';
+import { Attestation, UserProfileType } from '@/service/webApi/user/type';
 
 type ProfileContextValue = {
-  profile?: UserProfileType & { isMe: boolean };
+  profile?: UserProfileType & {
+    isCurrentUser: boolean;
+    attestations: Attestation[];
+  };
   isLoading: boolean;
   invalidate: () => void;
 };

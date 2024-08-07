@@ -208,7 +208,7 @@ export function EditJudgingDetailModal({
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     let values: any = {
-      rewardId: initialValues?.rewardId,
+      // rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
       criteria: criteria,
       disableJudge: data.disableJudge,

@@ -25,7 +25,7 @@ export async function FavoriteJob() {
           <FavoriteButton favorited={job.favorited} jobId={job.id} />
         </div>
       ))}
-      {favoriteJobs.total > 3 && (
+      {favoriteJobs.total > 0 && (
         <Link href="/jobs/favorites">
           <button className="inline-flex items-center gap-1.5 outline-none">
             <span className="text-sm">View all</span>

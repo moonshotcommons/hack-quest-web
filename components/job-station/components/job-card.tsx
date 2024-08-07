@@ -45,7 +45,7 @@ export function JobCard({ job }: { job: Job }) {
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center">
           <div className="flex items-center gap-4 sm:gap-8">
-            {job.minSalary || job.maxSalary ? <span>{formatSalary(job)}</span> : null}
+            {job.minSalary && job.maxSalary ? <span>{formatSalary(job)}</span> : null}
             <div className="flex items-center gap-2">
               <Clock4Icon className="h-5 w-5" />
               <span>{workTypes.find((type) => type.id === job.workType)?.label}</span>

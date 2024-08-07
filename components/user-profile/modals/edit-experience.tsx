@@ -18,10 +18,10 @@ import { omit } from 'lodash-es';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useToggle } from '@/hooks/utils/use-toggle';
-import { message } from 'antd';
 import { RemoveAlert } from '../common/remove-alert';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
+import toast from 'react-hot-toast';
 
 export function EditExperience({
   type,
@@ -50,7 +50,7 @@ export function EditExperience({
     mutationFn: (data: any) => webApi.userApi.addExperience(data),
     onSuccess: () => {
       toggle(false);
-      message.success('Create experience successfully');
+      toast.success('Experience created');
       invalidate();
     }
   });
@@ -60,7 +60,7 @@ export function EditExperience({
     mutationFn: (data: any) => webApi.userApi.editExperience(initialValues?.id as string, data),
     onSuccess: () => {
       toggle(false);
-      message.success('Update experience successfully');
+      toast.success('Experience updated');
       invalidate();
     }
   });
@@ -70,7 +70,7 @@ export function EditExperience({
     mutationFn: () => webApi.userApi.deleteExperience(initialValues?.id as string),
     onSuccess: () => {
       toggle(false);
-      message.success('Remove experience successfully');
+      toast.success('Experience removed');
       invalidate();
     }
   });

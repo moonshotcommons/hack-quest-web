@@ -4,6 +4,7 @@ import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
 import { MdOutlineRefresh } from 'react-icons/md';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
+import { FiDownload } from 'react-icons/fi';
 
 interface OperationProp {
   checkIds: string[];
@@ -30,10 +31,10 @@ const Operation: React.FC<OperationProp> = ({ checkIds, handleStatus, handleDown
       <div
         className={`flex gap-[24px] [&>div]:flex  [&>div]:items-center [&>div]:gap-[6px] ${checkIds.length ? '[&>div]:cursor-pointer ' : '[&>div]:cursor-not-allowed'}`}
       >
-        {/* <div onClick={onHandleDwon}>
+        <div onClick={onHandleDwon}>
           <FiDownload />
           Download Application
-        </div> */}
+        </div>
         {isHandle && (
           <>
             {tabStatus === ApplicationStatus.REVIEW && (

@@ -34,7 +34,7 @@ export type ButtonProps = BaseButtonProps & Omit<React.ButtonHTMLAttributes<HTML
 
 const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = (props, ref) => {
   const {
-    type = 'primary',
+    type,
     icon,
     iconPosition = 'left',
     children,

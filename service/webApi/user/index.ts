@@ -14,7 +14,9 @@ import {
   UserLearnedCountType,
   ConnectType,
   NotificationType,
-  DailyChallengeType
+  DailyChallengeType,
+  CreateAttestationInput,
+  AttestationType
 } from './type';
 import { transformQueryString } from '@/helper/formate';
 import { ThirdPartyMediaType } from '@/helper/thirdPartyMedia';
@@ -49,7 +51,8 @@ export enum UserApiType {
   CheckDiscordJoin = '/auth/discord/check-join',
   CheckTwitterFollow = '/auth/twitter/check-follow',
   Notifications = '/notifications',
-  UploadResume = '/users/profile/resume'
+  UploadResume = '/users/profile/resume',
+  CreateAttestation = '/users/profile/attestation'
 }
 
 class UserApi {
@@ -402,6 +405,12 @@ class UserApi {
 
   removeResume(resumeId: string) {
     return this.service.delete(`${UserApiType.UploadResume}/${resumeId}`);
+  }
+
+  createAttestation(data: CreateAttestationInput) {
+    return this.service.post<AttestationType>(UserApiType.CreateAttestation, {
+      data
+    });
   }
 }
 

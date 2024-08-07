@@ -4,6 +4,7 @@ import { LiaUserEditSolid } from 'react-icons/lia';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
 import { MdAppRegistration } from 'react-icons/md';
 import { IoMdMegaphone } from 'react-icons/io';
+import { FaBalanceScale } from 'react-icons/fa';
 
 export const hackathonAuditNavData = [
   {
@@ -21,11 +22,11 @@ export const hackathonAuditNavData = [
     label: 'hackathonManage.submission',
     icon: <MdAppRegistration size={20} />
   },
-  // {
-  //   id: HackathonManageType.JUDGE,
-  //   label: 'hackathonManage.judging',
-  //   icon: <FaBalanceScale size={20} />
-  // }
+  {
+    id: HackathonManageType.JUDGE,
+    label: 'hackathonManage.judging',
+    icon: <FaBalanceScale size={20} />
+  },
   {
     id: HackathonManageType.ANNOUNCEMENT,
     label: 'hackathonManage.announcement',
@@ -130,7 +131,9 @@ export const submissionInformationData = [
   }
 ];
 
-export const judgingInformationData = [
+export const applicationAboutBasicKeys = ['resume', 'name', 'gender', 'location', 'university'];
+
+export const judgingBaseInformationData = [
   {
     value: 'rank',
     label: 'rank',
@@ -142,14 +145,45 @@ export const judgingInformationData = [
     disable: true
   },
   {
-    value: 'track',
+    value: 'tracks',
     label: 'Sector',
+    disable: true
+  }
+];
+
+export const judgingAllFixedInformationData = [
+  ...judgingBaseInformationData,
+  {
+    value: 'userVotes',
+    label: 'User Votes',
     disable: true
   },
   {
-    value: 'score',
+    value: 'judgesVotes',
+    label: 'Judge Votes',
+    disable: true
+  },
+  {
+    value: 'totalVotes',
+    label: 'Total Votes',
+    disable: true
+  }
+];
+
+export const judgingJudgeFixedInformationData = [
+  ...judgingBaseInformationData,
+  {
+    value: 'totalVotes',
+    label: 'Total Votes',
+    disable: true
+  }
+];
+
+export const judgingJudgeScoreInformationData = [
+  ...judgingBaseInformationData,
+  {
+    value: 'finalScore',
     label: 'Final Score',
     disable: true
   }
 ];
-export const applicationAboutBasicKeys = ['resume', 'name', 'gender', 'location', 'university'];
