@@ -7,13 +7,13 @@ import Button from '@/components/Common/Button';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
-import { PartnerType } from '@/app/[lang]/(web)/(base page)/(resource)/partners/constants/type';
 import { IoCloseCircle } from 'react-icons/io5';
+import { PartnerShipType } from '@/service/webApi/resourceStation/type';
 
 interface PartnerCardModalProp {
   onClose: VoidFunction;
   open: boolean;
-  partner: PartnerType;
+  partner: PartnerShipType;
 }
 
 const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partner }) => {
@@ -29,7 +29,7 @@ const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partn
     >
       <div className="w-[calc(100vw-2.5rem)] overflow-hidden rounded-[1rem] bg-neutral-white">
         <div className="relative h-[12.3125rem] w-full overflow-hidden bg-neutral-light-gray">
-          {partner.img && <Image src={partner.img} alt={partner.name} fill className="object-cover" />}
+          {partner.logo && <Image src={partner.logo} alt={partner.name} fill className="object-contain" />}
         </div>
         <div className="flex flex-col justify-between gap-[1rem] p-[1.25rem]">
           <div className="flex flex-col gap-[.5rem]">

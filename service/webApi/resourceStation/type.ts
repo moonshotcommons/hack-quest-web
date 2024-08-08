@@ -821,3 +821,12 @@ export interface HackathonDetailRewardType {
   projects: HackathonJudgeProjectType[];
   reward: HackathonRewardType;
 }
+
+export interface PartnerShipType {
+  id: string;
+  name: string;
+  logo: string;
+  tags: string[];
+  description: string;
+  url: string;
+}
