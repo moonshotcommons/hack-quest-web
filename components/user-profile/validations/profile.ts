@@ -19,7 +19,9 @@ export const profileSchema = zod.object({
   bio: zod.string().optional(),
   location: zod.string().optional(),
   techStack: zod.array(zod.string()).optional(),
-  personalLinks
+  personalLinks: personalLinks.optional()
 });
 
 export type ProfileSchema = zod.infer<typeof profileSchema>;
+
+export type PersonalLinks = zod.infer<typeof personalLinks>;

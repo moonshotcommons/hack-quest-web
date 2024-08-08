@@ -3,8 +3,10 @@ import { BurialPoint } from '@/helper/burialPoint';
 import { ThemeContext } from '@/store/context/theme';
 import message from 'antd/es/message';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+// import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import github from 'react-syntax-highlighter/dist/esm/styles/hljs/github';
 import { useCodeRendererContext, useExampleRendererContext, useGlobalRendererContext } from '../..';
 import { NotionComponent } from '../type';
 import { CustomComponent, PageType } from '../../type';
@@ -33,6 +35,7 @@ interface CodeRendererProps {
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const { component, parent, nextComponent, prevComponent } = props;
   const language = component.content.language;
+  console.log(language, component.content.language);
   const { theme } = useContext(ThemeContext);
   const codeRef = useRef<HTMLTextAreaElement>(null);
   const [codeContent, setCodeContent] = useState('');
@@ -117,7 +120,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         <div className="relative w-full flex-1">
           <div className="scroll-wrap-x scroll-wrap-y absolute left-0 top-0 h-full w-full overflow-auto">
             <SyntaxHighlighter
-              style={theme === Theme.Dark ? oneDark : oneLight}
+              style={theme === Theme.Dark ? oneDark : github}
               language={language}
               className="code-l scroll-wrap-x scroll-wrap-y mt-[0!important] h-[calc(100%-10px)] rounded-t-[0!important]"
               showLineNumbers
@@ -128,7 +131,7 @@ const CodeRenderer: FC<CodeRendererProps> = (props) => {
         </div>
       ) : (
         <SyntaxHighlighter
-          style={theme === Theme.Dark ? oneDark : oneLight}
+          style={theme === Theme.Dark ? oneDark : github}
           language={language}
           className={cn(
             'scroll-wrap-x scroll-wrap-y code-l mt-[0!important] h-[calc(100%-20px)] rounded-t-[0!important]',

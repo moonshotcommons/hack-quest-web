@@ -15,7 +15,13 @@ import { useHackathonOrgState } from '../constants/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 const formSchema = z
   .object({
@@ -145,7 +151,7 @@ export function BasicInfoForm({
       id: initialValues?.id,
       ...data,
       address: data.mode === 'HYBRID' ? data.address : undefined,
-      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : undefined,
+      allowSubmission: data.mode === 'HYBRID' ? data.allowSubmission === 'true' : true,
       description
     };
     mutation.mutate(values);

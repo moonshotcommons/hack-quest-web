@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Separator } from '@/components/ui/separator';
@@ -16,16 +17,16 @@ const chartConfig = {
   }
 } satisfies ChartConfig;
 
-const chartData = [
-  { latitude: 'Technical Ability', score: 50 },
-  { latitude: 'Reputation', score: 75 },
-  { latitude: 'Contribution', score: 100 },
-  { latitude: 'On-chain Activity', score: 100 },
-  { latitude: 'Influence', score: 100 }
-];
-
 export function BuilderScore() {
   const { profile } = useProfile();
+
+  const avgrateScore = React.useMemo(() => {
+    if (profile?.web3Score) {
+      return Math.round(profile?.web3Score.reduce((acc, cur) => acc + cur.score, 0) / profile?.web3Score.length);
+    }
+    return 0;
+  }, [profile?.web3Score]);
+
   return (
     <div className="bg-neutral-white px-5 py-4 sm:p-0">
       <h2 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Web 3 Builder Score</h2>
@@ -36,7 +37,7 @@ export function BuilderScore() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div className="hidden sm:block">
             <ChartContainer config={chartConfig} className="aspect-square max-h-[460px]">
-              <RadarChart data={chartData}>
+              <RadarChart data={profile?.web3Score}>
                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                 <PolarAngleAxis dataKey="latitude" />
                 <PolarGrid radialLines={false} />
@@ -56,12 +57,12 @@ export function BuilderScore() {
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <CircularProgress value={88}>
+              <CircularProgress value={avgrateScore}>
                 <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">A+</span>
               </CircularProgress>
               <div className="flex flex-col gap-1">
                 <h3 className="body-s">Current Score</h3>
-                <p className="body-s-bold">88/100</p>
+                <p className="body-s-bold">{avgrateScore}/100</p>
               </div>
             </div>
             <Separator variant="dashed" />
@@ -88,7 +89,7 @@ export function BuilderScore() {
             </Accordion>
           </div>
         </div>
-        {/* {profile?.isMe && (
+        {/* {profile?.isCurrentUser && (
           <div className="hidden w-full rounded-2xl bg-neutral-off-white p-4 sm:block">
             <div className="flex flex-col gap-2">
               <h3 className="font-bold">

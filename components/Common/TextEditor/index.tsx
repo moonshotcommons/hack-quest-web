@@ -8,6 +8,7 @@ import { IDomEditor, IEditorConfig, IToolbarConfig, i18nChangeLanguage } from '@
 import { useLang } from '@/components/Provider/Lang';
 import { Lang } from '@/i18n/config';
 import webApi from '@/service';
+import { cn } from '@/helper/utils';
 
 const placeholder = {
   [Lang.EN]: 'Please enter content...',
@@ -17,9 +18,12 @@ const placeholder = {
 interface TextEditorProps {
   onChange?: (editor: IDomEditor) => void;
   onCreated?: (editor: IDomEditor) => void;
-  defaultContent: any[];
+  defaultContent?: any[];
   imageUploadPath?: string;
   simpleModel?: boolean;
+  className?: string;
+  defaultHtml?: string;
+  readOnly?: boolean;
 }
 
 export const TEXT_EDITOR_TYPE = 'text-editor';
@@ -42,7 +46,10 @@ const TextEditor: FC<TextEditorProps> = ({
   onCreated,
   defaultContent = [],
   imageUploadPath = '/text-editor/images',
-  simpleModel = false
+  simpleModel = false,
+  className,
+  defaultHtml,
+  readOnly = false
 }) => {
   const [editor, setEditor] = useState<IDomEditor | null>(null);
   const { lang } = useLang();
@@ -51,6 +58,7 @@ const TextEditor: FC<TextEditorProps> = ({
   };
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: placeholder[lang],
+    readOnly,
     MENU_CONF: {
       uploadImage: {
         async customUpload(file: File, insertFn: Function) {
@@ -77,7 +85,7 @@ const TextEditor: FC<TextEditorProps> = ({
   }, [editor]);
 
   return (
-    <div style={{ border: '1px solid #ccc', zIndex: 100 }} className="reset-editor-style">
+    <div style={{ border: '1px solid #ccc', zIndex: 100 }} className={cn('reset-editor-style', className)}>
       <Toolbar editor={editor} defaultConfig={toolbarConfig} mode="simple" style={{ borderBottom: '1px solid #ccc' }} />
       <Editor
         defaultConfig={editorConfig}
@@ -85,7 +93,8 @@ const TextEditor: FC<TextEditorProps> = ({
           setEditor(editor);
           onCreated?.(editor);
         }}
-        defaultContent={defaultContent}
+        defaultHtml={defaultHtml || ''}
+        defaultContent={defaultContent || []}
         mode="default"
         style={{ height: '420px' }}
         onChange={onChange}

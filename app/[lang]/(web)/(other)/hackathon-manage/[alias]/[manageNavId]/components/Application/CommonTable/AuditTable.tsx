@@ -118,7 +118,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
               ) : (
                 <Table
                   className="table-fixed"
-                  tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto "
+                  tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto no-scrollbar "
                 >
                   <TableBody className={`body-s w-full text-neutral-off-black`}>
                     {tableList.map((item) => (
@@ -194,9 +194,9 @@ const AuditTable: React.FC<AuditTableProp> = ({
                                       )}
                                     </div>
                                     <div
-                                      className={`flex w-[136px] items-center gap-[8px] ${item.isSubmited ? '' : 'text-neutral-medium-gray'}`}
+                                      className={`flex w-[136px] items-center gap-[8px] ${item.isSubmitted ? '' : 'text-neutral-medium-gray'}`}
                                     >
-                                      {item.isSubmited ? (
+                                      {item.isSubmitted ? (
                                         <>
                                           <IoCheckmarkCircleSharp size={24} className="text-status-success" />
                                           <span>Submitted</span>

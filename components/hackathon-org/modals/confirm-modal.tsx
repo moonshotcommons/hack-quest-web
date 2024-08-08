@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { cn } from '@/helper/utils';
 
 export function ConfirmModal({
   open,
@@ -10,7 +11,9 @@ export function ConfirmModal({
   onClose,
   isLoading = false,
   children,
-  autoClose = true
+  autoClose = true,
+  comfirmDisable = false,
+  className
 }: {
   open: boolean;
   onConfirm: () => void;
@@ -18,10 +21,12 @@ export function ConfirmModal({
   isLoading?: boolean;
   children: React.ReactNode;
   autoClose?: boolean;
+  comfirmDisable?: boolean;
+  className?: string;
 }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="gap-9 px-5 py-10 shadow-modal sm:w-[532px] sm:max-w-[532px]">
+      <DialogContent className={cn('gap-9 px-5 py-10 shadow-modal sm:w-[532px] sm:max-w-[532px]', className)}>
         <h2 className="headline-h4 break-all text-center text-neutral-black">{children}</h2>
         <div className="flex items-center justify-center gap-2">
           <Button variant="outline" className="w-[165px]" onClick={onClose}>
@@ -30,7 +35,9 @@ export function ConfirmModal({
           <Button
             className="w-[165px]"
             isLoading={isLoading}
+            disabled={comfirmDisable}
             onClick={() => {
+              if (comfirmDisable) return;
               onConfirm();
               autoClose && onClose();
             }}

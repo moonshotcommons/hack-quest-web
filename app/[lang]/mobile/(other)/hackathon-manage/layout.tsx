@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import Layout from '@/components/Web/Layout/HackathonAuditPage';
+import Layout from '@/components/Web/Layout/HackathonManagePage';
 interface WebLayoutProps {
   children: ReactNode;
 }

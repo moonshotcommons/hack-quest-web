@@ -17,8 +17,14 @@ import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
 import { message } from 'antd';
 import { useRouter } from 'next/navigation';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Slider } from '../common/slider';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 const formSchema = z
   .object({
@@ -202,7 +208,7 @@ export function EditJudgingDetailModal({
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     let values: any = {
-      rewardId: initialValues?.rewardId,
+      // rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
       criteria: criteria,
       disableJudge: data.disableJudge,

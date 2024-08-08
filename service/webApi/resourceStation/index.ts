@@ -9,14 +9,17 @@ import {
   FaucetRecordType,
   FaucetType,
   HackathonDataType,
+  HackathonJugingInfoType,
   HackathonManageApplicationType,
   HackathonMemberType,
   HackathonRegisterInfo,
   HackathonTeamDetail,
   HackathonType,
+  HackathonDetailRewardType,
   HackathonVariousType,
   HackathonVoteJudgeType,
   HackathonVoteType,
+  HackathonWinnerType,
   JoinedHackathonType,
   PagedType,
   ProjectDataType,
@@ -76,6 +79,10 @@ class ResourceStationApi {
   }
   getHackathonDetailById(id: string) {
     return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}/detail`);
+  }
+
+  getHackathonRewards(hackathonId: string) {
+    return this.service.get<HackathonDetailRewardType[]>(`${ResourceStationApiType.Hackathon}/${hackathonId}/winners`);
   }
 
   /** 获取hackathon 可以投票的project */
@@ -326,13 +333,14 @@ class ResourceStationApi {
   }
 
   changeHackathonApplicationStatus(
+    hackathonId: string,
     data: {
       id: string;
       type: 'team' | 'member';
       joinState: ApplicationStatus;
     }[]
   ) {
-    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/review`, {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/review`, {
       data
     });
   }
@@ -355,6 +363,44 @@ class ResourceStationApi {
     return this.service.get<ProjectType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/projects`, {
       params
     });
+  }
+
+  getHackathonJudgingInfo(hackahtonId: string, params: object) {
+    return this.service.get<HackathonJugingInfoType>(
+      `${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/judging`,
+      {
+        params
+      }
+    );
+  }
+
+  getHackathonJudgingWinner(hackahtonId: string, params: object) {
+    return this.service.get<HackathonWinnerType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
+      params
+    });
+  }
+
+  hackathonWinnerAdd(
+    hackahtonId: string,
+    data: { rewardId: string; place: number; name: string; projectId: string; type: 'base' | 'other' }
+  ) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner`, {
+      data
+    });
+  }
+
+  hackathonWinnerEdit(hackahtonId: string, winnerId: string, data: { name: string; projectId: string }) {
+    return this.service.patch(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner/${winnerId}`, {
+      data
+    });
+  }
+
+  hackathonWinnerDelete(hackahtonId: string, winnerId: string) {
+    return this.service.delete(`${ResourceStationApiType.Hackathon}/admin/${hackahtonId}/winner/${winnerId}`);
+  }
+
+  hackathonJudgeAnnounce(hackathonId: string, judgeId: string) {
+    return this.service.get(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/judge/${judgeId}/announce`);
   }
 }
 

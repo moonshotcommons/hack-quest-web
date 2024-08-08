@@ -39,7 +39,8 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
       tracks: '',
       track: '',
       prizeTrack: '',
-      keyword
+      keyword,
+      page: '1'
     });
   }
 

@@ -17,8 +17,8 @@ import {
   WhatsappIcon,
   WhatsappShareButton
 } from 'next-share';
-import { message } from 'antd';
 import { useProfile } from '../modules/profile-provider';
+import toast from 'react-hot-toast';
 
 export function ShareProfile() {
   const router = useRouter();
@@ -47,9 +47,9 @@ export function ShareProfile() {
   function copyLink() {
     try {
       navigator.clipboard.writeText(url);
-      message.success('Copy success!');
+      toast.success('Link copied');
     } catch (error) {
-      message.error('The browser version is too low or incompatible');
+      toast.error('The browser version is too low or incompatible');
     }
   }
 
@@ -60,6 +60,10 @@ export function ShareProfile() {
     }
     if (!username.match(/^[a-zA-Z0-9]{3,50}$/)) {
       setError('The URL is usually 3-50 letters or numbers without special characters like @, !, &');
+      return;
+    }
+    if (profile?.user?.username === username) {
+      setIsEditing(false);
       return;
     }
     mutation.mutate(username);
@@ -77,7 +81,9 @@ export function ShareProfile() {
           <DialogTitle className="text-[22px]">Share Profile</DialogTitle>
         </DialogHeader>
         <div className="">
-          <label className="text-neutral-rich-gray">{profile?.isMe ? 'Custom' : 'HackQuest'} Profile URL</label>
+          <label className="text-neutral-rich-gray">
+            {profile?.isCurrentUser ? 'Custom' : 'HackQuest'} Profile URL
+          </label>
           <div className="flex items-center">
             <p className="h-12 leading-[48px] text-neutral-off-black">www.hackquest.io/user/</p>
             {isEditing ? (
@@ -85,7 +91,7 @@ export function ShareProfile() {
             ) : (
               <div className="flex w-full items-center justify-between">
                 <span>{username}</span>
-                {profile?.isMe && (
+                {profile?.isCurrentUser && (
                   <button className="hidden outline-none sm:flex" onClick={() => setIsEditing(true)}>
                     <EditIcon className="h-4 w-4" />
                   </button>

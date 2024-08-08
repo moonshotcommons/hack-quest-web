@@ -19,10 +19,10 @@ import { HackathonVoteContext, ViewValue } from '@/app/[lang]/(web)/(base page)/
 import { decimalCountPercent } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import dayjs from 'dayjs';
 import message from 'antd/es/message';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -43,8 +43,9 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { voteData, setVoteData, judgeInfo, view, remainingVotes } = useContext(HackathonVoteContext);
   const [loading, setLoading] = useState(false);
+  const { getStepIndex } = useDealHackathonData();
   const isCanSubmit = useMemo(() => {
-    const isReview = dayjs().tz().isBefore(hackathon.timeline?.rewardTime);
+    const isReview = getStepIndex(hackathon) < 2;
     return voteData.reduce((pre, cur) => pre + cur.vote, 0) && isReview;
   }, [voteData, hackathon]);
   const votesPercent = useMemo(() => {

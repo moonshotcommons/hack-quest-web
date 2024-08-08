@@ -5,6 +5,8 @@ import { SelectType } from '../../../../../constants/type';
 import dayjs from 'dayjs';
 import { Spinner } from '@/components/ui/spinner';
 import BaseImage from '@/components/Common/BaseImage';
+import { ProjectType } from '@/service/webApi/resourceStation/type';
+import NoData from '../../NoData';
 
 interface AuditTableProp {
   handleCheckAll: VoidFunction;
@@ -14,7 +16,7 @@ interface AuditTableProp {
   checkIds: string[];
   changeTeamIds: (id: string) => void;
   teamIds: string[];
-  handleCheck: (id: string) => void;
+  handleCheck: (item: ProjectType) => void;
   showInfo: (v: any) => void;
   loading: boolean;
 }
@@ -87,31 +89,37 @@ const AuditTable: React.FC<AuditTableProp> = ({
           </Table>
           <div className="relative flex-1 ">
             <div className="absolute left-0 top-0 h-full w-full ">
-              <Table
-                className="table-fixed"
-                tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto "
-              >
-                <TableBody className={`body-s w-full text-neutral-off-black`}>
-                  {tableList.map((item: any) => (
-                    <TableRow
-                      key={item.id}
-                      className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${item.pId ? 'bg-neutral-off-white' : item.index % 2 ? 'bg-yellow-extra-light' : ''}`}
-                    >
-                      <TableCell
-                        className="w-[44px] cursor-pointer  p-0 text-center"
-                        onClick={() => handleCheck(item.id)}
+              {!tableList.length ? (
+                <div className="flex-center h-full w-full">
+                  <NoData />
+                </div>
+              ) : (
+                <Table
+                  className="table-fixed"
+                  tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto no-scrollbar"
+                >
+                  <TableBody className={`body-s w-full text-neutral-off-black`}>
+                    {tableList.map((item: any) => (
+                      <TableRow
+                        key={item.id}
+                        className={`table w-full table-fixed border-none [&>td]:border-r [&>td]:border-neutral-light-gray ${item.pId ? 'bg-neutral-off-white' : item.index % 2 ? 'bg-yellow-extra-light' : ''}`}
                       >
-                        {!item.pId && <Checkbox checked={checkIds.includes(item.id)} />}
-                      </TableCell>
-                      {information.map((v) => (
-                        <TableCell key={v.value} className="min-w-[180px] truncate" title={renderText(v.value, item)}>
-                          {renderTd(v.value, item)}
+                        <TableCell
+                          className="w-[44px] cursor-pointer  p-0 text-center"
+                          onClick={() => handleCheck(item)}
+                        >
+                          {!item.pId && <Checkbox checked={checkIds.includes(item.id)} />}
                         </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                        {information.map((v) => (
+                          <TableCell key={v.value} className="min-w-[180px] truncate" title={renderText(v.value, item)}>
+                            {renderTd(v.value, item)}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </div>
           </div>
         </>

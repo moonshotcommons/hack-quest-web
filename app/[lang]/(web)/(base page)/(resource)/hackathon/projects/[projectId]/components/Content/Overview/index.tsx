@@ -21,7 +21,6 @@ const Overview: React.FC<OverviewProp> = ({}) => {
   const { project, hackathon } = useContext(ProjectDetailContext);
   const githubLink = project.addition?.githubLink || '';
   const isOpenSource = project.addition?.isOpenSource;
-
   const newGithubLink = useMemo(() => {
     return /^[http]/.test(githubLink) ? githubLink : `https://${githubLink}`;
   }, [githubLink]);
@@ -46,13 +45,15 @@ const Overview: React.FC<OverviewProp> = ({}) => {
           <Image src={IconHackathon} width={26} alt="hackathon-icon" />
           <div className="flex flex-1 flex-col truncate">
             <p className="body-xs text-neutral-medium-gray">{t('navbar.resources.hackathon')}</p>
-            <Link
-              href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon?.alias}`}
-              title={project.hackathonName}
-              className="underline-m w-full whitespace-nowrap"
-            >
-              {project.hackathonName}
-            </Link>
+            {(hackathon?.alias || project.hackathonId) && (
+              <Link
+                href={`${MenuLink.EXPLORE_HACKATHON}/${hackathon?.alias || project.hackathonId}`}
+                title={project.hackathonName}
+                className="underline-m w-full whitespace-nowrap"
+              >
+                {project.hackathonName}
+              </Link>
+            )}
           </div>
         </div>
 

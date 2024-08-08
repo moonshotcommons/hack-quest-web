@@ -419,3 +419,18 @@ export const insertAsterisk = ({
 
   return before + asterisks + after;
 };
+
+// 根据字符串生成一个负数id
+export const generateChainId = (str: string) => {
+  // 使用示例
+  let chainId = Number(stringToAscii()) << 10;
+  chainId = chainId > 0 ? chainId * -1 : chainId;
+  return chainId;
+
+  function stringToAscii() {
+    return str
+      .split('')
+      .map((char) => char.charCodeAt(0))
+      .join('');
+  }
+};

@@ -9,32 +9,57 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '../common/textarea';
 import { Input } from '../common/input';
-import { type ProfileSchema, profileSchema } from '../validations/profile';
-import { MoveRightIcon, PlusIcon } from 'lucide-react';
+import { PersonalLinks, personalLinks, type ProfileSchema, profileSchema } from '../validations/profile';
+import { CheckIcon, MoveRightIcon, PlusIcon } from 'lucide-react';
 import { Steps } from '../common/steps';
 import { GithubIcon } from '@/components/ui/icons/github';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
-import { UserAvatar } from './user-avatar';
 import { DiscordIcon } from '@/components/ui/icons/discord';
 import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { LinkedInIcon } from '@/components/ui/icons/linkedin';
 import { TelegramIcon } from '@/components/ui/icons/telegram';
 import { WeChatIcon } from '@/components/ui/icons/wechat';
 import { Skills } from './skills';
+import { UserAvatar } from './user-avatar';
+import { useMutation } from '@tanstack/react-query';
+import webApi from '@/service';
+import toast from 'react-hot-toast';
+import { useAccount } from 'wagmi';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { Spinner } from '@/components/ui/spinner';
 
-function Step1() {
-  const { isLoading, profile } = useProfile();
+function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
+  const submitRef = React.useRef<HTMLInputElement>(null);
+  const { profile, invalidate } = useProfile();
+
   const form = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      nickname: '',
-      email: '',
-      bio: '',
-      location: '',
-      techStack: []
+      nickname: profile?.user.nickname || '',
+      email: profile?.user.email || '',
+      bio: profile?.bio || '',
+      location: profile?.location || '',
+      techStack: profile?.techStack || []
     }
   });
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
+    onSuccess: () => {
+      toast.success('Profile updated');
+      invalidate();
+      setStep(2);
+    }
+  });
+
+  function onSubmit(values: ProfileSchema) {
+    mutate({
+      ...values,
+      progress: 1
+    });
+  }
+
   return (
     <div className="flex h-full flex-col gap-8">
       <h2 className="text-[22px] font-bold">We would like to know more about you!</h2>
@@ -42,7 +67,10 @@ function Step1() {
         <UserAvatar />
         <div className="flex flex-1 flex-col gap-8">
           <Form {...form}>
-            <form className="no-scrollbar flex flex-1 flex-col space-y-5 overflow-y-auto sm:space-y-6">
+            <form
+              className="no-scrollbar flex flex-1 flex-col space-y-5 overflow-y-auto sm:space-y-6"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <FormField
                 control={form.control}
                 name="nickname"
@@ -83,8 +111,13 @@ function Step1() {
                 )}
               />
               <Skills form={form} />
+              <input ref={submitRef} type="submit" className="hidden" />
             </form>
-            <Button type="submit" className="mt-auto w-full sm:w-[270px] sm:self-end">
+            <Button
+              isLoading={isPending}
+              onClick={() => submitRef.current?.click()}
+              className="mt-auto w-full sm:w-[270px] sm:self-end"
+            >
               Continue
             </Button>
           </Form>
@@ -94,7 +127,60 @@ function Step1() {
   );
 }
 
-function Step2() {
+function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
+  const { profile, invalidate } = useProfile();
+
+  const account = useAccount();
+  const { openConnectModal } = useConnectModal();
+
+  const connectMutation = useMutation({
+    mutationFn: () => webApi.userApi.getGithubConnectUrl(),
+    onSuccess: ({ url }) => {
+      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+    }
+  });
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!account?.isConnected && openConnectModal) {
+        openConnectModal();
+        return;
+      }
+      if (account) {
+        const result = await webApi.userApi.linkChain(account?.address!);
+        return result;
+      }
+    },
+    onSuccess: () => {
+      invalidate();
+    }
+  });
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
+    onSuccess: () => {
+      toast.success('Profile updated');
+      invalidate();
+      setStep(3);
+    }
+  });
+
+  React.useEffect(() => {
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'linkGitHub') {
+        invalidate();
+      }
+    });
+    return () => {
+      window.removeEventListener('storage', (e) => {
+        if (e.key === 'linkGitHub') {
+          invalidate();
+        }
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-[22px] font-bold">Generate your Web3 builder profile</h2>
@@ -106,11 +192,19 @@ function Step2() {
               <GithubIcon className="h-8 w-8" />
               <div className="ml-4 flex flex-col">
                 <h4 className="font-bold">GitHub</h4>
-                <p className="text-xs text-neutral-rich-gray">evan976</p>
+                {profile?.githubActivity.name && (
+                  <p className="text-xs text-neutral-rich-gray">{profile?.githubActivity.name}</p>
+                )}
               </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
+              {profile?.githubActivity.name ? (
+                <button className="ml-auto outline-none">
+                  <CheckIcon size={20} className="text-status-success-dark" />
+                </button>
+              ) : (
+                <button className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
+                  <PlusIcon size={20} className="text-neutral-medium-gray" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -121,11 +215,24 @@ function Step2() {
               <Image src="/images/profile/metamask.svg" width={32} height={32} alt="metamask" />
               <div className="ml-4 flex flex-col">
                 <h4 className="font-bold">Metamask</h4>
-                <p className="text-xs text-neutral-rich-gray">evan976</p>
+                <p className="text-xs text-neutral-rich-gray">
+                  {profile?.onChainActivity?.address?.replace(/(.{15})(.*)(.{4})/, '$1...$3')}
+                </p>
               </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
+              {profile?.onChainActivity?.address ? (
+                <button type="button" className="ml-auto outline-none">
+                  <CheckIcon size={20} className="text-status-success-dark" />
+                </button>
+              ) : (
+                <button
+                  disabled={mutation.isPending}
+                  type="button"
+                  className="ml-auto outline-none"
+                  onClick={() => mutation.mutate()}
+                >
+                  {mutation.isPending ? <Spinner /> : <PlusIcon size={20} className="text-neutral-medium-gray" />}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -135,19 +242,56 @@ function Step2() {
         </div> */}
       </div>
       <div className="flex shrink-0 flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-        <button className="flex items-center gap-2 outline-none">
+        <button
+          className="flex items-center gap-2 outline-none"
+          type="button"
+          onClick={() => setStep(3)}
+          aria-label="Skip"
+        >
           <span>Skip for Now</span>
           <MoveRightIcon className="h-4 w-4" />
         </button>
-        <Button className="w-full sm:w-[270px]">Continue</Button>
+        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={() => mutate({ progress: 2 })}>
+          Continue
+        </Button>
       </div>
     </React.Fragment>
   );
 }
 
-function Step3() {
+function Step3({ onClose }: { onClose?: () => void }) {
+  const submitRef = React.useRef<HTMLInputElement>(null);
+  const { profile, invalidate } = useProfile();
+
+  const form = useForm<PersonalLinks>({
+    resolver: zodResolver(personalLinks),
+    defaultValues: {
+      ...profile?.personalLinks
+    }
+  });
+
+  const connectMutation = useMutation({
+    mutationFn: () => webApi.userApi.getConnectUrlByDiscord(),
+    onSuccess: ({ url }) => {
+      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+    }
+  });
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
+    onSuccess: () => {
+      toast.success('Profile updated');
+      invalidate();
+      onClose?.();
+    }
+  });
+
+  function onSubmit(data: PersonalLinks) {
+    mutate({ personalLinks: data, progress: 3 });
+  }
+
   return (
-    <React.Fragment>
+    <Form {...form}>
       <h2 className="shrink-0 text-[22px] font-bold">Connect accounts to grow your network</h2>
       <div className="no-scrollbar flex flex-1 flex-col gap-5 overflow-y-auto sm:gap-8">
         <div className="flex flex-col gap-4">
@@ -157,54 +301,109 @@ function Step3() {
               <DiscordIcon className="h-8 w-8" />
               <div className="ml-4 flex flex-col">
                 <h4 className="font-bold">Discord</h4>
-                <p className="text-xs text-neutral-rich-gray">wujihua</p>
+                {profile?.personalLinks?.discord && (
+                  <p className="text-xs text-neutral-rich-gray">{profile?.personalLinks?.discord}</p>
+                )}
               </div>
-              <button className="ml-auto outline-none">
-                <PlusIcon size={20} className="text-neutral-medium-gray" />
-              </button>
+              {profile?.personalLinks?.discord ? (
+                <button type="button" className="ml-auto outline-none">
+                  <CheckIcon size={20} className="text-status-success-dark" />
+                </button>
+              ) : (
+                <button type="button" className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
+                  <PlusIcon size={20} className="text-neutral-medium-gray" />
+                </button>
+              )}
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
           <h3 className="font-bold">Display on Profile</h3>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <TwitterIcon className="h-6 w-6" />
               <span className="min-w-24 hidden text-sm sm:block">Twitter</span>
             </div>
-            <Input />
+            <FormField
+              control={form.control}
+              name="twitter"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <LinkedInIcon className="h-6 w-6" />
               <span className="min-w-24 hidden text-sm sm:block">LinkedIn</span>
             </div>
-            <Input />
+            <FormField
+              control={form.control}
+              name="linkedIn"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <TelegramIcon className="h-6 w-6" />
               <span className="min-w-24 hidden text-sm sm:block">Telegram</span>
             </div>
-            <Input />
+            <FormField
+              control={form.control}
+              name="telegram"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <WeChatIcon className="h-6 w-6" />
               <span className="min-w-24 hidden text-sm sm:block">WeChat</span>
             </div>
-            <Input />
+            <FormField
+              control={form.control}
+              name="wechat"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-        </div>
+          <input ref={submitRef} type="submit" className="hidden" />
+        </form>
       </div>
       <div className="flex shrink-0 flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-        <button className="flex items-center gap-2 outline-none">
+        <button className="flex items-center gap-2 outline-none" type="button" onClick={onClose} aria-label="skip">
           <span>Skip for Now</span>
           <MoveRightIcon className="h-4 w-4" />
         </button>
-        <Button className="w-full sm:w-[270px]">Continue</Button>
+        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={() => submitRef.current?.click()}>
+          Continue
+        </Button>
       </div>
-    </React.Fragment>
+    </Form>
   );
 }
 
@@ -212,15 +411,22 @@ const steps = [Step1, Step2, Step3];
 
 export function OnboardingModal({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
   const [step, setStep] = React.useState(1);
+  const { profile } = useProfile();
 
   const Component = steps[step - 1] || null;
+
+  React.useEffect(() => {
+    if (profile?.progress && open && profile?.isCurrentUser) {
+      profile?.progress[0] < profile?.progress[1] ? setStep(profile?.progress[0] + 1) : setStep(3);
+    }
+  }, [open, profile?.isCurrentUser, profile?.progress]);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="flex h-screen flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
         <MobileModalHeader />
         <Steps currentStep={step} />
-        <Component />
+        <Component setStep={setStep} onClose={onClose} />
       </DialogContent>
     </Dialog>
   );
