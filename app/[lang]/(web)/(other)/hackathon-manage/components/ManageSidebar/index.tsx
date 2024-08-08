@@ -52,7 +52,6 @@ const ManageSidebar: React.FC<ManageSidebarProp> = () => {
           return;
         }
         setHackathon(hackathon);
-        console.info(hackathon);
       },
       onError() {
         redirectToUrl(MenuLink.HACKATHON_ORGANIZER);

@@ -24,14 +24,12 @@ const WinnerView: React.FC<WinnerViewProp> = ({
   judgeInfo,
   handleAnnounce
 }) => {
-  const { baseWinners, otherWinners } = useMemo(() => {
+  const { baseWinners, otherWinners, announceDisabled } = useMemo(() => {
     return {
       baseWinners: winners.filter((v) => v.type === 'base'),
-      otherWinners: winners.filter((v) => v.type === 'other')
+      otherWinners: winners.filter((v) => v.type === 'other'),
+      announceDisabled: winners.some((v) => !v.name || !v.project?.id) || !winners.length
     };
-  }, [winners]);
-  const announceDisabled = useMemo(() => {
-    return winners.some((v) => !v.name || !v.project?.id) || !winners.length;
   }, [winners]);
   return (
     <Loading loading={loading}>
