@@ -338,11 +338,9 @@ function Step4() {
 const steps = [Step1, Step2, Step3, Step4];
 
 export function AddAttestation() {
-  const { current, open, state, onOpenChange } = useAttestation();
+  const { current, open, onOpenChange } = useAttestation();
 
   const Component = steps[current] || null;
-
-  console.log(state);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

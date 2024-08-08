@@ -92,7 +92,7 @@ export default function Page() {
             {(profile?.isCurrentUser || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
             {(profile?.isCurrentUser || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
           </div>
-          {(profile?.attestations.length || 0) > 0 && !profile?.isCurrentUser && (
+          {(profile?.attestations.length || 0) > 0 && (
             <div
               data-state={open ? 'open' : 'closed'}
               className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-3 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:flex sm:items-center"

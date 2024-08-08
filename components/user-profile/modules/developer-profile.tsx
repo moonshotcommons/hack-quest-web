@@ -105,15 +105,15 @@ export function DeveloperProfile() {
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total Commits</span>
-              <span className="text-sm">{profile?.githubActivity?.totalStar}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalCommit}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total PRs</span>
-              <span className="text-sm">{profile?.githubActivity?.totalFork}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalPr}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total Issues</span>
-              <span className="text-sm">{profile?.githubActivity?.totalFork}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalIssue}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] whitespace-nowrap text-sm font-bold">Contributed to</span>
