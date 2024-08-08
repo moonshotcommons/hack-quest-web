@@ -123,6 +123,9 @@ export interface GithubActivityType {
   name: string;
   languages: Record<string, number>;
   totalContributor: number;
+  totalCommit: number;
+  totalIssue: number;
+  totalPr: number;
   totalFork: number;
   totalStar: number;
 }
