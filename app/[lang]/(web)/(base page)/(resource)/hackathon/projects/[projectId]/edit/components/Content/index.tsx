@@ -36,8 +36,6 @@ function getDefaultValues(project: ProjectType) {
     addition = {}
   } = project!;
 
-  console.log(pitchVideo, demoVideo);
-
   const defaultBasicInfo = {
     logo: logo || '',
     name: name || '',
@@ -49,8 +47,6 @@ function getDefaultValues(project: ProjectType) {
     demoVideo: demoVideo ?? undefined,
     fields
   };
-
-  console.log(project);
 
   const defaultProjectDetail = omit(detail, 'id');
 

@@ -148,7 +148,6 @@ const Judging: React.FC<JudgingProp> = () => {
       };
     }) => webApi.resourceStationApi.hackathonWinnerAdd(hackathon.id, winner),
     onSuccess: (_, variables) => {
-      console.info(variables);
       variables.winner.type === 'base'
         ? setBaseHandleWinners(baseHandleWinners.filter((v) => v.id !== variables.winnerId))
         : setOtherHandleWinners(otherHandleWinners.filter((v) => v.id !== variables.winnerId));

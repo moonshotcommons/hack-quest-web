@@ -12,7 +12,7 @@ interface CertificateRendererProps {
 
 const CertificateRenderer: FC<CertificateRendererProps> = ({ template, certificateInfo, isSmall = false }) => {
   const { certificateId, certificateTime, username, name } = certificateInfo || {};
-  console.log(certificateInfo);
+
   return (
     <div className="relative">
       {/* <div className="fixed left-0 top-0" id="image-123456 z-[999999]"> */}

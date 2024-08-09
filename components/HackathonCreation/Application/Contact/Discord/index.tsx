@@ -30,7 +30,6 @@ export const DiscordConfig: PresetComponentConfig<DiscordProps, CustomComponentC
     name: 'discord'
   },
   displayRender(info) {
-    console.log(info);
     return (
       <div className="flex flex-1 items-center justify-between">
         <span className="body-m flex items-center  text-neutral-off-black">Discord</span>
