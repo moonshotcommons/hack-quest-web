@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Separator } from '@/components/ui/separator';
 import { CircularProgress } from '@/components/shared/circular-progress';
@@ -41,6 +41,7 @@ export function BuilderScore() {
               <RadarChart data={profile?.web3Score}>
                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                 <PolarAngleAxis dataKey="latitude" />
+                <PolarRadiusAxis angle={25} domain={[0, 100]} tick={false} axisLine={false} />
                 <PolarGrid radialLines={false} />
                 <Radar
                   dataKey="score"

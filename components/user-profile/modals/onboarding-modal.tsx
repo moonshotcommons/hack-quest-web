@@ -28,6 +28,7 @@ import toast from 'react-hot-toast';
 import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { Spinner } from '@/components/ui/spinner';
+import { omit } from 'lodash-es';
 
 function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -190,7 +191,7 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
       toast.error('Please connect your wallet first');
       return;
     }
-    mutation.mutate();
+    mutate({ progress: 2 });
   }
 
   return (
@@ -236,7 +237,12 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
                   <CheckIcon size={20} className="text-status-success-dark" />
                 </button>
               ) : (
-                <button disabled={mutation.isPending} type="button" className="ml-auto outline-none" onClick={onSubmit}>
+                <button
+                  disabled={mutation.isPending}
+                  type="button"
+                  className="ml-auto outline-none"
+                  onClick={() => mutation.mutate()}
+                >
                   {mutation.isPending ? <Spinner /> : <PlusIcon size={20} className="text-neutral-medium-gray" />}
                 </button>
               )}
@@ -258,7 +264,7 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
           <span>Skip for Now</span>
           <MoveRightIcon className="h-4 w-4" />
         </button>
-        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={() => mutate({ progress: 2 })}>
+        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={onSubmit}>
           Continue
         </Button>
       </div>
@@ -294,7 +300,8 @@ function Step3({ onClose }: { onClose?: () => void }) {
   });
 
   function onSubmit(data: PersonalLinks) {
-    if (Object.values(data).every((value) => !value)) {
+    const omitedData = omit(data, ['github']);
+    if (Object.values(omitedData).every((value) => !value)) {
       toast.error('Please fill in at least one link');
       return;
     }
@@ -428,7 +435,16 @@ export function OnboardingModal({ open = false, onClose }: { open?: boolean; onC
 
   React.useEffect(() => {
     if (profile?.progress && open && profile?.isCurrentUser) {
-      profile?.progress[0] < profile?.progress[1] ? setStep(profile?.progress[0] + 1) : setStep(3);
+      const progress = profile.progress;
+      if (!progress.includes(1)) {
+        setStep(1);
+      } else if (!progress.includes(2)) {
+        setStep(2);
+      } else if (!progress.includes(3)) {
+        setStep(3);
+      } else {
+        setStep(1);
+      }
     }
   }, [open, profile?.isCurrentUser, profile?.progress]);
 
