@@ -66,7 +66,7 @@ export function UsernameModal() {
     const certificateInfo = await mutation.mutateAsync(data?.certificationId);
     setUserCertificateInfo(certificateInfo);
     data.certification = certificateInfo;
-    console.log(data);
+
     setUsername('');
     onClose();
     setLoading(false);

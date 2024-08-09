@@ -156,7 +156,6 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
 
   const onSubmit = (values: z.infer<typeof formSchema>, action: AnnouncementAction, cancel?: VoidFunction) => {
     setAction(action);
-    console.log(values.timezone);
     const state = {
       id: announcement.id,
       title: values.title,
@@ -182,8 +181,6 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
       plannedTime: announcement.plannedTime && new Date(announcement.plannedTime).toISOString().slice(0, 16),
       timezone: announcement.timezone || timezone
     };
-
-    console.log(announcement.receivers);
 
     form.reset({ ...state, message: '' });
     setAction('');
@@ -212,6 +209,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
           onClick={() => {
             if (disable) {
               setOpen(false);
+              setAnnouncement(defaultState());
               return;
             }
             onSubmit(form.getValues(), AnnouncementAction.Save, () => {
@@ -377,6 +375,12 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
                     onClick={(e) => e.stopPropagation()}
                     onCheckedChange={(v) => {
                       setSendNow(v as boolean);
+                      if (!v) {
+                        form.setValue('plannedTime', '');
+                      } else {
+                        form.setValue('plannedTime', new Date().toISOString().slice(0, 16));
+                      }
+                      form.trigger('plannedTime');
                     }}
                   />
                   <label

@@ -18,11 +18,9 @@ export const useSubmitNotionUrl = () => {
       eventSource.addEventListener('message', (event) => {
         setLogs((l) => ({ status: 'pending', message: l.message + '\n' + event.data }));
         router.refresh();
-        console.log(event);
       });
 
       eventSource.addEventListener('error', (event) => {
-        console.log(event);
         // setLogs({ status: 'error', message: 'event' });
         router.refresh();
         eventSource.close();

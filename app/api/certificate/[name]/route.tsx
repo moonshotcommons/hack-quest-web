@@ -6,14 +6,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest, context: { params: { name: string } }) {
   const { name } = context.params || {};
-  console.log(name);
+
   const splitArr = name.split('-');
   const [id, ext] = splitArr.pop()?.split('.') || [];
 
   try {
     const info = (await webApi.campaignsApi.getCertificateInfoById(id)) || {};
     const { username, certificateId, certificateTime, template } = info;
-    console.log(info, id);
     if (ext === 'json') {
       return NextResponse.json({
         description: `Certified Mantle Learner - ${username}-${certificateId}`,

@@ -13,8 +13,6 @@ export const useMintFromSolana = () => {
   const { visible, setVisible } = useWalletModal();
   const { networkConfiguration } = useSwitchSolanaNetwork();
 
-  console.log(networkConfiguration);
-
   const {
     mutate: safeMint,
     mutateAsync: safeMintAsync,
