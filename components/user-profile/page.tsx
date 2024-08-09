@@ -77,7 +77,7 @@ export default function Page() {
         <BasicInfo />
         <div className="mt-2 h-full sm:container sm:mx-auto sm:mt-[88px] sm:flex sm:justify-center">
           <div className="flex-1 sm:max-w-5xl sm:pb-10">
-            {profile?.isCurrentUser && profile?.progress[0] < profile?.progress[1] && <CompleteProfile />}
+            {profile?.isCurrentUser && profile.progress?.length < 3 && <CompleteProfile />}
             <BuilderScore />
             <div className="mt-2 grid grid-cols-1 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-8">
               {(profile?.isCurrentUser || Object.keys(profile?.githubActivity || {}).length > 0) && (

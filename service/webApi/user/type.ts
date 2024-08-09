@@ -135,7 +135,7 @@ export interface UserProfileType {
   location: string;
   experience: number;
   techStack: string[];
-  progress: [number, number];
+  progress: number[];
   backgroundImage?: string;
   personalLinks: Record<string, string>;
   githubActivity: GithubActivityType;
