@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useProfile } from './profile-provider';
 import moment from 'moment';
 import { Button } from '@/components/ui/button';
-import { AddAttestation } from '../modals/add-attestation';
+import { useAttestation } from '../modals/add-attestation';
 import { getDomain } from '@/constants/links';
 import { useMutation } from '@tanstack/react-query';
 
@@ -16,6 +16,7 @@ import { message } from 'antd';
 import { ChainType } from '@/config/wagmi';
 import { useMintCertificate } from '@/hooks/certificate';
 import { Attestations } from '../common/attestations';
+import { AttestButton } from '../common/attest-button';
 
 function MintButton({
   certificate,
@@ -68,6 +69,7 @@ function MintButton({
 
 export function Certification() {
   const { profile, invalidate } = useProfile();
+  const { onOpen } = useAttestation();
   const certificationModalInstance = React.useRef<CertificationModalInstance>(null);
   const [selectCertification, setSelectCertification] = React.useState<UserCertificateInfo | null>(null);
 
@@ -80,10 +82,10 @@ export function Certification() {
   return (
     <div className="mt-2 flex flex-col gap-5 bg-neutral-white px-5 py-4 sm:mt-12 sm:gap-8 sm:p-0">
       <h2 className="font-next-book-bold text-lg font-bold text-neutral-off-black sm:text-[22px]">Certification</h2>
-      <div className="flex gap-5 overflow-x-auto sm:flex-wrap">
+      <div className="flex gap-5 overflow-x-auto sm:grid sm:grid-cols-3">
         {profile?.certifications?.map((cert) => (
           <div className="flex flex-col gap-3" key={cert.id}>
-            <div className="relative h-[120px] w-[220px] overflow-hidden rounded-[5px] border border-neutral-light-gray sm:h-[168px] sm:w-[304px] sm:rounded-[10px]">
+            <div className="relative h-[120px] w-[220px] overflow-hidden rounded-[5px] border border-neutral-light-gray sm:h-[168px] sm:w-full sm:rounded-[10px]">
               {cert && (
                 <Image
                   src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${cert?.username}-${cert?.certificateId}.png`}
@@ -94,7 +96,13 @@ export function Certification() {
             </div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold">{cert.name}</h3>
-              {!profile.isCurrentUser && <AddAttestation type="Certification" sourceId={cert.id} />}
+              {!profile?.isCurrentUser && (
+                <AttestButton
+                  onClick={() => {
+                    onOpen({ type: 'Certification', sourceId: cert.id });
+                  }}
+                />
+              )}
             </div>
             <time className="text-xs text-neutral-medium-gray" dateTime={cert.certificateTime}>
               Issued {moment(cert.certificateTime).format('MMM.D YYYY')}

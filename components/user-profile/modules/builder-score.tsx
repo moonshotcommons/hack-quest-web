@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Link from 'next/link';
 import { INDICATORS } from '../constants';
 import { useProfile } from './profile-provider';
+import { getGrade } from '../utils';
 
 const chartConfig = {
   score: {
@@ -34,9 +35,9 @@ export function BuilderScore() {
         A score generated through analyzing how Web3 native you are and how your Web3 dev ability is.
       </p>
       <div className="mt-5 flex flex-col gap-8 sm:mt-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1fr_460px]">
           <div className="hidden sm:block">
-            <ChartContainer config={chartConfig} className="aspect-square max-h-[460px]">
+            <ChartContainer config={chartConfig} className="h-[440px] w-[540px]">
               <RadarChart data={profile?.web3Score}>
                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                 <PolarAngleAxis dataKey="latitude" />
@@ -58,7 +59,9 @@ export function BuilderScore() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
               <CircularProgress value={avgrateScore}>
-                <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">A+</span>
+                <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">
+                  {getGrade(avgrateScore)}
+                </span>
               </CircularProgress>
               <div className="flex flex-col gap-1">
                 <h3 className="body-s">Current Score</h3>

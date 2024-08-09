@@ -18,6 +18,7 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { ProfileProvider } from './modules/profile-provider';
 import { ChevronRightIcon } from 'lucide-react';
 import { Attestations } from './modules/attestations';
+import { AddAttestation } from './modals/add-attestation';
 
 export default function Page() {
   const queryClient = useQueryClient();
@@ -51,17 +52,27 @@ export default function Page() {
     if (isError) {
       router.push('/404');
     }
-  }, [isError, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError]);
 
   const invalidate = React.useCallback(() => {
     queryClient.invalidateQueries({
       queryKey: ['profile']
     });
     router.refresh();
-  }, [queryClient, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const contextValue = React.useMemo(() => {
+    return {
+      profile,
+      isLoading,
+      invalidate
+    };
+  }, [invalidate, isLoading, profile]);
 
   return (
-    <ProfileProvider value={{ profile, isLoading, invalidate }}>
+    <ProfileProvider value={contextValue}>
       <div className="min-h-screen w-full sm:bg-neutral-white">
         <BasicInfo />
         <div className="mt-2 h-full sm:container sm:mx-auto sm:mt-[88px] sm:flex sm:justify-center">
@@ -81,10 +92,10 @@ export default function Page() {
             {(profile?.isCurrentUser || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
             {(profile?.isCurrentUser || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
           </div>
-          {(profile?.attestations.length || 0) > 0 && !profile?.isCurrentUser && (
+          {(profile?.attestations.length || 0) > 0 && (
             <div
               data-state={open ? 'open' : 'closed'}
-              className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-3 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:flex sm:items-end"
+              className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-3 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:flex sm:items-center"
             >
               <button
                 className="absolute -left-4 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-rich-gray bg-neutral-white text-neutral-rich-gray outline-none"
@@ -99,6 +110,7 @@ export default function Page() {
           )}
         </div>
       </div>
+      <AddAttestation />
     </ProfileProvider>
   );
 }

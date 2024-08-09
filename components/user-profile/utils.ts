@@ -24,3 +24,25 @@ export function calculateWorkExperience(startTime: string, endTime?: string) {
 
   return years > 0 ? `${years} yr ${months} mos` : `${months} mos`;
 }
+
+const gradeRanges: Record<string, [number, number]> = {
+  S: [95, 100],
+  'A+': [90, 95],
+  A: [80, 90],
+  'A-': [70, 80],
+  'B+': [60, 70],
+  B: [50, 60],
+  'B-': [40, 50],
+  C: [0, 40]
+};
+
+export function getGrade(score?: number) {
+  if (!score) return 'N/A';
+  for (let grade in gradeRanges) {
+    const [min, max] = gradeRanges[grade];
+    if (score >= min && score < max) {
+      return grade;
+    }
+  }
+  throw new Error('Invalid score');
+}

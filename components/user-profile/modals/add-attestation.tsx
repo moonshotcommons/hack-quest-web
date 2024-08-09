@@ -2,9 +2,8 @@
 
 import * as React from 'react';
 import { SchemaEncoder, AttestationShareablePackageObject } from '@ethereum-attestation-service/eas-sdk';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { MobileModalHeader } from './mobile-modal-header';
-import { AttestButton } from '../common/attest-button';
 import { ChevronIcon } from '@/components/ui/icons/chevron';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '../common/textarea';
@@ -20,7 +19,6 @@ import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
-import { useUserStore } from '@/store/zustand/userStore';
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { eas, refUID, schemaUID, submitSignedAttestation } from '../utils/utils';
@@ -34,16 +32,18 @@ type Store = {
   state: Record<string, any>;
   setCurrent: (current: number) => void;
   setState: (newState: Record<string, any>) => void;
+  onOpen: (state: { type: 'Certification' | 'Experience' | 'Hackathon'; sourceId: string }) => void;
   onOpenChange: (open: boolean) => void;
   reset: () => void;
 };
 
-const useAttestation = create<Store>((set) => ({
+export const useAttestation = create<Store>((set) => ({
   current: 0,
   state: {},
   open: false,
   setCurrent: (current) => set({ current }),
   setState: (newState = {}) => set((initState) => ({ state: { ...initState.state, ...newState } })),
+  onOpen: ({ type, sourceId }) => set({ open: true, state: { type, sourceId } }),
   onOpenChange: (open) => set({ open }),
   reset: () => set({ current: 0, state: {}, open: false })
 }));
@@ -337,32 +337,13 @@ function Step4() {
 
 const steps = [Step1, Step2, Step3, Step4];
 
-export function AddAttestation({
-  type,
-  sourceId
-}: {
-  type: 'Certification' | 'Experience' | 'Hackathon';
-  sourceId: string;
-}) {
-  const { current, open, setState, onOpenChange } = useAttestation();
-  const { userInfo, setAuthModalOpen } = useUserStore();
+export function AddAttestation() {
+  const { current, open, onOpenChange } = useAttestation();
 
   const Component = steps[current] || null;
 
-  function onClick() {
-    if (!userInfo) {
-      setAuthModalOpen(true);
-      return;
-    }
-    setState({ type, sourceId });
-    onOpenChange(true);
-  }
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        <AttestButton onClick={onClick} />
-      </DialogTrigger>
       <DialogContent className="flex h-screen flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:pb-8 sm:pt-16">
         <MobileModalHeader />
         <Steps currentStep={current + 1} totalStep={steps.length} />

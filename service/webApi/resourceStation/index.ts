@@ -28,7 +28,8 @@ import {
   ProjectType,
   ProjectVotesType,
   SimpleHackathonInfo,
-  SubmissionStatusType
+  SubmissionStatusType,
+  PartnerShipType
 } from './type';
 import { isUuid } from '@/helper/utils';
 import { ApplicationSectionType } from '@/components/HackathonCreation/type';
@@ -40,7 +41,8 @@ export enum ResourceStationApiType {
   Glossary = '/glossaries',
   Events = '/events',
   Teams = '/hackathons/teams',
-  Faucets = '/faucets'
+  Faucets = '/faucets',
+  PartnerShips = '/partner-ships'
 }
 
 class ResourceStationApi {
@@ -401,6 +403,10 @@ class ResourceStationApi {
 
   hackathonJudgeAnnounce(hackathonId: string, judgeId: string) {
     return this.service.get(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/judge/${judgeId}/announce`);
+  }
+
+  getPartnerShips() {
+    return this.service.get<PartnerShipType[]>(`${ResourceStationApiType.PartnerShips}`);
   }
 }
 
