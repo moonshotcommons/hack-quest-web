@@ -181,6 +181,18 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function onSubmit() {
+    if (!profile?.githubActivity?.name) {
+      toast.error('Please connect your GitHub account first');
+      return;
+    }
+    if (!profile?.onChainActivity?.address) {
+      toast.error('Please connect your wallet first');
+      return;
+    }
+    mutation.mutate();
+  }
+
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-[22px] font-bold">Generate your Web3 builder profile</h2>
@@ -224,12 +236,7 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
                   <CheckIcon size={20} className="text-status-success-dark" />
                 </button>
               ) : (
-                <button
-                  disabled={mutation.isPending}
-                  type="button"
-                  className="ml-auto outline-none"
-                  onClick={() => mutation.mutate()}
-                >
+                <button disabled={mutation.isPending} type="button" className="ml-auto outline-none" onClick={onSubmit}>
                   {mutation.isPending ? <Spinner /> : <PlusIcon size={20} className="text-neutral-medium-gray" />}
                 </button>
               )}
@@ -287,6 +294,10 @@ function Step3({ onClose }: { onClose?: () => void }) {
   });
 
   function onSubmit(data: PersonalLinks) {
+    if (Object.values(data).every((value) => !value)) {
+      toast.error('Please fill in at least one link');
+      return;
+    }
     mutate({ personalLinks: data, progress: 3 });
   }
 

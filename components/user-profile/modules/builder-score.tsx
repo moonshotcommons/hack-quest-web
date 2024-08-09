@@ -35,9 +35,9 @@ export function BuilderScore() {
         A score generated through analyzing how Web3 native you are and how your Web3 dev ability is.
       </p>
       <div className="mt-5 flex flex-col gap-8 sm:mt-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1fr_460px]">
           <div className="hidden sm:block">
-            <ChartContainer config={chartConfig} className="aspect-square max-h-[440px]">
+            <ChartContainer config={chartConfig} className="h-[440px] w-[540px]">
               <RadarChart data={profile?.web3Score}>
                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                 <PolarAngleAxis dataKey="latitude" />

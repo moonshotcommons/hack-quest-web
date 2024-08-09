@@ -5,7 +5,6 @@ import { ChevronIcon } from '@/components/ui/icons/chevron';
 import { Attestation } from '@/service/webApi/user/type';
 import { AttestationsModal } from '../modals/attestations-modal';
 import { useMediaQuery } from '@/hooks/dom/use-media-query';
-import { useProfile } from '../modules/profile-provider';
 
 type Store = {
   activeIds: string[];
@@ -23,7 +22,6 @@ export const useAttestation = create<Store>((set, get) => ({
 }));
 
 export function Attestations({ attestations = [] }: { attestations?: Attestation[] }) {
-  const { profile } = useProfile();
   const [open, toggle] = React.useState(false);
   const isSmallScreen = useMediaQuery('(max-width: 640px)');
   const { activeIds, setActiveIds } = useAttestation();
@@ -51,10 +49,8 @@ export function Attestations({ attestations = [] }: { attestations?: Attestation
         data-active={activeIds.includes(sourceId)}
         className="group flex items-center gap-2 self-start rounded-[8px] border border-transparent bg-neutral-off-white p-2 outline-none data-[active=true]:border-yellow-primary data-[active=true]:bg-yellow-extra-light"
         onClick={() => {
-          if (!profile?.isCurrentUser) {
-            setActiveIds(sourceId);
-            isSmallScreen && toggle(true);
-          }
+          setActiveIds(sourceId);
+          isSmallScreen && toggle(true);
         }}
       >
         <ChevronIcon className="h-4 w-4 text-neutral-medium-gray group-data-[active=true]:text-yellow-dark" />
