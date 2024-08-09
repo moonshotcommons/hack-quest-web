@@ -19,6 +19,8 @@ import { ProfileProvider } from './modules/profile-provider';
 import { ChevronRightIcon } from 'lucide-react';
 import { Attestations } from './modules/attestations';
 import { AddAttestation } from './modals/add-attestation';
+import { OnboardingModal } from './modals/onboarding-modal';
+import { EditProfile } from './modals/edit-profile';
 
 export default function Page() {
   const queryClient = useQueryClient();
@@ -111,6 +113,8 @@ export default function Page() {
         </div>
       </div>
       <AddAttestation />
+      <OnboardingModal />
+      <EditProfile />
     </ProfileProvider>
   );
 }

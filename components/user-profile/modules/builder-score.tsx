@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { INDICATORS } from '../constants';
 import { useProfile } from './profile-provider';
 import { getGrade } from '../utils';
+import { useModal } from '../utils/modal';
+import { EditExperience } from '../modals/edit-experience';
 
 const chartConfig = {
   score: {
@@ -19,6 +21,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function BuilderScore() {
+  const { onOpen } = useModal();
   const { profile } = useProfile();
 
   const avgrateScore = React.useMemo(() => {
@@ -82,11 +85,35 @@ export function BuilderScore() {
                     <span className="ml-3 font-bold text-neutral-off-black">{title}</span>
                   </AccordionTrigger>
                   <AccordionContent className="flex flex-col gap-2 px-9">
-                    {content.map((item, itemIndex) => (
-                      <Link href={item.link} key={itemIndex} className="self-start">
-                        <p className="underline">{item.title}</p>
-                      </Link>
-                    ))}
+                    {content.map((item, itemIndex) =>
+                      item.action ? (
+                        item.action === 'experience' ? (
+                          <EditExperience key={itemIndex} type="create" iconOnly={false} label={item.title} />
+                        ) : (
+                          <p
+                            className="cursor-pointer underline"
+                            key={itemIndex}
+                            onClick={() => {
+                              if (item.action === 'onboarding') {
+                                const progress = profile?.progress || [];
+                                if (progress.length < 3) {
+                                  onOpen('onboarding');
+                                }
+                              }
+                              if (item.action === 'profile') {
+                                onOpen('profile');
+                              }
+                            }}
+                          >
+                            {item.title}
+                          </p>
+                        )
+                      ) : (
+                        <Link href={item.link} key={itemIndex} className="self-start">
+                          <p className="underline">{item.title}</p>
+                        </Link>
+                      )
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               ))}
