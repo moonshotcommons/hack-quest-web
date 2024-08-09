@@ -64,12 +64,12 @@ export function BuilderScore() {
             <div className="flex items-center gap-4">
               <CircularProgress value={avgrateScore}>
                 <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">
-                  {getGrade(avgrateScore)}
+                  {getGrade(avgrateScore > 100 ? 100 : avgrateScore)}
                 </span>
               </CircularProgress>
               <div className="flex flex-col gap-1">
                 <h3 className="body-s">Current Score</h3>
-                <p className="body-s-bold">{avgrateScore}/100</p>
+                <p className="body-s-bold">{avgrateScore > 100 ? 100 : avgrateScore}/100</p>
               </div>
             </div>
             <Separator variant="dashed" />
