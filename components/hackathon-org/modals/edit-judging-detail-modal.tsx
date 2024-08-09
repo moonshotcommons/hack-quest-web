@@ -152,16 +152,13 @@ export function EditJudgingDetailModal({
     }
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
-    onSuccess: (data) => {
-      // 判断是否为重复账号
-      if (judgeAccounts.some((judge) => judge.email === data.email)) {
-        message.error('Already exists');
-        return;
+  const checkJudgeAccount = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.checkJudgeAccount(initialValues?.hackathonId, email),
+    onSuccess: () => {
+      const email = form.getValues('judgeAccount');
+      if (email) {
+        mutate(email);
       }
-      setJudgeAccounts((prev) => [...prev, data]);
-      form.resetField('judgeAccount', { defaultValue: '' });
     },
     onError: (error: any) => {
       if (error.code === 404) {
@@ -169,6 +166,19 @@ export function EditJudgingDetailModal({
           message: 'Please enter a valid email address that has been registered in HackQuest.'
         });
       }
+      if (error.code === 400) {
+        form.setError('judgeAccount', {
+          message: 'This account has been added as a judge in this hackathon. Please try another email.'
+        });
+      }
+    }
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
+    onSuccess: (data) => {
+      setJudgeAccounts((prev) => [...prev, data]);
+      form.resetField('judgeAccount', { defaultValue: '' });
     }
   });
 
@@ -201,8 +211,14 @@ export function EditJudgingDetailModal({
   async function addJudgeAccount() {
     const isValid = await form.trigger('judgeAccount');
     const email = form.getValues('judgeAccount');
+    if (judgeAccounts.some((judge) => judge.email === email)) {
+      form.setError('judgeAccount', {
+        message: 'This account has been added in this hackathon. Please try another email.'
+      });
+      return;
+    }
     if (email && isValid) {
-      mutate(email);
+      checkJudgeAccount.mutate(email);
     }
   }
 
@@ -667,7 +683,7 @@ export function EditJudgingDetailModal({
                             size="small"
                             type="button"
                             className="w-[140px]"
-                            isLoading={isPending}
+                            isLoading={checkJudgeAccount.isPending || isPending}
                             onClick={addJudgeAccount}
                           >
                             Add
