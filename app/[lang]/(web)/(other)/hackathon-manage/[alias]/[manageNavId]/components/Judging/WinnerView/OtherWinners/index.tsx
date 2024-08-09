@@ -12,6 +12,7 @@ interface OtherWinnersProp {
 }
 
 const OtherWinners: React.FC<OtherWinnersProp> = (props) => {
+  if (props.judgeInfo.reward?.judge?.announce && !props.winners.length) return null;
   return (
     <div className="body-m flex flex-col gap-[16px] text-neutral-off-black">
       <p className="text-h5">Other Winners</p>

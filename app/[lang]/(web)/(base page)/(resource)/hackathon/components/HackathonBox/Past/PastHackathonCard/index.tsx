@@ -40,7 +40,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
   const renderIcon = () => {
     if (showManage || isOrganizer) {
       return (
-        <div className="absolute right-[10px] top-[10px] z-[2] flex gap-[5px] rounded-[6px] bg-neutral-light-gray p-[4px] text-neutral-black">
+        <div className="absolute right-[10px] top-[10px] z-[2] flex gap-[5px] rounded-[6px] bg-neutral-light-gray p-[4px] text-neutral-black opacity-50 transition-all hover:opacity-100">
           {showManage && (
             <div
               className="p-[6px]  transition-all hover:scale-[1.2]"
