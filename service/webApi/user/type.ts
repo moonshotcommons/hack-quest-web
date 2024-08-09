@@ -123,6 +123,9 @@ export interface GithubActivityType {
   name: string;
   languages: Record<string, number>;
   totalContributor: number;
+  totalCommit: number;
+  totalIssue: number;
+  totalPr: number;
   totalFork: number;
   totalStar: number;
 }
@@ -132,7 +135,7 @@ export interface UserProfileType {
   location: string;
   experience: number;
   techStack: string[];
-  progress: [number, number];
+  progress: number[];
   backgroundImage?: string;
   personalLinks: Record<string, string>;
   githubActivity: GithubActivityType;

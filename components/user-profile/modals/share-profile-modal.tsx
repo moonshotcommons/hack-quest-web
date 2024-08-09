@@ -19,6 +19,7 @@ import {
 } from 'next-share';
 import { useProfile } from '../modules/profile-provider';
 import toast from 'react-hot-toast';
+import { getDomain } from '@/constants/links';
 
 export function ShareProfile() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export function ShareProfile() {
   const [username, setUsername] = React.useState(profile?.user?.username);
   const [error, setError] = React.useState('');
 
-  const url = `https://www.hackquest.io/user/${username}`;
+  const url = `${getDomain(process.env.RUNTIME_ENV || 'dev')}user/${username}`;
 
   const mutation = useMutation({
     mutationFn: (username: string) => webApi.userApi.updateUsername(username),
@@ -85,7 +86,9 @@ export function ShareProfile() {
             {profile?.isCurrentUser ? 'Custom' : 'HackQuest'} Profile URL
           </label>
           <div className="flex items-center">
-            <p className="h-12 leading-[48px] text-neutral-off-black">www.hackquest.io/user/</p>
+            <p className="h-12 leading-[48px] text-neutral-off-black">
+              {getDomain(process.env.RUNTIME_ENV || 'dev')}user/
+            </p>
             {isEditing ? (
               <Input className="ml-1" value={username} onChange={(e) => setUsername(e.target.value)} />
             ) : (

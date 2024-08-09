@@ -28,6 +28,8 @@ import toast from 'react-hot-toast';
 import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { Spinner } from '@/components/ui/spinner';
+import { omit } from 'lodash-es';
+import { useModal } from '../utils/modal';
 
 function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -181,6 +183,18 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function onSubmit() {
+    if (!profile?.githubActivity?.name) {
+      toast.error('Please connect your GitHub account first');
+      return;
+    }
+    if (!profile?.onChainActivity?.address) {
+      toast.error('Please connect your wallet first');
+      return;
+    }
+    mutate({ progress: 2 });
+  }
+
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-[22px] font-bold">Generate your Web3 builder profile</h2>
@@ -251,7 +265,7 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
           <span>Skip for Now</span>
           <MoveRightIcon className="h-4 w-4" />
         </button>
-        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={() => mutate({ progress: 2 })}>
+        <Button isLoading={isPending} className="w-full sm:w-[270px]" onClick={onSubmit}>
           Continue
         </Button>
       </div>
@@ -287,6 +301,11 @@ function Step3({ onClose }: { onClose?: () => void }) {
   });
 
   function onSubmit(data: PersonalLinks) {
+    const omitedData = omit(data, ['github']);
+    if (Object.values(omitedData).every((value) => !value)) {
+      toast.error('Please fill in at least one link');
+      return;
+    }
     mutate({ personalLinks: data, progress: 3 });
   }
 
@@ -409,7 +428,11 @@ function Step3({ onClose }: { onClose?: () => void }) {
 
 const steps = [Step1, Step2, Step3];
 
-export function OnboardingModal({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
+export function OnboardingModal() {
+  const { open, type, onClose } = useModal();
+
+  const isOpen = open && type === 'onboarding';
+
   const [step, setStep] = React.useState(1);
   const { profile } = useProfile();
 
@@ -417,12 +440,21 @@ export function OnboardingModal({ open = false, onClose }: { open?: boolean; onC
 
   React.useEffect(() => {
     if (profile?.progress && open && profile?.isCurrentUser) {
-      profile?.progress[0] < profile?.progress[1] ? setStep(profile?.progress[0] + 1) : setStep(3);
+      const progress = profile.progress;
+      if (!progress.includes(1)) {
+        setStep(1);
+      } else if (!progress.includes(2)) {
+        setStep(2);
+      } else if (!progress.includes(3)) {
+        setStep(3);
+      } else {
+        setStep(1);
+      }
     }
   }, [open, profile?.isCurrentUser, profile?.progress]);
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
       <DialogContent className="flex h-screen flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
         <MobileModalHeader />
         <Steps currentStep={step} />

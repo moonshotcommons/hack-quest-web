@@ -59,6 +59,7 @@ const TextEditor: FC<TextEditorProps> = ({
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: placeholder[lang],
     readOnly,
+
     MENU_CONF: {
       uploadImage: {
         async customUpload(file: File, insertFn: Function) {

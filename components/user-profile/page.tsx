@@ -19,6 +19,8 @@ import { ProfileProvider } from './modules/profile-provider';
 import { ChevronRightIcon } from 'lucide-react';
 import { Attestations } from './modules/attestations';
 import { AddAttestation } from './modals/add-attestation';
+import { OnboardingModal } from './modals/onboarding-modal';
+import { EditProfile } from './modals/edit-profile';
 
 export default function Page() {
   const queryClient = useQueryClient();
@@ -77,7 +79,7 @@ export default function Page() {
         <BasicInfo />
         <div className="mt-2 h-full sm:container sm:mx-auto sm:mt-[88px] sm:flex sm:justify-center">
           <div className="flex-1 sm:max-w-5xl sm:pb-10">
-            {profile?.isCurrentUser && profile?.progress[0] < profile?.progress[1] && <CompleteProfile />}
+            {profile?.isCurrentUser && profile.progress?.length < 3 && <CompleteProfile />}
             <BuilderScore />
             <div className="mt-2 grid grid-cols-1 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-8">
               {(profile?.isCurrentUser || Object.keys(profile?.githubActivity || {}).length > 0) && (
@@ -92,7 +94,7 @@ export default function Page() {
             {(profile?.isCurrentUser || (profile?.workExperiences?.length || 0) > 0) && <Experience />}
             {(profile?.isCurrentUser || (profile?.hackathonExperiences?.length || 0) > 0) && <Hackathon />}
           </div>
-          {(profile?.attestations.length || 0) > 0 && !profile?.isCurrentUser && (
+          {(profile?.attestations.length || 0) > 0 && (
             <div
               data-state={open ? 'open' : 'closed'}
               className="group relative ml-7 hidden border-l border-l-neutral-light-gray p-3 duration-300 data-[state=closed]:w-0 data-[state=open]:w-80 data-[state-open]:animate-in data-[state=closed]:animate-out data-[state-open]:slide-in-from-left sm:flex sm:items-center"
@@ -111,6 +113,8 @@ export default function Page() {
         </div>
       </div>
       <AddAttestation />
+      <OnboardingModal />
+      <EditProfile />
     </ProfileProvider>
   );
 }

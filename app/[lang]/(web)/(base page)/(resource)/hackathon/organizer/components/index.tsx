@@ -123,7 +123,14 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
           <Draft hackathonList={hackathons[HackathonStatusType.DRAFT]} />
         </div>
         <div className={`${curTab !== HackathonStatusType.PAST && 'hidden'}`}>
-          <Past hackathonList={hackathons[HackathonStatusType.PAST]} isOrganizer={true} page={0} total={0} limit={0} />
+          <Past
+            hackathonList={hackathons[HackathonStatusType.PAST]}
+            isOrganizer={true}
+            showManage={true}
+            page={0}
+            total={0}
+            limit={0}
+          />
         </div>
       </div>
       <StartModal open={open} onClose={() => setOpen(false)} />

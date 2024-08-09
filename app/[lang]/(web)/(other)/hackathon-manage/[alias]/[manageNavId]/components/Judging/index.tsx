@@ -13,7 +13,7 @@ import {
 } from '@/service/webApi/resourceStation/type';
 import { AuditTabType } from '../../../../constants/type';
 import webApi from '@/service';
-import { useMutation, useQueries, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueries } from '@tanstack/react-query';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import WinnerBelow from './WinnerBelow';
@@ -27,7 +27,6 @@ import { v4 } from 'uuid';
 import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 import { useRequest } from 'ahooks';
 import JudgeDisabledTips from './JudgeDisabledTips';
-import { Spinner } from '@/components/ui/spinner';
 
 interface JudgingProp {}
 
@@ -38,7 +37,6 @@ const Judging: React.FC<JudgingProp> = () => {
       setJudgeInfo: state.setJudgeInfo
     }))
   );
-  const queryClient = useQueryClient();
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
@@ -149,7 +147,6 @@ const Judging: React.FC<JudgingProp> = () => {
       };
     }) => webApi.resourceStationApi.hackathonWinnerAdd(hackathon.id, winner),
     onSuccess: (_, variables) => {
-      console.info(variables);
       variables.winner.type === 'base'
         ? setBaseHandleWinners(baseHandleWinners.filter((v) => v.id !== variables.winnerId))
         : setOtherHandleWinners(otherHandleWinners.filter((v) => v.id !== variables.winnerId));
@@ -182,7 +179,7 @@ const Judging: React.FC<JudgingProp> = () => {
     onSuccess: () => {
       setAnnounceOpen(false);
       message.success('Success');
-      queryClient.invalidateQueries({ queryKey: ['judgingInfo'] });
+      refreshJudge();
     },
     onError: (err) => {
       errorMessage(err);
@@ -301,83 +298,70 @@ const Judging: React.FC<JudgingProp> = () => {
           <span>Show judging details</span>
         </div>
       </div>
-      {loading ? (
-        <div className="flex-center h-full w-full">
-          <Spinner />
-        </div>
-      ) : (
-        <>
-          <div className="flex flex-1 flex-col gap-[28px] pb-[40px]">
-            <VoteCloseIn judgeInfo={judgeInfo} />
-            <JudgInfo
-              show={isShowDetail}
-              handleShowJudges={() => setOpen(true)}
-              rewardJudgeInfo={judgeInfo?.reward?.judge}
-            />
-            <JudgeDisabledTips rewardJudgeInfo={judgeInfo?.reward?.judge} />
-            {judgeInfo.reward?.judge?.disableJudge && (
-              <WinnerBelow
-                winners={allWinners}
-                judgeInfo={judgeInfo}
-                handleAdd={handleAdd}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-                handleAnnounce={() => setAnnounceOpen(true)}
-                loading={loading}
-              />
-            )}
-            {!judgeInfo.reward?.judge?.disableJudge &&
-              (stepIndex > 1 ? (
-                <WinnerView
-                  winners={allWinners}
-                  judgeInfo={judgeInfo}
-                  handleAdd={handleAdd}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                  handleAnnounce={() => setAnnounceOpen(true)}
-                  loading={loading}
-                />
-              ) : (
-                <Voting judgeInfo={judgeInfo} loading={judgingLoading} tracks={tracks} />
-              ))}
-          </div>
-          <JudgesModal
-            open={open}
-            onClose={() => setOpen(false)}
-            judgeReward={judgeInfo?.reward}
-            refresh={refreshJudge}
+      <div className="flex flex-1 flex-col gap-[28px] pb-[40px]">
+        <VoteCloseIn judgeInfo={judgeInfo} />
+        <JudgInfo
+          show={isShowDetail}
+          handleShowJudges={() => setOpen(true)}
+          rewardJudgeInfo={judgeInfo?.reward?.judge}
+        />
+        <JudgeDisabledTips rewardJudgeInfo={judgeInfo?.reward?.judge} />
+        {judgeInfo.reward?.judge?.disableJudge && (
+          <WinnerBelow
+            winners={allWinners}
+            judgeInfo={judgeInfo}
+            handleAdd={handleAdd}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            handleAnnounce={() => setAnnounceOpen(true)}
+            loading={loading}
           />
-          <ConfirmModal
-            open={!!deleteWinnerInfo?.id}
-            autoClose={false}
-            isLoading={loading}
-            onClose={() => setDeleteWinnerInfo(null)}
-            onConfirm={() => deleteWinner(deleteWinnerInfo?.id as string)}
-            className=" px-[132px] sm:!w-[808px] sm:!max-w-[808px]"
-          >
-            {`Do you want to remove winner ${deleteWinnerInfo?.name}`}
-          </ConfirmModal>
-          <ConfirmModal
-            open={announceOpen}
-            autoClose={false}
-            onClose={() => setAnnounceOpen(false)}
-            onConfirm={confirmAnnounce}
-            isLoading={announceLoading}
-            className=" px-[132px] sm:!w-[808px] sm:!max-w-[808px]"
-          >
-            <div className="body-m flex flex-col items-center gap-[40px] text-neutral-black">
-              <p className="text-h3">Do you want to announce winners?</p>
-              <p className="">
-                {judgeInfo.reward?.judge?.disableJudge
-                  ? `This step cannot be undone and all winners will be notified.`
-                  : `This step cannot be undone and all submitters will be notified. Please check the reward announcement before
+        )}
+        {!judgeInfo.reward?.judge?.disableJudge &&
+          (stepIndex > 1 ? (
+            <WinnerView
+              winners={allWinners}
+              judgeInfo={judgeInfo}
+              handleAdd={handleAdd}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+              handleAnnounce={() => setAnnounceOpen(true)}
+              loading={loading}
+            />
+          ) : (
+            <Voting judgeInfo={judgeInfo} loading={judgingLoading} tracks={tracks} />
+          ))}
+      </div>
+      <JudgesModal open={open} onClose={() => setOpen(false)} judgeReward={judgeInfo?.reward} refresh={refreshJudge} />
+      <ConfirmModal
+        open={!!deleteWinnerInfo?.id}
+        autoClose={false}
+        isLoading={loading}
+        onClose={() => setDeleteWinnerInfo(null)}
+        onConfirm={() => deleteWinner(deleteWinnerInfo?.id as string)}
+        className=" px-[132px] sm:!w-[808px] sm:!max-w-[808px]"
+      >
+        {`Do you want to remove winner ${deleteWinnerInfo?.name}`}
+      </ConfirmModal>
+      <ConfirmModal
+        open={announceOpen}
+        autoClose={false}
+        onClose={() => setAnnounceOpen(false)}
+        onConfirm={confirmAnnounce}
+        isLoading={announceLoading}
+        className=" px-[132px] sm:!w-[808px] sm:!max-w-[808px]"
+      >
+        <div className="body-m flex flex-col items-center gap-[40px] text-neutral-black">
+          <p className="text-h3">Do you want to announce winners?</p>
+          <p className="">
+            {judgeInfo.reward?.judge?.disableJudge
+              ? `This step cannot be undone and all winners will be notified.`
+              : `This step cannot be undone and all submitters will be notified. Please check the reward announcement before
             you announce winners.`}
-              </p>
-              {/* <p className="cursor-pointer underline">Click to check the reward announcement</p> */}
-            </div>
-          </ConfirmModal>
-        </>
-      )}
+          </p>
+          {/* <p className="cursor-pointer underline">Click to check the reward announcement</p> */}
+        </div>
+      </ConfirmModal>
     </div>
   );
 };

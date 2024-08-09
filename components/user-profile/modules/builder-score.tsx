@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Separator } from '@/components/ui/separator';
 import { CircularProgress } from '@/components/shared/circular-progress';
@@ -9,6 +9,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Link from 'next/link';
 import { INDICATORS } from '../constants';
 import { useProfile } from './profile-provider';
+import { getGrade } from '../utils';
+import { useModal } from '../utils/modal';
+import { EditExperience } from '../modals/edit-experience';
 
 const chartConfig = {
   score: {
@@ -18,6 +21,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function BuilderScore() {
+  const { onOpen } = useModal();
   const { profile } = useProfile();
 
   const avgrateScore = React.useMemo(() => {
@@ -34,12 +38,13 @@ export function BuilderScore() {
         A score generated through analyzing how Web3 native you are and how your Web3 dev ability is.
       </p>
       <div className="mt-5 flex flex-col gap-8 sm:mt-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1fr_460px]">
           <div className="hidden sm:block">
-            <ChartContainer config={chartConfig} className="aspect-square max-h-[460px]">
+            <ChartContainer config={chartConfig} className="h-[440px] w-[540px]">
               <RadarChart data={profile?.web3Score}>
                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
                 <PolarAngleAxis dataKey="latitude" />
+                <PolarRadiusAxis angle={25} domain={[0, 100]} tick={false} axisLine={false} />
                 <PolarGrid radialLines={false} />
                 <Radar
                   dataKey="score"
@@ -58,11 +63,13 @@ export function BuilderScore() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
               <CircularProgress value={avgrateScore}>
-                <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">A+</span>
+                <span className="font-next-book-bold text-lg font-bold text-neutral-rich-gray">
+                  {getGrade(avgrateScore > 100 ? 100 : avgrateScore)}
+                </span>
               </CircularProgress>
               <div className="flex flex-col gap-1">
                 <h3 className="body-s">Current Score</h3>
-                <p className="body-s-bold">{avgrateScore}/100</p>
+                <p className="body-s-bold">{avgrateScore > 100 ? 100 : avgrateScore}/100</p>
               </div>
             </div>
             <Separator variant="dashed" />
@@ -78,11 +85,35 @@ export function BuilderScore() {
                     <span className="ml-3 font-bold text-neutral-off-black">{title}</span>
                   </AccordionTrigger>
                   <AccordionContent className="flex flex-col gap-2 px-9">
-                    {content.map((item, itemIndex) => (
-                      <Link href={item.link} key={itemIndex} className="self-start">
-                        <p className="underline">{item.title}</p>
-                      </Link>
-                    ))}
+                    {content.map((item, itemIndex) =>
+                      item.action ? (
+                        item.action === 'experience' ? (
+                          <EditExperience key={itemIndex} type="create" iconOnly={false} label={item.title} />
+                        ) : (
+                          <p
+                            className="cursor-pointer underline"
+                            key={itemIndex}
+                            onClick={() => {
+                              if (item.action === 'onboarding') {
+                                const progress = profile?.progress || [];
+                                if (progress.length < 3) {
+                                  onOpen('onboarding');
+                                }
+                              }
+                              if (item.action === 'profile') {
+                                onOpen('profile');
+                              }
+                            }}
+                          >
+                            {item.title}
+                          </p>
+                        )
+                      ) : (
+                        <Link href={item.link} key={itemIndex} className="self-start">
+                          <p className="underline">{item.title}</p>
+                        </Link>
+                      )
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               ))}

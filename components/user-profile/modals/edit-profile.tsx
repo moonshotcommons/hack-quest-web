@@ -2,14 +2,13 @@
 
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '../common/textarea';
 import { Input } from '../common/input';
 import { type ProfileSchema, profileSchema } from '../validations/profile';
-import { EditIcon } from '@/components/ui/icons/edit';
 import { SocialMedia } from '../modules/social-media';
 import { Skills } from './skills';
 import { UserAvatar } from './user-avatar';
@@ -19,10 +18,14 @@ import { MobileModalHeader } from './mobile-modal-header';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import toast from 'react-hot-toast';
+import { useModal } from '../utils/modal';
 
-export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?: boolean) => void }) => {
+export const EditProfile = () => {
+  const { open, type, onClose } = useModal();
   const { profile, invalidate } = useProfile();
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const isOpen = open && type === 'profile';
 
   const form = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema)
@@ -33,7 +36,7 @@ export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?:
     onSuccess: () => {
       toast.success('Profile updated');
       invalidate();
-      toggle?.(false);
+      onClose();
     }
   });
 
@@ -54,12 +57,7 @@ export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?:
   }
 
   return (
-    <Dialog open={open} onOpenChange={toggle}>
-      <DialogTrigger asChild>
-        <button className="outline-none" onClick={() => toggle?.()}>
-          <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-        </button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
       <DialogContent className="flex h-screen flex-col gap-0 p-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6">
         <MobileModalHeader />
         <Background />

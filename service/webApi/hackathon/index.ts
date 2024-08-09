@@ -92,6 +92,12 @@ class HackathonApi {
     });
   }
 
+  checkJudgeAccount(hackathonId: string, email: string) {
+    return this.service.get<any>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge/checkAccount`, {
+      params: { email }
+    });
+  }
+
   sendVerifyEmail(hackathonId: string, email: string) {
     return this.service.get<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/send-verify-email`, {
       params: { email }
