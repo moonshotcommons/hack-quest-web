@@ -26,11 +26,13 @@ import toast from 'react-hot-toast';
 export function EditExperience({
   type,
   iconOnly = true,
-  initialValues = null
+  initialValues = null,
+  label
 }: {
   type: 'create' | 'edit';
   iconOnly?: boolean;
   initialValues?: UserExperienceType | null;
+  label?: string;
 }) {
   const [open, toggle] = useToggle(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -109,7 +111,11 @@ export function EditExperience({
   return (
     <Dialog open={open} onOpenChange={toggle}>
       <DialogTrigger asChild>
-        {!iconOnly ? (
+        {label ? (
+          <button className="self-start text-sm underline outline-none" onClick={toggle}>
+            {label}
+          </button>
+        ) : !iconOnly ? (
           <Button className="w-[165px]" size="small" onClick={toggle}>
             Add Experience
           </Button>

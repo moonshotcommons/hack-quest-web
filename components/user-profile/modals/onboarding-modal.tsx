@@ -29,6 +29,7 @@ import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { Spinner } from '@/components/ui/spinner';
 import { omit } from 'lodash-es';
+import { useModal } from '../utils/modal';
 
 function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -427,7 +428,11 @@ function Step3({ onClose }: { onClose?: () => void }) {
 
 const steps = [Step1, Step2, Step3];
 
-export function OnboardingModal({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
+export function OnboardingModal() {
+  const { open, type, onClose } = useModal();
+
+  const isOpen = open && type === 'onboarding';
+
   const [step, setStep] = React.useState(1);
   const { profile } = useProfile();
 
@@ -449,7 +454,7 @@ export function OnboardingModal({ open = false, onClose }: { open?: boolean; onC
   }, [open, profile?.isCurrentUser, profile?.progress]);
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
       <DialogContent className="flex h-screen flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
         <MobileModalHeader />
         <Steps currentStep={step} />

@@ -8,17 +8,16 @@ import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { WeChatIcon } from '@/components/ui/icons/wechat';
 import { Skeleton } from '@/components/shared/skeleton';
 import { ShareProfile } from '../modals/share-profile-modal';
-import { EditProfile } from '../modals/edit-profile';
 import { cn } from '@/helper/utils';
 import { useProfile } from './profile-provider';
 import { GithubIcon } from '@/components/ui/icons/github';
-import { useToggle } from '@/hooks/utils/use-toggle';
-import { CheckIcon, CopyIcon } from 'lucide-react';
+import { CheckIcon, CopyIcon, EditIcon } from 'lucide-react';
+import { useModal } from '../utils/modal';
 
 export function BasicInfo() {
   const { isLoading, profile } = useProfile();
   const [copied, setCopied] = React.useState(false);
-  const [open, toggle] = useToggle(false);
+  const { onOpen } = useModal();
 
   function onCopyClick(event: React.MouseEvent<HTMLButtonElement>, value: string) {
     event.preventDefault();
@@ -78,7 +77,7 @@ export function BasicInfo() {
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.twitter) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.twitter, '_blank');
                     }
@@ -92,7 +91,7 @@ export function BasicInfo() {
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.linkedIn) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.linkedIn, '_blank');
                     }
@@ -106,7 +105,7 @@ export function BasicInfo() {
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.telegram) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.telegram, '_blank');
                     }
@@ -120,7 +119,7 @@ export function BasicInfo() {
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.github) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.github, '_blank');
                     }
@@ -158,7 +157,7 @@ export function BasicInfo() {
                 ) : (
                   <WeChatIcon
                     className="h-5 w-5 cursor-pointer opacity-30 sm:h-6 sm:w-6"
-                    onClick={() => toggle(true)}
+                    onClick={() => onOpen('profile')}
                   />
                 ))}
             </div>
@@ -172,7 +171,11 @@ export function BasicInfo() {
           </div>
         </div>
         <div className="absolute right-5 top-6 flex items-center gap-4 sm:right-0 sm:top-10">
-          {profile?.isCurrentUser && <EditProfile open={open} toggle={toggle} />}
+          {profile?.isCurrentUser && (
+            <button className="outline-none" onClick={() => onOpen('profile')}>
+              <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+            </button>
+          )}
           <ShareProfile />
         </div>
       </div>
