@@ -16,6 +16,8 @@ import { CiEdit } from 'react-icons/ci';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { HackathonManageType } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
 import { useRedirect } from '@/hooks/router/useRedirect';
+import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;
@@ -31,7 +33,19 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
   const totalPrize = getTotalPrize(hackathon.rewards);
   const { redirectToUrl } = useRedirect();
   const [loading, setLoading] = useState(false);
+  const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      setAuthModalOpen: state.setAuthModalOpen,
+      setAuthType: state.setAuthType
+    }))
+  );
   const goHackathonDetail = () => {
+    if (isVoting && !userInfo) {
+      setAuthType(AuthType.LOGIN);
+      setAuthModalOpen(true);
+      return;
+    }
     const path = isVoting
       ? `${MenuLink.HACKATHON_VOTING}/${hackathon.alias}`
       : `${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`;
