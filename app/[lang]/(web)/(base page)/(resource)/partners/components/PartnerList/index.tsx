@@ -2,9 +2,9 @@
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import React, { useMemo, useState } from 'react';
-import Image from 'next/image';
 import PartnerCardModal from './PartnerCardModal';
 import { PartnerShipType } from '@/service/webApi/resourceStation/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface PartnerListProp {
   lang: Lang;
@@ -62,7 +62,9 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang, partnerShips }) => {
             }}
           >
             <div className="relative h-0 w-full bg-neutral-light-gray pt-[58%]">
-              {v.logo && <Image src={v.logo} alt={v.name} fill className="object-contain" />}
+              <div className="absolute left-0 top-0 h-full w-full p-[30px]">
+                <BaseImage src={v.logo} alt={v.name} className="h-full w-full" contain={true} />
+              </div>
             </div>
             <div className="h-[84px] p-[16px]">
               <h2 className="body-m line-clamp-2 text-neutral-off-black">{v.name}</h2>

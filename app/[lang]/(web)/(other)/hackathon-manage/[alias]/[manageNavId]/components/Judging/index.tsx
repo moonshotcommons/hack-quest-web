@@ -13,7 +13,7 @@ import {
 } from '@/service/webApi/resourceStation/type';
 import { AuditTabType } from '../../../../constants/type';
 import webApi from '@/service';
-import { useMutation, useQueries, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueries } from '@tanstack/react-query';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import WinnerBelow from './WinnerBelow';
@@ -37,7 +37,6 @@ const Judging: React.FC<JudgingProp> = () => {
       setJudgeInfo: state.setJudgeInfo
     }))
   );
-  const queryClient = useQueryClient();
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
@@ -181,7 +180,7 @@ const Judging: React.FC<JudgingProp> = () => {
     onSuccess: () => {
       setAnnounceOpen(false);
       message.success('Success');
-      queryClient.invalidateQueries({ queryKey: ['judgingInfo'] });
+      refreshJudge();
     },
     onError: (err) => {
       errorMessage(err);
