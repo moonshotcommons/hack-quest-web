@@ -21,8 +21,6 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
   const [modalType, setModalType] = useState<'delete' | 'sendAfterDelete' | 'schedule' | 'sendNow' | 'closeAndSave'>();
   const queryClient = useQueryClient();
 
-  console.log(hackathon);
-
   const { data: announcements } = useQuery({
     queryKey: ['hackathon-announcements', hackathon.id],
     queryFn: () => {

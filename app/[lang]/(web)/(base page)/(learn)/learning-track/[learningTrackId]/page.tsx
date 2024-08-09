@@ -65,8 +65,6 @@ const LearningTrackDetailPage: FC<LearningTrackDetailPageProps> = async (props) 
     certification = await webApi.campaignsApi.fetchCertificationDetail(learningTrackDetail.certificationId);
   }
 
-  console.log(learningTrackDetail);
-
   return (
     <LearningTrackDetailProvider learningTrackDetail={learningTrackDetail}>
       <CertificationCardProvider certificationId={certification?.id}>

@@ -35,7 +35,7 @@ interface CodeRendererProps {
 const CodeRenderer: FC<CodeRendererProps> = (props) => {
   const { component, parent, nextComponent, prevComponent } = props;
   const language = component.content.language;
-  console.log(language, component.content.language);
+
   const { theme } = useContext(ThemeContext);
   const codeRef = useRef<HTMLTextAreaElement>(null);
   const [codeContent, setCodeContent] = useState('');
