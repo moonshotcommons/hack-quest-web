@@ -53,7 +53,6 @@ export const useMintFromSui = () => {
         }
 
         tx.setSender(account.address);
-
         tx.setGasBudget(100_000_00);
 
         tx.moveCall({
