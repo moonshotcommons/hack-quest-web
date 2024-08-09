@@ -8,10 +8,10 @@ import { Transaction } from '@mysten/sui/transactions';
 import { errorMessage } from '@/helper/ui';
 
 // const stateTemplate = {
-//   statId: '0x5bc323843afc995543a0218724317397db1fb8655df163607b822cffcf5a1bb3',
-//   adminId: '0xb074ecea1c673a3f292e5c4ba24646cc4f053b74614ea4f416d37c8015f85c43',
-//   globalId: '0x0a55800a945a7120ef378321c85ab0da5c548e3c8c311a945fc8cd7919a0efc4',
-//   packageId: '0x14c9ad9200ede43dae0a50db1a06550d24665a5ea2c671c6a7da6babc601a108',
+//   statId: '0xead3d81189007bb4fcdcc02da4b5517447a10538506dc5afc9c95b6c6df2c7f5',
+//   adminId: '0xacf630a49ce613020b22575eba09b6240610ae204ea20a9bd8e98ca56d617de9',
+//   globalId: '0xe4efe857ca1eeb80a80292e3d8abbfe68cecee438cc6d6730647f5a1958d633c',
+//   packageId: '0x3b1ac7c7116946465150afd433c18fe7301097595eb68de64011f9c60d3be6da',
 //   sender: '0xbefe4881a3f08d191d71ed3d6af5ce07de39f010fe0da692c26374f465efd0cf'
 // };
 
@@ -41,7 +41,6 @@ export const useMintFromSui = () => {
   } = useMutation({
     mutationFn: async (certification: UserCertificateInfo) => {
       return new Promise((resolve, reject) => {
-        debugger;
         if (!account?.address && !visible) {
           setVisible(true);
           reject();
@@ -53,14 +52,13 @@ export const useMintFromSui = () => {
           return;
         }
 
-        tx.setSender(certification.extra.sender);
-
+        tx.setSender(account.address);
         tx.setGasBudget(100_000_00);
 
         tx.moveCall({
           target: certification.extra.packageId + '::certificateNFT::mint',
           arguments: [
-            tx.object(certification.extra.adminId),
+            // tx.object(certification.extra.adminId),
             tx.object(certification.extra.statId),
             tx.object(certification.extra.globalId),
             tx.pure.address(account.address),
@@ -139,7 +137,7 @@ export const useUpdateBaseUriFromSui = () => {
           return;
         }
 
-        tx.setSender(account?.address);
+        tx.setSender(account.address);
 
         tx.setGasBudget(100_000_00);
 
@@ -217,7 +215,7 @@ export const useGetBaseUriFromSui = () => {
           return;
         }
 
-        tx.setSender(account?.address);
+        tx.setSender(account.address);
 
         tx.setGasBudget(100_000_00);
 
