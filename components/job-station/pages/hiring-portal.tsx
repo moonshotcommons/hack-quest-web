@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Back } from '../components/back';
 import { Badge } from '@/components/ui/badge';
@@ -7,7 +8,6 @@ import { ArrowIcon } from '@/components/ui/icons/arrow';
 import { generateQueryParams, LIMIT_PER_PAGE, SearchParams } from '../utils';
 import { Pagination } from '../components/pagination';
 import { getCachedPublishedJobs } from '../utils/actions';
-import { redirect } from 'next/navigation';
 
 export default async function Page({ searchParams }: { searchParams?: SearchParams }) {
   const queryParams = generateQueryParams(searchParams);
@@ -41,7 +41,7 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
         </div>
         <div className="flex flex-col space-y-6">
           {result.data?.map((job) => (
-            <Link key={job.id} href={`/jobs/publish/${job.id}`}>
+            <Link key={job.id} href={`/jobs/edit/${job.id}`}>
               <div className="sm:card-hover flex w-full flex-col gap-4 rounded-2xl bg-neutral-white p-6 sm:flex-row sm:items-center">
                 <div className="flex items-center gap-4">
                   <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">

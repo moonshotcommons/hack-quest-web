@@ -81,8 +81,6 @@ export function CourseCard({
   const { lang } = useLang();
   const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
 
-  console.log('course', course);
-
   const href =
     type === 'course'
       ? CourseType.UGC

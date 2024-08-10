@@ -64,7 +64,7 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
     });
     return links;
   }, [challengeData]);
-  console.log(links);
+
   const handleClick = () => {
     if (!buttonState.disable && buttonState.type === 'submit') {
       emitter.emit('submit');

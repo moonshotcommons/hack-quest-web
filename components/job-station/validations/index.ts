@@ -132,18 +132,72 @@ export const companySchema = z.object({
     .url({ message: 'Please enter a valid URL' })
 });
 
-export const jobSchema = z
+const baseJobSchema = z.object({
+  name: z.string().min(1, { message: 'Job title is required' }),
+  workMode: z.enum(['REMOTE', 'ONSITE']).optional().default('REMOTE'),
+  location: z.string().optional(),
+  workType: z.enum(['FULL_TIME', 'PART_TIME', 'INTERNSHIP']).optional().default('FULL_TIME'),
+  minSalary: z.string().optional(),
+  maxSalary: z.string().optional(),
+  currency: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  description: z.string().min(1, { message: 'Job description is required' }),
+  status: z.enum(['open', 'closed']).optional().default('open')
+});
+
+export const jobSchema = baseJobSchema.superRefine((data, ctx) => {
+  if (data.workMode === 'ONSITE') {
+    if (!data.location) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'location is required for on-site mode',
+        path: ['location']
+      });
+    }
+  }
+});
+
+export const contactSchema = z.object({
+  link: z.string().url({ message: 'Please enter a valid URL' }).optional(),
+  telegram: z.string().optional(),
+  wechat: z.string().optional(),
+  email: z.string().email({ message: 'Please enter a valid email' }).optional()
+});
+
+const baseContactsSchema = z.object({
+  contractKey: z.array(z.string()).refine((values) => values.some((item) => item), {
+    message: 'At least one contact is required'
+  }),
+  contractValue: contactSchema
+});
+
+export const contactsSchema = z
   .object({
-    name: z.string().min(1, { message: 'Job title is required' }),
-    workMode: z.enum(['REMOTE', 'ONSITE']).optional().default('REMOTE'),
-    location: z.string().optional(),
-    workType: z.enum(['FULL_TIME', 'PART_TIME', 'INTERNSHIP']).optional().default('FULL_TIME'),
-    minSalary: z.string().optional(),
-    maxSalary: z.string().optional(),
-    currency: z.string().optional(),
-    tags: z.array(z.string()).optional(),
-    description: z.string().min(1, { message: 'Job description is required' }),
-    status: z.enum(['open', 'closed']).optional().default('open')
+    contractKey: z.array(z.string()).refine((values) => values.some((item) => item), {
+      message: 'At least one contact is required'
+    }),
+    contractValue: contactSchema
+  })
+  .superRefine((data, ctx) => {
+    contacts.forEach((contact) => {
+      if (data.contractKey.includes(contact.id)) {
+        if (!data.contractValue[contact.id]) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `${contact.label} is required`,
+            path: ['contractValue', contact.id]
+          });
+        }
+      }
+    });
+  });
+
+export const formSchema = z
+  .object({
+    ...companySchema.shape,
+    ...baseJobSchema.shape,
+    ...baseContactsSchema.shape,
+    desc: z.record(z.any()).optional()
   })
   .superRefine((data, ctx) => {
     if (data.workMode === 'ONSITE') {
@@ -155,23 +209,7 @@ export const jobSchema = z
         });
       }
     }
-  });
 
-export const contactSchema = z.object({
-  link: z.string().url({ message: 'Please enter a valid URL' }).optional(),
-  telegram: z.string().optional(),
-  wechat: z.string().optional(),
-  email: z.string().email({ message: 'Please enter a valid email' }).optional()
-});
-
-export const contactsSchema = z
-  .object({
-    contractKey: z.array(z.string()).refine((values) => values.some((item) => item), {
-      message: 'At least one contact is required'
-    }),
-    contractValue: contactSchema
-  })
-  .superRefine((data, ctx) => {
     contacts.forEach((contact) => {
       if (data.contractKey.includes(contact.id)) {
         if (!data.contractValue[contact.id]) {

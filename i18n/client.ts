@@ -16,7 +16,7 @@ i18next
   .init({
     supportedLngs: locales,
     fallbackLng: defaultLocale,
-    lng: undefined,
+    lng: defaultLocale,
     fallbackNS: defaultNs,
     defaultNS: defaultNs,
     ns: defaultNs,

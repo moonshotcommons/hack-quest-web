@@ -12,7 +12,7 @@ type BaseImageProp = ImageProp & ImageProps;
 const BaseImage: React.FC<BaseImageProp> = ({ className, contain, ...rest }) => {
   return (
     <div className={cn('relative overflow-hidden', className)}>
-      <Image {...rest} fill className={`${contain ? 'object-contain' : 'object-cover'}`} />
+      {rest.src && <Image {...rest} fill className={`${contain ? 'object-contain' : 'object-cover'}`} />}
     </div>
   );
 };

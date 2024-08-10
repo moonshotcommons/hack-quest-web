@@ -17,7 +17,7 @@ const DailyQuests: React.FC<DailyQuestsProp> = ({ missionDatas, missionClaim }) 
     <div>
       <div className="mb-[24px] flex justify-between">
         <div className="text-h35 text-neutral-off-black">{t('dailyQuests')}</div>
-        <span className="body-s text-neutral-medium-gray">{t('rewardsRefresh')}</span>
+        {/* <span className="body-s text-neutral-medium-gray">{t('rewardsRefresh')}</span> */}
       </div>
       <div className="flex flex-wrap gap-[20px]">
         {missionDatas.map((m) => (

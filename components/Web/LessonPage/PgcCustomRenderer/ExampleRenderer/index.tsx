@@ -13,8 +13,10 @@ import { FiChevronDown } from 'react-icons/fi';
 import { PlaygroundContext } from '../../Playground/type';
 import { useSearchParams } from 'next/navigation';
 import { useUserStore } from '@/store/zustand/userStore';
+import { errorMessage } from '@/helper/ui';
+import { useQuery } from '@tanstack/react-query';
 
-const CHAIN_IDE = 'develop-2egludalf0.chainide.com';
+const CHAIN_IDE = 'https://chainide.com/s/';
 interface ExampleRendererProps {
   // children: ReactNode
   component: ExampleComponent;
@@ -43,26 +45,37 @@ const ExampleRenderer: FC<ExampleRendererProps> = (props) => {
       if (activeIndex !== -1) setActiveFileIndex(activeIndex);
     }
   }, [component]);
-  console.log(component.codeFiles);
+
   useEffect(() => {
     updateExampleNum(activeFileIndex);
   }, [activeFileIndex]);
 
+  const { data: suiVersion } = useQuery({
+    queryKey: ['sui-version'],
+    queryFn: () => fetch('https://prod-api.chainide.com/api/image/sui/version').then((res) => res.json())
+  });
+
   const getIdeLink = () => {
     // id = '1d9db0f7-7d29-417d-a630-3258b7d52567'
+    try {
+      if (component.ideUrl?.includes(CHAIN_IDE)) {
+        const files =
+          component.codeFiles?.map((item) => {
+            return {
+              filename: item.filename,
+              content: (
+                item.codeContent?.content?.rich_text?.map((richText: any) => richText.plain_text).join('') || ''
+              ).replaceAll(`rev = "framework/testnet"`, `rev = "${suiVersion?.data || 'framework/testnet'}"`)
+            };
+          }) || [];
 
-    if (component.ideUrl?.includes(CHAIN_IDE)) {
-      const files =
-        component.codeFiles?.map((item) => {
-          return {
-            filename: item.filename,
-            content: item.codeContent?.content?.rich_text?.map((richText: any) => richText.plain_text).join('') || ''
-          };
-        }) || [];
-
-      return `https://develop-2egludalf0.chainide.com/s/createHackProject?version=soljson-v0.8.12.js&open=${files[0]?.filename || 'filename.move'}&chain=sui&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
-        JSON.stringify(files)
-      )}`;
+        return `
+          ${CHAIN_IDE}createHackProject?version=soljson-v0.8.12.js&open=${files[0]?.filename || 'filename.move'}&chain=sui&type=type&uniqueId=${lesson.id + '-' + (userInfo?.id || new Date().getTime())}&code=${encodeURIComponent(
+            JSON.stringify(files)
+          )}`;
+      }
+    } catch (err) {
+      errorMessage(err);
     }
 
     return `${component.ideUrl || process.env.IDE_URL || 'https://ide.dev.hackquest.io'}?code=${encodeURIComponent(

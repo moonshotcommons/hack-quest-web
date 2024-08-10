@@ -6,6 +6,7 @@ import { CiEdit } from 'react-icons/ci';
 import { useDebounceFn } from 'ahooks';
 import { IoMdCloseCircle } from 'react-icons/io';
 import ProjectsModal from './ProjectsModal';
+import { HackathonJugingInfoType, HackathonWinnerType } from '@/service/webApi/resourceStation/type';
 
 const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '-95%' },
@@ -26,17 +27,24 @@ const animateProps: MotionProps = {
 };
 
 interface WinnerCardProp {
-  handleChangeWinner: (prizeName: string) => void;
+  handleChangeWinner: (winner: HackathonWinnerType) => void;
   handleRemoveWinner: () => void;
-  winner: any;
+  winner: HackathonWinnerType;
   disabled?: boolean;
+  judgeInfo: HackathonJugingInfoType;
 }
 
-const WinnerCard: React.FC<WinnerCardProp> = ({ winner, handleChangeWinner, disabled = false, handleRemoveWinner }) => {
+const WinnerCard: React.FC<WinnerCardProp> = ({
+  winner,
+  handleChangeWinner,
+  disabled = false,
+  handleRemoveWinner,
+  judgeInfo
+}) => {
   const [isEditWinnerName, setIsEditWinnerName] = useState(true);
   const [isEditProject, setIsEditProject] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [projectName, setProjectName] = useState(winner.name || '');
+  const [projectName, setProjectName] = useState(winner.project?.name || '');
   const { run: hideProjectsModal } = useDebounceFn(
     () => {
       setShowModal(false);
@@ -45,7 +53,7 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ winner, handleChangeWinner, disa
   );
 
   useEffect(() => {
-    if (winner.name) {
+    if (winner.project?.id) {
       setIsEditProject(false);
     }
   }, [winner]);
@@ -54,11 +62,11 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ winner, handleChangeWinner, disa
       className={`body-l relative flex w-full items-center gap-[20px] rounded-[10px]   border-[2px]  px-[24px] py-[20px] pr-[36px] text-neutral-off-black  ${!disabled ? 'group hover:border-neutral-medium-gray' : 'border-neutral-light-gray'}`}
     >
       <WinnerName
-        project={winner}
-        handleChangeName={(prizeName) =>
+        winner={winner}
+        handleChangeName={(name) =>
           handleChangeWinner({
             ...winner,
-            prizeName
+            name
           })
         }
         disabled={disabled}
@@ -85,10 +93,11 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ winner, handleChangeWinner, disa
             {showModal && (
               <motion.div {...animateProps} className={'absolute left-[-20px] top-[-30px] z-[999] w-full'}>
                 <ProjectsModal
+                  projects={judgeInfo?.projects || []}
                   handleSelect={(project) => {
                     handleChangeWinner({
-                      ...project,
-                      prizeName: winner.prizeName
+                      ...winner,
+                      project
                     });
                     setProjectName(project.name);
                     hideProjectsModal();
@@ -101,7 +110,7 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ winner, handleChangeWinner, disa
         ) : (
           <div className="flex flex-1 flex-shrink-0 items-center gap-[20px] overflow-hidden">
             <div className="w-0 flex-1">
-              <WinnerProject project={winner} />
+              <WinnerProject project={winner.project} isLink={disabled} />
             </div>
             <CiEdit
               size={24}

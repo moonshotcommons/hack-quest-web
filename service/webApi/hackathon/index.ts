@@ -1,5 +1,5 @@
 import WebService from '@/service/webService/webService';
-import { HackathonType } from './types';
+import { Announcement, AnnouncementCreateDto, HackathonType, ReceiverType } from './types';
 
 export enum HackathonApiUrl {
   HACKATHONS = '/hackathons',
@@ -92,6 +92,12 @@ class HackathonApi {
     });
   }
 
+  checkJudgeAccount(hackathonId: string, email: string) {
+    return this.service.get<any>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/judge/checkAccount`, {
+      params: { email }
+    });
+  }
+
   sendVerifyEmail(hackathonId: string, email: string) {
     return this.service.get<void>(`${HackathonApiUrl.HACKATHONS}/${hackathonId}/send-verify-email`, {
       params: { email }
@@ -103,6 +109,36 @@ class HackathonApi {
       params: { code }
     });
   }
+
+  /** 创建邮件计划 */
+  createAnnouncement(hackathonId: string, data: AnnouncementCreateDto & { id?: number | string | null }) {
+    return this.service.post(`${HackathonApiUrl.HACKATHONS}/admin/${hackathonId}/announcement`, {
+      data
+    });
+  }
+
+  /** 创建邮件计划 */
+  getAnnouncements(hackathonId: string) {
+    return this.service.get<Announcement[]>(`${HackathonApiUrl.HACKATHONS}/admin/${hackathonId}/announcement`);
+  }
+
+  /** 创建邮件计划 */
+  deleteAnnouncementById(hackathonId: string, id: string | number) {
+    return this.service.delete<Announcement[]>(`${HackathonApiUrl.HACKATHONS}/admin/${hackathonId}/announcement/${id}`);
+  }
+
+  /** 创建邮件计划 */
+  getReceiversCount(hackathonId: string) {
+    return this.service.get<Record<ReceiverType, number>>(
+      `${HackathonApiUrl.HACKATHONS}/admin/${hackathonId}/receivers/count`
+    );
+  }
+
+  // updateAnnouncement(hackathonId: string, data: Announcement & { id: number }) {
+  //   return this.service.patch(`${HackathonApiUrl.HACKATHONS}/admin/${hackathonId}/announcement`, {
+  //     data
+  //   });
+  // }
 }
 
 export default HackathonApi;

@@ -15,20 +15,26 @@ import { companySchema, contacts, contactsSchema, currencies, jobSchema, workMod
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useJobStore } from '../utils/store';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import Image from 'next/image';
-import { TagCombobox } from '../components/tag-combobox';
+import { TagCombobox } from '../components/tag-combobox-new';
 import { Textarea } from '@/components/user-profile/common/textarea';
 import toast from 'react-hot-toast';
 import { Spinner } from '@/components/ui/spinner';
 import { useParams } from 'next/navigation';
-import omit from 'lodash-es/omit';
 import { revalidate } from '../utils/actions';
 import { useUserStore } from '@/store/zustand/userStore';
+import { omit } from 'lodash-es';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 function Step1() {
   const { values, onNext, setValues } = useJobStore();
@@ -37,9 +43,9 @@ function Step1() {
   const form = useForm<z.infer<typeof companySchema>>({
     resolver: zodResolver(companySchema),
     defaultValues: {
-      companyName: '',
-      companyLogo: '',
-      website: ''
+      companyName: values?.companyName || '',
+      companyLogo: values?.companyLogo || '',
+      website: values?.website || ''
     }
   });
 
@@ -49,8 +55,13 @@ function Step1() {
     mutationFn: (data: FormData) => webApi.commonApi.uploadImage(data),
     onSuccess: ({ filepath }) => {
       form.setValue('companyLogo', filepath);
+      setValues({ companyLogo: filepath });
       form.clearErrors('companyLogo');
-      toast.success('Upload success');
+      toast.success('Company logo uploaded');
+    },
+    onError: () => {
+      form.clearErrors('companyLogo');
+      toast.error('Company logo upload failed');
     }
   });
 
@@ -70,17 +81,6 @@ function Step1() {
     onNext();
   }
 
-  React.useEffect(() => {
-    if (Object.keys(values || {}).length > 0) {
-      form.reset({
-        companyName: values.companyName,
-        companyLogo: values.companyLogo,
-        website: values.website
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values]);
-
   return (
     <Form {...form}>
       <form className="w-full flex-1 space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
@@ -91,7 +91,15 @@ function Step1() {
             <FormItem>
               <FormLabel>Company Name*</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. Google" {...field} />
+                <Input
+                  placeholder="e.g. Google"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setValues({ companyName: e.target.value });
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -134,7 +142,15 @@ function Step1() {
             <FormItem>
               <FormLabel>Website*</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. https://google.com" {...field} />
+                <Input
+                  placeholder="e.g. https://google.com"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setValues({ website: e.target.value });
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -154,7 +170,6 @@ function Step1() {
 }
 
 function Step2() {
-  const params = useParams();
   const { values, onBack, onNext, setValues } = useJobStore();
 
   const [description, setDescription] = React.useState<{ type: string; content: object }>();
@@ -163,9 +178,14 @@ function Step2() {
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
-      name: '',
-      workMode: 'REMOTE',
-      workType: 'FULL_TIME'
+      name: values?.name || '',
+      workMode: values?.workMode || 'REMOTE',
+      workType: values?.workType || 'FULL_TIME',
+      minSalary: values?.minSalary?.toString() || '',
+      maxSalary: values?.maxSalary?.toString() || '',
+      currency: values?.currency || undefined,
+      tags: values?.tags || [],
+      description: values?.description || undefined
     }
   });
 
@@ -173,68 +193,19 @@ function Step2() {
 
   const tags = form.watch('tags');
 
-  function onValueChange(value: string) {
-    const newTags = tags?.includes(value) ? tags?.filter((item: string) => item !== value) : [...(tags || []), value];
-    form.setValue('tags', newTags);
-  }
-
   function onSubmit(data: z.infer<typeof jobSchema>) {
     setValues({
       ...data,
-      minSalary: z.coerce.number().parse(data.minSalary),
-      maxSalary: z.coerce.number().parse(data.maxSalary),
+      minSalary: data.minSalary ? z.coerce.number().parse(data.minSalary) : null,
+      maxSalary: data.maxSalary ? z.coerce.number().parse(data.maxSalary) : null,
       description
     });
     onNext();
   }
 
-  React.useEffect(() => {
-    if (Object.keys(values || {}).length > 0) {
-      form.reset({
-        ...values,
-        description: '',
-        minSalary: values?.minSalary?.toString(),
-        maxSalary: values?.maxSalary?.toString(),
-        location: values?.location || ''
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values]);
-
   return (
     <Form {...form}>
       <form className="w-full flex-1 space-y-6 pb-10" onSubmit={form.handleSubmit(onSubmit)}>
-        {params.id && (
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem className="shrink-0">
-                <FormControl>
-                  <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="open" />
-                      </FormControl>
-                      <FormLabel className="text-neutral-medium-gray peer-aria-checked:text-neutral-black">
-                        Open
-                      </FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="closed" />
-                      </FormControl>
-                      <FormLabel className="text-neutral-medium-gray peer-aria-checked:text-neutral-black">
-                        Closed
-                      </FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        )}
         <FormField
           control={form.control}
           name="name"
@@ -242,7 +213,15 @@ function Step2() {
             <FormItem>
               <FormLabel>Job Title*</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. Software Engineer" {...field} />
+                <Input
+                  placeholder="e.g. Software Engineer"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setValues({ name: e.target.value });
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -257,7 +236,14 @@ function Step2() {
               render={({ field }) => (
                 <FormItem className="shrink-0">
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} value={field.value} className="flex items-center gap-9">
+                    <RadioGroup
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        setValues({ workMode: value });
+                      }}
+                      value={field.value}
+                      className="flex items-center gap-9"
+                    >
                       {workModes.map((item) => (
                         <FormItem key={item.id} className="flex items-center space-x-3 space-y-0">
                           <FormControl>
@@ -281,7 +267,15 @@ function Step2() {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input placeholder="e.g. New York" {...field} />
+                      <Input
+                        placeholder="e.g. New York"
+                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setValues({ location: e.target.value });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -298,7 +292,10 @@ function Step2() {
               <FormLabel>Job Type</FormLabel>
               <FormControl>
                 <RadioGroup
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    setValues({ workType: value });
+                  }}
                   value={field.value}
                   className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-9"
                 >
@@ -329,7 +326,16 @@ function Step2() {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input type="number" placeholder="e.g. 10000" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="e.g. 10000"
+                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setValues({ minSalary: e.target.value });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -345,7 +351,16 @@ function Step2() {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input type="number" placeholder="e.g. 10000" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="e.g. 10000"
+                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setValues({ maxSalary: e.target.value });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -359,7 +374,13 @@ function Step2() {
                 name="currency"
                 render={({ field }) => (
                   <FormItem className="w-full sm:w-64 sm:shrink-0">
-                    <Select value={field.value} defaultValue={values?.currency} onValueChange={field.onChange}>
+                    <Select
+                      value={field.value}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        setValues({ currency: value });
+                      }}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Please select" />
@@ -382,7 +403,13 @@ function Step2() {
         </div>
         <div className="flex flex-col space-y-1.5">
           <Label className="text-base">Tags</Label>
-          <TagCombobox value={tags || []} onValueChange={onValueChange} />
+          <TagCombobox
+            value={tags || []}
+            onValueChange={(value) => {
+              form.setValue('tags', value);
+              setValues({ tags: value });
+            }}
+          />
         </div>
         <FormField
           control={form.control}
@@ -396,11 +423,17 @@ function Step2() {
                 <Textarea {...field} className="hidden" />
               </FormControl>
               <TextEditor
-                simpleModel
+                simpleModel={false}
                 className="overflow-hidden rounded-[8px]"
                 onCreated={(editor) => {
                   const text = editor.getText().replace(/\n|\r/gm, '');
                   form.setValue('description', text);
+                  setValues({
+                    description: {
+                      type: TEXT_EDITOR_TYPE,
+                      content: editor.children
+                    }
+                  });
                   setDescription({
                     type: TEXT_EDITOR_TYPE,
                     content: editor.children
@@ -410,6 +443,12 @@ function Step2() {
                 onChange={(editor) => {
                   const text = editor.getText().replace(/\n|\r/gm, '');
                   form.setValue('description', text);
+                  setValues({
+                    description: {
+                      type: TEXT_EDITOR_TYPE,
+                      content: editor.children
+                    }
+                  });
                   setDescription({
                     type: TEXT_EDITOR_TYPE,
                     content: editor.children
@@ -436,9 +475,7 @@ function Step2() {
 
 function Step3() {
   const router = useRouter();
-  const params = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
-  const { values, reset, onBack } = useJobStore();
+  const { values, setValues, reset, onBack } = useJobStore();
   const [pending, startTransition] = React.useTransition();
 
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -446,28 +483,12 @@ function Step3() {
   const form = useForm<z.infer<typeof contactsSchema>>({
     resolver: zodResolver(contactsSchema),
     defaultValues: {
-      contractKey: [],
-      contractValue: {}
+      contractKey: values?.contractKey || [],
+      contractValue: values?.contractValue || {}
     }
   });
 
   const contractKey = form.watch('contractKey');
-
-  const { mutate: update, isPending: updatePending } = useMutation({
-    mutationKey: ['update', params.id],
-    mutationFn: (values: any) => webApi.jobApi.updateJob(params.id, values),
-    onSuccess: async () => {
-      await revalidate();
-      await queryClient.invalidateQueries({ queryKey: ['job', params.id] });
-      toast.success('Job updated');
-      startTransition(() => {
-        router.back();
-        setTimeout(() => {
-          reset();
-        }, 1000);
-      });
-    }
-  });
 
   const { mutate, isPending } = useMutation({
     mutationFn: (values: any) => webApi.jobApi.publishJob(values),
@@ -489,23 +510,8 @@ function Step3() {
       contact: data.contractValue
     };
 
-    if (params.id) {
-      update(omit(formatedValues, 'favorited'));
-    } else {
-      mutate(formatedValues);
-    }
+    mutate(omit(formatedValues, ['contractKey', 'contractValue']));
   }
-
-  React.useEffect(() => {
-    if (values?.contact) {
-      const contractKey = Object.keys(values.contact);
-      form.reset({
-        contractKey,
-        contractValue: values.contact
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values?.contact]);
 
   return (
     <Form {...form}>
@@ -530,9 +536,12 @@ function Step3() {
                             size="large"
                             checked={field.value?.includes(item.id)}
                             onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(field.value?.filter((value) => value !== item.id));
+                              const newValues = checked
+                                ? [...field.value, item.id]
+                                : field.value?.filter((value) => value !== item.id);
+
+                              field.onChange(newValues);
+                              setValues({ contractKey: newValues });
                             }}
                           />
                         </FormControl>
@@ -549,7 +558,20 @@ function Step3() {
                       render={({ field }) => (
                         <FormItem className="flex-1">
                           <FormControl>
-                            <Input placeholder={item.placeholder} {...field} />
+                            <Input
+                              placeholder={item.placeholder}
+                              {...field}
+                              value={field.value}
+                              onChange={(e) => {
+                                field.onChange(e.target.value);
+                                setValues({
+                                  contractValue: {
+                                    ...values.contractValue,
+                                    [item.id]: e.target.value
+                                  }
+                                });
+                              }}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -570,7 +592,7 @@ function Step3() {
         </Button>
         <Button
           type="submit"
-          isLoading={isPending || updatePending || pending}
+          isLoading={isPending || pending}
           className="w-full sm:w-[270px]"
           onClick={() => submitRef.current?.click()}
         >
@@ -584,7 +606,7 @@ function Step3() {
 const steps = [Step1, Step2, Step3];
 
 export default function Page() {
-  const { step, reset, setValues } = useJobStore();
+  const { step, reset } = useJobStore();
   const params = useParams();
   const router = useRouter();
 
@@ -592,37 +614,24 @@ export default function Page() {
 
   const Component = steps[step] || null;
 
-  const { isPending, data } = useQuery({
-    enabled: !!params.id,
-    queryKey: ['job', params.id],
-    staleTime: Infinity,
-    queryFn: () => webApi.jobApi.getJob(params.id as string)
-  });
-
-  React.useEffect(() => {
-    if (data && params.id) {
-      setValues(data);
-    }
-  }, [data, params.id, setValues]);
-
   React.useEffect(() => {
     if (!userInfo) {
       router.push('/jobs');
     }
   }, [router, userInfo]);
 
-  function onBack() {
-    router.back();
-    if (params.id) {
-      setTimeout(() => {
-        reset();
-      }, 1000);
-    }
-  }
-
   return (
     <main className="relative h-full w-full justify-between overflow-y-auto bg-neutral-white sm:py-12">
-      <button aria-label="Close" className="absolute right-6 top-6 outline-none" onClick={onBack}>
+      <button
+        aria-label="Close"
+        className="absolute right-6 top-6 outline-none"
+        onClick={() => {
+          router.back();
+          setTimeout(() => {
+            reset();
+          }, 300);
+        }}
+      >
         <XIcon size={28} />
       </button>
       <div className="flex h-full w-full flex-col items-center px-5 py-6 sm:mx-auto sm:max-w-5xl sm:p-0">
@@ -630,7 +639,7 @@ export default function Page() {
         <h1 className="my-8 font-next-book-bold text-[22px] font-bold sm:text-[28px]">
           {params.id ? 'Edit Job Post' : 'Post a Web3 Position'}
         </h1>
-        {isPending && params.id ? <Spinner size={40} /> : <Component />}
+        <Component />
       </div>
     </main>
   );

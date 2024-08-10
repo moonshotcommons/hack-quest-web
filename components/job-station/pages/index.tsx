@@ -16,6 +16,7 @@ import MenuLink from '@/constants/MenuLink';
 import { Category } from '../components/category';
 import { getCachedJobs } from '../utils/actions';
 import { FilterModal } from '../components/filter-modal';
+import { PostButton } from '../components/post-button';
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const { lang } = params;
@@ -112,13 +113,13 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
             <div className="sticky top-10 flex flex-col gap-8">
               <JobFilter />
               {isAuthenticated() && <FavoriteJob />}
-              {total <= 0 && isAuthenticated() && (
-                <Link href="/jobs/publish">
+              {total <= 0 && (
+                <PostButton>
                   <button className="sm:card-hover inline-flex w-full items-center  justify-between rounded-2xl bg-neutral-light-gray p-4 font-next-book-bold text-lg font-bold outline-none">
                     <span>Post a Web3 Job</span>
                     <MoveRightIcon size={20} />
                   </button>
-                </Link>
+                </PostButton>
               )}
             </div>
           </div>

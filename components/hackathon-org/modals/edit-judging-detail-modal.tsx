@@ -17,8 +17,14 @@ import { AddJudgeAccounts } from './add-judge-accounts';
 import webApi from '@/service';
 import { message } from 'antd';
 import { useRouter } from 'next/navigation';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Slider } from '../common/slider';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 const formSchema = z
   .object({
@@ -146,16 +152,13 @@ export function EditJudgingDetailModal({
     }
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
-    onSuccess: (data) => {
-      // 判断是否为重复账号
-      if (judgeAccounts.some((judge) => judge.email === data.email)) {
-        message.error('Already exists');
-        return;
+  const checkJudgeAccount = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.checkJudgeAccount(initialValues?.hackathonId, email),
+    onSuccess: () => {
+      const email = form.getValues('judgeAccount');
+      if (email) {
+        mutate(email);
       }
-      setJudgeAccounts((prev) => [...prev, data]);
-      form.resetField('judgeAccount', { defaultValue: '' });
     },
     onError: (error: any) => {
       if (error.code === 404) {
@@ -163,6 +166,19 @@ export function EditJudgingDetailModal({
           message: 'Please enter a valid email address that has been registered in HackQuest.'
         });
       }
+      if (error.code === 400) {
+        form.setError('judgeAccount', {
+          message: 'This account has been added as a judge in this hackathon. Please try another email.'
+        });
+      }
+    }
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
+    onSuccess: (data) => {
+      setJudgeAccounts((prev) => [...prev, data]);
+      form.resetField('judgeAccount', { defaultValue: '' });
     }
   });
 
@@ -186,7 +202,7 @@ export function EditJudgingDetailModal({
   const [criteria, setCriteria] = React.useState<{ type: string; content: object }>();
 
   function onSliderValueChange(value: number) {
-    const totalVote = form.getValues('totalVote');
+    const totalVote = form.getValues('totalVote') || 0;
     setSliderValue(value);
     setUserVotes(Math.round((value / 100) * Number(totalVote)));
     setJudgeVotes(Math.round(((100 - value) / 100) * Number(totalVote)));
@@ -195,14 +211,20 @@ export function EditJudgingDetailModal({
   async function addJudgeAccount() {
     const isValid = await form.trigger('judgeAccount');
     const email = form.getValues('judgeAccount');
+    if (judgeAccounts.some((judge) => judge.email === email)) {
+      form.setError('judgeAccount', {
+        message: 'This account has been added in this hackathon. Please try another email.'
+      });
+      return;
+    }
     if (email && isValid) {
-      mutate(email);
+      checkJudgeAccount.mutate(email);
     }
   }
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     let values: any = {
-      rewardId: initialValues?.rewardId,
+      // rewardId: initialValues?.rewardId,
       hackathonId: initialValues?.hackathonId,
       criteria: criteria,
       disableJudge: data.disableJudge,
@@ -581,7 +603,7 @@ export function EditJudgingDetailModal({
                     )}
                   />
                 )}
-                {judgeMode === 'all' && (
+                {judgeMode === 'all' && voteMode === 'fixed' && (
                   <div className="w-full space-y-1">
                     <label className="body-m text-neutral-rich-gray">Votes Proportion*</label>
                     <div className="flex w-full items-center justify-between">
@@ -661,7 +683,7 @@ export function EditJudgingDetailModal({
                             size="small"
                             type="button"
                             className="w-[140px]"
-                            isLoading={isPending}
+                            isLoading={checkJudgeAccount.isPending || isPending}
                             onClick={addJudgeAccount}
                           >
                             Add

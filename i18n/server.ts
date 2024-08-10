@@ -13,7 +13,7 @@ const initI18next = async (lng = defaultLocale, ns = TransNs.BASIC) => {
       // debug: true,
       supportedLngs: locales,
       fallbackLng: defaultLocale,
-      lng: undefined,
+      lng,
       fallbackNS: TransNs.BASIC,
       defaultNS: TransNs.BASIC,
       ns: transNs

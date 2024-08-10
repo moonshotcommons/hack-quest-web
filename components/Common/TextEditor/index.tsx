@@ -18,10 +18,12 @@ const placeholder = {
 interface TextEditorProps {
   onChange?: (editor: IDomEditor) => void;
   onCreated?: (editor: IDomEditor) => void;
-  defaultContent: any[];
+  defaultContent?: any[];
   imageUploadPath?: string;
   simpleModel?: boolean;
   className?: string;
+  defaultHtml?: string;
+  readOnly?: boolean;
 }
 
 export const TEXT_EDITOR_TYPE = 'text-editor';
@@ -45,7 +47,9 @@ const TextEditor: FC<TextEditorProps> = ({
   defaultContent = [],
   imageUploadPath = '/text-editor/images',
   simpleModel = false,
-  className
+  className,
+  defaultHtml,
+  readOnly = false
 }) => {
   const [editor, setEditor] = useState<IDomEditor | null>(null);
   const { lang } = useLang();
@@ -54,6 +58,8 @@ const TextEditor: FC<TextEditorProps> = ({
   };
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: placeholder[lang],
+    readOnly,
+
     MENU_CONF: {
       uploadImage: {
         async customUpload(file: File, insertFn: Function) {
@@ -88,7 +94,8 @@ const TextEditor: FC<TextEditorProps> = ({
           setEditor(editor);
           onCreated?.(editor);
         }}
-        defaultContent={defaultContent}
+        defaultHtml={defaultHtml || ''}
+        defaultContent={defaultContent || []}
         mode="default"
         style={{ height: '420px' }}
         onChange={onChange}

@@ -1,99 +1,72 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import BaseWinners from './BaseWinners';
 import OtherWinners from './OtherWinners';
 import Button from '@/components/Common/Button';
-import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
+import { HackathonJugingInfoType, HackathonWinnerType } from '@/service/webApi/resourceStation/type';
+import Loading from '@/components/Common/Loading';
 
-interface WinnerViewProp {}
+interface WinnerViewProp {
+  winners: HackathonWinnerType[];
+  handleAdd: (type: 'base' | 'other') => void;
+  handleDelete: (winner: HackathonWinnerType) => void;
+  handleEdit: (winner: HackathonWinnerType) => void;
+  loading: boolean;
+  judgeInfo: HackathonJugingInfoType;
+  handleAnnounce: VoidFunction;
+}
 
-const WinnerView: React.FC<WinnerViewProp> = () => {
-  const [baseWinners, setBaseWinners] = useState<any>([
-    {
-      prizeName: 'fisrt',
-      id: 1,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 1,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt',
-      id: 2,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 2,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt1',
-      id: 3,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 3,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt2',
-      id: 4,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 4,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt3',
-      id: 5,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 5,
-      totalVotes: 100
-    },
-    {
-      prizeName: 'fisrt4',
-      id: 6,
-      image: '/images/learn/hack_logo.png',
-      name: 'MetaLine-X',
-      team: 'Scroll',
-      rank: 6,
-      totalVotes: 100
-    }
-  ]);
-  const [otherWinners, setOtherWinners] = useState<any>([]);
-  const [announceOpen, setAnnounceOpen] = useState(false);
-  const confirmAnnounce = () => {
-    setAnnounceOpen(false);
-  };
+const WinnerView: React.FC<WinnerViewProp> = ({
+  winners,
+  handleAdd,
+  handleDelete,
+  handleEdit,
+  loading,
+  judgeInfo,
+  handleAnnounce
+}) => {
+  const { baseWinners, otherWinners, announceDisabled } = useMemo(() => {
+    return {
+      baseWinners: winners.filter((v) => v.type === 'base'),
+      otherWinners: winners.filter((v) => v.type === 'other'),
+      announceDisabled: winners.some((v) => !v.name || !v.project?.id) || !winners.length
+    };
+  }, [winners]);
   return (
-    <div className="flex flex-col gap-[28px]">
-      <BaseWinners winners={baseWinners} setWinners={setBaseWinners} />
-      <OtherWinners winners={otherWinners} setWinners={setOtherWinners} />
-      <div className="flex justify-end">
-        <Button className="h-[48px] w-[320px]" disabled={false} onClick={() => setAnnounceOpen(true)}>
-          announce winners
-        </Button>
+    <Loading loading={loading}>
+      <div className="flex flex-col gap-[28px]">
+        <BaseWinners
+          judgeInfo={judgeInfo}
+          loading={loading}
+          winners={baseWinners}
+          handleEdit={handleEdit}
+          handleAdd={() => handleAdd('base')}
+          handleDelete={() => handleDelete(baseWinners[baseWinners.length - 1])}
+        />
+        <OtherWinners
+          judgeInfo={judgeInfo}
+          loading={loading}
+          winners={otherWinners}
+          handleEdit={handleEdit}
+          handleAdd={() => handleAdd('other')}
+          handleDelete={handleDelete}
+        />
+        {!judgeInfo.reward?.judge?.announce && (
+          <div className="flex justify-end">
+            <Button
+              type="primary"
+              className="h-[48px] w-[320px]"
+              disabled={announceDisabled}
+              onClick={() => {
+                if (announceDisabled) return;
+                handleAnnounce();
+              }}
+            >
+              announce winners
+            </Button>
+          </div>
+        )}
       </div>
-      <ConfirmModal
-        open={announceOpen}
-        autoClose={false}
-        onClose={() => setAnnounceOpen(false)}
-        onConfirm={confirmAnnounce}
-        className=" px-[132px] sm:!w-[808px] sm:!max-w-[808px]"
-      >
-        <div className="body-m flex flex-col items-center gap-[40px] text-neutral-black">
-          <p className="text-h3">Do you want to announce winners?</p>
-          <p className="">
-            This step cannot be undone and all submitters will be notified. Please check the reward announcement before
-            you announce winners.
-          </p>
-          <p className="cursor-pointer underline">Click to check the reward announcement</p>
-        </div>
-      </ConfirmModal>
-    </div>
+    </Loading>
   );
 };
 
