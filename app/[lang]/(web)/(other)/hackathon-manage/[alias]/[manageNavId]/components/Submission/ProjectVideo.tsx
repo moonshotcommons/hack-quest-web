@@ -9,7 +9,7 @@ interface ProjectVideoProps {
 }
 
 const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ videoUrl }) {
-  const isYoutubeUrl = videoUrl.includes('youtube') || videoUrl.includes('youtu.be');
+  const isYoutubeUrl = videoUrl?.includes('youtube') || videoUrl?.includes('youtu.be');
 
   const renderVideo = () => {
     if (isYoutubeUrl) {
@@ -30,6 +30,7 @@ const ProjectVideo: FC<ProjectVideoProps> = function ProjectVideo({ videoUrl }) 
       );
     }
   };
+  if (!videoUrl) return null;
 
   return (
     <>

@@ -44,6 +44,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { getInfo, getStepIndex } = useDealHackathonData();
+  const [infoList, setInfoList] = useState<HackathonManageApplicationType[]>([]);
   const handleCheck = (item: HackathonManageApplicationType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -107,15 +108,17 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   }, [status]);
 
   const tableList = useMemo(() => {
-    const newList = cloneDeep(list).map((v, i) => ({
+    const l = list.map((v, i) => ({
       ...v,
       index: i
     }));
-    teamIds.map((id) => {
-      const index = list.findIndex((l) => l.id === id);
-      const item = list[index];
-      newList.splice(index + 1, 0, ...(item?.members || []));
-    });
+    const newList = cloneDeep(l);
+    // teamIds.map((id) => {
+    //   const index = list.findIndex((l) => l.id === id);
+    //   const item = list[index];
+    //   newList.splice(index + 1, 0, ...(item?.members || []));
+    // });
+    setInfoList(newList.filter((v) => !v.pId));
     return newList;
   }, [list, teamIds]);
 
@@ -200,19 +203,17 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         open={!!curInfo?.id && !!curId}
         curInfo={curInfo}
         renderItem={() =>
-          tableList
-            ?.filter((v) => !v.pId)
-            ?.map((info) => (
-              <InfoContent
-                key={info.id}
-                info={info}
-                onClose={() => {
-                  setCurInfo(null);
-                  setCurId('');
-                }}
-                handleStautusSingle={handleStautusSingle}
-              />
-            ))
+          infoList?.map((info) => (
+            <InfoContent
+              key={info.id}
+              info={info}
+              onClose={() => {
+                setCurInfo(null);
+                setCurId('');
+              }}
+              handleStautusSingle={() => {}}
+            />
+          ))
         }
       />
     </div>
