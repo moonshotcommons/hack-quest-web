@@ -202,7 +202,7 @@ export function EditJudgingDetailModal({
   const [criteria, setCriteria] = React.useState<{ type: string; content: object }>();
 
   function onSliderValueChange(value: number) {
-    const totalVote = form.getValues('totalVote');
+    const totalVote = form.getValues('totalVote') || 0;
     setSliderValue(value);
     setUserVotes(Math.round((value / 100) * Number(totalVote)));
     setJudgeVotes(Math.round(((100 - value) / 100) * Number(totalVote)));
@@ -603,7 +603,7 @@ export function EditJudgingDetailModal({
                     )}
                   />
                 )}
-                {judgeMode === 'all' && (
+                {judgeMode === 'all' && voteMode === 'fixed' && (
                   <div className="w-full space-y-1">
                     <label className="body-m text-neutral-rich-gray">Votes Proportion*</label>
                     <div className="flex w-full items-center justify-between">
