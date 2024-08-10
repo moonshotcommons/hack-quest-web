@@ -52,15 +52,15 @@ export function OnChainActivity() {
             </button>
           )}
           <div className="flex flex-col gap-1">
-            <span className="text-lg">{profile?.onChainActivity?.balance}</span>
+            <span className="text-lg">{profile?.onChainActivity?.balance?.toFixed(2)}</span>
             <span className="text-sm text-neutral-medium-gray">Deployed Contracts</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="text-lg">{profile?.onChainActivity?.transactionCount}</span>
+            <span className="text-lg">{Math.round(profile?.onChainActivity?.transactionCount || 0)}</span>
             <span className="text-sm text-neutral-medium-gray">Defi Interaction</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="text-lg">{profile?.onChainActivity?.balance}</span>
+            <span className="text-lg">{Math.round(profile?.onChainActivity?.transactionCount || 0)}</span>
             <span className="text-sm text-neutral-medium-gray">Total Contract Deployed</span>
           </div>
         </div>
