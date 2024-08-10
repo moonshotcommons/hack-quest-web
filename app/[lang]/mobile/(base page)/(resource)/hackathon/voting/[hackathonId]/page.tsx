@@ -36,6 +36,16 @@ const HackathonVotingPage: FC<HackathonVotingPageProps> = async ({ params }) => 
   if (isUuid(params.hackathonId)) {
     permanentRedirect(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   }
+
+  let userInfo = null;
+  try {
+    userInfo = await webApi.userApi.getUserInfo();
+  } catch (e) {
+    permanentRedirect(MenuLink.HACKATHON_VOTING);
+  }
+  if (!userInfo) {
+    permanentRedirect(MenuLink.HACKATHON_VOTING);
+  }
   const otherHackathons = await webApi.resourceStationApi.getVoteOtherHackathons(hackathon.id);
   return (
     <>

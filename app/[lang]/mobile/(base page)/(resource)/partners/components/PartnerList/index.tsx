@@ -2,9 +2,9 @@
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import React, { useMemo, useState } from 'react';
-import Image from 'next/image';
 import PartnerCardModal from './PartnerCardModal';
 import { PartnerShipType } from '@/service/webApi/resourceStation/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface PartnerListProp {
   lang: Lang;
@@ -55,14 +55,16 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang, partnerShips }) => {
         {list.map((v, i) => (
           <div
             key={i}
-            className="card-hover w-[calc((100%-0.75rem)/2)] overflow-hidden rounded-[1rem] bg-neutral-white"
+            className="w-[calc((100%-0.75rem)/2)] overflow-hidden rounded-[1rem] bg-neutral-white shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
             onClick={() => {
               setCurPartner(v);
               setModalOpen(true);
             }}
           >
             <div className="relative h-0 w-full bg-neutral-light-gray pt-[58%]">
-              {v.logo && <Image src={v.logo} alt={v.name} fill className="object-cover" />}
+              <div className="absolute left-0 top-0 h-full w-full p-[1.25rem]">
+                <BaseImage src={v.logo} alt={v.name} className="h-full w-full" contain={true} />
+              </div>
             </div>
             <div className="h-[3.25rem] p-[.75rem]">
               <h2 className="caption-10pt line-clamp-2 text-neutral-off-black">{v.name}</h2>

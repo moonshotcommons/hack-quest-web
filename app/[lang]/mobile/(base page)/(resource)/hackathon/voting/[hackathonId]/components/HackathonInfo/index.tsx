@@ -16,7 +16,7 @@ import RoleJugleIcon from '@/components/Common/Icon/RoleJugle';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import { HackathonVoteContext, ViewValue } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
-import { decimalCountPercent } from '@/helper/utils';
+import { decimalCountPercent, separationNumber } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import message from 'antd/es/message';
@@ -41,21 +41,25 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   );
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { voteData, setVoteData, judgeInfo, view, remainingVotes } = useContext(HackathonVoteContext);
+  const { voteData, setVoteData, judgeInfo, view, totalLeftVotes } = useContext(HackathonVoteContext);
   const [loading, setLoading] = useState(false);
   const { getStepIndex } = useDealHackathonData();
   const isCanSubmit = useMemo(() => {
     const isReview = getStepIndex(hackathon) < 2;
-    return voteData.reduce((pre, cur) => pre + cur.vote, 0) && isReview;
-  }, [voteData, hackathon]);
+    const isVote = !!(voteData.reduce((pre, cur) => pre + Number(cur.vote), 0) && isReview && judgeInfo?.isJudge);
+    return isVote;
+  }, [voteData, judgeInfo, hackathon]);
   const votesPercent = useMemo(() => {
+    const totalVotes =
+      judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] +
+      judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE];
     return {
       [HackathonTypeVotesRoleType.USER]: decimalCountPercent(
-        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] / judgeInfo.totalVotes,
+        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] / totalVotes,
         2
       ),
       [HackathonTypeVotesRoleType.JUDGE]: decimalCountPercent(
-        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE] / judgeInfo.totalVotes,
+        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE] / totalVotes,
         2
       )
     };
@@ -181,18 +185,20 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             <div className={`my-[.25rem] flex rounded-[8px] bg-yellow-extra-light px-[1.5rem] py-[.5rem]`}>
               {judgeInfo?.judge?.voteMode === 'fixed' && (
                 <div className="flex-1 border-r border-neutral-light-gray text-center">
-                  <p className="body-l-bold text-neutral-off-black">{remainingVotes}</p>
+                  <p className="body-l-bold text-neutral-off-black">{separationNumber(totalLeftVotes)}</p>
                   <p className="caption-12pt text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
                 </div>
               )}
               {judgeInfo?.judge?.judgeMode === 'judges' && judgeInfo?.judge?.voteMode === 'score' ? (
                 <div className="flex-1 text-center">
-                  <p className="body-l-bold text-neutral-off-black">{judgeInfo?.judge?.judgeProjectVote}</p>
+                  <p className="body-l-bold text-neutral-off-black">
+                    {separationNumber(judgeInfo?.judge?.judgeProjectVote)}
+                  </p>
                   <p className="caption-12pt text-neutral-medium-gray">{'MAX Votes Per Project'}</p>
                 </div>
               ) : (
                 <div className="flex-1 text-center">
-                  <p className="body-l-bold text-neutral-off-black">{judgeInfo?.totalVotes}</p>
+                  <p className="body-l-bold text-neutral-off-black">{separationNumber(judgeInfo?.totalVotes)}</p>
                   <p className="caption-12pt text-neutral-medium-gray">{t('hackathonVoting.totalVotes')}</p>
                 </div>
               )}

@@ -1,3 +1,5 @@
+export const joinPartnerLink = 'https://xsxo494365r.typeform.com/to/tJymzU8a?typeform-source=www.hackquest.io';
+
 export const countData = [
   {
     id: 1,

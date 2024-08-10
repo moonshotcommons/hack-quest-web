@@ -1,6 +1,5 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import Image from 'next/image';
 import React, { useContext } from 'react';
 import TrackTag from '@/components/Common/TrackTag';
 import Button from '@/components/Common/Button';
@@ -9,6 +8,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
 import { IoCloseCircle } from 'react-icons/io5';
 import { PartnerShipType } from '@/service/webApi/resourceStation/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface PartnerCardModalProp {
   onClose: VoidFunction;
@@ -28,8 +28,8 @@ const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partn
       iconClassName="right-[1rem] top-[1rem]"
     >
       <div className="w-[calc(100vw-2.5rem)] overflow-hidden rounded-[1rem] bg-neutral-white">
-        <div className="relative h-[12.3125rem] w-full overflow-hidden bg-neutral-light-gray">
-          {partner.logo && <Image src={partner.logo} alt={partner.name} fill className="object-contain" />}
+        <div className="relative h-[12.3125rem] w-full overflow-hidden bg-neutral-light-gray p-[1.875rem]">
+          <BaseImage src={partner.logo} alt={partner.name} className="h-full w-full" contain={true} />
         </div>
         <div className="flex flex-col justify-between gap-[1rem] p-[1.25rem]">
           <div className="flex flex-col gap-[.5rem]">
