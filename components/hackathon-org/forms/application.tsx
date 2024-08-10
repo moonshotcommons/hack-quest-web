@@ -203,7 +203,7 @@ export function ApplicationForm({
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^\d*$/.test(value)) {
-                          field.onChange(e);
+                          field.onChange(value);
                         }
                       }}
                       autoComplete="off"
@@ -233,7 +233,7 @@ export function ApplicationForm({
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^\d*$/.test(value)) {
-                          field.onChange(e);
+                          field.onChange(value);
                         }
                       }}
                       autoComplete="off"
