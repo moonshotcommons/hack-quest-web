@@ -133,7 +133,7 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
   const { profile, invalidate } = useProfile();
 
   const account = useAccount();
-  const { openConnectModal } = useConnectModal();
+  const { connectModalOpen, openConnectModal } = useConnectModal();
 
   const connectMutation = useMutation({
     mutationFn: () => webApi.userApi.getGithubConnectUrl(),
@@ -166,6 +166,12 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
       setStep(3);
     }
   });
+
+  React.useEffect(() => {
+    if (connectModalOpen) {
+      document.body.style.pointerEvents = 'auto';
+    }
+  }, [connectModalOpen]);
 
   React.useEffect(() => {
     window.addEventListener('storage', (e) => {

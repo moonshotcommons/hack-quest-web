@@ -202,8 +202,6 @@ function Step3() {
   React.useEffect(() => {
     if (connectModalOpen) {
       document.body.style.pointerEvents = 'auto';
-    } else {
-      document.body.style.pointerEvents = 'none';
     }
   }, [connectModalOpen]);
 
