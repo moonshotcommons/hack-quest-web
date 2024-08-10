@@ -20,10 +20,11 @@ import webApi from '@/service';
 import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { eas, refUID, schemaUID, submitSignedAttestation, zeroAddress } from '../utils/utils';
 import dayjs from 'dayjs';
 import { useEthersSigner } from '../utils/wagmi-utils';
+import { mainnet } from 'wagmi/chains';
 
 type Store = {
   current: number;
@@ -232,6 +233,8 @@ function Step4() {
   const { address } = useAccount();
   const { state, reset } = useAttestation();
   const signer = useEthersSigner();
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
   const [loading, setLoading] = React.useState(false);
 
   async function createAttestation(data: { attest: boolean; comment?: string }) {
@@ -248,6 +251,13 @@ function Step4() {
       ]);
 
       eas.connect(signer);
+
+      if (chainId !== mainnet.id) {
+        toast.error('Please switch to mainnet');
+        await switchChainAsync({ chainId: mainnet.id });
+        setLoading(false);
+        return;
+      }
 
       const offchain = await eas.getOffchain();
 
