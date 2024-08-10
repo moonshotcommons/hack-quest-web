@@ -14,6 +14,7 @@ const InfoModal: React.FC<InfoModalProp> = ({ open, curInfo, renderItem }) => {
   const [isInit, setIsInit] = useState(true);
   const scrollContainerRef = useRef<{ changeTranslateX: (x: number) => void }>(null);
   const [show, setShow] = useState(false);
+
   useEffect(() => {
     if (!isInit && curInfo?.id) {
       scrollContainerRef?.current?.changeTranslateX(-908 * curInfo.index);
