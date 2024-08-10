@@ -61,7 +61,13 @@ function MintButton({
   }
 
   return (
-    <Button size="small" className="w-[140px]" disabled={certificate.mint} isLoading={isPending} onClick={onClick}>
+    <Button
+      size="small"
+      className="w-[140px] enabled:hover:scale-100"
+      disabled={certificate.mint}
+      isLoading={isPending}
+      onClick={onClick}
+    >
       {certificate.mint ? 'Minted' : 'Mint'}
     </Button>
   );
