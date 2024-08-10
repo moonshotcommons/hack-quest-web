@@ -118,7 +118,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
               ) : (
                 <Table
                   className="table-fixed"
-                  tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto "
+                  tableContainerClassName="max-h-full rounded-b-[8px] border-l border-b border-neutral-light-gray overflow-auto no-scrollbar "
                 >
                   <TableBody className={`body-s w-full text-neutral-off-black`}>
                     {tableList.map((item) => (

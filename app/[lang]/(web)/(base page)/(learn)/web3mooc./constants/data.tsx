@@ -154,27 +154,19 @@ export const syllabusData = [
     description:
       'An overview of the different areas of finance and their Web3 equivalents, such as payment, wealth management, and financing. We will discuss how Web3 is being applied across finance by startups as well as banks.',
     speaker: 'Dr. Ernie Teo, College of Business, NTU',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/19zieHah8bFbmH6cybr3Av22UwxbjL2Do/view',
+    slide: 'https://drive.google.com/file/d/1i6wj_Mh6eI5Te6LvYcAt8ANgelowRodB/view',
     expand: false
   },
-  // {
-  //   name: '',
-  //   time: '9-10:30 AM SGT, August 6th 2024 / 9-10:30 PM EST, August 5th 2024',
-  //   description: '',
-  //   speaker: '',
-  //   video: '',
-  //   slide: '',
-  //   expand: false
-  // },
   {
-    name: 'Cross-Chain Future: Smart Contract and Interoperability',
+    // name: 'Cross-Chain Future: Smart Contract and Interoperability',
+    name: 'Decoupling Blockchain Interoperability Layers & How to Scale the Interchain',
     time: '9-10:30 AM SGT, August 6th 2024 / 9-10:30 PM EST, August 5th 2024',
     description:
       'This session will focus on the future of blockchains and how smart contracts can interact with each other across different blockchain ecosystems to solve the challenges of blockchain scaling and interoperability. ',
     speaker: 'Sergey Gorbunov, Axelar',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1tI0BWbtLBGwznlllCOZYk7AHyPUjH1FV/view',
+    slide: 'https://drive.google.com/file/d/1xEGTn-6sRRvWEGLeZ85w_NBbk6jWYyGa/view',
     expand: false
   },
   {
