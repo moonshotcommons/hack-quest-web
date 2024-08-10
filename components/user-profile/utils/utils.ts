@@ -20,6 +20,8 @@ export const schemaUID = '0xa5339faa62ade78a69470f5882104959e53e286d229ba2658f6f
 
 export const refUID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 
+export const zeroAddress = '0x0000000000000000000000000000000000000000';
+
 export const eas = new EAS(EASContractAddress);
 
 (BigInt.prototype as any).toJSON = function () {
