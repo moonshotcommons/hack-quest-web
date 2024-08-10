@@ -58,9 +58,10 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
     }
     return info;
   };
-  const handleDown = () => {
-    if (!checkItems.length) return;
-    const newCheckItems = structuredClone(checkItems);
+  const handleDown = (item?: ProjectType) => {
+    const items = item ? [item] : checkItems;
+    if (!items.length) return;
+    const newCheckItems = structuredClone(items);
     const submissionData: Record<string, any>[] = [];
 
     newCheckItems.forEach((v) => {
@@ -101,7 +102,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
   }, [list]);
   return (
     <div className="flex w-full flex-1 flex-col">
-      <Operation checkIds={checkItems.map((v) => v.id)} handleDown={handleDown} />
+      <Operation checkIds={checkItems.map((v) => v.id)} handleDown={() => handleDown()} />
       <AuditTable
         checkIds={checkItems.map((v) => v.id)}
         handleCheckAll={handleCheckAll}
@@ -118,7 +119,14 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
         open={!!curInfo?.id}
         curInfo={curInfo}
         renderItem={() =>
-          tableList?.map((info) => <InfoContent key={info.id} info={info} onClose={() => setCurInfo(null)} />)
+          tableList?.map((info) => (
+            <InfoContent
+              key={info.id}
+              info={info}
+              handleDown={() => handleDown(info)}
+              onClose={() => setCurInfo(null)}
+            />
+          ))
         }
       />
     </div>
