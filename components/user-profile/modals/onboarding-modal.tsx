@@ -295,8 +295,10 @@ function Step3({ onClose }: { onClose?: () => void }) {
     mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
     onSuccess: () => {
       toast.success('Profile updated');
-      invalidate();
       onClose?.();
+      setTimeout(() => {
+        invalidate();
+      }, 1000);
     }
   });
 
@@ -447,8 +449,6 @@ export function OnboardingModal() {
         setStep(2);
       } else if (!progress.includes(3)) {
         setStep(3);
-      } else {
-        setStep(1);
       }
     }
   }, [open, profile?.isCurrentUser, profile?.progress]);

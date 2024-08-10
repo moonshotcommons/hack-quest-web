@@ -37,10 +37,10 @@ const gradeRanges: Record<string, [number, number]> = {
 };
 
 export function getGrade(score?: number) {
-  if (!score) return 'N/A';
+  if (!score) return 'C';
   for (let grade in gradeRanges) {
     const [min, max] = gradeRanges[grade];
-    if (score >= min && score < max) {
+    if (score >= min && score <= max) {
       return grade;
     }
   }

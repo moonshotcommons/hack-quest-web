@@ -21,8 +21,7 @@ import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
-import { eas, refUID, schemaUID, submitSignedAttestation } from '../utils/utils';
-import { ethers } from 'ethers';
+import { eas, refUID, schemaUID, submitSignedAttestation, zeroAddress } from '../utils/utils';
 import dayjs from 'dayjs';
 import { useEthersSigner } from '../utils/wagmi-utils';
 
@@ -255,7 +254,7 @@ function Step4() {
       const offchainAttestation = await offchain.signOffchainAttestation(
         {
           schema: schemaUID,
-          recipient: ethers.ZeroAddress,
+          recipient: zeroAddress,
           refUID: refUID,
           expirationTime: BigInt(0),
           time: BigInt(dayjs().unix()),
