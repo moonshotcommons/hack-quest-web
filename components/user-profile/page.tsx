@@ -105,7 +105,7 @@ export default function Page() {
               >
                 <ChevronRightIcon className="duration-300 group-data-[state=closed]:rotate-180" size={20} />
               </button>
-              <div className="group-data-[state=closed]:hidden">
+              <div className="w-full group-data-[state=closed]:hidden">
                 <Attestations />
               </div>
             </div>
