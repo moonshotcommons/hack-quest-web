@@ -11,7 +11,7 @@ export function CompleteProfile() {
   const { profile } = useProfile();
 
   React.useEffect(() => {
-    if (!localStorage.getItem('completeProfile') && !profile?.progress?.length && profile?.isCurrentUser) {
+    if (!localStorage.getItem('completeProfile') && (profile?.progress?.length || 0) < 3 && profile?.isCurrentUser) {
       setTimeout(() => {
         onOpen('onboarding');
       }, 1000);
