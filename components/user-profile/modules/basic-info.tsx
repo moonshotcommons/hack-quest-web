@@ -173,7 +173,7 @@ export function BasicInfo() {
         <div className="absolute right-5 top-6 flex items-center gap-4 sm:right-0 sm:top-10">
           {profile?.isCurrentUser && (
             <button className="outline-none" onClick={() => onOpen('profile')}>
-              <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              <EditIcon className="mt-[3px] h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           )}
           <ShareProfile />
