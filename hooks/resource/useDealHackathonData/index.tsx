@@ -1,5 +1,7 @@
 import moment from 'moment';
 import {
+  HackathonManageApplicationMemberType,
+  HackathonManageApplicationType,
   HackathonMemberType,
   HackathonRewardType,
   HackathonStatusType,
@@ -211,7 +213,10 @@ const useDealHackathonData = () => {
     }
   };
 
-  const getInfo = (hackathon: HackathonType, item: HackathonMemberType) => {
+  const getInfo = (
+    hackathon: HackathonType,
+    item: HackathonMemberType | HackathonManageApplicationType | HackathonManageApplicationMemberType
+  ) => {
     item.info = item.info || {};
     const info: Record<string, any> = {
       createdAt: dayjs(item.createdAt).format('YYYY-M-D HH:mm')
@@ -284,6 +289,8 @@ const useDealHackathonData = () => {
     dealModalList,
     getSectionProgress,
     getHackathonNavList,
+    getInfoObj,
+    getInfo,
     hackathonDownload,
     getHackathonTimeSame,
     getLinks,

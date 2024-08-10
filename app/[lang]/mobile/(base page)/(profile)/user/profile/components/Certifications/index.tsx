@@ -12,9 +12,10 @@ import CertificationModal, {
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
-import { useMintCertification } from '@/hooks/useMintCertification';
 import { useRequest } from 'ahooks';
 import webApi from '@/service';
+import { useMintCertificate } from '@/hooks/certificate';
+import { ChainType } from '@/config/wagmi';
 interface PersonalLinksProps {}
 
 const MintButton = (props: {
@@ -22,12 +23,20 @@ const MintButton = (props: {
   updateSelectCertification: (certification: UserCertificateInfo) => void;
 }) => {
   const { certification, updateSelectCertification } = props;
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsyncFromEvm, safeMintAsyncFromSolana, safeMintAsyncFromSui } = useMintCertificate();
 
   const { run: safeMint, loading } = useRequest(
     async () => {
-      const res = await safeMintAsync(certification);
-
+      switch (certification.chainId) {
+        case ChainType.Solana:
+          await safeMintAsyncFromSolana(certification);
+          break;
+        case ChainType.Sui:
+          await safeMintAsyncFromSui(certification);
+          break;
+        default:
+          await safeMintAsyncFromEvm(certification);
+      }
       return await webApi.campaignsApi.getCertificationDetail(certification.id);
     },
     {

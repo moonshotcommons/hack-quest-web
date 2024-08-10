@@ -117,14 +117,15 @@ const UserModule: FC<UserModuleProps> = ({ changeNavType, toggleOpen, userInfo }
           <Intl />
         </Suspense>
       </motion.div>
-      <Link href={'/user/profile'}>
+      <Link href={`/user/${userInfo.username}`}>
         <motion.div
           variants={itemVariants}
           className="flex items-center gap-3 p-2"
           onClick={() => {
             // setAuthType(AuthType.LOGIN);
             // changeNavType(NavType.AUTH);
-            setTipsModalOpenState(true);
+            // setTipsModalOpenState(true);
+            toggleOpen();
           }}
         >
           <span>

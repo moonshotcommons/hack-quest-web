@@ -63,7 +63,7 @@ export function ProjectCard({
       e.stopPropagation();
       e.preventDefault();
       if ((course?.progress || 0) >= 1) return;
-      console.log('course', course);
+
       jumpLearningLesson(course, {
         menu: getCoursePrefix(),
         idTypes: [QueryIdType.MENU_COURSE_ID, QueryIdType.DOCUMENTATION_ID],
@@ -150,8 +150,6 @@ export function DashboardProjects() {
       webApi.courseApi.getCourseListBySearch<PageResult<ProjectCourseType | ElectiveCourseType>>({ status: value }),
     select: ({ data }) => data
   });
-
-  console.log('data', data);
 
   return (
     <div className="rounded-3xl p-6 sm:bg-neutral-white">

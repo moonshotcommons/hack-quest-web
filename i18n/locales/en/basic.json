@@ -120,7 +120,9 @@
       "partners": "Partners",
       "partnersDesc": "Become Our Partner",
       "faucets": "Faucets",
-      "faucetsDesc": "Receive learning test coins"
+      "faucetsDesc": "Receive learning test coins",
+      "jobs": "Job Station",
+      "jobsDesc": "Find and apply for Web 3 jobs"
     },
     "launch": {
       "title": "Launch pool"

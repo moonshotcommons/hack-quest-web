@@ -39,8 +39,7 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
     setLoading(true);
     const res = await webApi.resourceStationApi.getHackathonVoteProjects({
       hackathonId: hackathon.id,
-      // params: search
-      params: {}
+      params: search
     });
     if (isInit) {
       setJudgeInfo(res);

@@ -74,10 +74,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       });
   };
   const needConfirm = useMemo(() => {
-    return (
+    return !!(
       hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
       !hackathon.participation?.isRegister &&
-      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      stepIndex === 0
     );
   }, [hackathon]);
 

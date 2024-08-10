@@ -34,6 +34,22 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
     }
   });
 
+  React.useEffect(() => {
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'linkDiscord') {
+        invalidate();
+      }
+    });
+    return () => {
+      window.removeEventListener('storage', (e) => {
+        if (e.key === 'linkDiscord') {
+          invalidate();
+        }
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex flex-col gap-1">
       <h2 className="text-base text-neutral-rich-gray">Social Media</h2>
@@ -53,6 +69,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
                 </span>
               </div>
               <button
+                type="button"
                 className="text-xs text-status-error-dark outline-none"
                 onClick={() => disconnectMutation.mutate()}
               >
@@ -62,6 +79,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
           ) : (
             <button
               disabled={connectMutation.isPending}
+              type="button"
               className="inline-flex items-center justify-center gap-1 rounded-[8px] border border-neutral-light-gray px-3 py-2 text-sm outline-none"
               onClick={() => connectMutation.mutate()}
             >

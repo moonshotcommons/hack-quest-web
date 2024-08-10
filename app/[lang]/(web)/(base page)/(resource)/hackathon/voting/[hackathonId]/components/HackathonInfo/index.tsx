@@ -19,9 +19,9 @@ import { HackathonVoteContext } from '../../../../constants/type';
 import { decimalCountPercent, separationNumber } from '@/helper/utils';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
-import dayjs from '@/components/Common/Dayjs';
 import message from 'antd/es/message';
 import Box from '../Box';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface HackathonInfoProp {
   hackathon: HackathonType;
@@ -36,24 +36,28 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     }))
   );
   const { lang } = useContext(LangContext);
-  const { voteData, setVoteData, judgeInfo, remainingVotes } = useContext(HackathonVoteContext);
+  const { voteData, setVoteData, judgeInfo, totalLeftVotes } = useContext(HackathonVoteContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const [loading, setLoading] = useState(false);
   const [isConfirmReload, setIsConfirmReload] = useState(false);
+  const { getStepIndex } = useDealHackathonData();
   const isCanSubmit = useMemo(() => {
-    const isReview = dayjs().tz().isBefore(hackathon.timeline?.rewardTime);
-    const isVote = !!(voteData.reduce((pre, cur) => pre + cur.vote, 0) && isReview && judgeInfo?.isJudge);
+    const isReview = getStepIndex(hackathon) < 2;
+    const isVote = !!(voteData.reduce((pre, cur) => pre + Number(cur.vote), 0) && isReview && judgeInfo?.isJudge);
     setIsConfirmReload(isVote);
     return isVote;
   }, [voteData, judgeInfo, hackathon]);
   const votesPercent = useMemo(() => {
+    const totalVotes =
+      judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] +
+      judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE];
     return {
       [HackathonTypeVotesRoleType.USER]: decimalCountPercent(
-        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] / judgeInfo.totalVotes,
+        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] / totalVotes,
         2
       ),
       [HackathonTypeVotesRoleType.JUDGE]: decimalCountPercent(
-        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE] / judgeInfo.totalVotes,
+        judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE] / totalVotes,
         2
       )
     };
@@ -183,7 +187,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
             <div className="my-[4px] flex rounded-[8px] bg-yellow-extra-light px-[24px] py-[16px]">
               {judgeInfo?.judge?.voteMode === 'fixed' && (
                 <div className="flex-1 border-r border-neutral-light-gray text-center">
-                  <p className="body-xl-bold text-neutral-off-black">{separationNumber(remainingVotes)}</p>
+                  <p className="body-xl-bold text-neutral-off-black">{separationNumber(totalLeftVotes)}</p>
                   <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.remainingVotes')}</p>
                 </div>
               )}

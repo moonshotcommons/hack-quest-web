@@ -194,9 +194,9 @@ const AuditTable: React.FC<AuditTableProp> = ({
                                       )}
                                     </div>
                                     <div
-                                      className={`flex w-[136px] items-center gap-[8px] ${item.isSubmited ? '' : 'text-neutral-medium-gray'}`}
+                                      className={`flex w-[136px] items-center gap-[8px] ${item.isSubmitted ? '' : 'text-neutral-medium-gray'}`}
                                     >
-                                      {item.isSubmited ? (
+                                      {item.isSubmitted ? (
                                         <>
                                           <IoCheckmarkCircleSharp size={24} className="text-status-success" />
                                           <span>Submitted</span>

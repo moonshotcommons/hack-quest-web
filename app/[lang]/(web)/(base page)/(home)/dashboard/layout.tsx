@@ -19,13 +19,15 @@ export default function DashboardLayout({
           <EcosystemSelectNew />
           <div className="py-8">{children}</div>
         </div>
-        <div className="flex flex-col gap-8">
-          <DayStreak link className="bg-neutral-white p-4" />
-          {/* <HackathonCard /> */}
-          <MyCertificateCard />
-          {/* <DailyChallenge /> */}
-          <FollowDiscord />
-        </div>
+        <React.Suspense fallback={null}>
+          <div className="flex flex-col gap-8">
+            <DayStreak link className="bg-neutral-white p-4" />
+            {/* <HackathonCard /> */}
+            <MyCertificateCard />
+            {/* <DailyChallenge /> */}
+            <FollowDiscord />
+          </div>
+        </React.Suspense>
       </div>
       <ClaimCertificateModal />
       <MintCertificateModal />

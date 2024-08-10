@@ -1,3 +1,5 @@
+import { Attestation } from '../user/type';
+
 export interface CertificationType {
   name: string;
   description: string;
@@ -18,7 +20,9 @@ export interface UserCertificateInfo extends CertificationType {
   certificateTime: string;
   username: string;
   contract: `0x${string}`;
+  extra: any;
   certificateImage: string;
+  attestations: Attestation[];
 }
 
 export interface MantleType {
