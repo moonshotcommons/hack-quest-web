@@ -5,8 +5,8 @@ export const FOOTER_LINKS = [
     group: 'LEARN',
     links: [
       {
-        title: 'Learning Tracks',
-        link: '/learning-track'
+        title: 'Ecosystem',
+        link: '/ecosystem-explore'
       },
       {
         title: 'Electives',

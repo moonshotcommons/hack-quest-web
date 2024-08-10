@@ -40,6 +40,7 @@
   "becomeCertifiedDeveloper": "Become a Certified Developer",
   "footer": {
     "learn": "learn",
+    "ecosystem": "ecosystem",
     "learningTrack": "learning track",
     "electives": "electives",
     "projects": "projects",
@@ -84,8 +85,8 @@
     },
     "build": {
       "title": "Build",
-      "hackathonOrganizer":"Host A Hackathon",
-      "hackathonOrganizerDesc":"Host your own hackathon",
+      "hackathonOrganizer": "Host A Hackathon",
+      "hackathonOrganizerDesc": "Host your own hackathon",
       "myHackathon": "My Hackathon",
       "myHackathonDesc": "View all my hackathon events",
       "exploreHackathons": "Explore Hackathons",
@@ -227,8 +228,8 @@
   "remove": "Remove",
   "description": "Description",
   "uploadImage": "upload Image",
-  "add":"Add",
-  "change":"Change",
-  "download":"Download",
-  "apply":"Apply"
+  "add": "Add",
+  "change": "Change",
+  "download": "Download",
+  "apply": "Apply"
 }
