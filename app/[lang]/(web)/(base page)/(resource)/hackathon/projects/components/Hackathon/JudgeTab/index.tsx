@@ -28,7 +28,7 @@ function ProlectSkeleton() {
   );
 }
 
-export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
+export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges: HackathonJudgeType[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -36,7 +36,7 @@ export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [rewardName, setRewardName] = React.useState(judges[0]?.rewardName);
 
-  const createdAt = currentParams.get('createdAt') ?? '-registrationOpen';
+  const sort = currentParams.get('sort') ?? '-createdAt';
   const trackOptions = currentParams.getAll('track');
   const winner = currentParams.get('winner') ?? 'false';
   const page = Number(currentParams.get('page') || 1);
@@ -51,20 +51,19 @@ export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
 
   const { data: projects, isLoading } = useQuery({
     staleTime: Infinity,
-    queryKey: ['projects', trackOptions, winner, page, createdAt, rewardName],
+    queryKey: ['projects', trackOptions, keyword, winner, page, sort, rewardName, hackathonId],
     queryFn: () =>
       webApi.resourceStationApi.getProjectsList({
         page,
         limit: 12,
         winner,
-        createdAt,
+        sort,
         prizeTrack: rewardName,
+        hackathonId,
         ...(trackOptions?.length && { track: trackOptions.toString() }),
         ...(keyword && { keyword })
       })
   });
-
-  console.log(projects);
 
   const [selectedTracks, setSelectedTracks] = React.useState(trackOptions);
 

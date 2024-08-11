@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: { alias: string } }) {
           </Button>
         </div>
       </section>
-      <JudgeTab judges={hackathon.judge} />
+      <JudgeTab hackathonId={hackathon.id} judges={hackathon.judge} />
     </div>
   );
 }

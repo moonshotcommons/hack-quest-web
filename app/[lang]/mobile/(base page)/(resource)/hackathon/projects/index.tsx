@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import webApi from '@/service';
-import { projectSort } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/data';
 import { PageLayout } from '@/components/hackathon/page-layout';
 import { Lang, TransNs } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
@@ -14,7 +13,7 @@ import { HackathonList } from './components/HackathonList';
 
 export interface SearchParamsType {
   keyword: string;
-  createdAt: string;
+  sort: string;
   winner: boolean | string;
   tracks: string;
   track: string;
@@ -57,7 +56,7 @@ const Projects: FC<ProjectsProps> = async ({ params: { lang }, searchParams }) =
     limit: PROJECTS_LIMIT
   };
   const params = {
-    createdAt: searchParams.createdAt || projectSort[0].value,
+    sort: searchParams.sort || '-createdAt',
     winner: searchParams.winner || '',
     tracks: searchParams.tracks || '',
     track: Array.isArray(searchParams.track) ? searchParams.track.join(',') : searchParams.track || '',
@@ -76,6 +75,7 @@ const Projects: FC<ProjectsProps> = async ({ params: { lang }, searchParams }) =
 
   const hackathons = await getHackathonsList({
     ...pageInfo,
+    sort: params.sort || '-createdAt',
     track: params.track
   });
 
