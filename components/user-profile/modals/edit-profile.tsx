@@ -58,7 +58,7 @@ export const EditProfile = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={() => onClose()}>
-      <DialogContent className="flex h-screen flex-col gap-0 p-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6">
+      <DialogContent className="flex h-full flex-col gap-0 p-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6">
         <MobileModalHeader />
         <Background />
         <Form {...form}>

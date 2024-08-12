@@ -16,8 +16,8 @@ import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
 
 const options = [
-  { label: 'Latest to oldest', value: '-registrationOpen' },
-  { label: 'Oldest to latest', value: 'registrationOpen' }
+  { label: 'Latest to oldest', value: '-createdAt' },
+  { label: 'Oldest to latest', value: 'createdAt' }
 ] as const;
 
 export function Sort() {
@@ -26,7 +26,7 @@ export function Sort() {
   const searchParams = useSearchParams();
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const selected = currentParams.get('createdAt') || '-registrationOpen';
+  const selected = currentParams.get('sort') || '-createdAt';
 
   const [hovered, setHovered] = React.useState(false);
 
@@ -38,10 +38,10 @@ export function Sort() {
   );
 
   function toggleSelection(value: string) {
-    if (value === 'registrationOpen') {
-      currentParams.set('createdAt', value);
+    if (value === 'createdAt') {
+      currentParams.set('sort', value);
     } else {
-      currentParams.delete('createdAt');
+      currentParams.delete('sort');
     }
 
     const url = createUrl(pathname, currentParams);
@@ -272,9 +272,10 @@ export function FilterButton() {
 
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const size = [...new Set(currentParams.keys())]?.length ?? 0;
+  const tracks = currentParams.getAll('track');
+  const prizeTracks = currentParams.getAll('prizeTrack');
 
-  const count = currentParams.has('view') ? size - 1 : size;
+  const count = [...new Set(tracks), ...new Set(prizeTracks)]?.length ?? 0;
 
   return (
     <Dialog>

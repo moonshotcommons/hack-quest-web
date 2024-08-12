@@ -63,11 +63,11 @@ function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
   }
 
   return (
-    <div className="flex h-full flex-col gap-8">
-      <h2 className="text-[22px] font-bold">We would like to know more about you!</h2>
-      <div className="flex flex-1 flex-col gap-8 sm:flex-row">
+    <React.Fragment>
+      <h2 className="shrink-0 text-[22px] font-bold">We would like to know more about you!</h2>
+      <div className="no-scrollbar flex flex-1 flex-col gap-8 overflow-y-auto sm:flex-row">
         <UserAvatar />
-        <div className="flex flex-1 flex-col gap-8">
+        <div className="flex flex-col gap-8">
           <Form {...form}>
             <form
               className="no-scrollbar flex flex-1 flex-col space-y-5 overflow-y-auto sm:space-y-6"
@@ -115,17 +115,17 @@ function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
               <Skills form={form} />
               <input ref={submitRef} type="submit" className="hidden" />
             </form>
-            <Button
-              isLoading={isPending}
-              onClick={() => submitRef.current?.click()}
-              className="mt-auto w-full sm:w-[270px] sm:self-end"
-            >
-              Continue
-            </Button>
           </Form>
         </div>
       </div>
-    </div>
+      <Button
+        isLoading={isPending}
+        onClick={() => submitRef.current?.click()}
+        className="mt-auto w-full shrink-0 sm:w-[270px] sm:self-end"
+      >
+        Continue
+      </Button>
+    </React.Fragment>
   );
 }
 
@@ -461,7 +461,7 @@ export function OnboardingModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={() => onClose()}>
-      <DialogContent className="flex h-screen flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
+      <DialogContent className="flex h-full flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
         <MobileModalHeader />
         <Steps currentStep={step} />
         <Component setStep={setStep} onClose={onClose} />

@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+
 import { FC } from 'react';
 import moment from 'moment';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
@@ -12,6 +12,7 @@ import { TransNs } from '@/i18n/config';
 import { separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
+import { ImageWithFallback } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/projects/components/ImageWithFallback';
 
 interface HackathonCardProps {
   hackathon: HackathonType;
@@ -31,7 +32,7 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
     <Link href={`${MenuLink.PROJECTS}/hackathons/${hackathon.alias}`}>
       <div className="card-hover flex h-[7.5rem] overflow-hidden rounded-[.75rem] bg-neutral-white ">
         <div className="relative h-full w-[7.5rem] bg-neutral-light-gray">
-          <Image src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover"></Image>
+          <ImageWithFallback src={hackathon.info?.image || ''} fill alt={hackathon.alias} className="object-cover" />
         </div>
         <div className="flex h-full flex-1 flex-col justify-between p-[.75rem] text-neutral-off-black">
           <h2 className="body-s line-clamp-1 text-neutral-off-black">{hackathon.name}</h2>

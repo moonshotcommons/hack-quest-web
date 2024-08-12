@@ -129,7 +129,7 @@ export function EditExperience({
           </button>
         )}
       </DialogTrigger>
-      <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
+      <DialogContent className="flex h-full flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
         <MobileModalHeader />
         <DialogHeader className="shrink-0 text-left">
           <DialogTitle className="text-lg sm:text-[22px]">{type === 'edit' ? 'Edit' : 'Add'} Experience</DialogTitle>
@@ -267,7 +267,7 @@ export function EditExperience({
                 )}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="!mb-5 grid grid-cols-2 gap-4 sm:mb-0">
               <FormField
                 control={form.control}
                 name="endMonth"

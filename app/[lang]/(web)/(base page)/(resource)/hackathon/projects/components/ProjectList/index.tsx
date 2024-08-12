@@ -11,7 +11,7 @@ export function ProjectList({ data, total }: { data: ProjectType[]; total: numbe
           <p>No data</p>
         </div>
       ) : (
-        <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-10">
+        <div className="mb-8 mt-10 grid grid-cols-4 gap-x-5 gap-y-10">
           {data?.map((item) => <ProjectCard key={item.id} project={item} />)}
         </div>
       )}
