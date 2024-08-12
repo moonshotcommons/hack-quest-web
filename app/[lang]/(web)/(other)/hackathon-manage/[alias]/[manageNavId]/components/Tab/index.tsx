@@ -13,7 +13,7 @@ interface TabProp {
 const Tab: React.FC<TabProp> = ({ changeTab, curTab, tabs, disable }) => {
   return (
     <SlideHighlight
-      className={`flex gap-[30px] pb-[2px]`}
+      className={`no-scrollbar flex w-full gap-[30px]  overflow-auto pb-[2px]`}
       type="LEARNING_TRACK"
       currentIndex={tabs.findIndex((v) => v.value === curTab)}
     >

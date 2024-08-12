@@ -15,8 +15,8 @@ import webApi from '@/service';
 import { DropdownFilter } from '@/components/idea-bank/filters/dropdown';
 
 const options = [
-  { label: 'Latest to oldest', value: '-registrationOpen' },
-  { label: 'Oldest to latest', value: 'registrationOpen' }
+  { label: 'Latest to oldest', value: '-createdAt' },
+  { label: 'Oldest to latest', value: 'createdAt' }
 ] as const;
 
 export function Sort() {
@@ -25,7 +25,7 @@ export function Sort() {
   const searchParams = useSearchParams();
   const currentParams = new URLSearchParams(searchParams.toString());
 
-  const selected = currentParams.get('createdAt') || '-registrationOpen';
+  const selected = currentParams.get('sort') || '-createdAt';
 
   const [hovered, setHovered] = React.useState(false);
 
@@ -37,10 +37,10 @@ export function Sort() {
   );
 
   function toggleSelection(value: string) {
-    if (value === 'registrationOpen') {
-      currentParams.set('createdAt', value);
+    if (value === 'createdAt') {
+      currentParams.set('sort', value);
     } else {
-      currentParams.delete('createdAt');
+      currentParams.delete('sort');
     }
 
     const url = createUrl(pathname, currentParams);
@@ -257,28 +257,29 @@ export function FilterPanel() {
         <SearchForm />
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <DropdownFilter
-          label="Prize Track"
-          values={selectedPrizeTracks}
-          onValueChange={(value) => onValueChange(value, 'prizeTrack')}
-          options={prizeTracks}
-        />
+        {view === 'project' && (
+          <DropdownFilter
+            label="Prize Track"
+            values={selectedPrizeTracks}
+            onValueChange={(value) => onValueChange(value, 'prizeTrack')}
+            options={prizeTracks}
+          />
+        )}
         <DropdownFilter
           label="Sector"
           values={selectedTracks}
           onValueChange={(value) => onValueChange(value, 'track')}
           options={tracks}
         />
-        {view === 'project' &&
-          filteredOptions?.map((option) => (
-            <button
-              key={option.value}
-              className="inline-flex h-11 items-center justify-between gap-2.5 rounded-full bg-yellow-primary px-4 py-1.5 text-neutral-off-black"
-            >
-              <span className="body-m">{option.label}</span>
-              <XIcon className="h-5 w-5" onClick={() => onRemove(option.value)} />
-            </button>
-          ))}
+        {filteredOptions?.map((option) => (
+          <button
+            key={option.value}
+            className="inline-flex h-11 items-center justify-between gap-2.5 rounded-full bg-yellow-primary px-4 py-1.5 text-neutral-off-black"
+          >
+            <span className="body-m">{option.label}</span>
+            <XIcon className="h-5 w-5" onClick={() => onRemove(option.value)} />
+          </button>
+        ))}
       </div>
     </section>
   );

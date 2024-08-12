@@ -28,7 +28,7 @@ function ProlectSkeleton() {
   );
 }
 
-export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
+export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges: HackathonJudgeType[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -36,7 +36,7 @@ export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [rewardName, setRewardName] = React.useState(judges[0]?.rewardName);
 
-  const createdAt = currentParams.get('createdAt') ?? '-registrationOpen';
+  const sort = currentParams.get('sort') ?? '-createdAt';
   const trackOptions = currentParams.getAll('track');
   const winner = currentParams.get('winner') ?? 'false';
   const page = Number(currentParams.get('page') || 1);
@@ -51,14 +51,15 @@ export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
 
   const { data: projects, isLoading } = useQuery({
     staleTime: Infinity,
-    queryKey: ['projects', trackOptions, winner, page, createdAt, rewardName],
+    queryKey: ['projects', trackOptions, winner, page, sort, rewardName, hackathonId, keyword],
     queryFn: () =>
       webApi.resourceStationApi.getProjectsList({
         page,
         limit: 12,
         winner,
-        createdAt,
+        sort,
         prizeTrack: rewardName,
+        hackathonId,
         ...(trackOptions?.length && { track: trackOptions.toString() }),
         ...(keyword && { keyword })
       })
@@ -104,19 +105,21 @@ export function JudgeTab({ judges }: { judges: HackathonJudgeType[] }) {
         </SlideHighlight>
       </div>
       <div className="mt-5 flex flex-col text-sm">
-        <section className="space-y-1">
-          <h4 className="body-s text-neutral-medium-gray">Judging Criteria</h4>
-          {judges[selectedTab]?.criteria?.type === TEXT_EDITOR_TYPE ? (
-            <p
-              className="body-s reset-editor-style text-neutral-rich-gray"
-              dangerouslySetInnerHTML={{
-                __html: createEditor({ content: judges[selectedTab]?.criteria?.content || [] }).getHtml()
-              }}
-            />
-          ) : (
-            <p className="body-s text-neutral-rich-gray">{judges[selectedTab]?.criteria}</p>
-          )}
-        </section>
+        {judges[selectedTab]?.criteria && (
+          <section className="space-y-1">
+            <h4 className="body-s text-neutral-medium-gray">Judging Criteria</h4>
+            {judges[selectedTab]?.criteria?.type === TEXT_EDITOR_TYPE ? (
+              <p
+                className="body-s reset-editor-style text-neutral-rich-gray"
+                dangerouslySetInnerHTML={{
+                  __html: createEditor({ content: judges[selectedTab]?.criteria?.content || [] }).getHtml()
+                }}
+              />
+            ) : (
+              <p className="body-s text-neutral-rich-gray">{judges[selectedTab]?.criteria}</p>
+            )}
+          </section>
+        )}
         <section className="mt-5 flex flex-col items-center gap-5">
           {judges[selectedTab]?.judgeMode && (
             <div className="flex w-full items-center justify-between">

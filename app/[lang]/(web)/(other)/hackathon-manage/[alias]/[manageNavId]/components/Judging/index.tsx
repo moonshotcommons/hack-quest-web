@@ -278,7 +278,7 @@ const Judging: React.FC<JudgingProp> = () => {
   }, [status]);
   return (
     <div className="flex h-full flex-col gap-[20px]">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-[20px]">
         <Tab
           curTab={status}
           tabs={tabData}
@@ -291,7 +291,7 @@ const Judging: React.FC<JudgingProp> = () => {
           disable={judgingLoading || winnersLoading}
         />
         <div
-          className={`body-s flex cursor-pointer items-center  gap-[8px] ${isShowDetail ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}
+          className={`body-s flex flex-shrink-0 cursor-pointer items-center  gap-[8px] ${isShowDetail ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}
           onClick={() => setIsShowDetail(!isShowDetail)}
         >
           <Checkbox checked={isShowDetail} />

@@ -6,11 +6,11 @@ import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
 export const projectSort = [
   {
     label: 'Latest to oldest',
-    value: '-registrationOpen'
+    value: '-createdAt'
   },
   {
     label: 'Oldest to latest',
-    value: 'registrationOpen'
+    value: 'createdAt'
   }
 ];
 
