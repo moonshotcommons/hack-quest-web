@@ -92,7 +92,7 @@ const ManageSidebar: React.FC<ManageSidebarProp> = () => {
     }
   }, [hackathon, judgeInfo, getStepIndex]);
   return (
-    <div className="scroll-wrap-y text-neutral-medium-graybody-l h-full w-[296px] bg-neutral-off-white py-[27px] shadow-[2px_0_4px_0_rgba(0,0,0,0.12)]">
+    <div className="scroll-wrap-y text-neutral-medium-graybody-l h-full w-[296px] flex-shrink-0 bg-neutral-off-white py-[27px] shadow-[2px_0_4px_0_rgba(0,0,0,0.12)]">
       {hackathonAuditNavData.map((nav) => (
         <Link key={nav.id} href={`${MenuLink.HACKATHON_MANAGER}/${alias}/${nav.id}`}>
           <div

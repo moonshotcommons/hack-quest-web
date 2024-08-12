@@ -21,11 +21,11 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
         alt={project.name}
         className="h-[148px] w-[148px] flex-shrink-0 rounded-[8px] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
       />
-      <div className="flex flex-1 flex-col justify-between">
-        <div>
+      <div className="flex flex-1 flex-shrink-0 flex-col justify-between overflow-hidden">
+        <div className="w-full">
           <Link
             href={`${MenuLink.PROJECTS}/${project.alias}`}
-            className="text-h3 flex w-full items-center justify-between "
+            className="text-h3 flex  w-full items-center justify-between "
           >
             <h2 className="w-[80%] truncate text-neutral-off-black">{project.name}</h2>
             <LuChevronRight size={40} className="text-neutral-off-black" />
