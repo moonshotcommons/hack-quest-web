@@ -91,7 +91,7 @@ export function Certification() {
       <div className="flex gap-5 overflow-x-auto sm:grid sm:grid-cols-3">
         {profile?.certifications?.map((cert) => (
           <div className="flex flex-col gap-3" key={cert.id}>
-            <div className="relative h-[120px] w-[220px] overflow-hidden rounded-[5px] border border-neutral-light-gray sm:h-[168px] sm:w-full sm:rounded-[10px]">
+            <div className="relative h-[120px] w-[220px] overflow-hidden rounded-[5px] border border-neutral-light-gray sm:h-[180px] sm:w-full sm:rounded-[10px]">
               {cert && (
                 <Image
                   src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${cert?.username}-${cert?.certificateId}.png`}
