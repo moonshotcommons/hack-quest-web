@@ -108,6 +108,10 @@ export function BuilderScore() {
                             {item.title}
                           </p>
                         )
+                      ) : item.link === '#' ? (
+                        <p className="cursor-pointer self-start underline" key={itemIndex}>
+                          {item.title}
+                        </p>
                       ) : (
                         <Link href={item.link} key={itemIndex} className="self-start">
                           <p className="underline">{item.title}</p>

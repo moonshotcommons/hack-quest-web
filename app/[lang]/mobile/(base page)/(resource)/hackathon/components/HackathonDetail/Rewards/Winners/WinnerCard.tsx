@@ -15,17 +15,17 @@ interface WinnerCardProp {
 
 const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
   return (
-    <div className="flex w-full flex-col gap-[.5rem]  rounded-[1.5rem] border border-neutral-light-gray bg-neutral-white p-[1rem]">
-      <div className="flex items-center gap-[.75rem]">
+    <div className="flex w-full flex-col gap-[.5rem] overflow-hidden rounded-[1.5rem] border border-neutral-light-gray bg-neutral-white p-[1rem]">
+      <div className="flex w-full items-center gap-[.75rem] overflow-hidden">
         <BaseImage
           src={project?.logo}
           alt={project.name}
           className="h-[3.5rem] w-[3.5rem] flex-shrink-0 rounded-[.5rem] shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
         />
-        <div className="flex-1">
+        <div className="flex-1 flex-shrink-0 overflow-hidden">
           <Link
             href={`${MenuLink.PROJECTS}/${project.alias}`}
-            className="text-h3-mob flex w-full items-center justify-between "
+            className="text-h3-mob flex w-full items-center justify-between overflow-hidden"
           >
             <h2 className="w-[80%] truncate text-neutral-off-black">{project.name}</h2>
             <LuChevronRight size={28} className="text-neutral-off-black" />

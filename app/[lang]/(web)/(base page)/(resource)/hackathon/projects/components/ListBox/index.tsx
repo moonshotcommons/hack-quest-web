@@ -97,16 +97,16 @@ const ListBox: React.FC<ListBoxProp> = ({
                   return (
                     <li
                       key={option.value}
-                      className={`body-m flex cursor-pointer items-center justify-between gap-[52px] whitespace-nowrap px-3 py-2 text-neutral-black hover:bg-neutral-off-white ${option.value === searchParams.createdAt && 'bg-neutral-off-white'}`}
+                      className={`body-m flex cursor-pointer items-center justify-between gap-[52px] whitespace-nowrap px-3 py-2 text-neutral-black hover:bg-neutral-off-white ${option.value === searchParams.sort && 'bg-neutral-off-white'}`}
                       onClick={() => {
                         searchList({
                           ...searchParams,
-                          createdAt: option.value
+                          sort: option.value
                         });
                       }}
                     >
                       <span>{t(option.label)}</span>
-                      {option.value === searchParams.createdAt && (
+                      {option.value === searchParams.sort && (
                         <span>
                           <GoCheck size={20} />
                         </span>
