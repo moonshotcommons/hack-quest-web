@@ -136,7 +136,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
           {judges[selectedTab]?.judgeTotalVote && (
             <div className="space-y-1">
               <h4 className="text-neutral-medium-gray">Each Judge’s Votes</h4>
-              <span>{judges[selectedTab]?.judgeTotalVote}</span>
+              <span>{Math.round(judges[selectedTab]?.judgeTotalVote)}</span>
             </div>
           )}
           {judges[selectedTab]?.judgeProjectVote && (
@@ -151,8 +151,10 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
             <div className="space-y-1">
               <h4 className="text-neutral-medium-gray">Total User Votes</h4>
               <span>
-                {(judges[selectedTab]?.votesProportion[0] / 100) *
-                  (judges[selectedTab]?.totalVote || judges[selectedTab]?.judgeTotalVote || 0)}
+                {Math.round(
+                  (judges[selectedTab]?.votesProportion[0] / 100) *
+                    (judges[selectedTab]?.totalVote || judges[selectedTab]?.judgeTotalVote || 0)
+                )}
               </span>
             </div>
           )}
@@ -160,24 +162,28 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
             <div className="space-y-1">
               <h4 className="text-neutral-medium-gray">Total Judge Votes</h4>
               <span>
-                {(judges[selectedTab]?.votesProportion[1] / 100) *
-                  (judges[selectedTab]?.totalVote || judges[selectedTab]?.judgeTotalVote || 0)}
+                {Math.round(
+                  (judges[selectedTab]?.votesProportion[1] / 100) *
+                    (judges[selectedTab]?.totalVote || judges[selectedTab]?.judgeTotalVote || 0)
+                )}
               </span>
             </div>
           )}
           {judges[selectedTab]?.projectJudgeCount && (
             <div className="space-y-1">
               <h4 className="text-neutral-medium-gray">Judges Needed for Each Project</h4>
-              <span>{judges[selectedTab]?.projectJudgeCount}</span>
+              <span>{Math.round(judges[selectedTab]?.projectJudgeCount)}</span>
             </div>
           )}
           {judges[selectedTab]?.judgeMode === 'all' && (
             <div className="space-y-1">
               <h4 className="text-neutral-medium-gray">Votes for Each Judge</h4>
               <span>
-                {((judges[selectedTab]?.votesProportion[1] / 100) *
-                  (judges[selectedTab]?.totalVote || judges[selectedTab]?.judgeTotalVote || 0)) /
-                  (judges[selectedTab]?.judgeAccounts?.length || 1)}
+                {Math.round(
+                  ((judges[selectedTab]?.votesProportion[1] / 100) *
+                    (judges[selectedTab]?.totalVote || judges[selectedTab]?.judgeTotalVote || 0)) /
+                    (judges[selectedTab]?.judgeAccounts?.length || 1)
+                )}
               </span>
             </div>
           )}
