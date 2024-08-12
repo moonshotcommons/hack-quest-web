@@ -31,9 +31,9 @@ const BaseWinners: React.FC<BaseWinnersProp> = ({
           <div className="flex items-center rounded-[8px] bg-neutral-off-white px-[12px] py-[8px] text-neutral-rich-gray">
             <IoRemoveOutline
               size={20}
-              className={`${winners.length <= 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+              className={`${!winners.length ? 'cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => {
-                if (winners.length <= 1 || loading) return;
+                if (!winners.length || loading) return;
                 handleDelete();
               }}
             />
