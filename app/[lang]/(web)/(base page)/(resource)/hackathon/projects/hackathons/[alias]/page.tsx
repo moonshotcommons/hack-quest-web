@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { getHackathonDetailById } from '@/service/cach/resource/hackathon';
 import { Button } from '@/components/ui/button';
 import { JudgeTab } from '../../components/Hackathon/JudgeTab';
+import { ImageWithFallback } from '../../components/ImageWithFallback';
 
 export default async function Page({ params }: { params: { alias: string } }) {
   const hackathon = await getHackathonDetailById(params.alias);
@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { alias: string } }) {
       </nav>
       <section className="flex w-full gap-10">
         <div className="relative h-[268px] w-[473px]">
-          <Image src={hackathon.info?.image} alt={hackathon.name} fill className="rounded-2xl" />
+          <ImageWithFallback src={hackathon.info?.image} alt={hackathon.name} fill className="rounded-2xl" />
         </div>
         <div className="flex flex-1 flex-col justify-between">
           <div>

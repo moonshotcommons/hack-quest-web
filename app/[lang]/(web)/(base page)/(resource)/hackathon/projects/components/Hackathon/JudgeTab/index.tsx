@@ -88,12 +88,12 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
 
   return (
     <div className="flex flex-col">
-      <div className="w-full">
+      <div className="w-full overflow-x-auto">
         <SlideHighlight className="flex gap-8 pb-0.5" type="LEARNING_TRACK" currentIndex={selectedTab}>
           {judges.map((tab, index) => (
             <button
               key={tab.id}
-              className={`body-xl cursor-pointer text-neutral-off-black outline-none ${selectedTab === index && 'body-xl-bold'}`}
+              className={`body-xl cursor-pointer whitespace-nowrap text-neutral-off-black outline-none ${selectedTab === index && 'body-xl-bold'}`}
               onClick={() => {
                 onTabChange(index);
                 setRewardName(tab.rewardName);
@@ -105,19 +105,21 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
         </SlideHighlight>
       </div>
       <div className="mt-6 flex flex-col space-y-6">
-        <section className="space-y-1">
-          <h4 className="body-m text-neutral-medium-gray">Judging Criteria</h4>
-          {judges[selectedTab]?.criteria?.type === TEXT_EDITOR_TYPE ? (
-            <p
-              className="body-m reset-editor-style text-neutral-rich-gray"
-              dangerouslySetInnerHTML={{
-                __html: createEditor({ content: judges[selectedTab]?.criteria?.content || [] }).getHtml()
-              }}
-            />
-          ) : (
-            <p className="body-m text-neutral-rich-gray">{judges[selectedTab]?.criteria}</p>
-          )}
-        </section>
+        {judges[selectedTab]?.criteria && (
+          <section className="space-y-1">
+            <h4 className="body-m text-neutral-medium-gray">Judging Criteria</h4>
+            {judges[selectedTab]?.criteria?.type === TEXT_EDITOR_TYPE ? (
+              <p
+                className="body-m reset-editor-style text-neutral-rich-gray"
+                dangerouslySetInnerHTML={{
+                  __html: createEditor({ content: judges[selectedTab]?.criteria?.content || [] }).getHtml()
+                }}
+              />
+            ) : (
+              <p className="body-m text-neutral-rich-gray">{judges[selectedTab]?.criteria}</p>
+            )}
+          </section>
+        )}
         <section className="flex flex-wrap items-center gap-20">
           {judges[selectedTab]?.judgeMode && (
             <div className="space-y-1">
