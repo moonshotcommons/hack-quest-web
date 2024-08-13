@@ -9,7 +9,7 @@ export interface Job {
   location: string | null;
   workType: 'FULL_TIME' | 'PART_TIME' | 'INTERNSHIP';
   tags: string[];
-  description: { type: string; content: object };
+  description: any;
   contact: Record<string, string>;
   minSalary: number;
   maxSalary: number;

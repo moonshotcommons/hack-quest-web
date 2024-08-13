@@ -15,7 +15,6 @@ import { companySchema, contacts, contactsSchema, currencies, jobSchema, workMod
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
-import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useJobStore } from '../utils/store';
 import { useMutation } from '@tanstack/react-query';
@@ -29,8 +28,8 @@ import { useParams } from 'next/navigation';
 import { revalidate } from '../utils/actions';
 import { useUserStore } from '@/store/zustand/userStore';
 import { omit } from 'lodash-es';
-
 import dynamic from 'next/dynamic';
+
 const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
   ssr: false,
   loading: () => <p>Loading ...</p>
@@ -172,8 +171,8 @@ function Step1() {
 function Step2() {
   const { values, onBack, onNext, setValues } = useJobStore();
 
-  const [description, setDescription] = React.useState<{ type: string; content: object }>();
   const submitRef = React.useRef<HTMLInputElement>(null);
+  const [html, setHtml] = React.useState('');
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
@@ -197,8 +196,7 @@ function Step2() {
     setValues({
       ...data,
       minSalary: data.minSalary ? z.coerce.number().parse(data.minSalary) : null,
-      maxSalary: data.maxSalary ? z.coerce.number().parse(data.maxSalary) : null,
-      description
+      maxSalary: data.maxSalary ? z.coerce.number().parse(data.maxSalary) : null
     });
     onNext();
   }
@@ -425,34 +423,12 @@ function Step2() {
               <TextEditor
                 simpleModel={false}
                 className="overflow-hidden rounded-[8px]"
-                onCreated={(editor) => {
-                  const text = editor.getText().replace(/\n|\r/gm, '');
-                  form.setValue('description', text);
-                  setValues({
-                    description: {
-                      type: TEXT_EDITOR_TYPE,
-                      content: editor.children
-                    }
-                  });
-                  setDescription({
-                    type: TEXT_EDITOR_TYPE,
-                    content: editor.children
-                  });
-                }}
-                defaultContent={transformTextToEditorValue(values?.description)}
+                value={html}
                 onChange={(editor) => {
-                  const text = editor.getText().replace(/\n|\r/gm, '');
-                  form.setValue('description', text);
-                  setValues({
-                    description: {
-                      type: TEXT_EDITOR_TYPE,
-                      content: editor.children
-                    }
-                  });
-                  setDescription({
-                    type: TEXT_EDITOR_TYPE,
-                    content: editor.children
-                  });
+                  const html = editor.getHtml();
+                  setHtml(html);
+                  form.setValue('description', html);
+                  setValues({ description: html });
                 }}
               />
               <FormMessage />
