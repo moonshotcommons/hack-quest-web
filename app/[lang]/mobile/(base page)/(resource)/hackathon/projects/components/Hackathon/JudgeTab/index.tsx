@@ -5,7 +5,6 @@ import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { HackathonJudgeType } from '@/service/webApi/resourceStation/type';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';
-import Image from 'next/image';
 import { FilterButton, SearchForm, Sort, WinnersOnly } from '../../FilterPanel';
 import { useRouter } from 'next-nprogress-bar';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -17,6 +16,7 @@ import { XIcon } from 'lucide-react';
 import MobProjectCard from '@/components/Mobile/MobProjectCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Pagination } from '../Pagination';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 function ProlectSkeleton() {
   return (
@@ -35,6 +35,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
   const currentParams = new URLSearchParams(searchParams.toString());
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [rewardName, setRewardName] = React.useState(judges[0]?.rewardName);
+  const [rewardId, setRewardId] = React.useState(judges[0]?.rewardId);
 
   const sort = currentParams.get('sort') ?? '-createdAt';
   const trackOptions = currentParams.getAll('track');
@@ -51,7 +52,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
 
   const { data: projects, isLoading } = useQuery({
     staleTime: Infinity,
-    queryKey: ['projects', trackOptions, winner, page, sort, rewardName, hackathonId, keyword],
+    queryKey: ['projects', trackOptions, winner, page, sort, rewardName, hackathonId, keyword, rewardId],
     queryFn: () =>
       webApi.resourceStationApi.getProjectsList({
         page,
@@ -60,6 +61,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
         sort,
         prizeTrack: rewardName,
         hackathonId,
+        rewardId,
         ...(trackOptions?.length && { track: trackOptions.toString() }),
         ...(keyword && { keyword })
       })
@@ -71,6 +73,12 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
 
   function onTabChange(index: number) {
     setSelectedTab(index);
+    currentParams.delete('page');
+    currentParams.delete('winner');
+    currentParams.delete('sort');
+    currentParams.delete('keyword');
+    const url = createUrl(pathname, currentParams);
+    router.replace(url);
   }
 
   function onValueChange(value: string) {
@@ -97,6 +105,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
               onClick={() => {
                 onTabChange(index);
                 setRewardName(tab.rewardName);
+                setRewardId(tab.rewardId);
               }}
             >
               {tab.rewardName}
@@ -191,7 +200,12 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
             <div className="flex flex-wrap gap-x-10 gap-y-3">
               {judges[selectedTab]?.judgeAccounts?.map((account, index) => (
                 <div className="flex items-center gap-3" key={index}>
-                  <Image src={account?.avatar} alt="avatar" width={32} height={32} className="rounded-full" />
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={account?.avatar} alt={`@${account?.nickname}`} />
+                    <AvatarFallback className="bg-neutral-light-gray">
+                      {account?.nickname?.slice(0, 1)?.toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
                   <span className="body-s">{account?.nickname}</span>
                 </div>
               ))}
