@@ -35,7 +35,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
   const currentParams = new URLSearchParams(searchParams.toString());
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [rewardName, setRewardName] = React.useState(judges[0]?.rewardName);
-  const [rewardId, setRewardId] = React.useState(judges[0]?.rewardId);
+  const [rewardId, setRewardId] = React.useState(judges[0]?.id);
 
   const sort = currentParams.get('sort') ?? '-createdAt';
   const trackOptions = currentParams.getAll('track');
@@ -105,7 +105,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
               onClick={() => {
                 onTabChange(index);
                 setRewardName(tab.rewardName);
-                setRewardId(tab.rewardId);
+                setRewardId(tab.id);
               }}
             >
               {tab.rewardName}
