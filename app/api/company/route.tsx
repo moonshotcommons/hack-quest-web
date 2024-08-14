@@ -9,7 +9,7 @@ export function GET(request: Request) {
   return new ImageResponse(
     (
       <div tw="flex flex-col w-full h-full items-center justify-center bg-black">
-        <span tw="text-white text-3xl">{text}</span>
+        <span tw="text-white text-4xl">{text}</span>
       </div>
     ),
     {
