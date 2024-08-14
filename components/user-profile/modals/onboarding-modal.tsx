@@ -67,7 +67,7 @@ function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
       <h2 className="shrink-0 text-[22px] font-bold">We would like to know more about you!</h2>
       <div className="no-scrollbar flex flex-1 flex-col gap-8 overflow-y-auto sm:flex-row">
         <UserAvatar />
-        <div className="flex flex-col gap-8">
+        <div className="flex w-full flex-col gap-8 sm:flex-1">
           <Form {...form}>
             <form
               className="no-scrollbar flex flex-1 flex-col space-y-5 overflow-y-auto sm:space-y-6"
