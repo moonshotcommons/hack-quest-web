@@ -28,7 +28,7 @@ const Links: React.FC<LinksProp> = ({ hackathon }) => {
           </div>
           <div>
             <p>{t('hackathonDetail.linkToCodeOfConduct')}</p>
-            <p className="mt-[4px] text-neutral-off-black">{hackathon.links?.website}</p>
+            <p className="mt-[4px] text-neutral-off-black">{hackathon.info.conduct}</p>
           </div>
         </div>
         {links.length > 0 && (
