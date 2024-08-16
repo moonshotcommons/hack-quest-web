@@ -51,7 +51,7 @@ const ListModal: React.FC<ListModalProp> = ({ hackathon }) => {
               <IoIosAddCircle size={26} className="text-neutral-medium-gray" />
               <span>{'Customized Section'}</span>
             </p>
-            <p className="body-s mt-[24px]">{'Lorem ipsum dolor sit amet'}</p>
+            <p className="body-s mt-[24px]">{''}</p>
           </div>
         </div>
       </div>
