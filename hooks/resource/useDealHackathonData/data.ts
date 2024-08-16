@@ -28,7 +28,7 @@ export const modalList = [
     type: AddSectionType.SCHEDULE
   },
   {
-    label: 'FAQs',
+    label: 'hackathonDetail.FAQs',
     type: AddSectionType.FAQS
   }
 ];

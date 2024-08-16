@@ -23,6 +23,7 @@ interface TextEditorProps {
   simpleModel?: boolean;
   className?: string;
   defaultHtml?: string;
+  value?: string;
   readOnly?: boolean;
 }
 
@@ -49,6 +50,7 @@ const TextEditor: FC<TextEditorProps> = ({
   simpleModel = false,
   className,
   defaultHtml,
+  value,
   readOnly = false
 }) => {
   const [editor, setEditor] = useState<IDomEditor | null>(null);
@@ -83,6 +85,7 @@ const TextEditor: FC<TextEditorProps> = ({
       editor.destroy();
       setEditor(null);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor]);
 
   return (
@@ -97,6 +100,7 @@ const TextEditor: FC<TextEditorProps> = ({
         defaultHtml={defaultHtml || ''}
         defaultContent={defaultContent || []}
         mode="default"
+        value={value}
         style={{ height: '420px' }}
         onChange={onChange}
       />
