@@ -105,7 +105,7 @@ const Certifications: FC<PersonalLinksProps> = (props) => {
                   {/* <Image src={item.certificateImage} fill alt="Solidity Learning Track"></Image> */}
                   {item && (
                     <Image
-                      src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${item?.username}-${item?.certificateId}.png`}
+                      src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${encodeURIComponent(item?.username)}-${item?.certificateId}.png`}
                       alt={item?.certificateId + ''}
                       fill
                     />

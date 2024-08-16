@@ -100,7 +100,7 @@ export function MintCertificateModal() {
               {/* <Image src={data?.certificateImage} alt={data?.certificateId} fill /> */}
               {certification && (
                 <Image
-                  src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${certification?.username}-${certification?.certificateId}.png`}
+                  src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${encodeURIComponent(certification?.username)}-${certification?.certificateId}.png`}
                   alt={certification?.certificateId}
                   fill
                 />
