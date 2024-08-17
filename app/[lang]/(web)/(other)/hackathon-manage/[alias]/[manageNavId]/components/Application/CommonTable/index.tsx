@@ -113,11 +113,11 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
       index: i
     }));
     const newList = cloneDeep(l);
-    // teamIds.map((id) => {
-    //   const index = list.findIndex((l) => l.id === id);
-    //   const item = list[index];
-    //   newList.splice(index + 1, 0, ...(item?.members || []));
-    // });
+    teamIds.map((id) => {
+      const index = list.findIndex((l) => l.id === id);
+      const item = list[index];
+      newList.splice(index + 1, 0, ...(item?.members || []));
+    });
     setInfoList(newList.filter((v) => !v.pId));
     return newList;
   }, [list, teamIds]);
