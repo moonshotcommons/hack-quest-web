@@ -197,7 +197,6 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
       onlineProfiles
     };
   }, [curMemberInfo, hackathon]);
-
   useEffect(() => {
     if (team.type === 'team') {
       setCurMemberInfo(team.members?.[0] as HackathonManageApplicationType);
@@ -321,7 +320,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
                   <div className="flex flex-wrap gap-[8px_40px]">
                     {mInfo?.aboutsCustom.map((v) => (
                       <div key={v.label}>
-                        <p className="capitalize text-neutral-medium-gray">{v.label.toLocaleLowerCase()}</p>
+                        <p className="capitalize text-neutral-medium-gray">{v.label?.toLocaleLowerCase()}</p>
                         <p className={`text-neutral-rich-gray`}>{v.value}</p>
                       </div>
                     ))}
@@ -344,7 +343,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
               <div className="flex flex-wrap gap-[8px_40px] overflow-hidden text-neutral-off-black">
                 {mInfo?.onlineProfiles?.map((v) => (
                   <div key={v.label}>
-                    <p className="capitalize text-neutral-medium-gray">{v.label.toLocaleLowerCase()}</p>
+                    <p className="capitalize text-neutral-medium-gray">{v.label?.toLocaleLowerCase()}</p>
                     <p>{v.value}</p>
                   </div>
                 ))}
@@ -365,7 +364,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
               <div className="flex flex-wrap gap-[8px_40px] overflow-hidden text-neutral-off-black">
                 {mInfo?.contacts?.map((v) => (
                   <div key={v.label}>
-                    <p className="capitalize text-neutral-medium-gray">{v.label.toLocaleLowerCase()}</p>
+                    <p className="capitalize text-neutral-medium-gray">{v.label?.toLocaleLowerCase()}</p>
                     <p>{v.value}</p>
                   </div>
                 ))}
