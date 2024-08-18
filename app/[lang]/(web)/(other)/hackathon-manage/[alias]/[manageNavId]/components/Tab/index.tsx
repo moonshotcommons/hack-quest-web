@@ -27,7 +27,7 @@ const Tab: React.FC<TabProp> = ({ changeTab, curTab, tabs, disable }) => {
             }
             changeTab(v.value);
           }}
-          className={`body-l cursor-pointer  text-neutral-off-black ${curTab === v.value ? '  body-l-bold ' : ' '}`}
+          className={`body-l cursor-pointer whitespace-nowrap  text-neutral-off-black ${curTab === v.value ? '  body-l-bold ' : ' '}`}
         >
           {v.label}
           {'count' in v && `(${separationNumber(v.count as number)})`}

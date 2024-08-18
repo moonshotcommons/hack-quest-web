@@ -90,7 +90,7 @@ export function MintCertificateModal() {
           <div className="relative mx-auto my-6 h-[13.75rem] w-[24.875rem] overflow-hidden rounded-[0.5rem] shadow-idea-card">
             {certification && (
               <Image
-                src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${certification?.username}-${certification?.certificateId}.png`}
+                src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${encodeURIComponent(certification?.username)}-${certification?.certificateId}.png`}
                 alt={certification?.certificateId}
                 fill
               />

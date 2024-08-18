@@ -94,7 +94,7 @@ export function Certification() {
             <div className="relative h-[120px] w-[220px] overflow-hidden rounded-[5px] border border-neutral-light-gray sm:h-[180px] sm:w-full sm:rounded-[10px]">
               {cert && (
                 <Image
-                  src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${cert?.username}-${cert?.certificateId}.png`}
+                  src={`${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${encodeURIComponent(cert?.username)}-${cert?.certificateId}.png`}
                   alt={cert.certificateId + ''}
                   fill
                 />
