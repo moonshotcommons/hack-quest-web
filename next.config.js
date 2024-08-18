@@ -36,6 +36,20 @@ const nextConfig = (phase) => {
       ],
       minimumCacheTTL: 60
     },
+    async redirects() {
+      return [
+        {
+          source: '/:lang/web3mooc.',
+          destination: '/:lang/web3mooc',
+          permanent: true
+        },
+        {
+          source: '/:lang/mobile/web3mooc.',
+          destination: '/:lang/mobile/web3mooc',
+          permanent: true
+        }
+      ];
+    },
     // async redirects() {
     //   return [
     //     {

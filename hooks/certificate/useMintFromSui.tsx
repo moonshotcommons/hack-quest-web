@@ -8,10 +8,10 @@ import { Transaction } from '@mysten/sui/transactions';
 import { errorMessage } from '@/helper/ui';
 
 // const stateTemplate = {
-//   statId: '0xead3d81189007bb4fcdcc02da4b5517447a10538506dc5afc9c95b6c6df2c7f5',
-//   adminId: '0xacf630a49ce613020b22575eba09b6240610ae204ea20a9bd8e98ca56d617de9',
-//   globalId: '0xe4efe857ca1eeb80a80292e3d8abbfe68cecee438cc6d6730647f5a1958d633c',
-//   packageId: '0x3b1ac7c7116946465150afd433c18fe7301097595eb68de64011f9c60d3be6da',
+//   statId: '0x19f79ef0d752b71eaa2d57b90a8503e99f00b03036544c3f32b3c31a491387fb',
+//   adminId: '0xb5d3547e9d8f5e2514d6e92b4383b9ef16f84eae435012f113587f27ec2eb48f',
+//   globalId: '0x3ea7342bcc40d9362f208df8a46521282f568d7a6156579dd262e1fd6212af07',
+//   packageId: '0x6fc119c8190729a43bafccd85494558986ea11b4030bf9b57f4c56318f6d1c03',
 //   sender: '0xbefe4881a3f08d191d71ed3d6af5ce07de39f010fe0da692c26374f465efd0cf'
 // };
 

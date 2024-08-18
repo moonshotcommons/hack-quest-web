@@ -197,7 +197,7 @@ export const formSchema = z
     ...companySchema.shape,
     ...baseJobSchema.shape,
     ...baseContactsSchema.shape,
-    desc: z.record(z.any()).optional()
+    desc: z.any().optional()
   })
   .superRefine((data, ctx) => {
     if (data.workMode === 'ONSITE') {

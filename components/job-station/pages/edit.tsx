@@ -14,7 +14,7 @@ import { contacts, currencies, formSchema, workModes, workTypes } from '../valid
 import { RadioGroup, RadioGroupItem } from '../components/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import TextEditor from '@/components/Common/TextEditor';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
@@ -33,7 +33,7 @@ function FormEdit() {
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const [pending, startTransition] = React.useTransition();
-  const [description, setDescription] = React.useState<{ type: string; content: object }>();
+  const [html, setHtml] = React.useState<string>('');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,8 +65,6 @@ function FormEdit() {
       const contractKey = Object.keys(data?.contact || {});
       form.reset({
         ...data,
-        description: '',
-        desc: data?.description,
         minSalary: data?.minSalary?.toString() || '',
         maxSalary: data?.maxSalary?.toString() || '',
         location: data?.location || '',
@@ -79,7 +77,7 @@ function FormEdit() {
 
   const companyLogo = form.watch('companyLogo');
   const tags = form.watch('tags');
-  const desc = form.watch('desc');
+  const description = form.watch('description');
   const isOnSite = form.watch('workMode') === 'ONSITE';
   const contractKey = form.watch('contractKey');
 
@@ -119,15 +117,21 @@ function FormEdit() {
   function onSubmit(data: z.infer<typeof formSchema>) {
     const values = {
       ...data,
-      description,
+      description: html,
       location: data.location || null,
       minSalary: data.minSalary ? z.coerce.number().parse(data.minSalary) : null,
       maxSalary: data.maxSalary ? z.coerce.number().parse(data.maxSalary) : null,
       contact: data.contractValue
     };
 
-    submit.mutate(omit(values, ['contractKey', 'contractValue', 'desc']));
+    submit.mutate(omit(values, ['contractKey', 'contractValue']));
   }
+
+  React.useEffect(() => {
+    if (description) {
+      setHtml(description);
+    }
+  }, [description]);
 
   return (
     <Form {...form}>
@@ -342,7 +346,7 @@ function FormEdit() {
                 name="currency"
                 render={({ field }) => (
                   <FormItem className="w-full sm:w-64 sm:shrink-0">
-                    <Select value={field.value} defaultValue={'USD'} onValueChange={field.onChange}>
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Please select" />
@@ -378,25 +382,16 @@ function FormEdit() {
               <FormControl>
                 <Textarea {...field} className="hidden" />
               </FormControl>
-              {desc && (
+              {description && (
                 <TextEditor
                   simpleModel={false}
                   className="overflow-hidden rounded-[8px]"
-                  onCreated={(editor) => {
-                    const text = editor.getText().replace(/\n|\r/gm, '');
-                    form.setValue('description', text);
-                    setDescription({
-                      type: TEXT_EDITOR_TYPE,
-                      content: editor.children
-                    });
-                  }}
-                  defaultContent={transformTextToEditorValue(desc)}
+                  value={html}
                   onChange={(editor) => {
-                    const text = editor.getText().replace(/\n|\r/gm, '');
-                    form.setValue('description', text);
-                    setDescription({
-                      type: TEXT_EDITOR_TYPE,
-                      content: editor.children
+                    const html = editor.getHtml();
+                    form.setValue('description', html);
+                    setTimeout(() => {
+                      setHtml(html);
                     });
                   }}
                 />
