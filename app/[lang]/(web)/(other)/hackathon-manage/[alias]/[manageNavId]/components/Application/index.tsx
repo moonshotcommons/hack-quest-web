@@ -141,6 +141,7 @@ const Application: React.FC<ApplicationProp> = () => {
           }}
         />
         <CommonTable
+          tabs={tabs}
           loading={isLoading}
           list={tableList}
           refresh={refetch}

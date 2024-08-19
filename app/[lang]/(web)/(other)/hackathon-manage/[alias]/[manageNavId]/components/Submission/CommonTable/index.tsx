@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SelectType } from '../../../../../constants/type';
+import { AuditTabType, SelectType } from '../../../../../constants/type';
 import { cloneDeep } from 'lodash-es';
 import Operation from './Operation';
 import AuditTable from './AuditTable';
@@ -8,14 +8,23 @@ import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { exportToExcel } from '@/helper/utils';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface CommonTableProp {
   list: any[];
   information: SelectType[];
   loading: boolean;
+  tabs: AuditTabType[];
+  prizeTrack: string;
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, tabs, prizeTrack }) => {
+  const { hackathon } = useHackathonManageStore(
+    useShallow((state) => ({
+      hackathon: state.hackathon
+    }))
+  );
   const [checkAll, setCheckAll] = useState(false);
   const [checkItems, setCheckItems] = useState<ProjectType[]>([]);
   const [teamIds, setTeamIds] = useState<string[]>([]);
@@ -67,7 +76,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
     newCheckItems.forEach((v) => {
       submissionData.push(getInfo(v));
     });
-    exportToExcel(submissionData, `submission data`);
+    const tabName = tabs.find((v) => v.value === prizeTrack)?.label;
+    exportToExcel(submissionData, `${hackathon.name}-${tabName}-submission`);
   };
 
   const changeTeamIds = (id: string) => {
