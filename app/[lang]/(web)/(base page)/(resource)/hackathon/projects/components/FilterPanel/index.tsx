@@ -251,20 +251,11 @@ export function FilterPanel() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-5">
           <Sort />
-          {/* <ViewBy /> */}
-          <WinnersOnly />
+          {view === 'project' && <WinnersOnly />}
         </div>
         <SearchForm />
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        {view === 'project' && (
-          <DropdownFilter
-            label="Prize Track"
-            values={selectedPrizeTracks}
-            onValueChange={(value) => onValueChange(value, 'prizeTrack')}
-            options={prizeTracks}
-          />
-        )}
         <DropdownFilter
           label="Sector"
           values={selectedTracks}

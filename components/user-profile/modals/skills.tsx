@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Label } from '@/components/ui/label';
 import { PlusIcon, XIcon } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipArrow, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useProfile } from '../modules/profile-provider';
 import { UseFormReturn } from 'react-hook-form';
+import { UserProfileType } from '@/service/webApi/user/type';
 
-export function Skills({ form }: { form: UseFormReturn<any> }) {
-  const { profile } = useProfile();
+export function Skills({ form, profile }: { form: UseFormReturn<any>; profile?: UserProfileType }) {
   const [skills, setSkills] = React.useState(profile?.techStack || []);
   const [inputVisible, setInputVisible] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');

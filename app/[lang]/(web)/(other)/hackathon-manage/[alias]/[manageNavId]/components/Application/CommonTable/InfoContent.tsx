@@ -9,7 +9,6 @@ import { MdKeyboardArrowDown, MdOutlineAccessTimeFilled } from 'react-icons/md';
 import Title from '../../Title';
 import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
 import { useShallow } from 'zustand/react/shallow';
-import dayjs from 'dayjs';
 import BaseImage from '@/components/Common/BaseImage';
 import { applicationAboutBasicKeys } from '../../../../../constants/data';
 import { isUuid } from '@/helper/utils';
@@ -20,9 +19,17 @@ interface InfoContentProp {
   info: HackathonManageApplicationType;
   onClose: VoidFunction;
   handleStautusSingle: (item: HackathonManageApplicationType, sta: ApplicationStatus) => void;
+  disableHandleButton: boolean;
+  showHandleButton: boolean;
 }
 
-const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleStautusSingle }) => {
+const InfoContent: React.FC<InfoContentProp> = ({
+  info: team,
+  onClose,
+  handleStautusSingle,
+  disableHandleButton,
+  showHandleButton
+}) => {
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
@@ -36,12 +43,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
   const status = useMemo(() => {
     return team?.joinState;
   }, [team]);
-  const disableHandleButton = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.timeline?.registrationClose);
-  }, [hackathon]);
-  const showHandleButton = useMemo(() => {
-    return hackathon?.info?.allowSubmission === false;
-  }, [hackathon]);
+
   const renderStatus = () => {
     switch (status) {
       case ApplicationStatus.APPROVED:

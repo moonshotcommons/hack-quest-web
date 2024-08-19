@@ -137,7 +137,7 @@ export function EditExperience({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="no-scrollbar mt-5 flex-1 space-y-5 overflow-y-auto p-0.5 sm:mt-0 sm:space-y-6"
+            className="documentation-scrollbar mt-5 flex-1 space-y-5 overflow-y-auto p-0.5 sm:mt-0 sm:space-y-6"
           >
             <FormField
               control={form.control}

@@ -107,7 +107,7 @@ export function WinnersOnly() {
     router.replace(url, { scroll: false });
   }
   return (
-    <div className="flex items-center space-x-2.5 sm:ml-6">
+    <div className="flex shrink-0 items-center space-x-2.5 sm:ml-6">
       <Checkbox
         id="winner"
         size="small"
@@ -172,13 +172,15 @@ export function SearchForm() {
 }
 
 export function FilterPanel() {
+  const searchParams = useSearchParams();
+  const currentParams = new URLSearchParams(searchParams.toString());
+  const view = currentParams.get('view');
   return (
     <section className="flex w-full flex-col gap-4">
       <SearchForm />
       <div className="flex items-center justify-between gap-4">
         <Sort />
-        {/* <ViewBy /> */}
-        <WinnersOnly />
+        {view !== 'hackathon' && <WinnersOnly />}
         <FilterButton />
       </div>
     </section>
@@ -280,7 +282,7 @@ export function FilterButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full flex-1" variant="outline" size="small">
+        <Button className="w-full max-w-[256px]" variant="outline" size="small">
           {count > 0 ? (
             <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-neutral-off-black text-neutral-white">
               {count}
@@ -292,7 +294,7 @@ export function FilterButton() {
         </Button>
       </DialogTrigger>
       <DialogContent className="max-h-96 w-[92.5%] gap-8 overflow-auto rounded-xl p-8">
-        <PrizeTrack />
+        {/* <PrizeTrack /> */}
         <Track />
       </DialogContent>
     </Dialog>

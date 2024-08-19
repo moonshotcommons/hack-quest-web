@@ -141,7 +141,7 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                     <DropDownMotion
                       open={nav.menu.length > 1 && hoverNavId === nav.id}
                       isNav={true}
-                      className="left-0 rounded-2xl border border-neutral-light-gray bg-neutral-white p-3 shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]"
+                      className="left-0  rounded-2xl border border-neutral-light-gray bg-neutral-white p-3 shadow-[0_2px_2px_0_rgba(19,19,19,0.15)]"
                     >
                       {nav.id === 'more' ? (
                         <div className="flex gap-6">

@@ -122,7 +122,13 @@ const Submission: React.FC<SubmissionProp> = () => {
             setTableInformation(newTableInformation);
           }}
         />
-        <CommonTable list={list} information={tableInformation} loading={loading} />
+        <CommonTable
+          list={list}
+          prizeTrack={searchInfo.prizeTrack}
+          tabs={tabData}
+          information={tableInformation}
+          loading={loading}
+        />
       </div>
     </div>
   );
