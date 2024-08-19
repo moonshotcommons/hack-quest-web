@@ -7,21 +7,13 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '../common/textarea';
-import { Input } from '../common/input';
-import { PersonalLinks, personalLinks, type ProfileSchema, profileSchema } from '../validations/profile';
 import { CheckIcon, MoveRightIcon, PlusIcon } from 'lucide-react';
-import { Steps } from '../common/steps';
 import { GithubIcon } from '@/components/ui/icons/github';
-import { useProfile } from '../modules/profile-provider';
-import { MobileModalHeader } from './mobile-modal-header';
 import { DiscordIcon } from '@/components/ui/icons/discord';
 import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { LinkedInIcon } from '@/components/ui/icons/linkedin';
 import { TelegramIcon } from '@/components/ui/icons/telegram';
 import { WeChatIcon } from '@/components/ui/icons/wechat';
-import { Skills } from './skills';
-import { UserAvatar } from './user-avatar';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import toast from 'react-hot-toast';
@@ -29,7 +21,19 @@ import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { Spinner } from '@/components/ui/spinner';
 import { omit } from 'lodash-es';
-import { useModal } from '../utils/modal';
+import { useProfile } from './profile-provider';
+import {
+  personalLinks,
+  PersonalLinks,
+  profileSchema,
+  ProfileSchema
+} from '@/components/user-profile/validations/profile';
+import { Input } from '@/components/user-profile/common/input';
+import { Textarea } from '@/components/user-profile/common/textarea';
+import { Skills } from '@/components/user-profile/modals/skills';
+import { MobileModalHeader } from '@/components/user-profile/modals/mobile-modal-header';
+import { Steps } from '@/components/user-profile/common/steps';
+import { UserAvatar } from '@/components/user-profile/modals/user-avatar';
 
 function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -66,7 +70,7 @@ function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
     <React.Fragment>
       <h2 className="shrink-0 text-[22px] font-bold">We would like to know more about you!</h2>
       <div className="no-scrollbar flex flex-1 flex-col gap-8 overflow-y-auto sm:flex-row">
-        <UserAvatar isLoading={isLoading} profile={profile} invalidate={invalidate} />
+        <UserAvatar profile={profile} isLoading={isLoading} invalidate={invalidate} />
         <div className="flex w-full flex-col gap-8 sm:flex-1">
           <Form {...form}>
             <form
@@ -120,7 +124,9 @@ function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
       </div>
       <Button
         isLoading={isPending}
-        onClick={() => submitRef.current?.click()}
+        onClick={() => {
+          submitRef.current?.click();
+        }}
         className="mt-auto w-full shrink-0 sm:w-[270px] sm:self-end"
       >
         Continue
@@ -432,18 +438,14 @@ function Step3({ onClose }: { onClose?: () => void }) {
 
 const steps = [Step1, Step2, Step3];
 
-export function OnboardingModal() {
-  const { open, type, onClose } = useModal();
-
-  const isOpen = open && type === 'onboarding';
-
+export function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = React.useState(1);
   const { profile } = useProfile();
 
   const Component = steps[step - 1] || null;
 
   React.useEffect(() => {
-    if (profile?.progress && open && profile?.isCurrentUser) {
+    if (profile?.progress && open) {
       const progress = profile.progress;
       if (!progress.includes(1)) {
         setStep(1);
@@ -453,11 +455,17 @@ export function OnboardingModal() {
         setStep(3);
       }
     }
-  }, [open, profile?.isCurrentUser, profile?.progress]);
+  }, [open, profile?.progress]);
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => onClose()}>
-      <DialogContent className="flex h-full flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12">
+    <Dialog open={open} onOpenChange={() => onClose()}>
+      <DialogContent
+        className="flex h-full flex-col gap-5 px-5 pt-0 sm:h-auto sm:w-[1000px] sm:max-w-[1000px] sm:gap-8 sm:p-12"
+        stopPropagation
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <MobileModalHeader />
         <Steps currentStep={step} />
         <Component setStep={setStep} onClose={onClose} />

@@ -22,7 +22,7 @@ import { useModal } from '../utils/modal';
 
 export const EditProfile = () => {
   const { open, type, onClose } = useModal();
-  const { profile, invalidate } = useProfile();
+  const { profile, invalidate, isLoading } = useProfile();
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const isOpen = open && type === 'profile';
@@ -64,9 +64,9 @@ export const EditProfile = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="no-scrollbar relative flex flex-1 flex-col gap-5 overflow-y-auto p-5 sm:flex-row sm:gap-8 sm:p-8"
+            className="documentation-scrollbar relative flex flex-1 flex-col gap-5 overflow-y-auto p-5 sm:flex-row sm:gap-8 sm:p-8"
           >
-            <UserAvatar />
+            <UserAvatar profile={profile} isLoading={isLoading} invalidate={invalidate} />
             <div className="flex flex-1 flex-col gap-5 sm:gap-6">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4">
                 <FormField

@@ -6,12 +6,14 @@ import { CheckIcon, CopyIcon, LinkIcon, MailIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { useToggle } from '@/hooks/utils/use-toggle';
-import { useUserStore } from '@/store/zustand/userStore';
+import { useProfile } from './profile-provider';
+import { OnboardingModal } from './onboarding-modal';
+import toast from 'react-hot-toast';
 
 export default function ApplyJob({ contact }: { contact: Record<string, string> }) {
   const [open, onOpenChange] = useToggle(false);
   const [visible, setVisible] = useToggle(false);
-  const { userInfo } = useUserStore();
+  const { profile } = useProfile();
   const [copied, setCopied] = React.useState(false);
 
   const telegram = React.useMemo(() => {
@@ -51,10 +53,16 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           <Button
             className="w-[165px]"
             data-prevent-nprogress={true}
-            onClick={(e) => {
-              onClick(e);
-              onOpenChange(true);
-              // setVisible(true);
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+
+              if ((profile?.progress.length || 0) < 3) {
+                setVisible(true);
+                toast.error('Please complete your profile first');
+              } else {
+                onOpenChange(true);
+              }
             }}
           >
             Apply
@@ -167,7 +175,7 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
           </div>
         </DialogContent>
       </Dialog>
-      {/* <OnboardingModal open={visible} onClose={() => setVisible(false)} /> */}
+      <OnboardingModal open={visible} onClose={() => setVisible(false)} />
     </React.Fragment>
   );
 }
