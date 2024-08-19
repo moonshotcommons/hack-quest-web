@@ -8,13 +8,20 @@ import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { FileInput } from '../common/file-input';
 import { useToggle } from '@/hooks/utils/use-toggle';
-import { useProfile } from '../modules/profile-provider';
 import toast from 'react-hot-toast';
+import { UserProfileType } from '@/service/webApi/user/type';
 
-export function UserAvatar() {
+export function UserAvatar({
+  isLoading,
+  profile,
+  invalidate
+}: {
+  profile?: UserProfileType;
+  isLoading: boolean;
+  invalidate: () => void;
+}) {
   const [open, toggle] = useToggle(false);
   const [imageUrl, setImageUrl] = React.useState('');
-  const { isLoading, profile, invalidate } = useProfile();
 
   const { isPending, mutate } = useMutation({
     mutationFn: (data: FormData) => webApi.userApi.uploadAvatar(data),
