@@ -94,9 +94,11 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
                     </div>
                   </div>
                 ) : (
-                  <div>
+                  <div className="flex items-center gap-4">
                     <span className="">{t('host')}</span>
-                    <span className="body-m-bold text-neutral-off-black underline">{hackathon.info?.host}</span>
+                    <span className="body-m-bold line-clamp-1 text-neutral-off-black underline">
+                      {hackathon.info?.host}
+                    </span>
                   </div>
                 )}
               </div>

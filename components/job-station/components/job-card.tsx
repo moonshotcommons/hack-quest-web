@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment';
 import { Clock4Icon, MapPinIcon } from 'lucide-react';
@@ -11,6 +10,7 @@ import { workTypes } from '../validations';
 import { FavoriteButton } from './favorite-button';
 import ApplyJob from './apply-job';
 import { formatLocation, formatSalary } from '../utils';
+import Link from 'next/link';
 
 export function JobCard({ job }: { job: Job }) {
   return (

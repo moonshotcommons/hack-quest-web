@@ -74,15 +74,15 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
               <div className="caption-10pt flex items-center justify-between text-neutral-medium-gray">
                 <div>
                   <p className="mb-[.25rem]">{t('participants')}</p>
-                  <p className=" text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
+                  <p className="text-neutral-off-black">{separationNumber(hackathon.memberCount || 0)}</p>
                 </div>
                 <div>
                   <p className="mb-[.25rem]">{t('totalPrize')}</p>
-                  <p className=" text-neutral-off-black">{`${separationNumber(totalPrize || 0)} ${hackathon.rewards?.[0]?.currency || 'USD'}`}</p>
+                  <p className="text-neutral-off-black">{`${separationNumber(totalPrize || 0)} ${hackathon.rewards?.[0]?.currency || 'USD'}`}</p>
                 </div>
                 <div className="w-[33%]">
                   <p className="mb-[.25rem]">{t('host')}</p>
-                  <p className=" truncate text-neutral-off-black underline">{hackathon.info?.host}</p>
+                  <p className="truncate text-neutral-off-black underline">{hackathon.info?.host}</p>
                 </div>
               </div>
             </>
