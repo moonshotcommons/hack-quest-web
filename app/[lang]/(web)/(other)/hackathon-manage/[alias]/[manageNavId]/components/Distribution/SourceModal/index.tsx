@@ -8,15 +8,17 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { sourceFormSchema, sourceDefaultValues } from '../../../../../constants/data';
 import { cloneDeep } from 'lodash-es';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 
 interface SourceModalProp {
   open: boolean;
   onClose: () => void;
   handleSubmit: () => void;
   handleDelete: () => void;
+  hackathon: SimpleHackathonInfo;
 }
 
-const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, handleDelete }) => {
+const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, handleDelete, hackathon }) => {
   const defaultValues: z.infer<typeof sourceFormSchema> = cloneDeep({
     id: '',
     ...sourceDefaultValues
@@ -40,7 +42,7 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
               <div className="flex-shrink-0">
                 <span>Legend Color*</span>
                 <div
-                  className="mt-[8px] h-[50px] w-[50px] rounded-[8px]"
+                  className="mt-[4px] h-[50px] w-[50px] rounded-[8px]"
                   style={{
                     backgroundColor: '#E0E0E0'
                   }}
@@ -67,6 +69,32 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
                   </FormItem>
                 )}
               />
+            </div>
+            <div>
+              <div className="flex w-full justify-between">
+                <FormLabel className="body-m  text-neutral-rich-gray">{'Custom UTM URL*'}</FormLabel>
+                <span className="caption-14pt text-neutral-rich-gray">
+                  <span className={form.watch('url').length > 80 ? 'text-status-error' : ''}>
+                    {form.watch('url').length}
+                  </span>
+                  /80
+                </span>
+              </div>
+              <div className="flex items-center gap-[10px]">
+                <span className="flex-shrink-0">{`www.hackquest.com/hackathon/${hackathon.alias}/`}</span>
+                <FormField
+                  control={form.control}
+                  name={'url'}
+                  render={({ field }) => (
+                    <FormItem className="flex-1 text-left">
+                      <FormControl>
+                        <Input placeholder={'Enter UTM Url'} className="body-m h-[50px]" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
           </form>
         </Form>
