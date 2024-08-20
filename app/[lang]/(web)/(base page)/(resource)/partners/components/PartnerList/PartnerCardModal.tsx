@@ -1,19 +1,19 @@
 'use client';
 import Modal from '@/components/Common/Modal';
-import Image from 'next/image';
 import React, { useContext } from 'react';
 import { FiX } from 'react-icons/fi';
-import { PartnerType } from '../../constants/type';
 import TrackTag from '@/components/Common/TrackTag';
 import Button from '@/components/Common/Button';
 import { useTranslation } from '@/i18n/client';
 import { LangContext } from '@/components/Provider/Lang';
 import { TransNs } from '@/i18n/config';
+import { PartnerShipType } from '@/service/webApi/resourceStation/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface PartnerCardModalProp {
   onClose: VoidFunction;
   open: boolean;
-  partner: PartnerType;
+  partner: PartnerShipType;
 }
 
 const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partner }) => {
@@ -28,8 +28,8 @@ const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partn
       iconClassName="right-[24px] top-[24px]"
     >
       <div className="flex h-[338px] w-[1022px] overflow-hidden rounded-[16px] bg-neutral-white">
-        <div className="relative h-full w-[605px] overflow-hidden bg-neutral-light-gray">
-          {partner.img && <Image src={partner.img} alt={partner.name} fill className="object-cover" />}
+        <div className="relative h-full w-[605px] overflow-hidden bg-neutral-light-gray p-[30px]">
+          <BaseImage src={partner.logo} alt={partner.name} className="h-full w-full" contain={true} />
         </div>
         <div className="flex h-full flex-1 flex-col justify-between px-[20px] py-[40px]">
           <div className="flex flex-col gap-[8px]">

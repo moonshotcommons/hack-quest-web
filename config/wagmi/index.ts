@@ -19,6 +19,7 @@ import {
   metaMaskWallet,
   gateWallet
 } from '@rainbow-me/rainbowkit/wallets';
+import { generateChainId } from '@/helper/utils';
 
 export enum ChainType {
   MAINNET = mainnet.id,
@@ -28,7 +29,9 @@ export enum ChainType {
   Linea_Sepolia = lineaSepolia.id,
   Arbitrum_Sepolia = arbitrumSepolia.id,
   MANTLE_Sepolia = mantleSepoliaTestnet.id,
-  TELOS_TESTNET = telosTestnet.id
+  TELOS_TESTNET = telosTestnet.id,
+  Solana = generateChainId('Solana'),
+  Sui = generateChainId('Sui')
 }
 
 export const config = getDefaultConfig({

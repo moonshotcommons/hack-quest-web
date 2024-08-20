@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SelectType } from '../../../../../constants/type';
+import { AuditTabType, SelectType } from '../../../../../constants/type';
 import { applicationTabData } from '../../../../../constants/data';
 import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 import { cloneDeep } from 'lodash-es';
@@ -8,13 +8,18 @@ import Operation from './Operation';
 import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
-import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import {
+  ApplicationStatus,
+  HackathonManageApplicationType,
+  HackathonType
+} from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
-import dayjs from '@/components/Common/Dayjs';
+import { exportToExcel } from '@/helper/utils';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface CommonTableProp {
   list: HackathonManageApplicationType[];
@@ -22,9 +27,10 @@ interface CommonTableProp {
   refresh: VoidFunction;
   status: ApplicationStatus;
   loading: boolean;
+  tabs: AuditTabType[];
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, refresh, status: tabStatus }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, information, refresh, status: tabStatus }) => {
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
@@ -38,6 +44,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   const [curInfo, setCurInfo] = useState<HackathonManageApplicationType | null>(null);
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const { getInfo, getStepIndex } = useDealHackathonData();
+  const [infoList, setInfoList] = useState<HackathonManageApplicationType[]>([]);
   const handleCheck = (item: HackathonManageApplicationType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -51,6 +59,18 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
 
   const handleDown = () => {
     if (!checkItems.length) return;
+    const applicationData: Record<string, any>[] = [];
+    checkItems.forEach((v) => {
+      if (v.type === 'team') {
+        v.members?.forEach((m) => {
+          applicationData.push(getInfo(hackathon as unknown as HackathonType, m));
+        });
+      } else {
+        applicationData.push(getInfo(hackathon as unknown as HackathonType, v));
+      }
+    });
+    const tabName = tabs.find((v) => v.value === tabStatus)?.label;
+    exportToExcel(applicationData, `${hackathon.name}-${tabName}-application`);
   };
 
   const handleStatus = (sta: ApplicationStatus) => {
@@ -90,15 +110,17 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
   }, [status]);
 
   const tableList = useMemo(() => {
-    const newList = cloneDeep(list).map((v, i) => ({
+    const l = list.map((v, i) => ({
       ...v,
       index: i
     }));
+    const newList = cloneDeep(l);
     teamIds.map((id) => {
-      const index = list.findIndex((l) => l.id === id);
-      const item = list[index];
+      const index = newList.findIndex((l) => l.id === id);
+      const item = newList[index];
       newList.splice(index + 1, 0, ...(item?.members || []));
     });
+    setInfoList(newList.filter((v) => !v.pId));
     return newList;
   }, [list, teamIds]);
 
@@ -122,7 +144,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
       }));
     }
     webApi.resourceStationApi
-      .changeHackathonApplicationStatus(data)
+      .changeHackathonApplicationStatus(hackathon?.id, data)
       .then(() => {
         message.success('Updated Success');
         setStatus(null);
@@ -143,8 +165,11 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     setCurInfo(null);
   }, [list]);
 
-  const isHandle = useMemo(() => {
-    return hackathon?.info?.allowSubmission === false && dayjs().tz().isBefore(hackathon?.timeline?.registrationClose);
+  const disableHandleButton = useMemo(() => {
+    return getStepIndex(hackathon as unknown as HackathonType) > 0;
+  }, [hackathon, getStepIndex]);
+  const showHandleButton = useMemo(() => {
+    return hackathon?.info?.allowSubmission === false;
   }, [hackathon]);
   return (
     <div className="flex w-full flex-1 flex-col">
@@ -153,7 +178,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         handleDown={handleDown}
         handleStatus={handleStatus}
         tabStatus={tabStatus}
-        isHandle={isHandle}
+        isHandle={showHandleButton && !disableHandleButton}
       />
       <AuditTable
         checkIds={checkItems.map((v) => v.id)}
@@ -168,7 +193,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         tabStatus={tabStatus}
         showInfo={showInfo}
         loading={loading}
-        isHandle={isHandle}
+        isHandle={showHandleButton && !disableHandleButton}
       />
       <ConfirmModal
         open={!!status}
@@ -183,19 +208,19 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         open={!!curInfo?.id && !!curId}
         curInfo={curInfo}
         renderItem={() =>
-          tableList
-            ?.filter((v) => !v.pId)
-            ?.map((info) => (
-              <InfoContent
-                key={info.id}
-                info={info}
-                onClose={() => {
-                  setCurInfo(null);
-                  setCurId('');
-                }}
-                handleStautusSingle={handleStautusSingle}
-              />
-            ))
+          infoList?.map((info) => (
+            <InfoContent
+              key={info.id}
+              info={info}
+              disableHandleButton={disableHandleButton}
+              showHandleButton={showHandleButton}
+              onClose={() => {
+                setCurInfo(null);
+                setCurId('');
+              }}
+              handleStautusSingle={() => {}}
+            />
+          ))
         }
       />
     </div>

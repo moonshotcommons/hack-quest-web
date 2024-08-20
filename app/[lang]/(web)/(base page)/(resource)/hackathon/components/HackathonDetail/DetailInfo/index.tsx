@@ -72,10 +72,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       });
   };
   const needConfirm = useMemo(() => {
-    return (
+    return !!(
       hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
       !hackathon.participation?.isRegister &&
-      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      stepIndex === 0
     );
   }, [hackathon]);
   const renderButton = () => {
@@ -208,6 +208,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         setLoading(false);
       });
   };
+
   return (
     <EditBox className="relative overflow-hidden">
       <div className={`body-m flex flex-col gap-[16px]  text-neutral-off-black ${tipsRender() ? 'pt-[32px]' : ''}`}>
@@ -289,12 +290,11 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
                 {t('hackathonDetail.submitToPreview')}
               </Button>
             )}
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={() => redirectToUrl(`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`)}
-            >
-              {t('hackathonDetail.backToEdit')}
-            </Button>
+            <Link href={`${MenuLink.HACKATHON_ORGANIZER}/${hackathon.alias}`}>
+              <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase">
+                {t('hackathonDetail.backToEdit')}
+              </Button>
+            </Link>
           </>
         )}
         {needConfirm && (

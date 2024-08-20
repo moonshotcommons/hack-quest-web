@@ -7,15 +7,15 @@ export const INDICATORS = [
     content: [
       {
         title: 'Join more hackathons',
-        link: '/hackathons'
+        link: '/hackathon/explore'
       },
       {
         title: 'Earn more Certificates',
-        link: '/certificates'
+        link: '/ecosystem-explore'
       },
       {
         title: 'Increase Web3 related commit on Github',
-        link: '/github-commits'
+        link: '#'
       }
     ]
   },
@@ -25,11 +25,11 @@ export const INDICATORS = [
     content: [
       {
         title: 'More on-chain interactions',
-        link: '/on-chain-interactions'
+        link: '#'
       },
       {
         title: 'Deploy more smart contract',
-        link: '/deploy-smart-contracts'
+        link: '#'
       }
     ]
   },
@@ -39,15 +39,17 @@ export const INDICATORS = [
     content: [
       {
         title: 'Get more attestations',
-        link: '/attestations'
+        link: '#'
       },
       {
         title: 'Complete your profile',
-        link: '/profile'
+        link: '#',
+        action: 'onboarding'
       },
       {
         title: 'Add Web3 related working experience',
-        link: '/work-experience'
+        link: '#',
+        action: 'experience'
       }
     ]
   },
@@ -57,15 +59,16 @@ export const INDICATORS = [
     content: [
       {
         title: 'Increase Stars for your Web3 Repo',
-        link: '/web3-repo-stars'
+        link: '#'
       },
       {
         title: 'Connect more socials',
-        link: '/connect-socials'
+        link: '#',
+        action: 'profile'
       },
       {
         title: 'Increase attestations from verified individuals',
-        link: '/verified-attestations'
+        link: '#'
       }
     ]
   },
@@ -75,15 +78,15 @@ export const INDICATORS = [
     content: [
       {
         title: 'Contribute more to the opensource repo',
-        link: '/opensource-repo'
+        link: '#'
       },
       {
         title: 'Contribute content on HackQuest',
-        link: '/hackquest'
+        link: '#'
       },
       {
         title: 'Join as an Advocate',
-        link: '/advocate'
+        link: '#'
       }
     ]
   }

@@ -281,6 +281,7 @@ const VerifyConfirmed: FC<VerifyConfirmedProps> = (props) => {
           setVerifyState(VerifyStateType.SUCCESS);
           // redirectToUrl('/dashboard');
           router.push('/welcome');
+          localStorage.removeItem('completeProfile');
           router.refresh();
         })
         .catch((err) => {

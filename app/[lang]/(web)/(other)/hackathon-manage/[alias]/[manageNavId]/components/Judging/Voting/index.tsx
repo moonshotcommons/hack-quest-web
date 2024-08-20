@@ -1,87 +1,71 @@
 'use client';
-import React, { useState } from 'react';
-import { judgingInformationData, hackathonSortData, applicationTabData } from '../../../../../constants/data';
-import { SelectType } from '../../../../../constants/type';
-import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
-import { useShallow } from 'zustand/react/shallow';
-import { HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  judgingAllFixedInformationData,
+  judgingJudgeFixedInformationData,
+  judgingJudgeScoreInformationData,
+  hackathonSortData
+} from '../../../../../constants/data';
+import { HackathonJudgeProjectType, HackathonJugingInfoType } from '@/service/webApi/resourceStation/type';
 import Search from '../../Search';
 import CommonTable from './CommonTable';
+import { arraySortByKey } from '@/helper/utils';
+import { MultiSelectOption } from '../../../../../components/MultiSelect';
 
-interface VotingProp {}
+interface VotingProp {
+  judgeInfo: HackathonJugingInfoType;
+  loading: boolean;
+  tracks: MultiSelectOption[];
+}
 
-const Voting: React.FC<VotingProp> = () => {
-  const { hackathon } = useHackathonManageStore(
-    useShallow((state) => ({
-      hackathon: state.hackathon
-    }))
-  );
+const Voting: React.FC<VotingProp> = ({ judgeInfo, loading, tracks }) => {
   const [searchInfo, setSearchInfo] = useState({
-    status: applicationTabData[0].value,
     sort: hackathonSortData[0].value,
+    tracks: [] as string[],
     keyword: ''
   });
-  const [tableList, setTableList] = useState<HackathonManageApplicationType[]>([]);
+  const [tableList, setTableList] = useState<HackathonJudgeProjectType[]>([]);
 
-  const [tableInformation, setTableInformation] = useState<SelectType[]>(
-    judgingInformationData
-      .filter((v) => v.disable)
-      .map((v) => ({
-        value: v.value,
-        label: v.label
-      }))
-  );
+  const tableInformation = useMemo(() => {
+    const judge = judgeInfo?.reward?.judge;
+    if (judge?.judgeMode === 'all' && judge?.voteMode === 'fixed') {
+      return judgingAllFixedInformationData;
+    }
+    if (judge?.judgeMode === 'judges' && judge?.voteMode === 'fixed') {
+      return judgingJudgeFixedInformationData;
+    }
+    const scores = judgeInfo?.projects?.[0]?.votes?.scores || [];
+    const scoresTableInformation = scores.map((v, i) => ({
+      disable: true,
+      value: `score-${i}`,
+      label: `Score ${i + 1}`
+    }));
+    const judgingJudgeScoreInformation = structuredClone(judgingJudgeScoreInformationData);
+    judgingJudgeScoreInformation.splice(3, 0, ...scoresTableInformation);
+    return judgingJudgeScoreInformation;
+  }, [judgeInfo]);
 
-  const handleSearch = (key: 'sort' | 'keyword', value: string) => {
+  const handleSearch = (key: keyof typeof searchInfo, value: string) => {
     setSearchInfo({
       ...searchInfo,
       [key]: value
     });
   };
 
-  // const {
-  //   refetch,
-  //   isLoading,
-  //   data: list = []
-  // } = useQuery({
-  //   enabled: !!hackathon?.id,
-  //   staleTime: Infinity,
-  //   queryKey: ['judging-voting', hackathon?.id],
-  //   queryFn: () => webApi.resourceStationApi.getHackathonApplications(hackathon?.id as string)
-  // });
+  const refreshTableList = () => {
+    const { keyword, sort, tracks } = searchInfo;
+    const newList = judgeInfo?.projects?.filter((v) => {
+      const isKeywordMatch = v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase());
+      const isTrackMatch = tracks.every((track) => v.tracks.includes(track));
+      return isKeywordMatch && isTrackMatch;
+    });
+    const sortList = arraySortByKey(newList, sort);
+    setTableList(sortList);
+  };
 
-  // const tabs = useMemo(() => {
-  //   const pendings = list.filter((v) => v.joinState === ApplicationStatus.REVIEW)?.length;
-  //   const approveds = list.filter((v) => v.joinState === ApplicationStatus.APPROVED)?.length;
-  //   const decline = list.filter((v) => v.joinState === ApplicationStatus.DECLINE)?.length;
-  //   const waits = list.filter((v) => v.joinState === ApplicationStatus.WAIT)?.length;
-  //   const counts = [pendings, approveds, decline, waits];
-  //   return applicationTabData.map((v, i) => ({
-  //     ...v,
-  //     count: counts[i]
-  //   }));
-  // }, [list]);
-
-  // const refreshTableList = () => {
-  //   const { keyword, sort, status } = searchInfo;
-  //   const newList = list.filter(
-  //     (v) => v.joinState === status && v.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
-  //   );
-  //   const sortList = arraySortByKey(newList, sort);
-  //   setTableList(sortList);
-  // };
-
-  // useEffect(() => {
-  //   if (hackathon?.id) {
-  //     refreshTableList();
-  //   }
-  // }, [searchInfo, hackathon, list]);
-
-  // useEffect(() => {
-  //   if (hackathon?.id) {
-  //     refetch();
-  //   }
-  // }, [hackathon]);
+  useEffect(() => {
+    refreshTableList();
+  }, [searchInfo, judgeInfo]);
 
   return (
     <div className="flex flex-1 flex-col gap-[24px]">
@@ -89,23 +73,18 @@ const Voting: React.FC<VotingProp> = () => {
         sorts={hackathonSortData}
         sort={searchInfo.sort}
         handleSearch={handleSearch}
-        informationData={judgingInformationData}
+        sectors={[
+          {
+            name: 'Sector',
+            options: tracks,
+            value: searchInfo.tracks,
+            key: 'tracks',
+            type: 'checkbox'
+          }
+        ]}
         tableInformation={tableInformation.map((v) => v.value)}
-        setTableInformation={(values) => {
-          const newTableInformation: SelectType[] = [];
-          judgingInformationData.map((v) => {
-            values.includes(v.value) && newTableInformation.push(v);
-          });
-          setTableInformation(newTableInformation);
-        }}
       />
-      <CommonTable
-        loading={false}
-        list={tableList}
-        refresh={() => {}}
-        information={tableInformation}
-        status={searchInfo.status}
-      />
+      <CommonTable loading={loading} list={tableList} information={tableInformation} />
     </div>
   );
 };

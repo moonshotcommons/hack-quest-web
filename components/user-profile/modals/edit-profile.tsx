@@ -2,14 +2,13 @@
 
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '../common/textarea';
 import { Input } from '../common/input';
 import { type ProfileSchema, profileSchema } from '../validations/profile';
-import { EditIcon } from '@/components/ui/icons/edit';
 import { SocialMedia } from '../modules/social-media';
 import { Skills } from './skills';
 import { UserAvatar } from './user-avatar';
@@ -18,11 +17,15 @@ import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
-import { message } from 'antd';
+import toast from 'react-hot-toast';
+import { useModal } from '../utils/modal';
 
-export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?: boolean) => void }) => {
-  const { profile, invalidate } = useProfile();
+export const EditProfile = () => {
+  const { open, type, onClose } = useModal();
+  const { profile, invalidate, isLoading } = useProfile();
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const isOpen = open && type === 'profile';
 
   const form = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema)
@@ -31,14 +34,16 @@ export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?:
   const { isPending, mutate } = useMutation({
     mutationFn: (value: any) => webApi.userApi.editUserProfile(value),
     onSuccess: () => {
-      message.success('Update profile successfully');
+      toast.success('Profile updated');
       invalidate();
+      onClose();
     }
   });
 
   React.useEffect(() => {
     form.reset({
       nickname: profile?.user.nickname,
+      bio: profile?.bio || '',
       email: profile?.user.email,
       location: profile?.location,
       techStack: profile?.techStack,
@@ -52,21 +57,16 @@ export const EditProfile = ({ open, toggle }: { open?: boolean; toggle?: (open?:
   }
 
   return (
-    <Dialog open={open} onOpenChange={toggle}>
-      <DialogTrigger asChild>
-        <button className="outline-none" onClick={() => toggle?.()}>
-          <EditIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-        </button>
-      </DialogTrigger>
-      <DialogContent className="flex h-screen flex-col gap-0 p-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6">
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
+      <DialogContent className="flex h-full flex-col gap-0 p-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6">
         <MobileModalHeader />
         <Background />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="no-scrollbar relative flex flex-1 flex-col gap-5 overflow-y-auto p-5 sm:flex-row sm:gap-8 sm:p-8"
+            className="documentation-scrollbar relative flex flex-1 flex-col gap-5 overflow-y-auto p-5 sm:flex-row sm:gap-8 sm:p-8"
           >
-            <UserAvatar />
+            <UserAvatar profile={profile} isLoading={isLoading} invalidate={invalidate} />
             <div className="flex flex-1 flex-col gap-5 sm:gap-6">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4">
                 <FormField

@@ -27,6 +27,7 @@ interface BaseButtonProps {
   size?: SizeType;
   loading?: boolean;
   htmlType?: 'button' | 'submit' | 'reset';
+  uppercase?: boolean;
 }
 
 export type ButtonProps = BaseButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'type'>;
@@ -45,6 +46,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = 
     loading = false,
     disabled: propDisabled,
     htmlType,
+    uppercase = true,
     ...rest
   } = props;
   // const classNames = ;
@@ -93,6 +95,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = 
       aria-disabled={disabled}
       className={cn(
         `text-button-m relative flex h-fit w-fit cursor-pointer items-center justify-center gap-[.625rem] text-neutral-black outline-none transition-all hover:scale-[1.05]`,
+        uppercase ? 'uppercase' : '',
         type === 'primary' ? 'bg-yellow-primary' : '',
         type === 'text' ? 'border-none bg-transparent' : '',
         block && 'w-full',
@@ -101,7 +104,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement | null, ButtonProps> = 
         loading ? 'cursor-not-allowed opacity-70' : '',
         loading && type === 'primary' ? 'bg-[#FFF4CE] opacity-100' : '',
         ghost && 'border border-neutral-black bg-transparent',
-        disabled ? '!cursor-not-allowed opacity-40 hover:scale-[1]' : '',
+        disabled ? '!cursor-not-allowed bg-neutral-light-gray text-neutral-medium-gray hover:scale-[1]' : '',
         className
       )}
       type={htmlType}

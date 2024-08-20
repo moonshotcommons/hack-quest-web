@@ -7,10 +7,16 @@ import { customTextFormSchema } from '../../../../constants/data';
 import { HackathonEditContext, HackathonEditModalType } from '../../../../constants/type';
 import EditTitle from '../EditTitle';
 import { cloneDeep } from 'lodash-es';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 import { Input } from '@/components/ui/input';
 import CommonButton from '../CommonButton';
 import { v4 } from 'uuid';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 interface CustomTextModalProp {}
 

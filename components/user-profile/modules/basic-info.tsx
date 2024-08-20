@@ -8,16 +8,27 @@ import { TwitterIcon } from '@/components/ui/icons/twitter';
 import { WeChatIcon } from '@/components/ui/icons/wechat';
 import { Skeleton } from '@/components/shared/skeleton';
 import { ShareProfile } from '../modals/share-profile-modal';
-import { EditProfile } from '../modals/edit-profile';
-import { cn, copyText } from '@/helper/utils';
+import { cn } from '@/helper/utils';
 import { useProfile } from './profile-provider';
 import { GithubIcon } from '@/components/ui/icons/github';
-import { useToggle } from '@/hooks/utils/use-toggle';
-import { CopyIcon } from 'lucide-react';
+import { CheckIcon, CopyIcon, EditIcon } from 'lucide-react';
+import { useModal } from '../utils/modal';
 
 export function BasicInfo() {
   const { isLoading, profile } = useProfile();
-  const [open, toggle] = useToggle(false);
+  const [copied, setCopied] = React.useState(false);
+  const { onOpen } = useModal();
+
+  function onCopyClick(event: React.MouseEvent<HTMLButtonElement>, value: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    setCopied(true);
+    navigator.clipboard.writeText(value);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  }
+
   return (
     <React.Fragment>
       <Skeleton loading={isLoading}>
@@ -45,9 +56,7 @@ export function BasicInfo() {
             <h1 className="text-lg font-bold text-neutral-off-black sm:text-2xl">{profile?.user?.nickname}</h1>
           </Skeleton>
           <Skeleton loading={isLoading} className="h-6 w-40 rounded">
-            <p className="text-sm text-neutral-medium-gray sm:text-base">
-              one line intro colorless green idea sleeps furiously
-            </p>
+            {profile?.bio && <p className="text-sm text-neutral-medium-gray sm:text-base">{profile?.bio}</p>}
           </Skeleton>
           <Skeleton loading={isLoading} className="h-6 w-32 rounded">
             {profile?.location && (
@@ -61,63 +70,63 @@ export function BasicInfo() {
             <Skeleton loading={isLoading} className="h-6 w-52 rounded" />
           ) : (
             <div className="flex items-center gap-4">
-              {(profile?.isMe || profile?.personalLinks.twitter) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.twitter) && (
                 <TwitterIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.twitter
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.twitter) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.twitter, '_blank');
                     }
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.linkedIn) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.linkedIn) && (
                 <LinkedInIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.linkedIn
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.linkedIn) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.linkedIn, '_blank');
                     }
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.telegram) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.telegram) && (
                 <TelegramIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.telegram
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.telegram) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.telegram, '_blank');
                     }
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.github) && (
+              {(profile?.isCurrentUser || profile?.personalLinks.github) && (
                 <GithubIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.github
                   })}
                   onClick={() => {
                     if (!profile?.personalLinks.github) {
-                      toggle(true);
+                      onOpen('profile');
                     } else {
                       window.open(profile?.personalLinks.github, '_blank');
                     }
                   }}
                 />
               )}
-              {(profile?.isMe || profile?.personalLinks.wechat) &&
+              {(profile?.isCurrentUser || profile?.personalLinks.wechat) &&
                 (profile?.personalLinks.wechat ? (
                   <HoverCard>
                     <HoverCardTrigger>
@@ -131,9 +140,16 @@ export function BasicInfo() {
                         </div>
                         <div className="flex items-center justify-between rounded-full bg-neutral-off-white px-4 py-2">
                           <span className="text-sm">{profile?.personalLinks.wechat}</span>
-                          <button className="outline-none" onClick={() => copyText(profile?.personalLinks.wechat)}>
-                            <CopyIcon className="h-4 w-4" />
-                          </button>
+                          {copied ? (
+                            <CheckIcon className="h-4 w-4" />
+                          ) : (
+                            <button
+                              className="outline-none"
+                              onClick={(event) => onCopyClick(event, profile?.personalLinks.wechat)}
+                            >
+                              <CopyIcon className="h-4 w-4" />
+                            </button>
+                          )}
                         </div>
                       </div>
                     </HoverCardContent>
@@ -141,7 +157,7 @@ export function BasicInfo() {
                 ) : (
                   <WeChatIcon
                     className="h-5 w-5 cursor-pointer opacity-30 sm:h-6 sm:w-6"
-                    onClick={() => toggle(true)}
+                    onClick={() => onOpen('profile')}
                   />
                 ))}
             </div>
@@ -155,7 +171,11 @@ export function BasicInfo() {
           </div>
         </div>
         <div className="absolute right-5 top-6 flex items-center gap-4 sm:right-0 sm:top-10">
-          {profile?.isMe && <EditProfile open={open} toggle={toggle} />}
+          {profile?.isCurrentUser && (
+            <button className="outline-none" onClick={() => onOpen('profile')}>
+              <EditIcon className="mt-[3px] h-5 w-5 sm:h-6 sm:w-6" />
+            </button>
+          )}
           <ShareProfile />
         </div>
       </div>

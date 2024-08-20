@@ -37,7 +37,8 @@ enum MenuLink {
   SYSTEM = '/system',
   HACKATHON_ORGANIZER = '/hackathon/organizer',
   FORM_HACKATHON_ORGANIZER = '/form/hackathon/organizer',
-  HACKATHON_MANAGER = '/hackathon-manage'
+  HACKATHON_MANAGER = '/hackathon-manage',
+  JOB_STATION = '/jobs'
 }
 
 export default MenuLink;

@@ -2,24 +2,41 @@
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/client';
 import React, { useMemo, useState } from 'react';
-import Image from 'next/image';
-import { partnerList, partnerTags } from '@/app/[lang]/(web)/(base page)/(resource)/partners/constants/data';
 import PartnerCardModal from './PartnerCardModal';
-import { PartnerType } from '@/app/[lang]/(web)/(base page)/(resource)/partners/constants/type';
+import { PartnerShipType } from '@/service/webApi/resourceStation/type';
+import BaseImage from '@/components/Common/BaseImage';
 
 interface PartnerListProp {
   lang: Lang;
+  partnerShips: PartnerShipType[];
 }
 
-const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
+const PartnerList: React.FC<PartnerListProp> = ({ lang, partnerShips }) => {
   const { t } = useTranslation(lang, TransNs.RESOURCE);
   const [curTag, setCurTag] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
-  const [curPartner, setCurPartner] = useState({});
+  const [curPartner, setCurPartner] = useState<PartnerShipType>({} as PartnerShipType);
+  const partnerTags = useMemo(() => {
+    const tags: string[] = [];
+    partnerShips.forEach((v) => {
+      tags.push(...v.tags);
+    });
+    const newTags = [...new Set(tags)].map((v) => ({
+      value: v,
+      label: v
+    }));
+    return [
+      {
+        label: 'All Regions',
+        value: ''
+      },
+      ...newTags
+    ];
+  }, [partnerShips]);
   const list = useMemo(() => {
-    if (!curTag) return partnerList;
-    return partnerList.filter((v) => v.tags?.includes(curTag));
-  }, [curTag]);
+    if (!curTag) return partnerShips;
+    return partnerShips.filter((v) => v.tags?.includes(curTag));
+  }, [curTag, partnerShips]);
   return (
     <div className="flex flex-col items-center gap-[1.25rem]">
       <p className="text-h2-mob text-neutral-off-black">{t('partners.whoAreOurPartners')}</p>
@@ -38,14 +55,16 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
         {list.map((v, i) => (
           <div
             key={i}
-            className="card-hover w-[calc((100%-0.75rem)/2)] overflow-hidden rounded-[1rem] bg-neutral-white"
+            className="w-[calc((100%-0.75rem)/2)] overflow-hidden rounded-[1rem] bg-neutral-white shadow-[0_0_4px_0_rgba(0,0,0,0.12)]"
             onClick={() => {
               setCurPartner(v);
               setModalOpen(true);
             }}
           >
             <div className="relative h-0 w-full bg-neutral-light-gray pt-[58%]">
-              {v.img && <Image src={v.img} alt={v.name} fill className="object-cover" />}
+              <div className="absolute left-0 top-0 h-full w-full p-[1.25rem]">
+                <BaseImage src={v.logo} alt={v.name} className="h-full w-full" contain={true} />
+              </div>
             </div>
             <div className="h-[3.25rem] p-[.75rem]">
               <h2 className="caption-10pt line-clamp-2 text-neutral-off-black">{v.name}</h2>
@@ -53,7 +72,7 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang }) => {
           </div>
         ))}
       </div>
-      <PartnerCardModal open={modalOpen} onClose={() => setModalOpen(false)} partner={curPartner as PartnerType} />
+      <PartnerCardModal open={modalOpen} onClose={() => setModalOpen(false)} partner={curPartner as PartnerShipType} />
     </div>
   );
 };

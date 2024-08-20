@@ -8,19 +8,23 @@ import { IoIosArrowForward } from 'react-icons/io';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
-import dayjs from '@/components/Common/Dayjs';
 import CountDown from '@/components/Web/Business/CountDown';
 import { ProjectDetailContext } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface CloseInProp {}
 const CloseIn: React.FC<CloseInProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { project, hackathon } = useContext(ProjectDetailContext);
+  const { getStepIndex } = useDealHackathonData();
   const isEnd = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
-  }, [hackathon]);
-  if (isEnd && !project.rewards?.some((v) => v.winner)) return null;
+    return getStepIndex(hackathon) === 2;
+  }, [hackathon, getStepIndex]);
+  const prize = useMemo(() => {
+    return project.rewards?.find((v) => v.winner);
+  }, [project]);
+  if (isEnd && !prize) return null;
   return (
     <div className="sticky left-0 top-[4rem] z-[2]  w-full bg-yellow-extra-light  px-[1.25rem] py-[.75rem]">
       <div className="body-xs gap-[12px] text-neutral-off-black">
@@ -30,7 +34,7 @@ const CloseIn: React.FC<CloseInProp> = ({}) => {
               <>
                 <Image src={IconLevelPrize} alt="level-prize-icon" width={18} />
                 <div>
-                  This project won the <span className="body-m-bold">{project.rewards[0].name}</span> prize
+                  This project won the <span className="body-m-bold">{prize?.name}</span> prize
                 </div>
               </>
             ) : (

@@ -1,7 +1,6 @@
 import Button from '@/components/Common/Button';
 import { errorMessage } from '@/helper/ui';
 import { cn } from '@/helper/utils';
-import { useMintCertification } from '@/hooks/useMintCertification';
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import { useRequest } from 'ahooks';
 import message from 'antd/es/message';
@@ -12,6 +11,8 @@ import { isMobile } from 'react-device-detect';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useMintCertificate } from '@/hooks/certificate';
+import { ChainType } from '@/config/wagmi';
 interface GettingCertificateProps {
   certification: UserCertificateInfo;
   refreshCertification?: VoidFunction;
@@ -61,15 +62,22 @@ const badge = (
 
 const GettingCertificate: FC<GettingCertificateProps> = ({ certification, refreshCertification, closeModal }) => {
   const [showShare, setShowShare] = useState(false);
-  const { safeMintAsync } = useMintCertification();
+  const { safeMintAsyncFromEvm, safeMintAsyncFromSolana, safeMintAsyncFromSui } = useMintCertificate();
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.REWARD);
 
   const { run: safeMint, loading } = useRequest(
     async () => {
-      const res = await safeMintAsync(certification);
-
-      return res;
+      switch (certification.chainId) {
+        case ChainType.Solana:
+          await safeMintAsyncFromSolana(certification);
+          break;
+        case ChainType.Sui:
+          await safeMintAsyncFromSui(certification);
+          break;
+        default:
+          await safeMintAsyncFromEvm(certification);
+      }
     },
     {
       manual: true,

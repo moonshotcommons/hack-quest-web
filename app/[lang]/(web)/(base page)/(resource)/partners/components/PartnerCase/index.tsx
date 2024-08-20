@@ -7,6 +7,7 @@ import CaseCover2 from '@/public/images/resource/case_cover2.png';
 import Button from '@/components/Common/Button';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
+import { joinPartnerLink } from '../../constants/data';
 
 interface PartnerCaseProp {
   lang: Lang;
@@ -29,12 +30,14 @@ const PartnerCase: React.FC<PartnerCaseProp> = async ({ lang }) => {
                 <p className="text-h2 mb-[20px] text-neutral-off-black">{t('partners.becomeOurPartner')}🤝</p>
                 <p className="body-l text-neutral-rich-gray">{t('partners.caseDesc1')}</p>
               </div>
-              <Button
-                ghost
-                className="button-text-l h-[60px] w-[270px] border-neutral-black p-0 uppercase text-neutral-black"
-              >
-                {t('partners.becomeOurPartner')}
-              </Button>
+              <Link href={joinPartnerLink} target="_blank">
+                <Button
+                  ghost
+                  className="button-text-l h-[60px] w-[270px] border-neutral-black p-0 uppercase text-neutral-black"
+                >
+                  {t('partners.becomeOurPartner')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

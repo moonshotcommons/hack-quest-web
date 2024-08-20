@@ -44,7 +44,7 @@ export function MyCertificateCard() {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2">
-        {profile?.certifications?.map((certificate) => (
+        {profile?.certifications?.slice(0, 3)?.map((certificate) => (
           <div key={certificate.id} className="relative h-12 w-full overflow-hidden rounded">
             <Image src={certificate.image} alt={certificate.name} fill />
           </div>
@@ -53,7 +53,7 @@ export function MyCertificateCard() {
           <div className="h-12 w-full rounded border border-dashed border-neutral-medium-gray" />
         )}
       </div>
-      <Link href="/user/profile">
+      <Link href={`/user/${profile?.user.username}`}>
         <div className="inline-flex items-center gap-2">
           <span className="text-xs font-medium uppercase text-neutral-off-black">{t('view_certificate')}</span>
           <MoveRightIcon size={16} />

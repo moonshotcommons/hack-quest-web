@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { cn } from '@/helper/utils';
 
 interface SliderCardProp {
-  title: string | ReactNode;
+  title?: string | ReactNode;
   className?: string;
   viewLink?: string;
   renderItem: (width: number) => ReactNode;
@@ -47,7 +47,9 @@ function SliderCard({ title, className, viewLink, renderItem, isMobile = false }
             <Navigation isMobile={isMobile} changeState={scrollContainerState} />
           </div>
           <ScrollContainer ref={scrollContainerRef} gap={0} onChange={(state: any) => setScrollContainerState(state)}>
-            <div className="flex">{renderItem(!mounted ? 1360 : (containerRef.current?.offsetWidth as number))}</div>
+            <div className="flex">
+              {renderItem(!mounted ? 1360 : (containerRef.current?.getBoundingClientRect().width as number))}
+            </div>
           </ScrollContainer>
         </div>
 

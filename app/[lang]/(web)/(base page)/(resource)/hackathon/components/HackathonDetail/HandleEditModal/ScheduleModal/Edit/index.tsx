@@ -16,7 +16,13 @@ import { HackathonEditContext } from '../../../../../constants/type';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
 import dayjs from 'dayjs';
 import { InfoIcon } from 'lucide-react';
-import TextEditor, { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
+
+import dynamic from 'next/dynamic';
+const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>
+});
 
 interface EditProp {
   hackathon: HackathonType;

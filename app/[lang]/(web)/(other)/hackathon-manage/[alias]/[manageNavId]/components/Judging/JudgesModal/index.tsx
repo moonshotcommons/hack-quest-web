@@ -10,7 +10,9 @@ import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import webApi from '@/service';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { HackathonJudgeAccountType, HackathonJugingInfoRewardType } from '@/service/webApi/resourceStation/type';
+import { message } from 'antd';
 
 const formSchema = z.object({
   judgeAccount: z.string().email()
@@ -18,10 +20,14 @@ const formSchema = z.object({
 interface JudgesModalProp {
   open: boolean;
   onClose: () => void;
+  judgeReward: HackathonJugingInfoRewardType;
+  refresh: VoidFunction;
 }
 
-const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
-  const [removeJudge, setRemoveJudge] = useState<any>(null);
+const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose, judgeReward, refresh }) => {
+  const judgeAccounts = judgeReward?.judge?.judgeAccounts || [];
+  const [removeJudge, setRemoveJudge] = useState<HackathonJudgeAccountType | null>(null);
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,8 +39,11 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: (email: string) => webApi.hackathonV2Api.addJudgeAccount(email),
     onSuccess: (data) => {
-      console.info(data);
-      form.resetField('judgeAccount', { defaultValue: '' });
+      if (judgeAccounts.some((judge) => judge.email === data.email)) {
+        message.error('Already exists');
+        return;
+      }
+      changeAccounts([...judgeAccounts.map((v) => v.id), data.id]);
     },
     onError: (error: any) => {
       if (error.code === 404) {
@@ -44,6 +53,23 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
       }
     }
   });
+  const { mutate: changeAccounts, isPending: changePending } = useMutation({
+    mutationKey: ['updateJudge', judgeReward?.id],
+    mutationFn: (accounts: string[]) =>
+      webApi.hackathonV2Api.updateHackathonJudge(judgeReward?.id, {
+        hackathonId: judgeReward?.hackathonId,
+        judgeAccounts: accounts
+      }),
+    onSuccess: () => {
+      message.success('Success');
+      form.resetField('judgeAccount', { defaultValue: '' });
+      refresh();
+      setRemoveJudge(null);
+    },
+    onError: (error: any) => {
+      message.error(error);
+    }
+  });
   async function addJudgeAccount() {
     const isValid = await form.trigger('judgeAccount');
     const email = form.getValues('judgeAccount');
@@ -51,13 +77,18 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
       mutate(email);
     }
   }
+
+  const handleRemove = () => {
+    changeAccounts(judgeAccounts.filter((v) => v.id !== removeJudge?.id).map((v) => v.id));
+  };
+
   return (
     <Modal open={open} onClose={onClose} showCloseIcon icon={<FiX size={26} />}>
       <div className="flex max-h-[80vh] w-[888px] flex-col rounded-[16px] bg-neutral-white pb-[20px] pt-[60px]">
         <div className="flex flex-col gap-[20px] px-[40px]">
           <Title title="Judges" />
           <div className="flex flex-col gap-[8px]">
-            <p>{`Judge Accounts (${10})`}</p>
+            <p>{`Judge Accounts (${judgeAccounts.length})`}</p>
             <Form {...form}>
               <FormField
                 control={form.control}
@@ -79,7 +110,7 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
                         />
                         <Button
                           disabled={!judgeAccount}
-                          isLoading={isPending}
+                          isLoading={isPending || changePending}
                           size={'small'}
                           className="w-[140px] flex-shrink-0"
                           onClick={addJudgeAccount}
@@ -94,17 +125,18 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
               ></FormField>
             </Form>
             <div className="body-xs flex-center rounded-[4px] bg-neutral-off-white py-[8px] text-neutral-rich-gray">
-              {`10,000 votes for each judge`}
+              {`${judgeReward?.judge?.judgeProjectVote} votes for each judge`}
             </div>
           </div>
         </div>
         <div className="scroll-wrap-y flex-1 px-[40px] py-[24px]">
           <div className="flex flex-col gap-[24px]">
-            {Array.from({ length: 30 }).map((v, i) => (
+            {judgeAccounts?.map((v, i) => (
               <JudgeCard
                 key={i}
+                judgeAccount={v}
                 handleRemove={() => {
-                  setRemoveJudge(i);
+                  setRemoveJudge(v);
                 }}
               />
             ))}
@@ -113,12 +145,14 @@ const JudgesModal: React.FC<JudgesModalProp> = ({ open, onClose }) => {
       </div>
       <ConfirmModal
         open={!!removeJudge}
+        isLoading={changePending}
+        autoClose={false}
         onClose={() => setRemoveJudge(null)}
         onConfirm={() => {
-          setRemoveJudge(null);
+          handleRemove();
         }}
       >
-        {`Do you want to remove this judge 1111?`}
+        {`Do you want to remove this judge ${removeJudge?.nickname}?`}
       </ConfirmModal>
     </Modal>
   );

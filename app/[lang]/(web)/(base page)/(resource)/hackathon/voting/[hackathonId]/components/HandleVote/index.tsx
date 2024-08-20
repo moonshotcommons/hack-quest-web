@@ -46,8 +46,10 @@ const HandleVote: React.FC<HandleVoteProp> = ({ view, project }) => {
   }, [voteData, project]);
   const remainingCount = useMemo(() => {
     const projectLeftVote = project?.projectLeftVote || 0;
-    return judgeInfo?.judge?.voteMode === 'fixed' ? Math.min(remainingVotes, projectLeftVote) : projectLeftVote;
-  }, [remainingVotes, project, judgeInfo]);
+    const remainCount =
+      judgeInfo?.judge?.voteMode === 'fixed' ? Math.min(remainingVotes, projectLeftVote) : projectLeftVote;
+    return remainCount - voteCount < 0 ? 0 : remainCount - voteCount;
+  }, [remainingVotes, project, judgeInfo, voteCount]);
 
   const openLoginModal = () => {
     if (isMobile) {

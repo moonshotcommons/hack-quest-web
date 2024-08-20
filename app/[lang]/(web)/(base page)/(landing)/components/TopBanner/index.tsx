@@ -48,7 +48,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
     <div className="flex h-[50rem] w-full flex-col items-center justify-between bg-neutral-black">
       <div className="flex flex-col items-center">
         {getLandingTitle()}
-        <Link href={'/learning-track'}>
+        <Link href={'/ecosystem-explore'}>
           <Button type="primary" className="button-text-l mt-12 w-[168px] px-0 py-4 uppercase">
             {t('TopBanner.explore')}
           </Button>

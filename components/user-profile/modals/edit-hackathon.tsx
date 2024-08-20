@@ -17,9 +17,9 @@ import { RemoveAlert } from '../common/remove-alert';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useToggle } from '@/hooks/utils/use-toggle';
-import { message } from 'antd';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
+import toast from 'react-hot-toast';
 
 export function EditHackathon({
   type,
@@ -44,10 +44,11 @@ export function EditHackathon({
   });
 
   const create = useMutation({
+    mutationKey: ['create-hackathon'],
     mutationFn: (data: any) => webApi.userApi.addHackathon(data),
     onSuccess: () => {
       toggle(false);
-      message.success('Hackathon added successfully');
+      toast.success('Hackathon created');
       invalidate();
     }
   });
@@ -57,7 +58,7 @@ export function EditHackathon({
     mutationFn: (data: any) => webApi.userApi.editHackathon(initialValues?.id as string, data),
     onSuccess: () => {
       toggle(false);
-      message.success('Hackathon updated successfully');
+      toast.success('Hackathon updated');
       invalidate();
     }
   });
@@ -66,7 +67,7 @@ export function EditHackathon({
     mutationFn: () => webApi.userApi.deleteHackathon(initialValues?.id as string),
     onSuccess: () => {
       toggle(false);
-      message.success('Hackathon removed successfully');
+      toast.success('Hackathon removed');
       invalidate();
     }
   });
@@ -108,7 +109,7 @@ export function EditHackathon({
           </button>
         )}
       </DialogTrigger>
-      <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
+      <DialogContent className="flex h-full flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
         <MobileModalHeader />
         <DialogHeader className="shrink-0 text-left">
           <DialogTitle className="text-lg sm:text-[22px]">{type === 'create' ? 'Add' : 'Edit'} Hackathon</DialogTitle>

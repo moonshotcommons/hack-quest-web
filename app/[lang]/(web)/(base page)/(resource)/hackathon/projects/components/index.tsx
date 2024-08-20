@@ -25,7 +25,7 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
   const searchList = (search: SearchParamsType) => {
     const searchInfo = {
       ...search,
-      createdAt: search.createdAt === projectSort[0].value ? '' : search.createdAt,
+      sort: search.sort === projectSort[0].value ? '' : search.sort,
       winner: !search.winner ? '' : search.winner
     };
     const url = getSearchParamsUrl(searchInfo, MenuLink.PROJECTS);
@@ -34,12 +34,13 @@ const ProjectsPage: FC<ProjectsPageProp> = ({ list, searchParams, total, pageInf
 
   function handleSearch(keyword: string) {
     searchList({
-      createdAt: projectSort[0].value,
+      sort: projectSort[0].value,
       winner: '',
       tracks: '',
       track: '',
       prizeTrack: '',
-      keyword
+      keyword,
+      page: '1'
     });
   }
 

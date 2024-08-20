@@ -18,19 +18,21 @@ import { omit } from 'lodash-es';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { useToggle } from '@/hooks/utils/use-toggle';
-import { message } from 'antd';
 import { RemoveAlert } from '../common/remove-alert';
 import { useProfile } from '../modules/profile-provider';
 import { MobileModalHeader } from './mobile-modal-header';
+import toast from 'react-hot-toast';
 
 export function EditExperience({
   type,
   iconOnly = true,
-  initialValues = null
+  initialValues = null,
+  label
 }: {
   type: 'create' | 'edit';
   iconOnly?: boolean;
   initialValues?: UserExperienceType | null;
+  label?: string;
 }) {
   const [open, toggle] = useToggle(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -50,7 +52,7 @@ export function EditExperience({
     mutationFn: (data: any) => webApi.userApi.addExperience(data),
     onSuccess: () => {
       toggle(false);
-      message.success('Create experience successfully');
+      toast.success('Experience created');
       invalidate();
     }
   });
@@ -60,7 +62,7 @@ export function EditExperience({
     mutationFn: (data: any) => webApi.userApi.editExperience(initialValues?.id as string, data),
     onSuccess: () => {
       toggle(false);
-      message.success('Update experience successfully');
+      toast.success('Experience updated');
       invalidate();
     }
   });
@@ -70,7 +72,7 @@ export function EditExperience({
     mutationFn: () => webApi.userApi.deleteExperience(initialValues?.id as string),
     onSuccess: () => {
       toggle(false);
-      message.success('Remove experience successfully');
+      toast.success('Experience removed');
       invalidate();
     }
   });
@@ -109,7 +111,11 @@ export function EditExperience({
   return (
     <Dialog open={open} onOpenChange={toggle}>
       <DialogTrigger asChild>
-        {!iconOnly ? (
+        {label ? (
+          <button className="self-start text-sm underline outline-none" onClick={toggle}>
+            {label}
+          </button>
+        ) : !iconOnly ? (
           <Button className="w-[165px]" size="small" onClick={toggle}>
             Add Experience
           </Button>
@@ -123,7 +129,7 @@ export function EditExperience({
           </button>
         )}
       </DialogTrigger>
-      <DialogContent className="flex h-screen flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
+      <DialogContent className="flex h-full flex-col gap-0 px-5 py-0 sm:h-auto sm:w-[900px] sm:max-w-[900px] sm:gap-6 sm:px-8 sm:py-16 sm:pb-8">
         <MobileModalHeader />
         <DialogHeader className="shrink-0 text-left">
           <DialogTitle className="text-lg sm:text-[22px]">{type === 'edit' ? 'Edit' : 'Add'} Experience</DialogTitle>
@@ -131,7 +137,7 @@ export function EditExperience({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="no-scrollbar mt-5 flex-1 space-y-5 overflow-y-auto p-0.5 sm:mt-0 sm:space-y-6"
+            className="documentation-scrollbar mt-5 flex-1 space-y-5 overflow-y-auto p-0.5 sm:mt-0 sm:space-y-6"
           >
             <FormField
               control={form.control}
@@ -261,7 +267,7 @@ export function EditExperience({
                 )}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="!mb-5 grid grid-cols-2 gap-4 sm:mb-0">
               <FormField
                 control={form.control}
                 name="endMonth"

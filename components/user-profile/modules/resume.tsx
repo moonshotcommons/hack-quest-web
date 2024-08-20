@@ -6,8 +6,8 @@ import { RemoveFile } from '../modals/remove-file-modal';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
 import { Spinner } from '@/components/ui/spinner';
-import { message } from 'antd';
 import { useProfile } from './profile-provider';
+import toast from 'react-hot-toast';
 
 export function Resume() {
   const { profile, invalidate } = useProfile();
@@ -22,7 +22,7 @@ export function Resume() {
     mutationFn: (resumeId: string) => webApi.userApi.removeResume(resumeId),
     onSuccess: () => {
       invalidate();
-      message.success('Remove success');
+      toast.success('Resume deleted');
     }
   });
 
@@ -43,10 +43,10 @@ export function Resume() {
         .mutateAsync(formData)
         .then(() => {
           invalidate();
-          message.success('Upload success');
+          toast.success('Resume uploaded');
         })
         .catch(() => {
-          message.error('Upload failed');
+          toast.error('Resume upload failed');
           setTimeout(() => {
             setFiles((prev: any) => prev.filter((f: any) => f.name !== file.name));
           }, 2000);
@@ -76,23 +76,27 @@ export function Resume() {
             {uploadMutation.isPending && uploadingFile[file.name] ? (
               <Spinner size={20} />
             ) : (
-              <RemoveFile
-                loading={removeMutation.isPending}
-                name={file.name}
-                onConfirm={() => removeMutation.mutate(file.id)}
-              />
+              profile?.isCurrentUser && (
+                <RemoveFile
+                  loading={removeMutation.isPending}
+                  name={file.name}
+                  onConfirm={() => removeMutation.mutate(file.id)}
+                />
+              )
             )}
           </div>
         ))}
-        <div className="group relative flex w-full items-center justify-center gap-2.5 rounded-xl border border-dashed border-neutral-medium-gray p-4 transition-colors duration-300 hover:border-neutral-black">
-          <label className="absolute inset-0 h-full w-full cursor-pointer opacity-0 group-hover:opacity-100">
-            <input type="file" accept="application/*" className="hidden" onChange={onChange} />
-          </label>
-          <button className="inline-flex items-center justify-center gap-2 outline-none">
-            <UploadIcon size={20} className="text-neutral-rich-gray" />
-            <span className="body-s text-neutral-rich-gray">Upload file</span>
-          </button>
-        </div>
+        {profile?.isCurrentUser && (
+          <div className="group relative flex w-full items-center justify-center gap-2.5 rounded-xl border border-dashed border-neutral-medium-gray p-4 transition-colors duration-300 hover:border-neutral-black">
+            <label className="absolute inset-0 h-full w-full cursor-pointer opacity-0 group-hover:opacity-100">
+              <input type="file" accept="application/*" className="hidden" onChange={onChange} />
+            </label>
+            <button className="inline-flex items-center justify-center gap-2 outline-none">
+              <UploadIcon size={20} className="text-neutral-rich-gray" />
+              <span className="body-s text-neutral-rich-gray">Upload file</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

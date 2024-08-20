@@ -7,6 +7,7 @@ import PartnerData from './components/PartnerData';
 import PartnerList from './components/PartnerList';
 import PartnerCase from './components/PartnerCase';
 import MobLandingFooter from '@/components/Mobile/MobLandingFooter';
+import webApi from '@/service';
 
 interface PartnersProp {
   params: {
@@ -32,14 +33,16 @@ export async function generateMetadata({ params }: PartnersProp): Promise<Metada
   return metadata;
 }
 
-const Partners: React.FC<PartnersProp> = ({ params }) => {
+const Partners: React.FC<PartnersProp> = async ({ params }) => {
   const { lang } = params;
+  const partnerShips = await webApi.resourceStationApi.getPartnerShips();
+
   return (
     <div className="flex flex-col gap-[5rem]">
       <PartnersBanner lang={lang} />
       <div className="flex flex-col gap-[5rem] px-[1.25rem]">
         <PartnerData lang={lang} />
-        <PartnerList lang={lang} />
+        <PartnerList lang={lang} partnerShips={partnerShips} />
       </div>
       <PartnerCase lang={lang} />
       <div>

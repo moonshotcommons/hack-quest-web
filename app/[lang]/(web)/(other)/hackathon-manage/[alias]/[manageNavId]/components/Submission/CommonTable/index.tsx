@@ -1,34 +1,84 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SelectType } from '../../../../../constants/type';
+import { AuditTabType, SelectType } from '../../../../../constants/type';
 import { cloneDeep } from 'lodash-es';
 import Operation from './Operation';
 import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
 import { ProjectType } from '@/service/webApi/resourceStation/type';
+import { exportToExcel } from '@/helper/utils';
+import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface CommonTableProp {
   list: any[];
   information: SelectType[];
   loading: boolean;
+  tabs: AuditTabType[];
+  prizeTrack: string;
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, tabs, prizeTrack }) => {
+  const { hackathon } = useHackathonManageStore(
+    useShallow((state) => ({
+      hackathon: state.hackathon
+    }))
+  );
   const [checkAll, setCheckAll] = useState(false);
-  const [checkIds, setCheckIds] = useState<string[]>([]);
+  const [checkItems, setCheckItems] = useState<ProjectType[]>([]);
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [curInfo, setCurInfo] = useState<ProjectType | null>(null);
-  const handleCheck = (id: string) => {
-    const newCheckIds = checkIds.includes(id) ? checkIds.filter((v) => v !== id) : [...checkIds, id];
-    setCheckIds(newCheckIds);
-    setCheckAll(newCheckIds.length === list.length);
+  const handleCheck = (item: ProjectType) => {
+    const newCheckItems = checkItems.some((v) => v.id === item.id)
+      ? checkItems.filter((v) => v.id !== item.id)
+      : [...checkItems, item];
+    setCheckItems(newCheckItems);
+    setCheckAll(newCheckItems.length === list.length && list.length > 0);
   };
   const handleCheckAll = () => {
-    !checkAll ? setCheckIds(list.map((v) => v.id)) : setCheckIds([]);
+    !checkAll ? setCheckItems(list) : setCheckItems([]);
   };
 
-  const handleDown = () => {};
+  const getInfo = (item: ProjectType) => {
+    const info: Record<string, any> = {
+      name: item.name,
+      vote: item.vote,
+      winner: item.winner ? 'Yes' : 'No',
+      secotr: item.tracks.join(','),
+      'prize track': item.prizeTrack,
+      location: item.location,
+      'pitch video': item.pitchVideo,
+      'demo video': item.demoVideo
+    };
+    [item.detail || {}, item.addition || {}].forEach((ad) => {
+      for (let key in ad) {
+        if (!['id', 'fields'].includes(key)) {
+          const dKey = key as keyof typeof ad;
+          info[dKey] = ad[dKey];
+        }
+        for (let fKey in ad.fields) {
+          info[ad.fields[fKey]['label']] = ad.fields[fKey]['value'];
+        }
+      }
+    });
+    for (let fKey in item.fields) {
+      info[item.fields[fKey]['label']] = item.fields[fKey]['value'];
+    }
+    return info;
+  };
+  const handleDown = (item?: ProjectType) => {
+    const items = item ? [item] : checkItems;
+    if (!items.length) return;
+    const newCheckItems = structuredClone(items);
+    const submissionData: Record<string, any>[] = [];
+
+    newCheckItems.forEach((v) => {
+      submissionData.push(getInfo(v));
+    });
+    const tabName = tabs.find((v) => v.value === prizeTrack)?.label;
+    exportToExcel(submissionData, `${hackathon.name}-${tabName}-submission`);
+  };
 
   const changeTeamIds = (id: string) => {
     const newTeamIds = teamIds.includes(id) ? teamIds.filter((v) => v !== id) : [...teamIds, id];
@@ -40,8 +90,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
   };
 
   useEffect(() => {
-    setCheckAll(checkIds.length === list.length);
-  }, [checkIds, list]);
+    setCheckAll(checkItems.length === list.length && list.length > 0);
+  }, [checkItems, list]);
 
   const tableList = useMemo(() => {
     const l = list.map((v, i) => ({
@@ -57,14 +107,14 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
   }, [list, teamIds]);
 
   useEffect(() => {
-    setCheckIds([]);
+    setCheckItems([]);
     setTeamIds([]);
   }, [list]);
   return (
     <div className="flex w-full flex-1 flex-col">
-      <Operation checkIds={checkIds} handleDown={handleDown} />
+      <Operation checkIds={checkItems.map((v) => v.id)} handleDown={() => handleDown()} />
       <AuditTable
-        checkIds={checkIds}
+        checkIds={checkItems.map((v) => v.id)}
         handleCheckAll={handleCheckAll}
         checkAll={checkAll}
         tableList={tableList}
@@ -79,7 +129,14 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading }) 
         open={!!curInfo?.id}
         curInfo={curInfo}
         renderItem={() =>
-          tableList?.map((info) => <InfoContent key={info.id} info={info} onClose={() => setCurInfo(null)} />)
+          tableList?.map((info) => (
+            <InfoContent
+              key={info.id}
+              info={info}
+              handleDown={() => handleDown(info)}
+              onClose={() => setCurInfo(null)}
+            />
+          ))
         }
       />
     </div>

@@ -9,10 +9,8 @@ import { MdKeyboardArrowDown, MdOutlineAccessTimeFilled } from 'react-icons/md';
 import Title from '../../Title';
 import { ApplicationStatus, HackathonManageApplicationType } from '@/service/webApi/resourceStation/type';
 import { useShallow } from 'zustand/react/shallow';
-import dayjs from 'dayjs';
 import BaseImage from '@/components/Common/BaseImage';
 import { applicationAboutBasicKeys } from '../../../../../constants/data';
-import Link from 'next/link';
 import { isUuid } from '@/helper/utils';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { cloneDeep } from 'lodash-es';
@@ -21,9 +19,17 @@ interface InfoContentProp {
   info: HackathonManageApplicationType;
   onClose: VoidFunction;
   handleStautusSingle: (item: HackathonManageApplicationType, sta: ApplicationStatus) => void;
+  disableHandleButton: boolean;
+  showHandleButton: boolean;
 }
 
-const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleStautusSingle }) => {
+const InfoContent: React.FC<InfoContentProp> = ({
+  info: team,
+  onClose,
+  handleStautusSingle,
+  disableHandleButton,
+  showHandleButton
+}) => {
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
@@ -37,12 +43,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
   const status = useMemo(() => {
     return team?.joinState;
   }, [team]);
-  const disableHandleButton = useMemo(() => {
-    return dayjs().tz().isAfter(hackathon?.timeline?.registrationClose);
-  }, [hackathon]);
-  const showHandleButton = useMemo(() => {
-    return hackathon?.info?.allowSubmission === false;
-  }, [hackathon]);
+
   const renderStatus = () => {
     switch (status) {
       case ApplicationStatus.APPROVED:
@@ -198,7 +199,6 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
       onlineProfiles
     };
   }, [curMemberInfo, hackathon]);
-
   useEffect(() => {
     if (team.type === 'team') {
       setCurMemberInfo(team.members?.[0] as HackathonManageApplicationType);
@@ -207,12 +207,12 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
     }
   }, [team]);
   return (
-    <div className="relative flex max-h-[80vh] w-[888px] flex-col rounded-[16px] bg-neutral-white pb-[40px] pt-[60px]">
+    <div className="relative flex max-h-[80vh] w-[888px] flex-col overflow-hidden rounded-[16px] bg-neutral-white pb-[40px] pt-[60px]">
       <FiX size={26} className="absolute right-[20px] top-[20px] cursor-pointer" onClick={onClose} />
       <div className="px-[40px]">
         <Title title={team?.name} />
       </div>
-      <div className=" scroll-wrap-y flex-1 px-[40px] py-[20px]">
+      <div className=" scroll-wrap-y  flex-1  px-[40px] py-[20px]">
         <div className="flex flex-col gap-[20px]">
           {team.type === 'team' && (
             <div className="body-s flex items-center gap-[8px] rounded-[16px] bg-neutral-off-white p-[16px] text-neutral-medium-gray">
@@ -279,7 +279,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
               </div>
             </div>
           )}
-          <div className={`body-l`}>
+          <div className="body-l">
             <div className="flex cursor-pointer items-center justify-between" onClick={() => handleExpand('about')}>
               <p className="body-l-bold mb-[8px] text-neutral-off-black">About</p>
               <MdKeyboardArrowDown
@@ -292,20 +292,21 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
               className={`grid overflow-hidden text-neutral-off-black transition-all ${expandTypes.includes('about') ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
             >
               <div className="flex flex-col gap-[8px] overflow-hidden">
-                <div className={`flex flex-wrap  gap-[8px_40px] overflow-hidden   `}>
-                  {mInfo?.aboutsBasic.map((v: any) => (
+                <div className={`flex flex-wrap  gap-[8px_40px]`}>
+                  {mInfo?.aboutsBasic?.map((v: any) => (
                     <div key={v.label}>
                       <p className="capitalize text-neutral-medium-gray">{v?.label?.toLocaleLowerCase()}</p>
                       {v.label === 'resume' ? (
-                        <Link
-                          href={v?.value || ''}
-                          target="_blank"
-                          className="text-neutral-off-black underline outline-none"
+                        <p
+                          className="cursor-pointer text-neutral-off-black underline"
+                          onClick={() => {
+                            window.open(v?.value, '_blank');
+                          }}
                         >
                           View Resume
-                        </Link>
+                        </p>
                       ) : (
-                        <p>{v?.value}</p>
+                        <p className="">{v?.value}</p>
                       )}
                     </div>
                   ))}
@@ -318,10 +319,10 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
                 )}
 
                 {mInfo?.aboutsCustom?.length > 0 && (
-                  <div className="flex gap-[8px_40px]">
+                  <div className="flex flex-wrap gap-[8px_40px]">
                     {mInfo?.aboutsCustom.map((v) => (
                       <div key={v.label}>
-                        <p className="capitalize text-neutral-medium-gray">{v.label.toLocaleLowerCase()}</p>
+                        <p className="capitalize text-neutral-medium-gray">{v.label?.toLocaleLowerCase()}</p>
                         <p className={`text-neutral-rich-gray`}>{v.value}</p>
                       </div>
                     ))}
@@ -344,7 +345,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
               <div className="flex flex-wrap gap-[8px_40px] overflow-hidden text-neutral-off-black">
                 {mInfo?.onlineProfiles?.map((v) => (
                   <div key={v.label}>
-                    <p className="capitalize text-neutral-medium-gray">{v.label.toLocaleLowerCase()}</p>
+                    <p className="capitalize text-neutral-medium-gray">{v.label?.toLocaleLowerCase()}</p>
                     <p>{v.value}</p>
                   </div>
                 ))}
@@ -365,7 +366,7 @@ const InfoContent: React.FC<InfoContentProp> = ({ info: team, onClose, handleSta
               <div className="flex flex-wrap gap-[8px_40px] overflow-hidden text-neutral-off-black">
                 {mInfo?.contacts?.map((v) => (
                   <div key={v.label}>
-                    <p className="capitalize text-neutral-medium-gray">{v.label.toLocaleLowerCase()}</p>
+                    <p className="capitalize text-neutral-medium-gray">{v.label?.toLocaleLowerCase()}</p>
                     <p>{v.value}</p>
                   </div>
                 ))}
