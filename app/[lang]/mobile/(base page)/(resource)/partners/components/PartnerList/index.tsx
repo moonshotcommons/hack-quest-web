@@ -61,11 +61,7 @@ const PartnerList: React.FC<PartnerListProp> = ({ lang, partnerShips }) => {
               setModalOpen(true);
             }}
           >
-            <div className="relative h-0 w-full bg-neutral-light-gray pt-[58%]">
-              <div className="absolute left-0 top-0 h-full w-full p-[1.25rem]">
-                <BaseImage src={v.logo} alt={v.name} className="h-full w-full" contain={true} />
-              </div>
-            </div>
+            <BaseImage src={v.logo} alt={v.name} className="h-0 w-full bg-neutral-light-gray pt-[56%]" contain={true} />
             <div className="h-[3.25rem] p-[.75rem]">
               <h2 className="caption-10pt line-clamp-2 text-neutral-off-black">{v.name}</h2>
             </div>
