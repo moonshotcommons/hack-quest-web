@@ -73,19 +73,18 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
       ref={eventsRef}
       onBlur={(e) => {
         setTimeout(() => {
-          // if (!isCanBlur.current) return;
-          // setIsToggle(false);
-          console.info(111);
+          if (!isCanBlur.current) return;
+          setIsToggle(false);
         }, 100);
       }}
     >
       <div
         className={`relative z-10 w-fit min-w-[322px] text-lesson-preview-color ${isToggle ? 'shadow-2xl' : ''}`}
         onClick={(e) => {
-          // isCanBlur.current = false;
-          // setTimeout(() => {
-          //   isCanBlur.current = true;
-          // }, 300);
+          isCanBlur.current = false;
+          setTimeout(() => {
+            isCanBlur.current = true;
+          }, 300);
         }}
       >
         <div className="absolute left-0 top-0 mr-[15px] h-[72px] w-[5px] rounded-[5px] bg-lesson-events-left-border-bg"></div>
@@ -111,8 +110,8 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
             </div>
           </div>
         </div>
-        {true ? (
-          <div className="z-100 absolute left-0 top-[70px] h-[500px] w-full overflow-auto rounded-b-[5px] bg-lesson-events-toggle-list-bg shadow-2xl">
+        {isToggle ? (
+          <div className="z-100 absolute left-0 top-[70px] w-full overflow-auto rounded-b-[5px] bg-lesson-events-toggle-list-bg shadow-2xl">
             <LessonList
               unitData={unitNavList}
               lesson={lesson}
