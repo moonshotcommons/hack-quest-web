@@ -6,6 +6,7 @@ import Various from './Various';
 import SourceModal from './SourceModal';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
+import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 
 interface DistributionProp {}
 
@@ -30,6 +31,9 @@ const Distribution: React.FC<DistributionProp> = () => {
         handleSubmit={handleSubmit}
         hackathon={hackathon}
       />
+      <ConfirmModal open={deleteOpen} autoClose={false} onClose={() => setDeleteOpen(false)} onConfirm={() => {}}>
+        {`Do you want to delete the UTM source?`}
+      </ConfirmModal>
     </div>
   );
 };

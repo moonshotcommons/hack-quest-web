@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input';
 import { sourceFormSchema, sourceDefaultValues } from '../../../../../constants/data';
 import { cloneDeep } from 'lodash-es';
 import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
+import Button from '@/components/Common/Button';
+import { Trash2 } from 'lucide-react';
 
 interface SourceModalProp {
   open: boolean;
@@ -98,6 +100,23 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
             </div>
           </form>
         </Form>
+        <div className="relative mt-[20px] flex justify-center">
+          <div className="flex gap-[16px]">
+            <Button ghost className="h-[48px] w-[240px]" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="primary" className="h-[48px] w-[240px]">
+              Save
+            </Button>
+          </div>
+          <div
+            className="body-m absolute right-0 flex h-full cursor-pointer items-center gap-[4px] text-neutral-rich-gray"
+            onClick={handleDelete}
+          >
+            <Trash2 size={16} />
+            <span>Detelte</span>
+          </div>
+        </div>
       </div>
     </Modal>
   );
