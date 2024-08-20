@@ -1,9 +1,13 @@
-import { HackathonManageType } from './type';
-import { GrLineChart } from 'react-icons/gr';
+import { DistributionTab, HackathonManageType } from './type';
+import { GrLineChart, GrView } from 'react-icons/gr';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
-import { MdAppRegistration } from 'react-icons/md';
+import { MdAppRegistration, MdPieChartOutline } from 'react-icons/md';
 import { FaBalanceScale } from 'react-icons/fa';
+import { PiMedalLight } from 'react-icons/pi';
+import { RiPieChartFill } from 'react-icons/ri';
+import { FiBarChart2 } from 'react-icons/fi';
+import { z } from 'zod';
 
 export const hackathonAuditNavData = [
   {
@@ -25,12 +29,17 @@ export const hackathonAuditNavData = [
     id: HackathonManageType.JUDGE,
     label: 'hackathonManage.judging',
     icon: <FaBalanceScale size={20} />
-  }
+  },
   // {
   //   id: HackathonManageType.ANNOUNCEMENT,
   //   label: 'hackathonManage.announcement',
   //   icon: <IoMdMegaphone size={20} />
   // }
+  {
+    id: HackathonManageType.DISTRIBUTION,
+    label: 'hackathonManage.distribution',
+    icon: <MdPieChartOutline size={20} />
+  }
 ];
 
 export const applicationTabData = [
@@ -186,3 +195,79 @@ export const judgingJudgeScoreInformationData = [
     disable: true
   }
 ];
+
+export const distributionTabData = [
+  {
+    id: DistributionTab.PAGE_VIEW,
+    label: 'Page View',
+    icon: <GrView size={14} />
+  },
+  {
+    id: DistributionTab.REGISTRATION,
+    label: 'Registration',
+    icon: <LiaUserEditSolid size={14} />
+  },
+  {
+    id: DistributionTab.SUBMISSION,
+    label: 'Submission',
+    icon: <MdAppRegistration size={14} />
+  },
+  {
+    id: DistributionTab.WINNERS,
+    label: 'Winners',
+    icon: <PiMedalLight size={14} />
+  }
+];
+
+export const growthOptions = [
+  {
+    label: '1 Week',
+    value: 'week'
+  },
+  {
+    label: '1 Month',
+    value: 'month'
+  },
+  {
+    label: 'All',
+    value: 'all'
+  }
+];
+
+export const variousChartTypeData = [
+  {
+    value: 'pie',
+    icon: <RiPieChartFill size={12} />
+  },
+  {
+    value: 'bar',
+    icon: <FiBarChart2 size={12} />
+  }
+];
+
+export const sourceDefaultValues = {
+  color: '#F9D81C',
+  name: '',
+  url: ''
+};
+
+export const sourceFormSchema = z.object({
+  id: z.string().uuid(),
+  color: z.string(),
+  name: z
+    .string()
+    .min(1, {
+      message: 'Question is a required input.'
+    })
+    .max(80, {
+      message: 'Question cannot exceed 80 characters.'
+    }),
+  url: z
+    .string()
+    .min(1, {
+      message: 'Answer is a required input.'
+    })
+    .max(80, {
+      message: 'Answer cannot exceed 80 characters.'
+    })
+});
