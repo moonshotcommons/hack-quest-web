@@ -16,7 +16,8 @@ import {
   walletConnectWallet,
   okxWallet,
   coinbaseWallet,
-  metaMaskWallet
+  metaMaskWallet,
+  gateWallet
 } from '@rainbow-me/rainbowkit/wallets';
 
 export enum ChainType {
@@ -47,7 +48,7 @@ export const config = getDefaultConfig({
   wallets: [
     {
       groupName: 'Recommended',
-      wallets: [metaMaskWallet, okxWallet, rainbowWallet, walletConnectWallet, coinbaseWallet]
+      wallets: [metaMaskWallet, okxWallet, gateWallet, rainbowWallet, walletConnectWallet, coinbaseWallet]
     }
   ],
   transports: {
