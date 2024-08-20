@@ -169,12 +169,12 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'The Future of Decentralized Social Networks',
+    name: 'My Web3 Journey and The Future of Decentralized Social',
     time: '9-10 AM SGT, August 13th 2024 / 9-10 PM EST, August 12th 2024',
     // description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
     description: `From John Barlow to Cypherpunks, Cyberspace is calling. What's the best path to the future？What are the biggest trends in Social-fi and Decentralized Social Networks? Here's the journey to building for the bright future of Decentralized Social Networks.`,
     speaker: 'Suji Yan, Mask Network',
-    video: '',
+    video: 'https://drive.google.com/file/d/1nFHPIkR5oTdzGvKUGcLzDtdEOJjLTqos/view',
     slide: '',
     expand: false
   },
@@ -183,7 +183,7 @@ export const syllabusData = [
     time: '9-10:30 AM SGT, August 20th 2024 / 9-10:30 PM EST, August 19th 2024',
     description: `Stablecoins are dubbed the "killer use case" in crypto, yet they account for less than 1% of the M2 money supply. The largest banking and payments companies in the world are all experimenting with stablecoins, while central banks try to decide what to do with them. Are stablecoins the next phase for digital money? What kind of pressure will that put on a country's monetary policy? We'll dive into the characteristics of different stablecoins and industry trends through the lens of DeFi and TradFi.`,
     speaker: 'Anna Yuan, Solana Foundation',
-    video: '',
+    video: 'https://drive.google.com/file/d/1nwJlctsu4617Lsxx8HWYYL-lLFDwROr9/view',
     slide: '',
     expand: false
   },
