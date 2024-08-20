@@ -28,9 +28,12 @@ const PartnerCardModal: React.FC<PartnerCardModalProp> = ({ onClose, open, partn
       iconClassName="right-[1rem] top-[1rem]"
     >
       <div className="w-[calc(100vw-2.5rem)] overflow-hidden rounded-[1rem] bg-neutral-white">
-        <div className="relative h-[12.3125rem] w-full overflow-hidden bg-neutral-light-gray p-[1.875rem]">
-          <BaseImage src={partner.logo} alt={partner.name} className="h-full w-full" contain={true} />
-        </div>
+        <BaseImage
+          src={partner.logo}
+          alt={partner.name}
+          className="h-0  w-full bg-neutral-light-gray pt-[56%]"
+          contain={true}
+        />
         <div className="flex flex-col justify-between gap-[1rem] p-[1.25rem]">
           <div className="flex flex-col gap-[.5rem]">
             <p className="body-m-bold text-neutral-off-black">{partner.name}</p>
