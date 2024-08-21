@@ -184,7 +184,7 @@ export const syllabusData = [
     description: `Stablecoins are dubbed the "killer use case" in crypto, yet they account for less than 1% of the M2 money supply. The largest banking and payments companies in the world are all experimenting with stablecoins, while central banks try to decide what to do with them. Are stablecoins the next phase for digital money? What kind of pressure will that put on a country's monetary policy? We'll dive into the characteristics of different stablecoins and industry trends through the lens of DeFi and TradFi.`,
     speaker: 'Anna Yuan, Solana Foundation',
     video: 'https://drive.google.com/file/d/1nwJlctsu4617Lsxx8HWYYL-lLFDwROr9/view',
-    slide: '',
+    slide: 'https://drive.google.com/file/d/1rJwxu0o3RjG_tRM2EUzLROjafvslSgfA/view',
     expand: false
   },
   {
