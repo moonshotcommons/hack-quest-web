@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { distributionTabData, growthOptions } from '../../../../../constants/data';
 import { DistributionTab } from '../../../../../constants/type';
-import { MultiSelect } from '../../../../../components/MultiSelect';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
+import { GrowthEchartline } from '../DistributionEcharts';
 
 interface GrowthProp {}
 
@@ -30,16 +31,22 @@ const Growth: React.FC<GrowthProp> = () => {
             </div>
           ))}
         </SlideHighlight>
-        <MultiSelect
-          type="radio"
-          value={curKind}
-          options={growthOptions}
-          onSelect={(sec) => {
-            setCurKind(sec as string);
-          }}
-        />
+        <Select onValueChange={setCurKind} value={curKind}>
+          <SelectTrigger className="body-s w-[128px] rounded-[32px]">
+            <SelectValue placeholder="Please select" />
+          </SelectTrigger>
+          <SelectContent>
+            {growthOptions.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className="w-full"></div>
+      <div className="w-full">
+        <GrowthEchartline />
+      </div>
     </div>
   );
 };

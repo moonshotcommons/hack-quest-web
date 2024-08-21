@@ -16,7 +16,7 @@ const Distribution: React.FC<DistributionProp> = () => {
       hackathon: state.hackathon
     }))
   );
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const handleSubmit = () => {};
   return (

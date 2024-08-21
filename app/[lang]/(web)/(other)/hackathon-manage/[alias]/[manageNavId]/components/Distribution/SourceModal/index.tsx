@@ -1,5 +1,5 @@
 import Modal from '@/components/Common/Modal';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,6 +11,7 @@ import { cloneDeep } from 'lodash-es';
 import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import Button from '@/components/Common/Button';
 import { Trash2 } from 'lucide-react';
+import { HexColorPicker } from 'react-colorful';
 
 interface SourceModalProp {
   open: boolean;
@@ -21,16 +22,27 @@ interface SourceModalProp {
 }
 
 const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, handleDelete, hackathon }) => {
-  const defaultValues: z.infer<typeof sourceFormSchema> = cloneDeep({
-    id: '',
-    ...sourceDefaultValues
-  });
-
   const form = useForm<z.infer<typeof sourceFormSchema>>({
     resolver: zodResolver(sourceFormSchema),
-    defaultValues: defaultValues
+    defaultValues: {
+      id: '111',
+      ...sourceDefaultValues
+    }
   });
   const isEdit = true;
+  const timer = useRef<NodeJS.Timeout | null>(null);
+  const isCanBlur = useRef(true);
+
+  const [sketchDisable, setSketchDisable] = useState(false);
+  const [color, setColor] = useState('#F9D81C');
+  const onChangeColor = (color: string) => {
+    setColor(color);
+  };
+  const onSubmit = async () => {
+    const isValid = await form.trigger();
+    if (!isValid) return;
+    console.info(form.getValues());
+  };
   return (
     <Modal open={open} onClose={() => {}} showCloseIcon={true} icon={<FiX size={26} onClick={onClose} />}>
       <div className="flex w-[888px] flex-col gap-[24px] rounded-[16px] bg-neutral-white p-[60px_40px_40px]">
@@ -44,11 +56,34 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
               <div className="flex-shrink-0">
                 <span>Legend Color*</span>
                 <div
-                  className="mt-[4px] h-[50px] w-[50px] rounded-[8px]"
-                  style={{
-                    backgroundColor: '#E0E0E0'
+                  className="relative mt-[4px] h-[50px] w-[50px] cursor-pointer  rounded-[8px]"
+                  onClick={() => {
+                    setSketchDisable(true);
                   }}
-                ></div>
+                  style={{
+                    backgroundColor: color
+                  }}
+                  tabIndex={1}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      if (!isCanBlur.current) return;
+                      setSketchDisable(false);
+                    }, 100);
+                  }}
+                >
+                  <div
+                    className={`absolute left-[52px] top-[-20px] ${sketchDisable ? 'block' : 'hidden'}`}
+                    onClick={() => {
+                      isCanBlur.current = false;
+                      if (timer.current) clearTimeout(timer.current);
+                      timer.current = setTimeout(() => {
+                        isCanBlur.current = true;
+                      }, 400);
+                    }}
+                  >
+                    <HexColorPicker color={color} onChange={onChangeColor} />
+                  </div>
+                </div>
               </div>
               <FormField
                 control={form.control}
@@ -82,8 +117,8 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
                   /80
                 </span>
               </div>
-              <div className="flex items-center gap-[10px]">
-                <span className="flex-shrink-0">{`www.hackquest.com/hackathon/${hackathon.alias}/`}</span>
+              <div className="flex  gap-[10px]">
+                <span className="flex h-[50px] flex-shrink-0 items-center">{`www.hackquest.com/hackathon/${hackathon.alias}/`}</span>
                 <FormField
                   control={form.control}
                   name={'url'}
@@ -105,7 +140,7 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
             <Button ghost className="h-[48px] w-[240px]" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="primary" className="h-[48px] w-[240px]">
+            <Button type="primary" className="h-[48px] w-[240px]" onClick={onSubmit}>
               Save
             </Button>
           </div>
@@ -114,7 +149,7 @@ const SourceModal: React.FC<SourceModalProp> = ({ open, onClose, handleSubmit, h
             onClick={handleDelete}
           >
             <Trash2 size={16} />
-            <span>Detelte</span>
+            <span>Delete</span>
           </div>
         </div>
       </div>

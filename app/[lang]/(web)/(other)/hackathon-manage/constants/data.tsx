@@ -246,28 +246,29 @@ export const variousChartTypeData = [
 ];
 
 export const sourceDefaultValues = {
-  color: '#F9D81C',
   name: '',
   url: ''
 };
 
 export const sourceFormSchema = z.object({
-  id: z.string().uuid(),
-  color: z.string(),
+  id: z.string(),
   name: z
     .string()
     .min(1, {
-      message: 'Question is a required input.'
+      message: 'Source name is a required input.'
     })
     .max(80, {
-      message: 'Question cannot exceed 80 characters.'
+      message: 'Source name cannot exceed 80 characters.'
     }),
   url: z
     .string()
     .min(1, {
-      message: 'Answer is a required input.'
+      message: 'Url is a required input.'
+    })
+    .url({
+      message: 'Please enter a valid Url'
     })
     .max(80, {
-      message: 'Answer cannot exceed 80 characters.'
+      message: 'Url cannot exceed 80 characters.'
     })
 });

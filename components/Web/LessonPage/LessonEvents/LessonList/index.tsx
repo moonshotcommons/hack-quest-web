@@ -58,7 +58,9 @@ const LessonList: React.FC<LessonListType> = ({ unitData, lesson, courseType, ch
             className={`flex h-[54px] w-full items-center  px-5 text-[21px] tracking-[0.42px]   ${
               v.id === lesson.unitId ? 'bg-lesson-events-toggle-list-active-bg' : ''
             } ${!v.disable ? 'cursor-pointer hover:bg-lesson-events-toggle-list-active-bg' : 'cursor-not-allowed'}`}
-            onClick={() => getChildren(v)}
+            onClick={() => {
+              getChildren(v);
+            }}
             title={v.title}
           >
             <p className="w-full truncate">{v.title}</p>
