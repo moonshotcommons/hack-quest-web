@@ -303,7 +303,7 @@ function Step4() {
   const { veraxSdk } = useVeraxSdk();
 
   React.useEffect(() => {
-    if (state?.service === services.EAS) {
+    if (state?.service === services.EAS || state?.service === services.EthSign) {
       if (chainId !== mainnet.id) {
         switchChain({ chainId: mainnet.id });
       }
