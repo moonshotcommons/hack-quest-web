@@ -21,7 +21,7 @@ interface SolanaWalletProviderProps {
 }
 
 const SolanaWalletProvider: FC<SolanaWalletProviderProps> = ({ children }) => {
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Testnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(
     () => [
