@@ -45,6 +45,7 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   const learnPageTitle = useCourseStore((state) => state.learnPageTitle);
   const [isToggle, setIsToggle] = useState(false);
   const eventsRef = useRef<HTMLDivElement | null>(null);
+  const isCanBlur = useRef(true);
   useEffect(() => {
     refreshNavList();
   }, [lesson]);
@@ -66,16 +67,29 @@ const LessonEvents: React.FC<LessonEventsProps> = (props) => {
   }, [unitNavList]);
   if (isPreview) return <PreviewLessonEvent></PreviewLessonEvent>;
   return (
-    <div className="mb-[30px] flex items-center gap-2">
+    <div
+      className="relative mb-[30px] flex items-center gap-2"
+      tabIndex={0}
+      ref={eventsRef}
+      onBlur={(e) => {
+        setTimeout(() => {
+          if (!isCanBlur.current) return;
+          setIsToggle(false);
+        }, 100);
+      }}
+    >
       <div
         className={`relative z-10 w-fit min-w-[322px] text-lesson-preview-color ${isToggle ? 'shadow-2xl' : ''}`}
-        tabIndex={1}
-        ref={eventsRef}
-        onBlur={() => setIsToggle(false)}
+        onClick={(e) => {
+          isCanBlur.current = false;
+          setTimeout(() => {
+            isCanBlur.current = true;
+          }, 300);
+        }}
       >
-        <div className="absolute left-0 top-0 mr-[15px] h-[70px] w-[5px] rounded-[5px] bg-lesson-events-left-border-bg"></div>
+        <div className="absolute left-0 top-0 mr-[15px] h-[72px] w-[5px] rounded-[5px] bg-lesson-events-left-border-bg"></div>
         <div
-          className={`flex h-[70px] w-full cursor-pointer items-center rounded-t-[5px] ${isToggle ? ' bg-lesson-events-toggle-bg' : ''}`}
+          className={`flex h-[72px] w-full cursor-pointer items-center rounded-t-[5px] ${isToggle ? ' bg-lesson-events-toggle-bg' : ''}`}
           onClick={() => {
             if (!isToggle) {
               BurialPoint.track('lesson-lesson dropdown点击');
