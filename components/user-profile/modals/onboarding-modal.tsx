@@ -304,7 +304,7 @@ function Step3({ onClose }: { onClose?: () => void }) {
   const connectMutation = useMutation({
     mutationFn: () => webApi.userApi.getConnectUrlByDiscord(),
     onSuccess: ({ url }) => {
-      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+      openWindow(url);
     }
   });
 
@@ -328,6 +328,25 @@ function Step3({ onClose }: { onClose?: () => void }) {
     mutate({ personalLinks: data, progress: 3 });
   }
 
+  React.useEffect(() => {
+    function handler(event: MessageEvent) {
+      const data = event.data;
+      if (data.source === 'discord') {
+        if (data.message === 'success') {
+          invalidate();
+          toast.success('Discord authorization succeeded');
+        } else {
+          toast.error('Discord authorization failed. Please try again.');
+        }
+      }
+    }
+    window.addEventListener('message', handler);
+    return () => {
+      window.removeEventListener('message', handler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Form {...form}>
       <h2 className="shrink-0 text-[22px] font-bold">Connect accounts to grow your network</h2>
@@ -349,7 +368,11 @@ function Step3({ onClose }: { onClose?: () => void }) {
                 </button>
               ) : (
                 <button type="button" className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
-                  <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  {connectMutation.isPending ? (
+                    <Spinner size={20} />
+                  ) : (
+                    <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  )}
                 </button>
               )}
             </div>
