@@ -14,7 +14,7 @@ export function useSwitchSolanaNetwork(): NetworkConfigurationState {
 }
 
 export const NetworkConfigurationProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [networkConfiguration, setNetworkConfiguration] = useLocalStorage('network', 'testnet');
+  const [networkConfiguration, setNetworkConfiguration] = useLocalStorage('network', 'devnet');
 
   return (
     <NetworkConfigurationContext.Provider value={{ networkConfiguration, setNetworkConfiguration }}>
