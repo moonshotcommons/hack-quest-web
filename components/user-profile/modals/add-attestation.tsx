@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { SchemaEncoder, AttestationShareablePackageObject } from '@ethereum-attestation-service/eas-sdk';
+import { SchemaEncoder, AttestationShareablePackageObject, EAS } from '@ethereum-attestation-service/eas-sdk';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { MobileModalHeader } from './mobile-modal-header';
 import { ChevronIcon } from '@/components/ui/icons/chevron';
@@ -20,11 +20,30 @@ import webApi from '@/service';
 import { useProfile } from '../modules/profile-provider';
 import { useParams } from 'next/navigation';
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
-import { useAccount, useChainId, useSwitchChain } from 'wagmi';
-import { eas, refUID, schemaUID, submitSignedAttestation, zeroAddress } from '../utils/utils';
+import { useAccount, useSwitchChain } from 'wagmi';
+import { submitSignedAttestation } from '../utils/eas';
 import dayjs from 'dayjs';
 import { useEthersSigner } from '../utils/wagmi-utils';
-import { mainnet } from 'wagmi/chains';
+import { lineaSepolia, mainnet } from 'wagmi/chains';
+import { getClient } from '../utils/eth-sign';
+import { v4 } from 'uuid';
+import { omit } from 'lodash-es';
+import { useVeraxSdk } from '../utils/verax';
+import {
+  EAS_CONTRACT_ADDRESS,
+  EAS_REF_UID,
+  EAS_SCHEMA_ID,
+  EAS_ZERO_ADDRESS,
+  ETH_SIGN_SCHEMA_ID,
+  PORTAL_ADDRESS,
+  VERAX_SCHEMA_ID
+} from '../utils/constants';
+import { waitForTransactionReceipt } from 'viem/actions';
+import { config } from '@/config/wagmi';
+
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
 
 type Store = {
   current: number;
@@ -47,6 +66,12 @@ export const useAttestation = create<Store>((set) => ({
   onOpenChange: (open) => set({ open }),
   reset: () => set({ current: 0, state: {}, open: false })
 }));
+
+export const services = {
+  EAS: 'EAS',
+  Verax: 'VERAX',
+  EthSign: 'ETH_SIGN'
+} as const;
 
 function Wallet() {
   return (
@@ -160,14 +185,28 @@ function Step1() {
 }
 
 function Step2() {
-  const { setCurrent } = useAttestation();
+  const { state, setCurrent, setState } = useAttestation();
+
+  function onSubmit() {
+    if (!state.service) {
+      toast.error('Please select a service');
+      return;
+    }
+    setCurrent(2);
+  }
+
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-lg font-bold sm:text-[22px]">Choose a Service</h2>
       <div className="flex flex-1 flex-col gap-6">
-        <RadioCards defaultValue="evs">
+        <RadioCards
+          value={state?.service}
+          onValueChange={(value) => {
+            setState({ service: value });
+          }}
+        >
           <RadioCardsItem
-            value="evs"
+            value="EAS"
             className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
           >
             <div className="relative h-8 w-8 justify-center overflow-hidden rounded-full">
@@ -175,11 +214,34 @@ function Step2() {
             </div>
             <span className="text-left font-bold">EAS</span>
           </RadioCardsItem>
+          <RadioCardsItem
+            value="ETH_SIGN"
+            className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
+          >
+            <div className="relative h-8 w-8 justify-center overflow-hidden rounded-full">
+              <Image src="/images/profile/eth_sign.svg" alt="eth sign" fill />
+            </div>
+            <span className="text-left font-bold">EthSign</span>
+          </RadioCardsItem>
+          <RadioCardsItem
+            value="VERAX"
+            className="flex items-center gap-4 aria-checked:border-yellow-dark aria-checked:bg-yellow-extra-light"
+          >
+            <div className="relative h-8 w-8 justify-center overflow-hidden rounded-full">
+              <Image src="/images/profile/verax.svg" alt="verax" fill />
+            </div>
+            <span className="text-left font-bold">Verax Attestation Registry</span>
+          </RadioCardsItem>
         </RadioCards>
       </div>
-      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" onClick={() => setCurrent(2)}>
-        Continue
-      </Button>
+      <div className="flex w-full shrink-0 gap-4 sm:justify-end">
+        <Button className="w-full sm:w-[165px]" variant="outline" onClick={() => setCurrent(0)}>
+          Back
+        </Button>
+        <Button className="w-full sm:w-[165px]" onClick={onSubmit}>
+          Continue
+        </Button>
+      </div>
     </React.Fragment>
   );
 }
@@ -218,9 +280,14 @@ function Step3() {
           </RadioCardsItem>
         </RadioCards>
       </div>
-      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" onClick={onSubmit}>
-        Continue
-      </Button>
+      <div className="flex w-full shrink-0 gap-4 sm:justify-end">
+        <Button className="w-full sm:w-[165px]" variant="outline" onClick={() => setCurrent(1)}>
+          Back
+        </Button>
+        <Button className="w-full sm:w-[165px]" onClick={onSubmit}>
+          Continue
+        </Button>
+      </div>
     </React.Fragment>
   );
 }
@@ -228,14 +295,28 @@ function Step3() {
 function Step4() {
   const { username } = useParams();
   const { invalidate } = useProfile();
-  const { address } = useAccount();
-  const { state, reset } = useAttestation();
+  const { address, chainId } = useAccount();
+  const { state, reset, setCurrent } = useAttestation();
   const signer = useEthersSigner();
-  const chainId = useChainId();
-  const { switchChainAsync } = useSwitchChain();
+  const { switchChain } = useSwitchChain();
   const [loading, setLoading] = React.useState(false);
+  const { veraxSdk } = useVeraxSdk();
 
-  async function createAttestation(data: { attest: boolean; comment?: string }) {
+  React.useEffect(() => {
+    if (state?.service === services.EAS) {
+      if (chainId !== mainnet.id) {
+        switchChain({ chainId: mainnet.id });
+      }
+    }
+
+    if (state?.service === services.Verax) {
+      if (chainId !== lineaSepolia.id) {
+        switchChain({ chainId: lineaSepolia.id });
+      }
+    }
+  }, [chainId, state?.service, switchChain]);
+
+  async function createEASAttestation(data: { attest: boolean; comment?: string }) {
     if (!signer || !address) {
       toast.error('Please connect your wallet');
       return;
@@ -248,22 +329,17 @@ function Step4() {
         { name: 'comment', value: data.comment || '', type: 'string' }
       ]);
 
-      eas.connect(signer);
+      const eas = new EAS(EAS_CONTRACT_ADDRESS);
 
-      if (chainId !== mainnet.id) {
-        toast.error('Please switch to mainnet');
-        await switchChainAsync({ chainId: mainnet.id });
-        setLoading(false);
-        return;
-      }
+      eas.connect(signer);
 
       const offchain = await eas.getOffchain();
 
       const offchainAttestation = await offchain.signOffchainAttestation(
         {
-          schema: schemaUID,
-          recipient: zeroAddress,
-          refUID: refUID,
+          schema: EAS_SCHEMA_ID,
+          recipient: EAS_ZERO_ADDRESS,
+          refUID: EAS_REF_UID,
           expirationTime: BigInt(0),
           time: BigInt(dayjs().unix()),
           revocable: true,
@@ -280,11 +356,11 @@ function Step4() {
 
       if (!attestation.error) {
         await create.mutateAsync({
-          ...state,
+          ...omit(state, ['service']),
           username,
           chain: {
-            ipfsHash: attestation.ipfsHash,
-            offchainAttestationId: attestation.offchainAttestationId
+            attestationId: attestation.offchainAttestationId,
+            service: services.EAS
           },
           attest: data.attest,
           comment: data.comment || null
@@ -298,6 +374,88 @@ function Step4() {
     }
   }
 
+  async function createETHSignAttestation(data: { attest: boolean; comment?: string }) {
+    if (!address) {
+      toast.error('Please connect your wallet');
+      return;
+    }
+    setLoading(true);
+    try {
+      const client = getClient();
+      const result = await client.createAttestation({
+        schemaId: ETH_SIGN_SCHEMA_ID,
+        data: {
+          attest: data.attest,
+          comment: data.comment || ''
+        },
+        indexingValue: v4()
+      });
+      if (result.attestationId) {
+        await create.mutateAsync({
+          ...omit(state, ['service']),
+          username,
+          chain: {
+            attestationId: result.attestationId,
+            service: services.EthSign
+          },
+          attest: data.attest,
+          comment: data.comment || null
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      toast.error('Failed to create attestation');
+      console.error(error);
+      setLoading(false);
+    }
+  }
+
+  async function createVeraxAttestation(data: { attest: boolean; comment?: string }) {
+    if (!address) {
+      toast.error('Please connect your wallet');
+      return;
+    }
+    if (veraxSdk) {
+      setLoading(true);
+      try {
+        const receipt = await veraxSdk.portal.attest(
+          PORTAL_ADDRESS,
+          {
+            schemaId: VERAX_SCHEMA_ID,
+            expirationDate: Math.floor(Date.now() / 1000) + 2592000,
+            subject: address,
+            // @ts-expect-error
+            attestationData: [data.attest, data.comment || '']
+          },
+          []
+        );
+        if (receipt.transactionHash) {
+          const result = await waitForTransactionReceipt(config.getClient(), {
+            hash: receipt.transactionHash
+          });
+          const attestationId = result.logs?.[0].topics[1];
+          if (attestationId) {
+            await create.mutateAsync({
+              ...omit(state, ['service']),
+              username,
+              chain: {
+                attestationId,
+                service: services.Verax
+              },
+              attest: data.attest,
+              comment: data.comment || null
+            });
+            setLoading(false);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+        toast.error('Failed to create attestation');
+      }
+    }
+  }
+
   const create = useMutation({
     mutationFn: (input: any) => webApi.userApi.createAttestation(input),
     onSuccess() {
@@ -307,17 +465,24 @@ function Step4() {
     }
   });
 
-  function onSubmit() {
-    createAttestation({
+  async function onSubmit() {
+    const service = state?.service || services.EAS;
+    const data = {
       attest: state?.attest === 'true',
       comment: state?.comment
-    });
+    };
+    if (service === services.EAS) {
+      createEASAttestation(data);
+    } else if (service === services.EthSign) {
+      createETHSignAttestation(data);
+    } else if (service === services.Verax) {
+      createVeraxAttestation(data);
+    }
   }
 
   return (
     <React.Fragment>
       <h2 className="shrink-0 text-lg font-bold sm:text-[22px]">Sign Attestation</h2>
-      <p className="font-bold">Add attestation to Hack Quester’s Solana Learner Certificate:</p>
       <div
         className={cn('flex w-full flex-1 flex-col gap-4 rounded-2xl bg-status-error-light p-4', {
           'bg-status-success-light': state?.attest === 'true'
@@ -335,9 +500,14 @@ function Step4() {
         </div>
         {state?.comment && <p className="text-sm text-neutral-rich-gray">{state.comment}</p>}
       </div>
-      <Button className="w-full shrink-0 sm:w-[165px] sm:self-end" isLoading={loading} onClick={onSubmit}>
-        Sign
-      </Button>
+      <div className="flex w-full shrink-0 gap-4 sm:justify-end">
+        <Button className="w-full sm:w-[165px]" variant="outline" onClick={() => setCurrent(2)}>
+          Back
+        </Button>
+        <Button className="w-full sm:w-[165px]" isLoading={loading} onClick={onSubmit}>
+          Sign
+        </Button>
+      </div>
     </React.Fragment>
   );
 }
