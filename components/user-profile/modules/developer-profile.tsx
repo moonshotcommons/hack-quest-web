@@ -11,12 +11,24 @@ import toast from 'react-hot-toast';
 
 const colors = ['#DB9038', '#f8b400', '#FAD81C', '#D4CC1B', '#FFE866'] as const;
 
+function openWindow(url: string) {
+  const width = 550;
+  const height = 470;
+  const left = Math.max(0, (screen.width - width) / 2);
+  const top = Math.max(0, (screen.height - height) / 2);
+  window.open(
+    url,
+    'authWindow',
+    `width=${width},height=${height},left=${left},top=${top}status=0,location=0,toolbar=0,menubar=0`
+  );
+}
+
 export function DeveloperProfile() {
   const { profile, invalidate } = useProfile();
   const connectMutation = useMutation({
     mutationFn: () => webApi.userApi.getGithubConnectUrl(),
     onSuccess: ({ url }) => {
-      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+      openWindow(url);
     }
   });
 
@@ -24,6 +36,14 @@ export function DeveloperProfile() {
     mutationFn: () => webApi.userApi.unLinkGithub(),
     onSuccess: () => {
       toast.success('Github Unlinked');
+      invalidate();
+    }
+  });
+
+  const getGithubInfo = useMutation({
+    mutationFn: () => webApi.userApi.getGithubInfo(),
+    onSuccess: () => {
+      toast.success('Developer profile updated');
       invalidate();
     }
   });
@@ -54,17 +74,19 @@ export function DeveloperProfile() {
   }, [profile]);
 
   React.useEffect(() => {
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'linkGitHub') {
-        invalidate();
-      }
-    });
-    return () => {
-      window.removeEventListener('storage', (e) => {
-        if (e.key === 'linkGitHub') {
-          invalidate();
+    function handler(event: MessageEvent) {
+      const data = event.data;
+      if (data.source === 'github') {
+        if (data.message === 'success') {
+          getGithubInfo.mutate();
+        } else {
+          toast.error('GitHub authorization failed. Please try again.');
         }
-      });
+      }
+    }
+    window.addEventListener('message', handler);
+    return () => {
+      window.removeEventListener('message', handler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -127,7 +149,7 @@ export function DeveloperProfile() {
           variant="outline"
           size="small"
           onClick={() => connectMutation.mutate()}
-          disabled={connectMutation.isPending}
+          isLoading={getGithubInfo.isPending}
         >
           <GithubIcon className="h-5 w-5" />
           <span>connect</span>

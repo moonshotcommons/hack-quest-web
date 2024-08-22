@@ -52,7 +52,8 @@ export enum UserApiType {
   CheckTwitterFollow = '/auth/twitter/check-follow',
   Notifications = '/notifications',
   UploadResume = '/users/profile/resume',
-  CreateAttestation = '/users/profile/attestation'
+  CreateAttestation = '/users/profile/attestation',
+  GetGithubInfo = '/users/profile/github-info'
 }
 
 class UserApi {
@@ -411,6 +412,10 @@ class UserApi {
     return this.service.post<AttestationType>(UserApiType.CreateAttestation, {
       data
     });
+  }
+
+  getGithubInfo() {
+    return this.service.get<void>(UserApiType.GetGithubInfo);
   }
 }
 
