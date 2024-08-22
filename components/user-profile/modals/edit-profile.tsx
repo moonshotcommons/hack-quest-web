@@ -122,7 +122,7 @@ export const EditProfile = () => {
                   </FormItem>
                 )}
               />
-              <Skills form={form} />
+              <Skills form={form} profile={profile} />
               <SocialMedia form={form} />
             </div>
             <input ref={inputRef} type="submit" className="hidden" />
