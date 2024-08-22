@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 
 const colors = ['#DB9038', '#f8b400', '#FAD81C', '#D4CC1B', '#FFE866'] as const;
 
-function openWindow(url: string) {
+export function openWindow(url: string) {
   const width = 550;
   const height = 470;
   const left = Math.max(0, (screen.width - width) / 2);
