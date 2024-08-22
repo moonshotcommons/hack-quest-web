@@ -298,23 +298,28 @@ function Step4() {
   const { address, chainId } = useAccount();
   const { state, reset, setCurrent } = useAttestation();
   const signer = useEthersSigner();
-  const { switchChain } = useSwitchChain();
+  const { switchChainAsync } = useSwitchChain();
   const [loading, setLoading] = React.useState(false);
   const { veraxSdk } = useVeraxSdk();
+  const [ready, setReady] = React.useState(false);
 
   React.useEffect(() => {
     if (state?.service === services.EAS || state?.service === services.EthSign) {
       if (chainId !== mainnet.id) {
-        switchChain({ chainId: mainnet.id });
+        switchChainAsync({ chainId: mainnet.id }).then(() => setReady(true));
+      } else {
+        setReady(true);
       }
     }
 
     if (state?.service === services.Verax) {
       if (chainId !== lineaSepolia.id) {
-        switchChain({ chainId: lineaSepolia.id });
+        switchChainAsync({ chainId: lineaSepolia.id }).then(() => setReady(true));
+      } else {
+        setReady(true);
       }
     }
-  }, [chainId, state?.service, switchChain]);
+  }, [chainId, state?.service, switchChainAsync]);
 
   async function createEASAttestation(data: { attest: boolean; comment?: string }) {
     if (!signer || !address) {
@@ -504,8 +509,8 @@ function Step4() {
         <Button className="w-full sm:w-[165px]" variant="outline" onClick={() => setCurrent(2)}>
           Back
         </Button>
-        <Button className="w-full sm:w-[165px]" isLoading={loading} onClick={onSubmit}>
-          Sign
+        <Button className="w-full sm:w-[165px]" isLoading={loading} onClick={onSubmit} disabled={!ready}>
+          {ready ? 'Sign' : 'Ready...'}
         </Button>
       </div>
     </React.Fragment>
