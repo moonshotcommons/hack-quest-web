@@ -6,10 +6,11 @@ import { useMutation } from '@tanstack/react-query';
 import { Metaplex, walletAdapterIdentity } from '@metaplex-foundation/js';
 import { useSwitchSolanaNetwork } from '@/components/Provider/SolanaWalletProvider/NetworkConfigurationProvider';
 import webApi from '@/service';
+import { errorMessage } from '@/helper/ui';
 
 export const useMintFromSolana = () => {
   const { connection } = useConnection();
-  const { wallet, publicKey } = useWallet();
+  const { wallet, publicKey, disconnect, connected } = useWallet();
   const { visible, setVisible } = useWalletModal();
   const { networkConfiguration } = useSwitchSolanaNetwork();
 
@@ -31,6 +32,10 @@ export const useMintFromSolana = () => {
       if (!publicKey) {
         throw new Error('No publicKey');
       }
+
+      const balance = await connection.getBalance(publicKey);
+
+      console.log(balance);
 
       const fileURL = `${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${certification?.username}-${certification?.certificateId}.png`;
       const metaplex = new Metaplex(connection);
@@ -59,6 +64,9 @@ export const useMintFromSolana = () => {
         txId: response.signature
       });
       return result;
+    },
+    onError(error, variables, context) {
+      errorMessage(error);
     }
   });
 
