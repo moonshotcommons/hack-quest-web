@@ -9,12 +9,14 @@ import { useToggle } from '@/hooks/utils/use-toggle';
 import { useProfile } from './profile-provider';
 import { OnboardingModal } from './onboarding-modal';
 import toast from 'react-hot-toast';
+import { useUserStore } from '@/store/zustand/userStore';
 
 export default function ApplyJob({ contact }: { contact: Record<string, string> }) {
   const [open, onOpenChange] = useToggle(false);
   const [visible, setVisible] = useToggle(false);
   const { profile } = useProfile();
   const [copied, setCopied] = React.useState(false);
+  const { userInfo, setAuthModalOpen } = useUserStore();
 
   const telegram = React.useMemo(() => {
     if (contact?.telegram) {
@@ -56,6 +58,12 @@ export default function ApplyJob({ contact }: { contact: Record<string, string> 
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
+
+              if (!userInfo) {
+                toast.error('Please login first');
+                setAuthModalOpen(true);
+                return;
+              }
 
               if ((profile?.progress.length || 0) < 3) {
                 setVisible(true);
