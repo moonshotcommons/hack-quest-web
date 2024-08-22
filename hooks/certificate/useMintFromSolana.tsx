@@ -46,7 +46,7 @@ export const useMintFromSolana = () => {
       // console.log(uri);
 
       const res = await metaplex.nfts().create({
-        uri: 'https://www.hackquest.io/api/certificate/zcy22606-1000460.json',
+        uri: `${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${encodeURIComponent(certification.username)}-${certification.certificateId}.json`,
         name: certification.name,
         sellerFeeBasisPoints: 0.1,
         tokenOwner: publicKey
