@@ -8,7 +8,7 @@ export async function GET(request: NextRequest, context: { params: { name: strin
   const { name } = context.params || {};
 
   const headers: Record<string, string> = {
-    'Access-Control-Allow-Origi': '*',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET',
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Allow-Credentials': 'true'
