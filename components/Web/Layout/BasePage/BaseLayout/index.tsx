@@ -25,7 +25,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) =
   }, []);
 
   return (
-    <div className={`flex h-[100vh] w-full flex-col overflow-hidden   `}>
+    <div className={`relative h-[100vh] w-full overflow-hidden  `}>
       <AIFloatButton>
         <NavBar {...navbarData} userInfo={userInfo}>
           <User userInfo={userInfo}></User>

@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SelectType } from '../../../../../constants/type';
+import { AuditTabType, SelectType } from '../../../../../constants/type';
 import { applicationTabData } from '../../../../../constants/data';
 import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 import { cloneDeep } from 'lodash-es';
@@ -27,9 +27,10 @@ interface CommonTableProp {
   refresh: VoidFunction;
   status: ApplicationStatus;
   loading: boolean;
+  tabs: AuditTabType[];
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, refresh, status: tabStatus }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, information, refresh, status: tabStatus }) => {
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
@@ -68,7 +69,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         applicationData.push(getInfo(hackathon as unknown as HackathonType, v));
       }
     });
-    exportToExcel(applicationData, `application data`);
+    const tabName = tabs.find((v) => v.value === tabStatus)?.label;
+    exportToExcel(applicationData, `${hackathon.name}-${tabName}-application`);
   };
 
   const handleStatus = (sta: ApplicationStatus) => {
@@ -114,8 +116,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     }));
     const newList = cloneDeep(l);
     teamIds.map((id) => {
-      const index = list.findIndex((l) => l.id === id);
-      const item = list[index];
+      const index = newList.findIndex((l) => l.id === id);
+      const item = newList[index];
       newList.splice(index + 1, 0, ...(item?.members || []));
     });
     setInfoList(newList.filter((v) => !v.pId));
@@ -163,8 +165,11 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
     setCurInfo(null);
   }, [list]);
 
-  const isHandle = useMemo(() => {
-    return hackathon?.info?.allowSubmission === false && getStepIndex(hackathon as unknown as HackathonType) < 1;
+  const disableHandleButton = useMemo(() => {
+    return getStepIndex(hackathon as unknown as HackathonType) > 0;
+  }, [hackathon, getStepIndex]);
+  const showHandleButton = useMemo(() => {
+    return hackathon?.info?.allowSubmission === false;
   }, [hackathon]);
   return (
     <div className="flex w-full flex-1 flex-col">
@@ -173,7 +178,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         handleDown={handleDown}
         handleStatus={handleStatus}
         tabStatus={tabStatus}
-        isHandle={isHandle}
+        isHandle={showHandleButton && !disableHandleButton}
       />
       <AuditTable
         checkIds={checkItems.map((v) => v.id)}
@@ -188,7 +193,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
         tabStatus={tabStatus}
         showInfo={showInfo}
         loading={loading}
-        isHandle={isHandle}
+        isHandle={showHandleButton && !disableHandleButton}
       />
       <ConfirmModal
         open={!!status}
@@ -207,6 +212,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ loading, list, information, re
             <InfoContent
               key={info.id}
               info={info}
+              disableHandleButton={disableHandleButton}
+              showHandleButton={showHandleButton}
               onClose={() => {
                 setCurInfo(null);
                 setCurId('');
