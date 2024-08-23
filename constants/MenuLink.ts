@@ -16,7 +16,7 @@ enum MenuLink {
   HACKATHON_VOTING = '/hackathon/voting',
   IDEA_BANK = '/idea-bank',
   CAMPAIGINS = '/campaigns',
-  USER_PROFILE = '/user/profile',
+  USER_PROFILE = '/user',
   CONNECT_GITHUB = '/connect-github',
   ECOSYSTEM = '/ecosystem',
   GLOSSARY = '/glossary',

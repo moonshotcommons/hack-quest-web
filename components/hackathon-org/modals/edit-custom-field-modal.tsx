@@ -271,15 +271,15 @@ export function EditCustomFieldModal({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="flex flex-col gap-6 px-8 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px]">
-        <div className="shrink-0 px-2">
+      <DialogContent className="flex flex-col gap-6 px-0 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px]">
+        <div className="shrink-0 px-10">
           <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
             {initialValues ? 'Edit Field' : 'Add a New Field'}
           </h1>
         </div>
         <Form {...form}>
           <form
-            className="no-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto"
+            className="documentation-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto px-10"
             onSubmit={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -357,12 +357,6 @@ export function EditCustomFieldModal({
                     <FormLabel>
                       <span className="sm:body-m body-s text-neutral-rich-gray">Description</span>
                     </FormLabel>
-                    {/* <span className="sm:caption-14pt caption-12pt text-neutral-rich-gray">
-                      <span className={cn({ 'text-status-error': (form.watch('placeholder')?.length ?? 0) > 300 })}>
-                        {form.watch('placeholder')?.length}
-                      </span>
-                      /300
-                    </span> */}
                   </div>
                   <FormControl>
                     <Textarea
@@ -381,6 +375,7 @@ export function EditCustomFieldModal({
                       setPlaceholder({ type: TEXT_EDITOR_TYPE, content: editor.children });
                       form.setValue('placeholder', editor.getText().replace(/\n|\r/gm, ''));
                     }}
+                    className="overflow-hidden rounded-[8px]"
                     defaultContent={transformTextToEditorValue(initialValues?.property?.placeholder)}
                     onChange={(editor) => {
                       const text = editor.getText().replace(/\n|\r/gm, '');
@@ -403,7 +398,7 @@ export function EditCustomFieldModal({
             <input ref={submitInputRef} type="submit" className="hidden" />
           </form>
         </Form>
-        <div className="flex w-full items-center justify-end gap-2 px-2">
+        <div className="flex w-full items-center justify-end gap-2 px-10">
           <Button variant="outline" type="button" className="w-[165px]" onClick={onClose}>
             Cancel
           </Button>

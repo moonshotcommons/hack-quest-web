@@ -94,9 +94,7 @@ const CustomImageTitleModal: React.FC<CustomImageTitleModalProp> = ({ hackathon 
     });
   };
   useEffect(() => {
-    setTitle(
-      modalEditType === 'add' ? 'Unnamed Customized Section' : editCustomInfo?.title || 'Unnamed Customized Section'
-    );
+    setTitle(modalEditType === 'add' ? 'Unnamed Section' : editCustomInfo?.title || 'Unnamed Section');
     setPartners(editCustomInfo?.list || []);
   }, [editCustomInfo, modalEditType]);
   return (

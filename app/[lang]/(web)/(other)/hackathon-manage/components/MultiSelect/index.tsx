@@ -17,19 +17,25 @@ export function MultiSelect({
   type = 'select',
   onSelect
 }: {
-  name: string;
+  name?: string;
   options: MultiSelectOption[];
-  value: string[];
-  type?: 'select' | 'checkbox';
-  onSelect: (value: string[]) => void;
+  value: string[] | string;
+  type?: 'select' | 'checkbox' | 'radio';
+  onSelect: (value: string[] | string) => void;
 }) {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[] | string>(type === 'radio' ? '' : []);
+
+  const [selectedName, setSelectedName] = useState('');
 
   const toggleSelection = (option: MultiSelectOption) => {
-    const newSelection = selected.includes(option.value)
-      ? selected.filter((item) => item !== option.value)
-      : [...selected, option.value];
-    onSelect(newSelection);
+    if (type === 'radio') {
+      onSelect(option.value);
+    } else {
+      const newSelection = selected.includes(option.value)
+        ? (selected as string[]).filter((item) => item !== option.value)
+        : [...selected, option.value];
+      onSelect(newSelection);
+    }
   };
 
   const isBgYellow = React.useMemo(() => {
@@ -38,7 +44,19 @@ export function MultiSelect({
 
   useEffect(() => {
     setSelected(value);
+    if (type === 'radio') {
+      const name = options.find((op) => op.value === value)?.label;
+      setSelectedName(name as string);
+    }
   }, [value]);
+
+  const isSelected = (value: string) => {
+    if (type === 'radio') {
+      return selected === value;
+    } else {
+      return (selected as string[]).includes(value);
+    }
+  };
 
   return (
     <Popover className="relative">
@@ -52,7 +70,7 @@ export function MultiSelect({
               }
             )}
           >
-            <span className="whitespace-nowrap">{name}</span>
+            <span className="whitespace-nowrap">{name || selectedName}</span>
             <ChevronDownIcon size={20} className={cn('transition-transform', { 'rotate-180': open })} />
           </Popover.Button>
           <Transition
@@ -76,10 +94,8 @@ export function MultiSelect({
                         toggleSelection(option);
                       }}
                     >
-                      {option.label} {type === 'select' && selected.includes(option.value) && <CheckIcon size={20} />}
-                      {type === 'checkbox' && (
-                        <Checkbox checked={selected.includes(option.value)} disabled={option.disable} />
-                      )}
+                      {option.label} {type === 'select' && isSelected(option.value) && <CheckIcon size={20} />}
+                      {type === 'checkbox' && <Checkbox checked={isSelected(option.value)} disabled={option.disable} />}
                     </li>
                   ))}
                 </ul>

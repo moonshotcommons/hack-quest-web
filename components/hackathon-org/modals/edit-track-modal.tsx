@@ -187,39 +187,30 @@ function OthersForm({
               <FormLabel>
                 <span className="body-m text-neutral-rich-gray">Distribution Rule*</span>
               </FormLabel>
-              {/* <span className="caption-14pt text-neutral-rich-gray">
-                <span className={cn({ 'text-status-error': (form.watch('rule')?.length ?? 0) > 6000 })}>
-                  {form.watch('rule')?.length}
-                </span>
-                /6000
-              </span> */}
             </div>
             <FormControl>
-              <Textarea
-                {...field}
-                authHeight={false}
-                className={cn(
-                  'hidden h-20 border-neutral-light-gray p-3 text-base text-neutral-black placeholder:text-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark'
-                )}
-                placeholder="Please describe how the rewards will be distributed"
-              />
+              <div className="group relative">
+                <Textarea {...field} className="absolute -z-10 h-0 max-h-0 min-h-0 opacity-0 focus-visible:ring-0" />
+                <TextEditor
+                  onCreated={(editor) => {
+                    const text = editor.getText().replace(/\n|\r/gm, '');
+                    setRule({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                    form.setValue('rule', text);
+                  }}
+                  simpleModel
+                  defaultContent={transformTextToEditorValue(initialValues.rule)}
+                  className="overflow-hidden rounded-[8px] group-data-[invalid=true]:!border-status-error-dark"
+                  onChange={(editor) => {
+                    const text = editor.getText().replace(/\n|\r/gm, '');
+                    form.setValue('rule', text);
+                    if (text) {
+                      form.clearErrors('rule');
+                    }
+                    setRule({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                  }}
+                />
+              </div>
             </FormControl>
-
-            <TextEditor
-              onCreated={(editor) => {
-                const text = editor.getText().replace(/\n|\r/gm, '');
-                setRule({ type: TEXT_EDITOR_TYPE, content: editor.children });
-                form.setValue('rule', text);
-              }}
-              simpleModel
-              defaultContent={transformTextToEditorValue(initialValues.rule)}
-              onChange={(editor) => {
-                const text = editor.getText().replace(/\n|\r/gm, '');
-                form.setValue('rule', text);
-                setRule({ type: TEXT_EDITOR_TYPE, content: editor.children });
-              }}
-            />
-
             <FormMessage />
           </FormItem>
         )}

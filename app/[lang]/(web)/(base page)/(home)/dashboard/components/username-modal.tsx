@@ -71,7 +71,7 @@ export function UsernameModal() {
     onClose();
     setLoading(false);
     mutateAsync({ id: ecosystemId }).then((res) => {
-      queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+      queryClient.invalidateQueries({ queryKey: ['userProfile', 'userLearnedCount'] });
     });
     router.refresh();
     setTimeout(() => {

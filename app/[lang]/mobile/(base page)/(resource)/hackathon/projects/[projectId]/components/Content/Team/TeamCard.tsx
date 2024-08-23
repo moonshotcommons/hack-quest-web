@@ -9,6 +9,8 @@ import { IoLogoWechat } from 'react-icons/io5';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { HackathonMemberType } from '@/service/webApi/resourceStation/type';
 import { copyText } from '@/helper/utils';
+import MenuLink from '@/constants/MenuLink';
+import { useRedirect } from '@/hooks/router/useRedirect';
 
 interface TeamCardProp {
   member: HackathonMemberType;
@@ -17,7 +19,7 @@ interface TeamCardProp {
 const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-
+  const { redirectToUrl } = useRedirect();
   const about = member.info?.About;
   const contact = member.info?.Contact;
   const username = useMemo(() => {
@@ -28,18 +30,43 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
   }, [member]);
 
   return (
-    <div className="shaow-[0_0_8px_0_rgba(rgba(0,0,0,0.12))] flex gap-[1rem] rounded-[1rem] bg-neutral-white p-[.75rem] text-neutral-off-black">
+    <div
+      className="shaow-[0_0_8px_0_rgba(rgba(0,0,0,0.12))] flex gap-[1rem] rounded-[1rem] bg-neutral-white p-[.75rem] text-neutral-off-black"
+      onClick={() => {
+        redirectToUrl(`${MenuLink.USER_PROFILE}/${member.username}`);
+      }}
+    >
       <div className="flex-shrink-0">
         <div className="relative h-[5.25rem] w-[5.25rem] overflow-hidden rounded-[50%]">
           <Image src={member.avatar} alt={username} fill className="object-cover" />
         </div>
         <div className="mt-[.5rem] flex justify-between">
-          {contact?.email && <IoIosMail size={16} className="cursor-pointer" onClick={() => copyText(contact.email)} />}
+          {contact?.email && (
+            <IoIosMail
+              size={16}
+              onClick={(e: any) => {
+                e.stopPropagation();
+                copyText(contact.email);
+              }}
+            />
+          )}
           {contact?.weChat && (
-            <IoLogoWechat size={16} className="cursor-pointer" onClick={() => copyText(contact.weChat)} />
+            <IoLogoWechat
+              size={16}
+              onClick={(e: any) => {
+                e.stopPropagation();
+                copyText(contact.weChat);
+              }}
+            />
           )}
           {contact?.telegram && (
-            <FaTelegramPlane size={16} className="cursor-pointer" onClick={() => copyText(contact.telegram)} />
+            <FaTelegramPlane
+              size={16}
+              onClick={(e: any) => {
+                e.stopPropagation();
+                copyText(contact.telegram);
+              }}
+            />
           )}
         </div>
       </div>

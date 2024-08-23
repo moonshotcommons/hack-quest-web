@@ -122,6 +122,15 @@ const useDealHackathonData = () => {
     };
   };
 
+  const getCustomNavs = (hackathon: HackathonType) => {
+    return (
+      hackathon.info?.sections?.customs?.map((v) => ({
+        label: v.title,
+        value: `${v.type}-${v.id}`
+      })) || []
+    );
+  };
+
   const getHackathonNavList = ({
     hackathon,
     isDetail = false,
@@ -184,7 +193,9 @@ const useDealHackathonData = () => {
         value: v.type
       }));
 
-    list = [...list, ...addList];
+    const customNavs = getCustomNavs(hackathon) || [];
+
+    list = [...list, ...addList, ...customNavs];
     return list;
   };
 

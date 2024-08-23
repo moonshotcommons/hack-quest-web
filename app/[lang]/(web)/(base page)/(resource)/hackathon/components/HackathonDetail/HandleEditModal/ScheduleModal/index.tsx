@@ -83,6 +83,7 @@ const ScheduleModal: React.FC<ScheduleModalProp> = ({ hackathon }) => {
     const newSchedules = hackathon.info?.sections?.schedule?.list || [];
     setSchedules(newSchedules);
   }, [hackathon]);
+
   return (
     <div className="">
       <div className="px-[40px]">

@@ -189,8 +189,9 @@ const Judging: React.FC<JudgingProp> = () => {
   const handleAdd = (type: 'base' | 'other') => {
     if (type === 'base') {
       const projects = judgeInfo?.projects;
+      const allBaseWinners = [...winners.filter((v) => v.type === 'base'), ...baseHandleWinners];
       const project = projects.find((p) =>
-        winners.filter((v) => v.type === 'base').every((w) => p.id !== w.project?.id)
+        allBaseWinners.filter((v) => v.type === 'base').every((w) => p.id !== w.project?.id)
       );
       if (!project) return;
       const newWinner = {

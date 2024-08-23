@@ -40,7 +40,7 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
                 <div
                   className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-rich-gray"
                   dangerouslySetInnerHTML={{
-                    __html: createEditor({ content: judge?.criteria?.content || [] }).getHtml()
+                    __html: createEditor({ content: structuredClone(judge?.criteria?.content) || [] }).getHtml()
                   }}
                 ></div>
               ) : (
@@ -57,7 +57,7 @@ const DetailJuging: React.FC<DetailJugingProp> = ({ hackathon }) => {
                   <div
                     className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-rich-gray"
                     dangerouslySetInnerHTML={{
-                      __html: createEditor({ content: judge?.criteria?.content || [] }).getHtml()
+                      __html: createEditor({ content: structuredClone(judge?.criteria?.content) || [] }).getHtml()
                     }}
                   ></div>
                 ) : (

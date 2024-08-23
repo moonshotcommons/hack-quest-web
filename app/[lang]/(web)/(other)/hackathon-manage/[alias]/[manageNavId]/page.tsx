@@ -8,6 +8,7 @@ import Application from './components/Application';
 import Submission from './components/Submission';
 import Judging from './components/Judging';
 import Announcement from './components/Announcement';
+import Distribution from './components/Distribution';
 
 interface HackathonManageProp {
   params: { alias: string; manageNavId: string; lang: Lang };
@@ -40,6 +41,8 @@ const HackathonManage: React.FC<HackathonManageProp> = ({ params }) => {
       return <Judging />;
     case HackathonManageType.ANNOUNCEMENT:
       return <Announcement />;
+    case HackathonManageType.DISTRIBUTION:
+      return <Distribution />;
     default:
       return <Overview />;
   }

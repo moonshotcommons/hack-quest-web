@@ -7,7 +7,8 @@ import { cn } from '@/helper/utils';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useAttestation } from '../common/attestations';
 import { ChevronDownIcon } from 'lucide-react';
-import { baseURL } from '../utils/utils';
+import { services } from '../modals/add-attestation';
+import { EAS_BASE_URL, ETH_SIGN_BASE_URL, VERAX_BASE_URL } from '../utils/constants';
 
 export function Attestations() {
   const [isExpanded, setIsExpanded] = React.useState(new Map());
@@ -35,8 +36,16 @@ export function Attestations() {
     setIsExpanded((prevState) => new Map(prevState).set(id, !isExpanded.get(id)));
   }
 
-  function handleClick(offchainAttestationId: string) {
-    window.open(`${baseURL}/attestation/view/${offchainAttestationId}`, '_blank', 'noopener,noreferrer');
+  function handleClick({ attestationId, service }: { attestationId: string; service: string }) {
+    if (service === services.EAS) {
+      window.open(`${EAS_BASE_URL}/attestation/view/${attestationId}`, '_blank', 'noopener,noreferrer');
+    }
+    if (service === services.Verax) {
+      window.open(`${VERAX_BASE_URL}/${attestationId}`, '_blank', 'noopener,noreferrer');
+    }
+    if (service === services.EthSign) {
+      window.open(`${ETH_SIGN_BASE_URL}/${attestationId}`, '_blank', 'noopener,noreferrer');
+    }
   }
 
   return (
@@ -49,8 +58,8 @@ export function Attestations() {
             'opacity-100': activeIds.includes(attest?.sourceId!)
           })}
           onClick={() => {
-            if (attest.chain?.offchainAttestationId) {
-              handleClick(attest.chain.offchainAttestationId);
+            if (attest.chain) {
+              handleClick(attest.chain as any);
             }
           }}
         >
