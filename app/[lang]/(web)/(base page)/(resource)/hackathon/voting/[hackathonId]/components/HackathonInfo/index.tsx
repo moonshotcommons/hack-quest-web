@@ -51,6 +51,12 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
     const totalVotes =
       judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] +
       judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE];
+    if (!totalVotes) {
+      return {
+        [HackathonTypeVotesRoleType.USER]: '0%',
+        [HackathonTypeVotesRoleType.JUDGE]: '0%'
+      };
+    }
     return {
       [HackathonTypeVotesRoleType.USER]: decimalCountPercent(
         judgeInfo?.roleVoted?.[HackathonTypeVotesRoleType.USER] / totalVotes,
