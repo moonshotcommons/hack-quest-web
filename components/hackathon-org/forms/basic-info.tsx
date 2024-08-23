@@ -260,35 +260,28 @@ export function BasicInfoForm({
                 <FormLabel>
                   <span className="body-m text-neutral-rich-gray">Description*</span>
                 </FormLabel>
-                {/* <span className="caption-14pt text-neutral-rich-gray">
-                  <span className={cn({ 'text-status-error': form.watch('description')?.length > 360 })}>
-                    {form.watch('description')?.length}
-                  </span>
-                  /360
-                </span> */}
               </div>
               <FormControl>
-                <Textarea
-                  {...field}
-                  authHeight={false}
-                  autoComplete="off"
-                  placeholder="Write a brief description for your hackathon"
-                  className="hidden h-[76px] border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
-                />
+                <div className="group relative">
+                  <Textarea {...field} className="absolute -z-10 h-0 max-h-0 min-h-0 opacity-0 focus-visible:ring-0" />
+                  <TextEditor
+                    onCreated={(editor) => {
+                      setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                      form.setValue('description', editor.getText().replace(/\n|\r/gm, ''));
+                    }}
+                    className="overflow-hidden rounded-[8px] group-data-[invalid=true]:!border-status-error-dark"
+                    defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
+                    onChange={(editor) => {
+                      const text = editor.getText().replace(/\n|\r/gm, '');
+                      form.setValue('description', text);
+                      if (text) {
+                        form.clearErrors('description');
+                      }
+                      setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                    }}
+                  />
+                </div>
               </FormControl>
-              <TextEditor
-                onCreated={(editor) => {
-                  setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
-                  form.setValue('description', editor.getText().replace(/\n|\r/gm, ''));
-                }}
-                defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
-                onChange={(editor) => {
-                  const text = editor.getText().replace(/\n|\r/gm, '');
-                  form.setValue('description', text);
-                  setDescription({ type: TEXT_EDITOR_TYPE, content: editor.children });
-                }}
-              />
-
               <FormMessage />
             </FormItem>
           )}
