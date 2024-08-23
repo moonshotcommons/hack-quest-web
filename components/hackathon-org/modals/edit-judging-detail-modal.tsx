@@ -152,6 +152,8 @@ export function EditJudgingDetailModal({
     }
   });
 
+  const errors = form.formState.errors;
+
   const checkJudgeAccount = useMutation({
     mutationFn: (email: string) => webApi.hackathonV2Api.checkJudgeAccount(initialValues?.hackathonId, email),
     onSuccess: () => {
@@ -343,15 +345,17 @@ export function EditJudgingDetailModal({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="flex flex-col gap-6 px-10 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px]"
+        className="flex flex-col gap-6 pb-10 pt-[60px] shadow-modal sm:w-[888px] sm:max-w-[888px] sm:px-0"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <h1 className="headline-h3 relative shrink-0 pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
-          {initialValues?.rewardName}
-        </h1>
+        <div className="shrink-0 px-10">
+          <h1 className="headline-h3 relative pl-[21px] text-neutral-black before:absolute before:left-0 before:top-1/2 before:h-[34px] before:w-[5px] before:-translate-y-1/2 before:transform before:rounded-full before:bg-yellow-dark before:content-['']">
+            {initialValues?.rewardName}
+          </h1>
+        </div>
         <Form {...form}>
           <form
-            className="no-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto"
+            className="documentation-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto px-10"
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
@@ -365,28 +369,31 @@ export function EditJudgingDetailModal({
                     </FormLabel>
                   </div>
                   <FormControl>
-                    <Textarea
-                      {...field}
-                      authHeight={false}
-                      autoComplete="off"
-                      placeholder="Write a judging criteria for the hackathon"
-                      className="hidden h-28 border-neutral-light-gray p-3 text-base text-neutral-black transition-colors placeholder:text-neutral-medium-gray focus:border-neutral-medium-gray focus-visible:ring-0 aria-[invalid=true]:border-status-error-dark"
-                    />
+                    <div className="group relative">
+                      <Textarea
+                        {...field}
+                        className="absolute -z-10 h-0 max-h-0 min-h-0 opacity-0 focus-visible:ring-0"
+                      />
+                      <TextEditor
+                        simpleModel
+                        onCreated={(editor) => {
+                          const text = editor.getText().replace(/\n|\r/gm, '');
+                          setCriteria({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                          form.setValue('criteria', text);
+                        }}
+                        className="overflow-hidden rounded-[8px] group-data-[invalid=true]:!border-status-error-dark"
+                        defaultContent={transformTextToEditorValue(initialValues?.criteria)}
+                        onChange={(editor) => {
+                          const text = editor.getText().replace(/\n|\r/gm, '');
+                          form.setValue('criteria', text);
+                          if (text) {
+                            form.clearErrors('criteria');
+                          }
+                          setCriteria({ type: TEXT_EDITOR_TYPE, content: editor.children });
+                        }}
+                      />
+                    </div>
                   </FormControl>
-                  <TextEditor
-                    simpleModel
-                    onCreated={(editor) => {
-                      const text = editor.getText().replace(/\n|\r/gm, '');
-                      setCriteria({ type: TEXT_EDITOR_TYPE, content: editor.children });
-                      form.setValue('criteria', text);
-                    }}
-                    defaultContent={transformTextToEditorValue(initialValues?.criteria)}
-                    onChange={(editor) => {
-                      const text = editor.getText().replace(/\n|\r/gm, '');
-                      form.setValue('criteria', text);
-                      setCriteria({ type: TEXT_EDITOR_TYPE, content: editor.children });
-                    }}
-                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -705,7 +712,7 @@ export function EditJudgingDetailModal({
             <input ref={submitInputRef} type="submit" className="hidden" />
           </form>
         </Form>
-        <div className="flex shrink-0 justify-end gap-4">
+        <div className="flex shrink-0 justify-end gap-4 px-10">
           <Button className="w-[165px]" variant="outline" onClick={handleClose}>
             Cancel
           </Button>
