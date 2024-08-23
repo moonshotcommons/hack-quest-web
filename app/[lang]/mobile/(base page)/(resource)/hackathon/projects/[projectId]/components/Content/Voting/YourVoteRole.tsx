@@ -15,13 +15,16 @@ const YourVoteRole: React.FC<YourVoteRoleProp> = ({}) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { projectVote } = useContext(ProjectDetailContext);
   const votesPercent = useMemo(() => {
+    const totalVotes =
+      projectVote?.roleVoted?.[HackathonTypeVotesRoleType.USER] +
+      projectVote?.roleVoted?.[HackathonTypeVotesRoleType.JUDGE];
     return {
       [HackathonTypeVotesRoleType.USER]: decimalCountPercent(
-        projectVote.roleVoted?.[HackathonTypeVotesRoleType.USER] / projectVote.totalVotes,
+        projectVote.roleVoted?.[HackathonTypeVotesRoleType.USER] / totalVotes,
         2
       ),
       [HackathonTypeVotesRoleType.JUDGE]: decimalCountPercent(
-        projectVote.roleVoted?.[HackathonTypeVotesRoleType.JUDGE] / projectVote.totalVotes,
+        projectVote.roleVoted?.[HackathonTypeVotesRoleType.JUDGE] / totalVotes,
         2
       )
     };

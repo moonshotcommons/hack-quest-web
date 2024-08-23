@@ -6,6 +6,7 @@ interface TipsProp {}
 
 const Tips: React.FC<TipsProp> = () => {
   const { judgeInfo } = useContext(HackathonVoteContext);
+  if (!judgeInfo?.judge?.rewardName) return null;
   return (
     <div className="body-s flex items-center justify-center gap-[.5rem] rounded-[1rem] bg-yellow-extra-light py-[.75rem] text-neutral-off-black">
       <CircleAlert size={14} />
