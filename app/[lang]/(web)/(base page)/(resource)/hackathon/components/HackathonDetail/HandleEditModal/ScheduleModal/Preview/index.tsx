@@ -1,5 +1,5 @@
 import { HackathonScheduleType } from '@/service/webApi/resourceStation/type';
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -17,6 +17,17 @@ interface PreviewProp {
 const Preview: React.FC<PreviewProp> = ({ schedule, handleEdit, handleRemoveEvent }) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
+
+  const renderEditor = useMemo(() => {
+    return (
+      <div
+        className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-off-black"
+        dangerouslySetInnerHTML={{
+          __html: createEditor({ content: structuredClone((schedule?.description as any)?.content) || [] }).getHtml()
+        }}
+      ></div>
+    );
+  }, [schedule.description]);
   return (
     <div
       className={`body-m flex flex-col gap-[8px] border-b border-neutral-medium-gray pb-[24px] text-neutral-off-black`}
@@ -29,12 +40,7 @@ const Preview: React.FC<PreviewProp> = ({ schedule, handleEdit, handleRemoveEven
         <div>
           <div className="text-neutral-medium-gray">{'Description'}</div>
           {(schedule?.description as any).type === TEXT_EDITOR_TYPE ? (
-            <div
-              className="reset-editor-style mt-[4px] whitespace-pre-line text-neutral-off-black"
-              dangerouslySetInnerHTML={{
-                __html: createEditor({ content: (schedule?.description as any)?.content || [] }).getHtml()
-              }}
-            ></div>
+            renderEditor
           ) : (
             <div className="mt-[4px] whitespace-pre-line  text-neutral-off-black">{schedule.description}</div>
           )}

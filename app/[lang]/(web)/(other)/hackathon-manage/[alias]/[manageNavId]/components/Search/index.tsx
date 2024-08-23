@@ -56,7 +56,7 @@ const Search: React.FC<SearchProp> = ({
             value={tableInformation}
             options={informationData}
             name="Information"
-            onSelect={setTableInformation}
+            onSelect={(val) => setTableInformation(val as string[])}
           />
         )}
 

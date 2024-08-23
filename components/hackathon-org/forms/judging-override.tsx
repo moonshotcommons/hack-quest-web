@@ -44,7 +44,7 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
                 <p
                   className="body-m reset-editor-style text-neutral-rich-gray"
                   dangerouslySetInnerHTML={{
-                    __html: createEditor({ content: data.criteria?.content || [] }).getHtml()
+                    __html: createEditor({ content: structuredClone(data.criteria?.content) || [] }).getHtml()
                   }}
                 ></p>
               ) : (
@@ -61,7 +61,7 @@ function UpdateJudgeDetail({ data, onClick }: { data: any; onClick?: () => void 
                     <p
                       className="body-m reset-editor-style text-neutral-rich-gray"
                       dangerouslySetInnerHTML={{
-                        __html: createEditor({ content: data.criteria?.content || [] }).getHtml()
+                        __html: createEditor({ content: structuredClone(data.criteria?.content) || [] }).getHtml()
                       }}
                     ></p>
                   ) : (

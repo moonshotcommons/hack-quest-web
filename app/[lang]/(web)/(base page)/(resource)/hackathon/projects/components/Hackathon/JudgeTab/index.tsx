@@ -121,7 +121,9 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
               <p
                 className="body-m reset-editor-style text-neutral-rich-gray"
                 dangerouslySetInnerHTML={{
-                  __html: createEditor({ content: judges[selectedTab]?.criteria?.content || [] }).getHtml()
+                  __html: createEditor({
+                    content: structuredClone(judges[selectedTab]?.criteria?.content || [])
+                  }).getHtml()
                 }}
               />
             ) : (

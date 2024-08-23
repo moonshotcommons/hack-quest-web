@@ -47,7 +47,7 @@ const UserInfo: React.FC<UserInfoProp> = () => {
       </div>
       <Link
         className="button-text-s flex cursor-pointer items-center  pl-[16px] text-neutral-off-black"
-        href={MenuLink.USER_PROFILE}
+        href={`${MenuLink.USER_PROFILE}/${userInfo?.username}`}
       >
         <span className="uppercase">{t('dashboard.profile')}</span>
         <HiArrowLongRight size={18}></HiArrowLongRight>

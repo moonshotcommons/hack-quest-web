@@ -34,7 +34,7 @@ const CustomText: React.FC<CustomTextProp> = ({ custom }) => {
       <div
         className={`reset-editor-style-mob whitespace-pre-line`}
         dangerouslySetInnerHTML={{
-          __html: createEditor({ content: (custom.text as any)?.content || [] }).getHtml()
+          __html: createEditor({ content: structuredClone((custom.text as any)?.content) || [] }).getHtml()
         }}
       ></div>
       <RemoveSectionModal ref={removeSectionRef} title={custom.title} type={HackathonEditModalType.CUSTOM_TEXT} />

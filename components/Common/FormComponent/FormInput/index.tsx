@@ -37,7 +37,7 @@ export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
       <div
         className="body-s reset-editor-style whitespace-pre-line text-left text-[14px] text-neutral-medium-gray"
         dangerouslySetInnerHTML={{
-          __html: createEditor({ content: placeholder?.content || [] }).getHtml()
+          __html: createEditor({ content: structuredClone(placeholder?.content || []) }).getHtml()
         }}
       ></div>
     );

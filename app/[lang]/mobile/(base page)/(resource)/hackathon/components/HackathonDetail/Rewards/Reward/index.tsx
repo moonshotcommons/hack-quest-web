@@ -37,7 +37,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
               <div
                 className="body-s reset-editor-style whitespace-pre-line text-neutral-rich-gray"
                 dangerouslySetInnerHTML={{
-                  __html: createEditor({ content: v?.rule?.content || [] }).getHtml()
+                  __html: createEditor({ content: structuredClone(v?.rule?.content || []) }).getHtml()
                 }}
               ></div>
             ) : (
