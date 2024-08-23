@@ -11,12 +11,14 @@ import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface TargetCardProp {
   target: TargetsType;
 }
 const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
   const { lang } = useContext(LangContext);
+  const userInfo = useUserStore((state) => state.userInfo);
   const { t } = useTranslation(lang, TransNs.REWARD);
   const { redirectToUrl } = useRedirect();
   const { campaignsTargetClaim, refresh, claimIds } = useContext(MantleContext);
@@ -53,7 +55,7 @@ const TargetCard: React.FC<TargetCardProp> = ({ target }) => {
         break;
       case TargetType.GIUHUB:
         BurialPoint.track('campaigns targetCard Go to Profile 按钮点击');
-        redirectToUrl(MenuLink.USER_PROFILE);
+        redirectToUrl(`${MenuLink.USER_PROFILE}/${userInfo?.username}`);
         return 'Go to Profile';
     }
   };

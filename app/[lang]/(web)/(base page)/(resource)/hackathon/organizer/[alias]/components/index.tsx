@@ -115,14 +115,14 @@ const HackathonEditDetail: React.FC<HackathonEditDetailProp> = ({ hackathon: h, 
   }, [hackathon]);
 
   return (
-    <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit}>
+    <EditProvider refreshHackathon={refreshHackathon} hackathon={hackathon} isEdit={isEdit} navs={navList}>
       <Loading loading={loading}>
         <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScoll}>
           <div className="container relative mx-auto pb-[80px] pt-[40px]">
             <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
             <div className="relative flex justify-between pt-[60px]">
               <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full" ref={contentRef}>
-                <Cover hackathon={hackathon} />
+                <Cover hackathon={hackathon} imageLoad={getOffsetTops} />
                 <TimeLine hackathon={hackathon} isEdit={true} />
                 <Rewards hackathon={hackathon} />
                 <Judging hackathon={hackathon} />

@@ -13,9 +13,9 @@ import { ShareWrap, shareList } from '@/components/Web/Business/InviteCodeCard/c
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { MissionCenterContext } from '../../../constants/type';
 import { useUserStore } from '@/store/zustand/userStore';
-import { ProfileHandleType } from '@/app/[lang]/(web)/(base page)/(profile)/user/profile/constants/type';
 import message from 'antd/es/message';
 import { errorMessage } from '@/helper/ui';
+import MenuLink from '@/constants/MenuLink';
 
 interface TargetCardProp {
   missionData: MissionDataType;
@@ -54,7 +54,7 @@ const TargetCard: React.FC<TargetCardProp> = ({
           if (!discordInfo.isConnect) {
             message.info('Please bind first discord account!');
             setTimeout(() => {
-              redirectToUrl(`/user/profile?type=${ProfileHandleType.PERSONAL_EDIT}`);
+              redirectToUrl(`${MenuLink.USER_PROFILE}/${userInfo?.username}`);
             }, 1000);
 
             return;

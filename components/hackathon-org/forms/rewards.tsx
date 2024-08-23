@@ -65,7 +65,7 @@ function TrackPreview({ track, refresh }: { track: any; refresh?: () => void }) 
             <p
               className="body-m reset-editor-style text-neutral-off-black"
               dangerouslySetInnerHTML={{
-                __html: createEditor({ content: track?.rule?.content || [] }).getHtml()
+                __html: createEditor({ content: structuredClone(track?.rule?.content) || [] }).getHtml()
               }}
             ></p>
           ) : (

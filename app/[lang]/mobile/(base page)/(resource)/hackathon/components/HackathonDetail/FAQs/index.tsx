@@ -74,7 +74,7 @@ const FAQs: React.FC<FAQsProp> = ({ hackathon }) => {
               <div
                 className={`reset-editor-style-mob whitespace-pre-line pt-[1.25rem] ${v.isExpand ? 'block' : 'hidden'}`}
                 dangerouslySetInnerHTML={{
-                  __html: createEditor({ content: (v?.answer as any)?.content || [] }).getHtml()
+                  __html: createEditor({ content: structuredClone((v?.answer as any)?.content || []) }).getHtml()
                 }}
               ></div>
             ) : (

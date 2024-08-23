@@ -50,7 +50,7 @@ const User: FC<UserProps> = ({ userInfo }) => {
                 <div
                   className={cn(
                     'relative flex h-[36px] w-[36px] items-center justify-center overflow-hidden rounded-full bg-[#8d8d8d]',
-                    pathname === MenuLink.USER_PROFILE ? 'box-content border-[5px] border-[#ffd952]' : ''
+                    pathname.startsWith(MenuLink.USER_PROFILE) ? 'box-content border-[5px] border-[#ffd952]' : ''
                   )}
                 >
                   <Image

@@ -40,7 +40,7 @@ const Reward: React.FC<RewardProp> = ({ hackathon }) => {
               <div
                 className="body-m reset-editor-style whitespace-pre-line text-neutral-rich-gray"
                 dangerouslySetInnerHTML={{
-                  __html: createEditor({ content: v?.rule?.content || [] }).getHtml()
+                  __html: createEditor({ content: structuredClone(v?.rule?.content) || [] }).getHtml()
                 }}
               ></div>
             ) : (

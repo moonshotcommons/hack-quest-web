@@ -24,7 +24,6 @@ const User: FC<UserProps> = ({ userInfo }) => {
       setAuthModalOpen: state.setAuthModalOpen
     }))
   );
-
   return (
     <div className="relative h-full">
       <div className="relative  flex h-full items-center justify-end">

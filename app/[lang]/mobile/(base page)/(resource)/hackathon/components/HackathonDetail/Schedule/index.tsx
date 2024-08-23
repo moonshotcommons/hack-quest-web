@@ -83,7 +83,9 @@ const Schedule: React.FC<ScheduleProp> = ({ hackathon }) => {
                   <div
                     className="reset-editor-style-mob mt-[4px] whitespace-pre-line text-neutral-off-black"
                     dangerouslySetInnerHTML={{
-                      __html: createEditor({ content: (v.description as any)?.content || [] }).getHtml()
+                      __html: createEditor({
+                        content: structuredClone((v.description as any)?.content || [])
+                      }).getHtml()
                     }}
                   ></div>
                 ) : (

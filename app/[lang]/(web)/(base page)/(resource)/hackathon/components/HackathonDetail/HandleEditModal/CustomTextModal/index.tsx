@@ -51,9 +51,7 @@ const CustomTextModal: React.FC<CustomTextModalProp> = () => {
     });
   };
   useEffect(() => {
-    setTitle(
-      modalEditType === 'add' ? 'Unnamed Customized Section' : editCustomInfo?.title || 'Unnamed Customized Section'
-    );
+    setTitle(modalEditType === 'add' ? 'Unnamed Section' : editCustomInfo?.title || 'Unnamed Section');
   }, [editCustomInfo, modalEditType]);
   return (
     <div>

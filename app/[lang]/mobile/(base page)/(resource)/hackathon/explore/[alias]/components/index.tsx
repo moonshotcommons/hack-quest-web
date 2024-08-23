@@ -82,14 +82,14 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
-    }, 300);
+    }, 1000);
   }, []);
   return (
     <DetailProvider navs={navList}>
       <div className="scroll-wrap-y h-[calc(100vh-4rem)] pb-[12rem]" ref={boxRef} onScroll={handleScoll}>
         {hackathon.id && (
           <div className="relative flex flex-col gap-[3.75rem]  pt-[1.25rem]" ref={contentRef}>
-            <DetailInfo hackathon={hackathon} />
+            <DetailInfo hackathon={hackathon} imageLoad={getOffsetTops} />
             <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
             <TimeLine hackathon={hackathon} />
             {navList.some((v) => v.value === 'description') && <Description hackathon={hackathon} />}

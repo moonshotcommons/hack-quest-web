@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 } from 'uuid';
 import ReactEcharts from 'echarts-for-react';
 
 const GrowthEchartline = () => {
@@ -61,7 +60,7 @@ const SourceEchartPie = () => {
     tooltip: {
       trigger: 'item',
       position: function (point: any) {
-        return [10, point[1]]; // x 固定在 point[0]，y 跟随鼠标移动
+        return [point[0] - 100, point[1]]; // x 固定在 point[0]，y 跟随鼠标移动
       }
     },
     title: {
@@ -118,7 +117,7 @@ const SourceEchartBar = () => {
     tooltip: {
       trigger: 'item',
       position: function (point: any) {
-        return [10, point[1]]; // x 固定在 point[0]，y 跟随鼠标移动
+        return [point[0] - 100, point[1]]; // x 固定在 point[0]，y 跟随鼠标移动
       }
     },
     xAxis: {

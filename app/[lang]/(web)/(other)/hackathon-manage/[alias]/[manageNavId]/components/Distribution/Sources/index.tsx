@@ -11,7 +11,7 @@ const Sources: React.FC<SourcesProp> = () => {
         <div className="text-h35 text-neutral-off-black">UTM Sources</div>
         <Button
           type="primary"
-          className="body-s h-[30px] w-[161px] p-0 uppercase text-neutral-off-black"
+          className="button-text-m h-[30px] w-[161px] p-0 uppercase  text-neutral-off-black"
           icon={<CirclePlus size={14} />}
         >
           add a source

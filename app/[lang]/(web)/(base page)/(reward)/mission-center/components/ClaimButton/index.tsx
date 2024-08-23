@@ -4,7 +4,6 @@ import React, { useContext, useMemo, useState } from 'react';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import { ProfileHandleType } from '../../../../(profile)/user/profile/constants/type';
 import { rewardsCardData, RewardsCardType } from '../../constants/data';
 import message from 'antd/es/message';
 import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
@@ -12,6 +11,7 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import webApi from '@/service';
 import { errorMessage } from '@/helper/ui';
 import MenuLink from '@/constants/MenuLink';
+import { useUserStore } from '@/store/zustand/userStore';
 
 interface ClaimButtonProp {
   missionData: MissionDataType;
@@ -23,6 +23,7 @@ const ClaimButton: React.FC<ClaimButtonProp> = ({ missionData, missionClaim }) =
   const { t } = useTranslation(lang, TransNs.REWARD);
   const [loading, setLoading] = useState(false);
   const { updateMissionDataAll } = useGetMissionData();
+  const userInfo = useUserStore((state) => state.userInfo);
   const { redirectToUrl } = useRedirect();
   const unInfo = useMemo(() => {
     const subType = missionData.subType as MissionSubType;
@@ -40,7 +41,7 @@ const ClaimButton: React.FC<ClaimButtonProp> = ({ missionData, missionClaim }) =
           if (!discordInfo.isConnect) {
             message.info('Please bind first discord account!');
             setTimeout(() => {
-              redirectToUrl(`/user/profile?type=${ProfileHandleType.PERSONAL_EDIT}`);
+              redirectToUrl(`${MenuLink.USER_PROFILE}/${userInfo?.username}`);
             }, 1000);
             return;
           }
