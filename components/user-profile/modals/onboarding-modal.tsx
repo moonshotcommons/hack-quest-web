@@ -30,6 +30,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { Spinner } from '@/components/ui/spinner';
 import { omit } from 'lodash-es';
 import { useModal } from '../utils/modal';
+import { openWindow } from '../modules/developer-profile';
 
 function Step1({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) {
   const submitRef = React.useRef<HTMLInputElement>(null);
@@ -138,7 +139,7 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
   const connectMutation = useMutation({
     mutationFn: () => webApi.userApi.getGithubConnectUrl(),
     onSuccess: ({ url }) => {
-      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+      openWindow(url);
     }
   });
 
@@ -173,18 +174,28 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
     }
   }, [connectModalOpen]);
 
+  const getGithubInfo = useMutation({
+    mutationFn: () => webApi.userApi.getGithubInfo(),
+    onSuccess: () => {
+      toast.success('Developer profile updated');
+      invalidate();
+    }
+  });
+
   React.useEffect(() => {
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'linkGitHub') {
-        invalidate();
-      }
-    });
-    return () => {
-      window.removeEventListener('storage', (e) => {
-        if (e.key === 'linkGitHub') {
-          invalidate();
+    function handler(event: MessageEvent) {
+      const data = event.data;
+      if (data.source === 'github') {
+        if (data.message === 'success') {
+          getGithubInfo.mutate();
+        } else {
+          toast.error('GitHub authorization failed. Please try again.');
         }
-      });
+      }
+    }
+    window.addEventListener('message', handler);
+    return () => {
+      window.removeEventListener('message', handler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -222,7 +233,11 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
                 </button>
               ) : (
                 <button className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
-                  <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  {getGithubInfo.isPending ? (
+                    <Spinner size={20} />
+                  ) : (
+                    <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  )}
                 </button>
               )}
             </div>
@@ -289,7 +304,7 @@ function Step3({ onClose }: { onClose?: () => void }) {
   const connectMutation = useMutation({
     mutationFn: () => webApi.userApi.getConnectUrlByDiscord(),
     onSuccess: ({ url }) => {
-      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+      openWindow(url);
     }
   });
 
@@ -313,6 +328,25 @@ function Step3({ onClose }: { onClose?: () => void }) {
     mutate({ personalLinks: data, progress: 3 });
   }
 
+  React.useEffect(() => {
+    function handler(event: MessageEvent) {
+      const data = event.data;
+      if (data.source === 'discord') {
+        if (data.message === 'success') {
+          invalidate();
+          toast.success('Discord authorization succeeded');
+        } else {
+          toast.error('Discord authorization failed. Please try again.');
+        }
+      }
+    }
+    window.addEventListener('message', handler);
+    return () => {
+      window.removeEventListener('message', handler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Form {...form}>
       <h2 className="shrink-0 text-[22px] font-bold">Connect accounts to grow your network</h2>
@@ -334,7 +368,11 @@ function Step3({ onClose }: { onClose?: () => void }) {
                 </button>
               ) : (
                 <button type="button" className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
-                  <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  {connectMutation.isPending ? (
+                    <Spinner size={20} />
+                  ) : (
+                    <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  )}
                 </button>
               )}
             </div>

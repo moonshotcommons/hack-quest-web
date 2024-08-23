@@ -16,6 +16,7 @@ export async function GET(request: NextRequest, context: { params: { name: strin
     if (ext === 'json') {
       return NextResponse.json({
         description: `Certified Mantle Learner - ${username}-${certificateId}`,
+        symbol: 'HACKQUEST',
         image: `${getDomain(process.env.RUNTIME_ENV || 'dev')}api/certificate/${encodeURIComponent(username)}-${certificateId}.png`,
         name: `${username}-${certificateId}`
       });
