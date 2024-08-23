@@ -123,10 +123,12 @@ const useDealHackathonData = () => {
   };
 
   const getCustomNavs = (hackathon: HackathonType) => {
-    return hackathon.info?.sections?.customs?.map((v) => ({
-      label: v.title,
-      value: `${v.type}-${v.id}`
-    }));
+    return (
+      hackathon.info?.sections?.customs?.map((v) => ({
+        label: v.title,
+        value: `${v.type}-${v.id}`
+      })) || []
+    );
   };
 
   const getHackathonNavList = ({
@@ -191,7 +193,7 @@ const useDealHackathonData = () => {
         value: v.type
       }));
 
-    const customNavs = getCustomNavs(hackathon);
+    const customNavs = getCustomNavs(hackathon) || [];
 
     list = [...list, ...addList, ...customNavs];
     return list;
