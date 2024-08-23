@@ -1,7 +1,7 @@
 import React, { ReactNode, useMemo } from 'react';
 import { ProjectDetailContext } from '../../../../constants/type';
 import { HackathonType, ProjectType, ProjectVotesType } from '@/service/webApi/resourceStation/type';
-import dayjs from '@/components/Common/Dayjs';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface ProjectProviderProp {
   children: ReactNode;
@@ -11,10 +11,12 @@ interface ProjectProviderProp {
 }
 
 const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, project, projectVote, hackathon }) => {
+  const { getStepIndex } = useDealHackathonData();
+  const stepIndex = getStepIndex(hackathon);
   const isShowVoting = useMemo(() => {
-    const isEnd = dayjs().tz().isAfter(hackathon?.timeline?.rewardTime);
-    return !!((isEnd && projectVote.totalVotes) || !isEnd);
-  }, [hackathon, projectVote]);
+    const isEnd = stepIndex === 2;
+    return !!((isEnd && project.rewards?.length) || !isEnd);
+  }, [project, stepIndex]);
   const titleTxtData = useMemo(() => {
     let navs = [
       'projectsDetail.title.overview',
