@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { distributionTabData, variousChartTypeData } from '../../../../../constants/data';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { SourceEchartPie, SourceEchartBar } from '../DistributionEcharts';

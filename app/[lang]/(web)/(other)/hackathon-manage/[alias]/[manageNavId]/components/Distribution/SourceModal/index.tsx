@@ -7,7 +7,6 @@ import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { sourceFormSchema, sourceDefaultValues } from '../../../../../constants/data';
-import { cloneDeep } from 'lodash-es';
 import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import Button from '@/components/Common/Button';
 import { Trash2 } from 'lucide-react';
