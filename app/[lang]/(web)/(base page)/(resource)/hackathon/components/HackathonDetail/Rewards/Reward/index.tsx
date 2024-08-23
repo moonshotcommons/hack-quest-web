@@ -27,9 +27,9 @@ const Reward: React.FC<RewardProp> = ({ hackathon }) => {
             <p>{v.name}</p>
           </div>
           <div className="flex flex-1 items-center border-l border-neutral-light-gray pl-[20px]">
-            {v.rewards?.length > 0 ? (
+            {v.mode === 'RANK' ? (
               <div className="body-m flex h-full w-full flex-col justify-center gap-[4px] text-neutral-medium-gray">
-                {v.rewards.map((p, j) => (
+                {v.rewards?.map((p, j) => (
                   <div key={j} className="flex items-center justify-between">
                     <span>{`${p.label}`}</span>
                     <span className="body-l text-neutral-off-black">{`${p.value} ${v.currency || 'USD'}`}</span>
