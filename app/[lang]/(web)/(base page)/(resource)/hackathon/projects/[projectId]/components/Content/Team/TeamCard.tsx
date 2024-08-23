@@ -17,7 +17,6 @@ interface TeamCardProp {
 }
 
 const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
-  console.info(member);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { redirectToUrl } = useRedirect();
