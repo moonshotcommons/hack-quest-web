@@ -7,13 +7,22 @@ export enum SlideClassName {
   SECOND_NAVBAR = 'slide-navigator slide-navigator-second-navbar',
   BLOG_FILTER = 'slide-blog-navigator',
   LEARNING_TRACK = 'slide-navigator slide-learning-track-navbar',
-  GLOSSARY_FILTER = 'slide-glossary-navigator'
+  GLOSSARY_FILTER = 'slide-glossary-navigator',
+  GROWTH_TAB = 'slide-growth-tab',
+  VARIOUS_ECHARTS_TAB = 'slide-various-echarts-tab'
 }
 
 interface SlideHighlightProps {
   children: React.ReactNode;
   className: string;
-  type?: 'FIST_NAVBAR' | 'SECOND_NAVBAR' | 'BLOG_FILTER' | 'LEARNING_TRACK' | 'GLOSSARY_FILTER';
+  type?:
+    | 'FIST_NAVBAR'
+    | 'SECOND_NAVBAR'
+    | 'BLOG_FILTER'
+    | 'LEARNING_TRACK'
+    | 'GLOSSARY_FILTER'
+    | 'GROWTH_TAB'
+    | 'VARIOUS_ECHARTS_TAB';
   currentIndex: number;
 }
 

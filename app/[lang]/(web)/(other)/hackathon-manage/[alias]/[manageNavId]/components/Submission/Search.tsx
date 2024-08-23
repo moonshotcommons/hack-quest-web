@@ -65,7 +65,7 @@ const Search: React.FC<SearchProp> = ({ sort, handleSearch, tableInformation, se
           value={tableInformation}
           options={submissionInformationData}
           name="Information"
-          onSelect={setTableInformation}
+          onSelect={(val) => setTableInformation(val as string[])}
         />
         <MultiSelect
           value={sectors}

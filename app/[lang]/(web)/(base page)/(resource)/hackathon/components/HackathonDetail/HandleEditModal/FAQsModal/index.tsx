@@ -13,6 +13,7 @@ import { Form } from '@/components/ui/form';
 import { IoIosAddCircle } from 'react-icons/io';
 import Edit from './Edit';
 import CommonButton from '../CommonButton';
+import { cloneDeep } from 'lodash-es';
 
 interface FAQsModalProp {
   hackathon: HackathonType;
@@ -26,7 +27,7 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { updateHackathon } = useContext(HackathonEditContext);
 
-  const propFaqs = hackathon.info?.sections?.faqs?.list || [];
+  const propFaqs = cloneDeep(hackathon.info?.sections?.faqs?.list) || [];
 
   const [faqs, setFaqs] = useState(propFaqs || []);
 
@@ -82,8 +83,6 @@ const FAQsModal: React.FC<FAQsModalProp> = ({ hackathon }) => {
       <div className="px-[40px]">
         <Title title="FAQs" />
       </div>
-      {/* 解决初始化和input输入时formState.isValid false的bug问题 暂时这么写 */}
-      {/* <div className="hidden">{form.formState.isValid ? '' : ''}</div> */}
       <div className="scroll-wrap-y flex flex-1 flex-col gap-[24px] px-[40px]">
         <Form {...form}>
           <form className="flex h-full w-full flex-col gap-6">

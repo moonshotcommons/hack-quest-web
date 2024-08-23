@@ -3,7 +3,8 @@ export enum HackathonManageType {
   APPLICATION = 'application',
   SUBMISSION = 'submission',
   JUDGE = 'judging',
-  ANNOUNCEMENT = 'announcement'
+  ANNOUNCEMENT = 'announcement',
+  DISTRIBUTION = 'distribution'
 }
 
 export interface SelectType {
@@ -21,4 +22,11 @@ export interface InformationDataType {
   value: string;
   label: string;
   disabled?: boolean;
+}
+
+export enum DistributionTab {
+  PAGE_VIEW = 'pageView',
+  REGISTRATION = 'Registration',
+  SUBMISSION = 'Submission',
+  WINNERS = 'Winners'
 }

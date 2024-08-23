@@ -256,6 +256,7 @@
     "submission":"Submission",
     "judging":"Judging",
     "announcement":"Announcement",
+    "distribution":"Distribution",
     "viewHackathonDetails":"view hackathon details",
     "hackathonStatsToday":"Hackathon Stats Today"
   }

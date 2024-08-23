@@ -1,25 +1,34 @@
 'use client';
+
+import * as React from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Spinner } from '@/components/ui/spinner';
 import webApi from '@/service';
-import { useRequest } from 'ahooks';
-import React from 'react';
-import Image from 'next/image';
-import Loading from '@/public/images/other/loading.png';
 
-interface ConnectGithubProp {}
+const ConnectGithub = () => {
+  const searchParams = useSearchParams();
+  const code = searchParams.get('code');
 
-const ConnectGithub: React.FC<ConnectGithubProp> = () => {
-  const query = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
-  const code = query.get('code');
-  const {} = useRequest(async () => {
-    if (code) {
-      await webApi.userApi.linkGithub(code as string);
-      localStorage.setItem('linkGitHub', `${+new Date()}`);
+  async function authorizeWithGitHub(code: string) {
+    try {
+      await webApi.userApi.linkGithub(code);
+      window.opener.postMessage({ message: 'success', source: 'github' }, '*');
+      window.close();
+    } catch (error) {
+      window.opener.postMessage({ message: 'error', source: 'github' }, '*');
       window.close();
     }
-  });
+  }
+
+  React.useEffect(() => {
+    if (code) {
+      authorizeWithGitHub(code);
+    }
+  }, [code]);
+
   return (
-    <div className="flex-center fixed left-0 top-0 z-[9999] h-[100vh] w-[100vw] bg-neutral-white">
-      <Image src={Loading} width={40} alt="loading" className="animate-spin object-contain opacity-100"></Image>
+    <div className="flex-center fixed left-0 top-0 z-[9999] h-screen w-screen bg-neutral-white">
+      <Spinner size={40} />
     </div>
   );
 };

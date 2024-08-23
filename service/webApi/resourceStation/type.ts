@@ -65,6 +65,7 @@ export interface HackathonMemberType {
     [ApplicationSectionType.OnlineProfiles]?: HackathonInfoOnlineProfilesType;
   };
   isAdmin: boolean;
+  username: string;
 }
 
 export enum HackathonTypeVotesRoleType {

@@ -1,21 +1,27 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import webApi from '@/service';
 import { HackathonInfoSectionCustomType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
-import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import { HackathonEditContext, HackathonEditModalType, UpdateHackathonParamType } from '../../../../constants/type';
-import { initEditNavs } from '../../../../constants/data';
+// import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import {
+  HackathonEditContext,
+  HackathonEditModalType,
+  HackathonEditNavType,
+  UpdateHackathonParamType
+} from '../../../../constants/type';
+// import { initEditNavs } from '../../../../constants/data';
 
 interface EditProviderProp {
   children: ReactNode;
   refreshHackathon: VoidFunction;
   hackathon: HackathonType;
   isEdit: boolean;
+  navs: HackathonEditNavType[];
 }
 
-const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, hackathon, isEdit }) => {
-  const { dealModalList } = useDealHackathonData();
+const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, hackathon, isEdit, navs }) => {
+  // const { dealModalList } = useDealHackathonData();
   const [loading, setLoading] = useState(false);
   const [modalType, setModalType] = useState<HackathonEditModalType>(HackathonEditModalType.NULL);
   const [modalEditType, setModalEditType] = useState<'add' | 'edit' | ''>('');
@@ -60,15 +66,15 @@ const EditProvider: React.FC<EditProviderProp> = ({ children, refreshHackathon, 
       });
   };
 
-  const navs = useMemo(() => {
-    const addList = dealModalList(hackathon)
-      .filter((v) => v.added)
-      .map((v) => ({
-        label: `hackathonDetail.${v.type}`,
-        value: v.type
-      }));
-    return [...initEditNavs, ...addList];
-  }, [hackathon]);
+  // const navs = useMemo(() => {
+  //   const addList = dealModalList(hackathon)
+  //     .filter((v) => v.added)
+  //     .map((v) => ({
+  //       label: `hackathonDetail.${v.type}`,
+  //       value: v.type
+  //     }));
+  //   return [...initEditNavs, ...addList];
+  // }, [hackathon]);
 
   useEffect(() => {
     if (modalType === HackathonEditModalType.NULL) {

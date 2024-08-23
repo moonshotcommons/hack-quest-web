@@ -5,13 +5,21 @@ import { HackathonEditContext, HackathonEditModalType } from '../../../constants
 
 interface CoverProp {
   hackathon: HackathonType;
+  imageLoad?: VoidFunction;
 }
 
-const Cover: React.FC<CoverProp> = ({ hackathon }) => {
+const Cover: React.FC<CoverProp> = ({ hackathon, imageLoad }) => {
   const { isEdit } = useContext(HackathonEditContext);
   return (
     <EditBox className="p-0" title={isEdit ? 'hackathonDetail.cover' : ''} type={HackathonEditModalType.COVER}>
-      <img src={hackathon?.info?.image} alt={hackathon.name} className="w-full" />
+      <img
+        src={hackathon?.info?.image}
+        alt={hackathon.name}
+        className="w-full"
+        onLoad={() => {
+          imageLoad?.();
+        }}
+      />
     </EditBox>
   );
 };

@@ -23,9 +23,10 @@ import { errorMessage } from '@/helper/ui';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
+  imageLoad: VoidFunction;
 }
 
-const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
+const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -208,7 +209,14 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   return (
     <EditBox className="relative rounded-[0] border-none bg-transparent p-0">
       <div className={`body-s flex flex-col gap-[1.25rem]  text-neutral-off-black`}>
-        <img src={hackathon?.info?.image} alt={hackathon.name} className="w-full" />
+        <img
+          src={hackathon?.info?.image}
+          alt={hackathon.name}
+          className="w-full"
+          onLoad={() => {
+            imageLoad?.();
+          }}
+        />
         {tipsRender()}
         <div>
           <h1 className="text-h3-mob">{hackathon.name}</h1>

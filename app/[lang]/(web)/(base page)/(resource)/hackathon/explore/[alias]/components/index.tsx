@@ -84,7 +84,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
-    }, 300);
+    }, 1000);
   }, [hackathon]);
   return (
     <DetailProvider navs={navList}>
@@ -93,8 +93,10 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
           <div className="relative flex justify-between pt-[60px]">
             <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full" ref={contentRef}>
-              <Cover hackathon={hackathon} />
-              <TimeLine hackathon={hackathon} />
+              <div className="flex flex-col gap-[60px] [&>div]:w-full">
+                <Cover hackathon={hackathon} imageLoad={getOffsetTops} />
+                <TimeLine hackathon={hackathon} />
+              </div>
               {navList.some((v) => v.value === 'description') && <Description hackathon={hackathon} />}
               {navList.some((v) => v.value === 'rewards') && <Rewards hackathon={hackathon} />}
               {navList.some((v) => v.value === 'judge') &&

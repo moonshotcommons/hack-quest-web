@@ -28,9 +28,9 @@ const UserInfo: React.FC<UserInfoType> = ({}) => {
   return (
     <div className="flex items-center justify-between border-b border-dashed border-neutral-medium-gray pb-[40px] text-neutral-off-black">
       <div className="flex items-center gap-[24px]">
-        <Image src={userInfo?.avatar} alt={userInfo?.nickname} width={96} height={96} />
+        <Image src={userInfo?.avatar} alt={userInfo?.nickname} width={96} height={96} className="rounded-full" />
         <div>
-          <Link href={MenuLink.USER_PROFILE} className="flex items-center gap-[12px]">
+          <Link href={`${MenuLink.USER_PROFILE}/${userInfo?.username}`} className="flex items-center gap-[12px]">
             <span className="body-xl-bold text-neutral-off-black">{userInfo?.nickname}</span>
             <LuChevronRight size={30} className="text-neutral-off-black" />
           </Link>

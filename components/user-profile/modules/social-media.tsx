@@ -15,6 +15,8 @@ import { useProfile } from './profile-provider';
 import { UseFormReturn } from 'react-hook-form';
 import { ProfileSchema } from '../validations/profile';
 import { GithubIcon } from '@/components/ui/icons/github';
+import toast from 'react-hot-toast';
+import { openWindow } from './developer-profile';
 
 export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
   const { profile, invalidate } = useProfile();
@@ -22,7 +24,7 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
   const connectMutation = useMutation({
     mutationFn: () => webApi.userApi.getConnectUrlByDiscord(),
     onSuccess: ({ url }) => {
-      window.open(url, '_blank', 'width=500,height=500,toolbar=no,menubar=no,location=no,status=no');
+      openWindow(url);
     }
   });
 
@@ -35,17 +37,19 @@ export function SocialMedia({ form }: { form: UseFormReturn<ProfileSchema> }) {
   });
 
   React.useEffect(() => {
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'linkDiscord') {
-        invalidate();
-      }
-    });
-    return () => {
-      window.removeEventListener('storage', (e) => {
-        if (e.key === 'linkDiscord') {
+    function handler(event: MessageEvent) {
+      const data = event.data;
+      if (data.source === 'discord') {
+        if (data.message === 'success') {
           invalidate();
+        } else {
+          toast.error('Discord authorization failed. Please try again.');
         }
-      });
+      }
+    }
+    window.addEventListener('message', handler);
+    return () => {
+      window.removeEventListener('message', handler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
