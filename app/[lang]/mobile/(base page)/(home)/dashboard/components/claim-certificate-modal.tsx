@@ -6,11 +6,17 @@ import { XIcon } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useCertificateModal } from '@/components/ecosystem/use-certificate';
 import Button from '@/components/Common/Button';
+import { useLang } from '@/components/Provider/Lang';
+import { useTranslation } from '@/i18n/client';
+import { TransNs } from '@/i18n/config';
 
 export function ClaimCertificateModal() {
   const { open, type, data, onOpen, onClose } = useCertificateModal();
-
+  const { lang } = useLang();
+  const { t } = useTranslation(lang, TransNs.ECOSYSTEM);
   const isOpen = open && type === 'claim';
+
+  const ecosystemName = lang === 'en' ? data?.label?.split(' ')[1] : data?.label?.split(' ')[0];
 
   function handleClaim() {
     onOpen('username', data);
@@ -35,8 +41,7 @@ export function ClaimCertificateModal() {
               Lvl {data?.level}. {data?.label}
             </h1>
             <p className="mt-3 text-sm text-neutral-medium-gray">
-              Complete tasks to earn official certificate from Solana ecosystem. After you earn 100 points from level 1,
-              you will get a starter certificate and level up. Get 500 points to become an expert Solana developer.
+              {t('modal.claim.description', { name: ecosystemName })}
             </p>
             <div className="relative mt-5 h-[12.125rem] w-full overflow-hidden rounded-[0.5rem]">
               <Image src={data?.certification?.image} fill alt={data?.label} />
@@ -47,7 +52,7 @@ export function ClaimCertificateModal() {
               className="mt-auto h-12 w-full uppercase disabled:bg-neutral-light-gray"
               onClick={handleClaim}
             >
-              claim certificate
+              {t('claim_certificate')}
             </Button>
           </div>
         </div>,
