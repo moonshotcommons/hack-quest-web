@@ -31,7 +31,6 @@ export function BuilderScore() {
     return 0;
   }, [profile?.web3Score]);
 
-  console.info(profile?.web3Score);
   return (
     <div className="bg-neutral-white px-5 py-4 sm:p-0">
       <h2 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Web 3 Builder Score</h2>
