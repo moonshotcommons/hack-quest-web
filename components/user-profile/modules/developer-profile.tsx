@@ -94,7 +94,7 @@ export function DeveloperProfile() {
   return (
     <div className="relative self-start bg-neutral-white px-5 py-4 sm:rounded-2xl sm:border sm:border-neutral-light-gray sm:p-6">
       <h2 className="font-next-book-bold text-lg font-bold text-neutral-off-black sm:text-[22px]">Developer Profile</h2>
-      {languages.length > 0 ? (
+      {Object.keys(profile?.githubActivity || {}).length > 0 ? (
         <React.Fragment>
           {profile?.isCurrentUser && (
             <button
@@ -105,41 +105,49 @@ export function DeveloperProfile() {
               <UnlinkIcon size={20} />
             </button>
           )}
-          <h3 className="mt-5 font-bold sm:mt-8">Tech Stack</h3>
-          <div className="my-4 flex h-2 w-full items-center overflow-hidden rounded-full">
-            {languages?.map(({ name, percent }, index) => (
-              <span key={name} className="h-full" style={{ width: `${percent}%`, backgroundColor: colors[index] }} />
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-4">
-            {languages?.map(({ name, percent }, index) => (
-              <div key={name} className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-[2px]" style={{ backgroundColor: colors[index] }} />
-                <span className="text-xs">{name}</span>
-                <span className="text-xs text-neutral-medium-gray">{percent}%</span>
+          {languages.length > 0 && (
+            <React.Fragment>
+              <h3 className="mt-5 font-bold sm:mt-8">Tech Stack</h3>
+              <div className="my-4 flex h-2 w-full items-center overflow-hidden rounded-full">
+                {languages?.map(({ name, percent }, index) => (
+                  <span
+                    key={name}
+                    className="h-full"
+                    style={{ width: `${percent}%`, backgroundColor: colors[index] }}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
+              <div className="flex flex-wrap gap-4">
+                {languages?.map(({ name, percent }, index) => (
+                  <div key={name} className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-[2px]" style={{ backgroundColor: colors[index] }} />
+                    <span className="text-xs">{name}</span>
+                    <span className="text-xs text-neutral-medium-gray">{percent}%</span>
+                  </div>
+                ))}
+              </div>
+            </React.Fragment>
+          )}
           <div className="mt-5 grid grid-cols-2 gap-y-2 sm:mt-8">
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total Stars</span>
-              <span className="text-sm">{profile?.githubActivity?.totalStar}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalStar ?? 0}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total Commits</span>
-              <span className="text-sm">{profile?.githubActivity?.totalCommit}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalCommit ?? 0}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total PRs</span>
-              <span className="text-sm">{profile?.githubActivity?.totalPr}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalPr ?? 0}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] text-sm font-bold">Total Issues</span>
-              <span className="text-sm">{profile?.githubActivity?.totalIssue}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalIssue ?? 0}</span>
             </div>
             <div className="flex items-center gap-6">
               <span className="w-[100px] whitespace-nowrap text-sm font-bold">Contributed to</span>
-              <span className="text-sm">{profile?.githubActivity?.totalContributor}</span>
+              <span className="text-sm">{profile?.githubActivity?.totalContributor ?? 0}</span>
             </div>
           </div>
         </React.Fragment>
