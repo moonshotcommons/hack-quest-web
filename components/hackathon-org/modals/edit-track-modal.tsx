@@ -27,6 +27,7 @@ import { useRouter } from 'next/navigation';
 import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 import dynamic from 'next/dynamic';
+import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
   ssr: false,
   loading: () => <p>Loading ...</p>
@@ -401,10 +402,25 @@ export function EditTrackModal({
               name="mode"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1 px-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
                     <FormLabel>
                       <span className="body-m text-neutral-rich-gray">Distribution Method (Select one)*</span>
                     </FormLabel>
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                        </TooltipTrigger>
+                        <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                          <TooltipArrow className="fill-yellow-extra-light" />
+                          <p>
+                            If the reward will be distributed by ranking, organizers can set the rewards for each
+                            ranking here; If it will be distributed by other ways, organizers need to describe the rule
+                            here and more details need to be provided at the end of hackathon voting stage.
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                   <FormControl>
                     <RadioGroup

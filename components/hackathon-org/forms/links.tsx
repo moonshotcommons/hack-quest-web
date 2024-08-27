@@ -17,6 +17,8 @@ import webApi from '@/service';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { flattenObj } from '../constants/utils';
+import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { InfoIcon } from 'lucide-react';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -153,9 +155,26 @@ export function LinksForm({
               name="email"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
-                  <FormLabel>
-                    <span className="body-m text-neutral-rich-gray">Personal Contact Email*</span>
-                  </FormLabel>
+                  <div className="flex items-center gap-3">
+                    <FormLabel>
+                      <span className="body-m text-neutral-rich-gray">Personal Contact Email*</span>
+                    </FormLabel>
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                        </TooltipTrigger>
+                        <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                          <TooltipArrow className="fill-yellow-extra-light" />
+                          <p>This will be the email HackQuest team will use to contact you.</p>
+                          <p>
+                            If you log in with your email, you can’t edit it; If you didn’t log in with your email, you
+                            should provide a personal email here.
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <FormControl>
                     <TextField
                       {...field}

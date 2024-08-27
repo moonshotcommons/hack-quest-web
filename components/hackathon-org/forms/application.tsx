@@ -19,6 +19,8 @@ import { useApplicationState } from './applications/state';
 import { v4 } from 'uuid';
 import { Steps } from '../constants/steps';
 import { updateState } from '../constants/utils';
+import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { InfoIcon } from 'lucide-react';
 
 const formSchema = z
   .object({
@@ -156,10 +158,23 @@ export function ApplicationForm({
             name="applicationType"
             render={({ field }) => (
               <FormItem className="w-full space-y-1">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
                   <FormLabel>
                     <span className="sm:body-m body-s text-neutral-rich-gray">Application Type (Select One)*</span>
                   </FormLabel>
+                  <TooltipProvider delayDuration={0}>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                      </TooltipTrigger>
+                      <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                        <TooltipArrow className="fill-yellow-extra-light" />
+                        <p>Solo or Group: Participants can register and submit solo or in groups;</p>
+                        <p>Solo Only: Participants can only register and submit solo;</p>
+                        <p>Group Only: Participants can only register and submit in groups.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
                 <FormControl>
                   <RadioGroup
@@ -191,10 +206,21 @@ export function ApplicationForm({
               name="minimumTeamSize"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
                     <FormLabel>
                       <span className="sm:body-m body-s text-neutral-rich-gray">MIN. Team Size Allowed*</span>
                     </FormLabel>
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-[240px] bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                          <TooltipArrow className="fill-yellow-extra-light" />
+                          <p>Organizer needs to set a minimum number of team members.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                   <FormControl>
                     <TextField
@@ -221,10 +247,21 @@ export function ApplicationForm({
               name="maximumTeamSize"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
                     <FormLabel>
                       <span className="sm:body-m body-s text-neutral-rich-gray">MAX. Team Size Allowed*</span>
                     </FormLabel>
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-[240px] bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                          <TooltipArrow className="fill-yellow-extra-light" />
+                          <p>Organizer needs to set a maximum number of team members.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                   <FormControl>
                     <TextField
