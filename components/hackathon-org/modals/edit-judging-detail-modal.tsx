@@ -21,6 +21,8 @@ import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Commo
 import { Slider } from '../common/slider';
 
 import dynamic from 'next/dynamic';
+import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { InfoIcon } from 'lucide-react';
 const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
   ssr: false,
   loading: () => <p>Loading ...</p>
@@ -403,10 +405,32 @@ export function EditJudgingDetailModal({
               name="judgeMode"
               render={({ field }) => (
                 <FormItem className="w-full space-y-1">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
                     <FormLabel>
                       <span className="text-base text-neutral-rich-gray">Judging Mode*</span>
                     </FormLabel>
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                        </TooltipTrigger>
+                        <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                          <TooltipArrow className="fill-yellow-extra-light" />
+                          <p>
+                            Users + Judges: Accounts set as judges by organizers and all HackQuest users can participate
+                            the voting stage of the hackathon;
+                          </p>
+                          <p>
+                            Judges Only: Only accounts set as judges by organizers can participate the voting stage of
+                            the hackathon.
+                          </p>
+                          <p>
+                            If this hackathon will not be voted and judged by HackQuest system, organizers need to
+                            upload the final reward list at the end of it.
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                   <p className="text-sm text-neutral-medium-gray">
                     The &quot;Users + Judges&quot; category can be applied to only one track in this hackathon.
@@ -480,10 +504,29 @@ export function EditJudgingDetailModal({
                   name="voteMode"
                   render={({ field }) => (
                     <FormItem className="w-full space-y-1">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
                         <FormLabel>
                           <span className="text-base text-neutral-rich-gray">Voting Mode*</span>
                         </FormLabel>
+                        <TooltipProvider delayDuration={0}>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                            </TooltipTrigger>
+                            <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                              <TooltipArrow className="fill-yellow-extra-light" />
+                              <p>
+                                Fixed Number of Vote: Organizers need to set the total votes and votes proportion for
+                                users and judges. In voting stage, users and judges can vote for projects they like with
+                                the votes they have;
+                              </p>
+                              <p>
+                                Project Scoring: This is only available to Judges Only. Organizers need to set a perfect
+                                score, and the judges will give each project a score in the voting stage.
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       </div>
                       <p className="text-sm text-neutral-medium-gray">
                         Only ‘Fixed Number of Vote’ is available to ‘Users + Judges’ category.
@@ -588,12 +631,26 @@ export function EditJudgingDetailModal({
                     name="projectJudgeCount"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
                           <FormLabel>
                             <span className="body-m text-neutral-rich-gray">
                               How many judges are needed to vote for each project?*
                             </span>
                           </FormLabel>
+                          <TooltipProvider delayDuration={0}>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                              </TooltipTrigger>
+                              <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                                <TooltipArrow className="fill-yellow-extra-light" />
+                                <p>
+                                  This is the number of judges required for voting each project. There will be more work
+                                  for judges if the number if higher.
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         </div>
                         <FormControl>
                           <TextField
@@ -639,13 +696,29 @@ export function EditJudgingDetailModal({
                     name="judgeProjectVote"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-1">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
                           <FormLabel>
                             <span className="body-m text-neutral-rich-gray">
                               The maximum number of votes each {judgeMode === 'all' ? 'user/judge' : 'judge'} can cast
                               for each project*
                             </span>
                           </FormLabel>
+                          <TooltipProvider delayDuration={0}>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                              </TooltipTrigger>
+                              <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                                <TooltipArrow className="fill-yellow-extra-light" />
+                                <p>
+                                  In order to ensure the fairness of the voting, organizers need to set a limit for the
+                                  votes if Fixed Number of Vote is selected. For example, if a user/judge has 1000
+                                  votes, but the maximum number of votes each user/judge can cast for each project is
+                                  100, the user/judge can only cast 100 or less to each project.
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         </div>
                         <FormControl>
                           <TextField
