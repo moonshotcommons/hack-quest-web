@@ -107,7 +107,7 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
           <div className="flex flex-wrap gap-6">
             {sectionConfig.map((config, index) => {
               return (
-                <div key={config.id} className="w-full sm:w-[calc(50%-12px)]">
+                <div key={config.id} className="w-full">
                   <Fragment>{renderFormComponent(config as CustomComponentConfig, form)}</Fragment>
                 </div>
               );

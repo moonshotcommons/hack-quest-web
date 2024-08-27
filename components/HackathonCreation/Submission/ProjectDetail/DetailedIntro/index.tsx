@@ -16,7 +16,7 @@ export interface DetailedIntroProps {
 
 const DetailedIntro: FC<DetailedIntroProps> = ({ config, label, ...props }) => {
   const requiredTag = config.optional ? ' (Optional)' : '*';
-  return <FormTextarea {...props} className="h-[76px]" label={label + requiredTag} />;
+  return <FormTextarea {...props} className="h-[76px]" label={label + requiredTag} isRichText />;
 };
 
 DetailedIntro.displayName = 'DetailedIntro';
@@ -38,16 +38,19 @@ export const DetailedIntroConfig: PresetComponentConfig<DetailedIntroProps> = {
         <div className="my-4 h-[1px] w-full scale-y-50 border-none bg-neutral-medium-gray" />
         <div className="body-m flex flex-col gap-1 text-neutral-off-black">
           <span>Detailed Intro of Your Project</span>
-          <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.detailedIntro ?? ''}</p>
+          {/* <p className="body-s min-h-[80px] w-full leading-normal text-neutral-rich-gray">{info.detailedIntro ?? ''}</p> */}
+          <p
+            className="body-s reset-editor-style min-h-[80px] w-full leading-normal text-neutral-rich-gray"
+            dangerouslySetInnerHTML={{
+              __html: info.detailedIntro || ''
+            }}
+          ></p>
         </div>
       </>
     );
   },
   getValidator(config) {
-    const validator = z
-      .string()
-      .min(config.optional ? 0 : 1)
-      .max(600);
+    let validator = z.string().min(config.optional ? 0 : 1);
     return {
       detailedIntro: config.optional ? validator.optional() : validator
     };
