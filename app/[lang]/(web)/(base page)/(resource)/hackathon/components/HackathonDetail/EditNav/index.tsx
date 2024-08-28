@@ -27,7 +27,7 @@ const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, nav
     >
       <div className="no-scrollbar w-full overflow-auto ">
         <SlideHighlight
-          className={` flex h-[66px]    ${navs.length < 7 ? 'w-full justify-between' : 'gap-[40px]'}`}
+          className={` flex h-[66px]    ${navs.length < 12 ? 'w-full justify-between' : 'gap-[40px]'}`}
           type="LEARNING_TRACK"
           currentIndex={index}
         >
