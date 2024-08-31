@@ -28,7 +28,15 @@ export const EditProfile = () => {
   const isOpen = open && type === 'profile';
 
   const form = useForm<ProfileSchema>({
-    resolver: zodResolver(profileSchema)
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      nickname: profile?.user.nickname || '',
+      email: profile?.user.email || '',
+      bio: profile?.bio || '',
+      location: profile?.location || '',
+      techStack: profile?.techStack || [],
+      personalLinks: profile?.personalLinks || {}
+    }
   });
 
   const { isPending, mutate } = useMutation({
@@ -42,12 +50,12 @@ export const EditProfile = () => {
 
   React.useEffect(() => {
     form.reset({
-      nickname: profile?.user.nickname,
+      nickname: profile?.user.nickname || '',
       bio: profile?.bio || '',
-      email: profile?.user.email,
-      location: profile?.location,
-      techStack: profile?.techStack,
-      personalLinks: profile?.personalLinks
+      email: profile?.user.email || '',
+      location: profile?.location || '',
+      techStack: profile?.techStack || [],
+      personalLinks: profile?.personalLinks || {}
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
