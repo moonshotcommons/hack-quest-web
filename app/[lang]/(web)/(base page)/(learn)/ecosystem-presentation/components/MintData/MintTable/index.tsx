@@ -34,7 +34,7 @@ const MintTable: React.FC<MintTableProp> = ({ tableList, loading }) => {
           </div>
         ) : (
           <div className="no-scrollbar absolute left-0 top-0 h-full w-full overflow-auto">
-            {tableList.length > 0 ? (
+            {tableList?.length > 0 ? (
               <Table className="table-fixed">
                 <TableBody>
                   {tableList?.map((mint) => (
