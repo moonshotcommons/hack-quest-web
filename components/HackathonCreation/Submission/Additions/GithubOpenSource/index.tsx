@@ -42,7 +42,7 @@ export const GithubOpenSourceConfig: PresetComponentConfig<GithubOpenSourceProps
         </div>
         <div className="flex flex-1 items-center justify-between">
           <span className="body-m flex items-center  text-neutral-off-black">Open Source</span>
-          <span className="body-m text-neutral-off-black">{info.openSource ? 'Yes' : 'No'}</span>
+          <span className="body-m text-neutral-off-black">{info.isOpenSource ? 'Yes' : 'No'}</span>
         </div>
       </div>
     );
