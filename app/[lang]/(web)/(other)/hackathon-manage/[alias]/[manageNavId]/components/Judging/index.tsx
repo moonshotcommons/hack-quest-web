@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Tab from '../Tab';
 import { Checkbox } from '@/components/ui/checkbox';
 import VoteCloseIn from './VoteCloseIn';
@@ -48,6 +48,7 @@ const Judging: React.FC<JudgingProp> = () => {
   const [allWinners, setAllWinners] = useState<HackathonWinnerType[]>([]);
   const [announceOpen, setAnnounceOpen] = useState(false);
   const [deleteWinnerInfo, setDeleteWinnerInfo] = useState<HackathonWinnerType | null>(null);
+  const winnerId = useRef('');
   const [{ data: tracks = [] }, { data: tabData = [] }] = useQueries({
     queries: [
       {
@@ -114,6 +115,13 @@ const Judging: React.FC<JudgingProp> = () => {
           project
         };
       }) as unknown as HackathonWinnerType[];
+      if (winnerId.current) {
+        const newHandleBaseWinners = baseHandleWinners.filter((v) => v.id !== winnerId.current);
+        const newHandleOtherWinners = otherHandleWinners.filter((v) => v.id !== winnerId.current);
+        setBaseHandleWinners(newHandleBaseWinners);
+        setOtherHandleWinners(newHandleOtherWinners);
+        winnerId.current = '';
+      }
       setWinners(newWinners);
       return res;
     },
@@ -147,9 +155,10 @@ const Judging: React.FC<JudgingProp> = () => {
       };
     }) => webApi.resourceStationApi.hackathonWinnerAdd(hackathon.id, winner),
     onSuccess: (_, variables) => {
-      variables.winner.type === 'base'
-        ? setBaseHandleWinners(baseHandleWinners.filter((v) => v.id !== variables.winnerId))
-        : setOtherHandleWinners(otherHandleWinners.filter((v) => v.id !== variables.winnerId));
+      winnerId.current = variables.winnerId;
+      // variables.winner.type === 'base'
+      //   ? setBaseHandleWinners(baseHandleWinners.filter((v) => v.id !== variables.winnerId))
+      //   : setOtherHandleWinners(otherHandleWinners.filter((v) => v.id !== variables.winnerId));
       onSuccess();
     },
     onError: (err) => {

@@ -5,6 +5,7 @@ import Button from '@/components/Common/Button';
 import Loading from '@/components/Common/Loading';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { LangContext } from '@/components/Provider/Lang';
+import MenuLink from '@/constants/MenuLink';
 import { separationNumber } from '@/helper/utils';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
@@ -22,6 +23,7 @@ import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { MdAppRegistration } from 'react-icons/md';
 import { useShallow } from 'zustand/react/shallow';
+import { HackathonManageType } from '../../../../constants/type';
 
 interface OverviewProp {}
 
@@ -124,7 +126,10 @@ const Overview: React.FC<OverviewProp> = () => {
               <div>
                 <p className="text-h2 text-neutral-off-black">{separationNumber(variousData?.application ?? 0)}</p>
                 <p className="body-s mt-[4px] text-neutral-medium-gray">{`+${separationNumber(variousData?.todayApplication ?? 0)} Applications`}</p>
-                <Link href={'/'} className="flex">
+                <Link
+                  href={`${MenuLink.HACKATHON_MANAGER}/${alias}/${HackathonManageType.APPLICATION}`}
+                  className="flex"
+                >
                   <div className="body-s mt-[16px] flex items-center gap-[6px] border-b-[2px] border-yellow-dark text-neutral-black">
                     <span>View All Applications</span>
                     <HiArrowLongRight />
@@ -150,7 +155,10 @@ const Overview: React.FC<OverviewProp> = () => {
               <div>
                 <p className="text-h2 text-neutral-off-black">{separationNumber(variousData?.submission ?? 0)}</p>
                 <p className="body-s mt-[4px] text-neutral-medium-gray">{`+${separationNumber(variousData?.todaySubmission ?? 0)} Submissions`}</p>
-                <Link href={'/'} className="flex">
+                <Link
+                  href={`${MenuLink.HACKATHON_MANAGER}/${alias}/${HackathonManageType.SUBMISSION}`}
+                  className="flex"
+                >
                   <div className="body-s mt-[16px] flex items-center gap-[6px] border-b-[2px] border-yellow-dark text-neutral-black">
                     <span>View All Submissions</span>
                     <HiArrowLongRight />
