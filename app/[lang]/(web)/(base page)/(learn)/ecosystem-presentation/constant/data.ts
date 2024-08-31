@@ -3,23 +3,23 @@ import { MintType } from './type';
 export const mintTab = [
   {
     value: MintType.HALF_WAY,
-    label: 'Half Way'
+    label: 'Half-Way Through'
   },
   {
     value: MintType.LEVEL1,
-    label: 'Level 1'
+    label: 'Lv1 Certificate'
   },
   {
     value: MintType.LEVEL2,
-    label: 'Level 2'
+    label: 'Lv2 Certificate'
   },
   {
     value: MintType.COURSE_COMPLETED,
-    label: 'Course Completed'
+    label: 'Finish the first course'
   },
   {
     value: MintType.APPROACH_MINT,
-    label: 'Approach Mint'
+    label: '90% mint condition'
   }
 ];
 
@@ -37,9 +37,13 @@ export const mintTableInformation = [
     value: 'completedCourseCount'
   },
   {
-    label: 'Certification Earned',
-    value: 'EarnedCertificationCount'
+    label: 'User Profile',
+    value: 'link'
   }
+  // {
+  //   label: 'Certification Earned',
+  //   value: 'EarnedCertificationCount'
+  // }
 ];
 
 export const mockMintData = Array.from({ length: 10 }).map((_, i) => ({
