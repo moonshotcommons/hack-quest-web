@@ -3,10 +3,11 @@ import { Lang } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import webApi from '@/service';
 import EcosystemPresentation from './components';
+import { permanentRedirect } from 'next/navigation';
 
 interface SearchParamsType {
   searchParams: {
-    ecosystemType: string;
+    ecosystemId: string;
   };
   params: {
     lang: Lang;
@@ -32,7 +33,12 @@ export async function generateMetadata({ params }: SearchParamsType): Promise<Me
 }
 
 const EcosystemPresentationPage: React.FC<SearchParamsType> = async ({ params, searchParams }) => {
-  return <EcosystemPresentation ecosystemType={searchParams.ecosystemType} />;
+  try {
+    const ecosystemData = await webApi.ecosystemApi.getEcosystemStatus(searchParams.ecosystemId);
+    return <EcosystemPresentation ecosystemId={searchParams.ecosystemId} ecosystemData={ecosystemData} />;
+  } catch (error) {
+    permanentRedirect(MenuLink.EXPLORE);
+  }
 };
 
 export default EcosystemPresentationPage;

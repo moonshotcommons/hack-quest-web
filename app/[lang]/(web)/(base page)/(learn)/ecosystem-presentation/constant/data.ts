@@ -15,7 +15,7 @@ export const mintTab = [
   },
   {
     value: MintType.COURSE_COMPLETED,
-    label: 'Counse Completed'
+    label: 'Course Completed'
   },
   {
     value: MintType.APPROACH_MINT,
@@ -34,11 +34,11 @@ export const mintTableInformation = [
   },
   {
     label: 'Courses Completed',
-    value: 'courseCount'
+    value: 'completedCourseCount'
   },
   {
     label: 'Certification Earned',
-    value: 'certificationCount'
+    value: 'EarnedCertificationCount'
   }
 ];
 

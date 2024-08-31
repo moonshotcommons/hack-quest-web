@@ -1,5 +1,12 @@
 import WebService from '@/service/webService/webService';
-import { EcosystemDetailType, EcosystemTask, EcosystemType, LevelType } from './type';
+import {
+  EcosystemDetailType,
+  ecosystemStatsType,
+  EcosystemTask,
+  EcosystemType,
+  ecosystemUserData,
+  LevelType
+} from './type';
 import { CertificationType, UserCertificateInfo } from '../campaigns/type';
 
 export enum EcosystemApiType {
@@ -38,11 +45,17 @@ class EcosystemApi {
   }
 
   getEcosystemsDetailById(id: string, params: object, token: string) {
-    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}`, {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}/explore`, {
       params,
       headers: {
         Authorization: `Bearer ${token}`
       }
+    });
+  }
+
+  getEcosystemsExploreDetailById(id: string, params: object, token: string) {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}/explore`, {
+      params
     });
   }
 
@@ -101,6 +114,14 @@ class EcosystemApi {
 
   claimCertificateOverride(ecosystemId: string) {
     return this.service.post<UserCertificateInfo>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/levels/claim`);
+  }
+
+  getEcosystemStatus(ecosystemId: string) {
+    return this.service.get<ecosystemStatsType>(`/admin/${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/stats`);
+  }
+
+  getEcosystemUserData(ecosystemId: string, stats: string) {
+    return this.service.get<ecosystemUserData[]>(`/admin/${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/${stats}`);
   }
 }
 
