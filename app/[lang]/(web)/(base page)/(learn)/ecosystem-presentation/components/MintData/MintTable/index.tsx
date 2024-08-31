@@ -3,9 +3,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { mintTableInformation } from '../../../constant/data';
 import BaseImage from '@/components/Common/BaseImage';
 import MenuLink from '@/constants/MenuLink';
-import { useRedirect } from '@/hooks/router/useRedirect';
 import { ecosystemUserData } from '@/service/webApi/ecosystem/type';
-import { Spinner } from '@/components/ui/spinner';
+import Link from 'next/link';
+import Loading from '@/components/Common/Loading';
 
 interface MintTableProp {
   tableList: ecosystemUserData[];
@@ -13,7 +13,20 @@ interface MintTableProp {
 }
 
 const MintTable: React.FC<MintTableProp> = ({ tableList, loading }) => {
-  const { redirectToUrl } = useRedirect();
+  const renderTd = (key: string, item: ecosystemUserData) => {
+    switch (key) {
+      case 'avatar':
+        return <BaseImage src={item.avatar} alt={item.nickname} className="h-[40px] w-[40px] rounded-[50%]" />;
+      case 'link':
+        return (
+          <Link href={`${MenuLink.USER_PROFILE}/${item.username}`} className="underline">
+            <span className="text-neutral-off-black">{`profile/${item.username}`}</span>
+          </Link>
+        );
+      default:
+        return item[key as keyof typeof item];
+    }
+  };
   return (
     <div className="flex h-full flex-col">
       <Table className="table-fixed" tableContainerClassName="overflow-hidden">
@@ -29,8 +42,8 @@ const MintTable: React.FC<MintTableProp> = ({ tableList, loading }) => {
       </Table>
       <div className="relative flex-1">
         {loading ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <Spinner loading={loading} />
+          <div className="flex h-full justify-center overflow-hidden pt-[80px]">
+            <Loading loading={true} />
           </div>
         ) : (
           <div className="no-scrollbar absolute left-0 top-0 h-full w-full overflow-auto">
@@ -38,25 +51,9 @@ const MintTable: React.FC<MintTableProp> = ({ tableList, loading }) => {
               <Table className="table-fixed">
                 <TableBody>
                   {tableList?.map((mint) => (
-                    <TableRow
-                      key={mint.username}
-                      className="cursor-pointer"
-                      onClick={() => {
-                        redirectToUrl(`${MenuLink.USER_PROFILE}/${mint.username}`);
-                      }}
-                    >
+                    <TableRow key={mint.username}>
                       {mintTableInformation.map((m) => (
-                        <TableCell key={m.value}>
-                          {m.value === 'avatar' ? (
-                            <BaseImage
-                              src={mint.avatar}
-                              alt={mint.nickname}
-                              className="h-[40px] w-[40px] rounded-[50%]"
-                            />
-                          ) : (
-                            mint[m.value as keyof typeof mint]
-                          )}
-                        </TableCell>
+                        <TableCell key={m.value}>{renderTd(m.value, mint)}</TableCell>
                       ))}
                     </TableRow>
                   ))}
