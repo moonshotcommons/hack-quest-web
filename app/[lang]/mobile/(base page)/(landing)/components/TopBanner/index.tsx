@@ -48,8 +48,8 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
         <div className="mt-[3rem] flex w-fit gap-4 rounded-[1rem] border border-neutral-off-white p-4">
           <div className="h-fit w-fit">
             <Image
-              src="/images/landing/edu_hackathon.png"
-              alt={t('TopBanner.eduChainHackathon')}
+              src="/images/landing/gaia_logo.png"
+              alt={t('TopBanner.gaiaAiHackathon')}
               width={48}
               height={48}
               className="rounded-full"
@@ -60,11 +60,12 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
               {t('TopBanner.hackathon')}
             </div>
             <Link
-              href={'https://dorahacks.io/hackathon/educhain/detail?utm_source=HQ&utm_medium=Referral&utm_campaign=HQ'}
+              href={'/hackathon/explore/Living-Knowledge-Systems-Decentralized-AI-Hackathon'}
               className="body-m-bold mt-2 flex items-center gap-2 text-[.75rem]"
+              target="_blank"
             >
               <span className="relative after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                {t('TopBanner.eduChainHackathon')}
+                {t('TopBanner.gaiaAiHackathon')}
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

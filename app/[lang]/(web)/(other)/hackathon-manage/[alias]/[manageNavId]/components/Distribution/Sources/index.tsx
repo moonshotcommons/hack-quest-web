@@ -2,9 +2,11 @@ import Button from '@/components/Common/Button';
 import { CirclePlus } from 'lucide-react';
 import React from 'react';
 
-interface SourcesProp {}
+interface SourcesProp {
+  handleSource: (source?: any) => void;
+}
 
-const Sources: React.FC<SourcesProp> = () => {
+const Sources: React.FC<SourcesProp> = ({ handleSource }) => {
   return (
     <div className="flex flex-col gap-[20px]">
       <div className="flex items-center justify-between">
@@ -13,6 +15,7 @@ const Sources: React.FC<SourcesProp> = () => {
           type="primary"
           className="button-text-m h-[30px] w-[161px] p-0 uppercase  text-neutral-off-black"
           icon={<CirclePlus size={14} />}
+          onClick={() => handleSource()}
         >
           add a source
         </Button>

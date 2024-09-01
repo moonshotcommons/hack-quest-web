@@ -15,6 +15,8 @@ import { ActionButtons } from './action-buttons';
 import { DatePicker } from '../common/date-picker';
 import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
+import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { InfoIcon } from 'lucide-react';
 
 const formSchema = z
   .object({
@@ -327,7 +329,29 @@ export function TimelineForm({
           control={form.control}
           name="openReviewSame"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full space-y-1">
+              <div className="flex items-center gap-3">
+                <FormLabel>
+                  <span className="body-m text-neutral-rich-gray">
+                    Do the registration and submission periods start and end simultaneously?
+                  </span>
+                </FormLabel>
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                    </TooltipTrigger>
+                    <TooltipContent className="flex max-w-[256px] flex-col gap-2 bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                      <TooltipArrow className="fill-yellow-extra-light" />
+                      <p>
+                        For online hackathons, the registration and submission usually start and end at the same time;
+                        for hybrid/offline hackathons, registration period usually ends before the start of submission,
+                        so that organizers can manage and control the number of applicants on site.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <FormControl>
                 <RadioGroup
                   value={field.value}

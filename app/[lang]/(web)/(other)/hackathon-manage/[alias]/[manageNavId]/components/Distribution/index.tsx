@@ -17,16 +17,24 @@ const Distribution: React.FC<DistributionProp> = () => {
     }))
   );
   const [open, setOpen] = useState(false);
+  const [curSource, setCurSource] = useState(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const handleSource = (source?: any) => {
+    setOpen(true);
+    source && setCurSource(source);
+  };
   const handleSubmit = () => {};
   return (
     <div className="flex flex-col gap-[40px]">
-      <Sources />
+      <Sources handleSource={handleSource} />
       <Growth />
       <Various />
       <SourceModal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          setCurSource(null);
+        }}
         handleDelete={() => setDeleteOpen(true)}
         handleSubmit={handleSubmit}
         hackathon={hackathon}
