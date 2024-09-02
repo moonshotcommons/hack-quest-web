@@ -76,3 +76,16 @@ export interface LevelType {
   certificationId: string;
   certification: CertificationType;
 }
+
+export interface ecosystemStatsType {
+  pageView: number;
+  started: number;
+}
+
+export interface ecosystemUserData {
+  EarnedCertificationCount: number;
+  avatar: string;
+  completedCourseCount: number;
+  nickname: string;
+  username: string;
+}

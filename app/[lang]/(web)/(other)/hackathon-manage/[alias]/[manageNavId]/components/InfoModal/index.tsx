@@ -51,19 +51,21 @@ const InfoModal: React.FC<InfoModalProp> = ({ open, curInfo, renderItem }) => {
         >
           <ChevronRight size={40} />
         </div>
-        <div className="w-[888px]">
-          <ScrollContainer
-            ref={scrollContainerRef}
-            width={888}
-            gap={20}
-            onChange={(state: any) => {
-              setScrollContainerState(state);
-              if (isInit) setIsInit(false);
-            }}
-          >
-            <div className="flex items-center gap-[20px]">{renderItem()}</div>
-          </ScrollContainer>
-        </div>
+        {open && (
+          <div className="w-[888px]">
+            <ScrollContainer
+              ref={scrollContainerRef}
+              width={888}
+              gap={20}
+              onChange={(state: any) => {
+                setScrollContainerState(state);
+                if (isInit) setIsInit(false);
+              }}
+            >
+              <div className="flex items-center gap-[20px]">{renderItem()}</div>
+            </ScrollContainer>
+          </div>
+        )}
       </div>
     </Modal>
   );

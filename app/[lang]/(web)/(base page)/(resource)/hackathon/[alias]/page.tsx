@@ -1,18 +1,15 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
-import { getHackathonById, getHackathonDetailById } from '@/service/cach/resource/hackathon';
+import { getHackathonById } from '@/service/cach/resource/hackathon';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
-import { isUuid } from '@/helper/utils';
-import { permanentRedirect } from 'next/navigation';
-import HackathonDetail from './components';
+import { redirect } from 'next/navigation';
 
 interface HackathonIdProps {
   params: {
     alias: string;
     lang: string;
   };
-  searchParams: Record<string, string>;
 }
 
 export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
@@ -31,25 +28,15 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
   };
 }
 
-const HackathonId: FC<HackathonIdProps> = async function ({ params, searchParams }: HackathonIdProps) {
-  const utm = searchParams.utm || '';
-  const param = utm
-    ? {
-        utm
-      }
-    : {};
-  const hackathon = await getHackathonDetailById(params.alias, param);
-  if (isUuid(params.alias)) {
-    const path = utm
-      ? `${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}?utm=${utm}`
-      : `${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`;
-    permanentRedirect(path);
-  }
-  return (
-    <>
-      <HackathonDetail hackathon={hackathon} />
-    </>
-  );
+const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
+  // try {
+  //   const hackathon = await getHackathonDetailById(params.alias);
+  //   console.log(hackathon);
+  redirect(`${MenuLink.EXPLORE_HACKATHON}/${params.alias}`);
+  // } catch (err) {
+  //   console.log(err);
+  //   permanentRedirect(`/404`);
+  // }
 };
 
 export default HackathonId;

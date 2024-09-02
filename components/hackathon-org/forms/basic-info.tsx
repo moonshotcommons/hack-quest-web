@@ -18,6 +18,8 @@ import { errorMessage } from '@/helper/ui';
 import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 
 import dynamic from 'next/dynamic';
+import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { InfoIcon } from 'lucide-react';
 const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
   ssr: false,
   loading: () => <p>Loading ...</p>
@@ -314,10 +316,25 @@ export function BasicInfoForm({
           name="mode"
           render={({ field }) => (
             <FormItem className="w-full space-y-1">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
                 <FormLabel>
                   <span className="body-m text-neutral-rich-gray">Hackathon Mode (Select One)*</span>
                 </FormLabel>
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-[256px] bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                      <TooltipArrow className="fill-yellow-extra-light" />
+                      <p>Online: Your hackathon will be held totally online.</p>
+                      <p className="mt-2">
+                        Hybrid / Offline: Your hackathon will be held totally offline or combined with online and
+                        offline.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               <FormControl>
                 <RadioGroup
@@ -349,12 +366,27 @@ export function BasicInfoForm({
             name="allowSubmission"
             render={({ field }) => (
               <FormItem className="w-full space-y-1">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
                   <FormLabel>
                     <span className="body-m text-neutral-rich-gray">
                       Do users need to get confirmation from the organizer after application? (Select one)*
                     </span>
                   </FormLabel>
+                  <TooltipProvider delayDuration={0}>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <InfoIcon className="h-5 w-5 text-neutral-off-black" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-[256px] bg-yellow-extra-light p-4 text-xs font-light text-neutral-rich-gray">
+                        <TooltipArrow className="fill-yellow-extra-light" />
+                        <p>
+                          Hybrid / Offline hackathon may have a limitation of the number of participants based on the
+                          physical location. You can have a better way to manage participants if users need approval
+                          from the organizers.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
                 <FormControl>
                   <RadioGroup

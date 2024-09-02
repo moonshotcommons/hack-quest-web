@@ -24,6 +24,7 @@ import {
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import ConfirmModal from '@/components/Web/Business/ConfirmModal';
 import { useFormExit } from '@/hooks/hackathon/useFormExit';
+import { useSearchParams } from 'next/navigation';
 
 interface AboutSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
@@ -41,7 +42,7 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   });
 
   const about = info.About;
-
+  const query = useSearchParams();
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
 
@@ -55,12 +56,19 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
     async (values: Record<string, string>, isExit = false) => {
       // form.trigger();
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.About);
+      const utmSource = query.get('utm');
+      const utmParam = utmSource
+        ? {
+            utmSource
+          }
+        : {};
       const state = {
         info: {
           ...omit(info, ApplicationSectionType.ApplicationType),
           [ApplicationSectionType.About]: values
         },
-        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.About) : nextStep.type
+        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.About) : nextStep.type,
+        ...utmParam
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
       // await refreshRegisterInfo();

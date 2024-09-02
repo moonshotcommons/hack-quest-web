@@ -69,7 +69,7 @@ export function CardTabs({ tabs, value, onValueChange, className }: TabsProps) {
             data-state={tab.value === value ? 'active' : 'inactive'}
             key={tab.value}
             onClick={() => onValueChange(tab.value)}
-            className="flex-1 rounded-t-2xl px-6 py-3 text-base leading-[160%] text-neutral-medium-gray outline-none data-[state=active]:font-bold data-[state=active]:text-neutral-off-black sm:rounded-t-3xl sm:px-10 sm:py-5 sm:text-lg"
+            className="flex-1 whitespace-nowrap rounded-t-2xl px-6 py-3 text-base leading-[160%] text-neutral-medium-gray outline-none data-[state=active]:font-bold data-[state=active]:text-neutral-off-black sm:rounded-t-3xl sm:px-10 sm:py-5 sm:text-lg"
           >
             {tab.label}
           </button>

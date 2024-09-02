@@ -31,7 +31,7 @@ const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, project, pro
     if (!project?.pitchVideo && !project?.demoVideo) {
       navs = navs.filter((v) => v !== 'projectsDetail.title.videos');
     }
-    if (!project.detail?.oneLineIntro) {
+    if (!project.detail?.detailedIntro) {
       navs = navs.filter((v) => v !== 'projectsDetail.title.introduction');
     }
     if (!project?.members?.length) {

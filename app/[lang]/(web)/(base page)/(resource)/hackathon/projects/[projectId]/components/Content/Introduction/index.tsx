@@ -15,7 +15,12 @@ const Introduction: React.FC<IntroductionProp> = ({}) => {
   return (
     <div className="flex flex-col gap-[32px]">
       <Title title={t('projectsDetail.title.introduction')} />
-      <p className="body-l whitespace-pre-line text-neutral-rich-gray">{project.detail?.oneLineIntro}</p>
+      <p
+        className="body-l reset-editor-style whitespace-pre-line text-neutral-rich-gray"
+        dangerouslySetInnerHTML={{
+          __html: project.detail.detailedIntro || ''
+        }}
+      ></p>
     </div>
   );
 };

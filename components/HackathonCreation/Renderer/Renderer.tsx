@@ -4,7 +4,8 @@ import FormRadioItem from '@/components/Common/FormComponent/FormRadio/FormRadio
 import { CustomComponentConfig } from '@/components/HackathonCreation/type';
 import { PresetComponentMap } from '..';
 import { CustomFormComponentType } from '../constants';
-import { cn } from '@/helper/utils';
+import { cn, isUuid } from '@/helper/utils';
+import { FormTextarea } from '@/components/Common/FormComponent';
 
 export const renderFormComponent = (config: CustomComponentConfig, form: any) => {
   const name = config.property?.name ? config.property?.name : config.id;
@@ -12,8 +13,9 @@ export const renderFormComponent = (config: CustomComponentConfig, form: any) =>
   label = config.optional && label ? label + ' (Optional)' : label + '*';
 
   switch (config.type) {
-    case CustomFormComponentType.Input:
-      return <FormInput form={form} {...config.property} label={label} name={name} />;
+    // case CustomFormComponentType.Text:
+    // return <FormInput form={form} {...config.property} label={label} name={name} />;
+    // return null;
     case CustomFormComponentType.Radio:
       return (
         // <div className="!w-full">
@@ -32,9 +34,12 @@ export const renderFormComponent = (config: CustomComponentConfig, form: any) =>
         </FormRadio>
         // </div>
       );
-    case CustomFormComponentType.Select:
-      return null;
+    case CustomFormComponentType.Input:
+      if (!isUuid(name)) return <FormInput form={form} {...config.property} label={label} name={name} />;
+      return <FormTextarea form={form} {...config.property} label={label} name={name} />;
     case CustomFormComponentType.Textarea:
+      return null;
+    case CustomFormComponentType.Select:
       return null;
     default:
       if (PresetComponentMap[config.type]) {

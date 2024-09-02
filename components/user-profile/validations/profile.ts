@@ -10,12 +10,7 @@ export const personalLinks = zod.object({
 
 export const profileSchema = zod.object({
   nickname: zod.string().optional(),
-  email: zod
-    .string()
-    .email({
-      message: 'Please enter a valid email address'
-    })
-    .optional(),
+  email: zod.string().optional(),
   bio: zod.string().optional(),
   location: zod.string().optional(),
   techStack: zod.array(zod.string()).optional(),
