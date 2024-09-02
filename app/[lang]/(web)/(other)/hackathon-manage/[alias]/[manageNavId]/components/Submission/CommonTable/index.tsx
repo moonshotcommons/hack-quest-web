@@ -6,10 +6,11 @@ import Operation from './Operation';
 import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
-import { ProjectType } from '@/service/webApi/resourceStation/type';
+import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import { exportToExcel } from '@/helper/utils';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 interface CommonTableProp {
   list: any[];
@@ -29,6 +30,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
   const [checkItems, setCheckItems] = useState<ProjectType[]>([]);
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [curInfo, setCurInfo] = useState<ProjectType | null>(null);
+  const { getInfo: getMemberInfo } = useDealHackathonData();
   const handleCheck = (item: ProjectType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -45,7 +47,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
       name: item.name,
       vote: item.vote,
       winner: item.winner ? 'Yes' : 'No',
-      secotr: item.tracks.join(','),
+      secotr: item.tracks?.join(','),
       'prize track': item.prizeTrack,
       location: item.location,
       'pitch video': item.pitchVideo,
@@ -75,6 +77,11 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
 
     newCheckItems.forEach((v) => {
       submissionData.push(getInfo(v));
+      if (v.members?.length) {
+        v.members.forEach((m) => {
+          submissionData.push(getMemberInfo(hackathon as unknown as HackathonType, m as any));
+        });
+      }
     });
     const tabName = tabs.find((v) => v.value === prizeTrack)?.label;
     exportToExcel(submissionData, `${hackathon.name}-${tabName}-submission`);
