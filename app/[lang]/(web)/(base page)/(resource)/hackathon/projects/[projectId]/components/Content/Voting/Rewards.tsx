@@ -1,5 +1,4 @@
 import { LangContext } from '@/components/Provider/Lang';
-import { separationNumber } from '@/helper/utils';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext } from 'react';
@@ -28,14 +27,14 @@ const Rewards: React.FC<RewardsProp> = () => {
               <p>{reward.vote}</p>
               <p className="body-s text-neutral-medium-gray">Votes</p>
             </div>
-            <div className="flex flex-1 flex-shrink-0 flex-col items-center gap-[8px] border-l border-r border-neutral-medium-gray">
+            <div className="flex flex-1 flex-shrink-0 flex-col items-center gap-[8px] border-l border-neutral-medium-gray">
               <p>{`${reward.ranking?.rank ?? 'NaN'} / ${reward.ranking?.total ?? 'NaN'}`}</p>
               <p className="body-s text-neutral-medium-gray">Ranking</p>
             </div>
-            <div className="flex flex-1 flex-shrink-0 flex-col items-center gap-[8px]">
+            {/* <div className="flex flex-1 flex-shrink-0 flex-col items-center gap-[8px]">
               <p>{`${separationNumber(reward.prize)} ${reward.currency}`}</p>
               <p className="body-s text-neutral-medium-gray">Rewards</p>
-            </div>
+            </div> */}
           </div>
         </div>
       ))}

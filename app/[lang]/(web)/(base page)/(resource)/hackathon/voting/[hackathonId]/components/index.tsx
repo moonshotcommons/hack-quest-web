@@ -28,13 +28,13 @@ const HackathonVoting: FC<HackathonVotingProps> = ({ hackathon, otherHackathons 
         <div className="min-h-[50vh] w-full">
           {hackathon.id && (
             <VoteProvider hackathon={hackathon}>
-              <div className="flex justify-between">
-                <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full">
+              <div className="flex justify-between gap-[40px]">
+                <div className="flex w-[790px] flex-shrink-0 flex-col gap-[60px] [&>div]:w-full">
                   <HackathonImage hackathon={hackathon} />
                   {/* <VotingRules hackathon={hackathon} /> */}
                   <VotingProjects hackathon={hackathon} />
                 </div>
-                <div className="relative w-[39%]">
+                <div className="relative flex-1 flex-shrink-0">
                   <HackathonInfo hackathon={hackathon} />
                 </div>
               </div>
