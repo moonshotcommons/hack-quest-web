@@ -48,12 +48,12 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
           <p>Votes</p>
           <p className="text-neutral-black">{`${separationNumber(project.votes?.totalVotes)}`}</p>
         </div>
-        {reward.reward?.rewards?.[index] && (
+        {/* {reward.reward?.rewards?.[index] && (
           <div>
             <p>Reward</p>
             <p className="text-neutral-black">{`${separationNumber(reward.reward?.rewards?.[index]?.value)} ${reward.reward?.currency}`}</p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
