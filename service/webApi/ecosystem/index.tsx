@@ -45,7 +45,7 @@ class EcosystemApi {
   }
 
   getEcosystemsDetailById(id: string, params: object, token: string) {
-    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}/explore`, {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}`, {
       params,
       headers: {
         Authorization: `Bearer ${token}`
