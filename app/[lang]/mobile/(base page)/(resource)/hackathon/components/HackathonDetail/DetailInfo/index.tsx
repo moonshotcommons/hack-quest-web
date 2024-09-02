@@ -20,6 +20,7 @@ import dayjs from '@/components/Common/Dayjs';
 import webApi from '@/service';
 import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
+import { useSearchParams } from 'next/navigation';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -27,6 +28,7 @@ interface DetailInfoProp {
 }
 
 const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
+  const query = useSearchParams();
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -56,7 +58,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
       mobileNavModalToggleOpenHandle.setNavType(NavType.AUTH);
       mobileNavModalToggleOpenHandle.toggleOpen();
     } else {
-      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
+      const utm = query.get('utm');
+      const url = `/form${MenuLink.HACKATHON}/${hackathon.id}/register`;
+      const path = utm ? `${url}?utm=${utm}` : url;
+      redirectToUrl(path);
     }
   };
 

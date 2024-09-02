@@ -28,8 +28,8 @@ export const getHackathonById = cache(function (id: string): Promise<HackathonTy
 });
 
 /** page view */
-export const getHackathonDetailById = cache(function (id: string): Promise<HackathonType> {
-  return webApi.resourceStationApi.getHackathonDetailById(id as string);
+export const getHackathonDetailById = cache(function (id: string, params?: object): Promise<HackathonType> {
+  return webApi.resourceStationApi.getHackathonDetailById(id as string, params);
 });
 
 export const getSimpleHackathonInfo = cache(function (id: string): Promise<SimpleHackathonInfo> {

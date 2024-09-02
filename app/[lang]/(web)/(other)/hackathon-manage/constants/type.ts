@@ -26,7 +26,13 @@ export interface InformationDataType {
 
 export enum DistributionTab {
   PAGE_VIEW = 'pageView',
-  REGISTRATION = 'Registration',
-  SUBMISSION = 'Submission',
-  WINNERS = 'Winners'
+  REGISTRATION = 'registration',
+  SUBMISSION = 'submission',
+  WINNERS = 'winners'
+}
+
+export enum GrowthOptionValue {
+  WEEK = 'week',
+  MONTH = 'month',
+  ALL = 'all'
 }

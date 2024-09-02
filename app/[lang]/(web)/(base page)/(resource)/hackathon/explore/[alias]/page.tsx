@@ -12,6 +12,7 @@ interface HackathonIdProps {
     alias: string;
     lang: string;
   };
+  searchParams: Record<string, string>;
 }
 
 export async function generateMetadata({ params }: HackathonIdProps): Promise<Metadata> {
@@ -30,10 +31,19 @@ export async function generateMetadata({ params }: HackathonIdProps): Promise<Me
   };
 }
 
-const HackathonId: FC<HackathonIdProps> = async function ({ params }: HackathonIdProps) {
-  const hackathon = await getHackathonDetailById(params.alias);
+const HackathonId: FC<HackathonIdProps> = async function ({ params, searchParams }: HackathonIdProps) {
+  const utm = searchParams.utm || '';
+  const param = utm
+    ? {
+        utm
+      }
+    : {};
+  const hackathon = await getHackathonDetailById(params.alias, param);
   if (isUuid(params.alias)) {
-    permanentRedirect(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
+    const path = utm
+      ? `${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}?utm=${utm}`
+      : `${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`;
+    permanentRedirect(path);
   }
   return (
     <>
