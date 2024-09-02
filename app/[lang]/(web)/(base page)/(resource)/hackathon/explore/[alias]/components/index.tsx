@@ -91,8 +91,8 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
       <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScoll}>
         <div className="container relative mx-auto pb-[80px] pt-[40px]">
           <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
-          <div className="relative flex justify-between pt-[60px]">
-            <div className="flex w-[58%] flex-col gap-[60px] [&>div]:w-full" ref={contentRef}>
+          <div className="relative flex justify-between gap-[40px] pt-[60px]">
+            <div className="flex w-[790px] flex-shrink-0 flex-col gap-[60px] [&>div]:w-full" ref={contentRef}>
               <div className="flex flex-col gap-[60px] [&>div]:w-full">
                 <Cover hackathon={hackathon} imageLoad={getOffsetTops} />
                 <TimeLine hackathon={hackathon} />
@@ -117,7 +117,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
               <FAQs hackathon={hackathon} />
               <Customs hackathon={hackathon} />
             </div>
-            <div className="relative w-[39%]">
+            <div className="relative flex-1 flex-shrink-0">
               <div className="sticky left-0 top-[106px]">
                 <DetailInfo hackathon={hackathon} />
               </div>
