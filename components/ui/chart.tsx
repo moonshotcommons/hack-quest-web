@@ -69,8 +69,9 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   return (
     <style
       dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES).map(
-          ([theme, prefix]) => `
+        __html: Object.entries(THEMES)
+          .map(
+            ([theme, prefix]) => `
             ${prefix} [data-chart=${id}] {
             ${colorConfig
               .map(([key, itemConfig]) => {
@@ -80,7 +81,8 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
               .join('\n')}
             }
           `
-        )
+          )
+          .join('\n')
       }}
     />
   );
