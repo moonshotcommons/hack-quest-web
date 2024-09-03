@@ -6,7 +6,8 @@ import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import AnnouncementEditAndViewModal from './AnnouncementEditAndViewModal';
 import useAnnouncementsEvent from './useAnnouncementsEvent';
-import { camelCase } from 'lodash';
+import { camelCase } from 'lodash-es';
+// import { camelCase } from 'lodash';
 
 interface EventBaseProps {}
 

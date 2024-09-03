@@ -56,10 +56,10 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
     async (values: Record<string, string>, isExit = false) => {
       // form.trigger();
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.About);
-      const utmSource = query.get('utm');
-      const utmParam = utmSource
+      const utm = query.get('utm');
+      const utmParam = utm
         ? {
-            utmSource
+            utmSource: utm
           }
         : {};
       const state = {
