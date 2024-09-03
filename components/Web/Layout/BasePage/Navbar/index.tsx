@@ -47,7 +47,12 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
     { wait: 100 }
   );
 
-  const setPlaygroundSelectModalOpen = useGlobalStore((state) => state.setPlaygroundSelectModalOpen);
+  const { setPlaygroundSelectModalOpen, setWechatTipsOpen } = useGlobalStore(
+    useShallow((state) => ({
+      setPlaygroundSelectModalOpen: state.setPlaygroundSelectModalOpen,
+      setWechatTipsOpen: state.setWechatTipsOpen
+    }))
+  );
   const { setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       setAuthModalOpen: state.setAuthModalOpen,
@@ -156,6 +161,15 @@ const NavBar: React.FC<NavBarProps> = (NavBarProps) => {
                                     onClick={() => setPlaygroundSelectModalOpen(true)}
                                   >
                                     {t(more.label)}
+                                  </div>
+                                ) : more.id === 'wechat' ? (
+                                  <div
+                                    key={more.id}
+                                    className="mt-[8px] flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-[8px] px-3 py-2 text-neutral-rich-gray hover:bg-neutral-off-white"
+                                    onClick={() => setWechatTipsOpen(true)}
+                                  >
+                                    {more.icon}
+                                    <span>{t(more.label)}</span>
                                   </div>
                                 ) : (
                                   <Link
