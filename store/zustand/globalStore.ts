@@ -48,6 +48,8 @@ export interface GlobalStateType {
     key: Key,
     value: Value
   ) => void;
+  wechatTipsOpen: boolean;
+  setWechatTipsOpen: (open: boolean) => void;
 }
 
 export const useGlobalStore = create<GlobalStateType>()((set) => ({
@@ -128,5 +130,9 @@ export const useGlobalStore = create<GlobalStateType>()((set) => ({
   },
   setChatHistory(payload) {
     set((state) => ({ chatHistory: typeof payload === 'function' ? payload(state.chatHistory) : payload }));
+  },
+  wechatTipsOpen: false,
+  setWechatTipsOpen(payload) {
+    set((state) => ({ wechatTipsOpen: payload }));
   }
 }));

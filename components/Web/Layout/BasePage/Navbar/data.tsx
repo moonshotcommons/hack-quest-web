@@ -4,6 +4,7 @@ import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM, HACKQUEST_TWITTER } from '@/cons
 import MenuLink from '@/constants/MenuLink';
 import { FaDiscord, FaTelegram } from 'react-icons/fa6';
 import TwitterXIcon from '@/components/Common/Icon/TwitterX';
+import { IoLogoWechat } from 'react-icons/io5';
 
 export const animateProps: MotionProps = {
   initial: { scaleY: 0, opacity: 0, translateY: '95%' },
@@ -282,6 +283,11 @@ export const navbarList: NavbarListType[] = [
             link: HACKQUEST_TELEGRAM,
             icon: <FaTelegram />,
             outSide: true
+          },
+          {
+            id: 'wechat',
+            label: 'navbar.more.Wechat',
+            icon: <IoLogoWechat />
           }
         ]
       }

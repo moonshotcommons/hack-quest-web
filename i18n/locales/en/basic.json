@@ -141,7 +141,8 @@
       "Discord": "Discord",
       "Twitter": "Twitter",
       "Telegram": "Telegram",
-      "Linkedin": "Linkedin"
+      "Linkedin": "Linkedin",
+      "Wechat":"Wechat"
     }
   },
   "auth": {
@@ -231,5 +232,6 @@
   "add": "Add",
   "change": "Change",
   "download": "Download",
-  "apply": "Apply"
+  "apply": "Apply",
+  "wechatTips":"Welcome to add small assistant wechat group"
 }
