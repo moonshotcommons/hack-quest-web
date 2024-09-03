@@ -140,7 +140,8 @@
       "Discord": "Discord",
       "Twitter": "Twitter",
       "Telegram": "Telegram",
-      "Linkedin": "Linkedin"
+      "Linkedin": "Linkedin",
+      "Wechat":"Wechat"
     }
   },
   "auth": {
@@ -230,5 +231,6 @@
   "add": "新增",
   "change": "修改",
   "download": "下载",
-  "apply": "申请"
+  "apply": "申请",
+  "wechatTips":"欢迎添加小助手微信入群"
 }
