@@ -54,7 +54,7 @@ const GrowthEchartline: React.FC<GrowthEchartlineProps> = ({ data, curTab }) => 
     };
   }, [data, curTab]);
 
-  return <ReactEcharts option={option} />;
+  return <ReactEcharts option={option} notMerge={true} />;
 };
 
 GrowthEchartline.displayName = 'GrowthEchartline';
@@ -122,7 +122,7 @@ const SourceEchartPie: React.FC<SourceEchartPieBarProps> = ({ data, tab, total }
       ]
     };
   }, [data, tab, total]);
-  return <ReactEcharts option={option} style={{ height: '100%' }} />;
+  return <ReactEcharts option={option} style={{ height: '100%' }} notMerge={true} />;
 };
 
 SourceEchartPie.displayName = 'SourceEchartPie';
@@ -165,7 +165,7 @@ const SourceEchartBar: React.FC<SourceEchartPieBarProps> = ({ data }) => {
       }
     ]
   };
-  return <ReactEcharts option={option} style={{ height: '100%' }} />;
+  return <ReactEcharts option={option} style={{ height: '100%' }} notMerge={true} />;
 };
 
 SourceEchartBar.displayName = 'SourceEchartBar';

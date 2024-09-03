@@ -4,22 +4,19 @@ import { DistributionTab, GrowthOptionValue } from '../../../../../constants/typ
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/user-profile/common/select';
 import { GrowthEchartline } from '../DistributionEcharts';
-import { useQuery } from '@tanstack/react-query';
-import webApi from '@/service';
-import { useParams } from 'next/navigation';
 import Loading from '@/components/Common/Loading';
 import { GrowthDataType, GrowthType } from '@/service/webApi/resourceStation/type';
 
-interface GrowthProp {}
+interface GrowthProp {
+  growthData: GrowthDataType;
+  isLoading: boolean;
+  curKind: GrowthOptionValue;
+  setCurKind: (kind: GrowthOptionValue) => void;
+}
 
-const Growth: React.FC<GrowthProp> = () => {
-  const { alias } = useParams();
+const Growth: React.FC<GrowthProp> = ({ growthData, isLoading, curKind, setCurKind }) => {
   const [curTab, setCurTab] = useState<DistributionTab>(distributionTabData[0].id);
-  const [curKind, setCurKind] = useState<GrowthOptionValue>(growthOptions[0].value);
-  const { data: growthData, isLoading } = useQuery<GrowthDataType>({
-    queryKey: ['get-growth', curKind],
-    queryFn: () => webApi.resourceStationApi.getUtmGrowth(alias as string, curKind)
-  });
+
   return (
     <div className="flex flex-col gap-[20px]">
       <div className="text-h35 text-neutral-off-black">Growth</div>

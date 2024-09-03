@@ -10,16 +10,17 @@ import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import webApi from '@/service';
-import { UtmSourceType } from '@/service/webApi/resourceStation/type';
+import { DistributionDataType, GrowthDataType, UtmSourceType } from '@/service/webApi/resourceStation/type';
 import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import Loading from '@/components/Common/Loading';
+import { GrowthOptionValue } from '../../../../constants/type';
+import { growthOptions } from '../../../../constants/data';
 
 interface DistributionProp {}
 
 const Distribution: React.FC<DistributionProp> = () => {
   const query = useSearchParams();
-  console.info(query.get('utm'));
   const { alias } = useParams();
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
@@ -29,9 +30,11 @@ const Distribution: React.FC<DistributionProp> = () => {
   const [open, setOpen] = useState(false);
   const [curSource, setCurSource] = useState<UtmSourceType | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [curKind, setCurKind] = useState<GrowthOptionValue>(growthOptions[0].value);
   const queryClient = useQueryClient();
+
   const { data: utmSources, isLoading: getLoading } = useQuery<UtmSourceType[]>({
-    queryKey: ['utmSource'],
+    queryKey: ['get-source'],
     queryFn: () => webApi.resourceStationApi.getUtmSource(alias as string)
   });
 
@@ -40,7 +43,7 @@ const Distribution: React.FC<DistributionProp> = () => {
     onSuccess: () => {
       message.success('Add successfully');
       setOpen(false);
-      queryClient.invalidateQueries({ queryKey: ['utmSource'] });
+      queryClient.invalidateQueries({ queryKey: ['get-source'] });
     },
     onError: (err) => {
       errorMessage(err);
@@ -54,7 +57,7 @@ const Distribution: React.FC<DistributionProp> = () => {
       message.success('Update successfully');
       setOpen(false);
       setCurSource(null);
-      queryClient.invalidateQueries({ queryKey: ['utmSource'] });
+      queryClient.invalidateQueries({ queryKey: ['get-source'] });
     },
     onError: (err) => {
       errorMessage(err);
@@ -68,11 +71,21 @@ const Distribution: React.FC<DistributionProp> = () => {
       setOpen(false);
       setCurSource(null);
       setDeleteOpen(false);
-      queryClient.invalidateQueries({ queryKey: ['utmSource'] });
+      queryClient.invalidateQueries({ queryKey: ['get-source'] });
     },
     onError: (err) => {
       errorMessage(err);
     }
+  });
+
+  const { data: growthData, isLoading: growthLoading } = useQuery<GrowthDataType>({
+    queryKey: ['get-growth', curKind],
+    queryFn: () => webApi.resourceStationApi.getUtmGrowth(alias as string, curKind)
+  });
+
+  const { data: distributionData, isLoading: disLoaidng } = useQuery<DistributionDataType>({
+    queryKey: ['get-distribution'],
+    queryFn: () => webApi.resourceStationApi.getUtmDistribution(alias as string)
   });
 
   const handleSource = (source?: any) => {
@@ -88,9 +101,16 @@ const Distribution: React.FC<DistributionProp> = () => {
   };
 
   useEffect(() => {
-    if (!utmSources?.length && !getLoading) {
-      setOpen(true);
+    if (!getLoading) {
+      if (!utmSources?.length) {
+        setOpen(true);
+      } else {
+        console.info(11111);
+        queryClient.invalidateQueries({ queryKey: ['get-growth'] });
+        queryClient.invalidateQueries({ queryKey: ['get-distribution'] });
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [utmSources, getLoading]);
   return (
     <>
@@ -99,8 +119,13 @@ const Distribution: React.FC<DistributionProp> = () => {
           {(utmSources as UtmSourceType[])?.length > 0 && (
             <>
               <Sources handleSource={handleSource} utmSources={utmSources as UtmSourceType[]} />
-              <Growth />
-              <Various />
+              <Growth
+                curKind={curKind}
+                setCurKind={setCurKind}
+                growthData={growthData as unknown as GrowthDataType}
+                isLoading={growthLoading}
+              />
+              <Various distributionData={distributionData as unknown as DistributionDataType} isLoading={disLoaidng} />
             </>
           )}
         </div>
