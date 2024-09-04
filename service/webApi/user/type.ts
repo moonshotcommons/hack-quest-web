@@ -225,7 +225,7 @@ export interface NotificationType {
 
 export interface DailyChallengeType {
   challenges: {
-    links: { link: string; title: string; description: string }[];
+    links: { link: string; links: string; title: string; description: string }[];
     id: string;
     type: string;
     content: CustomComponent;
@@ -237,6 +237,7 @@ export interface DailyChallengeType {
   progress: number;
   completed: boolean;
   correct: number;
+  claim: boolean;
 }
 
 export interface AttestationType {

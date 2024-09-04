@@ -10,12 +10,13 @@ import LineCountDown from './LineCountDown';
 import DailyChallengeProvider from './DailyChallengeProvider';
 import emitter from '@/store/emitter';
 import webApi from '@/service';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { errorMessage } from '@/helper/ui';
 import Start from '@/components/Common/Icon/Start';
 import LinkArrow from '@/components/Common/LinkArrow';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useGetMissionData } from '@/hooks/mission/useGetMissionData';
 
 interface DailyChallengeModalProps {
   challengeData: DailyChallengeType;
@@ -39,30 +40,32 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
     disable: true
   });
   const [stop, setStop] = useState(false);
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        open() {
-          setOpen(true);
-        }
-      };
-    },
-    []
-  );
 
   const [currentChallenge, setCurrentChallenge] = useState(0);
   const queryClient = useQueryClient();
   const [end, setEnd] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const { updateMissionDataAll } = useGetMissionData();
 
   const links = useMemo(() => {
     let links: DailyChallengeType['challenges'][number]['links'] = [];
+    console.log(challengeData.challenges);
     challengeData.challenges.forEach((cha, index) => {
-      if (index > 0) return;
       links = links.concat(cha.links);
     });
-    return links;
+
+    const obj: Record<string, any> = {};
+    let res: DailyChallengeType['challenges'][number]['links'] = [];
+    links.forEach((link) => {
+      if ((!obj[link.title] || !obj[link.description] || !obj[link.link]) && (link.link || link.links) && link.title) {
+        res.push(link);
+        obj[link.title] = (obj[link.title] || 0) + 1;
+        obj[link.description] = (obj[link.description] || 0) + 1;
+        obj[link.link] = (obj[link.link] || 0) + 1;
+      }
+    });
+
+    return res;
   }, [challengeData]);
 
   const handleClick = () => {
@@ -91,6 +94,16 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
     }
   };
 
+  const { mutateAsync, data } = useMutation({
+    mutationFn: async () => {
+      return webApi.userApi.claimDailyChallengeReward();
+    },
+    onSuccess(data, variables, context) {
+      queryClient.invalidateQueries({ queryKey: ['daily-challenge'] });
+      updateMissionDataAll();
+    }
+  });
+
   useEffect(() => {
     setStop(false);
     setEnd(false);
@@ -103,6 +116,18 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
   useEffect(() => {
     setCurrentChallenge(challengeData.progress);
   }, []);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        open() {
+          setOpen(true);
+        }
+      };
+    },
+    []
+  );
 
   return (
     <Modal
@@ -137,7 +162,7 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
         {!isCompleted && (
           <div className="flex max-h-[calc(100vh-80px)] w-full max-w-[62.5rem] flex-col items-center justify-center gap-16 py-20">
             <LineCountDown
-              second={20}
+              second={90}
               stop={stop}
               dep={currentChallenge}
               onEnd={async () => {
@@ -208,35 +233,73 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
             className="flex max-h-[calc(100vh-80px)] w-full max-w-[58.5rem] flex-col items-center justify-center gap-16 overflow-y-auto py-20"
             style={{ scrollbarWidth: 'none' }}
           >
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex gap-6 text-yellow-dark">
-                {challengeData.challenges.map((item, index) => {
-                  if (index > challengeData.correct - 1) {
-                    return <Start key={index} />;
-                  }
-                  return <Start key={index} fill></Start>;
-                })}
-              </div>
-              <p className="text-h2 text-neutral-off-black">Great Job!</p>
-              <p className="body-m text-neutral-rich-gray">
-                {challengeData.challenges.length === challengeData.correct && 'You got all the questions right'}
-              </p>
-              <p className="body-m text-neutral-rich-gray">
-                {challengeData.challenges.length > challengeData.correct && 'Claim rewards for today’s quiz'}
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-8">
-              <Image
-                src={'/images/home/treasure_box.svg'}
-                alt={'chest-cover'}
-                width={142}
-                height={120}
-                className="cursor-pointer transition-all"
-              />
-              <Button type="primary" className="button-text-m w-[13.5rem] px-0 py-4">
-                OPEN
-              </Button>
-            </div>
+            {!data && (
+              <>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex gap-6 text-yellow-dark">
+                    {challengeData.challenges.map((item, index) => {
+                      if (index > challengeData.correct - 1) {
+                        return <Start key={index} />;
+                      }
+                      return <Start key={index} fill></Start>;
+                    })}
+                  </div>
+                  {!!challengeData.correct && <p className="text-h2 text-neutral-off-black">Great Job!</p>}
+                  {!challengeData.correct && <p className="text-h2 text-neutral-off-black">You’re Almost There</p>}
+                  <p className="body-m text-neutral-rich-gray">
+                    {challengeData.challenges.length === challengeData.correct && 'You got all the questions right'}
+                  </p>
+                  <p className="body-m text-neutral-rich-gray">
+                    {challengeData.challenges.length > challengeData.correct && 'Claim rewards for today’s quiz'}
+                  </p>
+                  <p className="body-m text-neutral-rich-gray">
+                    {!challengeData.correct && 'Keep making progress and come back tomorrow'}
+                  </p>
+                </div>
+                {!!challengeData.correct && (
+                  <div className="flex flex-col items-center gap-8">
+                    <Image
+                      src={'/images/home/treasure_box.svg'}
+                      alt={'chest-cover'}
+                      width={142}
+                      height={120}
+                      className="cursor-pointer transition-all"
+                    />
+                    <Button
+                      type="primary"
+                      className="button-text-m w-[13.5rem] px-0 py-4"
+                      onClick={() => mutateAsync()}
+                    >
+                      OPEN
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+            {data && (
+              <>
+                <div className="flex flex-col items-center gap-4">
+                  <p className="body-m text-neutral-rich-gray">The treasure you get</p>
+                  <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-3">
+                      <Image src={'/images/mission-center/icon_coin_new.svg'} alt="treasure" width={48} height={48} />
+                      <span className="body-xl-bold text-neutral-off-black">x {data.coin}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Image src={'/images/mission-center/icon_exp_new.svg'} alt="treasure" width={48} height={48} />
+                      <span className="body-xl-bold text-neutral-off-black">x {data.exp}</span>
+                    </div>
+                  </div>
+                </div>
+                <Image
+                  src={'/images/home/treasure_box.svg'}
+                  alt={'chest-cover'}
+                  width={142}
+                  height={120}
+                  className="cursor-pointer transition-all"
+                />
+              </>
+            )}
             <div className="flex w-full flex-col gap-4">
               {links.map((item, index) => {
                 return (
@@ -247,7 +310,7 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
                     <div className="flex flex-col gap-2">
                       <p className="body-m-bold">{item.title}</p>
                       <p className="body-s">{item.description}</p>
-                      <Link href={item.link}>
+                      <Link href={item.link || item.links || ''} target="_blank">
                         <LinkArrow>Start learning</LinkArrow>
                       </Link>
                     </div>
