@@ -1,5 +1,12 @@
 import WebService from '@/service/webService/webService';
-import { Announcement, AnnouncementCreateDto, HackathonType, ReceiverType } from './types';
+import {
+  Announcement,
+  AnnouncementCreateDto,
+  AnnouncementTemplateVo,
+  HackathonType,
+  ReceiverType,
+  UpdateAnnouncementTemplateDto
+} from './types';
 
 export enum HackathonApiUrl {
   HACKATHONS = '/hackathons',
@@ -139,6 +146,18 @@ class HackathonApi {
   //     data
   //   });
   // }
+
+  getAnnouncementTemplate(hackathonId: string, templateType: string) {
+    return this.service.get<Array<AnnouncementTemplateVo>>(
+      `${HackathonApiUrl.HACKATHONS}/admin/${hackathonId}/announcement/template/${templateType}`
+    );
+  }
+
+  updateAnnouncementTemplate(data: Array<UpdateAnnouncementTemplateDto>) {
+    return this.service.put<number>(`${HackathonApiUrl.HACKATHONS}/admin/announcement/template`, {
+      data
+    });
+  }
 }
 
 export default HackathonApi;

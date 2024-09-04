@@ -117,11 +117,11 @@ class EcosystemApi {
   }
 
   getEcosystemStatus(ecosystemId: string) {
-    return this.service.get<ecosystemStatsType>(`/admin/${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/stats`);
+    return this.service.get<ecosystemStatsType>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/stats`);
   }
 
   getEcosystemUserData(ecosystemId: string, stats: string) {
-    return this.service.get<ecosystemUserData[]>(`/admin/${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/${stats}`);
+    return this.service.get<ecosystemUserData[]>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/${stats}`);
   }
 }
 

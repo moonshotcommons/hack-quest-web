@@ -1,14 +1,38 @@
 'use client';
 import { FC } from 'react';
-import { AnnouncementsEvent, TimelineStatus } from './constants';
+import { AnnouncementsEvent, HackathonAnnouncementType, PhaseEnum, TimelineStatus } from './constants';
 import { cn } from '@/helper/utils';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
-import Button from '@/components/Common/Button';
+import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
+import AnnouncementEditAndViewModal from './AnnouncementEditAndViewModal';
+import useAnnouncementsEvent from './useAnnouncementsEvent';
+import { camelCase } from 'lodash-es';
+// import { camelCase } from 'lodash';
 
 interface EventBaseProps {}
 
 const EventBase: FC<EventBaseProps> = (props) => {
   const hackathon = useHackathonManageStore((state) => state.hackathon);
+  const { announcementsEvent } = useAnnouncementsEvent(HackathonAnnouncementType.HYBRID_HACKQUEST);
+
+  const computedPhase = (announcementsEvent: typeof AnnouncementsEvent, timeline: SimpleHackathonInfo['timeline']) => {
+    //REGISTRATION&SUBMISSION阶段
+    if (announcementsEvent[1].timelineStatus(timeline) !== TimelineStatus.END) {
+      return PhaseEnum.REGISTRATION_SUBMISSION;
+    }
+
+    // VOTING阶段
+    if (announcementsEvent[2].timelineStatus(timeline) !== TimelineStatus.END) {
+      return PhaseEnum.VOTING;
+    }
+
+    // BEFORE_WINNER阶段
+    if (announcementsEvent[3].timelineStatus(timeline) !== TimelineStatus.END) {
+      return PhaseEnum.BEFORE_WINNER;
+    }
+
+    return PhaseEnum.AFTER_WINNER;
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -18,7 +42,7 @@ const EventBase: FC<EventBaseProps> = (props) => {
         are kept informed about important updates.
       </p>
       <div className="flex w-full justify-between gap-4">
-        {AnnouncementsEvent.map((event, index) => {
+        {announcementsEvent.map((event, index) => {
           const eventTimelineStatus = event.timelineStatus(hackathon.timeline);
           return (
             <div
@@ -30,9 +54,9 @@ const EventBase: FC<EventBaseProps> = (props) => {
             >
               <div className="flex items-center gap-2">
                 <span className="inline-block h-[1.8125rem] w-[.1875rem] rounded-full bg-yellow-dark"></span>
-                <span className="body-l-bold text-neutral-off-black">Registration</span>
+                <span className="body-l-bold text-neutral-off-black">{event.title}</span>
               </div>
-              <div className="flex flex-col gap-3">
+              <div className="flex min-h-[6.6725rem] flex-col gap-3">
                 {event.templates.map((item, index) => {
                   const itemTimelineStatus = item.timelineStatus(hackathon.timeline);
                   return (
@@ -55,15 +79,32 @@ const EventBase: FC<EventBaseProps> = (props) => {
                   );
                 })}
               </div>
+
               {eventTimelineStatus === TimelineStatus.END && (
-                <Button ghost className="button-text-s h-[2.125rem]" block>
-                  view details
-                </Button>
+                // <Button ghost className="button-text-s h-[2.125rem]" block>
+                //   view details
+                // </Button>
+                <AnnouncementEditAndViewModal
+                  title={event.title}
+                  queryParams={JSON.stringify(event.templates.map((item) => camelCase(item.type).toUpperCase()))}
+                  itemTimelineStatus={eventTimelineStatus}
+                  phase={computedPhase(AnnouncementsEvent, hackathon.timeline)}
+                  disable={true}
+                  isEdit={false}
+                />
               )}
               {eventTimelineStatus !== TimelineStatus.END && (
-                <Button className="button-text-s h-[2.125rem]" block>
-                  edit
-                </Button>
+                // <Button className="button-text-s h-[2.125rem]" block>
+                //   edit
+                // </Button>
+                <AnnouncementEditAndViewModal
+                  title={event.title}
+                  queryParams={JSON.stringify(event.templates.map((item) => camelCase(item.type).toUpperCase()))}
+                  itemTimelineStatus={eventTimelineStatus}
+                  phase={computedPhase(AnnouncementsEvent, hackathon.timeline)}
+                  disable={true}
+                  isEdit={false}
+                />
               )}
             </div>
           );

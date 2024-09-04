@@ -68,3 +68,33 @@ export interface Announcement {
   receivers: string;
   action?: AnnouncementAction;
 }
+
+export enum TitleEnum {
+  APPROVAL = 'APPROVAL',
+  DECLINE = 'DECLINE',
+  WAITLIST = 'WAITLIST',
+  DEADLINE = 'DEADLINE',
+  SUBMIT = 'SUBMIT',
+  START = 'START',
+  END = 'END',
+  REWARD = 'REWARD',
+  NONREWARD = 'NONREWARD',
+  SUCCESS = 'SUCCESS'
+}
+
+export interface AnnouncementTemplateVo {
+  id: number;
+  content: string;
+  fields: string[];
+  templateType: TitleEnum;
+  hackathonId: string;
+  receiversCount: number;
+  createId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UpdateAnnouncementTemplateDto {
+  id: number;
+  content: string;
+}

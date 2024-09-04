@@ -29,10 +29,14 @@ import {
   ProjectVotesType,
   SimpleHackathonInfo,
   SubmissionStatusType,
-  PartnerShipType
+  PartnerShipType,
+  UtmSourceType,
+  GrowthDataType,
+  DistributionDataType
 } from './type';
 import { isUuid } from '@/helper/utils';
 import { ApplicationSectionType } from '@/components/HackathonCreation/type';
+import { GrowthOptionValue } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
 
 export enum ResourceStationApiType {
   Hackathon = '/hackathons',
@@ -79,8 +83,10 @@ class ResourceStationApi {
   getHackathonDetail(id: string) {
     return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}`);
   }
-  getHackathonDetailById(id: string) {
-    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}/detail`);
+  getHackathonDetailById(id: string, params?: object) {
+    return this.service.get<HackathonType>(`${ResourceStationApiType.Hackathon}/${id}/detail`, {
+      params
+    });
   }
 
   getHackathonRewards(hackathonId: string) {
@@ -407,6 +413,40 @@ class ResourceStationApi {
 
   getPartnerShips() {
     return this.service.get<PartnerShipType[]>(`${ResourceStationApiType.PartnerShips}`);
+  }
+
+  getUtmSource(hackathonId: string) {
+    return this.service.get<UtmSourceType[]>(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/utm`);
+  }
+
+  addUtmSource(hackathonId: string, data: UtmSourceType) {
+    return this.service.post(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/utm`, {
+      data
+    });
+  }
+
+  editUtmSource(hackathonId: string, utmId: string, data: object) {
+    return this.service.patch(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/utm/${utmId}`, {
+      data
+    });
+  }
+
+  deleteUtmSource(hackathonId: string, utmId: string) {
+    return this.service.delete(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/utm/${utmId}`);
+  }
+
+  getUtmGrowth(hackathonId: string, cycle: GrowthOptionValue) {
+    return this.service.get<GrowthDataType>(`${ResourceStationApiType.Hackathon}/admin/${hackathonId}/growth`, {
+      params: {
+        cycle
+      }
+    });
+  }
+
+  getUtmDistribution(hackathonId: string) {
+    return this.service.get<DistributionDataType>(
+      `${ResourceStationApiType.Hackathon}/admin/${hackathonId}/distribution`
+    );
   }
 }
 

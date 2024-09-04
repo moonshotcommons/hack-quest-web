@@ -67,7 +67,7 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
         {total > 0 && isAuthenticated() && (
           <div className="mb-5 grid w-full grid-cols-2 gap-5 sm:mb-10 sm:gap-10">
             <Link href="/jobs/hiring-portal">
-              <button className="sm:card-hover flex w-full items-center gap-4 rounded-2xl bg-neutral-light-gray p-4 sm:p-6">
+              <button className="sm:card-hover flex h-full w-full items-center gap-4 rounded-2xl bg-neutral-light-gray p-4 sm:p-6">
                 <Image src="/images/jobs/pagination.svg" alt="" width={64} height={64} className="hidden sm:block" />
                 <div className="text-left sm:ml-8">
                   <h3 className="font-next-book-bold text-lg font-bold sm:text-[22px]">Hiring Portal</h3>

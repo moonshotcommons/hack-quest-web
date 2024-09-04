@@ -1,8 +1,8 @@
-import { DistributionTab, HackathonManageType } from './type';
+import { DistributionTab, GrowthOptionValue, HackathonManageType } from './type';
 import { GrLineChart, GrView } from 'react-icons/gr';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import { ApplicationStatus } from '@/service/webApi/resourceStation/type';
-import { MdAppRegistration } from 'react-icons/md';
+import { MdAppRegistration, MdPieChartOutline } from 'react-icons/md';
 import { FaBalanceScale } from 'react-icons/fa';
 import { PiMedalLight } from 'react-icons/pi';
 import { RiPieChartFill } from 'react-icons/ri';
@@ -29,17 +29,17 @@ export const hackathonAuditNavData = [
     id: HackathonManageType.JUDGE,
     label: 'hackathonManage.judging',
     icon: <FaBalanceScale size={20} />
-  }
+  },
   // {
   //   id: HackathonManageType.ANNOUNCEMENT,
   //   label: 'hackathonManage.announcement',
   //   icon: <IoMdMegaphone size={20} />
   // }
-  // {
-  //   id: HackathonManageType.DISTRIBUTION,
-  //   label: 'hackathonManage.distribution',
-  //   icon: <MdPieChartOutline size={20} />
-  // }
+  {
+    id: HackathonManageType.DISTRIBUTION,
+    label: 'hackathonManage.distribution',
+    icon: <MdPieChartOutline size={20} />
+  }
 ];
 
 export const applicationTabData = [
@@ -222,15 +222,15 @@ export const distributionTabData = [
 export const growthOptions = [
   {
     label: '1 Week',
-    value: 'week'
+    value: GrowthOptionValue.WEEK
   },
   {
     label: '1 Month',
-    value: 'month'
+    value: GrowthOptionValue.MONTH
   },
   {
     label: 'All',
-    value: 'all'
+    value: GrowthOptionValue.ALL
   }
 ];
 
@@ -246,13 +246,12 @@ export const variousChartTypeData = [
 ];
 
 export const sourceDefaultValues = {
-  name: '',
+  sourceName: '',
   url: ''
 };
 
 export const sourceFormSchema = z.object({
-  id: z.string(),
-  name: z
+  sourceName: z
     .string()
     .min(1, {
       message: 'Source name is a required input.'

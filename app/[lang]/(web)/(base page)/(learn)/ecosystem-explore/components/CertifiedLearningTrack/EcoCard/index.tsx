@@ -9,12 +9,17 @@ import { GoArrowRight } from 'react-icons/go';
 
 interface EcoCardProp {
   ecosystem: EcosystemType;
+  isView?: boolean;
 }
 
-const EcoCard: React.FC<EcoCardProp> = ({ ecosystem }) => {
+const EcoCard: React.FC<EcoCardProp> = ({ ecosystem, isView }) => {
   return (
     <Link
-      href={`${MenuLink.EXPLORE}/${ecosystem.id}`}
+      href={
+        isView
+          ? `${MenuLink.ECOSYSTEM_PRESENTATION}?ecosystemId=${ecosystem.id}`
+          : `${MenuLink.EXPLORE}/${ecosystem.id}`
+      }
       className="card-hover group flex h-[273px] w-full flex-col items-center justify-between overflow-hidden rounded-[16px] bg-neutral-white p-[24px] hover:bg-yellow-hover"
     >
       <div className="relative flex h-full flex-col gap-[32px]">

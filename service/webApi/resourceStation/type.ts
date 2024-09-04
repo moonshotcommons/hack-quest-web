@@ -1,4 +1,5 @@
 import { HackathonEditModalType } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { DistributionTab } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
 import { CustomComponent } from '@/components/ComponentRenderer/type';
 import {
   ApplicationSectionType,
@@ -628,7 +629,9 @@ export interface SimpleHackathonInfo {
     openReviewSame: boolean;
     registrationOpen: string;
     registrationClose: string;
+    submissionOpen: string;
     submissionClose: string;
+    votingClose: string;
     reviewTimeEnd: string;
     rewardTime: string;
   };
@@ -831,3 +834,38 @@ export interface PartnerShipType {
   description: string;
   url: string;
 }
+
+export interface UtmSourceType {
+  id?: string;
+  sourceName: string;
+  color: string;
+  url: string;
+}
+
+export interface GrowthType {
+  id: string;
+  sourceName: string;
+  color: string;
+  data: [
+    {
+      count: number;
+      time: string;
+    }
+  ];
+}
+
+export type GrowthDataType = {
+  [key in DistributionTab]: GrowthType[];
+};
+
+export interface DistributionType {
+  id: string;
+  color: string;
+  count: number;
+  sourceName: string;
+  rate: number;
+}
+
+export type DistributionDataType = {
+  [key in DistributionTab]: DistributionType[];
+};
