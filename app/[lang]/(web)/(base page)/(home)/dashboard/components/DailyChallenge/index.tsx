@@ -29,6 +29,8 @@ const DailyChallenge: FC<DailyChallengeProps> = (props) => {
     return <DailyChallengeModal ref={dailyChallengeInstance} challengeData={data} />;
   }, [data]);
 
+  console.log(data);
+
   return (
     <div className="relative flex w-full overflow-hidden rounded-[1rem] bg-neutral-white p-4">
       <div className="relative z-[5] flex flex-col gap-4">
@@ -42,7 +44,7 @@ const DailyChallenge: FC<DailyChallengeProps> = (props) => {
             <LinkArrow
               direction="right"
               size={'sm'}
-              className="button-text-s text-neutral-off-black"
+              className="button-text-s uppercase text-neutral-off-black"
               onClick={() => {
                 dailyChallengeInstance.current?.open();
               }}
@@ -51,10 +53,28 @@ const DailyChallenge: FC<DailyChallengeProps> = (props) => {
             </LinkArrow>
           </>
         )}
-        {data?.completed && (
+        {data?.completed && (data.claim || !data.correct) && (
           <>
             <div className="body-xs py-.5 w-fit rounded-full bg-status-success-light px-3 text-neutral-rich-gray">{`COMPLETED`}</div>
             <div>&nbsp;</div>
+          </>
+        )}
+        {data?.completed && !data.claim && !!data.correct && (
+          <>
+            <div className="body-xs py-.5 w-fit rounded-full bg-neutral-off-white px-3 text-neutral-rich-gray">
+              {isClient &&
+                `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
+            </div>
+            <LinkArrow
+              direction="right"
+              size={'sm'}
+              className="button-text-s uppercase text-neutral-off-black"
+              onClick={() => {
+                dailyChallengeInstance.current?.open();
+              }}
+            >
+              claim rewards
+            </LinkArrow>
           </>
         )}
       </div>
