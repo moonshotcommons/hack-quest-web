@@ -2,17 +2,16 @@ import React, { useMemo, useState } from 'react';
 import { distributionTabData, variousChartTypeData } from '../../../../../constants/data';
 import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { SourceEchartPie, SourceEchartBar } from '../DistributionEcharts';
-import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import webApi from '@/service';
 import { DistributionDataType, DistributionType } from '@/service/webApi/resourceStation/type';
 import Loading from '@/components/Common/Loading';
 import { DistributionTab } from '../../../../../constants/type';
 
-interface VariousProp {}
+interface VariousProp {
+  distributionData: DistributionDataType;
+  isLoading: boolean;
+}
 
-const Various: React.FC<VariousProp> = () => {
-  const { alias } = useParams();
+const Various: React.FC<VariousProp> = ({ distributionData, isLoading }) => {
   const [variousData, setVariousData] = useState(
     distributionTabData.map((v) => ({
       ...v,
@@ -20,11 +19,6 @@ const Various: React.FC<VariousProp> = () => {
       typeIndex: 0
     }))
   );
-
-  const { data: distributionData, isLoading } = useQuery<DistributionDataType>({
-    queryKey: ['get-distribution'],
-    queryFn: () => webApi.resourceStationApi.getUtmDistribution(alias as string)
-  });
 
   const tabDataTotal = useMemo(() => {
     const total = {} as { [key in DistributionTab]: number };

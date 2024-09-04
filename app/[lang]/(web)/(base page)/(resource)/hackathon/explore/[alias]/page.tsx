@@ -35,7 +35,7 @@ const HackathonId: FC<HackathonIdProps> = async function ({ params, searchParams
   const utm = searchParams.utm || '';
   const param = utm
     ? {
-        utm
+        utmSource: utm
       }
     : {};
   const hackathon = await getHackathonDetailById(params.alias, param);

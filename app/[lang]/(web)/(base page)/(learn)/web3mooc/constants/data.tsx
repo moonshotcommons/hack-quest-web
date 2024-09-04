@@ -197,6 +197,15 @@ export const syllabusData = [
     expand: false
   },
   {
+    name: 'Scaling Ethereum: The Power of Parallel EVM Execution to Transform Blockchain Performance',
+    time: '9-10:30 AM SGT, September 10th 2024 / 9-10:30 PM EST, September 9th 2024',
+    description: `Join us for an in-depth exploration of the Ethereum Virtual Machine (EVM) and its evolution through parallel execution, a groundbreaking approach that promises to significantly enhance blockchain scalability. We’ll dive into the traditional EVM architecture and Ethereum’s state management before transitioning to parallel EVM execution, a hot topic that’s drawing significant attention and investment from industry leaders like Paradigm, which supports both Monad and Reddio. By leveraging Software Transactional Memory (STM) and optimistic concurrency control, parallel execution addresses scalability bottlenecks and transforms potential conflicts into performance enhancements. This session, led by Neil Han, CEO of Reddio, will provide valuable insights into how these advancements are poised to redefine the future of decentralized computing, making it a must-attend for developers, researchers, and blockchain enthusiasts looking to stay ahead in this rapidly evolving field.`,
+    speaker: 'Neil Shen, Founder of reddio',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
     name: 'Incentive Design and Tokenomics',
     time: '9-10:30 AM SGT, September 17th 2024 / 9-10:30 PM EST, September 16th 2024',
     description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
