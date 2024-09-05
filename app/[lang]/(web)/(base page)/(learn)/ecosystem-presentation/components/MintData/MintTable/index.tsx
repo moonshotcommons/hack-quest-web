@@ -34,7 +34,10 @@ const MintTable: React.FC<MintTableProp> = ({ tableList, loading }) => {
           <TableRow>
             {mintTableInformation.map((m) => (
               <TableHead key={m.value} className="min-w-[180px]">
-                <div>{m.label}</div>
+                <div>
+                  {m.label}
+                  {`${m.value === 'avatar' ? `(${tableList?.length})` : ''}`}
+                </div>
               </TableHead>
             ))}
           </TableRow>
