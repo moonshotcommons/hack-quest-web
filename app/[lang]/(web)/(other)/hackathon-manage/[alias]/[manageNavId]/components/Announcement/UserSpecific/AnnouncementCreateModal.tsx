@@ -20,7 +20,7 @@ import { Timezone } from '@/components/hackathon-org/common/timezone';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
 import dayjs from '@/components/Common/Dayjs';
 import { FormInput } from '@/components/Common/FormComponent';
-import { HackathonModeEnum, receivers } from './constants';
+import { HackathonModeEnum, receiversHybird, receiversOnline } from './constants';
 import webApi from '@/service';
 import Button from '@/components/Common/Button';
 
@@ -209,7 +209,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
       const defaultSelect = (form.getValues('receivers') || '').split(',') as ReceiverType[];
       setSelectReceivers(defaultSelect);
     }, 300);
-  }, [announcement, mode]);
+  }, [announcement, form, mode, timezone]);
 
   return (
     <Modal
@@ -291,6 +291,13 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
   );
 
   function Receivers() {
+    let receivers: Partial<Record<ReceiverType, string>> = receiversHybird;
+    if (hackathonMode === HackathonModeEnum.HYBRID) {
+      receivers = receiversHybird;
+    } else {
+      receivers = receiversOnline;
+    }
+
     return (
       <div className="flex w-full flex-col gap-3">
         <div className="">

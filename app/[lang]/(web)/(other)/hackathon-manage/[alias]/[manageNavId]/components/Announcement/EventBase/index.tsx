@@ -13,7 +13,6 @@ interface EventBaseProps {}
 const EventBase: FC<EventBaseProps> = (props) => {
   const hackathon = useHackathonManageStore((state) => state.hackathon);
   const { announcementsEvent } = useAnnouncementsEvent(HackathonAnnouncementType.HYBRID_HACKQUEST);
-  console.log('hack', hackathon);
 
   return (
     <div className="flex flex-col gap-4">
