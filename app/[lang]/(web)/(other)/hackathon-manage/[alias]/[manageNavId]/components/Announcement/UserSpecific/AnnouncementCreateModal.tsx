@@ -18,6 +18,7 @@ import { cn } from '@/helper/utils';
 import { Textarea } from '@/components/ui/textarea';
 import { Timezone } from '@/components/hackathon-org/common/timezone';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
+import dayjs from '@/components/Common/Dayjs';
 import { FormInput } from '@/components/Common/FormComponent';
 import { HackathonModeEnum, receivers } from './constants';
 import webApi from '@/service';
@@ -115,7 +116,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
       title: announcement.title,
       message: '',
       receivers: announcement.receivers,
-      plannedTime: announcement.plannedTime && new Date(announcement.plannedTime).toISOString().slice(0, 16),
+      plannedTime: announcement.plannedTime && dayjs(announcement.plannedTime).tz(dayjs.tz.guess()).format(),
       timezone: announcement.timezone || timezone
     }
   });
@@ -181,7 +182,8 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
       title: announcement.title,
       message: announcement.message,
       receivers: announcement.receivers,
-      plannedTime: announcement.plannedTime && new Date(announcement.plannedTime).toISOString().slice(0, 16),
+      plannedTime:
+        announcement.plannedTime && dayjs(announcement.plannedTime).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
       timezone: announcement.timezone || timezone
     };
 
@@ -471,7 +473,6 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
               defaultHtml={announcement.message}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
-                console.log(editor.getHtml());
 
                 form.setValue('message', text);
                 text && setMessage(editor.getHtml());
