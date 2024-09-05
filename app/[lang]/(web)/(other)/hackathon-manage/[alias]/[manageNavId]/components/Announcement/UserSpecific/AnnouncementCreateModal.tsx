@@ -19,7 +19,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Timezone } from '@/components/hackathon-org/common/timezone';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
 import { FormInput } from '@/components/Common/FormComponent';
-import { receivers } from './constants';
+import { HackathonModeEnum, receivers } from './constants';
 import webApi from '@/service';
 import Button from '@/components/Common/Button';
 
@@ -39,6 +39,7 @@ interface AnnouncementCreateModalProps {
     callback: () => Promise<any>,
     cancelCallback?: VoidFunction
   ) => void;
+  hackathonMode: HackathonModeEnum;
 }
 
 interface State {
@@ -93,7 +94,8 @@ const formSchema = z.object({
   })
 });
 
-const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId, onDelete, modalAction }) => {
+const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
+  const { hackathonId, onDelete, modalAction, hackathonMode } = props;
   const { announcement, setAnnouncement, setOpen } = useAnnouncementModal();
   const { open } = useAnnouncementModal();
 

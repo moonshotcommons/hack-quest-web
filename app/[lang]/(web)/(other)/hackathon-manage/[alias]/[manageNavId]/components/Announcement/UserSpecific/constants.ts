@@ -12,3 +12,8 @@ export const receivers = {
   [ReceiverType.SubmittedAndRewarded]: 'Submitted and rewarded',
   [ReceiverType.SubmittedButNonRewarded]: 'Submitted but non-rewarded'
 };
+
+export enum HackathonModeEnum {
+  ONLINE = 'ONLINE',
+  HYBRID = 'HYBRID'
+}

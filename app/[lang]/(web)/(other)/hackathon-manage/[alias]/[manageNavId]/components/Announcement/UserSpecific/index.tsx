@@ -11,11 +11,13 @@ import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import { Announcement } from '@/service/webApi/hackathon/types';
+import { HackathonModeEnum } from './constants';
 
 interface UserSpecificProps {}
 
 const UserSpecific: FC<UserSpecificProps> = (props) => {
   const hackathon = useHackathonManageStore((state) => state.hackathon);
+
   const { onCreate, onEdit } = useAnnouncementModal();
   const actionModal = useRef<ConfirmModalRef>(null);
   const [modalType, setModalType] = useState<'delete' | 'sendAfterDelete' | 'schedule' | 'sendNow' | 'closeAndSave'>();
@@ -246,6 +248,7 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
         hackathonId={hackathon.id}
         onDelete={deleteAnnouncementAction}
         modalAction={modalAction}
+        hackathonMode={hackathon.info?.mode as HackathonModeEnum}
       />
       <ConfirmModal ref={actionModal} className="sm:w-[50.5rem]" confirmText="yes">
         {['delete', 'sendAfterDelete'].includes(modalType!) && (

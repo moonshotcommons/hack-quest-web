@@ -6,7 +6,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 import dynamic from 'next/dynamic';
 import { useRef, useState } from 'react';
-import { AnnouncementEvent, PhaseEnum, TimelineStatus, Type2Title } from './constants';
+import { AnnouncementEvent, TimelineStatus, Type2Title } from './constants';
 import { TitleEnum, UpdateAnnouncementTemplateDto } from '@/service/webApi/hackathon/types';
 import { errorMessage } from '@/helper/ui';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
@@ -15,7 +15,6 @@ interface AnnouncementEditProps {
   title: AnnouncementEvent;
   queryParams: string;
   itemTimelineStatus: TimelineStatus;
-  phase: PhaseEnum;
   disable: boolean;
   isEdit: boolean;
 }
@@ -23,7 +22,7 @@ interface AnnouncementEditProps {
 interface AnnouncementEditItemProps {
   subTitle: TitleEnum;
   itemTimelineStatus: TimelineStatus;
-  receivers: number;
+  receiversCount: number;
   children: React.ReactElement;
 }
 
@@ -33,7 +32,7 @@ const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
 });
 
 const AnnouncementEditAndViewModal: React.FC<AnnouncementEditProps> = (props) => {
-  const { title, queryParams, itemTimelineStatus, phase, disable, isEdit } = props;
+  const { title, queryParams, itemTimelineStatus, disable, isEdit } = props;
   const hackathon = useHackathonManageStore((state) => state.hackathon);
 
   const [open, setOpen] = useState(false);
@@ -271,7 +270,7 @@ const AnnouncementEditAndViewModal: React.FC<AnnouncementEditProps> = (props) =>
                 <AnnouncementEditItem
                   subTitle={template.templateType}
                   itemTimelineStatus={itemTimelineStatus}
-                  receivers={template.receiversCount}
+                  receiversCount={template.receiversCount}
                 >
                   <TextEditor
                     onCreated={(editor) => {
@@ -297,7 +296,7 @@ const AnnouncementEditAndViewModal: React.FC<AnnouncementEditProps> = (props) =>
 };
 
 const AnnouncementEditItem = (props: AnnouncementEditItemProps) => {
-  const { subTitle, itemTimelineStatus, receivers, children } = props;
+  const { subTitle, itemTimelineStatus, receiversCount, children } = props;
   return (
     <div>
       <div className="flex justify-between">
@@ -324,7 +323,7 @@ const AnnouncementEditItem = (props: AnnouncementEditItemProps) => {
               'caption-12pt flex w-20 items-center justify-center rounded border-0 bg-neutral-off-white py-1 text-neutral-rich-gray'
             )}
           >
-            1,700
+            {receiversCount}
           </span>
         </div>
       </div>
@@ -332,7 +331,7 @@ const AnnouncementEditItem = (props: AnnouncementEditItemProps) => {
         <p className="body-s text-neutral-rich-gray">
           Message sent to applicants when their applications are approved*
         </p>
-        <p className="caption-12pt text-neutral-rich-gray">340/360</p>
+        {/* <p className="caption-12pt text-neutral-rich-gray">340/360</p> */}
       </div>
       {children}
     </div>

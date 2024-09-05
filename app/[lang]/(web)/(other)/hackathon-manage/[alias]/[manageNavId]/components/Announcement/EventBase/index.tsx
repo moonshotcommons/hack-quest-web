@@ -1,9 +1,8 @@
 'use client';
 import { FC } from 'react';
-import { AnnouncementsEvent, HackathonAnnouncementType, PhaseEnum, TimelineStatus } from './constants';
+import { HackathonAnnouncementType, TimelineStatus } from './constants';
 import { cn } from '@/helper/utils';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
-import { SimpleHackathonInfo } from '@/service/webApi/resourceStation/type';
 import AnnouncementEditAndViewModal from './AnnouncementEditAndViewModal';
 import useAnnouncementsEvent from './useAnnouncementsEvent';
 import { camelCase } from 'lodash-es';
@@ -14,25 +13,7 @@ interface EventBaseProps {}
 const EventBase: FC<EventBaseProps> = (props) => {
   const hackathon = useHackathonManageStore((state) => state.hackathon);
   const { announcementsEvent } = useAnnouncementsEvent(HackathonAnnouncementType.HYBRID_HACKQUEST);
-
-  const computedPhase = (announcementsEvent: typeof AnnouncementsEvent, timeline: SimpleHackathonInfo['timeline']) => {
-    //REGISTRATION&SUBMISSION阶段
-    if (announcementsEvent[1].timelineStatus(timeline) !== TimelineStatus.END) {
-      return PhaseEnum.REGISTRATION_SUBMISSION;
-    }
-
-    // VOTING阶段
-    if (announcementsEvent[2].timelineStatus(timeline) !== TimelineStatus.END) {
-      return PhaseEnum.VOTING;
-    }
-
-    // BEFORE_WINNER阶段
-    if (announcementsEvent[3].timelineStatus(timeline) !== TimelineStatus.END) {
-      return PhaseEnum.BEFORE_WINNER;
-    }
-
-    return PhaseEnum.AFTER_WINNER;
-  };
+  console.log('hack', hackathon);
 
   return (
     <div className="flex flex-col gap-4">
@@ -88,7 +69,6 @@ const EventBase: FC<EventBaseProps> = (props) => {
                   title={event.title}
                   queryParams={JSON.stringify(event.templates.map((item) => camelCase(item.type).toUpperCase()))}
                   itemTimelineStatus={eventTimelineStatus}
-                  phase={computedPhase(AnnouncementsEvent, hackathon.timeline)}
                   disable={true}
                   isEdit={false}
                 />
@@ -101,7 +81,6 @@ const EventBase: FC<EventBaseProps> = (props) => {
                   title={event.title}
                   queryParams={JSON.stringify(event.templates.map((item) => camelCase(item.type).toUpperCase()))}
                   itemTimelineStatus={eventTimelineStatus}
-                  phase={computedPhase(AnnouncementsEvent, hackathon.timeline)}
                   disable={true}
                   isEdit={false}
                 />
