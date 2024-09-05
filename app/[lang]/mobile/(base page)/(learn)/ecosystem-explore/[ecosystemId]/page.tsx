@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import EcosystemDetail from './components';
-import { getEcosystemById } from '@/service/cach/learn/ecosystem';
+import { getEcosystemById, getEcosystemExploreById } from '@/service/cach/learn/ecosystem';
 import { getLevelsCached, getTaskCached } from '@/service/cach/ecosystems';
 
 interface EcosystemIdProps {
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: EcosystemIdProps): Promise<Me
 const EcosystemId: FC<EcosystemIdProps> = async function ({ params }: EcosystemIdProps) {
   const { lang, ecosystemId } = params;
   const [ecosystem, levels, task] = await Promise.all([
-    getEcosystemById(ecosystemId, { lang }),
+    getEcosystemExploreById(ecosystemId, { lang }),
     getLevelsCached({
       ecosystemId,
       lang
