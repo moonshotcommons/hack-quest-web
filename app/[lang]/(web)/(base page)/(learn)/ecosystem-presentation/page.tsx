@@ -34,8 +34,19 @@ export async function generateMetadata({ params }: SearchParamsType): Promise<Me
 
 const EcosystemPresentationPage: React.FC<SearchParamsType> = async ({ params, searchParams }) => {
   try {
-    const ecosystemData = await webApi.ecosystemApi.getEcosystemStatus(searchParams.ecosystemId);
-    return <EcosystemPresentation ecosystemId={searchParams.ecosystemId} ecosystemData={ecosystemData} />;
+    const [ecosystemData, ecosystemInfo] = await Promise.all([
+      webApi.ecosystemApi.getEcosystemStatus(searchParams.ecosystemId),
+      webApi.ecosystemApi.getEcosystemsDetailById(searchParams.ecosystemId as string, {
+        lang: params.lang
+      })
+    ]);
+    return (
+      <EcosystemPresentation
+        ecosystemId={searchParams.ecosystemId}
+        ecosystemData={ecosystemData}
+        ecosystemInfo={ecosystemInfo}
+      />
+    );
   } catch (error) {
     permanentRedirect(MenuLink.EXPLORE);
   }
