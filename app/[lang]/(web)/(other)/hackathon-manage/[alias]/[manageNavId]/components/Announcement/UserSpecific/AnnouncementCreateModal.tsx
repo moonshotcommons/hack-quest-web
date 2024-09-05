@@ -34,7 +34,7 @@ const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
 
 interface AnnouncementCreateModalProps {
   hackathonId: string;
-  onDelete: (data: Announcement) => void;
+  onDelete: (data: Announcement, callback?: Function) => void;
   modalAction: (
     type: 'schedule' | 'sendNow' | 'closeAndSave',
     callback: () => Promise<any>,
@@ -46,10 +46,12 @@ interface AnnouncementCreateModalProps {
 interface State {
   announcement: Announcement;
   open: boolean;
+  mode: 'Edit' | 'Create';
   onCreate: () => void;
   onEdit: (announcement: Announcement) => void;
   setOpen: (open: boolean) => void;
   setAnnouncement: (announcement: Announcement) => void;
+  setMode: (mode: 'Edit' | 'Create') => void;
 }
 
 const defaultState = (): Announcement => ({
@@ -70,14 +72,17 @@ const defaultState = (): Announcement => ({
 export const useAnnouncementModal = create<State>((set) => ({
   announcement: defaultState(),
   open: false,
-  onCreate: () => set({ open: true }),
+  mode: 'Create',
+  onCreate: () => set({ open: true, mode: 'Create' }),
   onEdit: (announcement) =>
     set({
       open: true,
-      announcement
+      announcement,
+      mode: 'Edit'
     }),
   setOpen: (open) => set({ open }),
-  setAnnouncement: (announcement) => set({ announcement })
+  setAnnouncement: (announcement) => set({ announcement }),
+  setMode: (mode) => set({ mode })
 }));
 
 const formSchema = z.object({
@@ -97,8 +102,7 @@ const formSchema = z.object({
 
 const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
   const { hackathonId, onDelete, modalAction, hackathonMode } = props;
-  const { announcement, setAnnouncement, setOpen } = useAnnouncementModal();
-  const { open } = useAnnouncementModal();
+  const { announcement, setAnnouncement, setOpen, open, mode } = useAnnouncementModal();
 
   const { data: timezone } = useQuery({
     staleTime: Infinity,
@@ -174,7 +178,6 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
     } else {
       modalAction(sendNow ? 'sendNow' : 'schedule', async () => createAnnouncementAsync(state));
     }
-    form.reset();
   };
 
   useEffect(() => {
@@ -187,7 +190,18 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
       timezone: announcement.timezone || timezone
     };
 
-    form.reset({ ...state, message: '' });
+    if (mode === 'Create') {
+      form.reset({
+        title: '',
+        message: '',
+        receivers: '',
+        plannedTime: '',
+        timezone: ''
+      });
+    } else {
+      form.reset({ ...state, message: '' });
+    }
+
     setAction('');
     setSendNow(announcement.rightNow);
 
@@ -195,7 +209,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
       const defaultSelect = (form.getValues('receivers') || '').split(',') as ReceiverType[];
       setSelectReceivers(defaultSelect);
     }, 300);
-  }, [announcement]);
+  }, [announcement, mode]);
 
   return (
     <Modal
@@ -470,7 +484,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
               }}
               // defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
               // defaultContent={transformTextToEditorValue(announcement.message)}
-              defaultHtml={announcement.message}
+              defaultHtml={mode === 'Create' ? '' : announcement.message}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
 
@@ -515,7 +529,15 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
           />
         </div>
         {announcement.id && (
-          <div className="flex w-fit items-center gap-2" onClick={() => onDelete(announcement)}>
+          <div
+            className="flex w-fit items-center gap-2"
+            onClick={() =>
+              onDelete(announcement, () => {
+                setOpen(false);
+                form.reset();
+              })
+            }
+          >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"

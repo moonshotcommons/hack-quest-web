@@ -42,11 +42,18 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
     }
   });
 
-  const deleteAnnouncementAction = (announcement: Announcement) => {
+  const deleteAnnouncementAction = (announcement: Announcement, callback?: Function) => {
     announcement.status === 'publish' ? setModalType('sendAfterDelete') : setModalType('delete');
     actionModal.current?.open({
       onConfirm: async () => {
-        await deleteAnnouncementAsync(announcement.id!);
+        deleteAnnouncementAsync(announcement.id!)
+          .then(() => {
+            callback && callback();
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
         setTimeout(() => {
           setModalType(undefined);
         }, 300);
@@ -105,7 +112,7 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
               className={cn(
                 'flex h-[15.3125rem] flex-col gap-5 rounded-2xl border border-neutral-medium-gray bg-neutral-white p-5',
                 {
-                  'bg-neutral-off-white': announcement.status === 'publish'
+                  'border-neutral-light-gray bg-neutral-off-white': announcement.status === 'publish'
                 }
               )}
             >
