@@ -77,7 +77,7 @@ export interface LevelType {
   certification: CertificationType;
 }
 
-export interface ecosystemStatsType {
+export interface EcosystemStatsType {
   pageView: number;
   started: number;
 }
