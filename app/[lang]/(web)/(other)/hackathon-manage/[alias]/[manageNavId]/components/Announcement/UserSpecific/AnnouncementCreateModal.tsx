@@ -171,6 +171,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
     } else {
       modalAction(sendNow ? 'sendNow' : 'schedule', async () => createAnnouncementAsync(state));
     }
+    form.reset();
   };
 
   useEffect(() => {
@@ -468,6 +469,8 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
               defaultHtml={announcement.message}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
+                console.log(editor.getHtml());
+
                 form.setValue('message', text);
                 text && setMessage(editor.getHtml());
               }}
