@@ -25,6 +25,24 @@ const getTimelineStatus = (startTimeUtc: string, endTimeUtc: string) => {
   return TimelineStatus.END;
 };
 
+const getRewardTimeStatus = (startTimeUtc: string) => {
+  if (!startTimeUtc) {
+    return TimelineStatus.END;
+  }
+
+  const currentTimeZone = dayjs.tz.guess();
+  const starTime = dayjs.utc(startTimeUtc).tz(currentTimeZone);
+  const currentTime = dayjs().tz(currentTimeZone);
+
+  const isBefore = currentTime.isBefore(starTime);
+
+  if (isBefore) {
+    return TimelineStatus.UPCOMING;
+  }
+
+  return TimelineStatus.END;
+};
+
 const reTemplate = {
   type: AnnouncementEvent.Registration,
   title: AnnouncementEvent.Registration,
@@ -108,17 +126,17 @@ const votingTemplate = {
   type: AnnouncementEvent.Voting,
   title: AnnouncementEvent.Voting,
   timelineStatus: (timeline: SimpleHackathonInfo['timeline']) =>
-    getTimelineStatus(timeline?.submissionClose, '2024-09-08T20:01:57.129000 +00:00'),
+    getTimelineStatus(timeline?.submissionClose, timeline?.rewardTime),
   templates: [
     {
       type: 'Start',
       timelineStatus: (timeline: SimpleHackathonInfo['timeline']) =>
-        getTimelineStatus(timeline?.submissionClose, '2024-09-08T20:01:57.129000 +00:00')
+        getTimelineStatus(timeline?.submissionClose, timeline?.rewardTime)
     },
     {
       type: 'End',
       timelineStatus: (timeline: SimpleHackathonInfo['timeline']) =>
-        getTimelineStatus(timeline?.submissionClose, '2024-09-08T20:01:57.129000 +00:00')
+        getTimelineStatus(timeline?.submissionClose, timeline?.rewardTime)
     }
   ]
 };
@@ -126,15 +144,15 @@ const votingTemplate = {
 const rewardTemplate = {
   type: AnnouncementEvent.Reward,
   title: AnnouncementEvent.Reward,
-  timelineStatus: (timeline: SimpleHackathonInfo['timeline']) => TimelineStatus.UPCOMING,
+  timelineStatus: (timeline: SimpleHackathonInfo['timeline']) => getRewardTimeStatus(timeline?.rewardTime),
   templates: [
     {
       type: 'Reward',
-      timelineStatus: (timeline: SimpleHackathonInfo['timeline']) => TimelineStatus.ACTIVE
+      timelineStatus: (timeline: SimpleHackathonInfo['timeline']) => getRewardTimeStatus(timeline?.rewardTime)
     },
     {
       type: 'Non-Reward',
-      timelineStatus: (timeline: SimpleHackathonInfo['timeline']) => TimelineStatus.UPCOMING
+      timelineStatus: (timeline: SimpleHackathonInfo['timeline']) => getRewardTimeStatus(timeline?.rewardTime)
     }
   ]
 };

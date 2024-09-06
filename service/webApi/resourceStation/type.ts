@@ -601,6 +601,7 @@ export interface SimpleHackathonInfo {
   createdAt: Date;
   updatedAt: Date;
   info: {
+    mode: 'HYBRID' | 'ONLINE';
     allowSubmission: boolean;
     image: string;
     description: any;
@@ -631,7 +632,6 @@ export interface SimpleHackathonInfo {
     registrationClose: string;
     submissionOpen: string;
     submissionClose: string;
-    votingClose: string;
     reviewTimeEnd: string;
     rewardTime: string;
   };
