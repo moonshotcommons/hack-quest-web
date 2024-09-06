@@ -6,6 +6,7 @@ import { MintCertificateModal } from './components/mint-certificate-modal';
 import { UsernameModal } from './components/username-modal';
 import { MyCertificateCard } from './components/my-certificate-card';
 import DayStreak from '../../(reward)/mission-center/components/DayStreak';
+import DailyChallenge from './components/DailyChallenge';
 
 export default function DashboardLayout({
   children
@@ -24,7 +25,7 @@ export default function DashboardLayout({
             <DayStreak link className="bg-neutral-white p-4" />
             {/* <HackathonCard /> */}
             <MyCertificateCard />
-            {/* <DailyChallenge /> */}
+            <DailyChallenge />
             <FollowDiscord />
           </div>
         </React.Suspense>

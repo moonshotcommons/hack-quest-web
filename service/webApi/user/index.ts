@@ -395,6 +395,10 @@ class UserApi {
     });
   }
 
+  claimDailyChallengeReward() {
+    return this.service.get<{ coin: number; exp: number }>('/daily-challenge/claim');
+  }
+
   uploadResume(formData: FormData) {
     return this.service.post<void>(UserApiType.UploadResume, {
       data: formData,

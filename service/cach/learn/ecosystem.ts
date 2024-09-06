@@ -4,8 +4,10 @@ import { cookies } from 'next/headers';
 import { cache } from 'react';
 
 export const getEcosystemById = cache(function (id: string, params: object): Promise<EcosystemDetailType> {
-  const token = cookies().get('token')?.value || '';
-  return webApi.ecosystemApi.getEcosystemsExploreDetailById(id as string, params, token as string);
+  return webApi.ecosystemApi.getEcosystemsDetailById(id as string, params);
+});
+export const getEcosystemExploreById = cache(function (id: string, params: object): Promise<EcosystemDetailType> {
+  return webApi.ecosystemApi.getEcosystemsExploreDetailById(id as string, params);
 });
 
 export const getActiveEcosystemCached = cache(async () => {

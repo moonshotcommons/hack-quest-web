@@ -9,7 +9,7 @@ export const getEcosystemsCached = cache(async (params: Record<string, any>) => 
 
 export const getEcosystemCached = cache(async (params: Record<string, any>) => {
   const token = cookies().get('token')?.value || '';
-  return webApi.ecosystemApi.getEcosystemsDetailById(params.ecosystemId, params, token);
+  return webApi.ecosystemApi.getEcosystemsDetailById(params.ecosystemId, params);
 });
 
 export const getLevelsCached = cache(async (params: Record<string, any>) => {
