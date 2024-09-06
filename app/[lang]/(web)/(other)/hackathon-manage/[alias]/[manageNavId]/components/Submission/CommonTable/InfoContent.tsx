@@ -7,6 +7,8 @@ import { ProjectType } from '@/service/webApi/resourceStation/type';
 import { insertAsterisk } from '@/helper/utils';
 import TeamCard from '../TeamCard';
 import Button from '@/components/Common/Button';
+import { createEditor } from '@wangeditor/editor';
+import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 
 interface InfoContentProp {
   info: ProjectType;
@@ -158,7 +160,18 @@ const InfoContent: React.FC<InfoContentProp> = ({ info, onClose, handleDown }) =
                   </div>
                   <div>
                     <p className="text-neutral-medium-gray">Detailed Intro of Your Project </p>
-                    <div className="whitespace-pre-line text-neutral-rich-gray">{info.detail?.detailedIntro}</div>
+                    {(info.detail?.detailedIntro as any)?.type === TEXT_EDITOR_TYPE ? (
+                      <div
+                        className={`reset-editor-style whitespace-pre-line`}
+                        dangerouslySetInnerHTML={{
+                          __html: createEditor({
+                            content: structuredClone((info.detail?.detailedIntro as any)?.content) || []
+                          }).getHtml()
+                        }}
+                      ></div>
+                    ) : (
+                      <div className="whitespace-pre-line text-neutral-rich-gray">{info.detail?.detailedIntro}</div>
+                    )}
                   </div>
                   <div>
                     <p className="text-neutral-medium-gray">Team Background </p>
