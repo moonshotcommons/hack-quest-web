@@ -17,6 +17,7 @@ import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { InfoIcon } from 'lucide-react';
+import dayjs from 'dayjs';
 
 const formSchema = z
   .object({
@@ -294,11 +295,11 @@ export function TimelineForm({
       form.reset({
         openReviewSame: initialValues?.timeline?.openReviewSame?.toString(),
         timeZone: initialValues?.timeline?.timeZone,
-        registrationOpen: new Date(initialValues?.timeline?.registrationOpen).toISOString().slice(0, 16),
-        registrationClose: new Date(initialValues?.timeline?.registrationClose).toISOString().slice(0, 16),
-        submissionOpen: new Date(initialValues?.timeline?.submissionOpen).toISOString().slice(0, 16),
-        submissionClose: new Date(initialValues?.timeline?.submissionClose).toISOString().slice(0, 16),
-        rewardTime: new Date(initialValues?.timeline?.rewardTime).toISOString().slice(0, 16)
+        registrationOpen: dayjs(initialValues?.timeline?.registrationOpen).format('YYYY-MM-DDTHH:mm'),
+        registrationClose: dayjs(initialValues?.timeline?.registrationClose).format('YYYY-MM-DDTHH:mm'),
+        submissionOpen: dayjs(initialValues?.timeline?.submissionOpen).format('YYYY-MM-DDTHH:mm'),
+        submissionClose: dayjs(initialValues?.timeline?.submissionClose).format('YYYY-MM-DDTHH:mm'),
+        rewardTime: dayjs(initialValues?.timeline?.rewardTime).format('YYYY-MM-DDTHH:mm')
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
