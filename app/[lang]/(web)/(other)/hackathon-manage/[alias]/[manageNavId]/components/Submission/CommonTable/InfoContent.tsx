@@ -158,7 +158,12 @@ const InfoContent: React.FC<InfoContentProp> = ({ info, onClose, handleDown }) =
                   </div>
                   <div>
                     <p className="text-neutral-medium-gray">Detailed Intro of Your Project </p>
-                    <div className="whitespace-pre-line text-neutral-rich-gray">{info.detail?.detailedIntro}</div>
+                    <div
+                      className={`reset-editor-style whitespace-pre-line`}
+                      dangerouslySetInnerHTML={{
+                        __html: info.detail?.detailedIntro || ''
+                      }}
+                    ></div>
                   </div>
                   <div>
                     <p className="text-neutral-medium-gray">Team Background </p>

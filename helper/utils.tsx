@@ -408,6 +408,7 @@ export const insertAsterisk = ({
   start: number;
   end?: number;
 }) => {
+  if (!str) return '';
   end = end || start;
   // 确保 start 和 end 在有效范围内
   if (start < 0 || end > str.length || start + end > str.length) {
