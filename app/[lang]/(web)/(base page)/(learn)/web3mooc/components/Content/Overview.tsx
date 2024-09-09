@@ -6,7 +6,7 @@ import OverviewCover from '@/public/images/learn/overview_cover.png';
 import NtuLogoText from '@/public/images/learn/ntu_logo_text.png';
 import HackLogo from '@/public/images/learn/hack_logo.png';
 import Image from 'next/image';
-import { NTU_ZOOM_LINK, overviewData } from '../../constants/data';
+import { NTU_ZOOM_LINK, overviewData, WEB3_DEV_HUDDLE_LINK } from '../../constants/data';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
@@ -85,6 +85,16 @@ const Overview: React.FC<OverviewProp> = () => {
           </div>
         </div>
         <div className="body-s">
+          <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.overview.web3DevHuddle')}</p>
+          <div className="flex items-center gap-[20px]">
+            <Link href={WEB3_DEV_HUDDLE_LINK} target="_blank">
+              <span className="text-neutral-off-black underline">
+                {t('ntuCourse.overview.web3DevHuddle')}：Educate & Buidl
+              </span>
+            </Link>
+          </div>
+        </div>
+        <div className="body-s">
           <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.overview.discussionGroups')}</p>
           <div className="flex items-center gap-[40px]">
             {overviewData.discussionGroups.map((v) => (
@@ -111,7 +121,7 @@ const Overview: React.FC<OverviewProp> = () => {
           >
             <Button
               type="primary"
-              className="button-text-l h-[60px] w-full uppercase text-neutral-off-black"
+              className="button-text-m h-[48px] w-full uppercase text-neutral-off-black"
               disabled={loading}
               loading={loading}
               onClick={(e) => {
