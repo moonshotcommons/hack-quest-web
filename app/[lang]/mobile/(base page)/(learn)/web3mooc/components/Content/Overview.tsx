@@ -8,7 +8,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 import Button from '@/components/Common/Button';
-import { NTU_ZOOM_LINK, overviewData } from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
+import {
+  NTU_ZOOM_LINK,
+  overviewData,
+  WEB3_DEV_HUDDLE_LINK
+} from '@/app/[lang]/(web)/(base page)/(learn)/web3mooc/constants/data';
 import { useTranslation } from '@/i18n/client';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import webApi from '@/service';
@@ -84,6 +88,16 @@ const Overview: React.FC<OverviewProp> = ({ lang }) => {
             <div className="flex items-center gap-[.125rem]">
               <Image src={NtuLogoText} width={148} alt="htu_logo" />
             </div>
+          </div>
+        </div>
+        <div className="body-s">
+          <p className="mb-[0px] text-neutral-medium-gray">{t('ntuCourse.overview.web3DevHuddle')}</p>
+          <div className="flex items-center gap-[20px]">
+            <Link href={WEB3_DEV_HUDDLE_LINK} target="_blank">
+              <span className="text-neutral-off-black underline">
+                {t('ntuCourse.overview.web3DevHuddle')}：Educate & Buidl
+              </span>
+            </Link>
           </div>
         </div>
         <div className="body-s">

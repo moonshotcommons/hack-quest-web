@@ -26,6 +26,7 @@ import { FaDiscord, FaTelegram } from 'react-icons/fa6';
 import { HACKQUEST_DISCORD, HACKQUEST_TELEGRAM } from '@/constants/links';
 
 export const NTU_ZOOM_LINK = 'https://us06web.zoom.us/j/88229430213?pwd=64vJLXtSamETF4GvBGhVcMaZwDx28J.1';
+export const WEB3_DEV_HUDDLE_LINK = 'https://lu.ma/8ag52p62';
 
 export const titleTxtData = [
   'ntuCourse.title.overview',
@@ -200,7 +201,7 @@ export const syllabusData = [
     name: 'Scaling Ethereum: The Power of Parallel EVM Execution to Transform Blockchain Performance',
     time: '9-10:30 AM SGT, September 10th 2024 / 9-10:30 PM EST, September 9th 2024',
     description: `Join us for an in-depth exploration of the Ethereum Virtual Machine (EVM) and its evolution through parallel execution, a groundbreaking approach that promises to significantly enhance blockchain scalability. We’ll dive into the traditional EVM architecture and Ethereum’s state management before transitioning to parallel EVM execution, a hot topic that’s drawing significant attention and investment from industry leaders like Paradigm, which supports both Monad and Reddio. By leveraging Software Transactional Memory (STM) and optimistic concurrency control, parallel execution addresses scalability bottlenecks and transforms potential conflicts into performance enhancements. This session, led by Neil Han, CEO of Reddio, will provide valuable insights into how these advancements are poised to redefine the future of decentralized computing, making it a must-attend for developers, researchers, and blockchain enthusiasts looking to stay ahead in this rapidly evolving field.`,
-    speaker: 'Neil Shen, Founder of reddio',
+    speaker: 'Neil Han, Founder of reddio',
     video: '',
     slide: '',
     expand: false
