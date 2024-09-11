@@ -87,8 +87,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
-
-    if (stepIndex < 1) {
+    if (stepIndex === 0) {
       if (!hackathon.participation?.isRegister) {
         const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
         return (
@@ -96,8 +95,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             {buttonText}
           </Button>
         );
-      }
-      if (hackathon.participation?.isRegister) {
+      } else {
         if (
           (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
           hackathon.participation?.joinState !== ApplicationStatus.APPROVED
@@ -115,31 +113,49 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             </Button>
           );
         }
-        if (!hackathon.participation.isSubmit) {
-          return !hackathon.participation.project?.id ? (
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={() => handleSubmit('-1')}
-            >
-              {t('submitNow')}
+      }
+    }
+    if (stepIndex === 1) {
+      if (hackathon.participation?.isRegister) {
+        return (
+          <Button
+            type="primary"
+            disabled
+            className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+          >
+            <div>
+              <p className="button-text-l uppercase">Pending</p>
+              <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+            </div>
+          </Button>
+        );
+      }
+    }
+    if (stepIndex === 2) {
+      if (!hackathon?.participation?.isSubmit) {
+        return !hackathon?.participation?.project?.id ? (
+          <Button
+            className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+            onClick={() => handleSubmit('-1')}
+          >
+            {t('submitNow')}
+          </Button>
+        ) : (
+          <Button
+            className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+            onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
+          >
+            {t('continueSubmission')}
+          </Button>
+        );
+      } else {
+        return (
+          <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
+            <Button type="primary" className="button-text-l h-[60px] w-full  uppercase text-neutral-black">
+              {t('hackathonDetail.editSubmission')}
             </Button>
-          ) : (
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
-            >
-              {t('continueSubmission')}
-            </Button>
-          );
-        } else {
-          return (
-            <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
-              <Button type="primary" className="button-text-l h-[60px] w-full  uppercase text-neutral-black">
-                {t('hackathonDetail.editSubmission')}
-              </Button>
-            </Link>
-          );
-        }
+          </Link>
+        );
       }
     }
     return (
@@ -223,12 +239,17 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           <p className="text-neutral-rich-gray">{hackathon.info?.intro}</p>
         </div>
         {statusRender()}
-        {stepIndex < 1 && (
+        {stepIndex <= 0 ? (
           <div>
-            <div className="body-m mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</div>
+            <div className="body-m mb-[.25rem] text-neutral-medium-gray">{'Registration Closes In'}</div>
+            <CountDown time={hackathon.timeline?.registrationClose} />
+          </div>
+        ) : stepIndex < 2 ? (
+          <div>
+            <div className="body-m mb-[.25rem] text-neutral-medium-gray">{'Submission Closes In'}</div>
             <CountDown time={hackathon.timeline?.submissionClose} />
           </div>
-        )}
+        ) : null}
         <div className="flex gap-[40px]">
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</p>

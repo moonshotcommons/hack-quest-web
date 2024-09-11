@@ -91,7 +91,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
-    if (stepIndex < 1) {
+    if (stepIndex === 0) {
       if (!hackathon.participation?.isRegister) {
         const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
         return (
@@ -99,8 +99,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
             {buttonText}
           </Button>
         );
-      }
-      if (hackathon.participation?.isRegister) {
+      } else {
         if (
           (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
           hackathon.participation?.joinState !== ApplicationStatus.APPROVED
@@ -117,29 +116,43 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
             </Button>
           );
         }
-        if (!hackathon.participation.isSubmit) {
-          return !hackathon.participation.project?.id ? (
-            <Button
-              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-              onClick={() => setTipsModalOpenState(true)}
-            >
-              {t('submitNow')}
-            </Button>
-          ) : (
-            <Button
-              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-              onClick={() => setTipsModalOpenState(true)}
-            >
-              {t('continueSubmission')}
-            </Button>
-          );
-        } else {
-          return (
-            <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
-              {t('youHavesubmitted')}
-            </Button>
-          );
-        }
+      }
+    }
+    if (stepIndex === 1) {
+      if (hackathon.participation?.isRegister) {
+        return (
+          <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+            <div>
+              <p className="button-text-m uppercase">Pending</p>
+              <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+            </div>
+          </Button>
+        );
+      }
+    }
+    if (stepIndex === 2) {
+      if (!hackathon?.participation?.isSubmit) {
+        return !hackathon?.participation?.project?.id ? (
+          <Button
+            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+            onClick={() => setTipsModalOpenState(true)}
+          >
+            {t('submitNow')}
+          </Button>
+        ) : (
+          <Button
+            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+            onClick={() => setTipsModalOpenState(true)}
+          >
+            {t('continueSubmission')}
+          </Button>
+        );
+      } else {
+        return (
+          <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+            {t('youHavesubmitted')}
+          </Button>
+        );
       }
     }
     return (
@@ -228,12 +241,17 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
           <p className="text-neutral-rich-gray">{hackathon.info?.intro}</p>
         </div>
         {statusRender()}
-        {stepIndex < 1 && (
+        {stepIndex <= 0 ? (
           <div>
-            <div className="body-s mb-[.25rem] text-neutral-medium-gray ">{t('submissionClosesIn')}</div>
+            <div className="body-s mb-[.25rem] text-neutral-medium-gray ">{'Registration Closes In'}</div>
             <CountDown time={hackathon.timeline?.submissionClose} countItemClassName="bg-neutral-white" />
           </div>
-        )}
+        ) : stepIndex < 2 ? (
+          <div>
+            <div className="body-s mb-[.25rem] text-neutral-medium-gray ">{'Submission Closes In'}</div>
+            <CountDown time={hackathon.timeline?.submissionClose} countItemClassName="bg-neutral-white" />
+          </div>
+        ) : null}
         <div>
           <p className="text-neutral-medium-gray">{t('hackathonDetail.hostBy')}</p>
           <p>{hackathon.info?.host}</p>

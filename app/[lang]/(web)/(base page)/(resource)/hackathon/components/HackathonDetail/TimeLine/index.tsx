@@ -20,7 +20,16 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
   const { getStepIndex, getHackathonTimeSame } = useDealHackathonData();
   const isSame = getHackathonTimeSame(hackathon);
   const stepIndex = getStepIndex(hackathon);
-
+  const getIsActive = (index: number) => {
+    switch (index) {
+      case 0:
+        return stepIndex >= 0;
+      case 1:
+        return stepIndex > 1;
+      default:
+        return stepIndex > 2;
+    }
+  };
   return (
     <EditBox title={'hackathonDetail.timeline'} type={HackathonEditModalType.TIMELINE}>
       <div className="relative flex items-center justify-between ">
@@ -28,17 +37,17 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
           className={`absolute bottom-[16px] left-[151px] h-[3px] w-[calc((100%-404px)/2)] rounded-[100px]  ${stepIndex > 0 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'}`}
         ></div>
         <div
-          className={`absolute bottom-[16px] right-[151px] h-[3px] w-[calc((100%-404px)/2)] rounded-[100px] ${stepIndex > 1 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'}`}
+          className={`absolute bottom-[16px] right-[151px] h-[3px] w-[calc((100%-404px)/2)] rounded-[100px] ${stepIndex > 2 ? 'bg-yellow-primary' : 'bg-neutral-light-gray'}`}
         ></div>
         {hackathonDetailTimeLine.map((v, i) => (
           <div className="flex w-[200px] flex-col items-center" key={v.key}>
             {isSame ? (
               <>
-                <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
+                <p className={`body-l-bold ${getIsActive(i) ? 'text-neutral-black' : 'text-neutral-medium-gray'}`}>
                   {t(`hackathonDetail.${v.key}Time`)}
                 </p>
                 <div className="mt-[4px] flex h-[44px] flex-col justify-center">
-                  <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                  <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
                     {dayjs(hackathon?.timeline?.[v.time[i === 1 ? 1 : 0] as HackathonTimeLineKeyType])
                       .tz()
                       .format('MMM D,YYYY H:mm')}
@@ -48,18 +57,18 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
               </>
             ) : (
               <>
-                <p className={`body-l-bold ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-black'}`}>
+                <p className={`body-l-bold ${getIsActive(i) ? 'text-neutral-black' : 'text-neutral-medium-gray'}`}>
                   {t(`hackathonDetail.${v.key}`)}
                 </p>
                 <div className="mt-[4px] flex h-[44px] flex-col justify-center">
-                  <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                  <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
                     {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
                       .tz()
                       .format('MMM D,YYYY H:mm')}
                     (GMT+8)
                   </p>
                   {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] && (
-                    <p className={`body-s ${i > stepIndex ? 'text-neutral-medium-gray' : 'text-neutral-off-black'}`}>
+                    <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
                       {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
                         .tz()
                         .format('MMM D,YYYY H:mm')}
@@ -74,7 +83,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
               className={`flex-center mt-[10px] h-[34px] w-[34px] rounded-[50%] border border-dashed  ${i === stepIndex ? 'border-neutral-rich-gray' : 'border-transparent'}`}
             >
               <div
-                className={`h-[24px] w-[24px] rounded-[50%] border  ${i > stepIndex ? 'border-neutral-medium-gray bg-neutral-off-white' : 'border-yellow-primary  bg-yellow-primary'}`}
+                className={`h-[24px] w-[24px] rounded-[50%] border  ${getIsActive(i) ? 'border-yellow-primary  bg-yellow-primary' : 'border-neutral-medium-gray bg-neutral-off-white'}`}
               ></div>
             </div>
           </div>

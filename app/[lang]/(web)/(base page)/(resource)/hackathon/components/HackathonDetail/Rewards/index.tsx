@@ -16,7 +16,7 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
   const { isEdit } = useContext(HackathonEditContext);
   const stepIndex = getStepIndex(hackathon);
   const { data: rewards = [] } = useQuery({
-    enabled: stepIndex === 2 && !isEdit,
+    enabled: stepIndex === 4 && !isEdit,
     queryKey: ['hackathon-winner', stepIndex, isEdit],
     queryFn: () => webApi.resourceStationApi.getHackathonRewards(hackathon.id)
   });
