@@ -364,7 +364,15 @@ export const exportToXlsx = (data: Record<string, any>[], name = '未命名') =>
 };
 
 export const exportToCsv = (data: Record<string, any>[], name = '未命名') => {
-  stringify(data, { header: true }, (err, output) => {
+  const columns: string[] = [];
+  data.forEach((item) => {
+    for (let key in item) {
+      if (!~columns.indexOf(key)) {
+        columns.push(key);
+      }
+    }
+  });
+  stringify(data, { header: true, columns }, (err, output) => {
     if (err) {
       toast.error(err.message);
       return;
