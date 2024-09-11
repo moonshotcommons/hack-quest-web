@@ -18,7 +18,7 @@ interface AuditTableProp {
   tableList: HackathonManageApplicationType[];
   checkIds: string[];
   changeTeamIds: (id: string) => void;
-  handleStautusSingle: (team: any, sta: ApplicationStatus) => void;
+  handleStatusSingle: (team: any, sta: ApplicationStatus) => void;
   teamIds: string[];
   handleCheck: (item: HackathonManageApplicationType) => void;
   tabStatus: ApplicationStatus;
@@ -34,7 +34,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
   tableList,
   checkIds,
   changeTeamIds,
-  handleStautusSingle,
+  handleStatusSingle,
   handleCheck,
   teamIds,
   tabStatus,
@@ -151,15 +151,13 @@ const AuditTable: React.FC<AuditTableProp> = ({
                               <TableCell className="w-[15.625rem]">
                                 {!item.pId && (
                                   <div className="flex gap-[24px] underline [&>div]:cursor-pointer">
-                                    <div onClick={() => handleStautusSingle(item, ApplicationStatus.APPROVED)}>
+                                    <div onClick={() => handleStatusSingle(item, ApplicationStatus.APPROVED)}>
                                       Approve
                                     </div>
-                                    <div onClick={() => handleStautusSingle(item, ApplicationStatus.DECLINE)}>
+                                    <div onClick={() => handleStatusSingle(item, ApplicationStatus.DECLINE)}>
                                       Decline
                                     </div>
-                                    <div onClick={() => handleStautusSingle(item, ApplicationStatus.WAIT)}>
-                                      Waitlist
-                                    </div>
+                                    <div onClick={() => handleStatusSingle(item, ApplicationStatus.WAIT)}>Waitlist</div>
                                   </div>
                                 )}
                               </TableCell>
@@ -173,7 +171,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                                       <span>Approve</span>
                                       <span
                                         className="cursor-pointer text-neutral-medium-gray underline"
-                                        onClick={() => handleStautusSingle(item, ApplicationStatus.REVIEW)}
+                                        onClick={() => handleStatusSingle(item, ApplicationStatus.REVIEW)}
                                       >
                                         Undo
                                       </span>
@@ -223,7 +221,7 @@ const AuditTable: React.FC<AuditTableProp> = ({
                                     </div>
                                     <span
                                       className="cursor-pointer text-neutral-medium-gray underline"
-                                      onClick={() => handleStautusSingle(item, ApplicationStatus.REVIEW)}
+                                      onClick={() => handleStatusSingle(item, ApplicationStatus.REVIEW)}
                                     >
                                       Undo
                                     </span>
@@ -241,14 +239,14 @@ const AuditTable: React.FC<AuditTableProp> = ({
                                       <span>Waitlisted</span>
                                     </div>
                                     <div className="flex gap-[16px] underline [&>div]:cursor-pointer">
-                                      <div onClick={() => handleStautusSingle(item, ApplicationStatus.APPROVED)}>
+                                      <div onClick={() => handleStatusSingle(item, ApplicationStatus.APPROVED)}>
                                         Approve
                                       </div>
-                                      <div onClick={() => handleStautusSingle(item, ApplicationStatus.DECLINE)}>
+                                      <div onClick={() => handleStatusSingle(item, ApplicationStatus.DECLINE)}>
                                         Decline
                                       </div>
                                       <div
-                                        onClick={() => handleStautusSingle(item, ApplicationStatus.REVIEW)}
+                                        onClick={() => handleStatusSingle(item, ApplicationStatus.REVIEW)}
                                         className="text-neutral-medium-gray"
                                       >
                                         Undo

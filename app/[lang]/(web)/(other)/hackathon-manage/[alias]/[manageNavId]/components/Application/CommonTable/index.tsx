@@ -18,8 +18,9 @@ import { errorMessage } from '@/helper/ui';
 import { message } from 'antd';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
-import { exportToExcel } from '@/helper/utils';
+import { exportToCsv, exportToXlsx } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import DownloadModal from '@/components/hackathon/download-modal';
 
 interface CommonTableProp {
   list: HackathonManageApplicationType[];
@@ -46,6 +47,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { getInfo, getStepIndex } = useDealHackathonData();
   const [infoList, setInfoList] = useState<HackathonManageApplicationType[]>([]);
+  const [downloadOpen, setDownloadOpen] = useState(false);
   const handleCheck = (item: HackathonManageApplicationType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -57,8 +59,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
     !checkAll ? setCheckItems(list) : setCheckItems([]);
   };
 
-  const handleDown = () => {
-    if (!checkItems.length) return;
+  const handleDownload = (type: 'csv' | 'xlsx') => {
     const applicationData: Record<string, any>[] = [];
     checkItems.forEach((v) => {
       if (v.type === 'team') {
@@ -70,7 +71,17 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
       }
     });
     const tabName = tabs.find((v) => v.value === tabStatus)?.label;
-    exportToExcel(applicationData, `${hackathon.name}-${tabName}-application`);
+    if (type === 'csv') {
+      exportToCsv(applicationData, `${hackathon.name}-${tabName}-application`);
+    } else {
+      exportToXlsx(applicationData, `${hackathon.name}-${tabName}-application`);
+    }
+    setDownloadOpen(false);
+  };
+
+  const handleDown = () => {
+    if (!checkItems.length) return;
+    setDownloadOpen(true);
   };
 
   const handleStatus = (sta: ApplicationStatus) => {
@@ -81,7 +92,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
     );
   };
 
-  const handleStautusSingle = (item: any, sta: ApplicationStatus) => {
+  const handleStatusSingle = (item: any, sta: ApplicationStatus) => {
+    console.info(item, sta);
     setStatus(sta);
     setCurInfo(item);
     setConfirmTxt(
@@ -166,7 +178,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
   }, [list]);
 
   const disableHandleButton = useMemo(() => {
-    return getStepIndex(hackathon as unknown as HackathonType) > 0;
+    return getStepIndex(hackathon as unknown as HackathonType) > -1;
   }, [hackathon, getStepIndex]);
   const showHandleButton = useMemo(() => {
     return hackathon?.info?.allowSubmission === false;
@@ -187,7 +199,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
         tableList={tableList}
         information={information}
         changeTeamIds={changeTeamIds}
-        handleStautusSingle={handleStautusSingle}
+        handleStatusSingle={handleStatusSingle}
         handleCheck={handleCheck}
         teamIds={teamIds}
         tabStatus={tabStatus}
@@ -218,11 +230,12 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
                 setCurInfo(null);
                 setCurId('');
               }}
-              handleStautusSingle={() => {}}
+              handleStatusSingle={handleStatusSingle}
             />
           ))
         }
       />
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} handleDownload={handleDownload} />
     </div>
   );
 };

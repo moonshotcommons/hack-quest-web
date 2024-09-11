@@ -12,6 +12,7 @@ import { hasPermission, ROLES } from './constants';
 import { HackathonPartner } from '@/app/[lang]/(web)/(other)/form/hackathon/[hackathonId]/submission/[projectId]/components/constants';
 import { useMutation } from '@tanstack/react-query';
 import webApi from '@/service';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 function PrimaryButton({
   outline,
@@ -55,6 +56,8 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
   const manageTeamModal = useManageTeamModal();
   const withdrawModal = useWithdrawModal();
   const { setTipsModalOpenState } = useGlobalStore();
+  const { getStepIndex } = useDealHackathonData();
+  const stepIndex = getStepIndex(hackathon);
 
   const { participation } = hackathon;
   const isSubmitted = participation?.isSubmit;
@@ -152,7 +155,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
         </PrimaryButton>
       )}
 
-      {hasPermission(role, status, 'pending') &&
+      {(hasPermission(role, status, 'pending') || (hackathon.participation?.isRegister && stepIndex === 1)) &&
         ![HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner) && (
           <PrimaryButton dsisabled>Pending</PrimaryButton>
         )}

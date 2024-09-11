@@ -12,11 +12,14 @@ import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { ManageTeamModal } from '@/components/hackathon/manage-team-modal';
+import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 
 export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const { redirectToUrl } = useRedirect();
+  const { getStepIndex } = useDealHackathonData();
+  const stepIndex = getStepIndex(hackathon);
   const [_, formattedRes] = useCountDown({
-    targetDate: hackathon?.timeline?.rewardTime
+    targetDate: stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon?.timeline?.submissionClose
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
@@ -55,7 +58,9 @@ export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
         </span>
         {!isEnded && (
           <div className="flex flex-col">
-            <h4 className="body-s text-neutral-medium-gray">Submission Close in</h4>
+            <h4 className="body-s text-neutral-medium-gray">
+              {stepIndex <= 0 ? 'Registration Close in' : 'Submission Close in'}
+            </h4>
             <ClientOnly>
               <div className="flex items-center">
                 <span className="body-m-bold rounded bg-neutral-off-white px-2 py-1 text-neutral-rich-gray">

@@ -13,6 +13,7 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
 import { FiDownload } from 'react-icons/fi';
 import { ImageWithFallback } from '../ImageWithFallback';
+import DownloadModal from '@/components/hackathon/download-modal';
 
 interface HackathonCardProps {
   hackathon: HackathonType;
@@ -26,9 +27,22 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
   const { getTotalPrize, hackathonDownload } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [loading, setLoading] = useState(false);
-
+  const [downloadOpen, setDownloadOpen] = useState(false);
   const isEnd = moment(hackathon.timeline?.rewardTime).isBefore(new Date());
-
+  const handleDownload = (type: 'csv' | 'xlsx') => {
+    if (loading) return;
+    setLoading(true);
+    hackathonDownload(
+      {
+        id: hackathon.id,
+        type
+      },
+      () => {
+        setDownloadOpen(false);
+        setLoading(false);
+      }
+    );
+  };
   return (
     <Link href={`${MenuLink.PROJECTS}/hackathons/${hackathon.alias}`}>
       <div className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white ">
@@ -80,11 +94,7 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (loading) return;
-                      setLoading(true);
-                      hackathonDownload(hackathon.id, () => {
-                        setLoading(false);
-                      });
+                      setDownloadOpen(true);
                     }}
                   >
                     <span className="">{t('hackathonDetail.registrationData')}</span>
@@ -105,6 +115,7 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
             </>
           )}
         </div>
+        <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} handleDownload={handleDownload} />
       </div>
     </Link>
   );

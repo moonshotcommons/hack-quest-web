@@ -18,7 +18,7 @@ import { cloneDeep } from 'lodash-es';
 interface InfoContentProp {
   info: HackathonManageApplicationType;
   onClose: VoidFunction;
-  handleStautusSingle: (item: HackathonManageApplicationType, sta: ApplicationStatus) => void;
+  handleStatusSingle: (item: HackathonManageApplicationType, sta: ApplicationStatus) => void;
   disableHandleButton: boolean;
   showHandleButton: boolean;
 }
@@ -26,7 +26,7 @@ interface InfoContentProp {
 const InfoContent: React.FC<InfoContentProp> = ({
   info: team,
   onClose,
-  handleStautusSingle,
+  handleStatusSingle,
   disableHandleButton,
   showHandleButton
 }) => {
@@ -141,7 +141,7 @@ const InfoContent: React.FC<InfoContentProp> = ({
 
   const handleStatus = (sta: ApplicationStatus) => {
     if (disableHandleButton) return;
-    handleStautusSingle(team, sta);
+    handleStatusSingle(team, sta);
   };
 
   const handleExpand = (type: string) => {

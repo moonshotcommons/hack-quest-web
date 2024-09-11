@@ -70,8 +70,6 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
       }
     }, 150);
   };
-  // const index = getStepIndex(hackathon);
-  const index = 1;
 
   const navList = useMemo(() => {
     return getHackathonNavList({
