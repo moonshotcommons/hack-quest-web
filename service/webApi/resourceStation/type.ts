@@ -601,6 +601,7 @@ export interface SimpleHackathonInfo {
   createdAt: Date;
   updatedAt: Date;
   info: {
+    mode: 'HYBRID' | 'ONLINE';
     allowSubmission: boolean;
     image: string;
     description: any;

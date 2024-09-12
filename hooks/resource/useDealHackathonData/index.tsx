@@ -10,7 +10,7 @@ import {
 import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
-import { exportToExcel, isUuid } from '@/helper/utils';
+import { exportToXlsx, isUuid } from '@/helper/utils';
 import { thirdPartyMedia } from '@/helper/thirdPartyMedia';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { useContext, useMemo } from 'react';
@@ -18,6 +18,7 @@ import {
   HackathonDetailContext,
   HackathonEditContext
 } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
+import { exportToCsv } from '../../../helper/utils';
 
 const useDealHackathonData = () => {
   const { navs: editNavs } = useContext(HackathonEditContext);
@@ -67,18 +68,35 @@ const useDealHackathonData = () => {
   };
 
   const getStepIndex = (hackathon: HackathonType) => {
+    //还未开始注册 -1
     if (dayjs().tz().isBefore(hackathon.timeline?.registrationOpen)) return -1;
+    // 开始注册 0
     if (
       dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
       dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
     )
       return 0;
+    // 注册结束但未开始提交 1
+    if (
+      dayjs().tz().isAfter(hackathon.timeline?.registrationClose) &&
+      dayjs().tz().isBefore(hackathon.timeline?.submissionOpen)
+    ) {
+      return 1;
+    }
+    // 开始提交 2
+    if (
+      dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
+      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+    )
+      return 2;
+    // 提交结束 开始投票 3
     if (
       dayjs().tz().isAfter(hackathon.timeline?.submissionClose) &&
       dayjs().tz().isBefore(hackathon.timeline?.rewardTime)
     )
-      return 1;
-    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) return 2;
+      return 3;
+    // 过期 4
+    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) return 4;
     return -1;
   };
 
@@ -244,7 +262,7 @@ const useDealHackathonData = () => {
     return info;
   };
 
-  const hackathonDownload = (id: string, cb: VoidFunction) => {
+  const hackathonDownload = ({ id, type }: { id: string; type: string }, cb: VoidFunction) => {
     webApi.resourceStationApi
       .getHackathonMember(id)
       .then((members) => {
@@ -255,7 +273,11 @@ const useDealHackathonData = () => {
             members?.data?.map((v) => {
               memberDatas.push(getInfo(hackathon, v));
             });
-            exportToExcel(memberDatas, `${hackathon.name} members`);
+            if (type === 'xlsx') {
+              exportToXlsx(memberDatas, `${hackathon.name} members`);
+            } else {
+              exportToCsv(memberDatas, `${hackathon.name} members`);
+            }
           })
           .finally(() => {
             cb();

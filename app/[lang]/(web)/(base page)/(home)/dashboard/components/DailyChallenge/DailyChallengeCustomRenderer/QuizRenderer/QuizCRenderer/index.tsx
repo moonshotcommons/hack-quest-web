@@ -117,10 +117,12 @@ const QuizCRenderer: FC<QuizCRendererProps> = (props) => {
                   'border-status-success-dark bg-status-success-light shadow-[0px_4px_0px_0px_#06884A]':
                     answers.includes(item.index) && answerState === AnswerState.Correct,
                   'border-neutral-medium-gray bg-neutral-off-white shadow-[0px_4px_0px_0px_#06884A]':
-                    showAnswer && !!quiz.answers.includes(item.index)
+                    showAnswer && !!quiz.answers.includes(item.index),
+                  'cursor-not-allowed': end
                 }
               )}
               onClick={() => {
+                if (end) return;
                 if (answerState !== AnswerState.Default) setAnswerState(AnswerState.Default);
                 if (quiz.answers.length > 1) {
                   if (answers.includes(item.index)) {

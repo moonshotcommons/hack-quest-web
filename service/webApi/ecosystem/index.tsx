@@ -1,7 +1,7 @@
 import WebService from '@/service/webService/webService';
 import {
   EcosystemDetailType,
-  ecosystemStatsType,
+  EcosystemStatsType,
   EcosystemTask,
   EcosystemType,
   ecosystemUserData,
@@ -44,16 +44,13 @@ class EcosystemApi {
     return this.service.get<EcosystemType[]>(`${EcosystemApiType.ECOSYSTEMS}/me`, { params });
   }
 
-  getEcosystemsDetailById(id: string, params: object, token: string) {
-    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}/explore`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  getEcosystemsDetailById(id: string, params: object) {
+    return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}`, {
+      params
     });
   }
 
-  getEcosystemsExploreDetailById(id: string, params: object, token: string) {
+  getEcosystemsExploreDetailById(id: string, params: object) {
     return this.service.get<EcosystemDetailType>(`${EcosystemApiType.ECOSYSTEMS}/${id}/explore`, {
       params
     });
@@ -117,7 +114,7 @@ class EcosystemApi {
   }
 
   getEcosystemStatus(ecosystemId: string) {
-    return this.service.get<ecosystemStatsType>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/stats`);
+    return this.service.get<EcosystemStatsType>(`${EcosystemApiType.ECOSYSTEMS}/${ecosystemId}/stats`);
   }
 
   getEcosystemUserData(ecosystemId: string, stats: string) {

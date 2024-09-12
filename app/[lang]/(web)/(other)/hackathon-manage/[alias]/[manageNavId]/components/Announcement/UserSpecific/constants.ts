@@ -1,6 +1,6 @@
 import { ReceiverType } from '@/service/webApi/hackathon/types';
 
-export const receivers = {
+export const receiversHybird = {
   [ReceiverType.AllApplicants]: 'All applicants',
   [ReceiverType.Approved]: 'Approved',
   [ReceiverType.Declined]: 'Declined',
@@ -12,3 +12,15 @@ export const receivers = {
   [ReceiverType.SubmittedAndRewarded]: 'Submitted and rewarded',
   [ReceiverType.SubmittedButNonRewarded]: 'Submitted but non-rewarded'
 };
+
+export const receiversOnline = {
+  [ReceiverType.AllApplicants]: 'All applicants',
+  [ReceiverType.Submitted]: 'Submitted',
+  [ReceiverType.SubmittedAndRewarded]: 'Submitted and rewarded',
+  [ReceiverType.SubmittedButNonRewarded]: 'Submitted but non-rewarded'
+};
+
+export enum HackathonModeEnum {
+  ONLINE = 'ONLINE',
+  HYBRID = 'HYBRID'
+}
