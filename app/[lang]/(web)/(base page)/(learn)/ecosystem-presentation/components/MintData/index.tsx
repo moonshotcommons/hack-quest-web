@@ -16,7 +16,7 @@ const MintData: React.FC<MintDataProp> = ({ ecosystemId }) => {
   const [tabs, setTabs] = useState<Tab[]>(mintTab);
   // const [page, setPage] = useState(1);
   const { data: userData, isLoading: loading } = useQuery({
-    queryKey: ['ecosystem-userData', status],
+    queryKey: ['ecosystem-userData', status, ecosystemId],
     queryFn: () => webApi.ecosystemApi.getEcosystemUserData(ecosystemId, status),
     staleTime: Infinity
   });
