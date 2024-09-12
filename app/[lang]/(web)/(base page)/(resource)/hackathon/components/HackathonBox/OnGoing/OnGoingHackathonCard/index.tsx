@@ -1,9 +1,7 @@
 'use client';
 import React, { useContext, useState } from 'react';
 import Image from 'next/image';
-import Button from '@/components/Common/Button';
 import { HackathonStatus, HackathonType } from '@/service/webApi/resourceStation/type';
-import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import MenuLink from '@/constants/MenuLink';
 import { LangContext } from '@/components/Provider/Lang';
@@ -12,14 +10,14 @@ import { TransNs } from '@/i18n/config';
 import { separationNumber } from '@/helper/utils';
 import CountDown from '@/components/Web/Business/CountDown';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import Link from 'next/link';
-import { AuthType, useUserStore } from '@/store/zustand/userStore';
+import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
 import { FiDownload } from 'react-icons/fi';
 import { CiEdit } from 'react-icons/ci';
 import { HackathonManageType } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
 import { MdOutlineManageAccounts } from 'react-icons/md';
+import DownloadModal from '@/components/hackathon/download-modal';
 
 interface OnGoingHackathonCardProp {
   hackathon: HackathonType;
@@ -41,108 +39,12 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
   const goHackathonDetail = () => {
     redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}`);
   };
-  const { getTotalPrize, getStepIndex, hackathonDownload } = useDealHackathonData();
+  const { getTotalPrize, hackathonDownload, getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [warningOpen, setWarningOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleSubmit = (id: string) => {
-    if (
-      hackathon.participation?.team?.creatorId === hackathon.participation?.userId ||
-      !Object.keys(hackathon.participation?.team || {}).length
-    ) {
-      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/submission/${id}`);
-    } else {
-      setWarningOpen(true);
-    }
-  };
-  const handleRegister = () => {
-    if (!userInfo) {
-      setAuthModalOpen(true);
-      setAuthType(AuthType.LOGIN);
-    } else {
-      redirectToUrl(`/form${MenuLink.HACKATHON}/${hackathon.id}/register`);
-    }
-  };
-  const renderButton = () => {
-    if (stepIndex < 1) {
-      if (!hackathon.participation?.isRegister) {
-        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-        return (
-          <Button
-            className="button-text-l h-[60px] flex-1  bg-yellow-primary p-0 uppercase"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleRegister();
-            }}
-          >
-            {buttonText}
-          </Button>
-        );
-      }
-      if (hackathon.participation?.isRegister) {
-        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
-          return (
-            <Button
-              size="small"
-              type="primary"
-              disabled
-              className="h-[60px] flex-1 bg-neutral-light-gray font-medium uppercase text-neutral-medium-gray opacity-100"
-            >
-              {/* {children} */}
-              <div>
-                <p className="button-text-l">Pending</p>
-              </div>
-            </Button>
-          );
-        }
-
-        if (!hackathon.participation.isSubmit) {
-          return !hackathon.participation.project?.id ? (
-            <Button
-              className="button-text-l h-[60px] flex-1   bg-yellow-primary p-0 uppercase"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSubmit('-1');
-              }}
-            >
-              {t('submitNow')}
-            </Button>
-          ) : (
-            <Button
-              className="button-text-l h-[60px] flex-1   bg-yellow-primary p-0 uppercase"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSubmit(hackathon.participation?.project?.id as string);
-              }}
-            >
-              {t('continueSubmission')}
-            </Button>
-          );
-        } else {
-          return (
-            <Button className="button-text-l h-[60px] flex-1   cursor-not-allowed bg-neutral-light-gray p-0 uppercase text-neutral-medium-gray hover:scale-[1]">
-              {t('youHavesubmitted')}
-            </Button>
-          );
-        }
-      }
-    }
-    return (
-      <Link
-        onClick={(e) => {
-          e.stopPropagation();
-          BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-        }}
-        href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
-        className="flex-1"
-      >
-        <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
-          {t('viewAllProjects')}
-        </Button>
-      </Link>
-    );
-  };
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   const renderIcon = () => {
     if (showManage || isOrganizer) {
@@ -176,6 +78,21 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
     return null;
   };
 
+  const handleDownload = (type: 'csv' | 'xlsx') => {
+    if (loading) return;
+    setLoading(true);
+    hackathonDownload(
+      {
+        id: hackathon.id,
+        type
+      },
+      () => {
+        setDownloadOpen(false);
+        setLoading(false);
+      }
+    );
+  };
+
   return (
     <div
       className="card-hover flex h-[322px] overflow-hidden rounded-[16px] bg-neutral-white "
@@ -193,8 +110,10 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
           {t(hackathon.status === HackathonStatus.PUBLISH ? 'liveNow' : 'reivew')}
         </div>
         <div>
-          <p className="mb-[8px]">{t('submissionClosesIn')}</p>
-          <CountDown time={hackathon.timeline?.submissionClose} />
+          <p className="mb-[8px]">{stepIndex <= 0 ? 'Registration Closes In' : 'Submission Closes In'}</p>
+          <CountDown
+            time={stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon.timeline?.submissionClose}
+          />
         </div>
         <div className="body-m flex items-center gap-[80px] text-neutral-medium-gray">
           <div>
@@ -212,11 +131,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
                 className="w-[40%]"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (loading) return;
-                  setLoading(true);
-                  hackathonDownload(hackathon.id, () => {
-                    setLoading(false);
-                  });
+                  setDownloadOpen(true);
                 }}
               >
                 <p className="mb-[8px]">{t('hackathonDetail.registrationData')}</p>
@@ -241,14 +156,9 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
             </>
           )}
         </div>
-        {/* <div className="flex gap-[16px]">
-          {renderButton()}
-          <Button className="button-text-l h-[60px] flex-1 flex-shrink-0 border  border-neutral-black  p-0 uppercase">
-            {t('learnMore')}
-          </Button>
-        </div> */}
       </div>
       <WarningModal open={warningOpen} onClose={() => setWarningOpen(false)} />
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} handleDownload={handleDownload} />
     </div>
   );
 };

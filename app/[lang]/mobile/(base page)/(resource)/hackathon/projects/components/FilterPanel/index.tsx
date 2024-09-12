@@ -158,7 +158,7 @@ export function SearchForm() {
       <input
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue(e.target.value.trim())}
         placeholder="Search for keywords, topics, etc..."
         className="flex-1 bg-transparent text-sm outline-none placeholder:text-neutral-medium-gray"
       />

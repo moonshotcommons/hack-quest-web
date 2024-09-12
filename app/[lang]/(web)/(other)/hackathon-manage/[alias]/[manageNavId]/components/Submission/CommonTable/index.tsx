@@ -7,10 +7,11 @@ import AuditTable from './AuditTable';
 import InfoModal from '../../InfoModal';
 import InfoContent from './InfoContent';
 import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
-import { exportToExcel } from '@/helper/utils';
+import { exportToCsv, exportToXlsx } from '@/helper/utils';
 import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import DownloadModal from '@/components/hackathon/download-modal';
 
 interface CommonTableProp {
   list: any[];
@@ -31,6 +32,8 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
   const [teamIds, setTeamIds] = useState<string[]>([]);
   const [curInfo, setCurInfo] = useState<ProjectType | null>(null);
   const { getInfo: getMemberInfo } = useDealHackathonData();
+  const [downloadOpen, setDownloadOpen] = useState(false);
+  const [downloadItems, setDownloadItems] = useState<ProjectType[]>([]);
   const handleCheck = (item: ProjectType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -69,10 +72,9 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
     }
     return info;
   };
-  const handleDown = (item?: ProjectType) => {
-    const items = item ? [item] : checkItems;
-    if (!items.length) return;
-    const newCheckItems = structuredClone(items);
+
+  const handleDownload = (type: 'csv' | 'xlsx') => {
+    const newCheckItems = structuredClone(downloadItems);
     const submissionData: Record<string, any>[] = [];
 
     newCheckItems.forEach((v) => {
@@ -84,7 +86,19 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
       }
     });
     const tabName = tabs.find((v) => v.value === prizeTrack)?.label;
-    exportToExcel(submissionData, `${hackathon.name}-${tabName}-submission`);
+    if (type === 'csv') {
+      exportToCsv(submissionData, `${hackathon.name}-${tabName}-submission`);
+    } else {
+      exportToXlsx(submissionData, `${hackathon.name}-${tabName}-submission`);
+    }
+    setDownloadOpen(false);
+  };
+
+  const handleDown = (item?: ProjectType) => {
+    const items = item ? [item] : checkItems;
+    if (!items.length) return;
+    setDownloadOpen(true);
+    setDownloadItems(items);
   };
 
   const changeTeamIds = (id: string) => {
@@ -146,6 +160,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
           ))
         }
       />
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} handleDownload={handleDownload} />
     </div>
   );
 };

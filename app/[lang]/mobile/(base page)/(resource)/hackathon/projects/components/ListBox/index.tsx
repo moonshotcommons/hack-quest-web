@@ -59,7 +59,7 @@ const ListBox: React.FC<ListBoxProp> = ({
             placeholder={t('searchPlaceholder')}
             value={searchValue}
             onInput={(e) => {
-              const value = (e.target as HTMLInputElement).value;
+              const value = (e.target as HTMLInputElement).value.trim();
               setSearchValue(value);
               if (timeOut.current) clearTimeout(timeOut.current);
               timeOut.current = setTimeout(() => {

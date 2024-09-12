@@ -18,6 +18,7 @@ import { HackathonManageType } from '@/app/[lang]/(web)/(other)/hackathon-manage
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
+import DownloadModal from '@/components/hackathon/download-modal';
 
 interface PastHackathonCardProps {
   hackathon: HackathonType;
@@ -33,6 +34,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
   const totalPrize = getTotalPrize(hackathon.rewards);
   const { redirectToUrl } = useRedirect();
   const [loading, setLoading] = useState(false);
+  const [downloadOpen, setDownloadOpen] = useState(false);
   const { userInfo, setAuthModalOpen, setAuthType } = useUserStore(
     useShallow((state) => ({
       userInfo: state.userInfo,
@@ -82,6 +84,20 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
     }
     return null;
   };
+  const handleDownload = (type: 'csv' | 'xlsx') => {
+    if (loading) return;
+    setLoading(true);
+    hackathonDownload(
+      {
+        id: hackathon.id,
+        type
+      },
+      () => {
+        setDownloadOpen(false);
+        setLoading(false);
+      }
+    );
+  };
   return (
     <div
       className="card-hover flex  w-full flex-col overflow-hidden rounded-[16px] bg-neutral-white "
@@ -130,11 +146,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (loading) return;
-                    setLoading(true);
-                    hackathonDownload(hackathon.id, () => {
-                      setLoading(false);
-                    });
+                    setDownloadOpen(true);
                   }}
                 >
                   <span className="">{t('hackathonDetail.registrationData')}</span>
@@ -153,6 +165,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
           </>
         )}
       </div>
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} handleDownload={handleDownload} />
     </div>
   );
 };
