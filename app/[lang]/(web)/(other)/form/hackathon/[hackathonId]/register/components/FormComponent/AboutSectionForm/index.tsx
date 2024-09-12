@@ -46,11 +46,17 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
   const { simpleHackathonInfo, onNext, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
 
-  sectionConfig.sort((cfg) => {
-    if (cfg.type === 'ResumeUpload') {
-      return -1;
-    } else return 1;
-  });
+  useEffect(() => {
+    if (!sectionConfig.some((cfg) => cfg.type === 'ResumeUpload')) {
+      return;
+    }
+
+    sectionConfig.sort((cfg) => {
+      if (cfg.type === 'ResumeUpload') {
+        return -1;
+      } else return 1;
+    });
+  }, [sectionConfig]);
 
   const { runAsync: submitRequest, loading } = useRequest(
     async (values: Record<string, string>, isExit = false) => {
