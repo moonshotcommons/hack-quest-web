@@ -45,7 +45,7 @@ const HackathonInfo: React.FC<HackathonInfoProp> = ({ hackathon }) => {
   const [loading, setLoading] = useState(false);
   const { getStepIndex } = useDealHackathonData();
   const isCanSubmit = useMemo(() => {
-    const isReview = getStepIndex(hackathon) < 2;
+    const isReview = getStepIndex(hackathon) < 4;
     const isVote = !!(voteData.reduce((pre, cur) => pre + Number(cur.vote), 0) && isReview && judgeInfo?.isJudge);
     return isVote;
   }, [voteData, judgeInfo, hackathon]);

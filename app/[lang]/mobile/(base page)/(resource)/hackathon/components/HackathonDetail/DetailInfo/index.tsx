@@ -195,11 +195,11 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
             <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
               {t('liveNow')}
             </div>
-          ) : stepIndex === 1 ? (
+          ) : stepIndex === 3 ? (
             <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
               {t('hackathonDetail.submissionReview')}
             </div>
-          ) : stepIndex === 2 ? (
+          ) : stepIndex === 4 ? (
             <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
               {t('ended')}
             </div>
