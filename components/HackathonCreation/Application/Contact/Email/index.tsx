@@ -1,5 +1,6 @@
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { CustomComponentConfig, PresetComponentConfig } from '@/components/HackathonCreation/type';
+import { useUserStore } from '@/store/zustand/userStore';
 import { FC } from 'react';
 import { v4 } from 'uuid';
 import { z } from 'zod';
@@ -14,6 +15,13 @@ const Email: FC<EmailProps> = ({ config: propConfig, form }) => {
     ...propConfig,
     type: 'input'
   };
+
+  const user = useUserStore((state) => state.userInfo);
+  if (user && user.email) {
+    (config.property as any).defaultValue = user.email;
+    (config.property as any).disabled = true;
+  }
+
   return renderFormComponent(config as CustomComponentConfig, form);
 };
 
