@@ -16,6 +16,8 @@ interface FormInputProps<TFieldValues extends FieldValues = FieldValues> {
   name: Path<TFieldValues>;
   className?: string;
   onBlur?: () => void;
+  disabled?: boolean;
+  defaultValue?: string;
 }
 
 export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
@@ -24,7 +26,9 @@ export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
   name,
   placeholder,
   className,
-  onBlur
+  onBlur,
+  disabled = false,
+  defaultValue = ''
 }: FormInputProps<TFieldValues>) => {
   const renderPlaceholder = () => {
     if (!isUuid(name) || !placeholder) return null;
@@ -44,35 +48,38 @@ export const FormInput = <TFieldValues extends FieldValues = FieldValues>({
   };
 
   return (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <FormItem className="w-full text-left" onBlur={onBlur}>
-          <FormLabel
-            className={cn(
-              'font-normal leading-[160%] text-neutral-rich-gray',
-              isMobile ? 'body-s text-[14px]' : 'body-m text-[16px]'
-            )}
-          >
-            {label}
-          </FormLabel>
-          {renderPlaceholder()}
-          <FormControl>
-            <Input
-              placeholder={!isUuid(name) ? placeholder : ''}
-              {...field}
+    <>
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className="w-full text-left" onBlur={onBlur}>
+            <FormLabel
               className={cn(
-                '!mt-1 h-[50px] border-neutral-light-gray px-6 py-3 font-normal leading-[160%] text-neutral-medium-gray',
-                isMobile ? 'body-s text-[14px]' : 'body-m text-[16px]',
-                className
+                'font-normal leading-[160%] text-neutral-rich-gray',
+                isMobile ? 'body-s text-[14px]' : 'body-m text-[16px]'
               )}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+            >
+              {label}
+            </FormLabel>
+            {renderPlaceholder()}
+            <FormControl>
+              <Input
+                placeholder={!isUuid(name) ? placeholder : ''}
+                {...field}
+                className={cn(
+                  '!mt-1 h-[50px] border-neutral-light-gray px-6 py-3 font-normal leading-[160%] text-neutral-medium-gray',
+                  isMobile ? 'body-s text-[14px]' : 'body-m text-[16px]',
+                  className
+                )}
+                disabled={disabled}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
   );
 };
 
