@@ -632,6 +632,7 @@ export interface SimpleHackathonInfo {
     registrationClose: string;
     submissionOpen: string;
     submissionClose: string;
+    votingClose: string;
     reviewTimeEnd: string;
     rewardTime: string;
   };
