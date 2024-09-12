@@ -1,7 +1,6 @@
 'use client';
 import React, { useContext } from 'react';
 import Image from 'next/image';
-import Button from '@/components/Common/Button';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { BurialPoint } from '@/helper/burialPoint';
 import { useRedirect } from '@/hooks/router/useRedirect';
@@ -12,7 +11,6 @@ import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import CountDown from '@/components/Web/Business/CountDown';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
-import Link from 'next/link';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { useShallow } from 'zustand/react/shallow';
 import { useUserStore } from '@/store/zustand/userStore';
@@ -59,88 +57,6 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
     }
   };
 
-  const renderButton = () => {
-    if (stepIndex < 1) {
-      if (!hackathon.participation?.isRegister) {
-        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-        return (
-          <Button
-            className="button-text-s h-[2.125rem] flex-1  bg-yellow-primary p-0 uppercase"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleRegister();
-            }}
-          >
-            {buttonText}
-          </Button>
-        );
-      }
-      if (hackathon.participation?.isRegister) {
-        if (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) {
-          return (
-            <Button
-              size="small"
-              type="primary"
-              disabled
-              className="button-text-s h-[2.125rem] flex-1 bg-neutral-light-gray font-medium uppercase text-neutral-medium-gray opacity-100"
-            >
-              {/* {children} */}
-              <div>
-                <p className="button-text-m">Pending</p>
-              </div>
-            </Button>
-          );
-        }
-
-        if (!hackathon.participation.isSubmit) {
-          return !hackathon.participation.project?.id ? (
-            <Button
-              className="button-text-s h-[2.125rem] flex-1   bg-yellow-primary p-0 uppercase"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleButton();
-              }}
-            >
-              {t('submitNow')}
-            </Button>
-          ) : (
-            <Button
-              className="button-text-s h-[2.125rem] flex-1   bg-yellow-primary p-0 uppercase"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleButton();
-              }}
-            >
-              {t('continueSubmission')}
-            </Button>
-          );
-        } else {
-          return (
-            <Button className="button-text-s h-[2.125rem] flex-1   cursor-not-allowed bg-neutral-light-gray p-0 uppercase text-neutral-medium-gray hover:scale-[1]">
-              {t('youHavesubmitted')}
-            </Button>
-          );
-        }
-      }
-    }
-    return (
-      <Link
-        onClick={(e) => {
-          e.stopPropagation();
-          BurialPoint.track(`hackathon detail View All Projects 按钮点击`);
-        }}
-        href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}
-        className="flex-1"
-      >
-        <Button
-          ghost
-          className="button-text-s h-[2.125rem] w-full border-neutral-black p-0 uppercase text-neutral-black"
-        >
-          {t('viewAllProjects')}
-        </Button>
-      </Link>
-    );
-  };
   return (
     <div
       className="card-hover flex  w-full flex-col overflow-hidden rounded-[.75rem] bg-neutral-white "
@@ -155,8 +71,12 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
           {t('liveNow')}
         </div>
         <div>
-          <p className="body-s mb-[.25rem] text-neutral-medium-gray">{t('submissionClosesIn')}</p>
-          <CountDown time={hackathon.timeline?.submissionClose} />
+          <p className="body-s mb-[.25rem] text-neutral-medium-gray">
+            {stepIndex <= 0 ? 'Registration Closes In' : 'Submission Closes In'}
+          </p>
+          <CountDown
+            time={stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon.timeline?.submissionClose}
+          />
         </div>
         <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
           <div>
@@ -172,12 +92,6 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon })
             <span className="body-m-bold text-neutral-off-black underline">{hackathon.info?.host}</span>
           </div>
         </div>
-        {/* <div className="flex gap-[.75rem]">
-          {renderButton()}
-          <Button className="button-text-s h-[2.125rem] flex-1 border border-neutral-black p-0 uppercase">
-            {t('learnMore')}
-          </Button>
-        </div> */}
       </div>
     </div>
   );
