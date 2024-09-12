@@ -17,7 +17,7 @@ const VoteCloseIn: React.FC<VoteCloseInProp> = ({ judgeInfo }) => {
   );
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon as unknown as HackathonType);
-  if (!hackathon.id || stepIndex === 2 || !judgeInfo?.reward || judgeInfo?.reward?.judge?.disableJudge) return null;
+  if (!hackathon.id || stepIndex === 4 || !judgeInfo?.reward || judgeInfo?.reward?.judge?.disableJudge) return null;
   return (
     <div className="body-m relative flex justify-center rounded-[8px] bg-yellow-extra-light px-[16px] py-[8px] text-neutral-medium-gray">
       <span className="absolute left-[16px] top-0 flex h-full items-center">Voting Close in</span>

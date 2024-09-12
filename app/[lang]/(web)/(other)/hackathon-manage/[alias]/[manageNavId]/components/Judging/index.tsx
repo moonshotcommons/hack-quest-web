@@ -328,7 +328,7 @@ const Judging: React.FC<JudgingProp> = () => {
           />
         )}
         {!judgeInfo.reward?.judge?.disableJudge &&
-          (stepIndex > 1 ? (
+          (stepIndex > 2 ? (
             <WinnerView
               winners={allWinners}
               judgeInfo={judgeInfo}

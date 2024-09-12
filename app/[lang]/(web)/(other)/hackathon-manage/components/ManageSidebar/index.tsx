@@ -62,34 +62,33 @@ const ManageSidebar: React.FC<ManageSidebarProp> = () => {
   const renderJudingStatus = useMemo(() => {
     if (!hackathon?.id) return null;
     const stepIndex = getStepIndex(hackathon as unknown as HackathonType);
-    switch (stepIndex) {
-      case 0:
-        return (
-          <div className="caption-12pt rounded-[4px]  bg-neutral-light-gray px-[8px] py-[6px] uppercase text-neutral-medium-gray">{`UNAVAILABLE`}</div>
-        );
-      case 1:
-        if (!judgeInfo?.reward) return null;
-        if (judgeInfo?.reward?.judge?.disableJudge) {
-          if (!judgeInfo?.reward?.judge?.announce) {
-            return (
-              <div className="caption-12pt rounded-[4px] bg-yellow-primary px-[8px] py-[6px] uppercase text-neutral-off-black">{`ACTION REQUIRED`}</div>
-            );
-          } else {
-            return null;
-          }
-        } else {
-          return (
-            <div className="caption-12pt rounded-[4px] bg-yellow-primary px-[8px] py-[6px] uppercase text-neutral-off-black">{`VOTING`}</div>
-          );
-        }
-      default:
+    if (stepIndex < 1) {
+      return (
+        <div className="caption-12pt rounded-[4px]  bg-neutral-light-gray px-[8px] py-[6px] uppercase text-neutral-medium-gray">{`UNAVAILABLE`}</div>
+      );
+    }
+    if (stepIndex < 4) {
+      if (!judgeInfo?.reward) return null;
+      if (judgeInfo?.reward?.judge?.disableJudge) {
         if (!judgeInfo?.reward?.judge?.announce) {
           return (
             <div className="caption-12pt rounded-[4px] bg-yellow-primary px-[8px] py-[6px] uppercase text-neutral-off-black">{`ACTION REQUIRED`}</div>
           );
+        } else {
+          return null;
         }
-        return null;
+      } else {
+        return (
+          <div className="caption-12pt rounded-[4px] bg-yellow-primary px-[8px] py-[6px] uppercase text-neutral-off-black">{`VOTING`}</div>
+        );
+      }
     }
+    if (!judgeInfo?.reward?.judge?.announce) {
+      return (
+        <div className="caption-12pt rounded-[4px] bg-yellow-primary px-[8px] py-[6px] uppercase text-neutral-off-black">{`ACTION REQUIRED`}</div>
+      );
+    }
+    return null;
   }, [hackathon, judgeInfo, getStepIndex]);
   return (
     <div className="scroll-wrap-y text-neutral-medium-graybody-l h-full w-[296px] flex-shrink-0 bg-neutral-off-white py-[27px] shadow-[2px_0_4px_0_rgba(0,0,0,0.12)]">

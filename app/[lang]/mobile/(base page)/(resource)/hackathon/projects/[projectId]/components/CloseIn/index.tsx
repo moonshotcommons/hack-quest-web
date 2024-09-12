@@ -19,7 +19,7 @@ const CloseIn: React.FC<CloseInProp> = ({}) => {
   const { project, hackathon } = useContext(ProjectDetailContext);
   const { getStepIndex } = useDealHackathonData();
   const isEnd = useMemo(() => {
-    return getStepIndex(hackathon) === 2;
+    return getStepIndex(hackathon) === 4;
   }, [hackathon, getStepIndex]);
   const prize = useMemo(() => {
     return project.rewards?.find((v) => v.winner);
