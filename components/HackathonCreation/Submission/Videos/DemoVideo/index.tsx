@@ -139,7 +139,7 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
               try {
                 const res = await webApi.commonApi.uploadImage(formData);
                 form.setValue('demoVideo', res.filepath);
-                form.trigger('pitchViddemoVideoeo');
+                form.trigger('demoVideo');
                 onSuccess?.({}, new XMLHttpRequest());
               } catch (err: any) {
                 onError?.(err);
