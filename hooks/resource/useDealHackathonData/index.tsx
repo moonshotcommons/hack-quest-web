@@ -68,36 +68,37 @@ const useDealHackathonData = () => {
   };
 
   const getStepIndex = (hackathon: HackathonType) => {
+    let step = 4;
     //还未开始注册 -1
-    if (dayjs().tz().isBefore(hackathon.timeline?.registrationOpen)) return -1;
+    if (dayjs().tz().isBefore(hackathon.timeline?.registrationOpen)) step = -1;
     // 开始注册 0
     if (
       dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
       dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
     )
-      return 0;
+      step = 0;
     // 注册结束但未开始提交 1
     if (
       dayjs().tz().isAfter(hackathon.timeline?.registrationClose) &&
       dayjs().tz().isBefore(hackathon.timeline?.submissionOpen)
     ) {
-      return 1;
+      step = 1;
     }
     // 开始提交 2
     if (
       dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
-      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      dayjs().tz().isBefore(hackathon.timeline?.submissionClose)
     )
-      return 2;
+      step = 2;
     // 提交结束 开始投票 3
     if (
       dayjs().tz().isAfter(hackathon.timeline?.submissionClose) &&
       dayjs().tz().isBefore(hackathon.timeline?.rewardTime)
     )
-      return 3;
+      step = 3;
     // 过期 4
-    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) return 4;
-    return -1;
+    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) step = 4;
+    return step;
   };
 
   const dealModalList = (hackathon: HackathonType) => {

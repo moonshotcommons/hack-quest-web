@@ -83,18 +83,34 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       stepIndex === 0
     );
   }, [hackathon]);
+
   const renderButton = () => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
     if (stepIndex === 0) {
       if (!hackathon.participation?.isRegister) {
-        const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-        return (
-          <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
-            {buttonText}
-          </Button>
-        );
+        if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
+          const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
+          return (
+            <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
+              {buttonText}
+            </Button>
+          );
+        } else {
+          return (
+            <Button
+              type="primary"
+              disabled
+              className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+            >
+              <div>
+                <p className="button-text-l uppercase">Pending</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+              </div>
+            </Button>
+          );
+        }
       } else {
         if (
           (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
@@ -199,11 +215,11 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
               {t('liveNow')}
             </div>
-          ) : stepIndex === 1 ? (
+          ) : stepIndex === 2 ? (
             <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
               {t('hackathonDetail.submissionReview')}
             </div>
-          ) : stepIndex === 2 ? (
+          ) : stepIndex === 4 ? (
             <div className="body-s-bold  rounded-[8px] border-[2px] border-neutral-medium-gray px-[12px] py-[4px] uppercase text-neutral-medium-gray">
               {t('ended')}
             </div>

@@ -24,6 +24,8 @@ import {
 import { renderFormComponent } from '@/components/HackathonCreation/Renderer';
 import { useFormExit } from '@/hooks/hackathon/useFormExit';
 import ConfirmModal from '@/components/Web/Business/ConfirmModal';
+import { useUserStore } from '@/store/zustand/userStore';
+import { userInfo } from 'os';
 
 interface ContactSectionFormProps {
   sectionConfig: (PresetComponentConfig<{}, {}> | CustomComponentConfig)[];
@@ -87,16 +89,24 @@ const ContactSectionForm: FC<ContactSectionFormProps & CommonFormComponentProps>
     submitRequest(values);
   }
 
+  const user = useUserStore((state) => state.userInfo);
+
   useEffect(() => {
     for (let key in contact) {
       form.setValue(key, contact[key] as string);
     }
+
+    if (user && user.email && !contact.email) {
+      form.setValue('email', user?.email ?? '');
+      form.trigger('email');
+    }
+
     const propValues = Object.values(contact);
     const requiredCount = sectionConfig.filter((cfg) => !cfg.optional);
     if (propValues.length >= requiredCount.length) {
       form.trigger();
     }
-  }, [contact]);
+  }, [contact, userInfo]);
 
   const exitConfirmRef = useFormExit(() => submitRequest(form.getValues(), true));
 
