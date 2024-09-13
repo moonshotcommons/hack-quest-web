@@ -178,7 +178,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
   }, [list]);
 
   const disableHandleButton = useMemo(() => {
-    return getStepIndex(hackathon as unknown as HackathonType) > -1;
+    return getStepIndex(hackathon as unknown as HackathonType) > 0;
   }, [hackathon, getStepIndex]);
   const showHandleButton = useMemo(() => {
     return hackathon?.info?.allowSubmission === false;
