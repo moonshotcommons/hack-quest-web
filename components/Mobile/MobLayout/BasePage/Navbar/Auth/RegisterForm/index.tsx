@@ -10,7 +10,6 @@ import { useDebounceFn } from 'ahooks';
 import message from 'antd/es/message';
 import Link from 'next/link';
 import { FC, useState } from 'react';
-import WhiteListModal from '../WhiteListModal';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
 import { useLang } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
@@ -87,9 +86,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
             setAuthType(AuthType.EMAIL_VERIFY);
           } catch (e: any) {
             BurialPoint.track('signup-注册邮件发送失败', { message: e?.msg });
-            console.log(e);
-            if (e?.code === 400) setShowWhiteListModal(true);
-            else message.error(e?.msg);
+            message.error(e?.msg);
+            // if (e?.code === 400) setShowWhiteListModal(true);
+            // else message.error(e?.msg);
           }
           setLoading(false);
         } else {
@@ -233,7 +232,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       >
         {t('continue')}
       </Button>
-      <WhiteListModal open={showWhiteListModal} onClose={() => setShowWhiteListModal(false)}></WhiteListModal>
+      {/* <WhiteListModal open={showWhiteListModal} onClose={() => setShowWhiteListModal(false)}></WhiteListModal> */}
     </div>
   );
 };
