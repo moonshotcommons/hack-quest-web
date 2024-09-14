@@ -85,7 +85,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   }, [hackathon]);
   console.info(hackathon);
   const renderButton = () => {
-    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm || !userInfo) {
+    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
     if (stepIndex <= 2) {
