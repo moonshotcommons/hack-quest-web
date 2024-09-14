@@ -41,7 +41,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getStepIndex, getLinks } = useDealHackathonData();
+  const { getStepIndex, getLinks, getHackathonTimeSame } = useDealHackathonData();
+  const isSame = getHackathonTimeSame(hackathon);
   const [loading, setLoading] = useState(false);
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
@@ -200,7 +201,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
   };
   const statusRender = () => {
     if (stepIndex >= 0) {
-      if (hackathon.timeline?.openReviewSame) {
+      if (isSame) {
         return (
           <div className="flex">
             {stepIndex <= 2 ? (
