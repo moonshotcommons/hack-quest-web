@@ -200,23 +200,47 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
   };
   const statusRender = () => {
     if (stepIndex >= 0) {
-      return (
-        <div className="flex">
-          {stepIndex === 0 ? (
-            <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
-              {t('liveNow')}
-            </div>
-          ) : stepIndex === 2 ? (
-            <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
-              {t('hackathonDetail.submissionReview')}
-            </div>
-          ) : stepIndex === 4 ? (
-            <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
-              {t('ended')}
-            </div>
-          ) : null}
-        </div>
-      );
+      if (hackathon.timeline?.openReviewSame) {
+        return (
+          <div className="flex">
+            {stepIndex <= 2 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'LIVE NOW'}
+              </div>
+            ) : stepIndex === 3 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'VOTING'}
+              </div>
+            ) : stepIndex === 4 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
+                {'ENDED'}
+              </div>
+            ) : null}
+          </div>
+        );
+      } else {
+        return (
+          <div className="flex">
+            {stepIndex === 0 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'LIVE NOW'}
+              </div>
+            ) : stepIndex === 2 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'SUBMISSIONS REVIEW'}
+              </div>
+            ) : stepIndex === 3 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'VOTING'}
+              </div>
+            ) : stepIndex === 4 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
+                {'ENDED'}
+              </div>
+            ) : null}
+          </div>
+        );
+      }
     } else {
       return null;
     }
