@@ -211,7 +211,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         return (
           <div className="flex">
             {stepIndex <= 2 ? (
-              <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
+              <div className="body-s-bold rounded-[8px]  border-[2px] border-status-success px-[12px] py-[4px] uppercase uppercase text-status-success">
                 {'LIVE NOW'}
               </div>
             ) : stepIndex === 3 ? (
