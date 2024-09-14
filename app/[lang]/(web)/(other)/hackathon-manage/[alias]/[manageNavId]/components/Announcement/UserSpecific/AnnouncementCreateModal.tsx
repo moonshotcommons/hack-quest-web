@@ -18,8 +18,9 @@ import { cn } from '@/helper/utils';
 import { Textarea } from '@/components/ui/textarea';
 import { Timezone } from '@/components/hackathon-org/common/timezone';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
+import dayjs from '@/components/Common/Dayjs';
 import { FormInput } from '@/components/Common/FormComponent';
-import { receivers } from './constants';
+import { HackathonModeEnum, receiversHybird, receiversOnline } from './constants';
 import webApi from '@/service';
 import Button from '@/components/Common/Button';
 
@@ -33,21 +34,24 @@ const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
 
 interface AnnouncementCreateModalProps {
   hackathonId: string;
-  onDelete: (data: Announcement) => void;
+  onDelete: (data: Announcement, callback?: Function) => void;
   modalAction: (
     type: 'schedule' | 'sendNow' | 'closeAndSave',
     callback: () => Promise<any>,
     cancelCallback?: VoidFunction
   ) => void;
+  hackathonMode: HackathonModeEnum;
 }
 
 interface State {
   announcement: Announcement;
   open: boolean;
+  mode: 'Edit' | 'Create';
   onCreate: () => void;
   onEdit: (announcement: Announcement) => void;
   setOpen: (open: boolean) => void;
   setAnnouncement: (announcement: Announcement) => void;
+  setMode: (mode: 'Edit' | 'Create') => void;
 }
 
 const defaultState = (): Announcement => ({
@@ -68,14 +72,17 @@ const defaultState = (): Announcement => ({
 export const useAnnouncementModal = create<State>((set) => ({
   announcement: defaultState(),
   open: false,
-  onCreate: () => set({ open: true }),
+  mode: 'Create',
+  onCreate: () => set({ open: true, mode: 'Create' }),
   onEdit: (announcement) =>
     set({
       open: true,
-      announcement
+      announcement,
+      mode: 'Edit'
     }),
   setOpen: (open) => set({ open }),
-  setAnnouncement: (announcement) => set({ announcement })
+  setAnnouncement: (announcement) => set({ announcement }),
+  setMode: (mode) => set({ mode })
 }));
 
 const formSchema = z.object({
@@ -93,9 +100,9 @@ const formSchema = z.object({
   })
 });
 
-const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId, onDelete, modalAction }) => {
-  const { announcement, setAnnouncement, setOpen } = useAnnouncementModal();
-  const { open } = useAnnouncementModal();
+const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
+  const { hackathonId, onDelete, modalAction, hackathonMode } = props;
+  const { announcement, setAnnouncement, setOpen, open, mode } = useAnnouncementModal();
 
   const { data: timezone } = useQuery({
     staleTime: Infinity,
@@ -113,7 +120,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
       title: announcement.title,
       message: '',
       receivers: announcement.receivers,
-      plannedTime: announcement.plannedTime && new Date(announcement.plannedTime).toISOString().slice(0, 16),
+      plannedTime: announcement.plannedTime && dayjs(announcement.plannedTime).tz(dayjs.tz.guess()).format(),
       timezone: announcement.timezone || timezone
     }
   });
@@ -178,11 +185,23 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
       title: announcement.title,
       message: announcement.message,
       receivers: announcement.receivers,
-      plannedTime: announcement.plannedTime && new Date(announcement.plannedTime).toISOString().slice(0, 16),
+      plannedTime:
+        announcement.plannedTime && dayjs(announcement.plannedTime).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
       timezone: announcement.timezone || timezone
     };
 
-    form.reset({ ...state, message: '' });
+    if (mode === 'Create') {
+      form.reset({
+        title: '',
+        message: '',
+        receivers: '',
+        plannedTime: '',
+        timezone: ''
+      });
+    } else {
+      form.reset({ ...state, message: '' });
+    }
+
     setAction('');
     setSendNow(announcement.rightNow);
 
@@ -190,88 +209,97 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
       const defaultSelect = (form.getValues('receivers') || '').split(',') as ReceiverType[];
       setSelectReceivers(defaultSelect);
     }, 300);
-  }, [announcement]);
+  }, [announcement, form, mode, timezone]);
 
   return (
-    <Modal
-      open={open}
-      onClose={() => {
-        // setOpen(false);
-      }}
-      showCloseIcon
-      icon={
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => {
-            if (disable) {
-              setOpen(false);
-              setAnnouncement(defaultState());
-              return;
-            }
-            onSubmit(form.getValues(), AnnouncementAction.Save, () => {
-              setOpen(false);
-              setAction('');
-            });
-          }}
-        >
-          <path
-            d="M21.708 20.2902C21.8973 20.478 22.0038 20.7336 22.0038 21.0002C22.0038 21.2668 21.8973 21.5224 21.708 21.7102C21.5202 21.8995 21.2646 22.006 20.998 22.006C20.7313 22.006 20.4758 21.8995 20.288 21.7102L11.998 13.4102L3.70799 21.7102C3.52022 21.8995 3.26462 22.006 2.99799 22.006C2.73135 22.006 2.47575 21.8995 2.28799 21.7102C2.09867 21.5224 1.99219 21.2668 1.99219 21.0002C1.99219 20.7336 2.09867 20.478 2.28799 20.2902L10.588 12.0002L2.28799 3.71021C2.03433 3.45655 1.93526 3.08683 2.02811 2.74033C2.12095 2.39383 2.3916 2.12318 2.73811 2.03033C3.08461 1.93748 3.45433 2.03655 3.70799 2.29021L11.998 10.5902L20.288 2.29021C20.6801 1.89809 21.3159 1.89809 21.708 2.29021C22.1001 2.68233 22.1001 3.31809 21.708 3.71021L13.408 12.0002L21.708 20.2902Z"
-            fill="#231F20"
-          />
-        </svg>
-      }
-    >
-      <div className="flex max-h-[calc(100vh-80px)] w-[55.5rem] flex-col gap-6 overflow-hidden rounded-2xl bg-neutral-white p-10 pt-[3.75rem]">
-        <Form {...form}>
-          <form className="flex h-full flex-col gap-6 overflow-hidden">
-            {Title()}
-            <div className="flex flex-1 flex-col gap-6 overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
-              {Message()}
-              <hr className="bg-neutral-light-gray" />
-              {SendTime()}
-              {TimeZone()}
-              <hr className="bg-neutral-light-gray" />
-              {Receivers()}
-            </div>
-            <div className="mt-5 flex h-fit justify-center gap-5 pb-3">
-              <Button
-                ghost
-                className="button-text-m w-[15rem] px-0 py-4 uppercase"
-                loading={action === AnnouncementAction.Save && createLoading}
-                disabled={disable}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onSubmit(form.getValues(), AnnouncementAction.Save);
-                }}
-              >
-                save & close
-              </Button>
-              <Button
-                type="primary"
-                className="button-text-m w-[15rem] px-0 py-4 uppercase"
-                loading={action === AnnouncementAction.Send && createLoading}
-                disabled={!form.formState.isValid || disable}
-                onClick={async (e) => {
-                  e.preventDefault();
-                  await form.trigger();
-                  if (!form.formState.isValid) return;
-                  onSubmit(form.getValues(), AnnouncementAction.Send);
-                }}
-              >
-                {sendNow ? 'send now' : 'send at scheduled time'}
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </div>
-    </Modal>
+    open && (
+      <Modal
+        open={open}
+        onClose={() => {
+          // setOpen(false);
+        }}
+        showCloseIcon
+        icon={
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={() => {
+              if (disable) {
+                setOpen(false);
+                setAnnouncement(defaultState());
+                return;
+              }
+              onSubmit(form.getValues(), AnnouncementAction.Save, () => {
+                setOpen(false);
+                setAction('');
+              });
+            }}
+          >
+            <path
+              d="M21.708 20.2902C21.8973 20.478 22.0038 20.7336 22.0038 21.0002C22.0038 21.2668 21.8973 21.5224 21.708 21.7102C21.5202 21.8995 21.2646 22.006 20.998 22.006C20.7313 22.006 20.4758 21.8995 20.288 21.7102L11.998 13.4102L3.70799 21.7102C3.52022 21.8995 3.26462 22.006 2.99799 22.006C2.73135 22.006 2.47575 21.8995 2.28799 21.7102C2.09867 21.5224 1.99219 21.2668 1.99219 21.0002C1.99219 20.7336 2.09867 20.478 2.28799 20.2902L10.588 12.0002L2.28799 3.71021C2.03433 3.45655 1.93526 3.08683 2.02811 2.74033C2.12095 2.39383 2.3916 2.12318 2.73811 2.03033C3.08461 1.93748 3.45433 2.03655 3.70799 2.29021L11.998 10.5902L20.288 2.29021C20.6801 1.89809 21.3159 1.89809 21.708 2.29021C22.1001 2.68233 22.1001 3.31809 21.708 3.71021L13.408 12.0002L21.708 20.2902Z"
+              fill="#231F20"
+            />
+          </svg>
+        }
+      >
+        <div className="flex max-h-[calc(100vh-80px)] w-[55.5rem] flex-col gap-6 overflow-hidden rounded-2xl bg-neutral-white p-10 pt-[3.75rem]">
+          <Form {...form}>
+            <form className="flex h-full flex-col gap-6 overflow-hidden">
+              {Title()}
+              <div className="flex flex-1 flex-col gap-6 overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
+                {Message()}
+                <hr className="bg-neutral-light-gray" />
+                {SendTime()}
+                {TimeZone()}
+                <hr className="bg-neutral-light-gray" />
+                {Receivers()}
+              </div>
+              <div className="mt-5 flex h-fit justify-center gap-5 pb-3">
+                <Button
+                  ghost
+                  className="button-text-m w-[15rem] px-0 py-4 uppercase"
+                  loading={action === AnnouncementAction.Save && createLoading}
+                  disabled={disable}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSubmit(form.getValues(), AnnouncementAction.Save);
+                  }}
+                >
+                  save & close
+                </Button>
+                <Button
+                  type="primary"
+                  className="button-text-m w-[15rem] px-0 py-4 uppercase"
+                  loading={action === AnnouncementAction.Send && createLoading}
+                  disabled={!form.formState.isValid || disable}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await form.trigger();
+                    if (!form.formState.isValid) return;
+                    onSubmit(form.getValues(), AnnouncementAction.Send);
+                  }}
+                >
+                  {sendNow ? 'send now' : 'send at scheduled time'}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </Modal>
+    )
   );
 
   function Receivers() {
+    let receivers: Partial<Record<ReceiverType, string>> = receiversHybird;
+    if (hackathonMode === HackathonModeEnum.HYBRID) {
+      receivers = receiversHybird;
+    } else {
+      receivers = receiversOnline;
+    }
+
     return (
       <div className="flex w-full flex-col gap-3">
         <div className="">
@@ -378,7 +406,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
                       if (!v) {
                         form.setValue('plannedTime', '');
                       } else {
-                        form.setValue('plannedTime', new Date().toISOString().slice(0, 16));
+                        form.setValue('plannedTime', dayjs().format('YYYY-MM-DDTHH:mm'));
                       }
                       form.trigger('plannedTime');
                     }}
@@ -465,9 +493,10 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
               }}
               // defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
               // defaultContent={transformTextToEditorValue(announcement.message)}
-              defaultHtml={announcement.message}
+              defaultHtml={mode === 'Create' ? 'Dear [%=username%],' : announcement.message}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
+
                 form.setValue('message', text);
                 text && setMessage(editor.getHtml());
               }}
@@ -509,7 +538,15 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = ({ hackathonId
           />
         </div>
         {announcement.id && (
-          <div className="flex w-fit items-center gap-2" onClick={() => onDelete(announcement)}>
+          <div
+            className="flex w-fit items-center gap-2"
+            onClick={() =>
+              onDelete(announcement, () => {
+                setOpen(false);
+                form.reset();
+              })
+            }
+          >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 fillRule="evenodd"

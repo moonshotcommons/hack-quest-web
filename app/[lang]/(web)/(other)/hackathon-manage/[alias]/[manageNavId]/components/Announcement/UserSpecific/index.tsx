@@ -11,11 +11,13 @@ import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import { Announcement } from '@/service/webApi/hackathon/types';
+import { HackathonModeEnum } from './constants';
 
 interface UserSpecificProps {}
 
 const UserSpecific: FC<UserSpecificProps> = (props) => {
   const hackathon = useHackathonManageStore((state) => state.hackathon);
+
   const { onCreate, onEdit } = useAnnouncementModal();
   const actionModal = useRef<ConfirmModalRef>(null);
   const [modalType, setModalType] = useState<'delete' | 'sendAfterDelete' | 'schedule' | 'sendNow' | 'closeAndSave'>();
@@ -40,11 +42,18 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
     }
   });
 
-  const deleteAnnouncementAction = (announcement: Announcement) => {
+  const deleteAnnouncementAction = (announcement: Announcement, callback?: Function) => {
     announcement.status === 'publish' ? setModalType('sendAfterDelete') : setModalType('delete');
     actionModal.current?.open({
       onConfirm: async () => {
-        await deleteAnnouncementAsync(announcement.id!);
+        deleteAnnouncementAsync(announcement.id!)
+          .then(() => {
+            callback && callback();
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
         setTimeout(() => {
           setModalType(undefined);
         }, 300);
@@ -103,7 +112,7 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
               className={cn(
                 'flex h-[15.3125rem] flex-col gap-5 rounded-2xl border border-neutral-medium-gray bg-neutral-white p-5',
                 {
-                  'bg-neutral-off-white': announcement.status === 'publish'
+                  'border-neutral-light-gray bg-neutral-off-white': announcement.status === 'publish'
                 }
               )}
             >
@@ -246,6 +255,7 @@ const UserSpecific: FC<UserSpecificProps> = (props) => {
         hackathonId={hackathon.id}
         onDelete={deleteAnnouncementAction}
         modalAction={modalAction}
+        hackathonMode={hackathon.info?.mode as HackathonModeEnum}
       />
       <ConfirmModal ref={actionModal} className="sm:w-[50.5rem]" confirmText="yes">
         {['delete', 'sendAfterDelete'].includes(modalType!) && (

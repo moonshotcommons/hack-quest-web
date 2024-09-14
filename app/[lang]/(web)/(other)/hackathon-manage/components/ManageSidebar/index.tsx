@@ -51,6 +51,7 @@ const ManageSidebar: React.FC<ManageSidebarProp> = () => {
           redirectToUrl(MenuLink.HACKATHON_ORGANIZER);
           return;
         }
+
         setHackathon(hackathon);
       },
       onError() {

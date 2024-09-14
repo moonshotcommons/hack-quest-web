@@ -2,7 +2,6 @@
 import React, { useRef, useState } from 'react';
 import MyCourses from './MyCourses';
 import UserInfo from './UserInfo';
-import DaliyQuest from './DaliyQuest';
 import { MyCoursesRef } from './MyCourses';
 import JoinDiscordCard from './JoinDiscordCard';
 
@@ -30,7 +29,7 @@ const Dashboard: React.FC<DashboardProp> = () => {
         </div>
         <div className="flex w-[289px] flex-col gap-[48px]">
           <UserInfo />
-          <DaliyQuest />
+          {/* <DaliyQuest /> */}
           <JoinDiscordCard />
         </div>
       </div>

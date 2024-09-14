@@ -8,6 +8,7 @@ import { PiMedalLight } from 'react-icons/pi';
 import { RiPieChartFill } from 'react-icons/ri';
 import { FiBarChart2 } from 'react-icons/fi';
 import { z } from 'zod';
+import { IoMdMegaphone } from 'react-icons/io';
 
 export const hackathonAuditNavData = [
   {
@@ -30,11 +31,11 @@ export const hackathonAuditNavData = [
     label: 'hackathonManage.judging',
     icon: <FaBalanceScale size={20} />
   },
-  // {
-  //   id: HackathonManageType.ANNOUNCEMENT,
-  //   label: 'hackathonManage.announcement',
-  //   icon: <IoMdMegaphone size={20} />
-  // }
+  {
+    id: HackathonManageType.ANNOUNCEMENT,
+    label: 'hackathonManage.announcement',
+    icon: <IoMdMegaphone size={20} />
+  },
   {
     id: HackathonManageType.DISTRIBUTION,
     label: 'hackathonManage.distribution',
