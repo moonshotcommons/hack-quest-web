@@ -15,8 +15,7 @@ import message from 'antd/es/message';
 import * as XLSX from 'xlsx';
 import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash-es';
-import { stringify } from 'csv-stringify';
-import toast from 'react-hot-toast';
+// import { stringify } from 'csv-stringify';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -364,32 +363,30 @@ export const exportToXlsx = (data: Record<string, any>[], name = '未命名') =>
 };
 
 export const exportToCsv = (data: Record<string, any>[], name = '未命名') => {
-  const columns: string[] = [];
-  data.forEach((item) => {
-    for (let key in item) {
-      if (!~columns.indexOf(key)) {
-        columns.push(key);
-      }
-    }
-  });
-  stringify(data, { header: true, columns }, (err, output) => {
-    if (err) {
-      toast.error(err.message);
-      return;
-    }
-
-    // 创建一个 Blob 对象
-    const blob = new Blob([output], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-
-    link.setAttribute('href', url);
-    link.setAttribute('download', `${name}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
+  // const columns: string[] = [];
+  // data.forEach((item) => {
+  //   for (let key in item) {
+  //     if (!~columns.indexOf(key)) {
+  //       columns.push(key);
+  //     }
+  //   }
+  // });
+  // stringify(data, { header: true, columns }, (err, output) => {
+  //   if (err) {
+  //     toast.error(err.message);
+  //     return;
+  //   }
+  //   // 创建一个 Blob 对象
+  //   const blob = new Blob([output], { type: 'text/csv;charset=utf-8;' });
+  //   const link = document.createElement('a');
+  //   const url = URL.createObjectURL(blob);
+  //   link.setAttribute('href', url);
+  //   link.setAttribute('download', `${name}.csv`);
+  //   link.style.visibility = 'hidden';
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // });
 };
 
 export const arraySortByKey = (data: any[], key: string): any[] => {
