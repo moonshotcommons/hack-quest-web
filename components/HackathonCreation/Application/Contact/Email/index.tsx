@@ -19,7 +19,7 @@ const Email: FC<EmailProps> = ({ config: propConfig, form }) => {
   const user = useUserStore((state) => state.userInfo);
   if (user && user.email) {
     (config.property as any).defaultValue = user.email;
-    (config.property as any).disabled = true;
+    // (config.property as any).disabled = true;
   }
 
   return renderFormComponent(config as CustomComponentConfig, form);
