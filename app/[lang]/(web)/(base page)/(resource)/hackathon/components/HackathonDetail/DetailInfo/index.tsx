@@ -35,7 +35,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   );
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getStepIndex, getLinks } = useDealHackathonData();
+  const { getStepIndex, getLinks, getHackathonTimeSame } = useDealHackathonData();
+  const isSame = getHackathonTimeSame(hackathon);
   const [loading, setLoading] = useState(false);
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
@@ -83,7 +84,6 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       stepIndex === 0
     );
   }, [hackathon]);
-  console.info(hackathon);
   const renderButton = () => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
@@ -207,23 +207,47 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
 
   const statusRender = () => {
     if (stepIndex >= 0) {
-      return (
-        <div className="flex">
-          {stepIndex === 0 ? (
-            <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
-              {t('liveNow')}
-            </div>
-          ) : stepIndex === 2 ? (
-            <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
-              {t('hackathonDetail.submissionReview')}
-            </div>
-          ) : stepIndex === 4 ? (
-            <div className="body-s-bold  rounded-[8px] border-[2px] border-neutral-medium-gray px-[12px] py-[4px] uppercase text-neutral-medium-gray">
-              {t('ended')}
-            </div>
-          ) : null}
-        </div>
-      );
+      if (isSame) {
+        return (
+          <div className="flex">
+            {stepIndex <= 2 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
+                {'LIVE NOW'}
+              </div>
+            ) : stepIndex === 3 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
+                {'VOTING'}
+              </div>
+            ) : stepIndex === 4 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-neutral-medium-gray px-[12px] py-[4px] uppercase text-neutral-medium-gray">
+                {'ENDED'}
+              </div>
+            ) : null}
+          </div>
+        );
+      } else {
+        return (
+          <div className="flex">
+            {stepIndex === 0 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
+                {'LIVE NOW'}
+              </div>
+            ) : stepIndex === 2 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
+                {'SUBMISSIONS REVIEW'}
+              </div>
+            ) : stepIndex === 3 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-status-success px-[12px] py-[4px] uppercase text-status-success">
+                {'VOTING'}
+              </div>
+            ) : stepIndex === 4 ? (
+              <div className="body-s-bold  rounded-[8px] border-[2px] border-neutral-medium-gray px-[12px] py-[4px] uppercase text-neutral-medium-gray">
+                {'ENDED'}
+              </div>
+            ) : null}
+          </div>
+        );
+      }
     } else {
       return null;
     }
