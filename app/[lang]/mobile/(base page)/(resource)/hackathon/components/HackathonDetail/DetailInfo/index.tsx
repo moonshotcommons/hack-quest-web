@@ -224,6 +224,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
       return null;
     }
   };
+
   const handleConfirmAttendance = () => {
     if (loading) return;
     setLoading(true);
