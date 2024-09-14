@@ -86,9 +86,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
       stepIndex === 0
     );
   }, [hackathon]);
-  console.info(hackathon);
   const renderButton = () => {
-    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm || !userInfo) {
+    if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
     if (stepIndex <= 2) {
