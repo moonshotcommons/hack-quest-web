@@ -183,8 +183,6 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
   // const showHandleButton = useMemo(() => {
   //   return hackathon?.info?.allowSubmission === false;
   // }, [hackathon]);
-  console.info(getStepIndex(hackathon as unknown as HackathonType), 'step');
-  console.info(hackathon);
   return (
     <div className="flex w-full flex-1 flex-col">
       <Operation
