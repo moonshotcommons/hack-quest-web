@@ -41,7 +41,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
 
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
-  const { getStepIndex, getLinks } = useDealHackathonData();
+  const { getStepIndex, getLinks, getHackathonTimeSame } = useDealHackathonData();
+  const isSame = getHackathonTimeSame(hackathon);
   const [loading, setLoading] = useState(false);
   const { redirectToUrl } = useRedirect();
   const [warningOpen, setWarningOpen] = useState(false);
@@ -83,16 +84,55 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
     return !!(
       hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
       !hackathon.participation?.isRegister &&
-      stepIndex === 0
+      stepIndex <= 2
     );
   }, [hackathon]);
-
   const renderButton = () => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
-    if (stepIndex === 0) {
-      if (!hackathon.participation?.isRegister) {
+    if (stepIndex <= 2) {
+      if (hackathon.participation?.isRegister) {
+        if (
+          (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+          hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+        ) {
+          return (
+            <Button
+              type="primary"
+              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+            >
+              <div>
+                <p className="button-text-m uppercase">Pending</p>
+                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+              </div>
+            </Button>
+          );
+        }
+        if (!hackathon?.participation?.isSubmit) {
+          return !hackathon?.participation?.project?.id ? (
+            <Button
+              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+              onClick={() => setTipsModalOpenState(true)}
+            >
+              {t('submitNow')}
+            </Button>
+          ) : (
+            <Button
+              className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+              onClick={() => setTipsModalOpenState(true)}
+            >
+              {t('continueSubmission')}
+            </Button>
+          );
+        } else {
+          return (
+            <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+              {t('youHavesubmitted')}
+            </Button>
+          );
+        }
+      } else {
         if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
           const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
           return (
@@ -113,62 +153,20 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
             </Button>
           );
         }
-      } else {
-        if (
-          (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
-          hackathon.participation?.joinState !== ApplicationStatus.APPROVED
-        ) {
-          return (
-            <Button
-              type="primary"
-              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
-            >
-              <div>
-                <p className="button-text-m uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-              </div>
-            </Button>
-          );
-        }
       }
     }
-    if (stepIndex === 1) {
-      if (hackathon.participation?.isRegister) {
-        return (
-          <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
-            <div>
-              <p className="button-text-m uppercase">Pending</p>
-              <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-            </div>
-          </Button>
-        );
-      }
-    }
-    if (stepIndex === 2) {
-      if (!hackathon?.participation?.isSubmit) {
-        return !hackathon?.participation?.project?.id ? (
-          <Button
-            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-            onClick={() => setTipsModalOpenState(true)}
-          >
-            {t('submitNow')}
-          </Button>
-        ) : (
-          <Button
-            className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
-            onClick={() => setTipsModalOpenState(true)}
-          >
-            {t('continueSubmission')}
-          </Button>
-        );
-      } else {
-        return (
-          <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
-            {t('youHavesubmitted')}
-          </Button>
-        );
-      }
-    }
+    // if (stepIndex === 1) {
+    //   if (hackathon.participation?.isRegister) {
+    //     return (
+    //       <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+    //         <div>
+    //           <p className="button-text-m uppercase">Pending</p>
+    //           <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+    //         </div>
+    //       </Button>
+    //     );
+    //   }
+    // }
     return (
       <Link href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}>
         <Button ghost className="button-text-m h-[3rem] w-full bg-neutral-black uppercase text-neutral-white">
@@ -203,23 +201,47 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
   };
   const statusRender = () => {
     if (stepIndex >= 0) {
-      return (
-        <div className="flex">
-          {stepIndex === 0 ? (
-            <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
-              {t('liveNow')}
-            </div>
-          ) : stepIndex === 2 ? (
-            <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
-              {t('hackathonDetail.submissionReview')}
-            </div>
-          ) : stepIndex === 4 ? (
-            <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
-              {t('ended')}
-            </div>
-          ) : null}
-        </div>
-      );
+      if (isSame) {
+        return (
+          <div className="flex">
+            {stepIndex <= 2 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'LIVE NOW'}
+              </div>
+            ) : stepIndex === 3 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'VOTING'}
+              </div>
+            ) : stepIndex === 4 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
+                {'ENDED'}
+              </div>
+            ) : null}
+          </div>
+        );
+      } else {
+        return (
+          <div className="flex">
+            {stepIndex === 0 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'LIVE NOW'}
+              </div>
+            ) : stepIndex === 2 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'SUBMISSIONS REVIEW'}
+              </div>
+            ) : stepIndex === 3 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-status-success px-[.75rem] py-[.25rem] uppercase text-status-success">
+                {'VOTING'}
+              </div>
+            ) : stepIndex === 4 ? (
+              <div className="body-s-bold  rounded-[.5rem] border-[.125rem] border-neutral-medium-gray px-[.75rem] py-[.25rem] uppercase text-neutral-medium-gray">
+                {'ENDED'}
+              </div>
+            ) : null}
+          </div>
+        );
+      }
     } else {
       return null;
     }

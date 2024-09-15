@@ -34,15 +34,18 @@ export const animateProps: MotionProps = {
 
 export const hackathonDetailTimeLine = [
   {
-    key: 'registration',
+    key: 'Registration',
+    timeStr: 'Registration Open',
     time: ['registrationOpen', 'registrationClose']
   },
   {
-    key: 'submission',
+    key: 'Submission',
+    timeStr: 'Submission Close',
     time: ['submissionOpen', 'submissionClose']
   },
   {
-    key: 'rewardAnnouncement',
+    key: 'Reward Announcement',
+    timeStr: 'Reward Announcement',
     time: ['rewardTime']
   }
 ];
