@@ -84,7 +84,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
     return !!(
       hackathon.participation?.joinState === ApplicationStatus.APPROVED &&
       !hackathon.participation?.isRegister &&
-      stepIndex === 0
+      stepIndex <= 2
     );
   }, [hackathon]);
   const renderButton = () => {
