@@ -15,7 +15,7 @@ import message from 'antd/es/message';
 import * as XLSX from 'xlsx';
 import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash-es';
-import { stringify } from 'csv-stringify';
+import stringify from 'csv-stringify';
 import toast from 'react-hot-toast';
 
 export function cn(...inputs: ClassValue[]) {
