@@ -180,9 +180,9 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
   const disableHandleButton = useMemo(() => {
     return getStepIndex(hackathon as unknown as HackathonType) > 2;
   }, [hackathon, getStepIndex]);
-  // const showHandleButton = useMemo(() => {
-  //   return hackathon?.info?.allowSubmission === false;
-  // }, [hackathon]);
+  const showHandleButton = useMemo(() => {
+    return hackathon?.info?.allowSubmission === false;
+  }, [hackathon]);
   return (
     <div className="flex w-full flex-1 flex-col">
       <Operation
@@ -190,7 +190,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
         handleDown={handleDown}
         handleStatus={handleStatus}
         tabStatus={tabStatus}
-        isHandle={!disableHandleButton}
+        isHandle={showHandleButton && !disableHandleButton}
       />
       <AuditTable
         checkIds={checkItems.map((v) => v.id)}
@@ -205,7 +205,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
         tabStatus={tabStatus}
         showInfo={showInfo}
         loading={loading}
-        isHandle={!disableHandleButton}
+        isHandle={showHandleButton && !disableHandleButton}
       />
       <ConfirmModal
         open={!!status}
@@ -225,7 +225,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
               key={info.id}
               info={info}
               disableHandleButton={disableHandleButton}
-              // showHandleButton={showHandleButton}
+              showHandleButton={showHandleButton}
               onClose={() => {
                 setCurInfo(null);
                 setCurId('');
