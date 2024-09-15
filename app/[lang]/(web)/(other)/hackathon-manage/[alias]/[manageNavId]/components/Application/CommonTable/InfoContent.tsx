@@ -20,15 +20,15 @@ interface InfoContentProp {
   onClose: VoidFunction;
   handleStatusSingle: (item: HackathonManageApplicationType, sta: ApplicationStatus) => void;
   disableHandleButton: boolean;
-  showHandleButton: boolean;
+  // showHandleButton: boolean;
 }
 
 const InfoContent: React.FC<InfoContentProp> = ({
   info: team,
   onClose,
   handleStatusSingle,
-  disableHandleButton,
-  showHandleButton
+  disableHandleButton
+  // showHandleButton
 }) => {
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
@@ -166,7 +166,7 @@ const InfoContent: React.FC<InfoContentProp> = ({
   };
 
   const mInfo = useMemo(() => {
-    const memberInfo = curMemberInfo.info;
+    const memberInfo = curMemberInfo?.info;
     let About = (cloneDeep(memberInfo?.About) || {}) as Record<string, any>;
     const Contact = memberInfo?.Contact;
     const OnlineProfiles = memberInfo?.OnlineProfiles;
@@ -375,11 +375,11 @@ const InfoContent: React.FC<InfoContentProp> = ({
           </div>
         </div>
       </div>
-      {showHandleButton && (
-        <div className="body-s border-t border-neutral-light-gray px-[40px] pt-[40px] text-neutral-off-black">
-          {renderStatus()}
-        </div>
-      )}
+      {/* {showHandleButton && ( */}
+      <div className="body-s border-t border-neutral-light-gray px-[40px] pt-[40px] text-neutral-off-black">
+        {renderStatus()}
+      </div>
+      {/* )} */}
     </div>
   );
 };
