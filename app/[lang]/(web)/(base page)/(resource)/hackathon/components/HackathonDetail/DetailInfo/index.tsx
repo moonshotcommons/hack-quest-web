@@ -89,58 +89,118 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
       return null;
     }
     if (stepIndex <= 2) {
-      if (hackathon.participation?.isRegister) {
-        if (
-          (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
-          hackathon.participation?.joinState !== ApplicationStatus.APPROVED
-        ) {
-          return (
-            <Button
-              type="primary"
-              disabled
-              className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
-            >
-              <div>
-                <p className="button-text-l uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-              </div>
-            </Button>
-          );
-        }
-        if (!hackathon?.participation?.isSubmit) {
-          return !hackathon?.participation?.project?.id ? (
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={() => handleSubmit('-1')}
-            >
-              {t('submitNow')}
-            </Button>
-          ) : (
-            <Button
-              className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
-              onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
-            >
-              {t('continueSubmission')}
-            </Button>
-          );
-        } else {
-          return (
-            <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
-              <Button type="primary" className="button-text-l h-[60px] w-full  uppercase text-neutral-black">
-                {t('hackathonDetail.editSubmission')}
+      if (isSame) {
+        if (hackathon.participation?.isRegister) {
+          if (
+            (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+            hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+          ) {
+            return (
+              <Button
+                type="primary"
+                disabled
+                className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+              >
+                <div>
+                  <p className="button-text-l uppercase">Pending</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                </div>
               </Button>
-            </Link>
-          );
+            );
+          }
+          if (!hackathon?.participation?.isSubmit) {
+            return !hackathon?.participation?.project?.id ? (
+              <Button
+                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+                onClick={() => handleSubmit('-1')}
+              >
+                {t('submitNow')}
+              </Button>
+            ) : (
+              <Button
+                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+                onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
+              >
+                {t('continueSubmission')}
+              </Button>
+            );
+          } else {
+            return (
+              <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
+                <Button type="primary" className="button-text-l h-[60px] w-full  uppercase text-neutral-black">
+                  {t('hackathonDetail.editSubmission')}
+                </Button>
+              </Link>
+            );
+          }
+        } else {
+          if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
+            const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
+            return (
+              <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
+                {buttonText}
+              </Button>
+            );
+          } else {
+            return (
+              <Button
+                type="primary"
+                disabled
+                className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+              >
+                <div>
+                  <p className="button-text-l uppercase">Pending</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                </div>
+              </Button>
+            );
+          }
         }
       } else {
-        if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
-          const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-          return (
-            <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
-              {buttonText}
-            </Button>
-          );
-        } else {
+        if (stepIndex === 0) {
+          if (hackathon.participation?.isRegister) {
+            if (
+              (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+              hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+            ) {
+              return (
+                <Button
+                  type="primary"
+                  disabled
+                  className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+                >
+                  <div>
+                    <p className="button-text-l uppercase">Pending</p>
+                    <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                  </div>
+                </Button>
+              );
+            }
+          } else {
+            if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
+              const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
+              return (
+                <Button className="button-text-l h-[60px] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
+                  {buttonText}
+                </Button>
+              );
+            } else {
+              return (
+                <Button
+                  type="primary"
+                  disabled
+                  className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+                >
+                  <div>
+                    <p className="button-text-l uppercase">Pending</p>
+                    <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                  </div>
+                </Button>
+              );
+            }
+          }
+        }
+        if (stepIndex === 1 && hackathon.participation?.isRegister) {
           return (
             <Button
               type="primary"
@@ -153,25 +213,37 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
               </div>
             </Button>
           );
+        }
+        if (stepIndex === 2 && hackathon.participation?.isRegister) {
+          if (!hackathon?.participation?.isSubmit) {
+            return !hackathon?.participation?.project?.id ? (
+              <Button
+                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+                onClick={() => handleSubmit('-1')}
+              >
+                {t('submitNow')}
+              </Button>
+            ) : (
+              <Button
+                className="button-text-l h-[60px] w-full bg-yellow-primary uppercase"
+                onClick={() => handleSubmit(hackathon.participation?.project?.id as string)}
+              >
+                {t('continueSubmission')}
+              </Button>
+            );
+          } else {
+            return (
+              <Link href={`${MenuLink.PROJECTS}/${hackathon.participation?.project?.id}/edit`}>
+                <Button type="primary" className="button-text-l h-[60px] w-full  uppercase text-neutral-black">
+                  {t('hackathonDetail.editSubmission')}
+                </Button>
+              </Link>
+            );
+          }
         }
       }
     }
-    // if (stepIndex === 1) {
-    //   if (hackathon.participation?.isRegister) {
-    //     return (
-    //       <Button
-    //         type="primary"
-    //         disabled
-    //         className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
-    //       >
-    //         <div>
-    //           <p className="button-text-l uppercase">Pending</p>
-    //           <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-    //         </div>
-    //       </Button>
-    //     );
-    //   }
-    // }
+
     return (
       <Link href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}>
         <Button ghost className="button-text-l h-[60px] w-full border-neutral-black uppercase text-neutral-black">
