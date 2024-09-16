@@ -354,7 +354,12 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             <div className="body-m mb-[.25rem] text-neutral-medium-gray">{'Registration Closes In'}</div>
             <CountDown time={hackathon.timeline?.registrationClose} />
           </div>
-        ) : stepIndex < 2 ? (
+        ) : stepIndex === 1 ? (
+          <div>
+            <div className="body-m mb-[.25rem] text-neutral-medium-gray">{'Submission Start'}</div>
+            <CountDown time={hackathon.timeline?.submissionOpen} />
+          </div>
+        ) : stepIndex === 2 ? (
           <div>
             <div className="body-m mb-[.25rem] text-neutral-medium-gray">{'Submission Closes In'}</div>
             <CountDown time={hackathon.timeline?.submissionClose} />

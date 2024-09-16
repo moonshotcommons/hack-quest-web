@@ -349,9 +349,14 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
         {stepIndex <= 0 ? (
           <div>
             <div className="body-s mb-[.25rem] text-neutral-medium-gray ">{'Registration Closes In'}</div>
-            <CountDown time={hackathon.timeline?.submissionClose} countItemClassName="bg-neutral-white" />
+            <CountDown time={hackathon.timeline?.registrationClose} countItemClassName="bg-neutral-white" />
           </div>
-        ) : stepIndex < 2 ? (
+        ) : stepIndex === 1 ? (
+          <div>
+            <div className="body-s mb-[.25rem] text-neutral-medium-gray">{'Submission Start'}</div>
+            <CountDown time={hackathon.timeline?.submissionOpen} />
+          </div>
+        ) : stepIndex === 2 ? (
           <div>
             <div className="body-s mb-[.25rem] text-neutral-medium-gray ">{'Submission Closes In'}</div>
             <CountDown time={hackathon.timeline?.submissionClose} countItemClassName="bg-neutral-white" />
