@@ -190,7 +190,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
                 className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
               >
                 <div>
-                  <p className="button-text-m uppercase">Submission Starts In</p>
+                  <p className="button-text-m uppercase">Submission Start Date</p>
                   <p className="caption-10pt font-light leading-normal">{`${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
                 </div>
               </Button>
