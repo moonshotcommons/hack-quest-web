@@ -190,8 +190,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
                 className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
               >
                 <div>
-                  <p className="button-text-m uppercase">Pending</p>
-                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                  <p className="button-text-m uppercase">Submission Starts In</p>
+                  <p className="caption-10pt font-light leading-normal">{`${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
                 </div>
               </Button>
             );
@@ -353,7 +353,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
           </div>
         ) : stepIndex === 1 ? (
           <div>
-            <div className="body-s mb-[.25rem] text-neutral-medium-gray">{'Submission Start'}</div>
+            <div className="body-s mb-[.25rem] text-neutral-medium-gray">{'Submission Starts In'}</div>
             <CountDown time={hackathon.timeline?.submissionOpen} />
           </div>
         ) : stepIndex === 2 ? (
