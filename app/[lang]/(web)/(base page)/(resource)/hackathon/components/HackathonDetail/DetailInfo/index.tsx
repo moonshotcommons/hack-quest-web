@@ -88,7 +88,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
-    if (stepIndex <= 2) {
+    if (stepIndex > -1 && stepIndex <= 2) {
       if (isSame) {
         if (hackathon.participation?.isRegister) {
           if (

@@ -92,7 +92,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
       return null;
     }
     if (isSame) {
-      if (stepIndex <= 2) {
+      if (stepIndex > -1 && stepIndex <= 2) {
         if (hackathon.participation?.isRegister) {
           if (
             (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&

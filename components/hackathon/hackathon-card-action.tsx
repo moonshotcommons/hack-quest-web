@@ -121,7 +121,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
 
   return (
     <div className="flex flex-col gap-2">
-      {hasPermission(role, status, 'submit') && stepIndex <= 2 && (
+      {hasPermission(role, status, 'submit') && stepIndex === 2 && (
         <PrimaryButton
           onClick={() =>
             isMobile
@@ -144,7 +144,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
       {(hasPermission(role, status, 'edit') ||
         (hackathon.participation?.project &&
           [HackathonPartner.Linea, HackathonPartner.Hack4Bengal].includes(hackathon.id as HackathonPartner))) &&
-        stepIndex <= 2 && (
+        stepIndex === 2 && (
           <PrimaryButton
             onClick={() => {
               isMobile
