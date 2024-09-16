@@ -91,24 +91,124 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
-    if (stepIndex <= 2) {
-      if (hackathon.participation?.isRegister) {
-        if (
-          (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
-          hackathon.participation?.joinState !== ApplicationStatus.APPROVED
-        ) {
-          return (
-            <Button
-              type="primary"
-              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
-            >
-              <div>
-                <p className="button-text-m uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-              </div>
-            </Button>
-          );
+    if (isSame) {
+      if (stepIndex <= 2) {
+        if (hackathon.participation?.isRegister) {
+          if (
+            (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+            hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+          ) {
+            return (
+              <Button
+                type="primary"
+                className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+              >
+                <div>
+                  <p className="button-text-m uppercase">Pending</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                </div>
+              </Button>
+            );
+          }
+          if (!hackathon?.participation?.isSubmit) {
+            return !hackathon?.participation?.project?.id ? (
+              <Button
+                className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+                onClick={() => setTipsModalOpenState(true)}
+              >
+                {t('submitNow')}
+              </Button>
+            ) : (
+              <Button
+                className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase"
+                onClick={() => setTipsModalOpenState(true)}
+              >
+                {t('continueSubmission')}
+              </Button>
+            );
+          } else {
+            return (
+              <Button className="button-text-m h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+                {t('youHavesubmitted')}
+              </Button>
+            );
+          }
+        } else {
+          if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
+            const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
+            return (
+              <Button className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
+                {buttonText}
+              </Button>
+            );
+          } else {
+            return (
+              <Button
+                type="primary"
+                className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+              >
+                <div>
+                  <p className="button-text-m uppercase">Pending</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                </div>
+              </Button>
+            );
+          }
         }
+      }
+    } else {
+      if (stepIndex === 0) {
+        if (hackathon.participation?.isRegister) {
+          if (
+            (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
+            hackathon.participation?.joinState !== ApplicationStatus.APPROVED
+          ) {
+            return (
+              <Button
+                type="primary"
+                className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+              >
+                <div>
+                  <p className="button-text-m uppercase">Pending</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                </div>
+              </Button>
+            );
+          }
+        } else {
+          if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
+            const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
+            return (
+              <Button className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
+                {buttonText}
+              </Button>
+            );
+          } else {
+            return (
+              <Button
+                type="primary"
+                className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
+              >
+                <div>
+                  <p className="button-text-m uppercase">Pending</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                </div>
+              </Button>
+            );
+          }
+        }
+      }
+      if (stepIndex === 1 && hackathon.participation?.isRegister) {
+        return (
+          <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+            <div>
+              <p className="button-text-m uppercase">Pending</p>
+              <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+            </div>
+          </Button>
+        );
+      }
+      if (stepIndex === 2 && hackathon.participation?.isRegister) {
         if (!hackathon?.participation?.isSubmit) {
           return !hackathon?.participation?.project?.id ? (
             <Button
@@ -132,41 +232,9 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
             </Button>
           );
         }
-      } else {
-        if (hackathon.participation?.joinState !== ApplicationStatus.REVIEW) {
-          const buttonText = !hackathon.participation?.status ? t('register') : t('continueRegister');
-          return (
-            <Button className="button-text-m h-[3rem] w-full bg-yellow-primary uppercase" onClick={handleRegister}>
-              {buttonText}
-            </Button>
-          );
-        } else {
-          return (
-            <Button
-              type="primary"
-              className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray"
-            >
-              <div>
-                <p className="button-text-m uppercase">Pending</p>
-                <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-              </div>
-            </Button>
-          );
-        }
       }
     }
-    // if (stepIndex === 1) {
-    //   if (hackathon.participation?.isRegister) {
-    //     return (
-    //       <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
-    //         <div>
-    //           <p className="button-text-m uppercase">Pending</p>
-    //           <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
-    //         </div>
-    //       </Button>
-    //     );
-    //   }
-    // }
+
     return (
       <Link href={`${MenuLink.PROJECTS}?keyword=${hackathon.name}`}>
         <Button ghost className="button-text-m h-[3rem] w-full bg-neutral-black uppercase text-neutral-white">
