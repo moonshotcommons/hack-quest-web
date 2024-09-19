@@ -44,7 +44,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
             {isSame ? (
               <>
                 <p className={`body-l-bold ${getIsActive(i) ? 'text-neutral-black' : 'text-neutral-medium-gray'}`}>
-                  {t(`hackathonDetail.${v.key}Time`)}
+                  {v.timeStr}
                 </p>
                 <div className="mt-[4px] flex h-[44px] flex-col justify-center">
                   <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
@@ -58,7 +58,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
             ) : (
               <>
                 <p className={`body-l-bold ${getIsActive(i) ? 'text-neutral-black' : 'text-neutral-medium-gray'}`}>
-                  {t(`hackathonDetail.${v.key}`)}
+                  {v.key}
                 </p>
                 <div className="mt-[4px] flex h-[44px] flex-col justify-center">
                   <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>

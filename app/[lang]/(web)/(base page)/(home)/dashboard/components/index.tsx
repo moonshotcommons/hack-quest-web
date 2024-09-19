@@ -2,9 +2,9 @@
 import React, { useRef, useState } from 'react';
 import MyCourses from './MyCourses';
 import UserInfo from './UserInfo';
-import DaliyQuest from './DaliyQuest';
 import { MyCoursesRef } from './MyCourses';
 import JoinDiscordCard from './JoinDiscordCard';
+import DaliyQuest from './DaliyQuest';
 
 interface DashboardProp {}
 

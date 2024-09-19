@@ -212,82 +212,84 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
   }, [announcement, form, mode, timezone]);
 
   return (
-    <Modal
-      open={open}
-      onClose={() => {
-        // setOpen(false);
-      }}
-      showCloseIcon
-      icon={
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => {
-            if (disable) {
-              setOpen(false);
-              setAnnouncement(defaultState());
-              return;
-            }
-            onSubmit(form.getValues(), AnnouncementAction.Save, () => {
-              setOpen(false);
-              setAction('');
-            });
-          }}
-        >
-          <path
-            d="M21.708 20.2902C21.8973 20.478 22.0038 20.7336 22.0038 21.0002C22.0038 21.2668 21.8973 21.5224 21.708 21.7102C21.5202 21.8995 21.2646 22.006 20.998 22.006C20.7313 22.006 20.4758 21.8995 20.288 21.7102L11.998 13.4102L3.70799 21.7102C3.52022 21.8995 3.26462 22.006 2.99799 22.006C2.73135 22.006 2.47575 21.8995 2.28799 21.7102C2.09867 21.5224 1.99219 21.2668 1.99219 21.0002C1.99219 20.7336 2.09867 20.478 2.28799 20.2902L10.588 12.0002L2.28799 3.71021C2.03433 3.45655 1.93526 3.08683 2.02811 2.74033C2.12095 2.39383 2.3916 2.12318 2.73811 2.03033C3.08461 1.93748 3.45433 2.03655 3.70799 2.29021L11.998 10.5902L20.288 2.29021C20.6801 1.89809 21.3159 1.89809 21.708 2.29021C22.1001 2.68233 22.1001 3.31809 21.708 3.71021L13.408 12.0002L21.708 20.2902Z"
-            fill="#231F20"
-          />
-        </svg>
-      }
-    >
-      <div className="flex max-h-[calc(100vh-80px)] w-[55.5rem] flex-col gap-6 overflow-hidden rounded-2xl bg-neutral-white p-10 pt-[3.75rem]">
-        <Form {...form}>
-          <form className="flex h-full flex-col gap-6 overflow-hidden">
-            {Title()}
-            <div className="flex flex-1 flex-col gap-6 overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
-              {Message()}
-              <hr className="bg-neutral-light-gray" />
-              {SendTime()}
-              {TimeZone()}
-              <hr className="bg-neutral-light-gray" />
-              {Receivers()}
-            </div>
-            <div className="mt-5 flex h-fit justify-center gap-5 pb-3">
-              <Button
-                ghost
-                className="button-text-m w-[15rem] px-0 py-4 uppercase"
-                loading={action === AnnouncementAction.Save && createLoading}
-                disabled={disable}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onSubmit(form.getValues(), AnnouncementAction.Save);
-                }}
-              >
-                save & close
-              </Button>
-              <Button
-                type="primary"
-                className="button-text-m w-[15rem] px-0 py-4 uppercase"
-                loading={action === AnnouncementAction.Send && createLoading}
-                disabled={!form.formState.isValid || disable}
-                onClick={async (e) => {
-                  e.preventDefault();
-                  await form.trigger();
-                  if (!form.formState.isValid) return;
-                  onSubmit(form.getValues(), AnnouncementAction.Send);
-                }}
-              >
-                {sendNow ? 'send now' : 'send at scheduled time'}
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </div>
-    </Modal>
+    open && (
+      <Modal
+        open={open}
+        onClose={() => {
+          // setOpen(false);
+        }}
+        showCloseIcon
+        icon={
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={() => {
+              if (disable) {
+                setOpen(false);
+                setAnnouncement(defaultState());
+                return;
+              }
+              onSubmit(form.getValues(), AnnouncementAction.Save, () => {
+                setOpen(false);
+                setAction('');
+              });
+            }}
+          >
+            <path
+              d="M21.708 20.2902C21.8973 20.478 22.0038 20.7336 22.0038 21.0002C22.0038 21.2668 21.8973 21.5224 21.708 21.7102C21.5202 21.8995 21.2646 22.006 20.998 22.006C20.7313 22.006 20.4758 21.8995 20.288 21.7102L11.998 13.4102L3.70799 21.7102C3.52022 21.8995 3.26462 22.006 2.99799 22.006C2.73135 22.006 2.47575 21.8995 2.28799 21.7102C2.09867 21.5224 1.99219 21.2668 1.99219 21.0002C1.99219 20.7336 2.09867 20.478 2.28799 20.2902L10.588 12.0002L2.28799 3.71021C2.03433 3.45655 1.93526 3.08683 2.02811 2.74033C2.12095 2.39383 2.3916 2.12318 2.73811 2.03033C3.08461 1.93748 3.45433 2.03655 3.70799 2.29021L11.998 10.5902L20.288 2.29021C20.6801 1.89809 21.3159 1.89809 21.708 2.29021C22.1001 2.68233 22.1001 3.31809 21.708 3.71021L13.408 12.0002L21.708 20.2902Z"
+              fill="#231F20"
+            />
+          </svg>
+        }
+      >
+        <div className="flex max-h-[calc(100vh-80px)] w-[55.5rem] flex-col gap-6 overflow-hidden rounded-2xl bg-neutral-white p-10 pt-[3.75rem]">
+          <Form {...form}>
+            <form className="flex h-full flex-col gap-6 overflow-hidden">
+              {Title()}
+              <div className="flex flex-1 flex-col gap-6 overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
+                {Message()}
+                <hr className="bg-neutral-light-gray" />
+                {SendTime()}
+                {TimeZone()}
+                <hr className="bg-neutral-light-gray" />
+                {Receivers()}
+              </div>
+              <div className="mt-5 flex h-fit justify-center gap-5 pb-3">
+                <Button
+                  ghost
+                  className="button-text-m w-[15rem] px-0 py-4 uppercase"
+                  loading={action === AnnouncementAction.Save && createLoading}
+                  disabled={disable}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSubmit(form.getValues(), AnnouncementAction.Save);
+                  }}
+                >
+                  save & close
+                </Button>
+                <Button
+                  type="primary"
+                  className="button-text-m w-[15rem] px-0 py-4 uppercase"
+                  loading={action === AnnouncementAction.Send && createLoading}
+                  disabled={!form.formState.isValid || disable}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await form.trigger();
+                    if (!form.formState.isValid) return;
+                    onSubmit(form.getValues(), AnnouncementAction.Send);
+                  }}
+                >
+                  {sendNow ? 'send now' : 'send at scheduled time'}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </Modal>
+    )
   );
 
   function Receivers() {
@@ -404,7 +406,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
                       if (!v) {
                         form.setValue('plannedTime', '');
                       } else {
-                        form.setValue('plannedTime', new Date().toISOString().slice(0, 16));
+                        form.setValue('plannedTime', dayjs().format('YYYY-MM-DDTHH:mm'));
                       }
                       form.trigger('plannedTime');
                     }}
@@ -491,7 +493,7 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
               }}
               // defaultContent={transformTextToEditorValue(initialValues?.info?.description)}
               // defaultContent={transformTextToEditorValue(announcement.message)}
-              defaultHtml={mode === 'Create' ? '' : announcement.message}
+              defaultHtml={mode === 'Create' ? 'Dear [%=username%],' : announcement.message}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
 

@@ -166,7 +166,7 @@ const InfoContent: React.FC<InfoContentProp> = ({
   };
 
   const mInfo = useMemo(() => {
-    const memberInfo = curMemberInfo.info;
+    const memberInfo = curMemberInfo?.info;
     let About = (cloneDeep(memberInfo?.About) || {}) as Record<string, any>;
     const Contact = memberInfo?.Contact;
     const OnlineProfiles = memberInfo?.OnlineProfiles;
