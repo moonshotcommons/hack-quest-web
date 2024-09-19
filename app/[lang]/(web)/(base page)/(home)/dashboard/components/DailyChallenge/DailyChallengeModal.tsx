@@ -49,7 +49,6 @@ const DailyChallengeModal: ForwardRefRenderFunction<DailyChallengeModalInstance,
 
   const links = useMemo(() => {
     let links: DailyChallengeType['challenges'][number]['links'] = [];
-    console.log(challengeData.challenges);
     challengeData.challenges.forEach((cha, index) => {
       links = links.concat(cha.links);
     });

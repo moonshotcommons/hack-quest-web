@@ -52,7 +52,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
                 </div>
                 <div>
                   <p className={`body-l-bold ${getIsActive(i) ? 'text-neutral-black' : 'text-neutral-medium-gray'}`}>
-                    {t(`hackathonDetail.${v.key}Time`)}
+                    {v.timeStr}
                   </p>
                   <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
                     {dayjs(hackathon?.timeline?.[v.time[i === 1 ? 1 : 0] as HackathonTimeLineKeyType])
@@ -73,7 +73,7 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
                 </div>
                 <div>
                   <p className={`body-l-bold ${getIsActive(i) ? 'text-neutral-black' : 'text-neutral-medium-gray'}`}>
-                    {t(`hackathonDetail.${v.key}`)}
+                    {v.key}
                   </p>
                   <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
                     {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
