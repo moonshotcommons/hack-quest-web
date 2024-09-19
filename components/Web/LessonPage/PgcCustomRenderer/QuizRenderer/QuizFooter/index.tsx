@@ -81,6 +81,15 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
     }
   };
 
+  const { run: submit, loading } = useRequest(
+    async () => {
+      return onSubmit();
+    },
+    {
+      manual: false
+    }
+  );
+
   return (
     <div className="flex items-center justify-between">
       <div
@@ -106,7 +115,8 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
         type="primary"
         className={`body-s px-[40px] py-[8px] text-neutral-black ${submitDisable ? 'cursor-not-allowed opacity-40' : ''}`}
         disabled={submitDisable}
-        onClick={() => onSubmit()}
+        loading={loading}
+        onClick={() => submit()}
       >
         Submit
       </Button>
