@@ -685,6 +685,7 @@ export interface HackathonManageApplicationMemberType {
   avatar: string;
   location: string;
   university: string;
+  teamName: string;
 }
 export interface HackathonManageApplicationType {
   createdAt: string;
@@ -702,6 +703,7 @@ export interface HackathonManageApplicationType {
   avatar: string;
   location: string;
   university: string;
+  teamName: string;
 }
 
 export interface HackathonVoteJudgeType {
