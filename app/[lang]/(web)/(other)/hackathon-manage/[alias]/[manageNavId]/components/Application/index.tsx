@@ -58,6 +58,7 @@ const Application: React.FC<ApplicationProp> = () => {
       onSuccess(data) {
         const newData = data.map((v) => ({
           ...v,
+          teamName: v.name,
           name: v.type === 'team' ? v.name : `${v.info?.About?.firstName} ${v.info?.About?.lastName}`,
           bio: v.type === 'team' ? v.bio : `${v.info?.About?.bio}`,
           location: v.type === 'team' ? v.location || '' : `${v.info?.About?.location || ''}`,
@@ -65,6 +66,7 @@ const Application: React.FC<ApplicationProp> = () => {
           members: v.members?.map((m: HackathonManageApplicationMemberType) => ({
             ...m,
             name: `${m.info?.About?.firstName} ${m.info?.About?.lastName}`,
+            teamName: v.name,
             bio: `${m.info?.About?.bio}`,
             pId: v.id,
             location: `${m.info?.About?.location || ''}`,

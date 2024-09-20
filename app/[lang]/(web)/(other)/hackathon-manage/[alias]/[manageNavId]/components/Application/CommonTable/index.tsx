@@ -93,7 +93,6 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
   };
 
   const handleStatusSingle = (item: any, sta: ApplicationStatus) => {
-    console.info(item, sta);
     setStatus(sta);
     setCurInfo(item);
     setConfirmTxt(

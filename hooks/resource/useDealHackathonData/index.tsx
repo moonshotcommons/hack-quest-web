@@ -249,7 +249,10 @@ const useDealHackathonData = () => {
   ) => {
     item.info = item.info || {};
     const info: Record<string, any> = {
-      createdAt: dayjs(item.createdAt).format('YYYY-M-D HH:mm')
+      createdAt: dayjs(item.createdAt).format('YYYY-M-D HH:mm'),
+      name: (item as HackathonManageApplicationMemberType).name,
+      teamName: (item as HackathonManageApplicationMemberType).teamName,
+      teamRole: (item as HackathonManageApplicationMemberType).isAdmin ? 'leader' : 'member'
     };
     for (let infoKey in item.info) {
       const iKey = infoKey as keyof typeof item.info;
