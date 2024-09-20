@@ -69,6 +69,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ tabs, loading, list, informati
       } else {
         applicationData.push(getInfo(hackathon as unknown as HackathonType, v));
       }
+      applicationData.push({});
     });
     const tabName = tabs.find((v) => v.value === tabStatus)?.label;
     if (type === 'csv') {
