@@ -40,7 +40,8 @@ class WebApi {
   constructor(baseURL: string) {
     this.baseURL = baseURL;
     this.service = new WebService({
-      baseURL
+      baseURL,
+      timeout: 30000
     });
 
     this.resourceStationApi = new ResourceStationApi(this.service);
