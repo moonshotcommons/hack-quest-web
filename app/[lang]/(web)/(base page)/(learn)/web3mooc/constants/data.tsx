@@ -496,6 +496,11 @@ export const strategicPartners = [
     name: 'OKX Wallet',
     title: 'OKX Wallet',
     picture: '/images/learn/ntu_partners/OKX Wallet.png'
+  },
+  {
+    name: 'KIP',
+    title: 'KIP',
+    picture: '/images/learn/ntu_partners/KIP.png'
   }
 ];
 
