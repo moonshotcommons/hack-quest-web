@@ -12,8 +12,7 @@ import { separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
 import { FiDownload } from 'react-icons/fi';
-import { CiEdit } from 'react-icons/ci';
-import { MdOutlineManageAccounts } from 'react-icons/md';
+import { CiEdit, CiSettings } from 'react-icons/ci';
 import { HackathonManageType } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { AuthType, useUserStore } from '@/store/zustand/userStore';
@@ -65,7 +64,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
                 redirectToUrl(`${MenuLink.HACKATHON_MANAGER}/${hackathon.alias}/${HackathonManageType.OVERVIEW}`);
               }}
             >
-              <MdOutlineManageAccounts size={20} />
+              <CiSettings size={20} />
             </div>
           )}
           {isOrganizer && (
