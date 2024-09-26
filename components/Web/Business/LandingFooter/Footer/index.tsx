@@ -4,6 +4,7 @@ import { FOOTER_LINKS } from './constant';
 import Link from 'next/link';
 import { Lang, TransNs } from '@/i18n/config';
 import { useTranslation } from '@/i18n/server';
+import MailterLiteForm from '@/components/mailter-lite/mailter-lite-form';
 
 interface FooterProps {
   lang: Lang;
@@ -15,8 +16,13 @@ const Footer: FC<FooterProps> = async ({ lang }) => {
   return (
     <div className="w-full bg-neutral-black py-[7.5rem]">
       <div className="container mx-auto flex max-w-[1280px] justify-between">
-        <div className="relative h-[.875rem] w-[8.25rem]">
-          <Image src={'/images/logo/home_nav_logo.svg'} alt="hackquest" fill></Image>
+        <div>
+          <div className="relative h-[.875rem] w-[8.25rem]">
+            <Image src={'/images/logo/home_nav_logo.svg'} alt="hackquest" fill></Image>
+          </div>
+          <div className="h-[20px] w-[500px]">
+            <MailterLiteForm />
+          </div>
         </div>
         <div className="flex gap-[7.5rem] text-neutral-white">
           {FOOTER_LINKS.map((item, index) => {

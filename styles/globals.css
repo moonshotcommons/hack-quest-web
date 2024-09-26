@@ -2,6 +2,7 @@
 @import url('./font.css');
 @import url('./variable.css');
 @import url('./antd.css');
+@import url('./mailer-lite.css');
 
 @tailwind base;
 @tailwind components;

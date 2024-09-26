@@ -11,6 +11,7 @@ import Notification from './Notification';
 import CoinXp from './CoinXp';
 import Avatar from './Avatar';
 import { LoginResponse } from '@/service/webApi/user/type';
+
 interface UserProps {
   userInfo: Partial<LoginResponse> | null;
 }
@@ -72,6 +73,15 @@ const User: FC<UserProps> = ({ userInfo }) => {
                   }}
                 >
                   {t('auth.signUp')}
+                </Button>
+                <Button
+                  type="primary"
+                  className="button-text-s rounded-full px-5 py-[.5rem] uppercase text-neutral-black"
+                  onClick={() => {
+                    ml('show', 'pI9XNQ', true);
+                  }}
+                >
+                  Subcrible
                 </Button>
               </div>
             )}

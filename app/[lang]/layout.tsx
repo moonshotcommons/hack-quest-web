@@ -76,6 +76,64 @@ export default async function RootLayout({ children, params: { lang } }: RootLay
       suppressHydrationWarning
       className={`${nunito.variable} ${space_mono.variable}  ${poppins.variable}`}
     >
+      <head>
+        <Script id="mailerlite-script" async={true} strategy="beforeInteractive">
+          {`
+              (function (w, d, e, u, f, l, n) {
+                (w[f] = w[f] || function () {
+                  (w[f].q = w[f].q || []).push(arguments);
+                }),
+                (l = d.createElement(e)),
+                (l.async = 1),
+                (l.src = u),
+                (n = d.getElementsByTagName(e)[0]),
+                n.parentNode.insertBefore(l, n);
+              })(
+                window,
+                document,
+                "script",
+                "https://assets.mailerlite.com/js/universal.js",
+                "ml"
+              );
+              ml("account", "1056158");
+            `}
+        </Script>
+        <Script
+          src="https://assets.mailerlite.com/jsonp/1056158/forms/pI9XNQ?callback=ml.fn.addOnClickForm"
+          async={true}
+          strategy="beforeInteractive"
+        />
+        <Script id="ml_webform_success">
+          {`  function ml_webform_success_18090423() {
+        var $ = ml_jQuery || jQuery;
+        $(".ml-subscribe-form-18090423 .row-success").show();
+        $(".ml-subscribe-form-18090423 .row-form").hide();
+      }`}
+        </Script>
+        <Script
+          src="https://groot.mailerlite.com/js/w/webforms.min.js?v2d8fb22bb5b3677f161552cd9e774127"
+          async={true}
+          strategy="beforeInteractive"
+        />
+
+        <Script
+          src="https://groot.mailerlite.com/js/w/webforms.min.js?v2d8fb22bb5b3677f161552cd9e774127"
+          async={true}
+          strategy="beforeInteractive"
+        />
+        <Script id="ml_webform_success">
+          {`  function ml_webform_success_18090423() {
+        var $ = ml_jQuery || jQuery;
+        $(".ml-subscribe-form-18090423 .row-success").show();
+        $(".ml-subscribe-form-18090423 .row-form").hide();
+      }`}
+        </Script>
+        <Script id="ml_takel">
+          {`  fetch(
+        "https://assets.mailerlite.com/jsonp/1056158/forms/132693837240862303/takel"
+      );`}
+        </Script>
+      </head>
       <body className={`${nunito.className}`}>
         <WebAppProvider lang={lang}>
           <InitializeUserProvider lang={lang} userInfo={userInfo}>
