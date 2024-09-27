@@ -62,7 +62,7 @@ const CountDown: FC<CountDownProps> = ({ project }) => {
 
   if (!mount) return null;
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2" translate="no">
       <p className="body-s text-neutral-medium-gray">{t('closeIn')}</p>
       <div className="flex gap-4">
         <CountItem
