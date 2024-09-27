@@ -20,7 +20,7 @@ const Footer: FC<FooterProps> = async ({ lang }) => {
           <div className="relative h-[.875rem] w-[8.25rem]">
             <Image src={'/images/logo/home_nav_logo.svg'} alt="hackquest" fill></Image>
           </div>
-          <div className="h-[20px] w-[500px]">
+          <div>
             <MailterLiteForm />
           </div>
         </div>
