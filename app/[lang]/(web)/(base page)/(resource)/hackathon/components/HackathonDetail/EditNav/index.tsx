@@ -23,7 +23,6 @@ const EditNav: React.FC<EditNavProp> = ({ curAnchorIndex, handleClickAnchor, nav
   }, [curAnchorIndex, navs]);
   return (
     <div
-      translate="no"
       className={`sticky left-0 top-[20px] z-[2]  rounded-[16px]  border border-neutral-light-gray bg-neutral-white px-[20px]`}
     >
       <div className="no-scrollbar w-full overflow-auto ">
