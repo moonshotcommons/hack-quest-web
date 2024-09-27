@@ -81,6 +81,17 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     });
   }, [hackathon]);
 
+  const onUserEvent = () => {
+    if (isUserScrollTimeOut.current) return;
+    isUserScrollTimeOut.current = setTimeout(() => {
+      isUserScroll.current = true;
+      isUserScrollTimeOut.current = null;
+      setTimeout(() => {
+        isUserScroll.current = false;
+      }, 2000);
+    }, 100);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
@@ -88,18 +99,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   }, [hackathon]);
   return (
     <DetailProvider navs={navList}>
-      <div
-        className="scroll-wrap-y h-[calc(100vh-64px)]"
-        ref={boxRef}
-        onScroll={handleScroll}
-        onWheel={() => {
-          if (isUserScrollTimeOut.current) return;
-          isUserScroll.current = true;
-          setTimeout(() => {
-            isUserScroll.current = false;
-          }, 3000);
-        }}
-      >
+      <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScroll} onWheel={onUserEvent}>
         <div className="container relative mx-auto pb-[80px] pt-[40px]">
           <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
           <div className="relative flex justify-between gap-[40px] pt-[60px]">
