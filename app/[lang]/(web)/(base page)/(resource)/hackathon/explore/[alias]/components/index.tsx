@@ -29,17 +29,19 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [offsetTops, setOffsetTops] = useState<OffsetTopsType[]>([]);
   const [curAnchorIndex, setCurAnchorIndex] = useState(0);
-  const isOnScoll = useRef(false);
+  const isOnScroll = useRef(false);
   const timeOut = useRef<NodeJS.Timeout | null>(null);
+  const isUserScroll = useRef(false);
+  const isUserScrollTimeOut = useRef<NodeJS.Timeout | null>(null);
   const { getHackathonNavList } = useDealHackathonData();
   const handleClickAnchor = (index: number) => {
     setCurAnchorIndex(index);
-    isOnScoll.current = true;
+    isOnScroll.current = true;
     boxRef.current?.scrollTo({
       top: offsetTops[index]?.offsetTop || 0
     });
     setTimeout(() => {
-      isOnScoll.current = false;
+      isOnScroll.current = false;
     }, 10);
   };
   const getOffsetTops = () => {
@@ -54,8 +56,8 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     }
     setOffsetTops(newOffsetTops);
   };
-  const handleScoll = () => {
-    if (isOnScoll.current) return;
+  const handleScroll = () => {
+    if (isOnScroll.current || timeOut.current || !isUserScroll.current) return;
     const scrollTop = boxRef.current?.scrollTop || 0;
     timeOut.current = setTimeout(() => {
       timeOut.current = null;
@@ -68,7 +70,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
           break;
         }
       }
-    }, 150);
+    }, 70);
   };
 
   const navList = useMemo(() => {
@@ -79,6 +81,17 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
     });
   }, [hackathon]);
 
+  const onUserEvent = () => {
+    if (isUserScrollTimeOut.current) return;
+    isUserScrollTimeOut.current = setTimeout(() => {
+      isUserScroll.current = true;
+      isUserScrollTimeOut.current = null;
+      setTimeout(() => {
+        isUserScroll.current = false;
+      }, 2000);
+    }, 100);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       getOffsetTops();
@@ -86,7 +99,7 @@ const HackathonDetail: React.FC<HackathonDetailProp> = ({ hackathon }) => {
   }, [hackathon]);
   return (
     <DetailProvider navs={navList}>
-      <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScoll}>
+      <div className="scroll-wrap-y h-[calc(100vh-64px)]" ref={boxRef} onScroll={handleScroll} onWheel={onUserEvent}>
         <div className="container relative mx-auto pb-[80px] pt-[40px]">
           <EditNav curAnchorIndex={curAnchorIndex} handleClickAnchor={handleClickAnchor} navList={navList} />
           <div className="relative flex justify-between gap-[40px] pt-[60px]">
