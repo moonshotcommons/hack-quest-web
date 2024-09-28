@@ -21,7 +21,7 @@ const PrizeTrack: FC<PrizeTrackProps> = ({ form, config }) => {
     <FormRadio
       name={'prizeTrack'}
       form={form}
-      label={'Which Sector Do You Belong To' + requiredTag}
+      label={'Which Track Do You Belong to' + requiredTag}
       multiple
       className={cn('flex w-full flex-wrap justify-between gap-5', {
         '[&>div]:w-[calc((100%-20px)/2)]': prizeTracks.length > 1
