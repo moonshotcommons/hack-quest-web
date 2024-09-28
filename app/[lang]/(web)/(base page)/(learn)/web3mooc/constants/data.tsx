@@ -190,15 +190,6 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'How to Build an Investable Web3 Project',
-    time: '9-10:30 AM SGT, August 27th 2024 / 9-10:30 PM EST, August 26th 2024',
-    description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
-    speaker: 'Abhishek Saxena, Polygon Ventures',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
     name: 'Scaling Ethereum: The Power of Parallel EVM Execution to Transform Blockchain Performance',
     time: '9-10:30 AM SGT, September 10th 2024 / 9-10:30 PM EST, September 9th 2024',
     description: `Join us for an in-depth exploration of the Ethereum Virtual Machine (EVM) and its evolution through parallel execution, a groundbreaking approach that promises to significantly enhance blockchain scalability. We’ll dive into the traditional EVM architecture and Ethereum’s state management before transitioning to parallel EVM execution, a hot topic that’s drawing significant attention and investment from industry leaders like Paradigm, which supports both Monad and Reddio. By leveraging Software Transactional Memory (STM) and optimistic concurrency control, parallel execution addresses scalability bottlenecks and transforms potential conflicts into performance enhancements. This session, led by Neil Han, CEO of Reddio, will provide valuable insights into how these advancements are poised to redefine the future of decentralized computing, making it a must-attend for developers, researchers, and blockchain enthusiasts looking to stay ahead in this rapidly evolving field.`,
@@ -272,6 +263,16 @@ export const syllabusData = [
     description:
       'Address the legal and regulatory landscape surrounding Web3. Discuss topics such as token classification, security regulations, and DAO governance.',
     speaker: '',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'How to Build an Investable Web3 Project',
+    // time: '9-10:30 AM SGT, August 27th 2024 / 9-10:30 PM EST, August 26th 2024',
+    time: '',
+    description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
+    speaker: 'Abhishek Saxena, Polygon Ventures',
     video: '',
     slide: '',
     expand: false
