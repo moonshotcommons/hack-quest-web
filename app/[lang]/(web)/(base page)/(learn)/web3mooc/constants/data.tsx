@@ -15,6 +15,7 @@ import speakersAvatar15 from '@/public/images/learn/speaker_avatar15.png';
 import speakersAvatar16 from '@/public/images/learn/speaker_avatar16.png';
 import speakersAvatar17 from '@/public/images/learn/speaker_avatar17.png';
 import speakersAvatar18 from '@/public/images/learn/speaker_avatar18.png';
+import speakersAvatar19 from '@/public/images/learn/speaker_avatar19.png';
 
 import MorphLogo from '@/public/images/learn/Morph_logo.png';
 import OpenCampusLogo from '@/public/images/learn/Open_Campus_logo.png';
@@ -189,26 +190,17 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'How to Build an Investable Web3 Project',
-    time: '9-10:30 AM SGT, August 27th 2024 / 9-10:30 PM EST, August 26th 2024',
-    description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
-    speaker: 'Abhishek Saxena, Polygon Ventures',
-    video: '',
-    slide: '',
-    expand: false
-  },
-  {
     name: 'Scaling Ethereum: The Power of Parallel EVM Execution to Transform Blockchain Performance',
     time: '9-10:30 AM SGT, September 10th 2024 / 9-10:30 PM EST, September 9th 2024',
     description: `Join us for an in-depth exploration of the Ethereum Virtual Machine (EVM) and its evolution through parallel execution, a groundbreaking approach that promises to significantly enhance blockchain scalability. We’ll dive into the traditional EVM architecture and Ethereum’s state management before transitioning to parallel EVM execution, a hot topic that’s drawing significant attention and investment from industry leaders like Paradigm, which supports both Monad and Reddio. By leveraging Software Transactional Memory (STM) and optimistic concurrency control, parallel execution addresses scalability bottlenecks and transforms potential conflicts into performance enhancements. This session, led by Neil Han, CEO of Reddio, will provide valuable insights into how these advancements are poised to redefine the future of decentralized computing, making it a must-attend for developers, researchers, and blockchain enthusiasts looking to stay ahead in this rapidly evolving field.`,
     speaker: 'Neil Han, Founder of reddio',
-    video: '',
-    slide: '',
+    video: 'https://drive.google.com/file/d/1EICrq9V2z0JMopA3hcFDZHDBV6IRHX1P/view',
+    slide: 'https://drive.google.com/file/d/1oDSnqDqUkeXzGp3XXIFSC0447FpkGMBl/view',
     expand: false
   },
   {
     name: 'Incentive Design and Tokenomics',
-    time: '9-10:30 AM SGT, September 17th 2024 / 9-10:30 PM EST, September 16th 2024',
+    time: '9-10:30 AM SGT, September 22th 2024 / 9-10:30 PM EST, September 21th 2024',
     description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
     speaker: 'Mohamed Ezeldin, Animoca Brands',
     video: '',
@@ -271,6 +263,16 @@ export const syllabusData = [
     description:
       'Address the legal and regulatory landscape surrounding Web3. Discuss topics such as token classification, security regulations, and DAO governance.',
     speaker: '',
+    video: '',
+    slide: '',
+    expand: false
+  },
+  {
+    name: 'How to Build an Investable Web3 Project',
+    // time: '9-10:30 AM SGT, August 27th 2024 / 9-10:30 PM EST, August 26th 2024',
+    time: '',
+    description: `Have a vision but don’t know how to turn it into reality? This session guides you to turn an idea into an investable Web3 project, from crafting a compelling narrative that investors can’t say no to developing a winning tokenomics model to structuring win-win terms and deals.`,
+    speaker: 'Abhishek Saxena, Polygon Ventures',
     video: '',
     slide: '',
     expand: false
@@ -413,6 +415,13 @@ export const guestSpeakersData = [
     img: speakersAvatar14,
     description:
       'Dr. Ernie Teo is a Senior Lecturer in the Nanyang Business School at the Nanyang Technological University (NTU). He received his PhD in Economics and Game Theory from UNSW Australia in 2008. He has held teaching roles at both NTU and NUS. Shifting his trajectory towards industry involvement in 2016, Dr. Ernie Teo took on the role of Research Scientist at the IBM Center for Blockchain Innovation in Singapore. During this phase, he collaborated with various corporate clients on diverse blockchain initiatives. In a remarkable step, he co-founded Dedoco in 2020 — an enterprise application company harnessing blockchain technology. Notably, this endeavour secured an impressive $7.4 million in funding, with investment from the Temasek-backed Vertex Ventures.'
+  },
+  {
+    showMore: false,
+    name: 'Julian Peh, CEO & CoFounder of KIP Protocol',
+    img: speakersAvatar19,
+    description:
+      'Julian Peh is an veteran internet entrepreneur with four successful exits and two decades of founding leading companies in fintech, media, and ad tech. Since 2016, he has been deeply involved in Web3 and AI, bringing his extensive entrepreneurial and investment experience into the intersection of blockchain and AI.'
   }
 ];
 
@@ -488,6 +497,11 @@ export const strategicPartners = [
     name: 'OKX Wallet',
     title: 'OKX Wallet',
     picture: '/images/learn/ntu_partners/OKX Wallet.png'
+  },
+  {
+    name: 'KIP',
+    title: 'KIP',
+    picture: '/images/learn/ntu_partners/KIP.png'
   }
 ];
 
