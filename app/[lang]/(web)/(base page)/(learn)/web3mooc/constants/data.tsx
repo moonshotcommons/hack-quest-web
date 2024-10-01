@@ -200,7 +200,7 @@ export const syllabusData = [
   },
   {
     name: 'Incentive Design and Tokenomics',
-    time: '9-10:30 AM SGT, September 22th 2024 / 9-10:30 PM EST, September 21th 2024',
+    time: '9-10:30 PM SGT, October 1st 2024 / 9-10:30 AM EST, October 1st 2024',
     description: `Dive into the core concepts of incentive design and tokenomics within Web3. We'll explore how to create a system of incentives that aligns with the goals of the project and motivates stakeholders to participate in a way that benefits the overall ecosystem. Learn about different token types (utility, security), token distribution models, and the economic forces influencing token value.`,
     speaker: 'Mohamed Ezeldin, Animoca Brands',
     video: '',
