@@ -12,6 +12,7 @@ import { useHackathonManageStore } from '@/store/zustand/hackathonManageStore';
 import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import DownloadModal from '@/components/hackathon/download-modal';
+import { createEditor } from '@wangeditor/editor';
 
 interface CommonTableProp {
   list: any[];
@@ -58,9 +59,12 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
     };
     [item.detail || {}, item.addition || {}].forEach((ad) => {
       for (let key in ad) {
+        if (key === 'detailedIntro') {
+          const detailIntro = (ad as any)[key] as string;
+          info[key] = createEditor({ html: detailIntro }).getText();
+        }
         if (!['id', 'fields'].includes(key)) {
           const dKey = key as keyof typeof ad;
-          info[dKey] = ad[dKey];
         }
         for (let fKey in ad.fields) {
           info[ad.fields[fKey]['label']] = ad.fields[fKey]['value'];
