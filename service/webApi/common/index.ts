@@ -18,7 +18,7 @@ class CommnApi {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
-      timeout: 60000
+      timeout: 60000 * 4
     });
   }
 
