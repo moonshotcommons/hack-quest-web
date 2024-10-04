@@ -27,9 +27,9 @@ export enum LocalStorageKey {
   ShowAnswerCostCoinModal = 'showAnswerCostCoinModal'
 }
 
-export enum Domain {
-  DEV = 'https://dev.hackquest.io/',
-  STAGING = 'https://test.hackquest.io/',
-  PROD = 'https://www.hackquest.io/',
-  LOCAL = 'http://localhost:3000/'
-}
+export const domains = {
+  dev: 'https://dev.hackquest.io/',
+  staging: 'https://test.hackquest.io/',
+  prod: 'https://www.hackquest.io/',
+  local: process.env.LOCAL_HOST ?? 'http://localhost:3000/'
+};

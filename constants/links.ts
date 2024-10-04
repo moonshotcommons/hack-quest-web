@@ -1,4 +1,4 @@
-import { Domain } from './enum';
+import { domains } from './enum';
 
 export const HACKQUEST_DISCORD = 'https://discord.gg/KkAJHPqywn';
 export const HACKQUEST_TWITTER = 'https://x.com/hackquest_?s=21&t=kYetGSBybf-ssFBo7GodGA';
@@ -8,12 +8,12 @@ export const HACKQUEST_LINKEDIN = 'https://www.linkedin.com/company/moonshotcomm
 export const getDomain = (domain: string) => {
   switch (domain) {
     case 'dev':
-      return Domain.DEV;
+      return domains.dev;
     case 'staging':
-      return Domain.STAGING;
+      return domains.staging;
     case 'production':
-      return Domain.PROD;
+      return domains.prod;
     default:
-      return Domain.LOCAL;
+      return domains.local;
   }
 };

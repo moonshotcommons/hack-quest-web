@@ -8,10 +8,10 @@ import VideoReview from '../VideoReview';
 import { Upload, UploadProps, message } from 'antd';
 import { cn, getVideoDuration } from '@/helper/utils';
 import { RcFile } from 'antd/es/upload';
-import webApi from '@/service';
-import LoadingIcon from '@/components/Common/LoadingIcon';
 import Image from 'next/image';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
+import Button from '@/components/Common/Button';
+import { useResumableUpload } from '@/hooks/utils/useResumableUpload';
 
 type GetProp<T, Key> = Key extends keyof T ? Exclude<T[Key], undefined> : never;
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -25,7 +25,6 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
   const [videoType, setVideoType] = useState<'upload' | 'link'>('upload');
   const confirmRef = useRef<ConfirmModalRef>(null);
   const requiredTag = config.optional ? ' (Optional)' : '*';
-  const [loading, setLoading] = useState(false);
 
   const onDelete = () => {
     confirmRef.current?.open({
@@ -64,24 +63,53 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
-      setLoading(true);
       return;
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      setLoading(false);
       // getBase64(info.file.originFileObj as FileType, (url) => {
-
       //   setImageUrl(url);
       // });
     }
   };
 
+  const { retry, upload, percent } = useResumableUpload({
+    onSuccess(data) {
+      console.log(data);
+    },
+    onError(error) {
+      message.error(error.message);
+    }
+  });
+
+  const loading = retry.isPending || upload.isPending;
+  const isError = (upload.isError && !retry.isPending && !retry.isSuccess) || retry.isError;
+
   const uploadButton = (
-    <div className="flex h-[152px] w-full items-center justify-center rounded-[16px] bg-neutral-off-white">
+    <div className="relative flex h-[152px] w-full items-center justify-center overflow-hidden rounded-[16px] bg-neutral-off-white">
       <div className="flex h-[calc(100%-16px)] w-[calc(100%-16px)] items-center justify-center rounded-[12px] border border-dashed border-neutral-medium-gray">
-        {loading && <LoadingIcon />}
-        {!loading && (
+        {loading && (
+          <div className="body-l-bold flex h-full w-full items-center justify-center text-yellow-dark">
+            {`${percent}%`}
+            {/* <LoadingIcon /> */}
+          </div>
+        )}
+        {!loading && isError && (
+          <Button
+            className="px-8 py-2"
+            type="primary"
+            htmlType="button"
+            onClick={async (e) => {
+              e.stopPropagation();
+              const res = await retry.mutateAsync();
+              form.setValue('demoVideo', res);
+              form.trigger('demoVideo');
+            }}
+          >
+            Retry
+          </Button>
+        )}
+        {!loading && !isError && (
           <span className="flex h-fit w-fit items-center transition group-hover:scale-[1.02]">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -96,6 +124,11 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
           </span>
         )}
       </div>
+      {loading && (
+        <div className="absolute bottom-0 left-0 h-3 w-full bg-neutral-300">
+          <div className="absolute left-0 top-0 h-full bg-yellow-primary" style={{ width: `${percent}%` }} />
+        </div>
+      )}
     </div>
   );
 
@@ -129,23 +162,17 @@ export const DemoVideo: FC<DemoVideoProps> = ({ form, config }) => {
             beforeUpload={beforeUpload}
             onChange={handleChange}
             customRequest={async (option) => {
-              setLoading(true);
               const { onProgress, onSuccess, onError } = option;
               const file = option.file as RcFile;
-              const formData = new FormData();
-              formData.append('file', file);
-              formData.append('filepath', `hackathons/projects/demoVideo`);
-              formData.append('isPublic', 'true');
               try {
-                const res = await webApi.commonApi.uploadImage(formData);
-                form.setValue('demoVideo', res.filepath);
+                const res = await upload.mutateAsync({ file: file as File, path: `hackathons/projects/demoVideo` });
+                form.setValue('demoVideo', res);
                 form.trigger('demoVideo');
                 onSuccess?.({}, new XMLHttpRequest());
               } catch (err: any) {
                 onError?.(err);
                 message.error(err.message);
               }
-              setLoading(false);
             }}
           >
             {uploadButton}
