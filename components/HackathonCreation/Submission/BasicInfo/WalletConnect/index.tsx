@@ -152,7 +152,7 @@ export const ConnectWalletConfig: PresetComponentConfig<ConnectWalletProps> = {
         <span className="body-m flex items-center  text-neutral-off-black">Wallet Information</span>
         <p className="body-m flex gap-1 text-left text-neutral-off-black">
           <Image src={'/images/login/metamask.svg'} alt="wallet" width={26} height={26} />
-          <span>{info.wallet.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
+          <span>{info.wallet ? info.wallet.replace(/(.{15})(.*)(.{4})/, '$1...$3') : ''}</span>
         </p>
       </div>
     );
