@@ -227,11 +227,11 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'Decentralized AI',
+    name: 'Why AI needs decentralisation : Retaining economic agency in the AI powered future',
     time: '',
     description:
       'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
-    // speaker: 'Dr. Michael Yuan, Gaianet',
+    speaker: 'Julian Peh',
     video: '',
     slide: '',
     expand: false
