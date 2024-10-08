@@ -87,7 +87,7 @@ const CountDown: FC<CountDownProps> = ({
 
   if (!mount) return null;
   return (
-    <div className={cn(`flex ${isMobile ? 'gap-[.75rem]' : 'gap-[16px]'}`, className)}>
+    <div translate="no" className={cn(`flex ${isMobile ? 'gap-[.75rem]' : 'gap-[16px]'}`, className)}>
       <CountItem
         count={days}
         format={t('day')}
