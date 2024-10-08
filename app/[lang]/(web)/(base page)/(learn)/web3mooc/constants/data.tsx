@@ -227,7 +227,7 @@ export const syllabusData = [
     expand: false
   },
   {
-    name: 'Why AI needs decentralisation : Retaining economic agency in the AI powered future',
+    name: 'Why AI Needs Decentralisation: Retaining Economic Agency in the AI-powered Future',
     time: '',
     description:
       'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
@@ -418,10 +418,10 @@ export const guestSpeakersData = [
   },
   {
     showMore: false,
-    name: 'Julian Peh, CEO & CoFounder of KIP Protocol',
+    name: 'Julian Peh',
     img: speakersAvatar19,
     description:
-      'Julian Peh is an veteran internet entrepreneur with four successful exits and two decades of founding leading companies in fintech, media, and ad tech. Since 2016, he has been deeply involved in Web3 and AI, bringing his extensive entrepreneurial and investment experience into the intersection of blockchain and AI.'
+      'Julian Peh, Co-Founder and CEO of KIP Protocol, is a veteran internet entrepreneur with four successful exits and two decades of founding leading companies in fintech, media, and ad tech. Since 2016, he has been deeply involved in Web3 and AI, bringing his extensive entrepreneurial and investment experience into the intersection of blockchain and AI.'
   }
 ];
 
