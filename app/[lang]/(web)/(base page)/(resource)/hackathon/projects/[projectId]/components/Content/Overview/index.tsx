@@ -2,7 +2,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import Image from 'next/image';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import IconHackathon from '@/public/images/hackathon/icon_hackathon.png';
 import IconPrizeTrack from '@/public/images/hackathon/icon_prize_track.png';
 import IconHackathonTrack from '@/public/images/hackathon/icon_hackathon_track.png';
@@ -21,9 +21,6 @@ const Overview: React.FC<OverviewProp> = ({}) => {
   const { project, hackathon } = useContext(ProjectDetailContext);
   const githubLink = project.addition?.githubLink || '';
   const isOpenSource = project.addition?.isOpenSource;
-  const newGithubLink = useMemo(() => {
-    return /^[http]/.test(githubLink) ? githubLink : `https://${githubLink}`;
-  }, [githubLink]);
 
   const showGithubModule = isOpenSource && githubLink;
 
@@ -91,7 +88,7 @@ const Overview: React.FC<OverviewProp> = ({}) => {
             <DiGithubBadge size={40} />
             <div className="">
               <p className="body-xs text-neutral-medium-gray ">{t('projectsDetail.openSource')}</p>
-              <Link href={newGithubLink} target="_blank" className="relative flex items-center gap-[8px]">
+              <Link href={githubLink} target="_blank" className="relative flex items-center gap-[8px]">
                 <span>Github</span>
                 <IoIosArrowForward />
                 <div className="absolute bottom-0 left-0 h-[2px] w-full rounded-[2px] bg-yellow-dark"></div>
