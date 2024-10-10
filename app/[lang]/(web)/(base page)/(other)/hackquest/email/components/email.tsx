@@ -30,7 +30,7 @@ const Email = () => {
     <div className="flex p-8">
       <div className="basis-1/2">
         <TextEditor
-          simpleModel={true}
+          simpleModel={false}
           defaultHtml=""
           onChange={(editor) => {
             // console.log(editor.children as SlateElement[])

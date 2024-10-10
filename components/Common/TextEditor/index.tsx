@@ -46,7 +46,7 @@ const TextEditor: FC<TextEditorProps> = ({
   onChange = () => {},
   onCreated,
   defaultContent = [],
-  imageUploadPath = '/text-editor/images',
+  imageUploadPath = 'text-editor/images',
   simpleModel = false,
   className,
   defaultHtml,
