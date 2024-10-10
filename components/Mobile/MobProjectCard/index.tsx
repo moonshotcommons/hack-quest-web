@@ -6,6 +6,7 @@ import { BurialPoint } from '@/helper/burialPoint';
 import TrackTag from '@/components/Common/TrackTag';
 import Link from 'next/link';
 import MenuLink from '@/constants/MenuLink';
+import { PiWarningCircle } from 'react-icons/pi';
 
 interface ProjectCardProp {
   project: ProjectType;
@@ -37,7 +38,14 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ project }) => {
               <TrackTag key={i} track={v} className="caption-12pt flex-shrink-0" />
             ))}
           </div>
-          <h2 className="body-xs truncate text-neutral-off-black">{project.name}</h2>
+          <div className="flex items-center gap-1">
+            {project.invalid && <PiWarningCircle className="size-4 flex-shrink-0 text-status-error-dark" />}
+            <h2
+              className={`body-xs flex-1 truncate ${project.invalid ? 'text-status-error-dark' : 'text-neutral-off-black'} `}
+            >
+              {project.name}
+            </h2>
+          </div>
         </div>
         <div className="caption-10pt flex w-full gap-[.25rem] text-neutral-rich-gray">
           {/* <span className="flex-shrink-0">2022 Summer</span>

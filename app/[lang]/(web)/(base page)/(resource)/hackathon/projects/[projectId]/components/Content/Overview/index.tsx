@@ -12,6 +12,7 @@ import { DiGithubBadge } from 'react-icons/di';
 import { IoIosArrowForward } from 'react-icons/io';
 import { cn } from '@/helper/utils';
 import { ProjectDetailContext } from '../../../../../constants/type';
+import InvalidTooltip from './InvalidTooltip';
 
 interface OverviewProp {}
 
@@ -31,7 +32,10 @@ const Overview: React.FC<OverviewProp> = ({}) => {
           <Image src={project.logo} alt={project.name} fill className="object-cover" />
         </div>
         <div className="flex flex-col justify-center gap-[16px]">
-          <h1 className="text-h2 text-neutral-off-black">{project.name}</h1>
+          <h1 className={`text-h2 flex ${project.invalid ? 'text-status-error-dark' : 'text-neutral-off-black'} `}>
+            <span>{project.name}</span>
+            {project.invalid && <InvalidTooltip invalidReason={project.invalidReason} />}
+          </h1>
           <p className="line-clamp-2" title={project.detail?.oneLineIntro}>
             {project.detail?.oneLineIntro}
           </p>

@@ -14,8 +14,7 @@ const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, project, pro
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
   const isShowVoting = useMemo(() => {
-    const isEnd = stepIndex === 4;
-    return !!((isEnd && project.rewards?.length) || !isEnd);
+    return !!(stepIndex > 2 && project.rewards?.length);
   }, [project, stepIndex]);
   const titleTxtData = useMemo(() => {
     let navs = [

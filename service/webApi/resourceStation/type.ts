@@ -391,6 +391,8 @@ export type ProjectType = {
   rewards: ProjectRewardType[];
   //! 没有这个字段了
   apolloDay?: string;
+  invalid: boolean;
+  invalidReason: string;
 };
 
 export interface ProjectDataType {
