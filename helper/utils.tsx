@@ -372,7 +372,7 @@ export const exportToCsv = (data: Record<string, any>[], name = '未命名') => 
       }
     }
   });
-  stringify(data, { header: true, columns }, (err, output) => {
+  stringify(data, { header: true, columns }, (err: any, output: any) => {
     if (err) {
       toast.error(err.message);
       return;

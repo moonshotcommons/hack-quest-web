@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as z from 'zod';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -154,8 +154,6 @@ export function EditJudgingDetailModal({
     }
   });
 
-  const errors = form.formState.errors;
-
   const checkJudgeAccount = useMutation({
     mutationFn: (email: string) => webApi.hackathonV2Api.checkJudgeAccount(initialValues?.hackathonId, email),
     onSuccess: () => {
@@ -282,6 +280,14 @@ export function EditJudgingDetailModal({
     mutation.mutate(values);
   }
 
+  function onInvalid(error: FieldErrors<z.infer<typeof formSchema>>) {
+    const firstError = Object.keys(error)[0];
+    const firstErrorElement = document.querySelector(`#${firstError}-item`);
+    if (firstErrorElement) {
+      firstErrorElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   function onReset() {
     form.reset();
     latestJudgeMode.current = undefined;
@@ -358,13 +364,13 @@ export function EditJudgingDetailModal({
         <Form {...form}>
           <form
             className="documentation-scrollbar flex flex-1 flex-col items-center space-y-6 overflow-y-auto px-10"
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(onSubmit, onInvalid)}
           >
             <FormField
               control={form.control}
               name="criteria"
               render={({ field }) => (
-                <FormItem className="w-full space-y-1">
+                <FormItem className="w-full space-y-1" id="criteria-item">
                   <div className="flex items-center justify-between">
                     <FormLabel>
                       <span className="body-m text-neutral-rich-gray">Judging Criteria*</span>
@@ -404,7 +410,7 @@ export function EditJudgingDetailModal({
               control={form.control}
               name="judgeMode"
               render={({ field }) => (
-                <FormItem className="w-full space-y-1">
+                <FormItem className="w-full space-y-1" id="judgeMode-item">
                   <div className="flex items-center gap-3">
                     <FormLabel>
                       <span className="text-base text-neutral-rich-gray">Judging Mode*</span>
@@ -468,7 +474,10 @@ export function EditJudgingDetailModal({
               control={form.control}
               name="disableJudge"
               render={({ field }) => (
-                <FormItem className="!mt-3 flex w-full flex-row items-start space-x-2.5 space-y-0">
+                <FormItem
+                  className="!mt-3 flex w-full flex-row items-start space-x-2.5 space-y-0"
+                  id="disableJudge-item"
+                >
                   <FormControl>
                     <Checkbox
                       id="disableJudge"
@@ -503,7 +512,7 @@ export function EditJudgingDetailModal({
                   control={form.control}
                   name="voteMode"
                   render={({ field }) => (
-                    <FormItem className="w-full space-y-1">
+                    <FormItem className="w-full space-y-1" id="voteMode-item">
                       <div className="flex items-center gap-3">
                         <FormLabel>
                           <span className="text-base text-neutral-rich-gray">Voting Mode*</span>
@@ -573,7 +582,7 @@ export function EditJudgingDetailModal({
                     control={form.control}
                     name="totalVote"
                     render={({ field }) => (
-                      <FormItem className="w-full space-y-1">
+                      <FormItem className="w-full space-y-1" id="totalVote-item">
                         <div className="flex items-center justify-between">
                           <FormLabel>
                             <span className="body-m text-neutral-rich-gray">How many votes are there in total?*</span>
@@ -604,7 +613,7 @@ export function EditJudgingDetailModal({
                     control={form.control}
                     name="judgeTotalVote"
                     render={({ field }) => (
-                      <FormItem className="w-full space-y-1">
+                      <FormItem className="w-full space-y-1" id="judgeTotalVote-item">
                         <div className="flex items-center justify-between">
                           <FormLabel>
                             <span className="body-m text-neutral-rich-gray">How many votes does each judge have?*</span>
@@ -630,7 +639,7 @@ export function EditJudgingDetailModal({
                     control={form.control}
                     name="projectJudgeCount"
                     render={({ field }) => (
-                      <FormItem className="w-full space-y-1">
+                      <FormItem className="w-full space-y-1" id="projectJudgeCount-item">
                         <div className="flex items-center gap-3">
                           <FormLabel>
                             <span className="body-m text-neutral-rich-gray">
@@ -668,7 +677,7 @@ export function EditJudgingDetailModal({
                   />
                 )}
                 {judgeMode === 'all' && voteMode === 'fixed' && (
-                  <div className="w-full space-y-1">
+                  <div className="w-full space-y-1" id="votesProportion-item">
                     <label className="body-m text-neutral-rich-gray">Votes Proportion*</label>
                     <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -695,7 +704,7 @@ export function EditJudgingDetailModal({
                     control={form.control}
                     name="judgeProjectVote"
                     render={({ field }) => (
-                      <FormItem className="w-full space-y-1">
+                      <FormItem className="w-full space-y-1" id="judgeProjectVote-item">
                         <div className="flex items-center gap-3">
                           <FormLabel>
                             <span className="body-m text-neutral-rich-gray">
@@ -739,7 +748,7 @@ export function EditJudgingDetailModal({
                   control={form.control}
                   name="judgeAccount"
                   render={({ field }) => (
-                    <FormItem className="w-full space-y-1">
+                    <FormItem className="w-full space-y-1" id="judgeAccount-item">
                       <FormLabel>
                         <span className="body-m text-neutral-rich-gray">
                           Judge Accounts{judgeMode === 'judges' && '*'}

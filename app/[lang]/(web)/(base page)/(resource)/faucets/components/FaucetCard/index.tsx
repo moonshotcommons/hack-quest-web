@@ -12,7 +12,7 @@ const FaucetCard: React.FC<FaucetCardProp> = ({ faucet }) => {
   return (
     <Link
       href={`${MenuLink.FAUCETS}/${faucet.chainId}`}
-      className="card-hover flex h-[90px] w-full items-center overflow-hidden rounded-[12px] bg-neutral-white px-[8px] py-[12px] text-neutral-off-black"
+      className="card-hover flex h-full w-full items-center overflow-hidden rounded-[12px] bg-neutral-white px-[8px] py-[12px] text-neutral-off-black"
     >
       <div className="flex-center h-full w-[64px]">
         <div className="relative h-[48px] w-[48px] overflow-hidden">

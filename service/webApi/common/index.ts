@@ -1,6 +1,7 @@
 import WebService from '@/service/webService/webService';
 import { NotionParseLog } from './type';
 import { PageResult } from '../type';
+import { getDomain } from '@/constants/links';
 
 export enum CommnApiType {
   UPLOAD_IMAGE = '/upload/single'
@@ -17,7 +18,8 @@ class CommnApi {
       data: file,
       headers: {
         'Content-Type': 'multipart/form-data'
-      }
+      },
+      timeout: 60000 * 4
     });
   }
 
@@ -34,6 +36,34 @@ class CommnApi {
   //     }
   //   });
   // }
+
+  getUploadSignedUrl(params: { filename: string; filepath: string; isPublic?: boolean }) {
+    params.isPublic = params.isPublic ?? true;
+    return this.service.get<{
+      signedUrl: string;
+    }>('/upload/singed-url', {
+      params
+    });
+  }
+
+  getAssetsUrl(assets: string) {
+    return this.service.get<string>('/upload/assets-url', {
+      params: { assets }
+    });
+  }
+
+  async getUploadSessionUrl(url: string) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Access-Control-Allow-Origin': getDomain(process.env.RUNTIME_ENV || 'local'),
+        'Content-Type': 'application/octet-stream',
+        'X-Goog-Resumable': 'start'
+      } as any,
+      body: JSON.stringify({ name: 'string' })
+    });
+    return response.headers.get('location') as string;
+  }
 }
 
 export default CommnApi;

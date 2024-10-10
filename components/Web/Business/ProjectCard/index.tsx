@@ -6,6 +6,7 @@ import TrackTag from '@/components/Common/TrackTag';
 import Link from 'next/link';
 import { cn } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
+import { PiWarningCircle } from 'react-icons/pi';
 
 interface ProjectCardProp {
   className?: string;
@@ -42,7 +43,15 @@ const ProjectCard: React.FC<ProjectCardProp> = ({ className = '', project }) => 
               <TrackTag key={i} track={v} className="caption-12pt flex-shrink-0" />
             ))}
           </div>
-          <h2 className="body-m-bold truncate text-neutral-off-black">{project.name}</h2>
+          <div className="flex items-center gap-1">
+            {project.invalid && <PiWarningCircle className="size-4 flex-shrink-0 text-status-error-dark" />}
+            <h2
+              className={`body-m-bold flex-1 truncate ${project.invalid ? 'text-status-error-dark' : 'text-neutral-off-black'} `}
+            >
+              {project.name}
+            </h2>
+          </div>
+
           <div className="body-s line-clamp-2 text-neutral-rich-gray">
             {project.detail?.oneLineIntro || project.detail?.detailedIntro}
           </div>

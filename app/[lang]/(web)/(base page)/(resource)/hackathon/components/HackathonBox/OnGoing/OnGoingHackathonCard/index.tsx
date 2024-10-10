@@ -14,9 +14,8 @@ import { useUserStore } from '@/store/zustand/userStore';
 import { useShallow } from 'zustand/react/shallow';
 import WarningModal from '../../../HackathonDetail/DetailInfo/WarningModal';
 import { FiDownload } from 'react-icons/fi';
-import { CiEdit } from 'react-icons/ci';
+import { CiEdit, CiSettings } from 'react-icons/ci';
 import { HackathonManageType } from '@/app/[lang]/(web)/(other)/hackathon-manage/constants/type';
-import { MdOutlineManageAccounts } from 'react-icons/md';
 import DownloadModal from '@/components/hackathon/download-modal';
 
 interface OnGoingHackathonCardProp {
@@ -58,7 +57,7 @@ const OnGoingHackathonCard: React.FC<OnGoingHackathonCardProp> = ({ hackathon, i
                 redirectToUrl(`${MenuLink.HACKATHON_MANAGER}/${hackathon.alias}/${HackathonManageType.OVERVIEW}`);
               }}
             >
-              <MdOutlineManageAccounts size={26} />
+              <CiSettings size={26} />
             </div>
           )}
           {isOrganizer && (

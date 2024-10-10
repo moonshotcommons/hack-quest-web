@@ -121,7 +121,7 @@ const Overview: React.FC<OverviewProp> = () => {
             <div>
               <div className="body-l flex items-center gap-[8px] text-neutral-rich-gray">
                 <LiaUserEditSolid />
-                <span>Applacation</span>
+                <span>Application</span>
               </div>
               <div>
                 <p className="text-h2 text-neutral-off-black">{separationNumber(variousData?.application ?? 0)}</p>

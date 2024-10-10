@@ -93,7 +93,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = memo(({ config, form }) => 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
-        <p className="body-m text-left text-neutral-rich-gray">{'Please connect a walletPlease' + requiredTag}</p>
+        <p className="body-m text-left text-neutral-rich-gray">{'Please connect a wallet' + requiredTag}</p>
         {/* <div className="flex justify-center gap-2 rounded-[16px] border border-dashed border-neutral-light-gray p-5 text-neutral-medium-gray">
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -152,7 +152,7 @@ export const ConnectWalletConfig: PresetComponentConfig<ConnectWalletProps> = {
         <span className="body-m flex items-center  text-neutral-off-black">Wallet Information</span>
         <p className="body-m flex gap-1 text-left text-neutral-off-black">
           <Image src={'/images/login/metamask.svg'} alt="wallet" width={26} height={26} />
-          <span>{info.wallet.replace(/(.{15})(.*)(.{4})/, '$1...$3')}</span>
+          <span>{info.wallet ? info.wallet.replace(/(.{15})(.*)(.{4})/, '$1...$3') : ''}</span>
         </p>
       </div>
     );

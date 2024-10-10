@@ -391,6 +391,8 @@ export type ProjectType = {
   rewards: ProjectRewardType[];
   //! 没有这个字段了
   apolloDay?: string;
+  invalid: boolean;
+  invalidReason: string;
 };
 
 export interface ProjectDataType {
@@ -685,6 +687,7 @@ export interface HackathonManageApplicationMemberType {
   avatar: string;
   location: string;
   university: string;
+  teamName: string;
 }
 export interface HackathonManageApplicationType {
   createdAt: string;
@@ -702,6 +705,7 @@ export interface HackathonManageApplicationType {
   avatar: string;
   location: string;
   university: string;
+  teamName: string;
 }
 
 export interface HackathonVoteJudgeType {
