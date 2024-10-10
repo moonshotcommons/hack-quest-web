@@ -448,6 +448,12 @@ class ResourceStationApi {
       `${ResourceStationApiType.Hackathon}/admin/${hackathonId}/distribution`
     );
   }
+
+  projectMark(projectId: string, data: object) {
+    return this.service.patch(`${ResourceStationApiType.Projects}/${projectId}/mark`, {
+      data
+    });
+  }
 }
 
 export default ResourceStationApi;

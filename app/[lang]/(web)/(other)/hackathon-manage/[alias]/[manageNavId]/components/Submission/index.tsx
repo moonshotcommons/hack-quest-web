@@ -128,6 +128,7 @@ const Submission: React.FC<SubmissionProp> = () => {
           tabs={tabData}
           information={tableInformation}
           loading={loading}
+          refresh={refetch}
         />
       </div>
     </div>
