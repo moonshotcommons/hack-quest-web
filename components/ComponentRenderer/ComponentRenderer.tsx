@@ -35,6 +35,7 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
     case CustomType.QuizA:
     case CustomType.QuizB:
     case CustomType.QuizC:
+    case CustomType.QuizD:
       return <CustomComponentRenderer {...props} />;
     default:
       console.log('不能渲染的类型', component.type.trim());

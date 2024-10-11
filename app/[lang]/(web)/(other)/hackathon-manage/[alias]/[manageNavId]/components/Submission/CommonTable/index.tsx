@@ -13,6 +13,11 @@ import { useShallow } from 'zustand/react/shallow';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import DownloadModal from '@/components/hackathon/download-modal';
 import { createEditor } from '@wangeditor/editor';
+import { ConfirmModal } from '@/components/hackathon-org/modals/confirm-modal';
+import webApi from '@/service';
+import Input from '@/components/Common/Input';
+import { message } from 'antd';
+import { errorMessage } from '@/helper/ui';
 
 interface CommonTableProp {
   list: any[];
@@ -20,9 +25,10 @@ interface CommonTableProp {
   loading: boolean;
   tabs: AuditTabType[];
   prizeTrack: string;
+  refresh: VoidFunction;
 }
 
-const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, tabs, prizeTrack }) => {
+const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, tabs, prizeTrack, refresh }) => {
   const { hackathon } = useHackathonManageStore(
     useShallow((state) => ({
       hackathon: state.hackathon
@@ -35,6 +41,10 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
   const { getInfo: getMemberInfo } = useDealHackathonData();
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [downloadItems, setDownloadItems] = useState<ProjectType[]>([]);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [markInfo, setMarkInfo] = useState<ProjectType | null>(null);
+  const [invalidReason, setInvalidReason] = useState('');
   const handleCheck = (item: ProjectType) => {
     const newCheckItems = checkItems.some((v) => v.id === item.id)
       ? checkItems.filter((v) => v.id !== item.id)
@@ -105,6 +115,32 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
     setDownloadItems(items);
   };
 
+  const handleMark = (item: ProjectType) => {
+    setMarkInfo(item);
+    setConfirmOpen(true);
+  };
+
+  const confirmMark = () => {
+    setConfirmLoading(true);
+    webApi.resourceStationApi
+      .projectMark(markInfo?.id as string, {
+        invalid: !markInfo?.invalid,
+        invalidReason
+      })
+      .then(() => {
+        message.success('Mark Success');
+        setConfirmOpen(false);
+        setCurInfo(null);
+        refresh();
+      })
+      .catch((err) => {
+        errorMessage(err);
+      })
+      .finally(() => {
+        setConfirmLoading(false);
+      });
+  };
+
   const changeTeamIds = (id: string) => {
     const newTeamIds = teamIds.includes(id) ? teamIds.filter((v) => v !== id) : [...teamIds, id];
     setTeamIds(newTeamIds);
@@ -135,6 +171,10 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
     setCheckItems([]);
     setTeamIds([]);
   }, [list]);
+
+  useEffect(() => {
+    setInvalidReason('');
+  }, [confirmOpen]);
   return (
     <div className="flex w-full flex-1 flex-col">
       <Operation checkIds={checkItems.map((v) => v.id)} handleDown={() => handleDown()} />
@@ -159,11 +199,43 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
               key={info.id}
               info={info}
               handleDown={() => handleDown(info)}
+              handleMark={() => handleMark(info)}
               onClose={() => setCurInfo(null)}
             />
           ))
         }
       />
+      <ConfirmModal
+        open={confirmOpen}
+        isLoading={confirmLoading}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={confirmMark}
+        autoClose={false}
+        confirmDisable={!markInfo?.invalid && !invalidReason.length}
+      >
+        <div>
+          <p>
+            {markInfo?.invalid
+              ? `Confirm to restore ${markInfo?.name} to qualified`
+              : `Confirm to mark ${markInfo?.name} as unqualified`}
+          </p>
+          {!markInfo?.invalid && (
+            <div className="mt-[30px] w-full">
+              <Input
+                label={<span className="body-s text-neutral-medium-gray">{'Reasons for disqualification'}</span>}
+                name=""
+                value={invalidReason}
+                theme="light"
+                placeholder={'Reason...'}
+                className="h-[40px] border-neutral-medium-gray"
+                maxLength={60}
+                onChange={(e) => setInvalidReason(e.target.value)}
+              />
+              <div className="body-l mt-[10px] flex w-full justify-end text-neutral-medium-gray">{`${invalidReason.length}/60`}</div>
+            </div>
+          )}
+        </div>
+      </ConfirmModal>
       <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} handleDownload={handleDownload} />
     </div>
   );

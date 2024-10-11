@@ -120,9 +120,39 @@ export function WinnersOnly() {
       />
       <label
         htmlFor="winner"
-        className="body-m select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
+        className="body-m cursor-pointer select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
       >
         Winners only
+      </label>
+    </div>
+  );
+}
+
+export function Unqualified() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentParams = new URLSearchParams(searchParams.toString());
+
+  const invalid = currentParams.get('invalid') ?? 'false';
+
+  function onCheckedChange(checked: boolean) {
+    if (checked) {
+      currentParams.set('invalid', 'true');
+    } else {
+      currentParams.delete('invalid');
+    }
+    const url = createUrl(pathname, currentParams);
+    router.replace(url, { scroll: false });
+  }
+  return (
+    <div className="flex items-center space-x-2.5 sm:ml-6">
+      <Checkbox id="unqualified" size="large" checked={invalid === 'true'} onCheckedChange={onCheckedChange} />
+      <label
+        htmlFor="unqualified"
+        className="body-m cursor-pointer select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
+      >
+        Unqualified
       </label>
     </div>
   );

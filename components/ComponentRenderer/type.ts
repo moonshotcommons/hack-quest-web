@@ -7,6 +7,7 @@ export enum CustomType {
   QuizA = 'QuizA',
   QuizB = 'QuizB',
   QuizC = 'QuizC',
+  QuizD = 'QuizD',
   Content = 'Content',
   Example = 'Example',
   Reading = 'READING',
@@ -96,4 +97,4 @@ export enum PageType {
   DAILY_CHALLENGE = 'daily_challenge'
 }
 
-export const QUIZ_ITEM_TYPES = [CustomType.QuizA, CustomType.QuizB, CustomType.QuizC];
+export const QUIZ_ITEM_TYPES = [CustomType.QuizA, CustomType.QuizB, CustomType.QuizC, CustomType.QuizD];

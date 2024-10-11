@@ -12,9 +12,10 @@ interface InfoContentProp {
   info: ProjectType;
   onClose: VoidFunction;
   handleDown: VoidFunction;
+  handleMark: VoidFunction;
 }
 
-const InfoContent: React.FC<InfoContentProp> = ({ info, onClose, handleDown }) => {
+const InfoContent: React.FC<InfoContentProp> = ({ info, onClose, handleDown, handleMark }) => {
   const [expandTypes, setExpandTypes] = useState<string[]>(['info', 'team', 'details', 'videos', 'additions']);
 
   const handleExpand = (type: string) => {
@@ -262,10 +263,25 @@ const InfoContent: React.FC<InfoContentProp> = ({ info, onClose, handleDown }) =
           )}
         </div>
       </div>
-      <div className="body-s flex justify-center border-t border-neutral-light-gray px-[40px] pt-[40px] text-neutral-off-black">
-        <Button icon={<FiDownload size={24} />} className="button-text-m h-[48px] uppercase" ghost onClick={handleDown}>
-          Download submission
-        </Button>
+      <div className="border-t border-neutral-light-gray px-[40px] pt-[40px]">
+        {info.invalid && info.invalidReason && (
+          <p className="body-s mb-[10px] text-center text-status-error-dark">
+            Reasons for disqualification：{info.invalidReason}
+          </p>
+        )}
+        <div className="flex justify-center gap-2">
+          <Button
+            icon={<FiDownload size={24} />}
+            className="button-text-m h-[48px] w-[280px] uppercase"
+            ghost
+            onClick={handleDown}
+          >
+            Download submission
+          </Button>
+          <Button type="primary" className="button-text-m h-[48px] w-[280px] uppercase" onClick={handleMark}>
+            {` Mark as Invalid ${info.invalid ? '(Undo)' : ''}`}
+          </Button>
+        </div>
       </div>
     </div>
   );

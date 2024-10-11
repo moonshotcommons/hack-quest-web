@@ -1,7 +1,7 @@
 import WebService from '@/service/webService/webService';
 
 export enum PreviewApiType {
-  PreviewLesson = '/preview/lesson',
+  PreviewLesson = '/admin/preview/lesson',
   PreviewCourse = '/preview/course'
 }
 

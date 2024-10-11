@@ -18,6 +18,10 @@ const Overview: React.FC<OverviewProp> = ({}) => {
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { project, hackathon } = useContext(ProjectDetailContext);
+  const githubLink = project.addition?.githubLink || '';
+  const isOpenSource = project.addition?.isOpenSource;
+
+  const showGithubModule = isOpenSource && githubLink;
 
   return (
     <div className="flex flex-col gap-[1.75rem]">
@@ -26,7 +30,10 @@ const Overview: React.FC<OverviewProp> = ({}) => {
           <Image src={project.logo} alt={project.name} fill className="object-cover" />
         </div>
         <div className="flex flex-col justify-center gap-[.25rem]">
-          <h1 className="text-h3-mob text-neutral-off-black">{project.name}</h1>
+          <h1 className={`text-h3-mob flex ${project.invalid ? 'text-status-error-dark' : 'text-neutral-off-black'} `}>
+            <span>{project.name}</span>
+            {project.invalid && <span>(Unqualified)</span>}
+          </h1>
           <p className="line-clamp-3" title={project.detail?.oneLineIntro}>
             {project.detail?.oneLineIntro}
           </p>
@@ -75,14 +82,14 @@ const Overview: React.FC<OverviewProp> = ({}) => {
             </p>
           </div>
         </div>
-        {project.addition?.githubLink && (
+        {showGithubModule && (
           <div>
             <div className="flex w-[40px] justify-center">
               <DiGithubBadge size={40} />
             </div>
             <div className="">
               <p className="body-xs text-neutral-medium-gray">{t('projectsDetail.openSource')}</p>
-              <Link href={project.addition?.githubLink || ''} className="body-s relative flex items-center gap-[8px]">
+              <Link href={githubLink} className="body-s relative flex items-center gap-[8px]">
                 <span>Github</span>
                 <IoIosArrowForward />
                 <div className="absolute bottom-0 left-0 h-[2px] w-full rounded-[2px] bg-yellow-dark"></div>

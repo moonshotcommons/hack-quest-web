@@ -25,6 +25,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson }) => 
   const { getLink } = useGetLessonLink();
   const { redirectToUrl } = useRedirect();
   const [nextControl, setNextControl] = useState(false);
+  const jsConfetti = useRef<JSConfetti>();
   const miniElectiveCompletedModalInstance = useRef<MiniElectiveCompletedModalRef>(null);
   const progress = useMemo(() => {
     if (!course)
@@ -89,7 +90,6 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson }) => 
   );
 
   const onQuizPass = useCallback(() => {
-    const jsConfetti = new JSConfetti();
     setNextControl(true);
 
     if (progress.current === progress.total - 1) {
@@ -100,25 +100,31 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson }) => 
       miniElectiveCompletedModalInstance.current?.open({});
     }
 
-    jsConfetti.addConfetti({
-      confettiColors: [
-        '#ff0a54',
-        '#ff477e',
-        '#ff7096',
-        '#ff85a1',
-        '#fbb1bd',
-        '#f9bec7',
-        '#3b47af',
-        '#28ca59',
-        '#eb1c1c',
-        '#15dffa',
-        '#0452fa',
-        '#cceb1c'
-      ],
-      confettiRadius: 6,
-      confettiNumber: 500
-    });
+    if (jsConfetti.current) {
+      jsConfetti.current.addConfetti({
+        confettiColors: [
+          '#ff0a54',
+          '#ff477e',
+          '#ff7096',
+          '#ff85a1',
+          '#fbb1bd',
+          '#f9bec7',
+          '#3b47af',
+          '#28ca59',
+          '#eb1c1c',
+          '#15dffa',
+          '#0452fa',
+          '#cceb1c'
+        ],
+        confettiRadius: 6,
+        confettiNumber: 500
+      });
+    }
   }, [course]);
+
+  useEffect(() => {
+    jsConfetti.current = new JSConfetti();
+  }, []);
 
   return (
     <div className="flex h-[calc(100vh-64px-80px)] flex-1 flex-col items-center justify-center gap-[24px]">

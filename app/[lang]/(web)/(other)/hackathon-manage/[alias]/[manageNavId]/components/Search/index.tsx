@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { MultiSelect, MultiSelectOption } from '../../../../components/MultiSelect';
 import { InformationDataType, SelectType } from '../../../../constants/type';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export interface SectorType {
   value: any;
@@ -11,14 +12,18 @@ export interface SectorType {
   key: string;
   type?: 'select' | 'checkbox';
 }
+
+export type SearchParams = 'sort' | 'keyword' | 'invalid';
+
 interface SearchProp {
   sorts: SelectType[];
   sort: string;
-  handleSearch: (key: 'sort' | 'keyword', value: string) => void;
+  handleSearch: (key: SearchParams, value: any) => void;
   tableInformation: string[];
   setTableInformation?: (values: string[]) => void;
   informationData?: InformationDataType[];
   sectors?: SectorType[];
+  searchType?: 'submission';
 }
 
 const Search: React.FC<SearchProp> = ({
@@ -28,7 +33,8 @@ const Search: React.FC<SearchProp> = ({
   tableInformation,
   setTableInformation,
   informationData,
-  sectors
+  sectors,
+  searchType
 }) => {
   const timeOut = useRef<NodeJS.Timeout | null>(null);
 
@@ -71,6 +77,23 @@ const Search: React.FC<SearchProp> = ({
             }}
           />
         ))}
+        {searchType === 'submission' && (
+          <div className="flex items-center space-x-2.5 ">
+            <Checkbox
+              id="winner"
+              size="large"
+              onCheckedChange={(val) => {
+                handleSearch('invalid', val);
+              }}
+            />
+            <label
+              htmlFor="winner"
+              className="body-m cursor-pointer  select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
+            >
+              Unqualified
+            </label>
+          </div>
+        )}
       </div>
       <div className="body-s flex h-[46px] w-[400px] items-center rounded-[56px] border border-neutral-light-gray bg-neutral-white px-[20px] text-neutral-off-black">
         <span className="flex-shrink-0">

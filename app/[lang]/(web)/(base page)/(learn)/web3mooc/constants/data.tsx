@@ -208,6 +208,16 @@ export const syllabusData = [
     expand: false
   },
   {
+    name: 'Why AI Needs Decentralisation: Retaining Economic Agency in the AI-powered Future',
+    time: '10-11 AM SGT, October 7th 2024 / 10-11 PM EST, October 7th 2024',
+    description:
+      'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
+    speaker: 'Julian Peh',
+    video: 'https://drive.google.com/file/d/1gN4r3dxm-n1L1JIXh9UslrHiUFNEZIqK/view',
+    slide: 'https://drive.google.com/file/d/171v-7-Izr00PtSPOFAQfGilwXqGkbr-5/view',
+    expand: false
+  },
+  {
     name: 'Protocol and Product Design and Management',
     time: '',
     description: `Focus on crafting a user-centric and engaging experience for the Web3 project. Discuss user interface (UI) and user experience (UX) design principles specific to Web3 applications. Develop wireframes and prototypes to visualize the Web3 app's user flow. Design a user-friendly interface that interacts seamlessly with blockchain features.`,
@@ -223,16 +233,6 @@ export const syllabusData = [
       'Learn how to transform a Web3 idea into a validated project. Dive into user research strategies, including prototyping, user testing, and gathering community feedback to refine the concept and ensure that it meets user needs.',
     speaker: '',
     video: '',
-    slide: '',
-    expand: false
-  },
-  {
-    name: 'Why AI Needs Decentralisation: Retaining Economic Agency in the AI-powered Future',
-    time: '10-11 AM SGT, October 7th 2024 / 10-11 PM EST, October 7th 2024',
-    description:
-      'AI has been one of the hottest trends and narratives over the last few years. The revolutionary technology carries immense potential but also significant centralization risks in the meantime. This session focuses on the intersection of AI and Blockchain, introducing users to how DAI fosters transparency, reduces bias, and paves the way for a future of shared intelligence.',
-    speaker: 'Julian Peh',
-    video: 'https://drive.google.com/file/d/1gN4r3dxm-n1L1JIXh9UslrHiUFNEZIqK/view',
     slide: '',
     expand: false
   },

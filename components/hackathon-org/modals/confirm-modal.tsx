@@ -12,7 +12,7 @@ export function ConfirmModal({
   isLoading = false,
   children,
   autoClose = true,
-  comfirmDisable = false,
+  confirmDisable = false,
   className
 }: {
   open: boolean;
@@ -21,7 +21,7 @@ export function ConfirmModal({
   isLoading?: boolean;
   children: React.ReactNode;
   autoClose?: boolean;
-  comfirmDisable?: boolean;
+  confirmDisable?: boolean;
   className?: string;
 }) {
   return (
@@ -35,9 +35,9 @@ export function ConfirmModal({
           <Button
             className="w-[165px]"
             isLoading={isLoading}
-            disabled={comfirmDisable}
+            disabled={confirmDisable}
             onClick={() => {
-              if (comfirmDisable) return;
+              if (confirmDisable) return;
               onConfirm();
               autoClose && onClose();
             }}

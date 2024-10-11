@@ -5,7 +5,7 @@ import SlideHighlight from '@/components/Common/Navigation/SlideHighlight';
 import { HackathonJudgeType } from '@/service/webApi/resourceStation/type';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';
-import { SearchForm, Sort, WinnersOnly } from '../../FilterPanel';
+import { SearchForm, Sort, WinnersOnly, Unqualified } from '../../FilterPanel';
 import { useRouter } from 'next-nprogress-bar';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -40,6 +40,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
   const sort = currentParams.get('sort') ?? '-createdAt';
   const trackOptions = currentParams.getAll('track');
   const winner = currentParams.get('winner') ?? 'false';
+  const invalid = currentParams.get('invalid') ?? 'false';
   const page = Number(currentParams.get('page') || 1);
   const keyword = currentParams.get('keyword');
 
@@ -52,12 +53,13 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
 
   const { data: projects, isLoading } = useQuery({
     staleTime: Infinity,
-    queryKey: ['projects', trackOptions, keyword, winner, page, sort, rewardName, rewardId, hackathonId],
+    queryKey: ['projects', trackOptions, keyword, winner, invalid, page, sort, rewardName, rewardId, hackathonId],
     queryFn: () =>
       webApi.resourceStationApi.getProjectsList({
         page,
         limit: 12,
         winner,
+        invalid,
         sort,
         prizeTrack: rewardName,
         rewardId,
@@ -226,6 +228,7 @@ export function JudgeTab({ hackathonId, judges }: { hackathonId: string; judges:
           <div className="flex items-center gap-5">
             <Sort />
             <WinnersOnly />
+            <Unqualified />
           </div>
           <SearchForm />
         </div>
