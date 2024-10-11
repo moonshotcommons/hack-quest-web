@@ -1,5 +1,5 @@
 import { ElectiveLessonType } from '@/service/webApi/elective/type';
-import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Progress from '../Progress';
 import { useGetElectives } from '../hooks/useGetElectives';
 import { CompleteStateType, CourseType } from '@/service/webApi/course/type';
@@ -26,6 +26,7 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson, compl
   const { getLink } = useGetLessonLink();
   const { redirectToUrl } = useRedirect();
   const [nextControl, setNextControl] = useState(false);
+  const jsConfetti = useRef<JSConfetti>();
   // const miniElectiveCompletedModalInstance =
   //   useRef<MiniElectiveCompletedModalRef>(null);
   const progress = useMemo(() => {
@@ -91,7 +92,6 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson, compl
   );
 
   const onQuizPass = useCallback(() => {
-    const jsConfetti = new JSConfetti();
     setNextControl(true);
 
     if (progress.current === progress.total - 1) {
@@ -102,26 +102,31 @@ const LessonContentWrap: FC<LessonContentWrapProps> = ({ children, lesson, compl
       // miniElectiveCompletedModalInstance.current?.open({});
       completed();
     }
-
-    jsConfetti.addConfetti({
-      confettiColors: [
-        '#ff0a54',
-        '#ff477e',
-        '#ff7096',
-        '#ff85a1',
-        '#fbb1bd',
-        '#f9bec7',
-        '#3b47af',
-        '#28ca59',
-        '#eb1c1c',
-        '#15dffa',
-        '#0452fa',
-        '#cceb1c'
-      ],
-      confettiRadius: 6,
-      confettiNumber: 500
-    });
+    if (jsConfetti.current) {
+      jsConfetti.current.addConfetti({
+        confettiColors: [
+          '#ff0a54',
+          '#ff477e',
+          '#ff7096',
+          '#ff85a1',
+          '#fbb1bd',
+          '#f9bec7',
+          '#3b47af',
+          '#28ca59',
+          '#eb1c1c',
+          '#15dffa',
+          '#0452fa',
+          '#cceb1c'
+        ],
+        confettiRadius: 6,
+        confettiNumber: 500
+      });
+    }
   }, [course]);
+
+  useEffect(() => {
+    jsConfetti.current = new JSConfetti();
+  }, []);
 
   return (
     <div className="relative flex h-full flex-col items-center">
