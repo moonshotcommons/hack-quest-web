@@ -41,7 +41,7 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   const { lesson, setFooterBtn } = useContext(UgcContext);
   const containerRef = useRef(null);
   const { updateQuizNum } = useUpdateHelperParams();
-
+  const jsConfetti = useRef<JSConfetti>();
   const [quiz, setQuiz] = useState<QuizType>();
 
   const onPass = () => {
@@ -53,27 +53,26 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
         children: quiz.children.map((child) => ({ ...child }))
       });
     });
-
-    const jsConfetti = new JSConfetti();
-    jsConfetti.addConfetti({
-      confettiColors: [
-        '#ff0a54',
-        '#ff477e',
-        '#ff7096',
-        '#ff85a1',
-        '#fbb1bd',
-        '#f9bec7',
-        '#3b47af',
-        '#28ca59',
-        '#eb1c1c',
-        '#15dffa',
-        '#0452fa',
-        '#cceb1c'
-      ],
-      confettiRadius: 6,
-      confettiNumber: 500
-    });
-
+    if (jsConfetti.current) {
+      jsConfetti.current.addConfetti({
+        confettiColors: [
+          '#ff0a54',
+          '#ff477e',
+          '#ff7096',
+          '#ff85a1',
+          '#fbb1bd',
+          '#f9bec7',
+          '#3b47af',
+          '#28ca59',
+          '#eb1c1c',
+          '#15dffa',
+          '#0452fa',
+          '#cceb1c'
+        ],
+        confettiRadius: 6,
+        confettiNumber: 500
+      });
+    }
     BurialPoint.track('lesson-单个quiz提交通过', {
       lessonId: lesson.id,
       lessonName: lesson.name
@@ -127,6 +126,10 @@ const QuizRenderer: FC<QuizRendererProps> = (props) => {
   useEffect(() => {
     updateQuizNum(currentQuizIndex);
   }, [currentQuizIndex]);
+
+  useEffect(() => {
+    jsConfetti.current = new JSConfetti();
+  }, []);
 
   if (!quiz) return null;
 

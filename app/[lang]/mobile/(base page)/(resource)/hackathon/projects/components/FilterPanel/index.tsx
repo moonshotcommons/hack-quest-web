@@ -125,6 +125,36 @@ export function WinnersOnly() {
   );
 }
 
+export function Unqualified() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentParams = new URLSearchParams(searchParams.toString());
+
+  const invalid = currentParams.get('invalid') ?? 'false';
+
+  function onCheckedChange(checked: boolean) {
+    if (checked) {
+      currentParams.set('invalid', 'true');
+    } else {
+      currentParams.delete('invalid');
+    }
+    const url = createUrl(pathname, currentParams);
+    router.replace(url, { scroll: false });
+  }
+  return (
+    <div className="flex shrink-0 items-center space-x-2.5 sm:ml-6">
+      <Checkbox id="unqualified" size="small" checked={invalid === 'true'} onCheckedChange={onCheckedChange} />
+      <label
+        htmlFor="unqualified"
+        className="body-s select-none text-neutral-medium-gray peer-data-[state=checked]:text-neutral-black"
+      >
+        Unqualified
+      </label>
+    </div>
+  );
+}
+
 export function SearchForm() {
   const router = useRouter();
   const searchParams = useSearchParams();

@@ -496,7 +496,6 @@ const AnnouncementCreateModal: FC<AnnouncementCreateModalProps> = (props) => {
               defaultHtml={mode === 'Create' ? 'Dear [%=username%],' : announcement.message}
               onChange={(editor) => {
                 const text = editor.getText().replace(/\n|\r/gm, '');
-
                 form.setValue('message', text);
                 text && setMessage(editor.getHtml());
               }}

@@ -14,7 +14,7 @@ import {
 } from '@/service/webApi/resourceStation/type';
 import webApi from '@/service';
 import { arraySortByKey } from '@/helper/utils';
-import Search from '../Search';
+import Search, { SearchParams } from '../Search';
 
 interface ApplicationProp {}
 
@@ -41,7 +41,7 @@ const Application: React.FC<ApplicationProp> = () => {
       }))
   );
 
-  const handleSearch = (key: 'sort' | 'keyword', value: string) => {
+  const handleSearch = (key: SearchParams, value: string) => {
     setSearchInfo({
       ...searchInfo,
       [key]: value
