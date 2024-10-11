@@ -64,6 +64,16 @@ class CommnApi {
     });
     return response.headers.get('location') as string;
   }
+
+  async sendEmail(email: string, subject: string, content: string) {
+    return this.service.post<any>('/notifications/email', {
+      data: {
+        email,
+        subject,
+        content
+      }
+    });
+  }
 }
 
 export default CommnApi;

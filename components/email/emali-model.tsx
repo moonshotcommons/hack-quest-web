@@ -7,13 +7,21 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 
 import Button from '@/components/Common/Button';
 import { useState } from 'react';
+import { cn } from '@/helper/utils';
+import webApi from '@/service';
 
 const emailSchema = z.object({
   email: z.string().email(),
   subject: z.string().min(1, { message: 'subject is required' })
 });
 
-const EmailModal = ({ getEmail }: { getEmail: () => string }) => {
+interface EmailModalProps {
+  getEmail: () => string;
+  onClick?: () => void;
+  className?: string;
+}
+
+const EmailModal: React.FC<EmailModalProps> = ({ getEmail, onClick, className }) => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof emailSchema>>({
@@ -24,18 +32,21 @@ const EmailModal = ({ getEmail }: { getEmail: () => string }) => {
     }
   });
 
-  const sendEmail = (data: z.infer<typeof emailSchema>) => {
+  const sendEmail = async (data: z.infer<typeof emailSchema>) => {
     console.log(data);
-    console.log(getEmail());
+    console.log('email', getEmail());
+    const res = await webApi.commonApi.sendEmail(data.email, data.subject, getEmail());
+    console.log('send email res', res);
   };
 
   return (
-    <div className="mt-4">
+    <div className={cn('mt-4', className)}>
       <Button
         type="primary"
         className="button-text-s rounded-full px-5 py-[.5rem] uppercase text-neutral-black"
         onClick={() => {
           setOpen(true);
+          onClick && onClick();
         }}
       >
         Send

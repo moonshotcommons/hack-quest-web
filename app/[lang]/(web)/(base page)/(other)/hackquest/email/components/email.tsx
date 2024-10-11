@@ -4,9 +4,10 @@ import useEmailStore from '@/store/zustand/emailStore';
 import dynamic from 'next/dynamic';
 import { useShallow } from 'zustand/react/shallow';
 import EmailRender, { CustomSlateElement } from './email-render';
-import EmailModal from './emali-model';
+
 import CustomIframe from './custom-ifram';
 import { useRef } from 'react';
+import EmailModal from '@/components/email/emali-model';
 
 const TextEditor = dynamic(() => import('@/components/Common/TextEditor'), {
   ssr: false,

@@ -278,6 +278,9 @@ importers:
       react-easy-crop:
         specifier: ^5.0.2
         version: 5.0.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-email-editor:
+        specifier: ^1.7.11
+        version: 1.7.11(react@18.2.0)
       react-hook-form:
         specifier: ^7.52.2
         version: 7.52.2(react@18.2.0)
@@ -11378,6 +11381,12 @@ packages:
       react: '>=16.4.0'
       react-dom: '>=16.4.0'
 
+  react-email-editor@1.7.11:
+    resolution: {integrity: sha512-AyoKKtMEPhKdqUxFX1hyJMvEO+E5fzk88uNVGHhK1ymhLpcghYLkz1+pXKLcByjR6LHkfEbrCmoYFG8zyripug==, tarball: https://registry.npmmirror.com/react-email-editor/-/react-email-editor-1.7.11.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=15'
+
   react-email@3.0.1:
     resolution: {integrity: sha512-G4Bkx2ULIScy/0Z8nnWywHt0W1iTkaYCdh9rWNuQ3eVZ6B3ttTUDE9uUy3VNQ8dtQbmG0cpt8+XmImw7mMBW6Q==, tarball: https://registry.npmmirror.com/react-email/-/react-email-3.0.1.tgz}
     engines: {node: '>=18.0.0'}
@@ -12806,6 +12815,9 @@ packages:
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
+
+  unlayer-types@1.111.0:
+    resolution: {integrity: sha512-CjdOROIUrZXrtkLUrInMvTucEWRdWWEmPleCOhwsDTwUXg9LocjzI6drgdYoia/lyyoYPfHOXYw5SxdJk7hlvw==, tarball: https://registry.npmmirror.com/unlayer-types/-/unlayer-types-1.111.0.tgz}
 
   unload@2.4.1:
     resolution: {integrity: sha512-IViSAm8Z3sRBYA+9wc0fLQmU9Nrxb16rcDmIiR6Y9LJSZzI7QY5QsDhqPpKOjAn0O9/kfK1TfNEMMAGPTIraPw==}
@@ -27794,6 +27806,11 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       tslib: 2.0.1
 
+  react-email-editor@1.7.11(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      unlayer-types: 1.111.0
+
   react-email@3.0.1(@playwright/test@1.35.1)(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.63.6)(utf-8-validate@5.0.10):
     dependencies:
       '@babel/core': 7.24.5
@@ -29501,6 +29518,8 @@ snapshots:
   universalify@0.2.0: {}
 
   universalify@2.0.1: {}
+
+  unlayer-types@1.111.0: {}
 
   unload@2.4.1: {}
 

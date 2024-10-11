@@ -69,6 +69,7 @@ const TextEditor: FC<TextEditorProps> = ({
           fData.append('file', file);
           fData.append('filepath', imageUploadPath);
           fData.append('isPublic', `${true}`);
+
           const { filepath } = await webApi.commonApi.uploadImage(fData);
           insertFn(filepath, '', '');
         }
