@@ -130,7 +130,6 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
       .then(() => {
         message.success('Mark Success');
         setConfirmOpen(false);
-        setCurInfo(null);
         refresh();
       })
       .catch((err) => {
