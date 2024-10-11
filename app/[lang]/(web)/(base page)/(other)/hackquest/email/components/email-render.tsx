@@ -2,7 +2,8 @@
 
 import useEmailStore from '@/store/zustand/emailStore';
 import { Container, Heading, Link, Tailwind, Text, Img } from '@react-email/components';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
+
 import { useShallow } from 'zustand/react/shallow';
 
 type HTMLElementType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | undefined;
