@@ -25,7 +25,8 @@ const Submission: React.FC<SubmissionProp> = () => {
     prizeTrack: '',
     sort: hackathonSortData[0].value,
     track: [],
-    keyword: ''
+    keyword: '',
+    invalid: false
   });
   const [tableInformation, setTableInformation] = useState<SelectType[]>(
     submissionInformationData
@@ -121,6 +122,7 @@ const Submission: React.FC<SubmissionProp> = () => {
             });
             setTableInformation(newTableInformation);
           }}
+          searchType={'submission'}
         />
         <CommonTable
           list={list}

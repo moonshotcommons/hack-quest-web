@@ -7,7 +7,7 @@ import {
   hackathonSortData
 } from '../../../../../constants/data';
 import { HackathonJudgeProjectType, HackathonJugingInfoType } from '@/service/webApi/resourceStation/type';
-import Search from '../../Search';
+import Search, { SearchParams } from '../../Search';
 import CommonTable from './CommonTable';
 import { arraySortByKey } from '@/helper/utils';
 import { MultiSelectOption } from '../../../../../components/MultiSelect';
@@ -45,7 +45,7 @@ const Voting: React.FC<VotingProp> = ({ judgeInfo, loading, tracks }) => {
     return judgingJudgeScoreInformation;
   }, [judgeInfo]);
 
-  const handleSearch = (key: keyof typeof searchInfo, value: string) => {
+  const handleSearch = (key: SearchParams, value: string) => {
     setSearchInfo({
       ...searchInfo,
       [key]: value
