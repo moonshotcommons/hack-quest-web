@@ -17,6 +17,7 @@ export interface CustomSlateElement {
   src?: string;
   alt?: string;
   style?: any;
+  poster?: string;
   ordered?: boolean;
   children: CustomSlateElement[];
 }
@@ -90,6 +91,13 @@ const RenderContent = (content: CustomSlateElement[]) => {
         return <ListTag key={index}>{handleListItem(content.slice(index), isOrdered)}</ListTag>;
       }
       return null;
+    },
+    video: (item, index) => {
+      return (
+        <video key={index} poster={item.poster} controls>
+          <source src={item.src} />
+        </video>
+      );
     }
   };
 
@@ -114,7 +122,7 @@ const EmailRender = () => {
 
   return (
     <Tailwind>
-      <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
+      <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] bg-white p-[20px]">
         {RenderContent(contentObj)}
       </Container>
     </Tailwind>

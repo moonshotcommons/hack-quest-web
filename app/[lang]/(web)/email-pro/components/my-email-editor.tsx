@@ -49,7 +49,7 @@ const MyEmailEditor = () => {
       webApi.commonApi
         .uploadImage(data)
         .then((res) => {
-          console.log(res);
+          done({ progress: 100, url: res.filepath });
         })
         .catch((err) => {
           message.error(err.msg);
@@ -57,35 +57,10 @@ const MyEmailEditor = () => {
         .finally(() => {
           message.destroy('upload-image');
         });
-
-      //   fetch('http://localhost:3001/v1/upload/single', {
-      //     method: 'POST',
-      //     headers: {
-      //       Accept: 'application/json'
-      //     },
-      //     body: data
-      //   })
-      //     .then((response) => {
-      //       // Make sure the response was valid
-      //       if (response.status >= 200 && response.status < 300) {
-      //         return response;
-      //       } else {
-      //         const error = new Error(response.statusText);
-      //         throw error;
-      //       }
-      //     })
-      //     .then((response) => {
-      //       return response.json();
-      //     })
-      //     .then((data) => {
-      //       // Pass the URL back to Unlayer to mark this upload as completed
-      //       done({ progress: 100, url: data.filelink });
-      //     });
     });
   };
 
   const editor = useMemo(() => {
-    console.log(666);
     return <EmailEditor ref={emailEditorRef} style={{ minHeight: '90vh' }} editorId="1" onReady={onReady} />;
   }, []);
 
@@ -96,13 +71,25 @@ const MyEmailEditor = () => {
           <div className={`flex h-full cursor-pointer items-center`}>
             <Image src={HackLogo} width={133} alt="logo"></Image>
           </div>
-          <EmailModal
-            getEmail={() => {
-              return emailHtml;
-            }}
-            onClick={exportEmail}
-            className="m-0  py-4"
-          />
+          <div className="flex gap-4">
+            <EmailModal
+              btnText="Send"
+              getEmail={() => {
+                return emailHtml;
+              }}
+              onClick={exportEmail}
+              className="m-0  py-4"
+            />
+            <EmailModal
+              btnText="bulk mail"
+              getEmail={() => {
+                return emailHtml;
+              }}
+              onClick={exportEmail}
+              className="m-0  py-4"
+              isBatch={true}
+            />
+          </div>
         </div>
       </div>
       {loading && (
