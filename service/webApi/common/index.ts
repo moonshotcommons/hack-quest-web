@@ -65,13 +65,12 @@ class CommnApi {
     return response.headers.get('location') as string;
   }
 
-  async sendEmail(email: string, subject: string, content: string) {
-    return this.service.post<any>('/notifications/email', {
-      data: {
-        email,
-        subject,
-        content
-      }
+  async sendEmail(data: { content: string; email: string; subject: string; isBatch: boolean }) {
+    return this.service.post<{
+      code: number;
+      msg: string;
+    }>('/email', {
+      data
     });
   }
 }

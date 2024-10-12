@@ -39,7 +39,10 @@ const Email = () => {
           }}
         />
 
-        <EmailModal getEmail={getEmail} />
+        <div className="flex gap-4">
+          <EmailModal btnText="Send" getEmail={getEmail} className="m-0  py-4" />
+          <EmailModal btnText="bulk mail" getEmail={getEmail} className="m-0  py-4" isBatch={true} />
+        </div>
       </div>
       <div className="basis-1/2">
         <CustomIframe ref={iframeRef} className="h-full w-full">
