@@ -113,7 +113,7 @@
       "id": "5a7fc18a-8a75-4ff9-8b84-ee3742479e81",
       "type": "GithubOpenSource",
       "title": "Github & Open Source",
-      "optional": true,
+      "optional": false,
       "required": true,
       "selected": true,
       "property": {}
