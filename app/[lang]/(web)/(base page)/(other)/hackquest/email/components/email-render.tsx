@@ -67,7 +67,7 @@ const RenderContent = (content: CustomSlateElement[]) => {
     paragraph: (item, index) => {
       const style = omit(item, ['type', 'text', 'url', 'children']);
       return (
-        <Text key={index} style={style}>
+        <Text className="max-w-[37.5rem] break-words" key={index} style={style}>
           {handleLink(item)}
         </Text>
       );
@@ -122,7 +122,7 @@ const EmailRender = () => {
 
   return (
     <Tailwind>
-      <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-solid border-[#eaeaea] bg-white p-[20px]">
+      <Container className="mx-auto w-[37.5rem] max-w-[37.5rem] rounded border border-solid border-[#eaeaea] bg-white p-[20px]">
         {RenderContent(contentObj)}
       </Container>
     </Tailwind>

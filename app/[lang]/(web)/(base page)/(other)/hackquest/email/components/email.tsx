@@ -29,7 +29,7 @@ const Email = () => {
 
   return (
     <div className="flex p-8">
-      <div className="basis-1/2">
+      <div className="max-w-[750px] basis-1/2 pt-2">
         <TextEditor
           simpleModel={false}
           defaultHtml=""
@@ -40,7 +40,7 @@ const Email = () => {
         />
 
         <div className="flex gap-4">
-          <EmailModal btnText="Send" getEmail={getEmail} className="m-0  py-4" />
+          <EmailModal btnText="Send Test" getEmail={getEmail} className="m-0  py-4" />
           <EmailModal btnText="bulk mail" getEmail={getEmail} className="m-0  py-4" isBatch={true} />
         </div>
       </div>

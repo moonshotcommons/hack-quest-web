@@ -73,7 +73,7 @@ const MyEmailEditor = () => {
           </div>
           <div className="flex gap-4">
             <EmailModal
-              btnText="Send"
+              btnText="Send Test"
               getEmail={() => {
                 return emailHtml;
               }}
