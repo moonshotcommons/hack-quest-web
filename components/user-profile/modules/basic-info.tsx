@@ -13,6 +13,7 @@ import { useProfile } from './profile-provider';
 import { GithubIcon } from '@/components/ui/icons/github';
 import { CheckIcon, CopyIcon, EditIcon } from 'lucide-react';
 import { useModal } from '../utils/modal';
+import { isValidUrl } from '../validations/profile';
 
 export function BasicInfo() {
   const { isLoading, profile } = useProfile();
@@ -79,7 +80,11 @@ export function BasicInfo() {
                     if (!profile?.personalLinks.twitter) {
                       onOpen('profile');
                     } else {
-                      window.open(profile?.personalLinks.twitter, '_blank');
+                      if (isValidUrl(profile?.personalLinks.twitter)) {
+                        window.open(profile?.personalLinks.twitter, '_blank');
+                      } else {
+                        window.open(`https://twitter.com/${profile?.personalLinks.twitter}`, '_blank');
+                      }
                     }
                   }}
                 />
@@ -93,7 +98,11 @@ export function BasicInfo() {
                     if (!profile?.personalLinks.linkedIn) {
                       onOpen('profile');
                     } else {
-                      window.open(profile?.personalLinks.linkedIn, '_blank');
+                      if (isValidUrl(profile?.personalLinks.linkedIn)) {
+                        window.open(profile?.personalLinks.linkedIn, '_blank');
+                      } else {
+                        window.open(`https://linkedin.com/in/${profile?.personalLinks.linkedIn}`, '_blank');
+                      }
                     }
                   }}
                 />
@@ -107,7 +116,11 @@ export function BasicInfo() {
                     if (!profile?.personalLinks.telegram) {
                       onOpen('profile');
                     } else {
-                      window.open(profile?.personalLinks.telegram, '_blank');
+                      if (isValidUrl(profile?.personalLinks.telegram)) {
+                        window.open(profile?.personalLinks.telegram, '_blank');
+                      } else {
+                        window.open(`https://t.me/${profile?.personalLinks.telegram}`, '_blank');
+                      }
                     }
                   }}
                 />
@@ -121,7 +134,11 @@ export function BasicInfo() {
                     if (!profile?.personalLinks.github) {
                       onOpen('profile');
                     } else {
-                      window.open(profile?.personalLinks.github, '_blank');
+                      if (isValidUrl(profile?.personalLinks.github)) {
+                        window.open(profile?.personalLinks.github, '_blank');
+                      } else {
+                        window.open(`https://github.com/${profile?.personalLinks.github}`, '_blank');
+                      }
                     }
                   }}
                 />

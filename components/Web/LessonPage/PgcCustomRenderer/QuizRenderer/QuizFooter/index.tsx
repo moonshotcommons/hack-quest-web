@@ -86,7 +86,7 @@ const QuizFooter: FC<QuizFooterProps> = (props) => {
       return onSubmit();
     },
     {
-      manual: false
+      manual: true
     }
   );
 
