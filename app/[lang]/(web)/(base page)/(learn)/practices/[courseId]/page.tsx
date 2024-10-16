@@ -58,7 +58,6 @@ const PracticePage: FC<PracticePageProps> = async (props) => {
   const { t } = await useTranslation(lang, TransNs.LEARN);
 
   const courseDetail = await webApi.courseApi.fetchCourseDetail(courseId, true);
-  // console.log(courseDetail);
 
   return (
     <CourseDetailProvider courseId={courseId} includeUnits>
