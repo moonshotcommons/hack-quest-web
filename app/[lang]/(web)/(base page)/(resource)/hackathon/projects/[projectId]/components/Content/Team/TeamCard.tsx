@@ -4,11 +4,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext, useMemo } from 'react';
-import { IoIosMail } from 'react-icons/io';
-import { IoLogoWechat } from 'react-icons/io5';
-import { FaTelegramPlane } from 'react-icons/fa';
 import { HackathonMemberType } from '@/service/webApi/resourceStation/type';
-import { copyText } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 
@@ -48,7 +44,7 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
       </div>
       <div className="body-xs flex w-full items-center justify-between">
         <div className="flex gap-[16px]">
-          {contact?.email && (
+          {/* {contact?.email && (
             <IoIosMail
               size={16}
               className="cursor-pointer"
@@ -57,8 +53,8 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
                 copyText(contact.email);
               }}
             />
-          )}
-          {contact?.weChat && (
+          )} */}
+          {/* {contact?.weChat && (
             <IoLogoWechat
               size={16}
               className="cursor-pointer"
@@ -77,7 +73,7 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
                 copyText(contact.telegram);
               }}
             />
-          )}
+          )} */}
         </div>
         {/* <span>{t('learnMore')}</span> */}
       </div>

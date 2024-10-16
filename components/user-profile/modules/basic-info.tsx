@@ -98,7 +98,8 @@ export function BasicInfo() {
                   }}
                 />
               )}
-              {(profile?.isCurrentUser || profile?.personalLinks.telegram) && (
+              {profile?.isCurrentUser && (
+                //  || profile?.personalLinks.telegram
                 <TelegramIcon
                   className={cn('h-5 w-5 cursor-pointer sm:h-6 sm:w-6', {
                     'opacity-30': !profile?.personalLinks.telegram
@@ -126,7 +127,7 @@ export function BasicInfo() {
                   }}
                 />
               )}
-              {(profile?.isCurrentUser || profile?.personalLinks.wechat) &&
+              {profile?.isCurrentUser &&
                 (profile?.personalLinks.wechat ? (
                   <HoverCard>
                     <HoverCardTrigger>
