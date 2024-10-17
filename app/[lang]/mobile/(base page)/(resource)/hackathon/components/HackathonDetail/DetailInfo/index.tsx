@@ -157,7 +157,10 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
         }
       }
     } else {
-      if (stepIndex === 0) {
+      if (
+        dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
+        dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      ) {
         if (hackathon.participation?.isRegister) {
           if (
             (hackathon.info?.allowSubmission === false || hackathon.allowSubmission === false) &&
@@ -208,7 +211,11 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
           </Button>
         );
       }
-      if (stepIndex === 2 && hackathon.participation?.isRegister) {
+      if (
+        dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
+        dayjs().tz().isBefore(hackathon.timeline?.submissionClose) &&
+        hackathon.participation?.isRegister
+      ) {
         if (!hackathon?.participation?.isSubmit) {
           return !hackathon?.participation?.project?.id ? (
             <Button
