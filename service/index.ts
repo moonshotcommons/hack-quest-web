@@ -14,6 +14,7 @@ import IdeaApi from './webApi/ideas';
 import HackathonApi from './webApi/hackathon';
 import CommonApi from './webApi/common';
 import JobApi from './webApi/jobs';
+import EmailApi from './webApi/email';
 
 class WebApi {
   protected baseURL: string;
@@ -36,6 +37,7 @@ class WebApi {
   hackathonV2Api: HackathonApi;
   commonApi: CommonApi;
   jobApi: JobApi;
+  emailApi: EmailApi;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -60,6 +62,7 @@ class WebApi {
     this.hackathonV2Api = new HackathonApi(this.service);
     this.commonApi = new CommonApi(this.service);
     this.jobApi = new JobApi(this.service);
+    this.emailApi = new EmailApi(this.service);
   }
 }
 
