@@ -64,7 +64,7 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
   return (
     <div className="flex flex-col px-5 py-6 sm:flex-row sm:items-center sm:gap-12 sm:px-0 sm:py-0">
       <h1 className="font-next-book-bold text-[1.375rem] font-bold capitalize text-neutral-off-black sm:hidden">
-        Lvl {ecosystem?.level.level}. {ecosystem?.level.label}
+        Lvl {ecosystem?.level?.level}. {ecosystem?.level?.label}
       </h1>
       <div className="order-2 mt-5 flex flex-1 flex-col sm:order-1 sm:mt-0 sm:gap-4">
         {/* 不要删除下面代码，更新合约图片地址用的，之后可能还会用 */}
@@ -112,25 +112,25 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
           </div>
         )} */}
         <h1 className="hidden font-next-book-bold text-[1.75rem] font-bold capitalize text-neutral-off-black sm:block">
-          Lvl {ecosystem?.level.level}. {ecosystem?.level.label}
+          Lvl {ecosystem?.level?.level}. {ecosystem?.level?.label}
         </h1>
-        <Progress className="h-3 bg-neutral-white" max={ecosystem?.level.maxExp} value={ecosystem?.level.currentExp}>
+        <Progress className="h-3 bg-neutral-white" max={ecosystem?.level?.maxExp} value={ecosystem?.level?.currentExp}>
           <ProgressLabel className="text-sm text-neutral-off-black">
-            {ecosystem?.level.currentExp}/{ecosystem?.level.maxExp}
+            {ecosystem?.level?.currentExp}/{ecosystem?.level?.maxExp}
           </ProgressLabel>
         </Progress>
         <div className="mt-6 flex items-center gap-6 sm:mt-4">
-          {ecosystem?.level.currentExp >= ecosystem?.level.maxExp && (
+          {ecosystem?.level?.currentExp >= ecosystem?.level?.maxExp && (
             <Button
               type="primary"
-              ghost={currentCertificate?.certification.claimed}
+              ghost={currentCertificate?.certification?.claimed}
               onClick={handleClaimCertificate}
               className="h-10 w-full whitespace-nowrap text-sm uppercase sm:h-12 sm:w-[11.25rem] sm:self-start"
             >
-              {currentCertificate?.certification.claimed ? t('view_certificate') : t('claim_certificate')}
+              {currentCertificate?.certification?.claimed ? t('view_certificate') : t('claim_certificate')}
             </Button>
           )}
-          {currentCertificate?.certification.claimed && ecosystem?.level.currentExp >= ecosystem?.level.maxExp && (
+          {currentCertificate?.certification?.claimed && ecosystem?.level?.currentExp >= ecosystem?.level?.maxExp && (
             <Link href="/ecosystem-explore">
               <button className="inline-flex items-center justify-center gap-1.5">
                 <span className="text-base capitalize leading-[160%] text-neutral-black">
@@ -155,11 +155,11 @@ export function CertificationInfo({ ecosystem, levels }: { ecosystem: EcosystemD
                   className="relative h-[78px] w-[139px] cursor-pointer overflow-hidden rounded-[8px] shadow-idea-card sm:h-[100px] sm:w-[178px]"
                   onClick={() => onClickCertificate(level)}
                 >
-                  <Image src={level?.certification.image} alt={level?.label} fill />
+                  <Image src={level?.certification?.image} alt={level?.label} fill />
                 </div>
                 <span className="sm:body-s-bold body-xs-bold flex items-center gap-1">
-                  Lv{level.level}. {t(label[index])}{' '}
-                  {level.certification.claimed && (
+                  Lv{level?.level}. {t(label[index])}{' '}
+                  {level?.certification.claimed && (
                     <CheckIcon className="h-4 w-4 text-status-success-dark sm:h-5 sm:w-5" />
                   )}
                 </span>
