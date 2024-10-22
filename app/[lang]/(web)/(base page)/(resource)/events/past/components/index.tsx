@@ -21,7 +21,7 @@ const PastPage: React.FC<PastPageProp> = ({ list, lang }) => {
   const eventsList = useMemo(() => {
     return list.map((v) => ({
       ...v,
-      medias: v.medias?.filter((m) => /.webp$/.test(m))
+      medias: v.medias
     }));
   }, [list]);
   return (
