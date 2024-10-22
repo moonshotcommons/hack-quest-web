@@ -50,8 +50,6 @@ const EmailModal: React.FC<EmailModalProps> = (props) => {
       isBatch: !!isBatch
     });
 
-    console.log('res', res, getEmail());
-
     if (res.msg.includes('Ok')) {
       message.success('Email sent successfully');
     } else {
