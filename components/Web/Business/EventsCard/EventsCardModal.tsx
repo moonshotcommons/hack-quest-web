@@ -43,13 +43,22 @@ const EventsCardModal: React.FC<EventsCardModalProp> = ({ onClose, open, events 
             <div className="mb-[24px] w-full">
               {medias ? (
                 <SwiperContainer isNavigation={medias?.length > 1} isSimulateTouch={false}>
-                  {medias?.map((v, i) => (
-                    <SwiperSlide key={i}>
-                      <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
-                        <Image src={v} alt={events.name} fill className="object-cover" />
-                      </div>
-                    </SwiperSlide>
-                  ))}
+                  {medias?.map((v, i) => {
+                    return (
+                      <SwiperSlide key={i}>
+                        <div className="relative h-0 w-full overflow-hidden rounded-[16px] pt-[60%]">
+                          {typeof v === 'string' && /\.webp$/.test(v) && (
+                            <Image src={v} alt={events.name} fill className="object-cover" />
+                          )}
+                          {typeof v === 'string' && /\.(mp4|mov)$/.test(v) && (
+                            <video controls className="absolute left-0 top-0 h-full w-full">
+                              <source src={v} />
+                            </video>
+                          )}
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
                 </SwiperContainer>
               ) : null}
             </div>
