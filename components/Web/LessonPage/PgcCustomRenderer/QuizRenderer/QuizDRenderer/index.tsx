@@ -2,6 +2,8 @@ import { CustomType, NotionComponentType, QuizAType } from '@/components/Compone
 import { FC, useContext, useRef } from 'react';
 import { PlaygroundContext } from '../../../Playground/type';
 import QuizFooter from '../QuizFooter';
+import { QuizContext } from '..';
+import webApi from '@/service';
 
 interface QuizDRendererProps {
   parent: CustomType | NotionComponentType;
@@ -11,7 +13,8 @@ interface QuizDRendererProps {
 const QuizDRenderer: FC<QuizDRendererProps> = (props) => {
   const { lesson } = useContext(PlaygroundContext);
   const iframe = useRef<HTMLIFrameElement>(null);
-
+  const { onPass } = useContext(QuizContext);
+  const pending = useRef(false);
   const submit = () => {
     return new Promise((resolve, reject) => {
       window.addEventListener('message', (event) => {
@@ -21,9 +24,15 @@ const QuizDRenderer: FC<QuizDRendererProps> = (props) => {
           message // 错误信息。如果没有就是通过
         } = event.data;
 
-        console.log(event.data);
-        if (!message) resolve(null);
-        else reject(message);
+        console.log(from, event.data);
+        if (from === 'hackquest' && !message && !pending.current) {
+          pending.current = true;
+          webApi.courseApi.markQuestState(lesson.id, false).then(() => {
+            onPass();
+            resolve(null);
+            pending.current = false;
+          });
+        } else reject(message);
       });
 
       iframe.current?.contentWindow &&

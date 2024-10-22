@@ -4,11 +4,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import React, { useContext, useMemo } from 'react';
-import { IoIosMail } from 'react-icons/io';
-import { IoLogoWechat } from 'react-icons/io5';
-import { FaTelegramPlane } from 'react-icons/fa';
 import { HackathonMemberType } from '@/service/webApi/resourceStation/type';
-import { copyText } from '@/helper/utils';
 import MenuLink from '@/constants/MenuLink';
 import { useRedirect } from '@/hooks/router/useRedirect';
 
@@ -41,7 +37,7 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
           <Image src={member.avatar} alt={username} fill className="object-cover" />
         </div>
         <div className="mt-[.5rem] flex justify-between">
-          {contact?.email && (
+          {/* {contact?.email && (
             <IoIosMail
               size={16}
               onClick={(e: any) => {
@@ -67,7 +63,7 @@ const TeamCard: React.FC<TeamCardProp> = ({ member }) => {
                 copyText(contact.telegram);
               }}
             />
-          )}
+          )} */}
         </div>
       </div>
 
