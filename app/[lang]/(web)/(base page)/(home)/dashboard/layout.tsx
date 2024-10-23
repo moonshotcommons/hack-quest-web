@@ -6,12 +6,18 @@ import { MintCertificateModal } from './components/mint-certificate-modal';
 import { UsernameModal } from './components/username-modal';
 import { MyCertificateCard } from './components/my-certificate-card';
 import DayStreak from '../../(reward)/mission-center/components/DayStreak';
+import { getToken } from '@/helper/user-token';
+import { redirect } from 'next/navigation';
 
 export default function DashboardLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (!getToken()) {
+    return redirect('/');
+  }
+
   return (
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-[1fr_320px] gap-10">
