@@ -39,6 +39,7 @@ const ComponentRenderer: FC<ComponentRendererProps> = (props) => {
       return <CustomComponentRenderer {...props} />;
     default:
       console.log('不能渲染的类型', component.type.trim());
+      console.log(component);
       return <div></div>;
   }
 };
