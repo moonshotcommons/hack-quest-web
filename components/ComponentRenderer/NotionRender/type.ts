@@ -20,7 +20,9 @@ export enum NotionComponentType {
   COLUMN = 'column',
   PARAGRAPH = 'paragraph',
   CALLOUT = 'callout',
-  EQUATION = 'equation'
+  EQUATION = 'equation',
+  BOOKMARK = 'bookmark',
+  DIVIDER = 'divider'
 }
 
 export interface AnnotationsType {
