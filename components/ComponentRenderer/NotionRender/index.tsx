@@ -15,6 +15,9 @@ import ToggleRenderer from './ToggleRenderer';
 import VideoRenderer from './VideoRenderer';
 import { NotionComponent, NotionComponentType } from './type';
 import { CustomComponent } from '../type';
+import BookmarkRenderer from './BookmarkRenderer';
+import DividerRenderer from './DividerRenderer';
+import ColumnListRenderer from './ColumnListRenderer';
 
 interface NotionRendererProps {
   prevComponent: NotionComponent | CustomComponent | null;
@@ -42,7 +45,10 @@ export const NOTION_RENDERER_TYPES = [
   NotionComponentType.CALLOUT,
   NotionComponentType.TOGGLE,
   NotionComponentType.CODE,
-  NotionComponentType.EQUATION
+  NotionComponentType.EQUATION,
+  NotionComponentType.BOOKMARK,
+  NotionComponentType.DIVIDER,
+  NotionComponentType.COLUMN_LIST
 ];
 
 const NotionRenderer: FC<NotionRendererProps> = (props) => {
@@ -68,6 +74,12 @@ const NotionRenderer: FC<NotionRendererProps> = (props) => {
       return <CodeRenderer {...props}></CodeRenderer>;
     case NotionComponentType.EQUATION:
       return <EquationRenderer {...props}></EquationRenderer>;
+    case NotionComponentType.BOOKMARK:
+      return <BookmarkRenderer {...props}></BookmarkRenderer>;
+    case NotionComponentType.DIVIDER:
+      return <DividerRenderer {...props}></DividerRenderer>;
+    case NotionComponentType.COLUMN_LIST:
+      return <ColumnListRenderer {...props}></ColumnListRenderer>;
     case NotionComponentType.H1:
     case NotionComponentType.H2:
     case NotionComponentType.H3:
