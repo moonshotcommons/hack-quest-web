@@ -50,6 +50,7 @@ export function About() {
             key={index}
             label={validateCustomField(item) ? item.property.label : item.title}
             disabled={item?.required}
+            required={item?.required}
             isEditable={validateCustomField(item)}
             checked={item?.selected}
             onCheckedChange={(checked) => onCheckedChange(item.id, checked)}
