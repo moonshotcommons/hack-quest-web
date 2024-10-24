@@ -11,9 +11,9 @@
   "host": "Host",
   "allHackathons": "All Hackathons",
   "onGoingHackathon": "Ongoing Hackathon",
-  "review":"Under Review",
+  "review": "Under Review",
   "pastHackathon": "Past Hackathon",
-  "draft": "Draft",
+  "draft": "In Progress",
   "featuredProjects": "Featured Projects",
   "submitNow": "Submit Now",
   "liveNow": "Live Now",
@@ -31,7 +31,7 @@
   },
   "hackathonDetail": {
     "timeline": "Timeline",
-    "submissionTime":"Submission Close",
+    "submissionTime": "Submission Close",
     "rewardAnnouncement": "Reward Announcement",
     "rewardAnnouncementTime": "Reward Announcement",
     "about": "About",
@@ -70,7 +70,7 @@
     "speakers": "Speakers & Judges",
     "sponsors": "Sponsors",
     "info": "Info",
-    "FAQs":"FAQs",
+    "FAQs": "FAQs",
     "judgingCriteria": "Judging Criteria",
     "judgingAccounts": "Judging Accounts",
     "totalUserVotes": "Total User Votes",
@@ -124,10 +124,10 @@
     "trackPartner": "Track Partner",
     "viewTeamProject": "View team project",
     "registrationData": "Registration Data",
-    "backToEdit":"Back to Edit",
-    "proceedToPreview":"Proceed to Preview",
-    "submitToPreview":"Submit to Preview",
-    "confirmAttendance":"confirm attendance"
+    "backToEdit": "Back to Edit",
+    "proceedToPreview": "Proceed to Preview",
+    "submitToPreview": "Submit to Preview",
+    "confirmAttendance": "confirm attendance"
   },
   "projectsDetail": {
     "title": {
@@ -221,8 +221,8 @@
     "vote": "vote",
     "empty": "You didn’t {{type}} in any hackathon",
     "back": "Back To Your Hackathon",
-    "tipsModalTitle":"Want to organize a hackathon?",
-    "tipsModalText":"Before accessing the Hackathon Organizer Dashboard, please apply to become an organizer. Once approved, you'll be able to create, edit, and review your events seamlessly."
+    "tipsModalTitle": "Want to organize a hackathon?",
+    "tipsModalText": "Before accessing the Hackathon Organizer Dashboard, please apply to become an organizer. Once approved, you'll be able to create, edit, and review your events seamlessly."
   },
   "explore": {
     "title": "Explore Hackathons",
@@ -243,21 +243,21 @@
     "empty": "You didn’t have any {{type}} hackathon",
     "ongoing": "on going ",
     "draft": "draft",
-    "review":"reivew",
+    "review": "reivew",
     "past": "past",
     "continueEditing": "continue editing",
     "previewSubmit": "preview / submit",
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
   },
-  "hackathonManage":{
-    "overview":"Overview",
-    "application":"Application",
-    "submission":"Submission",
-    "judging":"Judging",
-    "announcement":"Announcement",
-    "distribution":"Distribution",
-    "viewHackathonDetails":"view hackathon details",
-    "hackathonStatsToday":"Hackathon Stats Today"
+  "hackathonManage": {
+    "overview": "Overview",
+    "application": "Application",
+    "submission": "Submission",
+    "judging": "Judging",
+    "announcement": "Announcement",
+    "distribution": "Distribution",
+    "viewHackathonDetails": "view hackathon details",
+    "hackathonStatsToday": "Hackathon Stats Today"
   }
 }
