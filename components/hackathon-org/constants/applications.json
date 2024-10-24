@@ -64,6 +64,7 @@
       "title": "GitHub",
       "required": true,
       "selected": true,
+      "setOptional": true,
       "property": {
         "name": "github",
         "label": "Github",

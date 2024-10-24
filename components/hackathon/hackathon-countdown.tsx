@@ -3,6 +3,7 @@
 import { cn } from '@/helper/utils';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useCountDown } from 'ahooks';
+import dayjs from 'dayjs';
 
 export function HackathonCountdown({
   targetDate,
@@ -12,7 +13,7 @@ export function HackathonCountdown({
   className?: string;
 }) {
   const [_, formattedRes] = useCountDown({
-    targetDate
+    targetDate: dayjs.utc(targetDate).local().toDate()
   });
 
   const { days, hours, minutes, seconds } = formattedRes;

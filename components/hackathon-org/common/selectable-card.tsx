@@ -12,6 +12,7 @@ interface SelectableCardProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultChecked?: boolean;
   checked?: boolean;
   disabled?: boolean;
+  required?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   optional?: boolean;
   defaultOptional?: boolean;
@@ -27,6 +28,7 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
     label,
     disabled = false,
     className,
+    required,
     onCheckedChange = noop,
     onOptionalChange = noop,
     onEdit,
@@ -34,7 +36,6 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
   } = props;
 
   const id = React.useId();
-
   const [checkedState = false, setCheckedState] = useControllableState(props, 'checked', onCheckedChange);
   const [optionalState = false, setOptionalState] = useControllableState(props, 'optional', onOptionalChange);
 
@@ -53,7 +54,7 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>((pr
     >
       <div className="body-m flex max-w-full items-center text-neutral-black">
         <span className="truncate">{label}</span>
-        {disabled && '*'}
+        {(disabled || required) && '*'}
         {isEditable && (
           <button
             type="button"
