@@ -62,6 +62,19 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
       v.count = hackathon[v.value].length || 0;
       return v;
     });
+    // let onGoingCount = 0;
+    // const tabs = newHackathonTab.sort((a, b) => {
+    //   if (a.value === HackathonStatusType.ON_GOING) {
+    //     onGoingCount = a.count!;
+    //     return a.count ? 1 : 0;
+    //   }
+    //   if (b.value === HackathonStatusType.DRAFT && b.count && !onGoingCount) {
+    //     return 1;
+    //   }
+    //   return -1;
+    // });
+
+    // setHackathonTab(tabs);
     setHackathonTab(newHackathonTab);
     return hackathon;
   }, [h]);
