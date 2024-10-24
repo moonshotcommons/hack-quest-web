@@ -33,8 +33,8 @@ const useDealHackathonData = () => {
   };
 
   const getCloseInTime = (endTime: string) => {
-    const start = +new Date();
-    const end = +new Date(endTime);
+    const start = +new Date().toLocaleString();
+    const end = +new Date(endTime).toLocaleString();
     const gapTime = end - start;
     if (gapTime <= 0) {
       return HackathonStatusType.PAST;
@@ -70,34 +70,34 @@ const useDealHackathonData = () => {
   const getStepIndex = (hackathon: HackathonType) => {
     let step = 4;
     //还未开始注册 -1
-    if (dayjs().tz().isBefore(hackathon.timeline?.registrationOpen)) step = -1;
+    if (dayjs().isBefore(new Date(hackathon.timeline?.registrationOpen).toLocaleString())) step = -1;
     // 开始注册 0
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
-      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      dayjs().isAfter(new Date(hackathon.timeline?.registrationOpen).toLocaleString()) &&
+      dayjs().isBefore(new Date(hackathon.timeline?.registrationClose).toLocaleString())
     )
       step = 0;
     // 注册结束但未开始提交 1
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.registrationClose) &&
-      dayjs().tz().isBefore(hackathon.timeline?.submissionOpen)
+      dayjs().isAfter(new Date(hackathon.timeline?.registrationClose).toLocaleString()) &&
+      dayjs().isBefore(new Date(hackathon.timeline?.submissionOpen).toLocaleString())
     ) {
       step = 1;
     }
     // 开始提交 2
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
-      dayjs().tz().isBefore(hackathon.timeline?.submissionClose)
+      dayjs().isAfter(new Date(hackathon.timeline?.submissionOpen).toLocaleString()) &&
+      dayjs().isBefore(new Date(hackathon.timeline?.submissionClose).toLocaleString())
     )
       step = 2;
     // 提交结束 开始投票 3
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.submissionClose) &&
-      dayjs().tz().isBefore(hackathon.timeline?.rewardTime)
+      dayjs().isAfter(new Date(hackathon.timeline?.submissionClose).toLocaleString()) &&
+      dayjs().isBefore(new Date(hackathon.timeline?.rewardTime).toLocaleString())
     )
       step = 3;
     // 过期 4
-    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) step = 4;
+    if (dayjs().isAfter(new Date(hackathon.timeline?.rewardTime).toLocaleString())) step = 4;
     return step;
   };
 

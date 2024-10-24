@@ -45,7 +45,7 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
   const isPast = (timeline: HackathonTimeLineType) => {
     if (!timeline) return false;
     const currentTime = +new Date();
-    return dayjs(timeline.rewardTime).isBefore(currentTime);
+    return dayjs.utc(timeline.rewardTime).local().isBefore(currentTime);
   };
   const hackathons = useMemo(() => {
     const hackathon = {
