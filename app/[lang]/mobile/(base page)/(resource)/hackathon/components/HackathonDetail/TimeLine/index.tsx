@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { HackathonTimeLineKeyType, HackathonType } from '@/service/webApi/resourceStation/type';
 import EditBox from '../EditBox';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';

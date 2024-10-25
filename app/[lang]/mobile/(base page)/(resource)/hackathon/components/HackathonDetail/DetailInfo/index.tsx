@@ -20,7 +20,7 @@ import webApi from '@/service';
 import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import { useSearchParams } from 'next/navigation';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { SelectType } from '../../../../../constants/type';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { Spinner } from '@/components/ui/spinner';
 import BaseImage from '@/components/Common/BaseImage';
 import { ProjectType } from '@/service/webApi/resourceStation/type';

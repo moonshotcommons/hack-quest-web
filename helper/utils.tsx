@@ -13,7 +13,7 @@ import PracticeImg4 from '@/public/images/home/practices_img4.png';
 import Image from 'next/image';
 import message from 'antd/es/message';
 import * as XLSX from 'xlsx';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { cloneDeep } from 'lodash-es';
 import stringify from 'csv-stringify';
 import toast from 'react-hot-toast';

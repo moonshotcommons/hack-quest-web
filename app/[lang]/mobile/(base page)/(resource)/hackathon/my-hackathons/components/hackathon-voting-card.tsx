@@ -5,7 +5,7 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonVoteType } from '@/service/webApi/resourceStation/type';
 import { useCountDown } from 'ahooks';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { ChevronRightIcon } from 'lucide-react';
 import moment from 'moment';
 import { useMemo } from 'react';

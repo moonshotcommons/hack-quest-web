@@ -13,7 +13,7 @@ dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
 // 设置默认时区
-dayjs.tz.setDefault('Asia/Shanghai');
+// dayjs.tz.setDefault('Asia/Shanghai');
 
 export function dateToUTC(date: string, timezone: string) {
   return dayjs.tz(date, timezone).utc();

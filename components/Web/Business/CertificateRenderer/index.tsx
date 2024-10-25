@@ -1,7 +1,7 @@
 import { UserCertificateInfo } from '@/service/webApi/campaigns/type';
 import Image from 'next/image';
 import { FC } from 'react';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { cn } from '@/helper/utils';
 
 interface CertificateRendererProps {

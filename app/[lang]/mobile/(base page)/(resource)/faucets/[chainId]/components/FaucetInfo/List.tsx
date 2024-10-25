@@ -5,7 +5,7 @@ import webApi from '@/service';
 import { FaucetRecordType, FaucetType } from '@/service/webApi/resourceStation/type';
 import { useUserStore } from '@/store/zustand/userStore';
 import { useRequest } from 'ahooks';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { RiShareBoxLine } from 'react-icons/ri';

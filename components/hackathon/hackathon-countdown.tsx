@@ -3,7 +3,7 @@
 import { cn } from '@/helper/utils';
 import { ClientOnly } from '@/hooks/dom/useIsClient';
 import { useCountDown } from 'ahooks';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { useMemo } from 'react';
 
 export function HackathonCountdown({

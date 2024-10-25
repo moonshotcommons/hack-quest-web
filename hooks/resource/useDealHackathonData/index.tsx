@@ -7,7 +7,6 @@ import {
   HackathonStatusType,
   HackathonType
 } from '@/service/webApi/resourceStation/type';
-import dayjs from 'dayjs';
 import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
 import { exportToXlsx, isUuid } from '@/helper/utils';
@@ -19,6 +18,7 @@ import {
   HackathonEditContext
 } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import { exportToCsv } from '../../../helper/utils';
+import dayjs from '@/components/Common/Dayjs';
 
 const useDealHackathonData = () => {
   const { navs: editNavs } = useContext(HackathonEditContext);
