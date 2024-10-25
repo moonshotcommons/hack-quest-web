@@ -158,8 +158,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         }
       } else {
         if (
-          dayjs().isAfter(new Date(hackathon.timeline?.registrationOpen).toLocaleString()) &&
-          dayjs().isBefore(new Date(hackathon.timeline?.registrationClose).toLocaleString())
+          dayjs().isAfter(dayjs.utc(hackathon.timeline?.registrationOpen).local()) &&
+          dayjs().isBefore(dayjs.utc(hackathon.timeline?.registrationClose).local())
         ) {
           if (hackathon.participation?.isRegister) {
             if (
@@ -174,7 +174,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
                 >
                   <div>
                     <p className="button-text-l uppercase">Pending</p>
-                    <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                    <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs.utc(hackathon.timeline?.submissionOpen).local().format('MMM D,YYYY H:mm')}`}</p>
                   </div>
                 </Button>
               );
@@ -212,14 +212,14 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
             >
               <div>
                 <p className="button-text-l uppercase">Submission Start Date</p>
-                <p className="caption-10pt font-light leading-normal">{`${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                <p className="caption-10pt font-light leading-normal">{`${dayjs.utc(hackathon.timeline?.submissionOpen).local().format('MMM D,YYYY H:mm')}`}</p>
               </div>
             </Button>
           );
         }
         if (
-          dayjs().isAfter(new Date(hackathon.timeline?.submissionOpen).toLocaleString()) &&
-          dayjs().isBefore(new Date(hackathon.timeline?.submissionClose).toLocaleString()) &&
+          dayjs().isAfter(dayjs.utc(hackathon.timeline?.submissionOpen).local()) &&
+          dayjs().isBefore(dayjs.utc(hackathon.timeline?.submissionClose).local()) &&
           hackathon.participation?.isRegister
         ) {
           if (!hackathon?.participation?.isSubmit) {
