@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { HackathonEditContext } from '../../../constants/type';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
@@ -20,8 +20,10 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
     queryKey: ['hackathon-winner', stepIndex, isEdit],
     queryFn: () => webApi.resourceStationApi.getHackathonRewards(hackathon.id)
   });
-
-  return rewards.length > 0 ? <Winners hackathon={hackathon} rewards={rewards} /> : <Reward hackathon={hackathon} />;
+  const hasWinner = useMemo(() => {
+    return rewards.some((r) => r.projects?.length > 0);
+  }, [rewards]);
+  return hasWinner ? <Winners hackathon={hackathon} rewards={rewards} /> : <Reward hackathon={hackathon} />;
 };
 
 export default Rewards;
