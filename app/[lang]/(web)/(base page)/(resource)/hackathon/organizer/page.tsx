@@ -35,9 +35,7 @@ const HackathonOrganizerPage: FC<HackathonOrganizerPageProps> = async ({ searchP
     const hackathons = await getHackathonsByCreator();
     const draftHackathons = hackathons.filter((item) => item.status === HackathonStatus.DRAFT);
     const onGoingHackathons = hackathons.filter(
-      (item) =>
-        item.status === HackathonStatus.PUBLISH &&
-        dayjs(new Date(item.timeline.rewardTime).toLocaleString()).isAfter(dayjs())
+      (item) => item.status === HackathonStatus.PUBLISH && dayjs.utc(item.timeline.rewardTime).local().isAfter(dayjs())
     );
 
     let status = searchParams.curTab;
