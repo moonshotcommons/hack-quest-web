@@ -14,11 +14,11 @@ import { useShallow } from 'zustand/react/shallow';
 import WarningModal from './WarningModal';
 import Image from 'next/image';
 import CountDown from '@/components/Web/Business/CountDown';
-import dayjs from '@/components/Common/Dayjs';
 import webApi from '@/service';
 import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import { useSearchParams } from 'next/navigation';
+import dayjs from 'dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -158,8 +158,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
         }
       } else {
         if (
-          dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
-          dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+          dayjs().isAfter(new Date(hackathon.timeline?.registrationOpen).toLocaleString()) &&
+          dayjs().isBefore(new Date(hackathon.timeline?.registrationClose).toLocaleString())
         ) {
           if (hackathon.participation?.isRegister) {
             if (
@@ -218,8 +218,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           );
         }
         if (
-          dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
-          dayjs().tz().isBefore(hackathon.timeline?.submissionClose) &&
+          dayjs().isAfter(new Date(hackathon.timeline?.submissionOpen).toLocaleString()) &&
+          dayjs().isBefore(new Date(hackathon.timeline?.submissionClose).toLocaleString()) &&
           hackathon.participation?.isRegister
         ) {
           if (!hackathon?.participation?.isSubmit) {
