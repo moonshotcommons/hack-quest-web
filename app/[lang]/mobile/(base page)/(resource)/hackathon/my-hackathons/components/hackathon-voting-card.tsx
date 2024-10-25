@@ -5,21 +5,26 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonVoteType } from '@/service/webApi/resourceStation/type';
 import { useCountDown } from 'ahooks';
+import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
 import moment from 'moment';
+import { useMemo } from 'react';
 
 export function HackathonVotingCard({ vote }: { vote: HackathonVoteType }) {
-  const currentTime = moment();
-  const { getTotalPrize } = useDealHackathonData();
+  const { getTotalPrize, getStepIndex } = useDealHackathonData();
+  const stepIndex = getStepIndex(vote);
   const totalPrize = getTotalPrize(vote.rewards);
   const { redirectToUrl } = useRedirect();
+  const utcTime = useMemo(() => {
+    return dayjs.utc(vote.timeline?.rewardTime).local().toDate();
+  }, [vote]);
   const [_, formattedRes] = useCountDown({
-    targetDate: vote.timeline?.rewardTime
+    targetDate: utcTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;
 
-  const status = currentTime.isAfter(moment(vote.timeline?.rewardTime)) ? 'ended' : 'ongoing';
+  const status = stepIndex === 4 ? 'ended' : 'ongoing';
   function goHackathonDetail() {
     redirectToUrl(`${MenuLink.EXPLORE_HACKATHON}/${vote.alias}`);
   }
