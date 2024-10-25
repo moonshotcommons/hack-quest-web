@@ -14,7 +14,7 @@ import { cloneDeep } from 'lodash-es';
 import { HackathonScheduleType, HackathonType } from '@/service/webApi/resourceStation/type';
 import { HackathonEditContext } from '../../../../../constants/type';
 import { DatePicker } from '@/components/hackathon-org/common/date-picker';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { InfoIcon } from 'lucide-react';
 import { TEXT_EDITOR_TYPE, transformTextToEditorValue } from '@/components/Common/TextEditor';
 

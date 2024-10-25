@@ -22,7 +22,7 @@ import { useParams } from 'next/navigation';
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useAccount, useSwitchChain } from 'wagmi';
 import { submitSignedAttestation } from '../utils/eas';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { useEthersSigner } from '../utils/wagmi-utils';
 import { lineaSepolia, mainnet } from 'wagmi/chains';
 import { getClient } from '../utils/eth-sign';

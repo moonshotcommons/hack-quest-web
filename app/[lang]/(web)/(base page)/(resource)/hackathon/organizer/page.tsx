@@ -5,7 +5,7 @@ import { Lang } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import { Metadata } from 'next';
 import HackathonOrganizer from './components';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 
 interface HackathonOrganizerPageProps {
   params: { lang: Lang };

@@ -6,7 +6,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import useGetDevice from '@/hooks/utils/useGetDevice';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 
 interface CountDownItemProps {
   count: number;

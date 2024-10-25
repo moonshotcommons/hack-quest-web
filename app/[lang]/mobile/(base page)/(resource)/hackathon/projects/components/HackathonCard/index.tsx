@@ -13,7 +13,7 @@ import { separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
 import { ImageWithFallback } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/projects/components/ImageWithFallback';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 
 interface HackathonCardProps {
   hackathon: HackathonType;

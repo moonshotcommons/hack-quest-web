@@ -18,7 +18,7 @@ import Button from '@/components/Common/Button';
 import NoData from './NoData';
 import { StartModal } from '@/components/hackathon-org/modals/start-modal';
 import { cloneDeep } from 'lodash-es';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { HackathonTabType } from '../../constants/type';
 import TipsModal from './TipsModal';
 import { useUserStore } from '@/store/zustand/userStore';
