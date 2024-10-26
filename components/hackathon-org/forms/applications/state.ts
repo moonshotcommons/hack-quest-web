@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import applications from '../../constants/applications.json';
 
-type ApplicationState = (typeof applications.OnlineProfiles)[number] & {
+type ApplicationState = Omit<(typeof applications.OnlineProfiles)[number], 'setOptional'> & {
   property: Record<string, any>;
+  setOptional?: boolean;
 };
 
 type ApplicationStore = {
@@ -13,7 +14,7 @@ type ApplicationStore = {
   setOnlineProfileState: (payload: ApplicationState[]) => void;
   setContactState: (payload: ApplicationState[]) => void;
 };
-
+console.log(applications.OnlineProfiles);
 export const useApplicationState = create<ApplicationStore>((set) => ({
   // @ts-expect-error
   aboutState: [...applications.About],

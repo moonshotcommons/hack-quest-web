@@ -7,7 +7,7 @@ import { IoAdd, IoRemoveOutline } from 'react-icons/io5';
 import { cloneDeep } from 'lodash-es';
 import EditBox from '../EditBox';
 import { HackathonEditModalType } from '../../../constants/type';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import RemoveSectionModal, { RemoveSectionModalRef } from '../RemoveSectionModal';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';

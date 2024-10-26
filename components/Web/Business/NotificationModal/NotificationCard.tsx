@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useContext } from 'react';
 import HackLogo from '@/public/images/user/hack_logo.png';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { FiTrash2 } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
 import { LangContext } from '@/components/Provider/Lang';

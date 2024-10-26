@@ -1,7 +1,7 @@
 import { getDomain } from '@/constants/links';
 import webApi from '@/service';
 import { ImageResponse } from '@vercel/og';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest, context: { params: { name: string } }) {

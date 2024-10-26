@@ -13,13 +13,20 @@ import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { ManageTeamModal } from '@/components/hackathon/manage-team-modal';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
+import dayjs from '@/components/Common/Dayjs';
+import { useMemo } from 'react';
 
 export function HackathonCard({ hackathon }: { hackathon: HackathonType }) {
   const { redirectToUrl } = useRedirect();
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
+
+  const utcTime = useMemo(() => {
+    const time = stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon?.timeline?.submissionClose;
+    return dayjs.utc(time).local().toDate();
+  }, [hackathon]);
   const [_, formattedRes] = useCountDown({
-    targetDate: stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon?.timeline?.submissionClose
+    targetDate: utcTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;

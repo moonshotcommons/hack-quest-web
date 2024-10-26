@@ -39,7 +39,7 @@ export function EcosystemSelectNew() {
         >
           {selected?.image && (
             <div className="relative h-6 w-6">
-              <Image src={selected.image} alt={selected?.name} fill />
+              <Image src={selected.image} alt={selected?.name} fill className="object-contain" />
             </div>
           )}
           <span className="body-m-bold ml-2 text-neutral-rich-gray">{selected?.name || 'All Ecosystem'}</span>
@@ -74,7 +74,7 @@ export function EcosystemSelectNew() {
                 >
                   {ecosystem.image && (
                     <div className="relative h-6 w-6">
-                      <Image src={ecosystem.image} alt={ecosystem.name} fill className="rounded-full" />
+                      <Image src={ecosystem.image} alt={ecosystem.name} fill className="rounded-full object-contain" />
                     </div>
                   )}
                   <span className="body-m ml-2 text-neutral-rich-gray">{ecosystem.name}</span>

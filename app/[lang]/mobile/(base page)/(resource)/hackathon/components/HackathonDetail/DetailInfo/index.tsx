@@ -16,11 +16,11 @@ import Image from 'next/image';
 import CountDown from '@/components/Web/Business/CountDown';
 import { useGlobalStore } from '@/store/zustand/globalStore';
 import { NavType } from '@/components/Mobile/MobLayout/constant';
-import dayjs from '@/components/Common/Dayjs';
 import webApi from '@/service';
 import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import { useSearchParams } from 'next/navigation';
+import dayjs from '@/components/Common/Dayjs';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -158,8 +158,8 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
       }
     } else {
       if (
-        dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
-        dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+        dayjs().isAfter(dayjs.utc(hackathon.timeline?.registrationOpen).local()) &&
+        dayjs().isBefore(dayjs.utc(hackathon.timeline?.registrationClose).local())
       ) {
         if (hackathon.participation?.isRegister) {
           if (
@@ -173,7 +173,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
               >
                 <div>
                   <p className="button-text-m uppercase">Pending</p>
-                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                  <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs.utc(hackathon.timeline?.submissionOpen).local().format('MMM D,YYYY H:mm')}`}</p>
                 </div>
               </Button>
             );
@@ -194,7 +194,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
               >
                 <div>
                   <p className="button-text-m uppercase">Submission Start Date</p>
-                  <p className="caption-10pt font-light leading-normal">{`${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+                  <p className="caption-10pt font-light leading-normal">{`${dayjs.utc(hackathon.timeline.submissionOpen).local().format('MMM D,YYYY H:mm')}`}</p>
                 </div>
               </Button>
             );
@@ -206,14 +206,14 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
           <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
             <div>
               <p className="button-text-m uppercase">Pending</p>
-              <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs(hackathon.timeline?.submissionOpen).format('MMM D,YYYY H:mm')}`}</p>
+              <p className="caption-10pt font-light leading-normal">{`You'll be notified by ${dayjs.utc(hackathon.timeline.submissionOpen).local().format('MMM D,YYYY H:mm')}`}</p>
             </div>
           </Button>
         );
       }
       if (
-        dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
-        dayjs().tz().isBefore(hackathon.timeline?.submissionClose) &&
+        dayjs().isAfter(dayjs.utc(hackathon.timeline?.submissionOpen).local()) &&
+        dayjs().isBefore(dayjs.utc(hackathon.timeline?.submissionClose).local()) &&
         hackathon.participation?.isRegister
       ) {
         if (!hackathon?.participation?.isSubmit) {

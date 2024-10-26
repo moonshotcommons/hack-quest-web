@@ -13,6 +13,7 @@ import { separationNumber } from '@/helper/utils';
 import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import CountDown from '@/components/Web/Business/CountDown';
 import { ImageWithFallback } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/projects/components/ImageWithFallback';
+import dayjs from '@/components/Common/Dayjs';
 
 interface HackathonCardProps {
   hackathon: HackathonType;
@@ -26,7 +27,7 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
   const { getTotalPrize } = useDealHackathonData();
   const totalPrize = getTotalPrize(hackathon.rewards);
 
-  const isEnd = moment(hackathon.timeline?.rewardTime).isBefore(new Date());
+  const isEnd = dayjs.utc(hackathon.timeline?.rewardTime).local().isBefore(new Date());
 
   return (
     <Link href={`${MenuLink.PROJECTS}/hackathons/${hackathon.alias}`}>

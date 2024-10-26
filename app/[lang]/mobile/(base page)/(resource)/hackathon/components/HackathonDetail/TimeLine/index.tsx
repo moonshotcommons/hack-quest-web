@@ -55,10 +55,15 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
                     {v.timeStr}
                   </p>
                   <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
-                    {dayjs(hackathon?.timeline?.[v.time[i === 1 ? 1 : 0] as HackathonTimeLineKeyType])
+                    {/* {dayjs(hackathon?.timeline?.[v.time[i === 1 ? 1 : 0] as HackathonTimeLineKeyType])
                       .tz()
                       .format('MMM D,YYYY H:mm')}
-                    (GMT+8)
+                    (GMT+8) */}
+
+                    {dayjs
+                      .utc(hackathon?.timeline?.[v.time[i === 1 ? 1 : 0] as HackathonTimeLineKeyType])
+                      .local()
+                      .format('MMM D,YYYY H:mm')}
                   </p>
                 </div>
               </>
@@ -76,17 +81,27 @@ const TimeLine: React.FC<TimeLineProp> = ({ hackathon, isEdit }) => {
                     {v.key}
                   </p>
                   <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
-                    {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
+                    {/* {dayjs(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
                       .tz()
                       .format('MMM D,YYYY H:mm')}
-                    (GMT+8)
+                    (GMT+8) */}
+
+                    {dayjs
+                      .utc(hackathon?.timeline?.[v.time[0] as HackathonTimeLineKeyType])
+                      .local()
+                      .format('MMM D,YYYY H:mm')}
                   </p>
                   {hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType] && (
                     <p className={`body-s ${getIsActive(i) ? 'text-neutral-off-black' : 'text-neutral-medium-gray'}`}>
-                      {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
+                      {/* {dayjs(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
                         .tz()
                         .format('MMM D,YYYY H:mm')}
-                      (GMT+8)
+                      (GMT+8) */}
+
+                      {dayjs
+                        .utc(hackathon?.timeline?.[v.time[1] as HackathonTimeLineKeyType])
+                        .local()
+                        .format('MMM D,YYYY H:mm')}
                     </p>
                   )}
                 </div>

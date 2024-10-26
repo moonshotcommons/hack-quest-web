@@ -17,7 +17,7 @@ import { useHackathonOrgState } from '../constants/state';
 import { Steps } from '../constants/steps';
 import { Tooltip, TooltipArrow, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { InfoIcon } from 'lucide-react';
-import dayjs from 'dayjs';
+import { dateToUTC, timelineDateFormat } from '@/components/Common/Dayjs';
 
 const formSchema = z
   .object({
@@ -277,11 +277,15 @@ export function TimelineForm({
       id: initialValues?.id,
       timeZone: data.timeZone,
       openReviewSame: isSame,
-      registrationOpen: new Date(data.registrationOpen).toJSON(),
-      registrationClose: isSame ? new Date(data.submissionClose).toJSON() : new Date(data.registrationClose!).toJSON(),
-      submissionOpen: isSame ? new Date(data.registrationOpen).toJSON() : new Date(data.submissionOpen!).toJSON(),
-      submissionClose: new Date(data.submissionClose).toJSON(),
-      rewardTime: new Date(data.rewardTime).toJSON()
+      registrationOpen: dateToUTC(data.registrationOpen, data.timeZone),
+      registrationClose: isSame
+        ? dateToUTC(data.submissionClose, data.timeZone)
+        : dateToUTC(data.registrationClose!, data.timeZone),
+      submissionOpen: isSame
+        ? dateToUTC(data.registrationOpen, data.timeZone)
+        : dateToUTC(data.submissionOpen!, data.timeZone),
+      submissionClose: dateToUTC(data.submissionClose, data.timeZone),
+      rewardTime: dateToUTC(data.rewardTime, data.timeZone)
     };
     mutation.mutate(values);
   }
@@ -295,11 +299,20 @@ export function TimelineForm({
       form.reset({
         openReviewSame: initialValues?.timeline?.openReviewSame?.toString(),
         timeZone: initialValues?.timeline?.timeZone,
-        registrationOpen: dayjs(initialValues?.timeline?.registrationOpen).format('YYYY-MM-DDTHH:mm'),
-        registrationClose: dayjs(initialValues?.timeline?.registrationClose).format('YYYY-MM-DDTHH:mm'),
-        submissionOpen: dayjs(initialValues?.timeline?.submissionOpen).format('YYYY-MM-DDTHH:mm'),
-        submissionClose: dayjs(initialValues?.timeline?.submissionClose).format('YYYY-MM-DDTHH:mm'),
-        rewardTime: dayjs(initialValues?.timeline?.rewardTime).format('YYYY-MM-DDTHH:mm')
+        registrationOpen: timelineDateFormat(
+          initialValues?.timeline?.registrationOpen,
+          initialValues?.timeline?.timeZone
+        ),
+        registrationClose: timelineDateFormat(
+          initialValues?.timeline?.registrationClose,
+          initialValues?.timeline?.timeZone
+        ),
+        submissionOpen: timelineDateFormat(initialValues?.timeline?.submissionOpen, initialValues?.timeline?.timeZone),
+        submissionClose: timelineDateFormat(
+          initialValues?.timeline?.submissionClose,
+          initialValues?.timeline?.timeZone
+        ),
+        rewardTime: timelineDateFormat(initialValues?.timeline?.rewardTime, initialValues?.timeline?.timeZone)
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

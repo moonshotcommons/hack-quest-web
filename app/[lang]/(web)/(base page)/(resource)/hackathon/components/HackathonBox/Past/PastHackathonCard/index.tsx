@@ -130,7 +130,7 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
             <div className="body-s-bold w-fit rounded-[8px] border-[2px] border-neutral-medium-gray px-[12px] py-[4px] uppercase text-neutral-medium-gray">
               closed {moment(hackathon.timeline?.rewardTime).format('ll')}
             </div>
-            <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between">
+            <div className="body-s flex flex-col gap-[4px] text-neutral-medium-gray [&>div]:flex [&>div]:items-center [&>div]:justify-between [&>div]:gap-4">
               <div>
                 <span className="">{t('participants')}</span>
                 <span className="body-m-bold text-neutral-off-black">
@@ -157,7 +157,9 @@ const PastHackathonCard: FC<PastHackathonCardProps> = ({ hackathon, isVoting, is
               ) : (
                 <div>
                   <span className="">{t('host')}</span>
-                  <span className="body-m-bold text-neutral-off-black underline">{hackathon.info?.host}</span>
+                  <span className="body-m-bold line-clamp-1 flex-1 flex-shrink-0 text-right text-neutral-off-black underline">
+                    {hackathon.info?.host}
+                  </span>
                 </div>
               )}
             </div>

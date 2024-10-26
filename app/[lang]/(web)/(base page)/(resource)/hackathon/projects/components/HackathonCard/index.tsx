@@ -14,6 +14,7 @@ import CountDown from '@/components/Web/Business/CountDown';
 import { FiDownload } from 'react-icons/fi';
 import { ImageWithFallback } from '../ImageWithFallback';
 import DownloadModal from '@/components/hackathon/download-modal';
+import dayjs from '@/components/Common/Dayjs';
 
 interface HackathonCardProps {
   hackathon: HackathonType;
@@ -28,7 +29,7 @@ export const HackathonCard: FC<HackathonCardProps> = ({ hackathon, isVoting, isO
   const totalPrize = getTotalPrize(hackathon.rewards);
   const [loading, setLoading] = useState(false);
   const [downloadOpen, setDownloadOpen] = useState(false);
-  const isEnd = moment(hackathon.timeline?.rewardTime).isBefore(new Date());
+  const isEnd = dayjs.utc(hackathon.timeline?.rewardTime).local().isBefore(new Date());
   const handleDownload = (type: 'csv' | 'xlsx') => {
     if (loading) return;
     setLoading(true);

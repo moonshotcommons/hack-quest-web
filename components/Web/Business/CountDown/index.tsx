@@ -6,6 +6,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import useGetDevice from '@/hooks/utils/useGetDevice';
+import dayjs from '@/components/Common/Dayjs';
 
 interface CountDownItemProps {
   count: number;
@@ -77,9 +78,13 @@ const CountDown: FC<CountDownProps> = ({
   const [mount, setMount] = useState(false);
   const { lang } = useContext(LangContext);
   const { t } = useTranslation(lang, TransNs.LAUNCH_POOL);
+  const utcTime = useMemo(() => {
+    return dayjs.utc(time).local().toDate();
+  }, [time]);
   const [countdown, formattedRes] = useCountDown({
-    targetDate: time
+    targetDate: utcTime
   });
+
   const { days, hours, minutes, seconds, milliseconds } = formattedRes;
   useEffect(() => {
     setMount(true);

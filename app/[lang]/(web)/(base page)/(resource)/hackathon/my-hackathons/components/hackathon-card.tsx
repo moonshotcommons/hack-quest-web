@@ -14,7 +14,9 @@ import useDealHackathonData from '@/hooks/resource/useDealHackathonData';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import { HackathonType } from '@/service/webApi/resourceStation/type';
 import { useCountDown } from 'ahooks';
+import dayjs from '@/components/Common/Dayjs';
 import { ChevronRightIcon } from 'lucide-react';
+import { useMemo } from 'react';
 
 interface HackathonCardProps {
   hackathon: HackathonType;
@@ -24,8 +26,12 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
   const { redirectToUrl } = useRedirect();
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
+  const utcTime = useMemo(() => {
+    const time = stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon?.timeline?.submissionClose;
+    return dayjs.utc(time).local().toDate();
+  }, [hackathon]);
   const [_, formattedRes] = useCountDown({
-    targetDate: stepIndex <= 0 ? hackathon.timeline?.registrationClose : hackathon?.timeline?.submissionClose
+    targetDate: utcTime
   });
 
   const { days, hours, minutes, seconds } = formattedRes;

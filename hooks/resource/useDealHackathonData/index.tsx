@@ -7,7 +7,6 @@ import {
   HackathonStatusType,
   HackathonType
 } from '@/service/webApi/resourceStation/type';
-import dayjs from '@/components/Common/Dayjs';
 import { hackathonSections, modalList } from './data';
 import webApi from '@/service';
 import { exportToXlsx, isUuid } from '@/helper/utils';
@@ -19,6 +18,7 @@ import {
   HackathonEditContext
 } from '@/app/[lang]/(web)/(base page)/(resource)/hackathon/constants/type';
 import { exportToCsv } from '../../../helper/utils';
+import dayjs from '@/components/Common/Dayjs';
 
 const useDealHackathonData = () => {
   const { navs: editNavs } = useContext(HackathonEditContext);
@@ -34,7 +34,7 @@ const useDealHackathonData = () => {
 
   const getCloseInTime = (endTime: string) => {
     const start = +new Date();
-    const end = +new Date(endTime);
+    const end = +new Date(endTime).toLocaleString();
     const gapTime = end - start;
     if (gapTime <= 0) {
       return HackathonStatusType.PAST;
@@ -70,34 +70,34 @@ const useDealHackathonData = () => {
   const getStepIndex = (hackathon: HackathonType) => {
     let step = 4;
     //还未开始注册 -1
-    if (dayjs().tz().isBefore(hackathon.timeline?.registrationOpen)) step = -1;
+    if (dayjs().isBefore(dayjs.utc(hackathon.timeline?.registrationOpen).local())) step = -1;
     // 开始注册 0
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.registrationOpen) &&
-      dayjs().tz().isBefore(hackathon.timeline?.registrationClose)
+      dayjs().isAfter(dayjs.utc(hackathon.timeline?.registrationOpen).local()) &&
+      dayjs().isBefore(dayjs.utc(hackathon.timeline?.registrationClose).local())
     )
       step = 0;
     // 注册结束但未开始提交 1
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.registrationClose) &&
-      dayjs().tz().isBefore(hackathon.timeline?.submissionOpen)
+      dayjs().isAfter(dayjs.utc(hackathon.timeline?.registrationClose).local()) &&
+      dayjs().isBefore(dayjs.utc(hackathon.timeline?.submissionOpen).local())
     ) {
       step = 1;
     }
     // 开始提交 2
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.submissionOpen) &&
-      dayjs().tz().isBefore(hackathon.timeline?.submissionClose)
+      dayjs().isAfter(dayjs.utc(hackathon.timeline?.submissionOpen).local()) &&
+      dayjs().isBefore(dayjs.utc(hackathon.timeline?.submissionClose).local())
     )
       step = 2;
     // 提交结束 开始投票 3
     if (
-      dayjs().tz().isAfter(hackathon.timeline?.submissionClose) &&
-      dayjs().tz().isBefore(hackathon.timeline?.rewardTime)
+      dayjs().isAfter(dayjs.utc(hackathon.timeline?.submissionClose).local()) &&
+      dayjs().isBefore(dayjs.utc(hackathon.timeline?.rewardTime).local())
     )
       step = 3;
     // 过期 4
-    if (dayjs().tz().isAfter(hackathon.timeline?.rewardTime)) step = 4;
+    if (dayjs().isAfter(dayjs.utc(hackathon.timeline?.rewardTime).local())) step = 4;
     return step;
   };
 

@@ -55,6 +55,7 @@ export function ProjectDetail() {
             disabled={item?.required}
             isEditable={validateCustomField(item)}
             checked={item?.selected}
+            required={item?.required}
             onCheckedChange={(checked) => onCheckedChange(item.id, checked)}
             optional={item.optional}
             onOptionalChange={(checked) => onOptionalChange(item.id, checked)}

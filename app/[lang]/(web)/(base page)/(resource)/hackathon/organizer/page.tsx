@@ -1,10 +1,11 @@
 import { FC } from 'react';
-import { HackathonStatusType } from '@/service/webApi/resourceStation/type';
+import { HackathonStatus, HackathonStatusType } from '@/service/webApi/resourceStation/type';
 import { getHackathonsByCreator } from '@/service/cach/resource/hackathon';
 import { Lang } from '@/i18n/config';
 import MenuLink from '@/constants/MenuLink';
 import { Metadata } from 'next';
 import HackathonOrganizer from './components';
+import dayjs from '@/components/Common/Dayjs';
 
 interface HackathonOrganizerPageProps {
   params: { lang: Lang };
@@ -29,9 +30,21 @@ export async function generateMetadata(props: { params: { lang: string } }): Pro
 
 const HackathonOrganizerPage: FC<HackathonOrganizerPageProps> = async ({ searchParams = {}, params: { lang } }) => {
   // load featured projects
-  const status = searchParams.curTab || HackathonStatusType.ON_GOING;
+
   try {
     const hackathons = await getHackathonsByCreator();
+    const draftHackathons = hackathons.filter((item) => item.status === HackathonStatus.DRAFT);
+    const onGoingHackathons = hackathons.filter(
+      (item) => item.status === HackathonStatus.PUBLISH && dayjs.utc(item.timeline.rewardTime).local().isAfter(dayjs())
+    );
+
+    let status = searchParams.curTab;
+
+    if (!status) {
+      status =
+        draftHackathons.length && !onGoingHackathons.length ? HackathonStatusType.DRAFT : HackathonStatusType.ON_GOING;
+    }
+
     return <HackathonOrganizer curTab={status} hackathons={hackathons || []} />;
   } catch (error) {
     console.info(error);

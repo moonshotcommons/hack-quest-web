@@ -4,7 +4,7 @@ import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
 import Button from '@/components/Common/Button';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { TEXT_EDITOR_TYPE } from '@/components/Common/TextEditor';
 import { createEditor } from '@wangeditor/editor';
 

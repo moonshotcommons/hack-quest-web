@@ -18,7 +18,7 @@ import Button from '@/components/Common/Button';
 import NoData from './NoData';
 import { StartModal } from '@/components/hackathon-org/modals/start-modal';
 import { cloneDeep } from 'lodash-es';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { HackathonTabType } from '../../constants/type';
 import TipsModal from './TipsModal';
 import { useUserStore } from '@/store/zustand/userStore';
@@ -45,7 +45,7 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
   const isPast = (timeline: HackathonTimeLineType) => {
     if (!timeline) return false;
     const currentTime = +new Date();
-    return dayjs(timeline.rewardTime).isBefore(currentTime);
+    return dayjs.utc(timeline.rewardTime).local().isBefore(currentTime);
   };
   const hackathons = useMemo(() => {
     const hackathon = {
@@ -62,6 +62,19 @@ const HackathonOrganizer: React.FC<HackathonOrganizerProp> = ({ curTab: c, hacka
       v.count = hackathon[v.value].length || 0;
       return v;
     });
+    // let onGoingCount = 0;
+    // const tabs = newHackathonTab.sort((a, b) => {
+    //   if (a.value === HackathonStatusType.ON_GOING) {
+    //     onGoingCount = a.count!;
+    //     return a.count ? 1 : 0;
+    //   }
+    //   if (b.value === HackathonStatusType.DRAFT && b.count && !onGoingCount) {
+    //     return 1;
+    //   }
+    //   return -1;
+    // });
+
+    // setHackathonTab(tabs);
     setHackathonTab(newHackathonTab);
     return hackathon;
   }, [h]);

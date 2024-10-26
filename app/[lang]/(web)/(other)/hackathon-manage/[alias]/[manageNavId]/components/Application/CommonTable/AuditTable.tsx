@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { SelectType } from '../../../../../constants/type';
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from 'react-icons/io';
-import dayjs from 'dayjs';
+import dayjs from '@/components/Common/Dayjs';
 import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 import { BiXCircle } from 'react-icons/bi';
 import { MdOutlineAccessTimeFilled } from 'react-icons/md';
