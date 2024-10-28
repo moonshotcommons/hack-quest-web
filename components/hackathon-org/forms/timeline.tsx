@@ -142,7 +142,7 @@ function SameCloseTime() {
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="body-m text-neutral-rich-gray">Reward Announcement*</span>
+                  <span className="body-m text-neutral-rich-gray">Judge Ends*</span>
                 </FormLabel>
               </div>
               <FormControl>
@@ -204,7 +204,7 @@ function DifferentCloseTime() {
           <FormItem className="space-y-1">
             <div className="flex items-center justify-between">
               <FormLabel>
-                <span className="body-m text-neutral-rich-gray">Reward Announcement*</span>
+                <span className="body-m text-neutral-rich-gray">Judge Ends*</span>
               </FormLabel>
             </div>
             <FormControl>
