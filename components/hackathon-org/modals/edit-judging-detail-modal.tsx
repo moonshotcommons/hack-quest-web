@@ -585,7 +585,7 @@ export function EditJudgingDetailModal({
                       <FormItem className="w-full space-y-1" id="totalVote-item">
                         <div className="flex items-center justify-between">
                           <FormLabel>
-                            <span className="body-m text-neutral-rich-gray">How many votes are there in total?*</span>
+                            <span className="body-m text-neutral-rich-gray">How many votes does each person get?*</span>
                           </FormLabel>
                         </div>
                         <FormControl>
@@ -616,7 +616,7 @@ export function EditJudgingDetailModal({
                       <FormItem className="w-full space-y-1" id="judgeTotalVote-item">
                         <div className="flex items-center justify-between">
                           <FormLabel>
-                            <span className="body-m text-neutral-rich-gray">How many votes does each judge have?*</span>
+                            <span className="body-m text-neutral-rich-gray">How many votes does each person get?*</span>
                           </FormLabel>
                         </div>
                         <FormControl>
