@@ -7,13 +7,12 @@ import Link from 'next/link';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 
-interface WinnerCardProp {
+interface WinnerProjectCardProp {
   project: HackathonJudgeProjectType;
   reward: HackathonDetailRewardType;
-  index: number;
 }
 
-const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
+const WinnerProjectCard: React.FC<WinnerProjectCardProp> = ({ project, reward }) => {
   return (
     <div className="flex w-full items-stretch gap-[24px] overflow-hidden rounded-[24px] border border-neutral-light-gray bg-neutral-white p-[24px]">
       <BaseImage
@@ -34,9 +33,10 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
             {project.tracks?.map((t) => <TrackTag track={t} key={t} />)}
           </div>
         </div>
-        <div className="body-xs line-clamp-3 h-[58px] whitespace-pre-line text-neutral-rich-gray">
-          {project.detail?.detailedIntro}
-        </div>
+        <div
+          className="body-xs line-clamp-3 h-[58px] whitespace-pre-line text-neutral-rich-gray"
+          dangerouslySetInnerHTML={{ __html: project.detail?.detailedIntro as string }}
+        ></div>
       </div>
       <div className="body-s flex w-[200px] flex-shrink-0 flex-col justify-between border-l border-neutral-light-gray pl-[24px] text-neutral-medium-gray">
         <div>
@@ -47,15 +47,9 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
           <p>Votes</p>
           <p className="text-neutral-black">{`${separationNumber(project.votes?.totalVotes)}`}</p>
         </div>
-        {/* {reward.reward?.rewards?.[index] && (
-          <div>
-            <p>Reward</p>
-            <p className="text-neutral-black">{`${separationNumber(reward.reward?.rewards?.[index]?.value)} ${reward.reward?.currency}`}</p>
-          </div>
-        )} */}
       </div>
     </div>
   );
 };
 
-export default WinnerCard;
+export default WinnerProjectCard;

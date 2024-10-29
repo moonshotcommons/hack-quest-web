@@ -16,7 +16,6 @@ const VotingInfo: React.FC<VotingInfoProp> = ({}) => {
     return projectVote?.judge?.judgeMode === 'judges' && projectVote?.judge?.voteMode === 'score';
   }, [projectVote]);
 
-  console.log(separationNumber(Object.values(projectVote?.roleVoted || {}).reduce((a, b) => a + b, 0)) ?? 0);
   return (
     <div className="flex flex-col gap-[10px]">
       <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.votingInfo')}</p>
