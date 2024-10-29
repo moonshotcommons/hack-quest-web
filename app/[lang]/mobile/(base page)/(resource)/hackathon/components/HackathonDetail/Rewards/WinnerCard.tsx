@@ -1,4 +1,4 @@
-import { HackathonDetailRewardType } from '@/service/webApi/resourceStation/type';
+import { HackathonDetailRewardType, HackathonJudgeType } from '@/service/webApi/resourceStation/type';
 import React from 'react';
 import { separationNumber } from '@/helper/utils';
 import SliderCard from '@/components/Web/Business/SliderCard';
@@ -6,9 +6,11 @@ import WinnerProjectCard from './WinnerProjectCard';
 
 interface WinnerCardProp {
   reward: HackathonDetailRewardType;
+  judge: HackathonJudgeType;
 }
 
-const WinnerCard: React.FC<WinnerCardProp> = ({ reward }) => {
+const WinnerCard: React.FC<WinnerCardProp> = ({ reward, judge }) => {
+  if (!reward.projects?.length) return null;
   return (
     <div className="flex flex-col gap-4">
       <div className="body-m flex items-center gap-[8px] text-neutral-medium-gray">
@@ -27,7 +29,7 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ reward }) => {
                   width: `${contarinerWidth}px`
                 }}
               >
-                <WinnerProjectCard project={p} reward={reward} />
+                <WinnerProjectCard judge={judge} project={p} reward={reward} />
               </div>
             ));
           }}

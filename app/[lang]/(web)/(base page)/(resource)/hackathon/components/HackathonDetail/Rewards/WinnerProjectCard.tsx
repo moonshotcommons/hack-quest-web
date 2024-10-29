@@ -2,7 +2,11 @@ import BaseImage from '@/components/Common/BaseImage';
 import TrackTag from '@/components/Common/TrackTag';
 import MenuLink from '@/constants/MenuLink';
 import { separationNumber } from '@/helper/utils';
-import { HackathonJudgeProjectType, HackathonDetailRewardType } from '@/service/webApi/resourceStation/type';
+import {
+  HackathonJudgeProjectType,
+  HackathonDetailRewardType,
+  HackathonJudgeType
+} from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
@@ -10,9 +14,10 @@ import { LuChevronRight } from 'react-icons/lu';
 interface WinnerProjectCardProp {
   project: HackathonJudgeProjectType;
   reward: HackathonDetailRewardType;
+  judge: HackathonJudgeType;
 }
 
-const WinnerProjectCard: React.FC<WinnerProjectCardProp> = ({ project, reward }) => {
+const WinnerProjectCard: React.FC<WinnerProjectCardProp> = ({ project, reward, judge }) => {
   return (
     <div className="flex w-full items-stretch gap-[24px] overflow-hidden rounded-[24px] border border-neutral-light-gray bg-neutral-white p-[24px]">
       <BaseImage
@@ -38,16 +43,18 @@ const WinnerProjectCard: React.FC<WinnerProjectCardProp> = ({ project, reward })
           dangerouslySetInnerHTML={{ __html: project.detail?.detailedIntro as string }}
         ></div>
       </div>
-      <div className="body-s flex w-[200px] flex-shrink-0 flex-col justify-between border-l border-neutral-light-gray pl-[24px] text-neutral-medium-gray">
-        <div>
-          <p>Rank</p>
-          <p className="text-neutral-black">{`${project.votes?.rank}/${reward.projectCount}`}</p>
+      {!judge.disableJudge && (
+        <div className="body-s flex w-[200px] flex-shrink-0 flex-col justify-between border-l border-neutral-light-gray pl-[24px] text-neutral-medium-gray">
+          <div>
+            <p>Rank</p>
+            <p className="text-neutral-black">{`${project.votes?.rank}/${reward.projectCount}`}</p>
+          </div>
+          <div>
+            <p>Votes</p>
+            <p className="text-neutral-black">{`${separationNumber(project.votes?.totalVotes)}`}</p>
+          </div>
         </div>
-        <div>
-          <p>Votes</p>
-          <p className="text-neutral-black">{`${separationNumber(project.votes?.totalVotes)}`}</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

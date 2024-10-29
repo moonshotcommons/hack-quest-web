@@ -33,11 +33,12 @@ const Rewards: React.FC<RewardsProp> = ({ hackathon }) => {
   const renderReward = (judge: HackathonJudgeType) => {
     const hackathonReward = hackathon.rewards.find((r) => r.id === judge.id);
     const reward = rewards.find((r) => r.reward.id === judge.id);
-    if (!hasWinner || judge.disableJudge || !reward?.projects?.length) {
+    if (!hasWinner) {
       return <RewardCard reward={hackathonReward as HackathonRewardType} />;
     }
-    return <WinnerCard reward={reward as HackathonDetailRewardType} />;
+    return <WinnerCard judge={judge} reward={reward as HackathonDetailRewardType} />;
   };
+
   return (
     <EditBox
       title={'hackathonDetail.rewards'}
