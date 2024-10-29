@@ -53,9 +53,11 @@ function SliderCard({ title, className, viewLink, renderItem, isMobile = false }
           </ScrollContainer>
         </div>
 
-        <div className="mt-[30px]">
-          <Pagination isMobile={isMobile} changeState={scrollContainerState} />
-        </div>
+        {(scrollContainerState?.leftArrowVisible || scrollContainerState?.rightArrowVisible) && (
+          <div className="mt-[30px]">
+            <Pagination isMobile={isMobile} changeState={scrollContainerState} />
+          </div>
+        )}
       </div>
     </div>
   );

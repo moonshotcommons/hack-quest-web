@@ -22,6 +22,7 @@ const Voting: React.FC<VotingProp> = ({}) => {
   const { t } = useTranslation(lang, TransNs.HACKATHON);
   const { getStepIndex } = useDealHackathonData();
   const stepIndex = getStepIndex(hackathon);
+
   if (!titleTxtData.includes('projectsDetail.title.voting')) return null;
   return (
     <div className="flex flex-col gap-[32px]">
