@@ -298,7 +298,7 @@ export function EditTrackModal({
       data = {
         id,
         ...omit(values, 'rewards', 'totalRewards'),
-        totalRewards: values.totalRewards,
+        totalRewards: z.coerce.number().parse(values.totalRewards),
         rule
       };
     } else {
@@ -308,7 +308,7 @@ export function EditTrackModal({
         ...omit(values, 'totalRewards', 'rule'),
         rewards: values.rewards?.map((r, index) => ({
           id: r.id,
-          value: r.value,
+          value: z.coerce.number().parse(r.value),
           label: `${numberToOrdinalWord(index + 1)} Place`
         }))
       };
