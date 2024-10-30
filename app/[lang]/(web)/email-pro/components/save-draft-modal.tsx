@@ -29,7 +29,7 @@ const SaveDraftModal = (props: SaveDraftModalProps) => {
   const SaveForm = () => {
     return (
       <div className="pb-8">
-        <p className="pb-4">Are you sure you want to send it to all users?</p>
+        <p className="pb-4">Are you sure you want to save the draft?</p>
         <Form {...form}>
           <form>
             <FormField
@@ -68,7 +68,7 @@ const SaveDraftModal = (props: SaveDraftModalProps) => {
         Save Draft
       </Button>
       <Modal
-        title="Preview"
+        title="Save Draft"
         open={open}
         footer={
           <div className="flex justify-end gap-5 pt-5">
@@ -86,7 +86,7 @@ const SaveDraftModal = (props: SaveDraftModalProps) => {
               className="button-text-s rounded-full px-5 py-[.5rem] uppercase text-neutral-black"
               onClick={form.handleSubmit(saveEmailDraft)}
             >
-              Application
+              Save
             </Button>
           </div>
         }

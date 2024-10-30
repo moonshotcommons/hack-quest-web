@@ -106,7 +106,7 @@ const EmailDraftDrawer = () => {
               ]}
             >
               <List.Item.Meta
-                title={<a href="https://ant.design">{item.name}</a>}
+                title={<span>{item.name}</span>}
                 description={`created Time: ${dayjs(item.createdAt).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm:ss')}`}
               />
             </List.Item>

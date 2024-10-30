@@ -52,7 +52,7 @@ const EmailDraftModal = (props: EmailDraftModalProps) => {
                 setOpen(false);
               }}
             >
-              Application
+              Open
             </Button>
           </div>
         }
