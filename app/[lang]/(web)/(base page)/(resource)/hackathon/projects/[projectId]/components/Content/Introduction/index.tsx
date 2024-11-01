@@ -13,14 +13,14 @@ const Introduction: React.FC<IntroductionProp> = ({}) => {
   const { project, titleTxtData } = useContext(ProjectDetailContext);
   if (!titleTxtData.includes('projectsDetail.title.introduction')) return null;
   return (
-    <div className="flex flex-col gap-[32px]">
+    <div className="flex w-full flex-col gap-[32px]">
       <Title title={t('projectsDetail.title.introduction')} />
-      <p
-        className="body-l reset-editor-style whitespace-pre-line text-neutral-rich-gray"
+      <div
+        className="body-l reset-editor-style w-full whitespace-pre-line text-neutral-rich-gray"
         dangerouslySetInnerHTML={{
-          __html: project.detail.detailedIntro || ''
+          __html: (project.detail.detailedIntro || '').replace(/&nbsp;/g, '\n')
         }}
-      ></p>
+      ></div>
     </div>
   );
 };
