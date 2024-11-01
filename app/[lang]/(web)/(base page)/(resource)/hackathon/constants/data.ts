@@ -44,7 +44,7 @@ export const hackathonDetailTimeLine = [
     time: ['submissionOpen', 'submissionClose']
   },
   {
-    key: 'Reward Announcement',
+    key: 'Judging Ends',
     timeStr: 'Judging Ends',
     time: ['rewardTime']
   }
