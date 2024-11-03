@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { BlogType } from '@/service/webApi/resourceStation/type';
+import { BlogType, HackathonStatusType } from '@/service/webApi/resourceStation/type';
 
 type Link = {
   url: string;
@@ -8,8 +8,14 @@ type Link = {
   priority: number;
 };
 
-async function getAllProjects(type = 'projects') {
-  const response = await fetch('https://api.hackquest.io/v1/' + type);
+async function getAllProjects(type = 'projects', params?: Record<string, string>) {
+  const url = new URL('https://api.hackquest.io/v1/' + type);
+  if (params) {
+    Object.keys(params).forEach((key) => {
+      url.searchParams.append(key, params[key]);
+    });
+  }
+  const response = await fetch(url);
   if (!response.ok) return [];
 
   const json = await response.json();
@@ -26,7 +32,9 @@ async function getAllProjects(type = 'projects') {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getAllProjects();
-  const hackathons = await getAllProjects('hackathons');
+  const onGoings = await getAllProjects('hackathons', { status: HackathonStatusType.ON_GOING });
+  const pasts = await getAllProjects('hackathons', { status: HackathonStatusType.PAST });
+  const votings = await getAllProjects('hackathons', { status: 'voting' });
   const blogs = await getAllProjects('blogs');
   const glossaries = await getAllProjects('glossaries');
   const learningTracks = await getAllProjects('learning-tracks');
@@ -34,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const ecosystems = await getAllProjects('ecosystems');
   const faucets = await getAllProjects('faucets');
   const ideas = await getAllProjects('ideas');
+  const jobs = await getAllProjects('jobs');
   const lastModified = new Date();
 
   const base: Link[] = [
@@ -121,10 +130,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8
     })),
     {
-      url: 'https://www.hackquest.io/hackathon',
+      url: 'https://www.hackquest.io/hackathon/organizer',
       lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.8
+      changeFrequency: 'monthly',
+      priority: 0.7
     },
     {
       url: 'https://www.hackquest.io/hackathon/explore',
@@ -144,8 +153,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.8
     },
-    ...hackathons.map((hackathon: BlogType) => ({
-      url: `https://www.hackquest.io/hackathon/${hackathon.alias}`,
+    ...votings.map((hackathon: BlogType) => ({
+      url: `https://www.hackquest.io/hackathon/voting/${hackathon.alias}`,
+      lastModified: new Date(hackathon.updatedAt),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    })),
+    ...[...onGoings, ...pasts].map((hackathon: BlogType) => ({
+      url: `https://www.hackquest.io/hackathon/explore/${hackathon.alias}`,
       lastModified: new Date(hackathon.updatedAt),
       changeFrequency: 'monthly',
       priority: 0.8
@@ -221,7 +236,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.7
-    }
+    },
+    {
+      url: 'https://www.hackquest.io/jobs',
+      lastModified,
+      changeFrequency: 'daily',
+      priority: 0.7
+    },
+    ...jobs.map((job: BlogType) => ({
+      url: `https://www.hackquest.io/jobs/${job.id}`,
+      lastModified: new Date(job.updatedAt),
+      changeFrequency: 'monthly',
+      priority: 0.6
+    }))
   ];
 
   const languages = ['en', 'zh'];
