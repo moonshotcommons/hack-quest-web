@@ -31,7 +31,6 @@ async function getAllProjects(type = 'projects', params?: Record<string, string>
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projects = await getAllProjects();
   const onGoings = await getAllProjects('hackathons', { status: HackathonStatusType.ON_GOING });
   const pasts = await getAllProjects('hackathons', { status: HackathonStatusType.PAST });
   const votings = await getAllProjects('hackathons', { status: 'voting' });
@@ -142,12 +141,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8
     },
     {
-      url: 'https://www.hackquest.io/hackathon/projects',
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.8
-    },
-    {
       url: 'https://www.hackquest.io/hackathon/voting',
       lastModified,
       changeFrequency: 'weekly',
@@ -162,12 +155,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...[...onGoings, ...pasts].map((hackathon: BlogType) => ({
       url: `https://www.hackquest.io/hackathon/explore/${hackathon.alias}`,
       lastModified: new Date(hackathon.updatedAt),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    })),
-    ...projects.map((project: BlogType) => ({
-      url: `https://www.hackquest.io/hackathon/projects/${project.alias}`,
-      lastModified: new Date(project.updatedAt),
       changeFrequency: 'monthly',
       priority: 0.8
     })),
