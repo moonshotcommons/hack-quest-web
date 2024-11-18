@@ -48,7 +48,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
         <div className="mt-[3rem] flex w-fit gap-4 rounded-[1rem] border border-neutral-off-white p-4">
           <div className="h-fit w-fit">
             <Image
-              src="/images/landing/mantle.ico"
+              src="/images/landing/mantle.jpeg"
               alt={t('TopBanner.mantleHackathon')}
               width={48}
               height={48}

@@ -56,7 +56,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
 
         <BubbleCard direction="right" className="-mt-[13px] translate-x-[calc(50%+134px+84px)]">
           <Image
-            src="/images/landing/mantle.ico"
+            src="/images/landing/mantle.jpeg"
             alt={t('TopBanner.mantleHackathon')}
             width={60}
             height={60}
