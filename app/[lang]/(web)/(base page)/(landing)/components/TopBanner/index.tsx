@@ -56,8 +56,8 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
 
         <BubbleCard direction="right" className="-mt-[13px] translate-x-[calc(50%+134px+84px)]">
           <Image
-            src="/images/landing/AIA logo_彩2.png"
-            alt={t('TopBanner.aiaHackathon')}
+            src="/images/landing/mantle.jpeg"
+            alt={t('TopBanner.mantleHackathon')}
             width={60}
             height={60}
             className="rounded-full"
@@ -67,12 +67,12 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
               {t('TopBanner.hackathon')}
             </div>
             <Link
-              href={'/hackathon/explore/AIA-Chain-Inaugural-Hackathon'}
+              href={'/hackathon/explore/MANTLE-APAC-Hackathon'}
               className="body-m-bold mt-2 flex items-center gap-2"
               target="_blank"
             >
               <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                {t('TopBanner.aiaHackathon')}
+                {t('TopBanner.mantleHackathon')}
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
