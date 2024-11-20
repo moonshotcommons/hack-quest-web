@@ -9,6 +9,10 @@ export const workModes = [
   {
     id: 'ONSITE',
     label: 'On-site'
+  },
+  {
+    id: 'HYBIRD',
+    label: 'hybird'
   }
 ] as const;
 
@@ -24,6 +28,18 @@ export const workTypes = [
   {
     id: 'INTERNSHIP',
     label: 'Internship'
+  },
+  {
+    id: 'CONTRACT',
+    label: 'contract'
+  },
+  {
+    id: 'TEMP',
+    label: 'temp'
+  },
+  {
+    id: 'FREELANCE',
+    label: 'freelance'
   }
 ] as const;
 
