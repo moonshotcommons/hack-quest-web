@@ -11,6 +11,7 @@ import { FavoriteButton } from './favorite-button';
 import ApplyJob from './apply-job';
 import { formatLocation, formatSalary } from '../utils';
 import Link from 'next/link';
+import { capitalize } from 'lodash-es';
 
 export function JobCard({ job }: { job: Job }) {
   return (
@@ -48,12 +49,12 @@ export function JobCard({ job }: { job: Job }) {
             {job.minSalary && job.maxSalary ? <span>{formatSalary(job)}</span> : null}
             <div className="flex items-center gap-2">
               <Clock4Icon className="h-5 w-5" />
-              <span>{workTypes.find((type) => type.id === job.workType)?.label}</span>
+              <span>{workTypes.find((type) => type.id === job.workType)?.label ?? capitalize(job.workType)}</span>
             </div>
           </div>
           <div className="mt-4 flex items-center gap-2 sm:ml-8 sm:mt-0">
             <MapPinIcon className="h-5 w-5" />
-            <span>{formatLocation(job)}</span>
+            <span className="line-clamp-1 max-w-[300px]">{formatLocation(job)}</span>
           </div>
           <div className="mt-6 flex items-center justify-end gap-4 sm:ml-auto sm:mt-0">
             <time dateTime={job.createdAt} className="text-neutral-medium-gray">
