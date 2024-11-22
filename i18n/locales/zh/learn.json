@@ -95,58 +95,58 @@
       "openSoon": "即将开放"
     },
     "classTime": {
-      "class": "Class",
-      "discussionMentorship": "Discussion & Mentorship",
-      "location": "*The exact time of each session is TBD based on the speakers’ location"
+      "class": "课程",
+      "discussionMentorship": "讨论与辅导",
+      "location": "*每个环节的具体时间将根据讲者所在地点确定"
     },
     "enrollment": {
-      "text1": "This MOOC is available for anyone, anywhere, anytime. You don’t have to be an enrolled NTU student to access the course materials and synchronous sessions and be eligible for proof of completion. However, to attend the sessions in person on the NTU campus, you have to be currently enrolled at NTU.",
-      "text2": "This MOOC is also designed to prepare students in Singapore for the Port63 Challenge Web3 Track that will take place shortly after the end of the MOOC, starting in mid-August of 2024 and matriculating in mid-March of 2025. Together, this program seeks to equip students to understand the challenges and opportunities of ideating and building a startup in web3 and getting hands-on experience.",
-      "text3": "There are NO attendance requirements, meaning that students can choose to attend sessions synchronously or watch the recordings afterward.",
-      "text4": "However, to be eligible for the proof of completion certificate, each participating team should have at least one representative attend 75% of the sessions."
+      "text1": "这门慕课对任何人、任何地方、任何时间开放。您无需是NTU的注册学生即可访问课程材料和同步课程，并有资格获得完成证明。然而，要亲自参加NTU校园的课程，您必须是目前在NTU注册的学生。",
+      "text2": "这门慕课还旨在为新加坡的学生准备 Port63 Challenge Web3 赛道，该比赛将在慕课结束后不久开始，预计从2024年8月中旬开始，到2025年3月中旬结束。该项目旨在帮助学生了解在 Web3 中构思和创建初创企业的挑战与机遇，并获得实践经验。",
+      "text3": "没有出席要求，这意味着学生可以选择同步参加课程，或事后观看录播。",
+      "text4": "然而，为了有资格获得完成证明证书，每个参与团队必须至少有一名代表参加 75% 的课程。"
     },
     "syllabus": {
-      "desc": "*Please note that the dates, order, topics, and descriptions are still TBD; details will be updated upon confirmation with speakers.",
-      "topic": "Topic",
-      "speaker": "Speaker",
-      "resources": "Resources",
-      "video": "Video",
-      "slide": "Slide"
+      "desc": "*请注意，日期、顺序、主题和描述尚待确认；详细信息将在与讲者确认后更新。",
+      "topic": "主题",
+      "speaker": "演讲者",
+      "resources": "资源",
+      "video": "视频",
+      "slide": "课件"
     },
     "courseDescription": {
-      "text1": "The internet is on the cusp of a major transformation, with Web3 poised to reshape how we interact, transact, and own. Fueled by blockchain technology, Web3 promises a more decentralized internet, where power shifts from corporations to users. ",
-      "text2": "According to metrics reported by TechCrunch and Bloomberg, as secondary market activities pick up, VC investment in crypto startups reached $2.52 billion across 603 deals in Q1 2024 alone, citing “positive effects from legal wins last year from Ripple and Grayscale”, “positive sentiments around decentralized finance (DeFi) on Solana”, and “demand increasing for the biggest cryptocurrency post SEC spot bitcoin ETF approvals in the US” as contributing factors. Users are here too. More than half a billion people had become cryptocurrency users or owners by the end of 2023, according to cryptocurrency exchange Crypto.com.",
-      "text3": "For founders and aspiring founders in Web3, now is the time to build. This MOOC is designed to guide founders and aspiring founders through ideating and building Web3 projects under the mentorship of leading founders, investors, and researchers from both industry and academia. We hope to equip students with the knowledge and confidence to articulate the potential of Web3 technology, develop innovative Web3 project ideas, build and deploy basic Web3 applications, and navigate the evolving Web3 landscape. This course is your gateway into the world of Web3. Get ready to learn, build, and become a part of the future!"
+      "text1": "互联网正处于重大变革的前沿，Web3 即将重塑我们互动、交易和拥有的方式。凭借区块链技术的支持，Web3 承诺打造一个更加去中心化的互联网，权力从企业转移到用户手中。",
+      "text2": "根据 TechCrunch 和 Bloomberg 报道的指标，随着二级市场活动的回升，2024 年第一季度风险资本对加密初创企业的投资达到了 25.2 亿美元，涉及 603 笔交易，报告中提到“Ripple 和 Grayscale 去年赢得的法律胜诉带来了积极的影响”、“Solana 上去中心化金融（DeFi）情绪乐观”，以及“在美国 SEC 批准现货比特币 ETF 后，最大的加密货币需求增加”作为推动因素。用户也在加入。根据加密货币交易所 Crypto.com 的数据，到 2023 年底，超过五亿人已成为加密货币用户或持有者。",
+      "text3": "对于 Web3 的创始人和有志成为创始人的人来说，现在正是构建的时机。这门慕课旨在通过行业和学术界的领先创始人、投资者和研究人员的辅导，帮助创始人和有志创始人构思和构建 Web3 项目。我们希望为学生提供知识和信心，使他们能够阐明 Web3 技术的潜力，开发创新的 Web3 项目创意，构建和部署基础的 Web3 应用程序，并在不断发展的 Web3 领域中找到前进的方向。这门课程是您进入 Web3 世界的门户。准备好学习、构建，并成为未来的一部分吧！"
     }
   },
   "explore": {
     "title": "从 0 到 1，成为Web3开发者",
     "web3": "Web3基础课",
     "web3Intro": "学习Web3和区块链基础概念",
-    "learningTrack": "Certified Learning Track",
-    "learningTrackIntro": "Deep Dive into leading Ecosystems",
-    "buildWeb3": "Build on Web 3",
-    "buildWeb3Intro": "Gain hands on experience with projects",
-    "moreResources": "More Resources",
-    "moreResourcesIntro": "Explore beyond learning",
-    "detailMoreResourcesIntro": "Explore beyond learning",
-    "project": "Project",
-    "projectIntro": "Practice makes perfect. Find all real-world projects here",
-    "electiveIntro": "Learn Different Concepts about Web 3",
-    "elective": "Elective",
-    "glossary": "Glossary",
-    "glossaryIntro": "A glossary is a list of terms and their definitions for a particular subject, usually found at the end of a book or other document.",
-    "hackathon": "Hackathon",
-    "hackathonIntro": "A hackathon is a social coding event that brings computer programmers and other interested people together to improve upon or build a new software program.",
-    "blog": "Blog",
-    "blogIntro": "A blog, or weblog, is a website that regularly provides updated content about a topic.",
-    "bounty": "Bounty",
-    "votes": "Votes",
-    "enroll": "Enroll",
-    "add": "Add",
-    "cancel": "Cancel",
-    "added": "Added",
-    "switchText": "Do you want to switch to {{ecosystem}}?",
-    "swtichDesc": "You’re currently enrolled in Ethereum learning track. All your learning progress will be saved. You can switch easily in dashboard."
+    "learningTrack": "认证学习路径",
+    "learningTrackIntro": "深入了解领先的生态系统",
+    "buildWeb3": "在 Web3 上构建",
+    "buildWeb3Intro": "通过项目获得实践经验",
+    "moreResources": "更多资源",
+    "moreResourcesIntro": "探索超越学习的内容",
+    "detailMoreResourcesIntro": "探索超越学习的内容",
+    "project": "项目",
+    "projectIntro": "实践成就完美。在这里找到所有真实世界的项目。",
+    "electiveIntro": "学习 Web3 的不同概念",
+    "elective": "选修课",
+    "glossary": "术语表",
+    "glossaryIntro": "术语表是特定主题的术语及其定义的列表，通常位于书籍或其他文档的末尾。",
+    "hackathon": "黑客松",
+    "hackathonIntro": "黑客松是一个社交编码活动，旨在将计算机程序员和其他感兴趣的人聚集在一起，共同改进或构建新的软件程序。",
+    "blog": "博客",
+    "blogIntro": "博客，或称为日志，是一个定期更新有关某一主题内容的网站。",
+    "bounty": "赏金",
+    "votes": "投票",
+    "enroll": "注册",
+    "add": "添加",
+    "cancel": "取消",
+    "added": "已添加",
+    "switchText": "您是否想切换到 {{ecosystem}}?",
+    "swtichDesc": "您目前已注册以太坊学习路径。您的所有学习进度将会保存。您可以在仪表板中轻松切换。"
   }
 }
