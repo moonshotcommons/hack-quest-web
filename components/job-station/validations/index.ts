@@ -9,6 +9,10 @@ export const workModes = [
   {
     id: 'ONSITE',
     label: 'On-site'
+  },
+  {
+    id: 'HYBRID',
+    label: 'Hybrid'
   }
 ] as const;
 
