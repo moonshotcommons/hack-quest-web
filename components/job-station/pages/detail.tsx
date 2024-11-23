@@ -8,6 +8,7 @@ import { workTypes } from '../validations';
 import { Footer } from '../components/footer';
 import { JobDescription } from '../components/job-description';
 import { formatLocation, formatSalary } from '../utils';
+import { capitalize } from 'lodash-es';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const job = await getCachedJob(params.id);
@@ -59,11 +60,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
           <h3 className="text-lg text-neutral-rich-gray">{job.companyName}</h3>
         </div>
-        <div className="flex items-center gap-4 sm:gap-8">
+        <div className="flex flex-wrap items-center gap-4 sm:gap-8">
           {job?.minSalary && job?.maxSalary ? <span>{formatSalary(job)}</span> : null}
           <div className="flex items-center gap-2">
             <Clock4Icon className="h-5 w-5" />
-            <span>{workTypes.find((w) => w.id === job.workType)?.label}</span>
+            <span>{workTypes.find((w) => w.id === job.workType)?.label ?? capitalize(job.workType)}</span>
           </div>
           <div className="flex items-center gap-2">
             <MapPinIcon className="h-5 w-5" />
