@@ -173,7 +173,7 @@ const Content: React.FC<ContentProp> = ({
       manual: true,
       debounceWait: 300,
       onSuccess() {
-        redirectToUrl(`/hackathon/projects/${project.alias}`);
+        redirectToUrl(`/hackathon/projects/${project.id}`);
       },
       onError(err) {
         errorMessage(err);
@@ -183,7 +183,7 @@ const Content: React.FC<ContentProp> = ({
 
   const onSubmit = (values: any) => {
     if (isEqual(defaultValues, values)) {
-      redirectToUrl(`/hackathon/projects/${project.alias}`);
+      redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
       onSubmitRequest(values);
     }
@@ -191,7 +191,7 @@ const Content: React.FC<ContentProp> = ({
 
   const onExit = () => {
     if (isEqual({}, form.getValues()) || isClose) {
-      redirectToUrl(`/hackathon/projects/${project.alias}`);
+      redirectToUrl(`/hackathon/projects/${project.id}`);
     } else {
       exitConfirmRef.current?.open({
         onConfirm: () => onSubmitRequest(form.getValues())
