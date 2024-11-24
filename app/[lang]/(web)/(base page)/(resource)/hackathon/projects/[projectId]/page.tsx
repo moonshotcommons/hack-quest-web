@@ -7,7 +7,7 @@ import {
   getProjectVoteById
 } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
-import { redirect } from 'next/navigation';
+import { permanentRedirect, redirect } from 'next/navigation';
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import ProjectDetail from './components';
@@ -51,7 +51,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
 
     const project = await getHackathonProjectById(projectId);
     if (isUuid(projectId)) {
-      redirect(`${MenuLink.PROJECTS}/${project.alias}`);
+      permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
     }
     const [otherProjects, hackathon, projectVote] = await Promise.all([
       getOtherProjects(project.hackathonName, projectId),
