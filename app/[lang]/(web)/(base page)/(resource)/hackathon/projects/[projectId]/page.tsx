@@ -44,6 +44,7 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 }
 
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
+  let error = null;
   try {
     const { projectId } = params;
 
@@ -60,10 +61,14 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
       <ProjectDetail project={project} otherProjects={otherProjects} hackathon={hackathon} projectVote={projectVote} />
     );
   } catch (err: any) {
-    if (err.code === 401) {
-      redirect('/');
+    error = err;
+  } finally {
+    if (error) {
+      if (error.code === 401) {
+        redirect('/');
+      }
+      throw new Error(error);
     }
-    throw new Error(err);
   }
 };
 
