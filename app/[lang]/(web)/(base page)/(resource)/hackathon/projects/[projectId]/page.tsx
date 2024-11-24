@@ -68,7 +68,7 @@ const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
       if (error.code === 401) {
         redirect('/');
       }
-      if (error.message !== 'NEXT_REDIRECT') throw error;
+      throw error;
     }
   }
 };
