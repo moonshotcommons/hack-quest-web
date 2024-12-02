@@ -404,11 +404,11 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
           </div>
         )}
 
-        {(links?.length > 0 || hackathon.links.website) && (
+        {(links?.length > 0 || hackathon?.links?.website) && (
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
             <div className="mt-[.25rem] flex items-center gap-[.75rem]">
-              {hackathon.links.website && (
+              {hackathon?.links?.website && (
                 <Link
                   href={hackathon.links.website}
                   target="_blank"
