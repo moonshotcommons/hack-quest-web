@@ -13,7 +13,7 @@ const RewardCard: React.FC<RewardCardProp> = ({ reward }) => {
     <div className="rounded-[1rem] border border-neutral-light-gray bg-neutral-white p-[1.5rem]">
       <div className="flex flex-col items-center justify-center gap-[.25rem] pb-[.5rem]">
         <div className="text-h2-mob text-neutral-off-black">{`${separationNumber(reward.totalRewards)} ${reward.currency || 'USD'}`}</div>
-        <p className="text-neutral-medium-gray">{reward.name}</p>
+        <p className="text-center text-neutral-medium-gray">{reward.name}</p>
       </div>
       <div className="flex-1 border-t border-neutral-light-gray pt-[.5rem]">
         {reward.mode === 'RANK' ? (
