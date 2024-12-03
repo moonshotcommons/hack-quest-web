@@ -33,9 +33,10 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="caption-10pt mt-[8px] line-clamp-4 h-[60px] text-neutral-rich-gray">
-          {project.detail?.detailedIntro}
-        </div>
+        <div
+          className="caption-10pt mt-[8px] line-clamp-4 h-[60px] whitespace-pre-line text-neutral-rich-gray "
+          dangerouslySetInnerHTML={{ __html: project.detail?.detailedIntro || '' }}
+        ></div>
       </div>
       <div className="h-[63px] w-full rounded-[8px] bg-neutral-off-white px-[12px] py-[8px]">
         <HandleVote view={ViewValue.GRID} project={project} />

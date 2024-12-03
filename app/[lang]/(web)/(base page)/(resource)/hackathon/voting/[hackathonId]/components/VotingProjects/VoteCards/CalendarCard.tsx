@@ -37,9 +37,10 @@ const CalendarCard: React.FC<CalendarCardProp> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="caption-10pt mt-[8px] line-clamp-3 h-[41px] text-neutral-rich-gray">
-          {project.detail?.detailedIntro}
-        </div>
+        <div
+          className="caption-10pt mt-[8px] line-clamp-3 h-[41px] whitespace-pre-line text-neutral-rich-gray"
+          dangerouslySetInnerHTML={{ __html: project.detail?.detailedIntro || '' }}
+        ></div>
       </div>
     </Link>
   );
