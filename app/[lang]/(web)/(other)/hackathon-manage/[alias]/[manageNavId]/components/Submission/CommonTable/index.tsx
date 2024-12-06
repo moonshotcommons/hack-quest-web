@@ -18,6 +18,7 @@ import webApi from '@/service';
 import Input from '@/components/Common/Input';
 import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
+import { getDomain } from '@/constants/links';
 
 interface CommonTableProp {
   list: any[];
@@ -59,6 +60,7 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
   const getInfo = (item: ProjectType) => {
     const info: Record<string, any> = {
       name: item.name,
+      link: `${getDomain(process.env.RUNTIME_ENV || 'production')}en/hackathon/projects/${item.alias}`,
       vote: item.vote,
       winner: item.winner ? 'Yes' : 'No',
       secotr: item.tracks?.join(','),
