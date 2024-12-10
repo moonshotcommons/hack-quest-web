@@ -477,6 +477,7 @@ export interface HackathonRegisterProjectInfo {
   isSubmit: boolean;
   winner: boolean;
   vote: number;
+  alias: string;
 }
 export interface HackathonRegisterInfo {
   id: string;

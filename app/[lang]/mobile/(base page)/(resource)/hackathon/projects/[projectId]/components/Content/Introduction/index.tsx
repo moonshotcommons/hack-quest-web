@@ -18,7 +18,7 @@ const Introduction: React.FC<IntroductionProp> = ({}) => {
       <p
         className="body-s reset-editor-style whitespace-pre-line text-neutral-rich-gray"
         dangerouslySetInnerHTML={{
-          __html: project.detail.detailedIntro || ''
+          __html: (project.detail.detailedIntro || '').replace(/&nbsp;/g, '\n')
         }}
       ></p>
     </div>

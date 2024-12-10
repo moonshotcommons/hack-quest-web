@@ -29,7 +29,7 @@ async function getAllProjects(type = 'projects') {
   const urls = [
     ...projects.map(
       (project) => `<url>
-  <loc>https://www.hackquest.io/hackathon/projects/${project.id}?hackathonId=${project.id}&amp;menu=projects</loc>
+  <loc>https://www.hackquest.io/hackathon/projects/${project.alias}?hackathonId=${project.id}&amp;menu=projects</loc>
   <lastmod>${project.updatedAt}</lastmod>
   <priority>0.8</priority>
   <changefreq>weekly</changefreq>

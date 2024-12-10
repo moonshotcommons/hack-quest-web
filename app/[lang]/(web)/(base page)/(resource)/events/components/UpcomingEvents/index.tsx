@@ -18,7 +18,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProp> = ({ list, lang }) => {
       .filter((v) => v.status !== EventStatus.PAST)
       .map((v) => ({
         ...v,
-        medias: v.medias?.filter((m) => /.webp$/.test(m))
+        medias: v.medias?.filter((m) => /.(webp|mp4|mov)$/.test(m))
       }));
   }, [list]);
   const [modalOpen, setModalOpen] = useState(false);

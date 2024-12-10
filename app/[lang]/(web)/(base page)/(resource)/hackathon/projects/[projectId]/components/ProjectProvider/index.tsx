@@ -16,6 +16,12 @@ const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, project, pro
   const isShowVoting = useMemo(() => {
     return !!(stepIndex > 2 && project.rewards?.length);
   }, [project, stepIndex]);
+
+  const showRewards = useMemo(() => {
+    const rs = project.rewards || [];
+    const judge = hackathon.judge || [];
+    return rs.some((r) => !judge.find((j) => j.id === r.id)?.disableJudge);
+  }, [hackathon, project]);
   const titleTxtData = useMemo(() => {
     let navs = [
       'projectsDetail.title.overview',
@@ -24,7 +30,7 @@ const ProjectProvider: React.FC<ProjectProviderProp> = ({ children, project, pro
       'projectsDetail.title.introduction',
       'projectsDetail.title.team'
     ];
-    if (!isShowVoting) {
+    if (!isShowVoting || !showRewards) {
       navs = navs.filter((v) => v !== 'projectsDetail.title.voting');
     }
     if (!project?.pitchVideo && !project?.demoVideo) {

@@ -4,6 +4,7 @@
     "certified": "certified",
     "learningTrack": "learning track",
     "learnAndBuildAlongside": "Learn and build alongside",
+    "xionLearningTrack": "XION Learning Track now live on HackQuest",
     "developers": "developers",
     "goTo": "Go to",
     "hackathon": "Hackathon",
@@ -11,7 +12,8 @@
     "universityMOOCDesc": "Ideating and Building in Web3",
     "eduChainHackathon": "EDU Chain Hackathon: Win $200k in Prize",
     "gaiaAiHackathon": "Gaia AI Hackathon: Win $50K in Prize",
-    "aiaHackathon": "AIA Chain Inaugural Hackathon"
+    "aiaHackathon": "AIA Chain Inaugural Hackathon",
+    "mantleHackathon": "Mantle APAC Hackathon: Win $30K in Prize"
   },
   "CollaborateList": {
     "ecosystemsAndProjects": "We collaborate with 100+ leading Web3 ecosystems and projects"

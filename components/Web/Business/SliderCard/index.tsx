@@ -43,7 +43,7 @@ function SliderCard({ title, className, viewLink, renderItem, isMobile = false }
       )}
       <div>
         <div className="group relative">
-          <div className={`${!isMobile && 'hidden group-hover:block'}`}>
+          <div className={` ${!isMobile && 'hidden group-hover:block'}`}>
             <Navigation isMobile={isMobile} changeState={scrollContainerState} />
           </div>
           <ScrollContainer ref={scrollContainerRef} gap={0} onChange={(state: any) => setScrollContainerState(state)}>
@@ -53,9 +53,11 @@ function SliderCard({ title, className, viewLink, renderItem, isMobile = false }
           </ScrollContainer>
         </div>
 
-        <div className="mt-[30px]">
-          <Pagination isMobile={isMobile} changeState={scrollContainerState} />
-        </div>
+        {(scrollContainerState?.leftArrowVisible || scrollContainerState?.rightArrowVisible) && (
+          <div className="mt-[30px]">
+            <Pagination isMobile={isMobile} changeState={scrollContainerState} />
+          </div>
+        )}
       </div>
     </div>
   );

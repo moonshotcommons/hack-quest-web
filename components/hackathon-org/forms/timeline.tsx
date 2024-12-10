@@ -31,10 +31,10 @@ const formSchema = z
     registrationClose: z.string().optional(),
     submissionOpen: z.string().optional(),
     submissionClose: z.string().min(1, {
-      message: 'Submission close time is required'
+      message: 'Submission deadline is required'
     }),
     rewardTime: z.string().min(1, {
-      message: 'Reward announcement is required'
+      message: 'Judging ends is required'
     })
   })
   .superRefine((data, ctx) => {
@@ -122,7 +122,7 @@ function SameCloseTime() {
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="body-m text-neutral-rich-gray">Submission Close*</span>
+                  <span className="body-m text-neutral-rich-gray">Submission Deadline*</span>
                 </FormLabel>
               </div>
               <FormControl>
@@ -142,7 +142,7 @@ function SameCloseTime() {
             <FormItem className="w-full space-y-1">
               <div className="flex items-center justify-between">
                 <FormLabel>
-                  <span className="body-m text-neutral-rich-gray">Reward Announcement*</span>
+                  <span className="body-m text-neutral-rich-gray">Judging Ends*</span>
                 </FormLabel>
               </div>
               <FormControl>
@@ -186,7 +186,7 @@ function DifferentCloseTime() {
           <FormItem className="space-y-1">
             <div className="flex items-center justify-between">
               <FormLabel>
-                <span className="body-m text-neutral-rich-gray">Submission Close*</span>
+                <span className="body-m text-neutral-rich-gray">Submission Deadline*</span>
               </FormLabel>
             </div>
             <FormControl>
@@ -204,7 +204,7 @@ function DifferentCloseTime() {
           <FormItem className="space-y-1">
             <div className="flex items-center justify-between">
               <FormLabel>
-                <span className="body-m text-neutral-rich-gray">Reward Announcement*</span>
+                <span className="body-m text-neutral-rich-gray">Judging Ends*</span>
               </FormLabel>
             </div>
             <FormControl>

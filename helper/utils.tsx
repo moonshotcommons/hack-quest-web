@@ -203,6 +203,7 @@ export async function urlToBlobAndBase64(url: string) {
 }
 
 export const separationNumber = (num: number, maxNum?: number) => {
+  num = Number(num);
   if (typeof num !== 'number' || isNaN(num)) return 0;
   const isMaxNum = maxNum && num > maxNum;
   let sNum;

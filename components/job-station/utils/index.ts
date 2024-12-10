@@ -38,6 +38,8 @@ export function formatLocation(job: Job) {
     return job.location;
   } else if (mode?.id === 'REMOTE') {
     return 'Remote';
+  } else if (mode?.id === 'HYBRID') {
+    return mode.label;
   } else {
     return 'N/A';
   }
