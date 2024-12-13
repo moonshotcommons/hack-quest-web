@@ -1,7 +1,7 @@
-import Email from './components/email';
+// import Email from './components/email';
 
 const EmailPage = async () => {
-  return <Email />;
+  return <div>123</div>;
 };
 
 export default EmailPage;
