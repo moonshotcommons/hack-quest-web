@@ -1,22 +1,22 @@
-// import Button from '@/components/Common/Button';
-// import useEmailStore from '@/store/zustand/emailStore';
-// import { message, Modal } from 'antd';
-// import { useState } from 'react';
-// import { useShallow } from 'zustand/react/shallow';
+// // import Button from '@/components/Common/Button';
+// // import useEmailStore from '@/store/zustand/emailStore';
+// // import { message, Modal } from 'antd';
+// // import { useState } from 'react';
+// // import { useShallow } from 'zustand/react/shallow';
 
-// interface EmailDraftModalProps {
-//   draftHtml: string;
-//   draftJson: any;
-// }
+// // interface EmailDraftModalProps {
+// //   draftHtml: string;
+// //   draftJson: any;
+// // }
 
-// const EmailDraftModal = (props: EmailDraftModalProps) => {
-//   const { draftHtml, draftJson } = props;
-//   const [open, setOpen] = useState(false);
-//   const { loadingDesign } = useEmailStore(
-//     useShallow((state) => ({
-//       loadingDesign: state.loadingDesign
-//     }))
-//   );
+// // const EmailDraftModal = (props: EmailDraftModalProps) => {
+// //   const { draftHtml, draftJson } = props;
+// //   const [open, setOpen] = useState(false);
+// //   const { loadingDesign } = useEmailStore(
+// //     useShallow((state) => ({
+// //       loadingDesign: state.loadingDesign
+// //     }))
+// //   );
 
 //   return (
 //     <>
@@ -52,7 +52,7 @@
 //                 setOpen(false);
 //               }}
 //             >
-//               Application
+//               Open
 //             </Button>
 //           </div>
 //         }
@@ -67,4 +67,4 @@
 //   );
 // };
 
-// export default EmailDraftModal;
+// // export default EmailDraftModal;
