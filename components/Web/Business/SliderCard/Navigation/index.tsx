@@ -15,7 +15,7 @@ const Navigation: React.FC<NavigationProp> = ({ changeState, isMobile = false })
     <>
       <div
         className={cn(
-          'absolute -left-2 top-1/2 z-[99] flex h-14 w-14 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 text-neutral-off-black drop-shadow-[0px_0px_8px_rgba(0,0,0,0.12)] transition-all hover:text-neutral-off-black sm:-left-4 sm:bg-[rgba(244,244,244,0.8)] sm:text-neutral-medium-gray sm:hover:bg-white/95 sm:hover:text-neutral-off-black',
+          'absolute left-0 top-1/2 z-[99] flex h-14 w-14 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 text-neutral-off-black drop-shadow-[0px_0px_8px_rgba(0,0,0,0.12)] transition-all hover:text-neutral-off-black  sm:bg-[rgba(244,244,244,0.8)] sm:text-neutral-medium-gray sm:hover:bg-white/95 sm:hover:text-neutral-off-black',
           {
             'h-8 w-8': isMobile
           }
@@ -28,7 +28,7 @@ const Navigation: React.FC<NavigationProp> = ({ changeState, isMobile = false })
       </div>
       <div
         className={cn(
-          'absolute -right-2 top-1/2 z-[99] flex h-14 w-14 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 text-neutral-off-black drop-shadow-[0px_0px_8px_rgba(0,0,0,0.12)] transition-all hover:text-neutral-off-black sm:-right-4 sm:bg-[rgba(244,244,244,0.8)] sm:text-neutral-medium-gray sm:hover:bg-white/95 sm:hover:text-neutral-off-black',
+          'absolute right-0 top-1/2 z-[99] flex h-14 w-14 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 text-neutral-off-black drop-shadow-[0px_0px_8px_rgba(0,0,0,0.12)] transition-all hover:text-neutral-off-black  sm:bg-[rgba(244,244,244,0.8)] sm:text-neutral-medium-gray sm:hover:bg-white/95 sm:hover:text-neutral-off-black',
           {
             'h-8 w-8': isMobile
           }

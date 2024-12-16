@@ -32,7 +32,7 @@ const V2Layout: React.FC<V2LayoutProps> = ({ navbarData, children, userInfo }) =
         </NavBar>
         <div
           id="content-scroll-wrap"
-          className={`m-auto w-full flex-1 overflow-auto  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}
+          className={`m-auto w-full flex-1 overflow-auto overflow-x-hidden  ${isNavbarFullPage ? 'bg-[white]' : 'bg-neutral-off-white'}`}
         >
           <div className={`flex h-full w-full flex-col`}>
             <div className="relative w-full flex-1">

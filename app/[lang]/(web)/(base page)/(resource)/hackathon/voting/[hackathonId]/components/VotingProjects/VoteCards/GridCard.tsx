@@ -38,10 +38,9 @@ const GridCard: React.FC<GridCardProp> = ({ project }) => {
           </div>
         </div>
         <div
-          className={`caption-10pt mt-[8px]  text-neutral-rich-gray ${isShowTick ? 'line-clamp-3 h-[45px]' : 'line-clamp-4 h-[66px]'}`}
-        >
-          {project.detail?.detailedIntro}
-        </div>
+          className={`caption-10pt mt-[8px] whitespace-pre-line  text-neutral-rich-gray ${isShowTick ? 'line-clamp-3 h-[45px]' : 'line-clamp-4 h-[66px]'}`}
+          dangerouslySetInnerHTML={{ __html: project.detail?.detailedIntro || '' }}
+        ></div>
       </div>
       <div className={` w-full rounded-[8px] ${isShowTick ? 'h-[90px]' : 'h-[66px]'}`}>
         <HandleVote view={ViewValue.GRID} project={project} />

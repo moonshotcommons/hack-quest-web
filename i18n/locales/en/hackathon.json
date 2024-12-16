@@ -32,8 +32,8 @@
   "hackathonDetail": {
     "timeline": "Timeline",
     "submissionTime": "Submission Close",
-    "rewardAnnouncement": "Reward Announcement",
-    "rewardAnnouncementTime": "Reward Announcement",
+    "rewardAnnouncement": "Judging Ends",
+    "rewardAnnouncementTime": "Judging Ends",
     "about": "About",
     "theme": "Theme",
     "rewards": "Rewards",

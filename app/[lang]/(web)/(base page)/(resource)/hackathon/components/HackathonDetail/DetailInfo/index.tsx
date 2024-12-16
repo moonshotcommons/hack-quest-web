@@ -19,6 +19,7 @@ import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import { useSearchParams } from 'next/navigation';
 import dayjs from '@/components/Common/Dayjs';
+import { TbWorld } from 'react-icons/tb';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -42,6 +43,7 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
   const links = getLinks(hackathon);
+  console.info(hackathon);
   const handleSubmit = (id: string) => {
     if (
       hackathon.participation?.team?.creatorId === hackathon.participation?.userId ||
@@ -408,10 +410,19 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
           </div>
         )}
 
-        {links?.length > 0 && (
+        {(links?.length > 0 || hackathon?.links?.website) && (
           <div>
             <p className="text-neutral-medium-gray">{`Links`}</p>
             <div className="mt-[4px] flex items-center gap-[12px]">
+              {hackathon?.links?.website && (
+                <Link
+                  href={hackathon.links.website}
+                  target="_blank"
+                  className="flex-center h-[40px] w-[40px] rounded-[8px] border border-neutral-light-gray"
+                >
+                  <TbWorld size={24} />
+                </Link>
+              )}
               {links?.map((v, i) => (
                 <Link
                   key={i}

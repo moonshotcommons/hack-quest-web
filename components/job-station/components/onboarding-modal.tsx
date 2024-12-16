@@ -148,6 +148,14 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
     }
   });
 
+  const getGithubInfo = useMutation({
+    mutationFn: () => webApi.userApi.getGithubInfo(),
+    onSuccess: () => {
+      toast.success('Developer profile updated');
+      invalidate();
+    }
+  });
+
   const mutation = useMutation({
     mutationFn: async () => {
       if (!account?.isConnected && openConnectModal) {
@@ -180,17 +188,19 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
   }, [connectModalOpen]);
 
   React.useEffect(() => {
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'linkGitHub') {
-        invalidate();
-      }
-    });
-    return () => {
-      window.removeEventListener('storage', (e) => {
-        if (e.key === 'linkGitHub') {
-          invalidate();
+    function handler(event: MessageEvent) {
+      const data = event.data;
+      if (data.source === 'github') {
+        if (data.message === 'success') {
+          getGithubInfo.mutate();
+        } else {
+          toast.error('GitHub authorization failed. Please try again.');
         }
-      });
+      }
+    }
+    window.addEventListener('message', handler);
+    return () => {
+      window.removeEventListener('message', handler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -228,7 +238,11 @@ function Step2({ setStep }: { setStep: React.Dispatch<React.SetStateAction<numbe
                 </button>
               ) : (
                 <button className="ml-auto outline-none" onClick={() => connectMutation.mutate()}>
-                  <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  {getGithubInfo.isPending ? (
+                    <Spinner size={20} />
+                  ) : (
+                    <PlusIcon size={20} className="text-neutral-medium-gray" />
+                  )}
                 </button>
               )}
             </div>

@@ -186,7 +186,7 @@ export function HackathonCardAction({ hackathon }: { hackathon: HackathonType })
       )}
 
       {hasPermission(role, status, 'view') && (
-        <PrimaryButton outline onClick={() => router.push(`/hackathon/projects/${projectId}`)}>
+        <PrimaryButton outline onClick={() => router.push(`/hackathon/projects/${participation?.project?.alias}`)}>
           view my project
         </PrimaryButton>
       )}

@@ -12,7 +12,7 @@
   "allHackathons": "所有黑客松",
   "onGoingHackathon": "正在进行的黑客松",
   "pastHackathon": "已经结束的黑客松",
-  "review":"审核中",
+  "review": "审核中",
   "draft": "草稿",
   "featuredProjects": "推荐项目",
   "submitNow": "Submit Now",
@@ -21,7 +21,7 @@
   "checkPastHackathon": "Check Past Hackathon",
   "checkAllProjects": "Check All Projects",
   "viewAllProjects": "查看该黑客松的所有项目",
-  "submittedProjects":"Submitted Projects",
+  "submittedProjects": "Submitted Projects",
   "projects": {
     "projects": "Project Archive",
     "projectsDescription": "Welcome to the central repository for accessing all previous projects from our various hackathons.",
@@ -31,9 +31,9 @@
   },
   "hackathonDetail": {
     "timeline": "时间线",
-    "submissionTime":"Submissions Close",
-    "rewardAnnouncement": "Reward Announcement",
-    "rewardAnnouncementTime": "Reward Announcement",
+    "submissionTime": "Submissions Close",
+    "rewardAnnouncement": "Judging Ends",
+    "rewardAnnouncementTime": "Judging Ends",
     "about": "关于",
     "theme": "主题",
     "rewards": "奖励",
@@ -70,7 +70,7 @@
     "speakers": "演讲者",
     "sponsors": "赞助商",
     "info": "详情",
-    "FAQs":"常见问题解答",
+    "FAQs": "常见问题解答",
     "judgingAccounts": "Judging Accounts",
     "totalUserVotes": "Total User Votes",
     "totalAdvocateVotes": "Total Advocate Votes",
@@ -123,11 +123,11 @@
     "venue": "场地及教育合作伙伴",
     "trackPartner": "跟踪合作伙伴",
     "viewTeamProject": "查看团队项目",
-    "registrationData":"Registration Data",
-    "backToEdit":"Back to Edit",
-    "proceedToPreview":"Proceed to Preview",
-    "submitToPreview":"Submit to Preview",
-    "confirmAttendance":"confirm attendance"
+    "registrationData": "Registration Data",
+    "backToEdit": "Back to Edit",
+    "proceedToPreview": "Proceed to Preview",
+    "submitToPreview": "Submit to Preview",
+    "confirmAttendance": "confirm attendance"
   },
   "projectsDetail": {
     "title": {
@@ -221,8 +221,8 @@
     "vote": "投票",
     "empty": "你没有{{type}}的黑客松",
     "back": "返回你的黑客松",
-    "tipsModalTitle":"Want to organize a hackathon?",
-    "tipsModalText":"Before accessing the Hackathon Organizer Dashboard, please apply to become an organizer. Once approved, you'll be able to create, edit, and review your events seamlessly."
+    "tipsModalTitle": "Want to organize a hackathon?",
+    "tipsModalText": "Before accessing the Hackathon Organizer Dashboard, please apply to become an organizer. Once approved, you'll be able to create, edit, and review your events seamlessly."
   },
   "explore": {
     "title": "黑客松探索",
@@ -243,21 +243,21 @@
     "empty": "你没有{{type}}的黑客松",
     "ongoing": "进行中",
     "draft": "草稿",
-    "review":"审核中",
+    "review": "审核中",
     "past": "已结束",
     "continueEditing": "continue editing",
     "previewSubmit": "preview / submit",
     "requiredSections": "Required Sections",
     "optionalSections": "Optional Sections"
   },
-  "hackathonManage":{
-    "overview":"Overview",
-    "application":"Application",
-    "submission":"Submission",
-    "judging":"Judging",
-    "announcement":"Announcement",
-    "distribution":"Distribution",
-    "viewHackathonDetails":"view hackathon details",
-    "hackathonStatsToday":"Hackathon Stats Today"
+  "hackathonManage": {
+    "overview": "Overview",
+    "application": "Application",
+    "submission": "Submission",
+    "judging": "Judging",
+    "announcement": "Announcement",
+    "distribution": "Distribution",
+    "viewHackathonDetails": "view hackathon details",
+    "hackathonStatsToday": "Hackathon Stats Today"
   }
 }

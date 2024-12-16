@@ -21,6 +21,7 @@ import { message } from 'antd';
 import { errorMessage } from '@/helper/ui';
 import { useSearchParams } from 'next/navigation';
 import dayjs from '@/components/Common/Dayjs';
+import { TbWorld } from 'react-icons/tb';
 
 interface DetailInfoProp {
   hackathon: HackathonType;
@@ -403,10 +404,19 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
           </div>
         )}
 
-        {links?.length > 0 && (
+        {(links?.length > 0 || hackathon?.links?.website) && (
           <div>
             <p className="text-neutral-medium-gray">{t('hackathonDetail.links')}</p>
             <div className="mt-[.25rem] flex items-center gap-[.75rem]">
+              {hackathon?.links?.website && (
+                <Link
+                  href={hackathon.links.website}
+                  target="_blank"
+                  className="flex-center h-[40px] w-[40px] rounded-[8px] border border-neutral-light-gray"
+                >
+                  <TbWorld size={24} />
+                </Link>
+              )}
               {links?.map((v, i) => (
                 <Link
                   key={i}

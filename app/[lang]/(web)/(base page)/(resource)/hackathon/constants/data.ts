@@ -40,12 +40,12 @@ export const hackathonDetailTimeLine = [
   },
   {
     key: 'Submission',
-    timeStr: 'Submission Close',
+    timeStr: 'Submission Deadline',
     time: ['submissionOpen', 'submissionClose']
   },
   {
-    key: 'Reward Announcement',
-    timeStr: 'Reward Announcement',
+    key: 'Judging Ends',
+    timeStr: 'Judging Ends',
     time: ['rewardTime']
   }
 ];

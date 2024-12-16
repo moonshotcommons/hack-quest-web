@@ -15,6 +15,7 @@ const VotingInfo: React.FC<VotingInfoProp> = ({}) => {
   const isShowTick = useMemo(() => {
     return projectVote?.judge?.judgeMode === 'judges' && projectVote?.judge?.voteMode === 'score';
   }, [projectVote]);
+
   return (
     <div className="flex flex-col gap-[10px]">
       <p className="body-s text-neutral-medium-gray">{t('hackathonVoting.votingInfo')}</p>
@@ -36,7 +37,9 @@ const VotingInfo: React.FC<VotingInfoProp> = ({}) => {
           </div>
           <div className="flex rounded-[8px] bg-neutral-white p-[8px] text-center shadow-[0_0_4px_0_rgba(0,0,0,0.12)]">
             <div className="flex-1 border-r border-neutral-medium-gray">
-              <p className="body-s mb-[8px] text-neutral-off-black">{separationNumber(projectVote.totalVotes)}</p>
+              <p className="body-s mb-[8px] text-neutral-off-black">
+                {separationNumber(Object.values(projectVote?.roleVoted || {}).reduce((a, b) => a + b, 0)) ?? 0}
+              </p>
               <p className="caption-10pt text-neutral-rich-gray">{t('hackathonVoting.currentVotes')}</p>
             </div>
             <div className="flex-1">
@@ -52,7 +55,9 @@ const VotingInfo: React.FC<VotingInfoProp> = ({}) => {
       ) : (
         <div className="flex rounded-[8px] bg-neutral-white p-[8px] text-center shadow-[0_0_4px_0_rgba(0,0,0,0.12)]">
           <div className="flex-1 border-r border-neutral-medium-gray">
-            <p className="body-s mb-[8px] text-neutral-off-black">{separationNumber(projectVote.totalVotes)}</p>
+            <p className="body-s mb-[8px] text-neutral-off-black">
+              {separationNumber(Object.values(projectVote?.roleVoted || {}).reduce((a, b) => a + b, 0)) ?? 0}
+            </p>
             <p className="caption-10pt text-neutral-rich-gray">{t('hackathonVoting.currentVotes')}</p>
           </div>
           <div className="flex-1">
