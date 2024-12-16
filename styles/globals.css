@@ -223,11 +223,11 @@
   }
 
   .reset-editor-style {
-    @apply [&_h1]:text-h2 [&_h2]:text-h3 [&_h3]:text-h4 [&_*]:leading-[160%] [&_a]:underline [&_h1]:!leading-[160%] [&_h2]:!leading-[160%] [&_h3]:!leading-[160%] [&_p]:mb-6;
+    @apply [&_h1]:text-h2 [&_h2]:text-h3 [&_h3]:text-h4 [&_*]:leading-[160%] [&_a]:underline [&_code]:whitespace-pre-wrap [&_h1]:!leading-[160%] [&_h2]:!leading-[160%] [&_h3]:!leading-[160%] [&_p]:mb-6 [&_pre]:inline-block;
   }
 
   .reset-editor-style-mob {
-    @apply [&_h1]:text-h2-mob [&_h2]:text-h3-mob [&_h3]:text-h4-mob [&_*]:leading-[160%] [&_a]:underline [&_h1]:!leading-[160%] [&_h2]:!leading-[160%] [&_h3]:!leading-[160%] [&_p]:mb-4;
+    @apply [&_h1]:text-h2-mob [&_h2]:text-h3-mob [&_h3]:text-h4-mob [&_*]:leading-[160%] [&_a]:underline [&_code]:whitespace-pre-wrap [&_h1]:!leading-[160%] [&_h2]:!leading-[160%] [&_h3]:!leading-[160%] [&_p]:mb-4 [&_pre]:inline-block;
   }
 }
 

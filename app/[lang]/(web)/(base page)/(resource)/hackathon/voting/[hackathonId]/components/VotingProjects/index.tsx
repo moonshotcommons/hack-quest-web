@@ -2,7 +2,7 @@
 import { LangContext } from '@/components/Provider/Lang';
 import { useTranslation } from '@/i18n/client';
 import { TransNs } from '@/i18n/config';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { HackathonType, ProjectType } from '@/service/webApi/resourceStation/type';
 import VoteCards from './VoteCards';
 import { HackathonVoteContext } from '../../../../constants/type';
@@ -64,12 +64,12 @@ const VotingProjects: React.FC<VotingProjectsProp> = ({ hackathon }) => {
   const randomSort = (arr: any[]) => {
     return arr.sort(() => Math.random() - 0.5);
   };
-  useEffect(() => {
-    if (judgeInfo?.judge?.voteMode === 'fixed' && !isInit) {
-      const voteds = voteData.reduce((pre, cur) => pre + cur.vote, 0);
-      setRemainingVotes(totalLeftVotes - voteds);
-    }
-  }, [judgeInfo, isInit, voteData]);
+  // useEffect(() => {
+  //   if (judgeInfo?.judge?.voteMode === 'fixed' && !isInit) {
+  //     const voteds = voteData.reduce((pre, cur) => pre + cur.vote, 0);
+  //     setRemainingVotes(totalLeftVotes - voteds);
+  //   }
+  // }, [judgeInfo, isInit, voteData]);
 
   return (
     <div className="flex flex-col gap-[32px]">

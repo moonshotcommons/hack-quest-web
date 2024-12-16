@@ -2,18 +2,22 @@ import BaseImage from '@/components/Common/BaseImage';
 import TrackTag from '@/components/Common/TrackTag';
 import MenuLink from '@/constants/MenuLink';
 import { separationNumber } from '@/helper/utils';
-import { HackathonJudgeProjectType, HackathonDetailRewardType } from '@/service/webApi/resourceStation/type';
+import {
+  HackathonJudgeProjectType,
+  HackathonDetailRewardType,
+  HackathonJudgeType
+} from '@/service/webApi/resourceStation/type';
 import Link from 'next/link';
 import React from 'react';
 import { LuChevronRight } from 'react-icons/lu';
 
-interface WinnerCardProp {
+interface WinnerProjectCardProp {
   project: HackathonJudgeProjectType;
   reward: HackathonDetailRewardType;
-  index: number;
+  judge: HackathonJudgeType;
 }
 
-const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
+const WinnerProjectCard: React.FC<WinnerProjectCardProp> = ({ project, reward, judge }) => {
   return (
     <div className="flex w-full items-stretch gap-[24px] overflow-hidden rounded-[24px] border border-neutral-light-gray bg-neutral-white p-[24px]">
       <BaseImage
@@ -34,28 +38,25 @@ const WinnerCard: React.FC<WinnerCardProp> = ({ project, reward, index }) => {
             {project.tracks?.map((t) => <TrackTag track={t} key={t} />)}
           </div>
         </div>
-        <div className="body-xs line-clamp-3 h-[58px] whitespace-pre-line text-neutral-rich-gray">
-          {project.detail?.detailedIntro}
-        </div>
+        <div
+          className="body-xs line-clamp-3 h-[58px] whitespace-pre-line text-neutral-rich-gray"
+          dangerouslySetInnerHTML={{ __html: project.detail?.detailedIntro as string }}
+        ></div>
       </div>
-      <div className="body-s flex w-[200px] flex-shrink-0 flex-col justify-between border-l border-neutral-light-gray pl-[24px] text-neutral-medium-gray">
-        <div>
-          <p>Rank</p>
-          <p className="text-neutral-black">{`${project.votes?.rank}/${reward.projectCount}`}</p>
-        </div>
-        <div>
-          <p>Votes</p>
-          <p className="text-neutral-black">{`${separationNumber(project.votes?.totalVotes)}`}</p>
-        </div>
-        {/* {reward.reward?.rewards?.[index] && (
+      {!judge.disableJudge && (
+        <div className="body-s flex w-[200px] flex-shrink-0 flex-col justify-between border-l border-neutral-light-gray pl-[24px] text-neutral-medium-gray">
           <div>
-            <p>Reward</p>
-            <p className="text-neutral-black">{`${separationNumber(reward.reward?.rewards?.[index]?.value)} ${reward.reward?.currency}`}</p>
+            <p>Rank</p>
+            <p className="text-neutral-black">{`${project.votes?.rank}/${reward.projectCount}`}</p>
           </div>
-        )} */}
-      </div>
+          <div>
+            <p>Votes</p>
+            <p className="text-neutral-black">{`${separationNumber(project.votes?.totalVotes)}`}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default WinnerCard;
+export default WinnerProjectCard;

@@ -267,14 +267,14 @@ class ResourceStationApi {
   /** 提交project */
   submitProject(data: ProjectSubmitBody, projectId?: string) {
     if (projectId && isUuid(projectId)) return this.updateProject(projectId, data);
-    return this.service.post<{ id: string }>(ResourceStationApiType.Projects, {
+    return this.service.post<{ id: string; alias: string }>(ResourceStationApiType.Projects, {
       data
     });
   }
 
   /** 更新project */
   updateProject(projectId: string, data: ProjectSubmitBody) {
-    return this.service.patch<{ id: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
+    return this.service.patch<{ id: string; alias: string }>(`${ResourceStationApiType.Projects}/${projectId}`, {
       data
     });
   }

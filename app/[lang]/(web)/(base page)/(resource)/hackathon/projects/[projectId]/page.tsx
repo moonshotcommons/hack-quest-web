@@ -7,10 +7,13 @@ import {
   getProjectVoteById
 } from '@/service/cach/resource/hackathon';
 import { isUuid } from '@/helper/utils';
-import { permanentRedirect } from 'next/navigation';
+import { RedirectType, redirect } from 'next/navigation';
+
 import MenuLink from '@/constants/MenuLink';
 import { Lang } from '@/i18n/config';
 import ProjectDetail from './components';
+
+export const dynamic = 'force-dynamic';
 
 interface ProjectDetailPageProps {
   params: {
@@ -25,11 +28,11 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 
   const { lang } = params;
 
-  const project = await getHackathonProjectById(params.projectId);
+  // const project = await getHackathonProjectById(params.projectId);
 
   return {
-    title: project.name,
-    description: project.detail?.oneLineIntro,
+    title: params.projectId,
+    // description: project.detail?.oneLineIntro,
     alternates: {
       canonical: `https://www.hackquest.io${lang ? `/${lang}` : ''}/hackathon/projects/${params.projectId}/edit${query}`,
       languages: {
@@ -42,21 +45,38 @@ export async function generateMetadata({ params, searchParams }: ProjectDetailPa
 }
 
 const ProjectDetailPage: FC<ProjectDetailPageProps> = async ({ params }) => {
-  const { projectId } = params;
+  let error = null;
+  let redirectUrl = null;
+  try {
+    const { projectId } = params;
 
-  const project = await getHackathonProjectById(projectId);
-  if (isUuid(projectId)) {
-    permanentRedirect(`${MenuLink.PROJECTS}/${project.alias}`);
+    const project = await getHackathonProjectById(projectId);
+
+    if (isUuid(projectId)) {
+      redirect(`${MenuLink.PROJECTS}/${project.alias}`, RedirectType.replace);
+    }
+    const [otherProjects, hackathon, projectVote] = await Promise.all([
+      getOtherProjects(project.hackathonName, projectId),
+      getHackathonById(project.hackathonId),
+      getProjectVoteById(projectId)
+    ]);
+    return (
+      <ProjectDetail project={project} otherProjects={otherProjects} hackathon={hackathon} projectVote={projectVote} />
+    );
+  } catch (err: any) {
+    error = err;
+  } finally {
+    if (error) {
+      if (error.code === 401) {
+        redirect('/');
+      }
+
+      if (error.message !== 'NEXT_REDIRECT') {
+        throw error;
+      } else {
+      }
+    }
   }
-  const [otherProjects, hackathon, projectVote] = await Promise.all([
-    getOtherProjects(project.hackathonName, projectId),
-    getHackathonById(project.hackathonId),
-    getProjectVoteById(projectId)
-  ]);
-
-  return (
-    <ProjectDetail project={project} otherProjects={otherProjects} hackathon={hackathon} projectVote={projectVote} />
-  );
 };
 
 export default ProjectDetailPage;
