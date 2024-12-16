@@ -44,6 +44,7 @@ export const getCoursePrefixByCourseType = (courseType?: CourseType) => {
     case CourseType.SYNTAX:
     case CourseType.GUIDED_PROJECT:
     case CourseType.UGC:
+    case CourseType.CONCEPT:
       return '/practices';
     case CourseType.MINI:
       return `/electives`;
