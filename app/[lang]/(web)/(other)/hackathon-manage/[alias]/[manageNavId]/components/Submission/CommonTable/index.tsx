@@ -78,6 +78,11 @@ const CommonTable: React.FC<CommonTableProp> = ({ list, information, loading, ta
         if (!['id', 'fields'].includes(key)) {
           const dKey = key as keyof typeof ad;
         }
+
+        if (key === 'githubLink') {
+          info['Project Github Link'] = (ad as any)[key] as string;
+        }
+
         for (let fKey in ad.fields) {
           info[ad.fields[fKey]['label']] = ad.fields[fKey]['value'];
         }
