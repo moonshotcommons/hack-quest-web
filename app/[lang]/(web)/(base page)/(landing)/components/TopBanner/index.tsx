@@ -67,7 +67,7 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
               {t('TopBanner.hackathon')}
             </div>
             <Link
-              href={'/hackathon/explore/MANTLE-APAC-Hackathon'}
+              href={'/hackathon/explore/Flow-Asia-Hackathon'}
               className="body-m-bold mt-2 flex items-center gap-2"
               target="_blank"
             >
