@@ -43,7 +43,6 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const [warningOpen, setWarningOpen] = useState(false);
   const stepIndex = getStepIndex(hackathon);
   const links = getLinks(hackathon);
-  console.info(hackathon);
   const handleSubmit = (id: string) => {
     if (
       hackathon.participation?.team?.creatorId === hackathon.participation?.userId ||
@@ -89,6 +88,20 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon }) => {
   const renderButton = () => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
+    }
+    if (stepIndex === -1) {
+      return (
+        <Button
+          type="primary"
+          disabled
+          className="h-[60px] w-full bg-neutral-light-gray font-medium  text-neutral-medium-gray opacity-100"
+        >
+          <div>
+            <p className="button-text-l uppercase">Upcoming</p>
+            <p className="caption-10pt font-light leading-normal">{`Registration begins on ${dayjs(hackathon.timeline?.registrationOpen).format('MMM D,YYYY H:mm')}`}</p>
+          </div>
+        </Button>
+      );
     }
     if (stepIndex > -1 && stepIndex <= 2) {
       if (isSame) {

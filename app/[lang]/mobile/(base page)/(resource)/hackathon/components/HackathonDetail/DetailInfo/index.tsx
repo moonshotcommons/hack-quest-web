@@ -92,6 +92,16 @@ const DetailInfo: React.FC<DetailInfoProp> = ({ hackathon, imageLoad }) => {
     if (hackathon.status !== HackathonStatus.PUBLISH || needConfirm) {
       return null;
     }
+    if (stepIndex === -1) {
+      return (
+        <Button type="primary" className=" h-[3rem] w-full bg-neutral-light-gray uppercase text-neutral-medium-gray">
+          <div>
+            <p className="button-text-m uppercase">Pending</p>
+            <p className="caption-10pt font-light leading-normal">{`Registration begins on ${dayjs(hackathon.timeline?.registrationOpen).format('MMM D,YYYY H:mm')}`}</p>
+          </div>
+        </Button>
+      );
+    }
     if (isSame) {
       if (stepIndex > -1 && stepIndex <= 2) {
         if (hackathon.participation?.isRegister) {
