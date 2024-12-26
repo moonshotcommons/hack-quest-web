@@ -1,6 +1,6 @@
 import Modal from '@/components/Common/Modal';
 import React, { useRef, useState, useEffect } from 'react';
-import { FiX } from 'react-icons/fi';
+import { FiCopy, FiX } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -12,6 +12,7 @@ import Button from '@/components/Common/Button';
 import { Trash2 } from 'lucide-react';
 import { HexColorPicker } from 'react-colorful';
 import MenuLink from '@/constants/MenuLink';
+import { copyText } from '@/helper/utils';
 
 interface SourceModalProp {
   open: boolean;
@@ -141,7 +142,16 @@ const SourceModal: React.FC<SourceModalProp> = ({
             </div>
             <div>
               <div className="flex w-full justify-between">
-                <FormLabel className="body-m  text-neutral-rich-gray">{'Custom UTM URL*'}</FormLabel>
+                <div className="flex items-center gap-4">
+                  <FormLabel className="body-m  text-neutral-rich-gray">{'Custom UTM URL*'}</FormLabel>
+                  <FiCopy
+                    className="size-4 cursor-pointer"
+                    onClick={() => {
+                      const url = `${window.origin}${MenuLink.EXPLORE_HACKATHON}/${hackathon.alias}?utm=${form.watch('url')}`;
+                      copyText(url);
+                    }}
+                  />
+                </div>
                 <span className="caption-14pt text-neutral-rich-gray">
                   <span className={form.watch('url').length > 80 ? 'text-status-error' : ''}>
                     {form.watch('url').length}
