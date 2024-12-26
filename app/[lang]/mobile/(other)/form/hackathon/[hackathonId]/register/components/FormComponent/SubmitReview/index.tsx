@@ -10,7 +10,7 @@ import message from 'antd/es/message';
 import { useRedirect } from '@/hooks/router/useRedirect';
 import ConfirmModal, { ConfirmModalRef } from '@/components/Web/Business/ConfirmModal';
 import MenuLink from '@/constants/MenuLink';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { HackathonPartner } from '../../../../submission/[projectId]/components/constants';
 import { useHackathonConfig } from '@/components/HackathonCreation/Renderer/HackathonRendererProvider';
@@ -38,7 +38,7 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
   const gotoStep = (step: number) => {
     setCurrentStep(step);
   };
-
+  const query = useSearchParams();
   const { simpleHackathonInfo, onBack, hackathonSteps } = useHackathonConfig();
   const hackathonInfo = simpleHackathonInfo!;
   const { ApplicationType, About, OnlineProfiles, Contact } = info;
@@ -47,8 +47,15 @@ const SubmitReview: FC<SubmitReviewProps & CommonFormComponentProps> = ({
   const [allowContract, setAllowContract] = useState(true);
   const { runAsync, loading } = useRequest(
     () => {
+      const utm = query.get('utm');
+      const utmParam = utm
+        ? {
+            utmSource: utm
+          }
+        : {};
       return webApi.resourceStationApi.registerHackathon(hackathonInfo.id, {
-        allowContract: allowContract
+        allowContract: allowContract,
+        ...utmParam
       });
     },
     {
