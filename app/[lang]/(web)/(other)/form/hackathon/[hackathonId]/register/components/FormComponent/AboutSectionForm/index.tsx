@@ -62,13 +62,15 @@ const AboutSectionForm: FC<AboutSectionFormProps & CommonFormComponentProps> = (
     async (values: Record<string, string>, isExit = false) => {
       // form.trigger();
       const { nextStep } = getHackathonStepInfo(hackathonSteps as any, ApplicationSectionType.About);
+      const utm = query.get('utm');
 
       const state = {
         info: {
           ...omit(info, ApplicationSectionType.ApplicationType),
           [ApplicationSectionType.About]: values
         },
-        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.About) : nextStep.type
+        status: isExit ? (form.formState.isValid ? nextStep.type : ApplicationSectionType.About) : nextStep.type,
+        utmSource: utm
       };
       await webApi.resourceStationApi.updateHackathonRegisterInfo(hackathonInfo.id, state);
       // await refreshRegisterInfo();
