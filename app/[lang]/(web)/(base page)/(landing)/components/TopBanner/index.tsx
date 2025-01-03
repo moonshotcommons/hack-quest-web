@@ -56,8 +56,8 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
 
         <BubbleCard direction="right" className="-mt-[13px] translate-x-[calc(50%+134px+52px)]">
           <Image
-            src="/images/landing/flow.png"
-            alt={t('TopBanner.flowHackathon')}
+            src="/images/landing/telos.webp"
+            alt={t('TopBanner.hackathonRecommand')}
             width={60}
             height={60}
             className="rounded-full"
@@ -67,12 +67,12 @@ const TopBanner: FC<TopBannerProps> = async ({ lang }) => {
               {t('TopBanner.hackathon')}
             </div>
             <Link
-              href={'/hackathon/explore/Flow-Asia-Hackathon'}
+              href={'/hackathon/explore/Telos-Mini-Hackathon'}
               className="body-m-bold mt-2 flex items-center gap-2"
               target="_blank"
             >
               <span className="relative capitalize after:absolute after:-bottom-[1px] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-yellow-primary">
-                {t('TopBanner.flowHackathon')}
+                {t('TopBanner.hackathonRecommand')}
               </span>
               <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

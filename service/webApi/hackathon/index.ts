@@ -158,6 +158,16 @@ class HackathonApi {
       data
     });
   }
+
+  getTransformData() {
+    return this.service.get<any>(`/hackathon/transform-data`);
+  }
+
+  updateHackathonDesc(id: string, data: Record<string, any>) {
+    return this.service.patch<void>(`/hackathon/${id}`, {
+      data
+    });
+  }
 }
 
 export default HackathonApi;
