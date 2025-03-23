@@ -12,53 +12,82 @@ export const TransformText = () => {
     queryFn: () => webApi.hackathonV2Api.getTransformData()
   });
 
-  console.log(hackathonInfo);
-
   return (
     <div>
       <Button
         type="primary"
         onClick={async () => {
+          // console.log('first');
           // 黑客松详情
-          for (let i = 0; i < hackathonInfo.length; i++) {
+          for (let i = 0; i < hackathonInfo?.length; i++) {
             const hackathon = hackathonInfo[i];
             const description = hackathon.description;
             const data: any = {};
-            if (description.type === TEXT_EDITOR_TYPE) {
-              // await webApi.hackathonV2Api.updateHackathonDesc(hackathon.id, {
-              //   description: createEditor({ content: structuredClone(description?.content) || [] }).getHtml()
-              // });
-              data.description = createEditor({ content: structuredClone(description?.content) || [] }).getHtml();
-            }
-
-            for (let app of hackathon.application) {
-              for (let j = 0; j < app.length; j++) {
-                const input = structuredClone(app[j]);
+            // console.log(description);
+            // if (description?.type === TEXT_EDITOR_TYPE) {
+            //   await webApi.hackathonV2Api.updateHackathonDesc(hackathon.id, {
+            //     description: createEditor({ content: structuredClone(description?.content) || [] }).getHtml()
+            //   });
+            //   data.description = createEditor({ content: structuredClone(description?.content) || [] }).getHtml();
+            // }
+            // console.log(hackathon);
+            for (let key in hackathon.application || {}) {
+              const app = hackathon.application[key];
+              for (let j = 0; j < app?.length; j++) {
+                const input = app[j] as any;
                 if (input?.property?.placeholder?.type === TEXT_EDITOR_TYPE) {
                   input.property.placeholder = createEditor({
                     content: structuredClone(input?.property?.placeholder.content) || []
                   }).getHtml();
                 }
               }
-              data.application = app;
             }
 
-            for (let submission of hackathon.submission) {
-              for (let j = 0; j < submission.length; j++) {
-                const input = structuredClone(submission[j]);
+            for (let key in hackathon.submission) {
+              const submission = hackathon.submission[key];
+              for (let j = 0; j < submission?.length; j++) {
+                const input = submission[j] as any;
                 if (input?.property?.placeholder?.type === TEXT_EDITOR_TYPE) {
                   input.property.placeholder = createEditor({
                     content: structuredClone(input?.property?.placeholder.content) || []
                   }).getHtml();
                 }
               }
-              data.submission = submission;
             }
 
-            const sections = hackathon.sections;
-            for (let key of sections) {
-              // if(key === 'faqs')
-            }
+            data.submission = hackathon.submission;
+            data.application = hackathon.application;
+
+            // const sections = hackathon.sections;
+            // for (let key in sections) {
+            //   if (key === 'customs') {
+            //     for (let custom of sections[key] || []) {
+            //       if (custom.text?.type === TEXT_EDITOR_TYPE) {
+            //         custom.text = createEditor({ content: structuredClone(custom.text.content) || [] }).getHtml();
+            //       }
+            //     }
+            //   }
+
+            //   if (key === 'schedule') {
+            //     for (let schedule of sections[key]?.list || []) {
+            //       if (schedule.text?.type === TEXT_EDITOR_TYPE) {
+            //         schedule.text = createEditor({ content: structuredClone(schedule.text.content) || [] }).getHtml();
+            //       }
+            //     }
+            //   }
+
+            //   if (key === 'faqs') {
+            //     for (let faq of sections[key]?.list || []) {
+            //       if (faq.answer?.type === TEXT_EDITOR_TYPE) {
+            //         faq.answer = createEditor({ content: structuredClone(faq.answer.content) || [] }).getHtml();
+            //       }
+            //     }
+            //   }
+            // }
+
+            // data.sections = sections;
+
+            await webApi.hackathonV2Api.updateHackathonDesc(hackathon.id, data);
           }
           // reward rule
           // for (let i = 0; i < hackathonInfo.length; i++) {
